@@ -1,5 +1,6 @@
 # upswyng
-
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d594885b-4ffa-496d-8e1b-78d23f55e6c2/deploy-status)](https://app.netlify.com/sites/upswyng/deploys)
+[![Build Status](https://travis-ci.org/CodeForBoulder/upswyng.svg?branch=master)](https://travis-ci.org/CodeForBoulder/upswyng)
 Upswyng is a digital directory that contains information on local services and providers who serve the homeless community in the Boulder area.
 
 ## Development
