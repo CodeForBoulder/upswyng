@@ -1,0 +1,4 @@
+{
+    "jest.pathToJest": "npm run test -- --coverage",
+    "editor.formatOnSave": true
+}
