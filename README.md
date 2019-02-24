@@ -51,7 +51,9 @@ Then, create a new branch off the current `master`.
 
 #### Branch Naming
 
-All feature branch names will begin with a group-token followed by a short name describing what the branch addresses.
+All feature branch names will begin with a group-token, be proceed by a short name describing what the branch addresses, and finally end with the issue this branch addresses.
+
+**`grouptoken/short-name-#issuenumber`**
 
 Below are approved group-tokens:
 
@@ -60,7 +62,7 @@ Below are approved group-tokens:
 -  **`rmv/`** : identifies a branch that *removes* a feature.
 -  **`exp/`** : identifies a branch that *experiments* with creating a new feature without plans of implementation.
 
-For example, if you wanted to create a branch that update the way a service was displayed, you could name the branch **`updt/service-display`**.
+For example, if you wanted to create a branch that update the way a service was displayed which is described in issue 36, you could name the branch **`updt/service-display-#36`**.
 
 ### 3. Create a Pull Request (PR)
 
