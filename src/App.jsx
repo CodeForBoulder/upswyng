@@ -7,11 +7,13 @@ import Hygiene from './components/Hygiene';
 import Hotlines from './components/Hotlines';
 import Food from './components/Food';
 import Transit from './components/Transit';
+import Header from './components/Header';
 
 class App extends Component {
   render() {
     return (
       <Router>
+        <Header />
         <div>
           <Route exact path="/" component={Home} />
           <Route exact path="/shelters" component={Shelters} />
