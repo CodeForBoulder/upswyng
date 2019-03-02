@@ -1,9 +1,11 @@
 import React from 'react';
+import withData from './withData';
 
-const Shelters = () => (
+const Shelters = props => (
   <div>
     <p>Shelters</p>
+    <p>{JSON.stringify(props.data)}</p>
   </div>
 );
 
-export default Shelters;
+export default withData(Shelters, '/charity');
