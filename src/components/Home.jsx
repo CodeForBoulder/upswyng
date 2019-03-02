@@ -1,8 +1,9 @@
 import React from 'react';
 
 const Home = () => (
-  <div>
-    <p>Home</p>
+  <div className="home">
+    <h1>upswyng</h1>
+    <p>Home placeholder</p>
   </div>
 );
 

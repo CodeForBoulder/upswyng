@@ -12,12 +12,14 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/shelters" component={Shelters} />
-        <Route exact path="/hygiene" component={Hygiene} />
-        <Route exact path="/hotlines" component={Hotlines} />
-        <Route exact path="/food" component={Food} />
-        <Route exact path="/transit" component={Transit} />
+        <div>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/shelters" component={Shelters} />
+          <Route exact path="/hygiene" component={Hygiene} />
+          <Route exact path="/hotlines" component={Hotlines} />
+          <Route exact path="/food" component={Food} />
+          <Route exact path="/transit" component={Transit} />
+        </div>
       </Router>
     );
   }
