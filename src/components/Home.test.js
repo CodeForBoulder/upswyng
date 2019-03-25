@@ -1,13 +1,17 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Home from './Home';
-import { Grid } from '@material-ui/core';
-import Search from './Search';
+jest.mock('@material-ui/core/Grid', () => 'Grid');
+jest.mock('./Search', () => 'Search');
 
 describe('<Home/>', () => {
   const wrapper = mount(<Home />);
-  it('renders properly', () => {
-    expect(wrapper.find(Grid).length).toBe(2);
-    expect(wrapper.find(Search).length).toBe(1);
+  it('renders the proper number of layout components', () => {
+    expect(wrapper.find('Grid').length).toBe(2);
+  });
+  it('renders one layout component as the search component', () => {
+    expect(
+      wrapper.findWhere(n => n.prop('component') === 'Search').length
+    ).toBe(1);
   });
 });
