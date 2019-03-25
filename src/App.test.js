@@ -1,21 +1,46 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Route } from 'react-router-dom';
 import App from './App';
-import Header from './components/Header';
-import Home from './components/Home';
-import Shelters from './components/Shelters';
-import Hygiene from './components/Hygiene';
-import Hotlines from './components/Hotlines';
-import Food from './components/Food';
-import Transit from './components/Transit';
+jest.mock('./components/Header', () => 'Header');
+jest.mock('react-router-dom/Route', () => 'Route');
 
 describe('<App />', () => {
   const wrapper = shallow(<App />);
-  const routes = [Home, Shelters, Hygiene, Hotlines, Food, Transit];
+  const routes = [
+    {
+      path: '/',
+      component: 'Home'
+    },
+    {
+      path: '/shelters',
+      component: 'Shelters'
+    },
+    {
+      path: '/hygiene',
+      components: 'Hygiene'
+    },
+    {
+      path: '/hotlines',
+      component: 'Hotlines'
+    },
+    {
+      path: '/food',
+      component: 'Food'
+    },
+    {
+      path: '/transit',
+      component: 'Transit'
+    }
+  ];
   it('renders properly', () => {
     expect(wrapper.find('div').length).toBe(1);
-    expect(wrapper.find(Header).length).toBe(1);
-    expect(wrapper.find(Route).length).toBe(routes.length);
+    expect(wrapper.find('Header').length).toBe(1);
+    routes.forEach(route => {
+      expect(
+        wrapper.findWhere(n => {
+          return n.type() === 'Route' && n.prop('path') === route.path;
+        }).length
+      ).toBe(1);
+    });
   });
 });
