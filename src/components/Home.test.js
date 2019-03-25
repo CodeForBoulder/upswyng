@@ -1,11 +1,11 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import Home from './Home';
 jest.mock('@material-ui/core/Grid', () => 'Grid');
 jest.mock('./Search', () => 'Search');
 
 describe('<Home/>', () => {
-  const wrapper = mount(<Home />);
+  const wrapper = shallow(<Home />);
   it('renders the proper number of layout components', () => {
     expect(wrapper.find('Grid').length).toBe(2);
   });
