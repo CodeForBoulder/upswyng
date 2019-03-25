@@ -33,7 +33,6 @@ describe('<App />', () => {
     }
   ];
   it('renders properly', () => {
-    expect(wrapper.find('div').length).toBe(1);
     expect(wrapper.find('Header').length).toBe(1);
     routes.forEach(route => {
       expect(
