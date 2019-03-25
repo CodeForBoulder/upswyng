@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import App from './App';
 import { Route } from 'react-router-dom';
+import App from './App';
 import Header from './components/Header';
 import Home from './components/Home';
 import Shelters from './components/Shelters';
