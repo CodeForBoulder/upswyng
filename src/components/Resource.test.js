@@ -1,10 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { resourceApiReturn, ResourceComponent } from './Resource';
+import Resource, { resourceApiReturn } from './Resource';
+jest.mock('./Carousel', () => 'Carousel');
 
 describe('<Resource/>', () => {
-  const wrapper = shallow(<ResourceComponent />);
-  it('renders the container', () => {
-    expect(wrapper.find('div').length).toBe(1);
+  const props = { singeResourceApiReturn: resourceApiReturn };
+  const wrapper = shallow(<Resource {...props} />);
+  console.log(wrapper.debug());
+  it('renders all required information', () => {
+    expect(wrapper.find('Carousel').length).toBe(1);
   });
 });

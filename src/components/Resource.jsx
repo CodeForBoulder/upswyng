@@ -1,4 +1,5 @@
 import React from 'react';
+import Carousel from './Carousel';
 
 export const resourceApiReturn = {
   '-KS4rbQziVbJM5tNdEQL': {
@@ -72,10 +73,12 @@ export const resourceApiReturn = {
   }
 };
 
-export const ResourceComponent = () => {
-  return <div />;
+const Resource = props => {
+  return (
+    <div>
+      <Carousel {...props.images} />
+    </div>
+  );
 };
-
-const Resource = () => <ResourceComponent />;
 
 export default Resource;
