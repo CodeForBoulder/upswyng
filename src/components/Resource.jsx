@@ -1,7 +1,7 @@
 import React from 'react';
 import Carousel from './Carousel';
 
-export const resourceApiReturn = {
+export const singleResourceApiReturn = {
   '-KS4rbQziVbJM5tNdEQL': {
     address1: '1100 E 18th Ave',
     address2: '',
