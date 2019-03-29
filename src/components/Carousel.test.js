@@ -3,19 +3,23 @@ import { shallow } from 'enzyme';
 import Carousel from './Carousel';
 
 describe('<Carousel/>', () => {
-  const props = {
-    images: [
-      {
-        url: 'https://placeholder.com/480x200.png',
-        description: 'brief image description here'
-      },
-      {
-        url: 'https://placeholder.com/480x250.png',
-        description: 'brief image description here'
-      }
-    ]
-  };
-  const wrapper = shallow(<Carousel {...props} />);
+  let wrapper, props;
+
+  beforeEach(() => {
+    props = {
+      images: [
+        {
+          url: 'https://placeholder.com/480x200.png',
+          description: 'brief image description here'
+        },
+        {
+          url: 'https://placeholder.com/480x250.png',
+          description: 'brief image description here'
+        }
+      ]
+    };
+    wrapper = shallow(<Carousel {...props} />);
+  });
   it('renders all images and only once', () => {
     let renderedImages;
     props.images.forEach(image => {
@@ -31,5 +35,23 @@ describe('<Carousel/>', () => {
       expect(renderedImages).toContain(image.url);
       expect(renderedImages.length).toBe(1);
     });
+  });
+  it("doesn't render if props are not provided", () => {
+    wrapper = shallow(<Carousel />);
+    expect(wrapper.children().length).toBe(0);
+  });
+  it("doesn't render if the images prop is not an array", () => {
+    props = {
+      images: 'hello'
+    };
+    wrapper = shallow(<Carousel {...props} />);
+    expect(wrapper.children().length).toBe(0);
+  });
+  it("doesn't render if the images prop is an empty array", () => {
+    props = {
+      images: []
+    };
+    wrapper = shallow(<Carousel {...props} />);
+    expect(wrapper.children().length).toBe(0);
   });
 });
