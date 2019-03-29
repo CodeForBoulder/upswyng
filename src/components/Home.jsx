@@ -1,5 +1,6 @@
 import React from 'react';
-import { Grid, IconButton } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { Button, Grid } from '@material-ui/core';
 import CallIcon from '@material-ui/icons/Call';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import HomeIcon from '@material-ui/icons/Home';
@@ -17,54 +18,66 @@ import Search from './Search';
 export const HomeButtonsMajor = [
   {
     text: 'Hotlines',
-    icon: CallIcon
+    icon: CallIcon,
+    to: '/hotlines'
   },
   {
     text: 'Food',
-    icon: RestaurantIcon
+    icon: RestaurantIcon,
+    to: '/food'
   },
   {
     text: 'Shelter',
-    icon: HomeIcon
+    icon: HomeIcon,
+    to: '/shelter'
   },
   {
     text: 'Hygiene',
-    icon: HotTubIcon
+    icon: HotTubIcon,
+    to: '/hygiene'
   },
   {
     text: 'Transit',
-    icon: BusIcon
+    icon: BusIcon,
+    to: '/transit'
   },
   {
     text: 'Resources',
-    icon: GroceryStoreIcon
+    icon: GroceryStoreIcon,
+    to: '/resources'
   }
 ];
 
 export const HomeButtonsMinor = [
   {
     text: 'Health',
-    icon: HealingIcon
+    icon: HealingIcon,
+    to: '/health'
   },
   {
     text: 'Education',
-    icon: LibraryBooksIcon
+    icon: LibraryBooksIcon,
+    to: '/education'
   },
   {
     text: 'Pets',
-    icon: PetsIcon
+    icon: PetsIcon,
+    to: '/pets'
   },
   {
     text: 'Wifi & Tech',
-    icon: WifiIcon
+    icon: WifiIcon,
+    to: '/wifi-and-tech'
   },
   {
     text: 'Work',
-    icon: WorkIcon
+    icon: WorkIcon,
+    to: '/work'
   },
   {
     text: 'Social Services',
-    icon: InfoIcon
+    icon: InfoIcon,
+    to: '/social-services'
   }
 ];
 
@@ -81,10 +94,10 @@ export const HomeComponent = () => (
           return (
             <Grid item xs={4} key={button.text}>
               <Grid container direction="column" align="center">
-                <IconButton color="primary">
+                <Button component={Link} to={button.to} color="primary">
                   <button.icon />
                   {button.text}
-                </IconButton>
+                </Button>
               </Grid>
             </Grid>
           );
@@ -97,10 +110,10 @@ export const HomeComponent = () => (
           return (
             <Grid item xs={4} key={button.text}>
               <Grid container direction="column" align="center">
-                <IconButton color="secondary">
+                <Button component={Link} to={button.to} color="secondary">
                   <button.icon />
                   {button.text}
-                </IconButton>
+                </Button>
               </Grid>
             </Grid>
           );

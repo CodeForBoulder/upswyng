@@ -1,6 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { HomeComponent, HomeButtonsMajor, HomeButtonsMinor } from './Home';
+import { Link } from 'react-router-dom';
+Link.displayName = 'Link';
+jest.mock('@material-ui/core/Button', () => 'Button');
 jest.mock('@material-ui/core/Grid', () => 'Grid');
 jest.mock('@material-ui/core/IconButton', () => 'IconButton');
 jest.mock('@material-ui/icons/Call', () => 'CallIcon');
@@ -41,9 +44,12 @@ describe('<Home/>', () => {
       let matchingButtons = wrapper
         .findWhere(child => {
           return (
-            child.type() === 'IconButton' &&
+            child.type() === 'Button' &&
             child.text() === button.text &&
-            child.find(`${button.icon}`).length === 1
+            child.find(`${button.icon}`).length === 1 &&
+            child.prop('component') &&
+            child.prop('component') === Link &&
+            child.prop('to') === button.to
           );
         })
         .map(iconButton => iconButton.text());
@@ -56,9 +62,12 @@ describe('<Home/>', () => {
       let matchingButtons = wrapper
         .findWhere(child => {
           return (
-            child.type() === 'IconButton' &&
+            child.type() === 'Button' &&
             child.text() === button.text &&
-            child.find(`${button.icon}`).length === 1
+            child.find(`${button.icon}`).length === 1 &&
+            child.prop('component') &&
+            child.prop('component') === Link &&
+            child.prop('to') === button.to
           );
         })
         .map(iconButton => iconButton.text());
