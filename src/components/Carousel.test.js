@@ -9,10 +9,12 @@ describe('<Carousel/>', () => {
     props = {
       images: [
         {
+          id: '123yvu1231bv23',
           url: 'https://placeholder.com/480x200.png',
           description: 'brief image description here'
         },
         {
+          id: '09nhgfnbdv212j',
           url: 'https://placeholder.com/480x250.png',
           description: 'brief image description here'
         }
@@ -42,7 +44,7 @@ describe('<Carousel/>', () => {
   });
   it("doesn't render if the images prop is not an array", () => {
     props = {
-      images: 'hello'
+      images: 'use a string since it also has a length property'
     };
     wrapper = shallow(<Carousel {...props} />);
     expect(wrapper.children().length).toBe(0);
