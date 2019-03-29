@@ -9,10 +9,11 @@ import Hygiene from './components/Hygiene';
 import Hotlines from './components/Hotlines';
 import Food from './components/Food';
 import Transit from './components/Transit';
+jest.mock('./components/Resource', () => 'Resource');
 
 describe('<App />', () => {
   const wrapper = shallow(<App />);
-  const routes = [Home, Shelters, Hygiene, Hotlines, Food, Transit];
+  const routes = [Home, Shelters, Hygiene, Hotlines, Food, Transit, 'Resource'];
   it('renders properly', () => {
     expect(wrapper.find('div').length).toBe(1);
     expect(wrapper.find(Header).length).toBe(1);
