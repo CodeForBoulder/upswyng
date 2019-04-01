@@ -41,7 +41,7 @@ describe('<Home/>', () => {
   });
   it('renders all major buttons and only once', () => {
     HomeButtonsMajor.forEach(button => {
-      let matchingButtons = wrapper
+      const matchingButtons = wrapper
         .findWhere(child => {
           return (
             child.type() === 'Button' &&
