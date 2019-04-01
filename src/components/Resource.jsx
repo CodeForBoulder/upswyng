@@ -87,9 +87,9 @@ const singleResourceApiReturn = {
 const Resource = props => {
   const { images } = singleResourceApiReturn;
   return (
-    <div>
+    <>
       <Carousel images={images} />
-    </div>
+    </>
   );
 };
 
