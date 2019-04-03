@@ -1,18 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Grid } from '@material-ui/core';
-import CallIcon from '@material-ui/icons/Call';
-import RestaurantIcon from '@material-ui/icons/Restaurant';
-import HomeIcon from '@material-ui/icons/Home';
-import HotTubIcon from '@material-ui/icons/HotTub';
-import BusIcon from '@material-ui/icons/DirectionsBus';
-import GroceryStoreIcon from '@material-ui/icons/LocalGroceryStore';
-import HealingIcon from '@material-ui/icons/Healing';
-import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
-import PetsIcon from '@material-ui/icons/Pets';
-import WifiIcon from '@material-ui/icons/Wifi';
-import WorkIcon from '@material-ui/icons/Work';
-import InfoIcon from '@material-ui/icons/Info';
+import {
+  CallIcon,
+  RestaurantIcon,
+  HomeIcon,
+  HotTubIcon,
+  BusIcon,
+  GroceryStoreIcon,
+  HealingIcon,
+  LibraryBooksIcon,
+  PetsIcon,
+  WifiIcon,
+  WorkIcon,
+  InfoIcon
+} from './Icons';
 import Search from './Search';
 
 export const HomeButtonsMajor = [
@@ -95,7 +97,7 @@ export const HomeComponent = () => (
             <Grid item xs={4} key={button.text}>
               <Grid container direction="column" align="center">
                 <Button component={Link} to={button.to} color="primary">
-                  <button.icon />
+                  {button.icon}
                   {button.text}
                 </Button>
               </Grid>
@@ -111,7 +113,7 @@ export const HomeComponent = () => (
             <Grid item xs={4} key={button.text}>
               <Grid container direction="column" align="center">
                 <Button component={Link} to={button.to} color="secondary">
-                  <button.icon />
+                  {button.icon}
                   {button.text}
                 </Button>
               </Grid>
