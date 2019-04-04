@@ -1,8 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { HomeComponent, HomeButtonsMajor, HomeButtonsMinor } from './Home';
-import { Link } from 'react-router-dom';
-jest.mock('@material-ui/core/Button', () => 'Button');
+jest.mock('@material-ui/core/Button', () => 'button-material-ui');
 jest.mock('@material-ui/core/Grid', () => 'Grid');
 jest.mock('./Icons');
 jest.mock('./Search', () => 'Search');
@@ -13,6 +12,12 @@ describe('<Home/>', () => {
   const numSearchGridComponents = 3;
   const numButtonsMajorGridComponents = 2 + HomeButtonsMajor.length * 2;
   const numButtonsMinorGridComponents = 2 + HomeButtonsMinor.length * 2;
+  const renderedMajorButtons = wrapper.find(
+    'button-material-ui.button.button--home:not(.button--home-minor)'
+  );
+  const renderedMinorButtons = wrapper.find(
+    'button-material-ui.button.button--home.button--home-minor'
+  );
   it('renders the proper number of layout components', () => {
     expect(wrapper.find('Grid').length).toBe(
       1 +
@@ -26,40 +31,59 @@ describe('<Home/>', () => {
       wrapper.findWhere(n => n.prop('component') === 'Search').length
     ).toBe(1);
   });
-  it('renders all major buttons and only once', () => {
-    HomeButtonsMajor.forEach(button => {
-      const matchingButtons = wrapper
-        .findWhere(child => {
-          return (
-            child.type() === 'Button' &&
-            child.containsMatchingElement(button.text) &&
-            child.containsMatchingElement(button.icon) &&
-            child.prop('component') &&
-            child.prop('component') === Link &&
-            child.prop('to') === button.to
-          );
-        })
-        .map(iconButton => button.text);
-      expect(matchingButtons).toContain(button.text);
-      expect(matchingButtons.length).toBe(1);
+  it('renders the proper number of minor buttons', () => {
+    expect(renderedMinorButtons.length).toBe(HomeButtonsMinor.length);
+  });
+  describe('major buttons', () => {
+    it('renders the proper number of major buttons', () => {
+      expect(renderedMajorButtons.length).toBe(HomeButtonsMajor.length);
+    });
+    HomeButtonsMajor.forEach(expectedButton => {
+      describe(`${expectedButton.text} button`, () => {
+        const renderedButton = renderedMajorButtons.find(
+          `[data-test="${expectedButton.text}"]`
+        );
+        it(`renders only one of the ${expectedButton.text}`, () => {
+          expect(renderedButton.length).toBe(1);
+        });
+        it('renders one button with matching text', () => {
+          expect(renderedButton.render().text()).toBe(expectedButton.text);
+        });
+        it('renders one button with a matching icon', () => {
+          expect(
+            renderedButton.containsMatchingElement(expectedButton.icon)
+          ).toBe(true);
+        });
+        it('renders one button with a matching link', () => {
+          expect(renderedButton.prop('to')).toBe(expectedButton.to);
+        });
+      });
     });
   });
-  it('renders all minor buttons and only once', () => {
-    HomeButtonsMinor.forEach(button => {
-      let matchingButtons = wrapper
-        .findWhere(child => {
-          return (
-            child.type() === 'Button' &&
-            child.containsMatchingElement(button.text) &&
-            child.containsMatchingElement(button.icon) &&
-            child.prop('component') &&
-            child.prop('component') === Link &&
-            child.prop('to') === button.to
-          );
-        })
-        .map(iconButton => button.text);
-      expect(matchingButtons).toContain(button.text);
-      expect(matchingButtons.length).toBe(1);
+  describe('minor buttons', () => {
+    it('renders the proper number of minor buttons', () => {
+      expect(renderedMinorButtons.length).toBe(HomeButtonsMinor.length);
+    });
+    HomeButtonsMinor.forEach(expectedButton => {
+      describe(`${expectedButton.text} button`, () => {
+        const renderedButton = renderedMinorButtons.find(
+          `[data-test="${expectedButton.text}"]`
+        );
+        it('renders only one of each button', () => {
+          expect(renderedButton.length).toBe(1);
+        });
+        it('renders one button with matching text', () => {
+          expect(renderedButton.render().text()).toBe(expectedButton.text);
+        });
+        it('renders one button with a matching icon', () => {
+          expect(
+            renderedButton.containsMatchingElement(expectedButton.icon)
+          ).toBe(true);
+        });
+        it('renders one button with a matching link', () => {
+          expect(renderedButton.prop('to')).toBe(expectedButton.to);
+        });
+      });
     });
   });
 });

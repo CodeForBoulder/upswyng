@@ -96,7 +96,12 @@ export const HomeComponent = () => (
           return (
             <Grid item xs={4} key={button.text}>
               <Grid container direction="column" align="center">
-                <Button component={Link} to={button.to} color="primary">
+                <Button
+                  component={Link}
+                  to={button.to}
+                  className="button button--home"
+                  data-test={button.text}
+                >
                   {button.icon}
                   {button.text}
                 </Button>
@@ -112,7 +117,12 @@ export const HomeComponent = () => (
           return (
             <Grid item xs={4} key={button.text}>
               <Grid container direction="column" align="center">
-                <Button component={Link} to={button.to} color="secondary">
+                <Button
+                  component={Link}
+                  to={button.to}
+                  className="button button--home button--home-minor"
+                  data-test={button.text}
+                >
                   {button.icon}
                   {button.text}
                 </Button>
