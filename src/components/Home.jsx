@@ -1,87 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Grid } from '@material-ui/core';
-import {
-  CallIcon,
-  RestaurantIcon,
-  HomeIcon,
-  HotTubIcon,
-  BusIcon,
-  GroceryStoreIcon,
-  HealingIcon,
-  LibraryBooksIcon,
-  PetsIcon,
-  WifiIcon,
-  WorkIcon,
-  InfoIcon
-} from './Icons';
+import HomeButtonsMajor from './HomeButtonsMajor';
+import HomeButtonsMinor from './HomeButtonsMinor';
 import Search from './Search';
-
-export const HomeButtonsMajor = [
-  {
-    text: 'Hotlines',
-    icon: CallIcon,
-    to: '/hotlines'
-  },
-  {
-    text: 'Food',
-    icon: RestaurantIcon,
-    to: '/food'
-  },
-  {
-    text: 'Shelter',
-    icon: HomeIcon,
-    to: '/shelter'
-  },
-  {
-    text: 'Hygiene',
-    icon: HotTubIcon,
-    to: '/hygiene'
-  },
-  {
-    text: 'Transit',
-    icon: BusIcon,
-    to: '/transit'
-  },
-  {
-    text: 'Resources',
-    icon: GroceryStoreIcon,
-    to: '/resources'
-  }
-];
-
-export const HomeButtonsMinor = [
-  {
-    text: 'Health',
-    icon: HealingIcon,
-    to: '/health'
-  },
-  {
-    text: 'Education',
-    icon: LibraryBooksIcon,
-    to: '/education'
-  },
-  {
-    text: 'Pets',
-    icon: PetsIcon,
-    to: '/pets'
-  },
-  {
-    text: 'Wifi & Tech',
-    icon: WifiIcon,
-    to: '/wifi-and-tech'
-  },
-  {
-    text: 'Work',
-    icon: WorkIcon,
-    to: '/work'
-  },
-  {
-    text: 'Social Services',
-    icon: InfoIcon,
-    to: '/social-services'
-  }
-];
 
 export const HomeComponent = () => (
   <Grid container className="home" spacing={16} justify="space-evenly">

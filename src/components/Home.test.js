@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { HomeComponent, HomeButtonsMajor, HomeButtonsMinor } from './Home';
+import { HomeComponent } from './Home';
+import HomeButtonsMajor from './HomeButtonsMajor';
+import HomeButtonsMinor from './HomeButtonsMinor';
 jest.mock('@material-ui/core/Button', () => 'button-material-ui');
 jest.mock('@material-ui/core/Grid', () => 'Grid');
 jest.mock('./Icons');
