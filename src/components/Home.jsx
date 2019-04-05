@@ -5,7 +5,7 @@ import HomeButtonsMajor from './HomeButtonsMajor';
 import HomeButtonsMinor from './HomeButtonsMinor';
 import Search from './Search';
 
-export const HomeComponent = () => (
+const Home = () => (
   <Grid container className="home" spacing={16} justify="space-evenly">
     <Grid item xs={12}>
       <Grid container className="home" spacing={16} justify="space-evenly">
@@ -56,7 +56,5 @@ export const HomeComponent = () => (
     </Grid>
   </Grid>
 );
-
-const Home = () => <HomeComponent />;
 
 export default Home;
