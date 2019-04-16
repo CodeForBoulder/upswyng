@@ -14,7 +14,51 @@ const boulderCoordinates = {
 class Map extends Component<any, any> {
   constructor(props: Props) {
     super(props);
+    this.state = {
+      directionsAreToggled: false
+    };
   }
+
+  toggleDirections = (resource: any) => {
+    let userLocation = this.props.currentUser.location;
+    let map = this.state.map;
+    let directionsDisplay = this.state.directionsDisplay;
+    let directionsService = this.state.directionsService;
+
+    if (this.state.directionsAreToggled == false) {
+      this.setState({ directionsAreToggled: true });
+
+      directionsDisplay.setMap(map);
+
+      let calculateAndDisplayRoute = (
+        directionsService: any,
+        directionsDisplay: any
+      ) => {
+        directionsService.route(
+          {
+            origin: userLocation,
+            destination: {
+              lat: resource.lat,
+              lng: resource.lng
+            },
+            travelMode: 'TRANSIT'
+          },
+          function(response: any, status: any) {
+            if (status === 'OK') {
+              directionsDisplay.setDirections(response);
+            } else {
+              window.alert('Directions request failed due to ' + status);
+            }
+          }
+        );
+      };
+
+      calculateAndDisplayRoute(directionsService, directionsDisplay);
+    } else {
+      directionsDisplay.setMap(null);
+      this.setState({ directionsAreToggled: false });
+    }
+  };
 
   createMarkers = (resources: any, map: any, maps: any) => {
     resources.forEach((resource: any) => {
@@ -56,11 +100,23 @@ class Map extends Component<any, any> {
   };
 
   initMap = (map: any, maps: any) => {
+    let directionsService = new maps.DirectionsService();
+    let directionsDisplay = new maps.DirectionsRenderer();
+    this.setState({
+      map: map,
+      maps: maps,
+      directionsService: directionsService,
+      directionsDisplay: directionsDisplay
+    });
+
     this.createMarkers(this.props.resources, map, maps);
   };
 
   render() {
     const firstResource = this.props.resources[0];
+    const toggleDirectionsOnClick = () => {
+      this.toggleDirections(firstResource);
+    };
     let center = {
       lat: firstResource.lat,
       lng: firstResource.lng
@@ -70,7 +126,9 @@ class Map extends Component<any, any> {
       // Map must have height/width defined - but manipulate as necessary
       <div style={{ height: '60vh', width: '100%' }}>
         <h1>Map</h1>
-        <button>Show Directions to {firstResource.name}</button>
+        <button onClick={toggleDirectionsOnClick}>
+          Show/Hide Directions to {firstResource.name}
+        </button>
         <GoogleMapReact
           bootstrapURLKeys={{ key: '<API_KEY>' }}
           defaultCenter={boulderCoordinates}
