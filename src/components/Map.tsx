@@ -19,48 +19,60 @@ class Map extends Component<any, any> {
     };
   }
 
-  toggleDirections = (resource: any) => {
-    let userLocation = this.props.currentUser.location;
-    let map = this.state.map;
-    let directionsDisplay = this.state.directionsDisplay;
-    let directionsService = this.state.directionsService;
+  calculateAndDisplayRoute = (
+    directionsService: any,
+    directionsDisplay: any,
+    resourceAsDestination: any
+  ) => {
+    const userLocation = this.props.currentUser.location;
 
-    if (this.state.directionsAreToggled == false) {
-      this.setState({ directionsAreToggled: true });
+    // remove default markers A and B (origin/destination)
+    directionsDisplay.setOptions({ suppressMarkers: true });
 
-      directionsDisplay.setMap(map);
-
-      let calculateAndDisplayRoute = (
-        directionsService: any,
-        directionsDisplay: any
-      ) => {
-        directionsService.route(
-          {
-            origin: userLocation,
-            destination: {
-              lat: resource.lat,
-              lng: resource.lng
-            },
-            travelMode: 'TRANSIT'
-          },
-          function(response: any, status: any) {
-            if (status === 'OK') {
-              directionsDisplay.setDirections(response);
-            } else {
-              window.alert('Directions request failed due to ' + status);
-            }
-          }
-        );
-      };
-
-      calculateAndDisplayRoute(directionsService, directionsDisplay);
-    } else {
-      directionsDisplay.setMap(null);
-      this.setState({ directionsAreToggled: false });
-    }
+    directionsService.route(
+      {
+        origin: userLocation,
+        destination: {
+          lat: resourceAsDestination.lat,
+          lng: resourceAsDestination.lng
+        },
+        travelMode: 'TRANSIT'
+      },
+      function(response: any, status: any) {
+        if (status === 'OK') {
+          directionsDisplay.setDirections(response);
+        } else {
+          console.log('Directions request failed due to ' + status);
+        }
+      }
+    );
   };
 
-  createMarkers = (resources: any, map: any, maps: any) => {
+  toggleDirections = (resource: any) => {
+    const {
+      map,
+      directionsDisplay,
+      directionsService,
+      directionsAreToggled
+    } = this.state;
+
+    if (!directionsAreToggled) {
+      directionsDisplay.setMap(map);
+
+      this.calculateAndDisplayRoute(
+        directionsService,
+        directionsDisplay,
+        resource
+      );
+    } else {
+      directionsDisplay.setMap(null);
+    }
+
+    this.setState({ directionsAreToggled: !directionsAreToggled });
+  };
+
+  createMarkers = (map: any, maps: any) => {
+    const resources = this.props.resources;
     resources.forEach((resource: any) => {
       let marker = new maps.Marker({
         map: map,
@@ -86,14 +98,22 @@ class Map extends Component<any, any> {
           '<b>Offers</b>: ' +
           resource.services.join(', ') +
           '</div>'
-          // will need to include if its open/hours (unsure of how resource.hours will be formatted)
+        // will need to include if its open/hours (unsure of how resource.hours will be formatted)
       });
 
       marker.addListener('mouseover', function() {
         infoWindow.open(map, marker);
       });
 
+      marker.addListener('focus', function() {
+        infoWindow.open(map, marker);
+      });
+
       marker.addListener('mouseout', function() {
+        infoWindow.close();
+      });
+
+      marker.addListener('blur', function() {
         infoWindow.close();
       });
     });
@@ -109,31 +129,29 @@ class Map extends Component<any, any> {
       directionsDisplay: directionsDisplay
     });
 
-    this.createMarkers(this.props.resources, map, maps);
+    this.createMarkers(map, maps);
   };
 
   render() {
     const firstResource = this.props.resources[0];
-    const toggleDirectionsOnClick = () => {
-      this.toggleDirections(firstResource);
-    };
-    let center = {
-      lat: firstResource.lat,
-      lng: firstResource.lng
+    const { name, lat, lng } = firstResource;
+    const centerOnFirstResource = {
+      lat: lat,
+      lng: lng
     };
 
     return (
       // Map must have height/width defined - but manipulate as necessary
       <div style={{ height: '60vh', width: '100%' }}>
-        <h1>Map</h1>
-        <button onClick={toggleDirectionsOnClick}>
-          Show/Hide Directions to {firstResource.name}
+        <h2>Map</h2>
+        <button onClick={() => this.toggleDirections(firstResource)}>
+          Show/Hide Directions to {name}
         </button>
         <GoogleMapReact
           bootstrapURLKeys={{ key: '<API_KEY>' }}
           defaultCenter={boulderCoordinates}
           defaultZoom={13}
-          center={center}
+          center={centerOnFirstResource}
           yesIWantToUseGoogleMapApiInternals={true}
           onGoogleApiLoaded={({ map, maps }) => this.initMap(map, maps)}
         />
