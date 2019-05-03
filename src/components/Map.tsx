@@ -48,7 +48,7 @@ class Map extends Component<any, any> {
     );
   };
 
-  toggleDirections = (resource: any) => {
+  toggleDirections = () => {
     const {
       map,
       directionsDisplay,
@@ -62,7 +62,7 @@ class Map extends Component<any, any> {
       this.calculateAndDisplayRoute(
         directionsService,
         directionsDisplay,
-        resource
+        this.props.resources[0]
       );
     } else {
       directionsDisplay.setMap(null);
@@ -145,11 +145,13 @@ class Map extends Component<any, any> {
       // Map must have height/width defined - but manipulate as necessary
       <div style={{ height: '60vh', width: '100%' }}>
         <h2>Map</h2>
-        <button onClick={() => this.toggleDirections(firstResource)}>
+        <button onClick={this.toggleDirections}>
           Show/Hide Directions to {name}
         </button>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: '<API_KEY>' }}
+          bootstrapURLKeys={{
+            key: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
+          }}
           defaultCenter={boulderCoordinates}
           defaultZoom={13}
           center={centerOnFirstResource}
