@@ -42,7 +42,7 @@ class Map extends Component<any, any> {
         if (status === 'OK') {
           directionsDisplay.setDirections(response);
         } else {
-          console.log('Directions request failed due to ' + status);
+          console.log(`Directions request failed due to ${status}`);
         }
       }
     );
@@ -98,7 +98,8 @@ class Map extends Component<any, any> {
           '<b>Offers</b>: ' +
           resource.services.join(', ') +
           '</div>'
-        // will need to include if its open/hours (unsure of how resource.hours will be formatted)
+        // TODO: Include if its open/hours (unsure of how resource.hours will be formatted)
+        // TODO: Use a custom component instead of an infoWindow
       });
 
       marker.addListener('mouseover', function() {
