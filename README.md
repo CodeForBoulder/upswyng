@@ -10,6 +10,10 @@ The initial project structure was generated using [Create React App](https://git
 
 ### Commands
 
+#### `npm i`
+
+Installs project dependencies.
+
 #### `npm start`
 
 Runs the app in the development mode.
