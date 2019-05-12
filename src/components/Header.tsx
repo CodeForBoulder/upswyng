@@ -5,11 +5,11 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
 
-const onMenuClick = e => {
+const onMenuClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
   //handle when the menu button is clicked here
 };
 
-function Header(props) {
+function Header() {
   return (
     <header>
       <AppBar position="static">
