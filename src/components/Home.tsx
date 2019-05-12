@@ -4,12 +4,13 @@ import { Button, Grid } from '@material-ui/core';
 import HomeButtonsMajor from './HomeButtonsMajor';
 import HomeButtonsMinor from './HomeButtonsMinor';
 import Search from './Search';
+import { THomeButton } from '../types';
 
-const renderButtons = (buttons, props) =>
-  buttons.map((button, index) => {
+const renderButtons = (buttons: THomeButton[], props: any) =>
+  buttons.map((button: THomeButton, index: number) => {
     return (
       <Grid item xs={4} key={button.text}>
-        <Grid container direction="column" align="center">
+        <Grid container direction="column" alignItems="center">
           <Button
             component={Link}
             to={button.to}
