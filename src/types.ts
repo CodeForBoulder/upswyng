@@ -45,3 +45,9 @@ export interface TSchedule {
   tostring: string;
   type: string;
 }
+
+export interface THomeButton {
+  text: string;
+  icon: object;
+  to: string;
+}
