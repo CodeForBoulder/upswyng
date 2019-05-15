@@ -31,6 +31,15 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 The build is minified and the filenames include the hashes.
 
+### Google API Key Configuration
+
+You will need an API key for Google Maps JavaScript API/Directions API.
+Get started here: https://cloud.google.com/maps-platform/
+
+Click `Get Started`, select `Maps` and `Routes` and proceed with the setup.
+
+You will be presented with your key, which you will then need to save to your Upswyng directory's `.env.local` as `REACT_APP_GOOGLE_MAPS_API_KEY=yourUniqueGoogleAPIKeyHere`
+
 ## Contributing
 
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/CodeForBoulder/upswyng.svg?columns=all)](https://waffle.io/CodeForBoulder/upswyng)
