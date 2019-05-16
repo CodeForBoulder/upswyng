@@ -1,4 +1,5 @@
 # Upswyng
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/d594885b-4ffa-496d-8e1b-78d23f55e6c2/deploy-status)](https://app.netlify.com/sites/upswyng/deploys)
 [![Build Status](https://travis-ci.org/CodeForBoulder/upswyng.svg?branch=master)](https://travis-ci.org/CodeForBoulder/upswyng)
 
@@ -31,6 +32,15 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 The build is minified and the filenames include the hashes.
 
+### Google API Key Configuration
+
+You will need an API key for Google Maps JavaScript API/Directions API.
+Get started here: [https://cloud.google.com/maps-platform/](https://cloud.google.com/maps-platform/)
+
+Click `Get Started`, select `Maps` and `Routes` and proceed with the setup.
+
+You will be presented with your key, which you will then need to save to your Upswyng directory's `.env.local` as `REACT_APP_GOOGLE_MAPS_API_KEY=yourUniqueGoogleAPIKeyHere`
+
 ## Contributing
 
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/CodeForBoulder/upswyng.svg?columns=all)](https://waffle.io/CodeForBoulder/upswyng)
@@ -57,10 +67,10 @@ All feature branch names will begin with a group-token, be proceed by a short na
 
 Below are approved group-tokens:
 
--  **`add/`** : identifies a branch that *adds* a feature
--  **`updt/`** : identifies a branch that *updates* a feature. This is useful for features whose original feature branches were deleted, or have already been merged with the master branch.
--  **`rmv/`** : identifies a branch that *removes* a feature.
--  **`exp/`** : identifies a branch that *experiments* with creating a new feature without plans of implementation.
+- **`add/`** : identifies a branch that _adds_ a feature
+- **`updt/`** : identifies a branch that _updates_ a feature. This is useful for features whose original feature branches were deleted, or have already been merged with the master branch.
+- **`rmv/`** : identifies a branch that _removes_ a feature.
+- **`exp/`** : identifies a branch that _experiments_ with creating a new feature without plans of implementation.
 
 For example, if you wanted to create a branch that update the way a service was displayed which is described in issue 36, you could name the branch **`updt/service-display-#36`**.
 
