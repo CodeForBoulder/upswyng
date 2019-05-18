@@ -28,7 +28,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "prettier \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
+    "lint": "prettier \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "strapped": "npm run strapped-charity && npm run strapped-crisisline",
+    "strapped-charity": "curl -o data_pipeline/strapped/charity.json https://strapped.firebaseio.com/charity.json",
+    "strapped-crisisline": "curl -o data_pipeline/strapped/crisisline.json https://strapped.firebaseio.com/crisisline.json"
   },
   "eslintConfig": {
     "extends": "react-app"
