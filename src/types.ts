@@ -1,3 +1,5 @@
+import { SvgIconProps } from 'material-ui';
+
 export type TDay =
   | 'Monday'
   | 'Tuesday'
@@ -48,6 +50,6 @@ export interface TSchedule {
 
 export interface THomeButton {
   text: string;
-  icon: object;
+  icon: React.ReactElement<SvgIconProps>;
   to: string;
 }
