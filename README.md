@@ -32,6 +32,10 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 The build is minified and the filenames include the hashes.
 
+#### `npm run datapipe`
+
+Retrieves latest data and filters it for our target locale.
+
 ### Google API Key Configuration
 
 You will need an API key for Google Maps JavaScript API/Directions API.
