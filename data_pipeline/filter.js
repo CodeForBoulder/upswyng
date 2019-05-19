@@ -11,9 +11,8 @@ let charity = JSON.parse(
   fs.readFileSync('data_pipeline/strapped/charity.json')
 );
 
-//TODO: filter
 let filteredCharity = Object.keys(charity).reduce((filtered, key) => {
-  c = charity[key];
+  let c = charity[key];
   if (
     c.lat <= b.latHi &&
     c.lat >= b.latLow &&
@@ -25,8 +24,6 @@ let filteredCharity = Object.keys(charity).reduce((filtered, key) => {
   return filtered;
 }, {});
 
-//TODO: massage
-
 fs.writeFileSync('data_pipeline/charity.json', JSON.stringify(filteredCharity));
 
 let crisisline = JSON.parse(
@@ -34,7 +31,5 @@ let crisisline = JSON.parse(
 );
 
 //TODO: filter
-
-//TODO: massage
 
 fs.writeFileSync('data_pipeline/crisisline.json', JSON.stringify(crisisline));
