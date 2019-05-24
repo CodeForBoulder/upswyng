@@ -13,8 +13,15 @@
     "@types/react": "^16.8.10",
     "@types/react-dom": "^16.8.3",
     "@types/react-router-dom": "^4.3.1",
+    "@typescript-eslint/eslint-plugin": "^1.9.0",
+    "@typescript-eslint/parser": "^1.9.0",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.13.0",
     "firebase": "^5.8.4",
     "google-map-react": "^1.1.4",
+    "prettier": "^1.17.1",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-router": "^4.3.1",
@@ -28,15 +35,12 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "prettier \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "lint": "prettier --write --loglevel warn '{data_pipeline,.github,src,.vscode}/**/*.{json,css,scss,md}' && tsc --noEmit && eslint 'src/**/*.{js,jsx,ts,tsx}' --quiet --fix",
     "datapipe": "npm run strapped && npm run filter",
     "filter": "node data_pipeline/filter.js",
     "strapped": "npm run strapped-charity && npm run strapped-crisisline",
     "strapped-charity": "curl -o data_pipeline/strapped/charity.json https://strapped.firebaseio.com/charity.json",
     "strapped-crisisline": "curl -o data_pipeline/strapped/crisisline.json https://strapped.firebaseio.com/crisisline.json"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": [
     ">0.2%",
@@ -47,9 +51,11 @@
   "devDependencies": {
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.11.2",
+    "eslint-plugin-css-modules": "^2.11.0",
     "husky": "^1.3.1",
+    "install": "^0.12.2",
     "lint-staged": "^8.1.4",
-    "prettier": "1.16.4"
+    "npm": "^6.9.0"
   },
   "prettier": {
     "singleQuote": true
