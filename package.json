@@ -15,7 +15,6 @@
     "@types/react-router-dom": "^4.3.1",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
-    "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.13.0",
@@ -33,6 +32,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "ci-lint": "prettier --check --loglevel error '{data_pipeline,.github,src,.vscode}/**/*.{json,css,scss,md}' && tsc --noEmit && eslint 'src/**/*.{js,jsx,ts,tsx}' --quiet",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "prettier --write --loglevel warn '{data_pipeline,.github,src,.vscode}/**/*.{json,css,scss,md}' && tsc --noEmit && eslint 'src/**/*.{js,jsx,ts,tsx}' --quiet --fix",
