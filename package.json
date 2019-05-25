@@ -5,42 +5,36 @@
   "dependencies": {
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
-    "@types/enzyme": "^3.9.1",
     "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@types/enzyme": "^3.9.1",
     "@types/google-map-react": "^0.23.11",
     "@types/jest": "^24.0.11",
     "@types/node": "^11.12.0",
-    "@types/react": "^16.8.10",
     "@types/react-dom": "^16.8.3",
     "@types/react-router-dom": "^4.3.1",
-    "@typescript-eslint/eslint-plugin": "^1.9.0",
-    "@typescript-eslint/parser": "^1.9.0",
-    "eslint-config-prettier": "^4.3.0",
-    "eslint-plugin-prettier": "^3.1.0",
-    "eslint-plugin-react": "^7.13.0",
+    "@types/react": "^16.8.10",
     "firebase": "^5.8.4",
     "google-map-react": "^1.1.4",
-    "prettier": "^1.17.1",
-    "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "react-router": "^4.3.1",
     "react-router-config": "^4.4.0-beta.6",
     "react-router-dom": "^4.3.1",
+    "react-router": "^4.3.1",
     "react-scripts": "2.1.5",
+    "react": "^16.8.3",
     "typescript": "^3.3.4000"
   },
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
     "ci-lint": "prettier --check --loglevel error '{data_pipeline,.github,src,.vscode}/**/*.{json,css,scss,md}' && tsc --noEmit && eslint 'src/**/*.{js,jsx,ts,tsx}' --quiet",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "prettier --write --loglevel warn '{data_pipeline,.github,src,.vscode}/**/*.{json,css,scss,md}' && tsc --noEmit && eslint 'src/**/*.{js,jsx,ts,tsx}' --quiet --fix",
     "datapipe": "npm run strapped && npm run filter",
+    "eject": "react-scripts eject",
     "filter": "node data_pipeline/filter.js",
-    "strapped": "npm run strapped-charity && npm run strapped-crisisline",
+    "lint": "prettier --write --loglevel warn '{data_pipeline,.github,src,.vscode}/**/*.{json,css,scss,md}' && tsc --noEmit && eslint 'src/**/*.{js,jsx,ts,tsx}' --quiet --fix",
+    "start": "react-scripts start",
     "strapped-charity": "curl -o data_pipeline/strapped/charity.json https://strapped.firebaseio.com/charity.json",
-    "strapped-crisisline": "curl -o data_pipeline/strapped/crisisline.json https://strapped.firebaseio.com/crisisline.json"
+    "strapped-crisisline": "curl -o data_pipeline/strapped/crisisline.json https://strapped.firebaseio.com/crisisline.json",
+    "strapped": "npm run strapped-charity && npm run strapped-crisisline",
+    "test": "react-scripts test"
   },
   "browserslist": [
     ">0.2%",
@@ -49,11 +43,17 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "enzyme": "^3.9.0",
+    "@typescript-eslint/eslint-plugin": "^1.9.0",
+    "@typescript-eslint/parser": "^1.9.0",
     "enzyme-adapter-react-16": "^1.11.2",
+    "enzyme": "^3.9.0",
+    "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-css-modules": "^2.11.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.13.0",
     "husky": "^1.3.1",
-    "lint-staged": "^8.1.4"
+    "lint-staged": "^8.1.4",
+    "prettier": "^1.17.1"
   },
   "prettier": {
     "singleQuote": true
