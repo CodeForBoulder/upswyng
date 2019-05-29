@@ -7,22 +7,33 @@ import Search from './Search';
 import { THomeButton } from '../types';
 
 interface Props {
-  className: string;
+  classBlock: string;
+  classModifier?: string;
 }
 
 const renderButtons = (buttons: THomeButton[], props: Props) =>
   buttons.map((button: THomeButton, index: number) => {
+    const { classBlock, classModifier } = props;
+    const blockClassName = `${classBlock} ${classBlock}--home${
+      classModifier ? ` ${classBlock}--home-${classModifier}` : ''
+    }`;
+    const buttonElementClassName = `${classBlock}__button ${classBlock}__button--home ${
+      classModifier ? `${classBlock}__button--home-${classModifier}` : ''
+    }`;
+
     return (
       <Grid item xs={4} key={button.text}>
         <Grid container direction="column" alignItems="center">
-          <Button
-            component={() => <Link to={button.to} />}
+          <Link
+            to={button.to}
+            className={blockClassName}
             data-test={button.text}
-            {...props}
           >
-            {button.icon}
-            {button.text}
-          </Button>
+            <Button component={'span'} className={buttonElementClassName}>
+              {button.icon}
+              {button.text}
+            </Button>
+          </Link>
         </Grid>
       </Grid>
     );
@@ -37,13 +48,14 @@ const Home = () => (
     </Grid>
     <Grid item xs={12}>
       <Grid container spacing={16} justify="space-evenly">
-        {renderButtons(HomeButtonsMajor, { className: 'button button--home' })}
+        {renderButtons(HomeButtonsMajor, { classBlock: 'tile' })}
       </Grid>
     </Grid>
     <Grid item xs={12}>
       <Grid container spacing={16} justify="space-evenly">
         {renderButtons(HomeButtonsMinor, {
-          className: 'button button--home button--home-minor'
+          classBlock: 'tile',
+          classModifier: 'minor'
         })}
       </Grid>
     </Grid>

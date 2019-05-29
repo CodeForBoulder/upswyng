@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import Home from './Home';
 import HomeButtonsMajor from './HomeButtonsMajor';
 import HomeButtonsMinor from './HomeButtonsMinor';
+jest.mock('react-router-dom/Link');
 jest.mock('@material-ui/core/Button', () => 'button-material-ui');
 jest.mock('@material-ui/core/Grid', () => 'Grid');
 jest.mock('./Icons');
@@ -31,7 +32,7 @@ describe('<Home/>', () => {
 
   describe('major buttons', () => {
     const renderedMajorButtons = wrapper.find(
-      'button-material-ui.button.button--home:not(.button--home-minor)'
+      '.tile.tile--home:not(.tile--home-minor)'
     );
 
     it('renders the proper number of major buttons', () => {
@@ -40,12 +41,17 @@ describe('<Home/>', () => {
 
     HomeButtonsMajor.forEach(expectedButton => {
       describe(`${expectedButton.text} button`, () => {
-        const renderedButton = renderedMajorButtons.find(
+        const renderedLink = renderedMajorButtons.find(
           `[data-test="${expectedButton.text}"]`
         );
+        const renderedButton = renderedLink.find('button-material-ui');
 
         it(`renders only one ${expectedButton.text} button`, () => {
-          expect(renderedButton.length).toBe(1);
+          expect(renderedLink.length).toBe(1);
+        });
+
+        it('has a matching "to" property', () => {
+          expect(renderedLink.prop('to')).toBe(expectedButton.to);
         });
 
         it('renders one button with matching text', () => {
@@ -54,12 +60,8 @@ describe('<Home/>', () => {
 
         it('renders one button with a matching icon', () => {
           expect(
-            renderedButton.containsMatchingElement(expectedButton.icon)
+            renderedLink.containsMatchingElement(expectedButton.icon)
           ).toBe(true);
-        });
-
-        it('renders one button with a matching link', () => {
-          expect(renderedButton.prop('to')).toBe(expectedButton.to);
         });
       });
     });
@@ -67,7 +69,7 @@ describe('<Home/>', () => {
 
   describe('minor buttons', () => {
     const renderedMinorButtons = wrapper.find(
-      'button-material-ui.button.button--home.button--home-minor'
+      '.tile.tile--home.tile--home-minor'
     );
 
     it('renders the proper number of minor buttons', () => {
@@ -76,12 +78,17 @@ describe('<Home/>', () => {
 
     HomeButtonsMinor.forEach(expectedButton => {
       describe(`${expectedButton.text} button`, () => {
-        const renderedButton = renderedMinorButtons.find(
+        const renderedLink = renderedMinorButtons.find(
           `[data-test="${expectedButton.text}"]`
         );
+        const renderedButton = renderedLink.find('button-material-ui');
 
         it(`renders only one ${expectedButton.text} button`, () => {
-          expect(renderedButton.length).toBe(1);
+          expect(renderedLink.length).toBe(1);
+        });
+
+        it('has a matching "to" property', () => {
+          expect(renderedLink.prop('to')).toBe(expectedButton.to);
         });
 
         it('renders one button with matching text', () => {
@@ -90,12 +97,8 @@ describe('<Home/>', () => {
 
         it('renders one button with a matching icon', () => {
           expect(
-            renderedButton.containsMatchingElement(expectedButton.icon)
+            renderedLink.containsMatchingElement(expectedButton.icon)
           ).toBe(true);
-        });
-
-        it('renders one button with a matching link', () => {
-          expect(renderedButton.prop('to')).toBe(expectedButton.to);
         });
       });
     });
