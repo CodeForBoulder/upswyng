@@ -13,7 +13,7 @@ import {
   Work,
   Info
 } from '@material-ui/icons';
-import { SvgIconProps } from 'material-ui';
+import { SvgIconProps } from '@material-ui/core/SvgIcon';
 
 export const CallIcon: React.ReactElement<SvgIconProps> = <Call />;
 export const RestaurantIcon: React.ReactElement<SvgIconProps> = <Restaurant />;
