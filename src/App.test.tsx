@@ -13,6 +13,7 @@ import Transit from './components/Transit';
 describe('<App />', () => {
   const wrapper = shallow(<App />);
   const routes = [Home, Shelters, Hygiene, Hotlines, Food, Transit];
+
   it('renders properly', () => {
     expect(wrapper.find('div').length).toBe(1);
     expect(wrapper.find(Header).length).toBe(1);

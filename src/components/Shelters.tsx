@@ -2,12 +2,14 @@ import React from 'react';
 import withResource from './withResource';
 import { TResource } from '../types';
 
-type Props = { data: TResource };
+interface Props {
+  resource: TResource;
+}
 
 const Shelters = (props: Props) => (
   <div>
     <p>Shelters</p>
-    <p>{JSON.stringify(props.data)}</p>
+    <p>{JSON.stringify(props.resource)}</p>
   </div>
 );
 

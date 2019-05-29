@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 
-import withResource from './withResource';
 import { TResource } from '../types';
 
-type Props = { data: TResource };
+interface Props {
+  resource: TResource;
+}
 
 const boulderCoordinates = {
   lat: 40.0156852,
   lng: -105.2792069
 };
 
+// TODO #58: Provide type params and fix type errors
 class Map extends Component<any, any> {
   constructor(props: Props) {
     super(props);
