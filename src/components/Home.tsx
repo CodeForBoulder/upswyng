@@ -6,14 +6,17 @@ import HomeButtonsMinor from './HomeButtonsMinor';
 import Search from './Search';
 import { THomeButton } from '../types';
 
-const renderButtons = (buttons: THomeButton[], props: any) =>
+interface Props {
+  className: string;
+}
+
+const renderButtons = (buttons: THomeButton[], props: Props) =>
   buttons.map((button: THomeButton, index: number) => {
     return (
       <Grid item xs={4} key={button.text}>
         <Grid container direction="column" alignItems="center">
           <Button
-            component={Link}
-            to={button.to}
+            component={() => <Link to={button.to} />}
             data-test={button.text}
             {...props}
           >
