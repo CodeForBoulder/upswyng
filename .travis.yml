@@ -1,11 +1,7 @@
 language: node_js
 node_js:
-  - "stable"
-cache:
-  directories:
-    - node_modules
+  - '11'
 script:
-  - npm run lint -- --check
+  - npm run ci-lint
   - npm run build
   - npm test
-  
