@@ -1,10 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Resource from './Resource';
+import { TResource } from '../types';
 
 describe('<Resource/>', () => {
   const mockSingleResourceId = '-KS4rbQziVbJM5tNdEQL';
-  const mockSingleResourceApiReturn = {
+  const mockSingleResourceApiReturn: TResource = {
     address1: '1100 E 18th Ave',
     address2: '',
     approved: 1,
@@ -71,19 +72,7 @@ describe('<Resource/>', () => {
     useremail: 'patrudu36@gmail.com',
     userid: '70b8446e-61ca-41c9-93f9-9f3fb4996e6c',
     website: 'http://www.metrocaring.org',
-    zip: 80203,
-    images: [
-      {
-        id: '123yvu1231bv23',
-        url: 'https://via.placeholder.com/480x200.png',
-        description: 'brief image description here'
-      },
-      {
-        id: '09nhgfnbdv212j',
-        url: 'https://via.placeholder.com/480x250.png',
-        description: 'brief image description here'
-      }
-    ]
+    zip: 80203
   };
 
   const props = {
