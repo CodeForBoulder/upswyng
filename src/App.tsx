@@ -8,7 +8,6 @@ import Hygiene from './components/Hygiene';
 import Hotlines from './components/Hotlines';
 import Food from './components/Food';
 import Transit from './components/Transit';
-import Resource from './components/Resource';
 
 class App extends Component {
   render() {
@@ -22,7 +21,6 @@ class App extends Component {
           <Route exact path="/hotlines" component={Hotlines} />
           <Route exact path="/food" component={Food} />
           <Route exact path="/transit" component={Transit} />
-          <Route exact path="/resource" component={Resource} />
         </div>
       </Router>
     );
