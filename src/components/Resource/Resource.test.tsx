@@ -19,7 +19,6 @@ describe('<Resource/>', () => {
   describe('when missing a resource prop', () => {
     it('does not render', () => {
       const props = {
-        id: mockSingleResourceId,
         resource: undefined
       };
       const wrapper = shallow(<Resource {...props} />);

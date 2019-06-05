@@ -2,7 +2,6 @@ import React from 'react';
 import { TResource } from '../../types';
 
 interface Props {
-  id?: string;
   resource?: TResource;
 }
 
