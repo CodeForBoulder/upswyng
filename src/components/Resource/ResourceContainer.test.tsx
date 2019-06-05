@@ -1,8 +1,10 @@
 import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
 import ResourceContainer from './ResourceContainer';
+import withResource from '../withResource';
 
-jest.mock('../withResource', () => 'withResource');
+jest.mock('../withResource');
+jest.mock('./Resource', () => 'Resource');
 
 describe('<ResourceContainer/>', () => {
   let wrapper: ShallowWrapper;
@@ -20,13 +22,10 @@ describe('<ResourceContainer/>', () => {
     wrapper = shallow(<ResourceContainer />);
   });
 
-  describe('<withResource/>', () => {
-    it('renders', () => {
-      expect(wrapper.find('withResource').length).toBe(1);
-    });
-
-    it('has a dataPath prop equal to the expected Firebase data reference path', () => {
-      expect(wrapper.find('withResource').prop('dataPath')).toBe(
+  describe('withResource()', () => {
+    it('was called with the Resource component and expected firebase data reference path', () => {
+      expect(withResource).toHaveBeenCalledWith(
+        'Resource',
         expectedFirebaseDataRefPath
       );
     });

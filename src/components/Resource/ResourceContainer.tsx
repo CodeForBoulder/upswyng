@@ -1,5 +1,5 @@
-import React from 'react';
 import withResource from '../withResource';
+import Resource from './Resource';
 
 const ResourceContainer = () => {
   const currentSearchParams = new URLSearchParams(location.search);
@@ -7,7 +7,7 @@ const ResourceContainer = () => {
 
   if (currentResourceId) {
     const dataPath = `firebase-data-ref-path/${currentResourceId}`;
-    return <withResource dataPath={dataPath} />;
+    return withResource(Resource, dataPath);
   }
 
   return null;
