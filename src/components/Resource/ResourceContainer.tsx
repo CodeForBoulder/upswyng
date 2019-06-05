@@ -6,7 +6,7 @@ const ResourceContainer = () => {
   const currentResourceId = currentSearchParams.get('id');
 
   if (currentResourceId) {
-    const dataPath = `firebase-data-ref-path/${currentResourceId}`;
+    const dataPath = `charity/${currentResourceId}`;
     return withResource(Resource, dataPath);
   }
 

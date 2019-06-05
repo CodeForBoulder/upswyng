@@ -15,9 +15,9 @@ describe('<ResourceContainer/>', () => {
   beforeEach(() => {
     mockResourceId = 'resourceIdHere';
     mockLocationSearch = `?id=${mockResourceId}`;
-    expectedFirebaseDataRefPath = `firebase-data-ref-path/${mockResourceId}`;
+    expectedFirebaseDataRefPath = `charity/${mockResourceId}`;
 
-    history.replaceState({}, 'Resource', `/resource${mockLocationSearch}`);
+    history.replaceState({}, 'Resource', `resource/${mockLocationSearch}`);
 
     wrapper = shallow(<ResourceContainer />);
   });
