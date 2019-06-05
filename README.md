@@ -51,8 +51,6 @@ You will be presented with your key, which you will then need to save to your Up
 
 ## Contributing
 
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/CodeForBoulder/upswyng.svg?columns=all)](https://waffle.io/CodeForBoulder/upswyng)
-
 ### 1. Find an Issue Pending Development, Needing Help, or Asking a Question
 
 Want to develop? All issues that have been approved for development, but have not been started will be labelled as **Status: Pending**.
