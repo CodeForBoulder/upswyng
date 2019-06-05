@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Resource, { singleResourceId } from './Resource';
+import Resource from './Resource';
 
 describe('<Resource/>', () => {
   const mockSingleResourceId = '-KS4rbQziVbJM5tNdEQL';
@@ -92,7 +92,7 @@ describe('<Resource/>', () => {
   };
   const wrapper = shallow(<Resource {...props} />);
 
-  it('renders all required information', () => {
-    expect(wrapper.find('Carousel').length).toBe(1);
+  it('renders the charityname property of the resource prop object', () => {
+    expect(wrapper.find('div').text()).toBe(props.resource.charityname);
   });
 });

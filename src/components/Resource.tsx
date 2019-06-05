@@ -1,6 +1,4 @@
 import React from 'react';
-import Carousel from './Carousel';
-
 import { TResource } from '../types';
 
 interface Props {
@@ -9,8 +7,10 @@ interface Props {
 }
 
 const Resource = (props: Props) => {
-  const { images } = props;
-  return <Carousel images={images} />;
+  const {
+    resource: { charityname }
+  } = props;
+  return <div>{charityname}</div>;
 };
 
 export default Resource;
