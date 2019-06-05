@@ -1,6 +1,8 @@
 import React from 'react';
 import Carousel from './Carousel';
 
+import { TResource } from '../types';
+
 export const singleResourceId = '-KS4rbQziVbJM5tNdEQL';
 const singleResourceApiReturn = {
   address1: '1100 E 18th Ave',
@@ -84,8 +86,13 @@ const singleResourceApiReturn = {
   ]
 };
 
-const Resource = props => {
-  const { images } = singleResourceApiReturn;
+interface Props {
+  id: string;
+  resource: TResource;
+}
+
+const Resource = (props: Props) => {
+  const { images } = props;
   return <Carousel images={images} />;
 };
 
