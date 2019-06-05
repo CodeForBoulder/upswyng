@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, ShallowWrapper } from 'enzyme';
+import { shallow } from 'enzyme';
 import ResourceContainer from './ResourceContainer';
 import withResource from '../withResource';
 
@@ -7,10 +7,10 @@ jest.mock('../withResource');
 jest.mock('./Resource', () => 'Resource');
 
 describe('<ResourceContainer/>', () => {
-  let wrapper: ShallowWrapper;
-  let mockResourceId: string;
-  let mockLocationSearch: string;
-  let expectedFirebaseDataRefPath: string;
+  let wrapper;
+  let mockResourceId;
+  let mockLocationSearch;
+  let expectedFirebaseDataRefPath;
 
   beforeEach(() => {
     mockResourceId = 'resourceIdHere';
