@@ -4,10 +4,7 @@ import Resource from './Resource';
 import { foodResource } from '../../DataMocks';
 
 describe('<Resource/>', () => {
-  const mockSingleResourceId = '-KS4rbQziVbJM5tNdEQL';
-
   const props = {
-    id: mockSingleResourceId,
     resource: foodResource
   };
   const wrapper = shallow(<Resource {...props} />);
