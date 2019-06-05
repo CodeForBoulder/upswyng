@@ -9,6 +9,7 @@ const Resource = (props: Props) => {
   const {
     resource: { charityname }
   } = props;
+
   return <div>{charityname}</div>;
 };
 
