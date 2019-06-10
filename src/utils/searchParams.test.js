@@ -37,7 +37,7 @@ describe('getSearchParamVal()', () => {
   });
 
   describe('when the search parameter exists but does not have a value', () => {
-    it('returns null', () => {
+    it('returns any empty string', () => {
       mockSearchParamName = 'searchParamWithoutValue';
       mockSearch = `?${mockSearchParamName}`;
 
@@ -45,7 +45,7 @@ describe('getSearchParamVal()', () => {
 
       searchParamVal = getSearchParamVal(mockSearchParamName);
 
-      expect(searchParamVal).toBeNull();
+      expect(searchParamVal).toBe('');
     });
   });
 });
