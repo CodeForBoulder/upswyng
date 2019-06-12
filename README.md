@@ -13,7 +13,7 @@ The initial project structure was generated using [Create React App](https://git
 
 For local development, you'll want to have your own Firebase database to query data from. Below are the steps for setting up your own database.
 
-#### Create Project
+#### Create a Firebase Project
 
 1. If you don't have one already, create a [Google Account](https://account.google.com/)
 2. Navigate to the [Firebase Console](https://console.firebase.google.com/)
@@ -42,8 +42,8 @@ For local development, you'll want to have your own Firebase database to query d
 #### Add an App to Your Firebase Project
 
 1. Return to the **"Project Overview"** page in your Firebase project in your [Firebase Console](https://console.firebase.google.com/)
-2. In the "Get started by adding Firebase to your app", find and select the **"Web"** button, which looks like an self close HTML element **</>**.
-3. Give your app a nickname you will be able to identify it later, such as (but not required to be) `upswyng-local`
+2. In the "Get started by adding Firebase to your app" section of the page, find and select the **"Web"** button, which looks like a self-closed HTML element **</>**.
+3. Give your app a nickname, such as (but not required to be) `upswyng-local`
 4. Click **"Register App"** button
 
 A new screen should display scripts to be added to a project. Go ahead keep this page open, ignore the instructions given in Firebase, and move on to the next section of this README.
@@ -70,7 +70,7 @@ So if the value of the `projectId` in your Firebase Config is `upswyng-local`, s
 REACT_APP_PROJECT_ID=upswyng-local
 ```
 
-3. Once you've updated all variables, you'll to start/restart the application (see commands section below).
+3. Once you've updated all variables, you'll need to start/restart the application (see commands section below).
 
 ### Google API Key Configuration
 
