@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 const charity = JSON.parse(fs.readFileSync('data_pipeline/charity.json'));
-const hotline = JSON.parse(fs.readFileSync('data_pipeline/hotline.json'));
+const hotline = JSON.parse(fs.readFileSync('data_pipeline/crisisline.json'));
 
 const db = {
   charity,
