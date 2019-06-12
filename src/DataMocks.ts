@@ -5,9 +5,9 @@ export const blankResource: TResource = {
   address2: '',
   approved: 0,
   category: '',
-  charityname: '',
+  charityName: '',
   city: '',
-  closeschedule: [],
+  closeSchedule: [],
   description: '',
   kudos: 0,
   lat: 0,
@@ -16,12 +16,12 @@ export const blankResource: TResource = {
   schedule: [],
   selectedAll: false,
   service: '',
-  servicetype: '',
-  showflag: false,
+  serviceType: '',
+  showFlag: false,
   state: '',
-  updateshelter: '',
-  useremail: '',
-  userid: '',
+  updateShelter: '',
+  userEmail: '',
+  userId: '',
   website: '',
   zip: 0
 };
@@ -31,9 +31,9 @@ export const foodResource: TResource = {
   address2: '',
   approved: 1,
   category: 'Men,Women,Kids,Seniors,Families,Veterans,LGBT+,All',
-  charityname: 'Metro Caring',
+  charityName: 'Metro Caring',
   city: 'Denver',
-  closeschedule: [
+  closeSchedule: [
     {
       day: 'Wednesday',
       period: 'First',
@@ -49,49 +49,49 @@ export const foodResource: TResource = {
   schedule: [
     {
       day: 'Monday',
-      fromstring: '9:30 AM',
-      tostring: '3:00 PM',
+      fromString: '9:30 AM',
+      toString: '3:00 PM',
       type: 'Weekly'
     },
     {
       day: 'Tuesday',
-      fromstring: '9:30 AM',
-      tostring: '3:00 PM',
+      fromString: '9:30 AM',
+      toString: '3:00 PM',
       type: 'Weekly'
     },
     {
       day: 'Tuesday',
-      fromstring: '6:00 PM',
-      tostring: '8:00 PM',
+      fromString: '6:00 PM',
+      toString: '8:00 PM',
       type: 'Weekly'
     },
     {
       day: 'Wednesday',
-      fromstring: '9:30 AM',
-      tostring: '3:00 PM',
+      fromString: '9:30 AM',
+      toString: '3:00 PM',
       type: 'Weekly'
     },
     {
       day: 'Thursday',
-      fromstring: '9:30 AM',
-      tostring: '3:00 PM',
+      fromString: '9:30 AM',
+      toString: '3:00 PM',
       type: 'Weekly'
     },
     {
       day: 'Friday',
-      fromstring: '9:30 AM',
-      tostring: '3:00 PM',
+      fromString: '9:30 AM',
+      toString: '3:00 PM',
       type: 'Weekly'
     }
   ],
   selectedAll: true,
   service: 'Food',
-  servicetype: 'Food Pantry',
-  showflag: true,
+  serviceType: 'Food Pantry',
+  showFlag: true,
   state: 'CO',
-  updateshelter: '09/19/2016 10:25 PM',
-  useremail: 'patrudu36@gmail.com',
-  userid: '70b8446e-61ca-41c9-93f9-9f3fb4996e6c',
+  updateShelter: '09/19/2016 10:25 PM',
+  userEmail: 'patrudu36@gmail.com',
+  userId: '70b8446e-61ca-41c9-93f9-9f3fb4996e6c',
   website: 'http://www.metrocaring.org',
   zip: 80203
 };

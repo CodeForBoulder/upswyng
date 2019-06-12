@@ -14,9 +14,9 @@ export interface TResource {
   address2: string;
   approved: 0 | 1;
   category: string;
-  charityname: string;
+  charityName: string;
   city: string;
-  closeschedule: TCloseSchedule[];
+  closeSchedule: TCloseSchedule[];
   description: string;
   kudos: number;
   lat: number;
@@ -25,12 +25,12 @@ export interface TResource {
   schedule: TSchedule[];
   selectedAll: boolean;
   service: string;
-  servicetype: string;
-  showflag: boolean;
+  serviceType: string;
+  showFlag: boolean;
   state: string;
-  updateshelter: string;
-  useremail: string;
-  userid: string;
+  updateShelter: string;
+  userEmail: string;
+  userId: string;
   website: string;
   zip: number;
 }
@@ -43,8 +43,8 @@ export interface TCloseSchedule {
 
 export interface TSchedule {
   day: TDay;
-  fromstring: string;
-  tostring: string;
+  fromString: string;
+  toString: string;
   type: string;
 }
 

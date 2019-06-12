@@ -13,6 +13,6 @@ describe('<Resource/>', () => {
   const wrapper = shallow(<Resource {...props} />);
 
   it('renders the charityname property of the resource prop object', () => {
-    expect(wrapper.find('div').text()).toBe(props.resource.charityname);
+    expect(wrapper.find('div').text()).toBe(props.resource.charityName);
   });
 });

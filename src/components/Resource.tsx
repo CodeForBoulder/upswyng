@@ -7,10 +7,10 @@ interface Props {
 
 const Resource = (props: Props) => {
   const {
-    resource: { charityname }
+    resource: { charityName }
   } = props;
 
-  return <div>{charityname}</div>;
+  return <div>{charityName}</div>;
 };
 
 export default Resource;
