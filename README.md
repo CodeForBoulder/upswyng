@@ -5,13 +5,11 @@
 
 Upswyng is a digital directory that contains information on local services and providers who serve the homeless community in the Boulder area.
 
-## Development
+## Setup
 
 The initial project structure was generated using [Create React App](https://github.com/facebook/create-react-app).
 
-### Setup
-
-#### Firebase DB Setup
+### Firebase DB Setup
 
 For local development, you'll want to have your own Firebase database to query data from. Below are the steps for setting up your own database.
 
@@ -52,7 +50,7 @@ A new screen should display scripts to be added to a project. Go ahead keep this
 
 ### Update .env.local Variables
 
-After completely setting up your Firebase project, and registering your app (above), you'll need to setup some local environment variables to ensure the source compiles correctly.
+After completely setting up your Firebase project and registering your app (above), you'll need to setup some local environment variables to ensure the source compiles correctly.
 
 1. Create a copy of the `.env.local.example` in this repo named `.env.local`
 2. In your newly created `.env.local` you'll want to update the value of each of the placeholder variables. Each variable corresponds with your Firebase configuration (see previous section). Below details which variable values match your Firebase configuration property.
