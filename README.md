@@ -70,7 +70,7 @@ So if the value of the `projectId` in your Firebase Config is `upswyng-local`, s
 REACT_APP_PROJECT_ID=upswyng-local
 ```
 
-3. Once you've updated all variables, you'll to start/restart the application (see commands below).
+3. Once you've updated all variables, you'll to start/restart the application (see commands section below).
 
 ### Google API Key Configuration
 
@@ -81,13 +81,13 @@ Click `Get Started`, select `Maps` and `Routes` and proceed with the setup.
 
 You will be presented with your key, which you will then need to save to your Upswyng directory's `.env.local` as `REACT_APP_GOOGLE_MAPS_API_KEY=yourUniqueGoogleAPIKeyHere`
 
-### Commands
+## Commands
 
-#### `npm i`
+### `npm i`
 
 Installs project dependencies.
 
-#### `npm start`
+### `npm start`
 
 Runs the app in the development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -95,20 +95,20 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
-#### `npm test`
+### `npm test`
 
 Launches the test runner in the interactive watch mode.
 
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-#### `npm run build`
+### `npm run build`
 
 Builds the app for production to the build folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.
 
-#### `npm run datapipe`
+### `npm run datapipe`
 
 Retrieves latest data and filters it for our target locale.
 
