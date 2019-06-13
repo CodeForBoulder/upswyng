@@ -12,7 +12,9 @@ function convertStrappedDateToFirebaseTimestamp(
   const secondsStamp: number =
     jsDate instanceof Date &&
     !isNaN(jsDate.getTime()) /* tests for valid date */
-      ? Math.round(jsDate.getTime() / 1000)
+      ? Math.round(
+          (jsDate.getTime() + jsDate.getTimezoneOffset() * 60000) / 1000
+        )
       : 0;
   return { _seconds: secondsStamp, _nanoseconds: 0 };
 }

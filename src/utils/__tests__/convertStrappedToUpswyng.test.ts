@@ -64,7 +64,7 @@ const resource: TUpswyngResource = {
   serviceSubtype: 'Food Pantry',
   serviceType: 'Food',
   shouldShow: false,
-  updateDate: { _nanoseconds: 0, _seconds: 1474345500 },
+  updateDate: { _nanoseconds: 0, _seconds: 1474367100 },
   user: { email: 'tester@gmail.com', id: '2345sd-adfsg536' },
   websiteUrl: 'http://www.placeholder.org'
 };
