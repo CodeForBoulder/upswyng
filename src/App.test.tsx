@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import App from './App';
+
 jest.mock('react-router-dom/Route', () => 'Route');
 jest.mock('./components/Header', () => 'Header');
 jest.mock('./components/Home', () => 'Home');
@@ -9,6 +10,7 @@ jest.mock('./components/Hygiene', () => 'Hygiene');
 jest.mock('./components/Hotlines', () => 'Hotlines');
 jest.mock('./components/Food', () => 'Food');
 jest.mock('./components/Transit', () => 'Transit');
+jest.mock('./components/Resource', () => 'Resource');
 
 describe('<App />', () => {
   const wrapper = shallow(<App />);
@@ -36,6 +38,10 @@ describe('<App />', () => {
     {
       path: '/transit',
       component: 'Transit'
+    },
+    {
+      path: '/resource',
+      component: 'Resource'
     }
   ];
   it('renders the header component', () => {

@@ -1,11 +1,15 @@
 import React from 'react';
 import { TResource } from '../types';
+import withResource from './withResource';
+import { getSearchParamVal } from '../utils/searchParams';
+import { SEARCH_PARAM_RESOURCE, FIREBASE_RESOURCE_BRANCH } from '../constants';
+
 interface Props {
   id: string;
   resource: TResource;
 }
 
-const Resource = (props: Props) => {
+export const Resource = (props: Props) => {
   const {
     resource: { charityName }
   } = props;
@@ -13,4 +17,8 @@ const Resource = (props: Props) => {
   return <div>{charityName}</div>;
 };
 
-export default Resource;
+const resourceDataRef = `${FIREBASE_RESOURCE_BRANCH}/${getSearchParamVal(
+  SEARCH_PARAM_RESOURCE
+)}`;
+
+export default withResource(Resource, resourceDataRef);
