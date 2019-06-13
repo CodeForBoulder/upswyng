@@ -10,7 +10,7 @@
     "@types/google-map-react": "^0.23.11",
     "@types/jest": "^24.0.11",
     "@types/material-ui": "^0.21.6",
-    "@types/node": "^11.12.0",
+    "@types/node": "^11.13.14",
     "@types/react-dom": "^16.8.3",
     "@types/react-router-dom": "^4.3.1",
     "@types/react": "^16.8.10",
@@ -22,6 +22,7 @@
     "react-router": "^4.3.1",
     "react-scripts": "2.1.5",
     "react": "^16.8.3",
+    "ts-node": "^8.2.0",
     "typescript": "^3.3.4000"
   },
   "scripts": {

@@ -1,0 +1,5553 @@
+{
+  "-KUnIgnkpl1PvoQzNOwU": {
+    "address": {
+      "address1": "650 S. Taylor Ave.",
+      "city": "Louisville",
+      "state": "CO",
+      "zip": 80027
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Community Food Share",
+    "description": "\"Anyone who walks in our door in need of food assistance will receive emergency help. Community Food Share is open Monday-Friday, 8:00 am to 4:45 pm. Please call 303-652-3663 with questions about Community Food Share or other food resources. Several staff members speak Spanish.\"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 39.959845,
+      "_longitude": -105.11954379999997
+    },
+    "phone": "(303) 652-3663",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "8:00 AM",
+        "to": "4:45 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "8:00 AM",
+        "to": "4:45 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "8:00 AM",
+        "to": "4:45 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "8:00 AM",
+        "to": "4:45 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "8:00 AM",
+        "to": "4:45 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food",
+    "serviceSubtype": "Emergency Food",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1477254540,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://communityfoodshare.org/get-help/"
+  },
+  "-KUnLd_no7p7m2u77dfY": {
+    "address": {
+      "address1": "650 S. Taylor Ave.",
+      "city": "Louisville",
+      "state": "CO",
+      "zip": 80027
+    },
+    "category": "Seniors,Families",
+    "name": "Community Food Share",
+    "description": "\"Weekly groceries for families whose children are enrolled in the free or reduced lunch program at their school, Boulder County Head Start or Wild Plum Center, or families receiving benefits from WIC (Special Supplemental Nutrition Program for Women, Infants and Children). Community Food Share welcomes new enrollments for the Feeding Families program on Wednesdays between 2 p.m. – 3 p.m. and Thursdays between 10 a.m. – 12 p.m.  Unfortunately, no exceptions can be made. Please bring a picture ID, proof of residence and a letter from one of the organizations listed above to enroll. Feeding Families Program Hours: Wednesday  10-3:45, Thursday  8:30-1:45, and Friday  8:30-1:45 (be here 30 minutes prior to closing so you have time to shop). Supplemental groceries distributed twice a month to low-income seniors (60+years old) at neighborhood locations. Grocery delivery is available for home-bound seniors. Please call 303-652-3663 to learn about income guidelines, dates and locations.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 39.959845,
+      "_longitude": -105.11954379999997
+    },
+    "phone": "(303) 652-3663",
+    "schedule": [
+      {
+        "day": "Wednesday",
+        "from": "10:00 AM",
+        "to": "3:45 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "8:30 AM",
+        "to": "1:45 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "8:30 AM",
+        "to": "1:45 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": false,
+    "serviceType": "Food",
+    "serviceSubtype": "Groceries for low-income Seniors/Families",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://communityfoodshare.org/get-help/"
+  },
+  "-KUo-cPb45EOhVRG_ul9": {
+    "address": {
+      "address1": "1575 Yarmouth",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80304
+    },
+    "category": "Seniors,Disabled,Families",
+    "name": "Emergency Family Assistance Association (EFAA)",
+    "description": "\"EFAA’s food pantry provides food to qualifying families, seniors and people with disabilities. EFAA takes pride in providing highly nutritious and diverse food items for our clients. \"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 40.0584971,
+      "_longitude": -105.27779720000001
+    },
+    "phone": "(303) 442-3042",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "9:30 AM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "9:30 AM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "12:00 PM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "9:30 AM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "9:30 AM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": false,
+    "serviceType": "Food",
+    "serviceSubtype": "Food Bank",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1477265400,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.efaa.org/get-involved/donate/food/"
+  },
+  "-KUo2R-9SPbNijVbz45z": {
+    "address": {
+      "address1": "1575 Yarmouth Ave",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80304
+    },
+    "category": "Families",
+    "name": "Emergency Family Assistance Association (EFAA)",
+    "description": "\"EFAA owns or operates 53 short-term or transitional housing units in Boulder County, including 11 in Longmont, 11 in Lafayette, 11 in Louisville, and 20 in Boulder. Families may stay for up to nine weeks and are provided assistance with food, transportation to work, and minor medical expenses. There is no cost to the family, which means their income can funnel to getting out of debt and building savings so they can re-establish themselves in permanent housing at the end of their stay. Families can participate for up to two years and pay minimal rent. Clients have access to EFAA’s food bank and assistance with other basic needs, and work closely with a case manager. This longer stay can mean that a parent is able to finish their education, or secure a good job to rebuild from a crisis.\"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 40.0585035,
+      "_longitude": -105.27776979999999
+    },
+    "phone": "(303) 442-3042",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "9:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "9:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "12:00 PM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "9:30 AM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "9:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": false,
+    "serviceType": "Shelter",
+    "serviceSubtype": "Short Term & Transitional Housing",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1477267620,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.efaa.org/about-efaa/our-mission-2/housing/"
+  },
+  "-KUo5YsbqrFyyrrVJMU8": {
+    "address": {
+      "address1": "1575 Yarmouth Ave",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80304
+    },
+    "category": "Seniors,Disabled,Families",
+    "name": "Emergency Family Assistance Association (EFAA)",
+    "description": "\"Direct financial assistance is available to qualifying families with children, seniors and people with disabilities and can be in the form of vouchers, reimbursements or direct pay to cover things like: One-time rent or housing deposit assistance to keep clients in their homes, Hotel vouchers for short-term stays to prevent imminent homelessness, Energy-based utility bill assistance to keep the lights on and the home warm, Assistance with minor medical, dental or vision expenses, Assistance with fees for ID cards or birth certificates necessary for employment and Bus passes so clients can get to work or medical appointments. EFAA may also help clients connect with other organizations and resources for needs outside of EFAA’s offerings. This can include things like childcare, job training, plumbing repair, healthcare and educational financial aid guidance.\"",
+    "isApproved": true,
+    "kudos": 2,
+    "location": {
+      "_latitude": 40.0584971,
+      "_longitude": -105.27779720000001
+    },
+    "phone": "(303) 442-3042",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "9:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "9:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "12:00 PM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "9:30 AM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "9:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": false,
+    "serviceType": "Resources",
+    "serviceSubtype": "Financial Assistance",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.efaa.org/get-help/what-we-do-2/direct-financial-assistance/"
+  },
+  "-KUo6Y28IpbS2QId1IiM": {
+    "address": {
+      "address1": "1575 Yarmouth Ave",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80304
+    },
+    "category": "Kids",
+    "name": "Emergency Family Assistance Association (EFAA)",
+    "description": "\"The goal of EFAA’s Children’s Program is to minimize the harmful effects of homelessness on children, and help create a sense of childhood normalcy through programs and resources for children and their parents. Activities are focused on trauma management, socio-emotional support, school readiness, communication skills and life skills. \"",
+    "isApproved": true,
+    "kudos": 1,
+    "location": {
+      "_latitude": 40.0585035,
+      "_longitude": -105.27776979999999
+    },
+    "phone": "(303) 442-3042",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "9:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "9:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "12:00 PM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "9:30 AM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "9:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": false,
+    "serviceType": "Work",
+    "serviceSubtype": "Children's Program",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.efaa.org/about-efaa/our-stories-2/childrens-program-2/"
+  },
+  "-KUoxG-wCWHLHx0U_b54": {
+    "address": {
+      "address1": "26 Garden Center #3A",
+      "city": "Broomfield",
+      "state": "CO",
+      "zip": 80020
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Broomfield FISH",
+    "description": "\"FISH provides services to Broomfield residents who earn an annual income that is at or below 200% of the federal poverty guidlelines. FISH is open Monday through Friday from 9 am to noon and 1 pm to 5 pm, as well as Wednesday evenings from 5 to 7 pm.  If you are interested in learning more or want to access services, please call 303-465-1600.\"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 39.9233648,
+      "_longitude": -105.08621979999998
+    },
+    "phone": "(303) 465-1600",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Monday",
+        "from": "1:00 PM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "1:00 PM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "1:00 PM",
+        "to": "6:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "1:00 PM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "1:00 PM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food",
+    "serviceSubtype": "Food Pantry",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1477282320,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.broomfieldfish.org/our-services"
+  },
+  "-KUp-MD12Co-bUZnB7fG": {
+    "address": {
+      "address1": "26 Garden Center #3A",
+      "city": "Broomfield",
+      "state": "CO",
+      "zip": 80020
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Broomfield FISH",
+    "description": "\"FISH provides services to Broomfield residents who earn an annual income that is at or below 200% of the federal poverty guidlelines.  FISH is open Monday through Friday from 9 am to noon and 1 pm to 5 pm, as well as Wednesday evenings from 5 to 7 pm.  If you are interested in learning more or want to access services, please call 303-465-1600.\"",
+    "isApproved": true,
+    "kudos": 1,
+    "location": {
+      "_latitude": 39.9233648,
+      "_longitude": -105.08621979999998
+    },
+    "phone": "(303) 465-1600",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Monday",
+        "from": "1:00 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "1:00 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "1:00 PM",
+        "to": "7:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "1:00 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "1:00 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Resources",
+    "serviceSubtype": "Rent/Utility/Transportation Assistance",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1477283520,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.broomfieldfish.org/our-services"
+  },
+  "-KUuDI6sinHroGm6DcsY": {
+    "address": {
+      "address1": "4869 N. Broadway",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80304
+    },
+    "category": "Men,Women,Kids,Seniors,Disabled,Families,LGBT+,All",
+    "name": "Boulder Shelter for the Homeless",
+    "description": "\"Transition Program residents work closely with Shelter case managers to determine what has led them to homelessness, and what steps they must take to overcome their situation. Transition Program residents must live drug and alcohol free, pay a weekly program fee, and abide by a budget and savings plan.  To qualify for the Transition Program residents must have sustainable income that can be verified and an obtainable transition plan. Program residents have the opportunity to stay in a semi-private dorm room. The year-round transition program has a maximum stay of nine months. Anyone desiring to enter the Transition Program needs to schedule an intake appointment with a Shelter case manager. Clients currently staying at the Shelter can schedule an appointment by speaking with a staff member.\"",
+    "isApproved": true,
+    "kudos": 1,
+    "location": {
+      "_latitude": 40.0625682,
+      "_longitude": -105.2826169
+    },
+    "phone": "(303) 442-4646",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "5:00 PM",
+        "to": "11:59 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Monday",
+        "from": "12:00 AM",
+        "to": "10:00 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "5:00 PM",
+        "to": "11:59 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "12:00 AM",
+        "to": "10:00 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "5:00 PM",
+        "to": "11:59 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "12:00 AM",
+        "to": "10:00 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "5:00 PM",
+        "to": "11:59 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "12:00 AM",
+        "to": "10:00 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "5:00 PM",
+        "to": "11:59 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "12:00 AM",
+        "to": "10:00 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Saturday",
+        "from": "5:00 PM",
+        "to": "11:59 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Saturday",
+        "from": "12:00 AM",
+        "to": "10:00 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Sunday",
+        "from": "5:00 PM",
+        "to": "11:59 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Sunday",
+        "from": "12:00 AM",
+        "to": "10:00 AM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Shelter",
+    "serviceSubtype": "Transitional Housing",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1477371360,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://bouldershelter.org/programs.transition.html"
+  },
+  "-KWHDduSXpRuVZVeNeWV": {
+    "address": {
+      "address1": "3180 Airport Road",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80301
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Colorado Crisis Services (Boulder)",
+    "description": "\"If you don’t know where to begin getting mental health, substance use or emotional help for yourself or someone you know—start here. We provide confidential and immediate support, 24/7/365. If you are in crisis or need help dealing with one, call this toll-free number 1-844-493-TALK (8255) or text TALK to 38255 to speak to a trained professional. When you call Colorado Crisis Services, you will be connected to a crisis counselor or trained professional with a master’s or doctoral degree. We offer translation services for non-English speakers, we engage in immediate problem solving, and we always make follow-up calls to ensure you receive continued care. Our walk-in crisis services are open 24/7, and offer confidential, in-person crisis support, information and referrals to anyone in need. \"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.0330416,
+      "_longitude": -105.23389550000002
+    },
+    "phone": "(844) 493-8255",
+    "schedule": [
+      {
+        "type": "Open 24/7"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Health,Resources",
+    "serviceSubtype": "Walk-In Crisis & Addiction Services",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.mhpcolorado.org/Home.aspx"
+  },
+  "-KZjd-wM9YqiaedQ2C62": {
+    "address": {
+      "address1": "1419 Pine Street",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80302
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "St. John’s Episcopal Church",
+    "description": "\"For 25 years, St. John’s has provided a hot lunch and a bag lunch to working poor and homeless in Boulder on the first Sunday of each month. Guests have access to a variety of services including free haircuts, and medical screenings and consultations provided by the doctors, nurses, and therapists associated with St. Benedict Health and Healing Ministry, one of the non-profit partners.  Contact Mark Biggers (303-444-3916).\"",
+    "isApproved": true,
+    "kudos": 3,
+    "location": {
+      "_latitude": 40.0207968,
+      "_longitude": -105.27787039999998
+    },
+    "phone": "(303) 442-5246",
+    "schedule": [
+      {
+        "day": "Sunday",
+        "from": "12:00 PM",
+        "to": "1:00 PM",
+        "type": "Monthly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food,Health,Resources",
+    "serviceSubtype": "Soup Kitchen, Free Haircuts, Medical Screenings",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1482562860,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.stjohnsboulder.org/index.php/faith-in-action/outreach"
+  },
+  "-KZje46V311CqgT-vqVV": {
+    "address": {
+      "address1": "1419 Pine Street",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80302
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "St. John’s Episcopal Church - Whittier Pantry",
+    "description": "\"The St. John’s Whittier Pantry opened in September 2016 and is serving over 19 families. St. John’s has had a relationship with Whittier Elementary through Reading Camp and book drives. The Pantry opened to assist Whittier families, on a referral basis, with items that cannot be purchased with an EBT card. EBT cards cannot be used for: toothpaste, toothbrushes, shampoo, conditioner, soaps, lotions, toilet paper, deodorant, feminine products or diapers. Families can find all these items in the Whittier Pantry! The Pantry is open on Thursdays from 3:15 to 4:30 p.m.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.0207968,
+      "_longitude": -105.27787039999998
+    },
+    "phone": "(303) 442-5246",
+    "schedule": [
+      {
+        "day": "Thursday",
+        "from": "3:15 PM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Resources",
+    "serviceSubtype": "Hygiene",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.stjohnsboulder.org/index.php/faith-in-action/outreach"
+  },
+  "-KZjg21POuqx3p1hShkj": {
+    "address": {
+      "address1": "2200 Broadway",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80302
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Trinity Lutheran Church",
+    "description": "\"For the past 20 years, Trinity has been committed to providing lunch to those in need on the Second Sunday of every month.  As part of a partnership of downtown churches, Trinity provides a hot meal to anyone who walks in the door from 12:30-1:30pm.  We typically serve 80-140 guests, and at least twice a year we offer a special sit-down meal to our guests for Easter and Christmas with ham, potatoes, veggies, and pies provided by Trinity members. Each meal wraps up around 2:00pm. In addition, St. Benedict’s offers a free health clinic during Trinity’s meal.\"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 40.0202869,
+      "_longitude": -105.28050580000001
+    },
+    "phone": "(303) 442-2300",
+    "schedule": [
+      {
+        "day": "Sunday",
+        "from": "12:30 PM",
+        "to": "1:30 PM",
+        "type": "Monthly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food,Health",
+    "serviceSubtype": "Soup Kitchen, Free Clinic",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1482563400,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.trinityboulder.org/2nd-sunday-lunch/"
+  },
+  "-KZjkZb-wzcI2osISDca": {
+    "address": {
+      "address1": "1421 Spruce St.",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80302
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "First United Methodist Church",
+    "description": "'FUMC Boulder, in collaboration with four other local churches, is proud to provide the Heartfelt Café on the third Sunday of every month. This is a great opportunity to be involved with the community as well as benefiting those in need by providing a safe, warm, consistent place to get a hot meal. FUMC is a part of a group that consists of several other local faith communities that participate in providing a Sunday lunch at no charge to those less fortunate. The Heartfelt Café takes place in Mead Hall on the lower level of the church.'\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.0198088,
+      "_longitude": -105.27732730000002
+    },
+    "phone": "(303) 442-3770",
+    "schedule": [
+      {
+        "day": "Sunday",
+        "from": "12:00 PM",
+        "to": "1:00 PM",
+        "type": "Monthly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food",
+    "serviceSubtype": "Soup Kitchen",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://fumcboulder.org/service-and-community/heartfelt-cafe/"
+  },
+  "-KZjp8CevMk76TP1xqEQ": {
+    "address": {
+      "address1": "1128 Pine Street",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80302
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "First Congregational Church",
+    "description": "\"On the 4th Sunday of each month volunteers from FCC prepare and serve a midday meal in FCC’s Plymouth Hall for needy families and individuals in the community.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.0195637,
+      "_longitude": -105.2810925
+    },
+    "phone": "(303) 442-1787",
+    "schedule": [
+      {
+        "day": "Sunday",
+        "from": "12:00 PM",
+        "to": "1:00 PM",
+        "type": "Monthly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food,Health",
+    "serviceSubtype": "Soup Kitchen, Free Clinic",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.firstcong.net/currentoutreach.html#soup%20kitchen"
+  },
+  "-KZjtEwyMN-Ri-Yju7kr": {
+    "address": {
+      "address1": "1820 15th Street",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80302
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "First Presbyterian Church",
+    "description": "Lunch is served at First Presbyterian Church on Fifth Sunday of Every Month.",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.01733,
+      "_longitude": -105.27482900000001
+    },
+    "phone": "(303) 402.6400",
+    "schedule": [
+      {
+        "day": "Sunday",
+        "from": "12:00 PM",
+        "to": "1:00 PM",
+        "type": "Monthly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food",
+    "serviceSubtype": "Soup Kitchen",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://fpcboulder.org/serve/outreach-and-service/"
+  },
+  "-KZjwq6aF7CM3CiJLVrC": {
+    "address": {
+      "address1": "1820 15th Street",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80302
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "First Presbyterian Church - Deacons’ Closet",
+    "description": "\"The Deacons’ Closet offers clothing, toiletries, small housewares, books and other miscellaneous items at no cost to individuals with special or recurring needs. The clothing distributed is intended for all ages, styles, and sizes. We are located in the First Pres Annex on the northeast corner of 16th and Walnut. The Closet is open to the public from 9:30-10:30am on Thursday mornings. The First Pres congregation and individuals with special or immediate needs may receive personal shopping attention between 8:30-9:30am on Thursday mornings, or by making special arrangements through the Church office. The Closet closes only on national holidays, or when the Boulder Valley School District is closed due to inclement weather. \"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.01733,
+      "_longitude": -105.27482900000001
+    },
+    "phone": "(303) 402-6400",
+    "schedule": [
+      {
+        "day": "Thursday",
+        "from": "9:30 AM",
+        "to": "10:30 AM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Resources",
+    "serviceSubtype": "Clothing, Toiletries, Housewares, Books and More",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://fpcboulder.org/contact-us/"
+  },
+  "-KZll-WGrF-gIIINEpsI": {
+    "address": {
+      "address1": "6th and Canyon at 1777 6th St",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80302
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Colorado FriendShip",
+    "description": "\"For more than 15 years, Colorado FriendShip has served hot meals and distributed clothing to the homeless and destitute in Boulder County. Colorado FriendShip’s Hot Meals on the Street serves 5,000 meals a year, but the need is far greater. We are one of the very few Boulder County nonprofits that takes hot meals and critically needed clothing directly to where indigent people live. Our mobile trailers are fully stocked with food and clothing. Whether in concert with other nonprofits or on our own, we deliver the goods where they’re needed, when they’re needed. With your help, our mobile food and clothing unit can continue to serve this needy community.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.0144593,
+      "_longitude": -105.2887452
+    },
+    "phone": "(303) 545-0242",
+    "schedule": [
+      {
+        "day": "Sunday",
+        "from": "5:00 PM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food,Resources",
+    "serviceSubtype": "Hot Meals & Clothing on the Street",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.coloradofriendship.org/prgrms_hotmeals.html"
+  },
+  "-KZlz8d-bt98amO4TObD": {
+    "address": {
+      "address1": "2960 Valmont Rd.",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80301
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Harvest of Hope",
+    "description": "\"For those without a kitchen, we ask you to simply provide your first name each time you come. There is no application for drop-in shopping. For those with kitchens wishing to apply for food assistance, An application must be completed. The following items must accompany the application: Photo identification for all adults listed on the application. Identification for all children 18 years old and younger, which includes one of the following: A birth certificate, Social Security card, school registration or school ID. Proof of city of Boulder residency, which may include one of the following: A rental agreement, mortgage statement or a piece of official mail. Those with Kitchens Our shopping area is set up from: 8:30 to 10:30 a.m | Monday – Friday. Evening hours for those unable to shop in the morning: 4:30 to 6:30 pm Thursday evening. Please be sure that you are checked in no later than 6:15 pm. Those Without Kitchens our shopping area is set up from: 1 to 3 p.m. | Monday – Friday\"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 40.0290483,
+      "_longitude": -105.25495380000001
+    },
+    "phone": "(720) 382-1971",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "8:30 AM",
+        "to": "10:30 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Monday",
+        "from": "1:00 PM",
+        "to": "3:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "8:30 AM",
+        "to": "10:30 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "1:00 PM",
+        "to": "3:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "8:30 AM",
+        "to": "10:30 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "1:00 PM",
+        "to": "3:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "8:30 AM",
+        "to": "10:30 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "1:00 PM",
+        "to": "3:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "4:30 PM",
+        "to": "6:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "8:30 AM",
+        "to": "10:30 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "1:00 PM",
+        "to": "3:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food",
+    "serviceSubtype": "Food Pantry for With/Without Kitchen",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1482601080,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://hopepantry.org/services/#hours"
+  },
+  "-KZmZLsePMnbA1nQBl4G": {
+    "address": {
+      "address1": "1419 Pine Street",
+      "address2": "St. John’s Episcopal Church",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80302
+    },
+    "category": "Women",
+    "name": "Boulder Homeless Women’s Initiative",
+    "description": "\"Boulder Homeless Women's Initiative provides a safe and welcoming place for women who are or have been without shelter to experience God's love and acceptance. We also provide a setting for individuals and organizations interested in filling gaps or improving services to hear directly from the women about their needs. The BHWI Voucher Program started in July 2014, whereby ladies receive credit of $10/hr. for community service. The credit is redeemable for bus passes, recreation center passes for showers, grocery and Target gift cards.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.0207968,
+      "_longitude": -105.27787039999998
+    },
+    "phone": "(303) 442-5246",
+    "schedule": [
+      {
+        "day": "Thursday",
+        "from": "1:30 PM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": false,
+    "serviceType": "Work",
+    "serviceSubtype": "Voucher Program",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.stjohnsboulder.org/index.php/faith-in-action/9-outreach/149-bhwi"
+  },
+  "-KZn9BobPrlp2rJHCd-y": {
+    "address": {
+      "address1": "2691 30th St",
+      "address2": "",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": "80301"
+    },
+    "category": "Men,Women,Kids,Seniors,Disabled,Families,LGBT+,All",
+    "name": "Bridge House - Path to Home Lodge and Navigation Center",
+    "description": "\"Bridge House offers a range of opportunities for homeless men and women to improve their lives. Through our Bridge of Opportunity we offer a bridge to a brighter future. We provide breakfast and lunch five days a week to Boulder Homeless Service collaborative day shelter and dinners served at local churches. \"",
+    "isApproved": true,
+    "kudos": 6,
+    "location": {
+      "_latitude": 40.0275704,
+      "_longitude": -105.25449779999997
+    },
+    "phone": "(303) 442-8300",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "9:00 AM",
+        "to": "3:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "9:00 AM",
+        "to": "3:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "9:00 AM",
+        "to": "3:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "9:00 AM",
+        "to": "3:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "9:00 AM",
+        "to": "3:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food,Shelter,Health,Resources,Work",
+    "serviceSubtype": "Breakfast, Lunch, Day shelter, Toiletries, Clothing, Counseling, Job Search Assistance, Coordinated Entry",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1482620940,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://boulderbridgehouse.org/path-to-home/"
+  },
+  "-KZnEV7p46JtkYBLYPIc": {
+    "address": {
+      "address1": "1421 Spruce St.",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80302
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "First United Methodist Church",
+    "description": "\"FUMC Boulder, in collaboration with four other local churches, is proud to provide the Heartfelt Café on the third Sunday of every month. This is a great opportunity to be involved with the community as well as benefiting those in need by providing a safe, warm, consistent place to get a hot meal. FUMC is a part of a group that consists of several other local faith communities that participate in providing a Sunday lunch at no charge to those less fortunate.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.0198088,
+      "_longitude": -105.27732730000002
+    },
+    "phone": "(303) 442-3770",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "5:00 PM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "5:00 PM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "5:00 PM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food",
+    "serviceSubtype": "Community Table\\Dinner",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://fumcboulder.org/service-and-community/heartfelt-cafe/"
+  },
+  "-KZnFdkqCyRM3tJ9e7-b": {
+    "address": {
+      "address1": "355 Ponca Place",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80303
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Mountain View Methodist Church",
+    "description": "\"Mountain View UMC partners with Bridge House and BOHO to host a weekly community table meal provided at no charge on Tuesday evenings from 5:00 – 6:00 pm.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 39.9937424,
+      "_longitude": -105.23553950000002
+    },
+    "phone": "(303) 494-5025",
+    "schedule": [
+      {
+        "day": "Tuesday",
+        "from": "5:00 PM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food",
+    "serviceSubtype": "Community Table\\Dinner",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://mtview.org/ministries/boulder-homeless-shelter-meals/"
+  },
+  "-KZnGsM70STVs_OQimec": {
+    "address": {
+      "address1": "1419 Pine Street",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80302
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "St. John's Episcopal Church",
+    "description": "\"On Fridays at 4:15 p.m., a time of spiritual nourishment is held that is open to everyone but is especially for our friends who call the street their home.  Mealtime nourishment follows at 5:00 p.m., especially for those whose home is on the street.  Participants may attend one or both programs.  Contact Deacon Jan Dewlen  303-775-6796.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.0207968,
+      "_longitude": -105.27787039999998
+    },
+    "phone": "(303) 442-5246",
+    "schedule": [
+      {
+        "day": "Friday",
+        "from": "5:00 PM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food",
+    "serviceSubtype": "Community Table\\Dinner",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.stjohnsboulder.org/index.php/faith-in-action/outreach"
+  },
+  "-KZnJ9biEZea6dGK34uK": {
+    "address": {
+      "address1": "1820 15th St.",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80302
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "The Lamb's Ministry",
+    "description": "\"As the hands and feet of Jesus Christ, we seek to meet physical and spiritual needs of the homeless and disadvantaged in the Boulder area. Through shared food, shared faith, and shared fellowship, we encourage all in the Lamb's Ministry to grow closer to Jesus.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.01733,
+      "_longitude": -105.27482900000001
+    },
+    "phone": "(303) 402-6400",
+    "schedule": [
+      {
+        "day": "Thursday",
+        "from": "8:00 AM",
+        "to": "9:30 AM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food",
+    "serviceSubtype": "Breakfast",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://lambsministry.org/"
+  },
+  "-KZnPFZkHYmZILzaU-PX": {
+    "address": {
+      "address1": "3482 Broadway",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80304
+    },
+    "category": "Women,Kids",
+    "name": "WIC: Women, Infants and Children (Boulder)",
+    "description": "\"WIC promotes and maintains the health and well-being of nutritionally at-risk pregnant, breastfeeding, and postpartum women and infants and children by providing: Supplemental nutritious foods,  Nutrition and breastfeeding information and Referral to other health and nutrition services\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.0377945,
+      "_longitude": -105.28020600000002
+    },
+    "phone": "303-413-7520",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "8:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "8:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "8:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "8:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": false,
+    "serviceType": "Food",
+    "serviceSubtype": "Food Assistance(SNAP)",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "www.BoulderCountyWIC.org"
+  },
+  "-KZnRX-8rV1552vd0P7_": {
+    "address": {
+      "address1": "515 Coffman Street",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": 80501
+    },
+    "category": "Women,Kids",
+    "name": "WIC: Women, Infants and Children (Longmont)",
+    "description": "\"WIC promotes and maintains the health and well-being of nutritionally at-risk pregnant, breastfeeding, and postpartum women and infants and children by providing: Supplemental nutritious foods,  Nutrition and breastfeeding information and Referral to other health and nutrition services\"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 40.1684319,
+      "_longitude": -105.10422549999998
+    },
+    "phone": "(303) 678-6130",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "8:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "8:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "8:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "8:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "8:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": false,
+    "serviceType": "Food",
+    "serviceSubtype": "Supplemental Nutritious Foods",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1482626640,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "www.BoulderCountyWIC.org"
+  },
+  "-KZnScxOgxQxcyGn0Y1k": {
+    "address": {
+      "address1": "1345 Plaza Court North # 3A",
+      "city": "Lafayette",
+      "state": "CO",
+      "zip": 80026
+    },
+    "category": "Women,Kids",
+    "name": "WIC: Women, Infants and Children (Lafayette)",
+    "description": "\"WIC promotes and maintains the health and well-being of nutritionally at-risk pregnant, breastfeeding, and postpartum women and infants and children by providing: Supplemental nutritious foods,  Nutrition and breastfeeding information and Referral to other health and nutrition services\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 39.9864839,
+      "_longitude": -105.10889159999999
+    },
+    "phone": "(720) 564-2213",
+    "schedule": [
+      {
+        "day": "Tuesday",
+        "from": "8:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "8:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "8:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": false,
+    "serviceType": "Food",
+    "serviceSubtype": "Supplemental Nutritious Foods",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "www.BoulderCountyWIC.org"
+  },
+  "-KZns1vnlm-AOC8m8A8Q": {
+    "address": {
+      "address1": "655 Aspen Ridge Drive",
+      "city": "Lafayette",
+      "state": "CO",
+      "zip": 80026
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Sister Carmen Community Center",
+    "description": "\"For nearly 40 years, as a non-religious agency, Sister Carmen Community Center has provided assistance to residents of East Boulder County who are in need, without discrimination. We are the only organization providing basic need services and resources to the most vulnerable residents in East Boulder County. Through our family-centered programming we promote health and well-being and economic stability by meeting face-to-face with the people we serve. We help those in need to improve the quality of their lives through meeting basic needs, preventing homelessness, help with obtaining employment, parenting support, and meaningful family and child centered activities\"",
+    "isApproved": true,
+    "kudos": 1,
+    "location": {
+      "_latitude": 40.0028267,
+      "_longitude": -105.10650629999998
+    },
+    "phone": "(303) 665-4342",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "9:30 AM",
+        "to": "11:30 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Monday",
+        "from": "1:00 PM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "9:30 AM",
+        "to": "11:30 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "1:00 PM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "1:00 PM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "9:30 AM",
+        "to": "11:30 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "1:00 PM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "9:30 AM",
+        "to": "11:30 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "1:00 PM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food,Health,Resources",
+    "serviceSubtype": "Food Bank, Financial Assistance(Utility, Rent or mortgage, Eyeglasses, Prescriptions, Transportation), Dental Exams, Behavioural health counseling & more",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://sistercarmen.org/sister-carmen-community-center-lafayette-co/"
+  },
+  "-KZomZhy4WBsvTu6tcXC": {
+    "address": {
+      "address1": "220 Collyer St",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": 80501
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "OUR Center Community Cafe",
+    "description": "\"Our Hospitality Care services can all be found inside our facility. New members must become a participant first by meeting with a trained Resource Navigator and  once a plan is agree upon these services may be offered to assist with basic need expenses. Warm, nutritious meals are created 364 days a year with our assistance of our in-house cook and volunteer staff. Weekend meals are provided by Café Outreach Team’s which are families, schools, businesses, and faith-based groups from our community. Community Cafe Lunch 7 days a week 11:30am-1pm. Breakfast M-F 8:30am-9:30am.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.1630592,
+      "_longitude": -105.09771369999999
+    },
+    "phone": "(303) 772-5529",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "8:30 AM",
+        "to": "9:30 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Monday",
+        "from": "11:30 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "8:30 AM",
+        "to": "9:30 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "11:30 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "8:30 AM",
+        "to": "9:30 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "11:30 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "8:30 AM",
+        "to": "9:30 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "11:30 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "8:30 AM",
+        "to": "9:30 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "11:30 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Saturday",
+        "from": "11:30 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Sunday",
+        "from": "11:30 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food",
+    "serviceSubtype": "Breakfast\\Lunch",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://www.ourcenter.org/hospitality-care/"
+  },
+  "-KZonwiA8ZclSu6DhwYC": {
+    "address": {
+      "address1": "220 Collyer St",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": 80501
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "OUR Center Hospitality Care",
+    "description": "\"Our Hospitality Care services can all be found inside our facility. New members must become a participant first by meeting with a trained Resource Navigator and  once a plan is agree upon these services may be offered to assist with basic need expenses. The Community Market provides a personal shopping experience with a trained staff member or volunteer to ensure families and individuals are provided healthy options for their specific needs. All items and produce are provided by donations from the community and local gardens.  The Community Closet understand that the expense of work clothes, children’s clothes, and weather appropriate clothing is a great worry when income is low or fixed. \"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.1630592,
+      "_longitude": -105.09771369999999
+    },
+    "phone": "(303) 772-5529",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "9:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "9:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "9:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "9:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "9:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food,Resources",
+    "serviceSubtype": "Food Pantry, Clothing",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://www.ourcenter.org/hospitality-care/"
+  },
+  "-KZou5mnLo0fzOifufJe": {
+    "address": {
+      "address1": "1500 Hover Street",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": 80501
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Westview Presbyterian Church",
+    "description": "\"The Round Pantry welcomes anyone who needs food. Distributing food from Community Food Share twice a month, The Round Pantry is set up in a “grocery store style” so that shoppers may select the food they need and can use. Food categories include dairy, frozen or canned meat, produce, boxed meals and other grains, canned goods, and baby/toddler food. Every household receives a gallon of fresh milk. Based on family size, a color-coded allotment system is used to insure that each member of a shopper’s family receives approximately a two-week supply of food at each Pantry opening. Shoppers are asked to bring a photo ID and a current utility bill. The Round Pantry database is confidential & not connected to any other agency.\"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 40.185446,
+      "_longitude": -105.13021980000002
+    },
+    "phone": "(303) 776-3242",
+    "schedule": [
+      {
+        "day": "Tuesday",
+        "from": "2:00 PM",
+        "to": "7:00 PM",
+        "type": "Monthly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "2:00 PM",
+        "to": "7:00 PM",
+        "type": "Monthly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food",
+    "serviceSubtype": "Round Pantry",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1482651000,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://westviewpres.org/round-pantry/"
+  },
+  "-KZoy9POEo3_r6UhVbCI": {
+    "address": {
+      "address1": "7845 Lookout Rd.",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": 80503
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Vinelife Community Church",
+    "description": "\"Vinelife values meaningful ministry that touches the needs of our community. We work diligently to love the poor, feed the hungry, clothe the needy, defend the helpless, and do what we can to help people get a new start in life. We value the grace of God & it’s accessibility to us in every station of life. Wellspring Storehouse is a resource center at Vinelife that answers God’s call to reach out with compassion and meet the basic needs of our own church body, our friends and neighbors, and our local community. The Storehouse is open to the church body and to individuals in our community who need assistance.\"",
+    "isApproved": true,
+    "kudos": 1,
+    "location": {
+      "_latitude": 40.0732998,
+      "_longitude": -105.17080799999997
+    },
+    "phone": "(303) 449-3330",
+    "schedule": [
+      {
+        "day": "Thursday",
+        "from": "10:00 AM",
+        "to": "11:30 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Sunday",
+        "from": "11:45 AM",
+        "to": "12:45 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food,Resources",
+    "serviceSubtype": "Food Bank, Clothing",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.vinelife.com/ministries/outreach/"
+  },
+  "-KZp-dNYbNp9k6ItrHGk": {
+    "address": {
+      "address1": "804 S Lincoln St",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": 80501
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "St. John the Baptist Catholic Church",
+    "description": "\"Our St. John’s Food Bank was established in 2002 so that we could feed the poorest of the poor in our community without turning anyone away. It all began in a space the size of a closet and because of your support and generosity, our good works of feeding the hungry were able to expand to several larger locations as time went on.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.1500371,
+      "_longitude": -105.11283679999997
+    },
+    "phone": "(303) 678-1469",
+    "schedule": [
+      {
+        "day": "Tuesday",
+        "from": "10:30 AM",
+        "to": "7:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "11:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "10:00 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food",
+    "serviceSubtype": "Food Bank",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.johnthebaptist.org/apps/pages/index.jsp?uREC_ID=244593&type=d&pREC_ID=581280"
+  },
+  "-KZp4FEfIUgobXj28Co4": {
+    "address": {
+      "address1": "741 Jefferson Avenue",
+      "city": "Louisville",
+      "state": "CO",
+      "zip": 80027
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "United Methodist Church Louisville",
+    "description": "\"The Louisville Community Food Bank is a key ministry of the Louisville United Methodist Church. Our food bank, started in 1982, serves eastern Boulder County, including the communities of Louisville, Lafayette and Superior. We provide ‘shopping’ as well as quarterly food deliveries to nearly 300 families. A Christmas gift program for children and seniors is run by the food bank, and gifts are delivered by the Louisville Fire Department and Santa himself.  We also provide Christmas dinners for our Food Bank recipients complete with a turkey and all the trimmings. If you or someone you know needs immediate food assistance, please call the church office. The food bank is open Tuesday and Wednesday from 9 AM to noon (except on holidays).\"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 39.9776081,
+      "_longitude": -105.13494760000003
+    },
+    "phone": "(303) 666-8812",
+    "schedule": [
+      {
+        "day": "Tuesday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food",
+    "serviceSubtype": "Food Bank",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1482653760,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.louisvilleumc.org/who-we-are/louisville-food-bank/"
+  },
+  "-KZp6r8eHas3LZRynIW1": {
+    "address": {
+      "address1": "350 Main St",
+      "city": "Lyons",
+      "state": "CO",
+      "zip": 80540
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Lyons Community Church",
+    "description": "\"Established in 2008, the pantry distributed pre-boxed, nonperishable foods but several years later changed to a grocery store model of distribution where recipients select the items they need based on the size of their household. In 2009 the pantry became a member agency of Community Food Share and expanded to provide both perishable and nonperishable items including frozen meat, dairy, produce and bread.\"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 40.2249176,
+      "_longitude": -105.26952349999999
+    },
+    "phone": "(303) 823-6245",
+    "schedule": [
+      {
+        "day": "Wednesday",
+        "from": "3:30 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food",
+    "serviceSubtype": "Food Pantry",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1482654780,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.lyonscommunitychurch.org/LCC_food_pantry.shtml"
+  },
+  "-KZtLslxZhmV3gFPnwMv": {
+    "address": {
+      "address1": "750 North Highway 72",
+      "city": "Nederland",
+      "state": "CO",
+      "zip": 80466
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Nederland Community Center",
+    "description": "\"The Food Pantry is available to all Peak to Peak residents in need. You are invited to the Food Pantry, in the west wing of the Nederland Community Center (750 Highway 72, Nederland), every Saturday 10-12 and the first & last Thursday of each month 10-12.\"",
+    "isApproved": true,
+    "kudos": 1,
+    "location": {
+      "_latitude": 39.9647048,
+      "_longitude": -105.51221290000001
+    },
+    "phone": "(303) 258-9721",
+    "schedule": [
+      {
+        "day": "Saturday",
+        "from": "10:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "10:00 AM",
+        "to": "12:00 PM",
+        "type": "Monthly"
+      },
+      {
+        "day": "Thursday",
+        "from": "10:00 AM",
+        "to": "12:00 PM",
+        "type": "Monthly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food",
+    "serviceSubtype": "Food Pantry",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1482725820,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://nederlandfoodpantry.org/"
+  },
+  "-KZt_9tuQvSwyTFRdDWY": {
+    "address": {
+      "address1": "14863 CO Hwy 7",
+      "city": "Allenspark",
+      "state": "CO",
+      "zip": 80510
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "The Old Gallery Community Cupboard",
+    "description": "\"The Community Cupboard® Food Bank as an outreach of The Old Gallery is focused on providing Allenspark area residents with a means to obtain quality food and personal items in an environment where all are welcome; personal privacy is respected; and financial disclosure is not requested. The operation of Community Cupboard Food Bank is accomplished through the generous support of an all-volunteer network in the Allenspark community. As weather permits, distributions are held two times per month on the first and third Wednesday’s during the hours of 2:00 – 4:00 PM. The Community Clothes Closet is located on the second floor of The Old Gallery. The Community Clothes Closet provides for a year-round resource for gently used clothes and some household items.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.19648660000001,
+      "_longitude": -105.52719159999998
+    },
+    "phone": "(303) 747-2906",
+    "schedule": [
+      {
+        "day": "Wednesday",
+        "from": "2:00 PM",
+        "to": "4:00 PM",
+        "type": "Monthly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "2:00 PM",
+        "to": "4:00 PM",
+        "type": "Monthly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food,Resources",
+    "serviceSubtype": "Food Bank, Clothes Closet, Household Items",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.theoldgallery.org/outreach/community-food-bank-and-closet/"
+  },
+  "-KZtbZMIe3RXL2x6G_Bg": {
+    "address": {
+      "address1": "1500 Hover St",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": 80501
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Community Food Share TEFAP Mobile Pantry",
+    "description": "\"Distributed in the parking lot of Westview Presbyterian Church, 1500 Hover St. First and third Tuesday of each month, from 12:00 – 2:00pm. Call 303-652-3663 for more information. Community Food Share is a distributor of TEFAP (The Emergency Food Assistance Program of the federal government) in Boulder and Broomfield Counties. To be eligible for TEFAP commodities, household income must meet federal guidelines. TEFAP food is available once per month. Photo ID and proof of residence is required.\"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 40.185446,
+      "_longitude": -105.13021980000002
+    },
+    "phone": "(303) 652-3663",
+    "schedule": [
+      {
+        "day": "Tuesday",
+        "from": "12:00 PM",
+        "to": "2:00 PM",
+        "type": "Monthly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "12:00 PM",
+        "to": "2:00 PM",
+        "type": "Monthly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food",
+    "serviceSubtype": "Mobile Pantry",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1482730080,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://communityfoodshare.org/how-does-a-food-bank-operate/mobile-pantry/"
+  },
+  "-KZtdbiCGKE9-yP0Ou9j": {
+    "address": {
+      "address1": "950 Lashley Street",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": 80504
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Community Food Share Mobile Pantry at YMCA",
+    "description": "\"Ed and Ruth Lehman YMCA in Longmont 950 Lashley Street in Longmont (in the parking lot). Every 1st and 3rd Thursday of each month, from 10:00am – 12:00pm. Participants must bring: Photo ID and proof of current address in Boulder or Broomfield County (piece of mail for example). Call 303-652-3663 for more information.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.1749867,
+      "_longitude": -105.08726139999999
+    },
+    "phone": "(303) 652-3663",
+    "schedule": [
+      {
+        "day": "Thursday",
+        "from": "10:00 AM",
+        "to": "12:00 PM",
+        "type": "Monthly"
+      },
+      {
+        "day": "Thursday",
+        "from": "10:00 AM",
+        "to": "12:00 PM",
+        "type": "Monthly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food",
+    "serviceSubtype": "Mobile Pantry",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://communityfoodshare.org/how-does-a-food-bank-operate/mobile-pantry/"
+  },
+  "-KZtkEEjVNmFCyYH7Mzm": {
+    "address": {
+      "address1": "P. O. Box 325",
+      "city": "Louisville",
+      "state": "CO",
+      "zip": 80027
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "St. Benedict Health and Healing Ministry",
+    "description": "\"Free Clinic Times and Locations: St. John’s Episcopal Church (1419 Pine Street, Boulder) 1st Sunday of every month, 11:30am-2pm. Trinity Lutheran Church (2200 Broadway, Boulder) 2nd Sunday of every month, 11:30am-2pm. First Congregational Church (1128 Pine Street, Boulder) 4th Sunday of every month, 11:30am-2pm. Sister Carmen Community Center Food Bank (655 Aspen Ridge Drive, Lafayette) every 1st, 3rd, and 4th Thursday 1:00pm-4:30pm. Our Center, Longmont, Every Thursday during lunch, 11:00am-2pm. Boulder Housing Partners, Alternating each month between Walnut Place and Canyon Point. \"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 39.977763,
+      "_longitude": -105.13192960000003
+    },
+    "phone": "(303) 380-3132",
+    "schedule": [
+      {
+        "day": "Thursday",
+        "from": "11:00 AM",
+        "to": "2:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "1:00 PM",
+        "to": "4:30 PM",
+        "type": "Monthly"
+      },
+      {
+        "day": "Thursday",
+        "from": "1:00 PM",
+        "to": "4:30 PM",
+        "type": "Monthly"
+      },
+      {
+        "day": "Thursday",
+        "from": "1:00 PM",
+        "to": "4:30 PM",
+        "type": "Monthly"
+      },
+      {
+        "day": "Sunday",
+        "from": "11:30 AM",
+        "to": "2:00 PM",
+        "type": "Monthly"
+      },
+      {
+        "day": "Sunday",
+        "from": "11:30 AM",
+        "to": "2:00 PM",
+        "type": "Monthly"
+      },
+      {
+        "day": "Sunday",
+        "from": "11:30 AM",
+        "to": "2:00 PM",
+        "type": "Monthly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Health",
+    "serviceSubtype": "Free Clinic (different locations)",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1482731820,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.stbenedicthealthandhealing.org/what-we-offer/"
+  },
+  "-KZxJnwZlu_yOllOs_JE": {
+    "address": {
+      "address1": "2855 Valmont St",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80301
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Boulder Valley Women's Health Center (Boulder)",
+    "description": "\"Through our partnership with Boulder County AIDS Project,  FREE rapid HIV testing is also available on a walk-in basis to Women’s Health patients at Women’s Health. Testing available on the first two Tuesdays of the month from 4-6pm at our Boulder location, and the third Thursday of the month from 4-6pm at our Longmont location. \"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 40.0296865,
+      "_longitude": -105.2565505
+    },
+    "phone": "(303) 442-5160",
+    "schedule": [
+      {
+        "day": "Tuesday",
+        "from": "4:00 PM",
+        "to": "6:00 PM",
+        "type": "Monthly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "4:00 PM",
+        "to": "6:00 PM",
+        "type": "Monthly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Health",
+    "serviceSubtype": "Free HIV Testing",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1482792180,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://bcap.org/outreach-testing-programs/testing/"
+  },
+  "-KZxKPnKVHkbZuk4vNvM": {
+    "address": {
+      "address1": "82 21st Ave, Ste C",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": 80501
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Boulder Valley Women's Health Center (Longmont)",
+    "description": "\"Through our partnership with Boulder County AIDS Project,  FREE rapid HIV testing is also available on a walk-in basis to Women’s Health patients at Women’s Health. Testing available on the first two Tuesdays of the month from 4-6pm at our Boulder location, and the third Thursday of the month from 4-6pm at our Longmont location. \"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.1968884,
+      "_longitude": -105.09568690000003
+    },
+    "phone": "(303) 442-5160",
+    "schedule": [
+      {
+        "day": "Thursday",
+        "from": "4:00 PM",
+        "to": "6:00 PM",
+        "type": "Monthly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Health",
+    "serviceSubtype": "Free HIV Testing",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://bcap.org/outreach-testing-programs/testing/"
+  },
+  "-KZxONqKHW6qLjUF7OYW": {
+    "address": {
+      "address1": "455 Kimbark St",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": 80501
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "El Comité de Longmont",
+    "description": "\"On the first Monday of the month, we will be offering free, rapid HIV testing in English and Spanish and safer sex supplies at El Comité de Longmont off of 4th and Kimbark St from 12pm – 2pm. Walk-ins welcome! En el primer lunes de cada mes, estaremos ofreciendo pruebas gratuitas y rápidas del VIH en Inglés y Español en El Comité de Longmont desde 12pm hasta 2pm. ¡Tod@s son bienvenid@s!\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.16678479999999,
+      "_longitude": -105.10144489999999
+    },
+    "phone": "(303) 651-6125",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "12:00 PM",
+        "to": "2:00 PM",
+        "type": "Monthly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Health",
+    "serviceSubtype": "Free HIV Testing",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.elcomitedelongmont.org/en/programs-and-services/"
+  },
+  "-KZxRjPcdHs0x79T3JpA": {
+    "address": {
+      "address1": "2249 Willard Loop Dr",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80305
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "CU Boulder’s Gender and Sexuality Center",
+    "description": "\"On the first Thursday of the month, we will be offering free, rapid HIV testing and safer sex supplies at CU Boulder’s Gender and Sexuality Center in the C4C (Center for Community) from 3pm – 5pm. Walk-ins welcome!\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.0045248,
+      "_longitude": -105.26492289999999
+    },
+    "phone": "(303) 492-1377",
+    "schedule": [
+      {
+        "day": "Thursday",
+        "from": "3:00 PM",
+        "to": "5:00 PM",
+        "type": "Monthly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Health",
+    "serviceSubtype": "Free HIV Testing",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.colorado.edu/gsc/"
+  },
+  "-KZxV5YWauEcr7jfPche": {
+    "address": {
+      "address1": "2855 Valmont Road",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80301
+    },
+    "category": "Kids,LGBT+",
+    "name": "BVWHC TEEN CLINIC (Boulder)",
+    "description": "\"Teen Clinic is a sexual health clinic located in Boulder and Longmont, Colorado– and it’s just for teens! ALL services at Teen Clinic are free or low-cost and confidential. At Teen Clinic we will listen to you with respect. We will work with you to make sure you are getting great care. You are unique–that’s why it’s your Teen Clinic! In a recent survey, teens said they wanted more options for when they can come to Teen Clinic. Because of that feedback, our specialized Teen Clinic care and pricing are now available any time the clinic is open. If you prefer to come in during teen-only hours, we still offer those as well.  It on Saturday: 11-3pm for teens ONLY at Boulder Location and  Monday: 2-6pm for teens ONLY at Longmont location. Text us!  Send “ToTC [your question here]” to 66746.  This is a free, confidential service. We will respond to you within 24 hours.\"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 40.0296865,
+      "_longitude": -105.2565505
+    },
+    "phone": "(303) 442-5160",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "9:00 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Monday",
+        "from": "2:00 PM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "9:00 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "2:00 PM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "9:00 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "2:00 PM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "2:00 PM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Saturday",
+        "from": "11:00 AM",
+        "to": "3:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": false,
+    "serviceType": "Health",
+    "serviceSubtype": "Sexual Health Clinic",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1482794820,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://teenclinic.org/about/get-healthy/your-teen-clinic/"
+  },
+  "-KZxWL3GE50dj8gchHc_": {
+    "address": {
+      "address1": "82 21st Ave, Suite C",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": 80501
+    },
+    "category": "Kids,LGBT+",
+    "name": "BVWHC TEEN CLINIC (Longmont)",
+    "description": "\"Teen Clinic is a sexual health clinic located in Boulder and Longmont, Colorado– and it’s just for teens! ALL services at Teen Clinic are free or low-cost and confidential. At Teen Clinic we will listen to you with respect. We will work with you to make sure you are getting great care. You are unique–that’s why it’s your Teen Clinic! In a recent survey, teens said they wanted more options for when they can come to Teen Clinic. Because of that feedback, our specialized Teen Clinic care and pricing are now available any time the clinic is open. If you prefer to come in during teen-only hours, we still offer those as well.  It on Saturday: 11-3pm for teens ONLY at Boulder Location and  Monday: 2-6pm for teens ONLY at Longmont location. Text us!  Send “ToTC [your question here]” to 66746.  This is a free, confidential service. We will respond to you within 24 hours. Teen Clinic uses next-day scheduling. When making an appointment, make sure you mention your age.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.1968884,
+      "_longitude": -105.09568690000003
+    },
+    "phone": "(303) 442-5160",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "9:00 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Monday",
+        "from": "2:00 PM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "9:00 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "2:00 PM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "2:00 PM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "9:00 AM",
+        "to": "2:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": false,
+    "serviceType": "Health",
+    "serviceSubtype": "Sexual Health Clinic",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://teenclinic.org/about/get-healthy/your-teen-clinic/"
+  },
+  "-KZxhovoEAL7pcalVKUl": {
+    "address": {
+      "address1": "2000 W. South Boulder Rd.",
+      "city": "Lafayette",
+      "state": "CO",
+      "zip": 80026
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Clinica  (Lafayette)",
+    "description": "\"Since 1977, Clinica has existed to provide comprehensive primary care to the struggling residents of south Boulder, Broomfield and west Adams counties.  We offer our patients a full spectrum of medical services, behavioral health care, dental care, full-service pharmacies and more.  Most importantly, though, we offer our patients a medical home: a place where they can come for all of their needs; a place where the doctors and nurses know them by their first name.  We want to help our patients get all of the health care they need -- when they need it -- in order to stay well. At this site, we offer: Comprehensive medical services, Minor surgical procedures, Behavioral health services, Nutrition services, Group visits, Case management services, Pharmacy outlet and Dental hygienist services for children\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 39.9873896,
+      "_longitude": -105.11672529999998
+    },
+    "phone": "(303) 650-4460",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "8:00 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Monday",
+        "from": "2:00 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "8:00 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "2:00 PM",
+        "to": "8:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "8:00 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "2:00 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "8:00 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "2:00 PM",
+        "to": "8:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "8:00 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "2:00 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Health",
+    "serviceSubtype": "Family Health Clinic",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://clinica.org/locations/lafayette/"
+  },
+  "-KZxk_U_u1-gdJPQJlnX": {
+    "address": {
+      "address1": "2525 13th St.",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80304
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Clinica People's (Boulder)",
+    "description": "\"Since 1977, Clinica has existed to provide comprehensive primary care to the struggling residents of south Boulder, Broomfield and west Adams counties.  We offer our patients a full spectrum of medical services, behavioral health care, dental care, full-service pharmacies and more.  Most importantly, though, we offer our patients a medical home: a place where they can come for all of their needs; a place where the doctors and nurses know them by their first name.  We want to help our patients get all of the health care they need -- when they need it -- in order to stay well. At this site, we offer: Comprehensive medical services, Minor surgical procedures, Behavioral health services, Nutrition services, Group visits,  Case management services, Full-service pharmacy, Dental hygienist for children and Financial screening\"",
+    "isApproved": true,
+    "kudos": 1,
+    "location": {
+      "_latitude": 40.0239678,
+      "_longitude": -105.28100210000002
+    },
+    "phone": "(303) 650-4460",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "8:00 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Monday",
+        "from": "2:00 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "8:00 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "2:00 PM",
+        "to": "8:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "8:00 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "2:00 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "8:00 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "2:00 PM",
+        "to": "8:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "8:00 AM",
+        "to": "1:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "2:00 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Health",
+    "serviceSubtype": "Family Health Clinic.",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://clinica.org/locations/peoples/"
+  },
+  "-K_6vnnPB-rNKPkdbHIr": {
+    "address": {
+      "address1": "1000 Alpine Ave.",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80304
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Chinook",
+    "description": "\"Chinook is a program of Mental Health Partners, dedicated to enhancing the recovery of men and women with mental illnesses. It provides opportunities for members to live, work, learn, and socialize while contributing their talents in a community of mutual support. Chinook works with the Colorado Division of Vocational Rehabilitation to offer transitional employment opportunities. Work is at the heart of our program, driven by the philosophy that it restores a person's dignity, self-respect and independence. For each member that comes through Chinook's doors, we believe in their future, success, hopes, dreams and happiness. By working together in the daily operations of Chinook's pre-vocational opportunities, we build relationships that help members regain their lives and develop a picture of a successful future.\"",
+    "isApproved": true,
+    "kudos": 1,
+    "location": {
+      "_latitude": 40.02529699999999,
+      "_longitude": -105.28423650000002
+    },
+    "phone": "(303) 545-0834",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "8:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "8:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "8:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "8:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "8:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Work",
+    "serviceSubtype": "Transitional employment opportunities",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1482970380,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.chinooktogether.org/"
+  },
+  "-K_6xZgOGzADFMGBlhGI": {
+    "address": {
+      "address1": "1333 Iris Avenue",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80304
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Moving To End Sexual Assault (MESA)",
+    "description": "\"MESA provides sexual assault client services and prevention education to Boulder and Broomfield counties. We provide 24-hour hotline services at 303-443-7300. We believe that every person has the right to live free of sexual assault. We are moving to end sexual assault and the suffering it causes in our community. We challenge all forms of oppression and recognize their connection to sexual violence.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.0370262,
+      "_longitude": -105.28019799999998
+    },
+    "phone": "(303) 443-7300",
+    "schedule": [
+      {
+        "type": "Open 24/7"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Health",
+    "serviceSubtype": "Sexual Assault Hotline & Education Services",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://movingtoendsexualassault.org/about/"
+  },
+  "-K_7213OoWPvwm7M6KZ0": {
+    "address": {
+      "address1": "5401 Western Ave. Suite D.",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80301
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Alcoholics Anonymous (Boulder)",
+    "description": "\"Alcoholics Anonymous is a fellowship of men and women who share their experience, strength and hope with each other that they may solve their common problem and help others to recover from alcoholism. The only requirement for membership is a desire to stop drinking. There are no dues or fees for A.A. membership; we are self-supporting through our own contributions. A.A. is not allied with any sect, denomination, politics, organization or institution; does not wish to engage in any controversy; neither endorses nor opposes any causes. Our primary purpose is to stay sober and help other alcoholics to achieve sobriety.  24 hours CALL: 303-447-8201. If a person does not answer; please leave a voicemail and we'll call back as soon as possible\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.0181903,
+      "_longitude": -105.22728169999999
+    },
+    "phone": "(303) 447-8201",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "9:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "9:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "9:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "9:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "9:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Health",
+    "serviceSubtype": "Help Alcoholics Stay Sober",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.bouldercountyaa.org/index.html"
+  },
+  "-K_HjO2JVK9YLkFsNBFG": {
+    "address": {
+      "address1": "P.O.Box 1393",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80306
+    },
+    "category": "Men,Women,Kids,Seniors,Disabled,Families,LGBT+,All",
+    "name": "Boulder Outreach for Homeless Overflow (BOHO)",
+    "closeSchedule": [
+      {
+        "type": "Permanently Closed"
+      }
+    ],
+    "description": "\"BOHO began operating independently as it’s own 501c(3) nonprofit in 2009. Its services have grown tremendously as the need for bed space in Boulder has grown dramatically. In conjunction with the faith based community, BOHO now operates nightly Emergency Warming Centers non-stop November 15th to March 15th. We operate on a weather dependent basis during the shoulder seasons. This has greatly impacted the homeless community in a life saving way. From 7 p.m. until 7 a.m. the next morning, the floors of the congregations’ buildings are filled with donated blankets that guests lie on to sleep. For 90 minutes prior to opening BOHO staff and volunteers clear out furniture, put down blankets on the floors, and set out donated food; for 60 minutes after closing, BOHO staff and volunteers sweep/mop/vacuum floors, clean bathrooms, empty trash, and replace furnishings so that the building is restored for its normal operations.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.0149856,
+      "_longitude": -105.27054559999999
+    },
+    "schedule": [
+      {
+        "from": "7:00 PM",
+        "to": "11:59 PM",
+        "type": "Date Range"
+      },
+      {
+        "from": "12:00 AM",
+        "to": "7:00 AM",
+        "type": "Date Range"
+      },
+      {
+        "from": "7:00 PM",
+        "to": "11:59 PM",
+        "type": "Date Range"
+      },
+      {
+        "from": "12:00 AM",
+        "to": "7:00 AM",
+        "type": "Date Range"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Shelter",
+    "serviceSubtype": "Emergency Warming Center (Various Locations)",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.boulderboho.org/get-help/locations"
+  },
+  "-K_Hx7FGS74YYtk9AUl4": {
+    "address": {
+      "address1": "3080 Broadway",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80304
+    },
+    "category": "Kids",
+    "name": "Attention Homes",
+    "description": "\"Attention Homes is dedicated to providing youth and young adults ages 12 to 24 with an opportunity to change their lives. We offer shelter, community-based living and teaching of life skills necessary for an independent future. Our shelter is open every night from 5pm to 8am and is available to ages 20 and under. We can host up to 12 guests per night in our comfortable, safe house. Our staff can also work with you to arrange long-term housing and help get you education and employment support. If you need a place to stay for the night, or any of the services available through our drop-in programs, just call us at 303-447-1207 to find out more.\"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 40.030653,
+      "_longitude": -105.28176200000001
+    },
+    "phone": "(303) 447-1207",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "5:00 PM",
+        "to": "11:59 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Monday",
+        "from": "12:00 AM",
+        "to": "8:00 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "5:00 PM",
+        "to": "11:59 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "12:00 AM",
+        "to": "8:00 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "5:00 PM",
+        "to": "11:59 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "12:00 AM",
+        "to": "8:00 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "5:00 PM",
+        "to": "11:59 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "12:00 AM",
+        "to": "8:00 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "5:00 PM",
+        "to": "11:59 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "12:00 AM",
+        "to": "8:00 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Saturday",
+        "from": "5:00 PM",
+        "to": "11:59 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Saturday",
+        "from": "12:00 AM",
+        "to": "8:00 AM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Sunday",
+        "from": "5:00 PM",
+        "to": "11:59 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Sunday",
+        "from": "12:00 AM",
+        "to": "8:00 AM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": false,
+    "serviceType": "Shelter",
+    "serviceSubtype": "Overnight Emergency Shelter",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1483152480,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.attentionhomes.org/thesource/"
+  },
+  "-K_I-gmT6OD3QYdSWcgy": {
+    "address": {
+      "address1": "3080 Broadway",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80304
+    },
+    "category": "Kids",
+    "name": "Attention Homes",
+    "description": "\"Attention Homes is dedicated to providing youth and young adults ages 12 to 24 with an opportunity to change their lives. We offer shelter, community-based living and teaching of life skills necessary for an independent future. Drop-in service is open to everyone age 24 and under, and is available every day from 12:30pm to 5pm. Drop-in services include access to food, clothing, showers, laundry, and hygiene items. We also provide access to medical care, education, legal services, Internet, and more\"",
+    "isApproved": true,
+    "kudos": 1,
+    "location": {
+      "_latitude": 40.030653,
+      "_longitude": -105.28176200000001
+    },
+    "phone": "(303) 447-1207",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "12:30 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "12:30 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "12:30 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "12:30 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "12:30 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Saturday",
+        "from": "12:30 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Sunday",
+        "from": "12:30 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": false,
+    "serviceType": "Food,Shelter,Health,Resources,Work",
+    "serviceSubtype": "Food, Shelter, Clothing, Showers, Laundry, Hygiene, Medical Care, Education, Legal Services, Internet and More.",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.attentionhomes.org/thesource/"
+  },
+  "-K_I4jMH82abjnhJxtfr": {
+    "address": {
+      "address1": "P.O. Box 19589",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80308
+    },
+    "category": "Women",
+    "name": "Mother House",
+    "description": "\"More than a shelter, Mother House is a program that strives to build a young woman’s confidence and skills for a successful future. It serves women who have made the decision to carry their baby to term, whether they decide to parent or choose adoption. Mother House is located in Boulder, Colorado.  Residents come primarily from Colorado, but we have had residents who were from other locations. Typically, the applicants arrive early in their pregnancy and stay until 3 months after the birth of their baby. Our facility can house up to 7 women and their babies.  It provides a family environment where women can participate in group living, which helps to give support and promote friendships that will hopefully last long after leaving Mother House.  We often invite our alumni back to visit with current residents and continue to offer our support when they might need it.\"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 40.0149856,
+      "_longitude": -105.27054559999999
+    },
+    "phone": "(303) 447-9602",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": false,
+    "serviceType": "Shelter",
+    "serviceSubtype": "Transitional Housing for Pregnant Women",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1483157340,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://www.mother-house.org/our-program/our-program.html"
+  },
+  "-K_ICTbtDIzxQpQxVkXJ": {
+    "address": {
+      "address1": "4800 North Broadway",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80304
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Boulder Housing Partners(BHP)",
+    "description": "\"Founded in 1966, Boulder Housing Partners(BHP) is the housing authority for the City of Boulder. We build, own and manage affordable housing for low and moderate income residents and we are committed to fostering a healthy sense of community in every property we develop.\"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 40.0621192,
+      "_longitude": -105.28156569999999
+    },
+    "phone": "(720) 564-4610",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Shelter",
+    "serviceSubtype": "Affordable Housing",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1483159200,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://boulderhousing.org/"
+  },
+  "-K_IKzjRZujuKq3qncSA": {
+    "address": {
+      "address1": "Confidential",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80304
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Safehouse Progressive Alliance for Non-Violence",
+    "description": "\"The emergency shelter program offers a safe shelter at a confidential location for individuals and families who are seeking refuge from interpersonal violence and/or elder abuse. We welcome all people who are abused, including anyone traditionally silenced because of their ethnicity, race, religion, age, ability, income level, sexual orientation, transgender identity or who are gender non-conforming. During your stay, we can provide case management, community referrals, group and individual counseling services, safety planning, and help meeting basic needs such as food and clothing. Our advocates will work to create an individualized case plan that can assist you beyond your stay at our emergency shelter.\"",
+    "isApproved": true,
+    "kudos": 1,
+    "location": {
+      "_latitude": 40.1173891,
+      "_longitude": -105.2730391
+    },
+    "phone": "(303) 444-2424",
+    "schedule": [
+      {
+        "type": "Open 24/7"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Shelter",
+    "serviceSubtype": "Emergency Shelter",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1483161840,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.safehousealliance.org/get-support/shelter-services/"
+  },
+  "-K_LUTz_t0H6ue0oaj25": {
+    "address": {
+      "address1": "2323 55th St.",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80301
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Humane Society of Boulder Valley",
+    "description": "\"The Humane Society of Boulder Valley provides shelter and care to more than 7,000 animals each year, with 93 percent of these animals being successfully adopted or reunited with their guardians. Our success rates are enhanced by our behavior modification program, which helps shelter dogs and cats overcome behavior problems, and our shelter medicine program, providing quality and compassionate medical services to shelter animals. For calls regarding a stray or injured domestic animal in the city limits of Boulder, please contact City of Boulder police dispatch at (303) 441-3333. To report domestic animal conflict such as nuisance barking, please call City of Boulder Animal Care & Control directly at (303) 441-1874. For general questions and non-emergency complaints, please call (303) 441-1874.\"",
+    "isApproved": true,
+    "kudos": 1,
+    "location": {
+      "_latitude": 40.0224209,
+      "_longitude": -105.22648070000002
+    },
+    "phone": "(303) 442-4030",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "11:00 AM",
+        "to": "6:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "11:00 AM",
+        "to": "6:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "11:00 AM",
+        "to": "6:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "11:00 AM",
+        "to": "6:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "11:00 AM",
+        "to": "6:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Saturday",
+        "from": "10:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Sunday",
+        "from": "10:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Shelter",
+    "serviceSubtype": "Pet Shelter",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://www.boulderhumane.org/content/contact-hours-and-locations"
+  },
+  "-K_zaNQra5NY7f6KT3md": {
+    "address": {
+      "address1": "557 Burbank St., Unit E",
+      "city": "Broomfield",
+      "state": "CO",
+      "zip": 80020
+    },
+    "category": "Kids",
+    "name": "A Precious Child",
+    "description": "\"A Precious Child provides children in need with opportunities and resources to empower them to achieve their full potential. A Precious Child provides children in need with opportunities and resources to empower them to achieve their full potential. We collaborate with 200+ local Agency Partners to serve the families that are most in need. Our Agency Partners include: schools, health and human service agencies, churches, foster homes, service organizations, safe homes, fire and police departments, at-risk youth shelters, and homeless shelters. Children and families in eight local counties are served: Adams, Arapahoe, Boulder, Broomfield, Denver, Douglas, Jefferson, and Weld.\"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 39.9250957,
+      "_longitude": -105.09548310000002
+    },
+    "phone": "(303) 466-4272",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "9:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "9:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "9:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "9:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "9:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": false,
+    "serviceType": "Resources",
+    "serviceSubtype": "Clothes\\Diapers\\School Supplies",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1483903800,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.apreciouschild.org/"
+  },
+  "-KfYAEK_1axQTgL76ILE": {
+    "address": {
+      "address1": "4155 Darley Avenue",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80305
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Dental Aid",
+    "description": "\"Dental Aid exists to provide accessible and affordable dental care for low-income and uninsured children and adults of Boulder and Broomfield counties. Dental Aid hasclinics located in Boulder, Longmont and Louisville, and one satellite clinic located in the Boulder Shelter for the Homeless. Dental Aid. We have portable dental equipment to serve residents of long-term care facilities and home bound individuals. Dental Aid provides comprehensive reduced-fee oral health care (about half the usual and customary fees charged by private dentists in our area). Dental Aid accepts Medicaid and Child Health Plan Plus (CHP+), but also has funds to help subsidize care for individuals not covered under Medicaid or CHP+ who cannot afford our reduced fees. Dental Aid does not currently accept private insurance, but is an enrollment site for Medicaid and CHP+.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 39.9810376,
+      "_longitude": -105.24652579999997
+    },
+    "phone": "(303) 499-7072",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Health",
+    "serviceSubtype": "Dental Clinic",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.dentalaid.org"
+  },
+  "-KfYCJCaxv3cKSUmS-fj": {
+    "address": {
+      "address1": "1715 Princess Drive",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": 80501
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Dental Aid",
+    "description": "\"Dental Aid exists to provide accessible and affordable dental care for low-income and uninsured children and adults of Boulder and Broomfield counties. Dental Aid hasclinics located in Boulder, Longmont and Louisville, and one satellite clinic located in the Boulder Shelter for the Homeless. Dental Aid. We have portable dental equipment to serve residents of long-term care facilities and home bound individuals. Dental Aid provides comprehensive reduced-fee oral health care (about half the usual and customary fees charged by private dentists in our area). Dental Aid accepts Medicaid and Child Health Plan Plus (CHP+), but also has funds to help subsidize care for individuals not covered under Medicaid or CHP+ who cannot afford our reduced fees. Dental Aid does not currently accept private insurance, but is an enrollment site for Medicaid and CHP+.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.1890847,
+      "_longitude": -105.10700759999997
+    },
+    "phone": "(303) 682-2619",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Health",
+    "serviceSubtype": "Dental Clinic",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.dentalaid.org"
+  },
+  "-KfYDLpcHftdkD-k06sl": {
+    "address": {
+      "address1": "877 South Boulder Rd",
+      "city": "Louisville",
+      "state": "CO",
+      "zip": 80027
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Dental Aid",
+    "description": "\"Dental Aid exists to provide accessible and affordable dental care for low-income and uninsured children and adults of Boulder and Broomfield counties. Dental Aid hasclinics located in Boulder, Longmont and Louisville, and one satellite clinic located in the Boulder Shelter for the Homeless. Dental Aid. We have portable dental equipment to serve residents of long-term care facilities and home bound individuals. Dental Aid provides comprehensive reduced-fee oral health care (about half the usual and customary fees charged by private dentists in our area). Dental Aid accepts Medicaid and Child Health Plan Plus (CHP+), but also has funds to help subsidize care for individuals not covered under Medicaid or CHP+ who cannot afford our reduced fees. Dental Aid does not currently accept private insurance, but is an enrollment site for Medicaid and CHP+.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 39.9870792,
+      "_longitude": -105.13282879999997
+    },
+    "phone": "(303) 665-8228",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Health",
+    "serviceSubtype": "Dental Clinic",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.dentalaid.org"
+  },
+  "-KfdAm1ItPAgMeNfGYC9": {
+    "address": {
+      "address1": "804 S Lincoln St",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": 80501
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Homeless Outreach Providing Encouragement (HOPE)",
+    "description": "\"Homeless Outreach Providing Encouragement – H.O.P.E. – ensures a sense of dignity and support to people experiencing homelessness while offering programs and referrals that encourage movement toward self-sufficiency. H.O.P.E meets people where they are. Every night of the year, street outreach teams provide basic needs support and build trust with people experiencing homelessness in Longmont. Our street outreach program operates from 6-9pm every night. If you need assistance during these hours, please call 720-210-7217. \"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 40.1500371,
+      "_longitude": -105.11283679999997
+    },
+    "phone": "(720) 494-4673",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "6:00 PM",
+        "to": "9:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "6:00 PM",
+        "to": "9:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "6:00 PM",
+        "to": "9:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "6:00 PM",
+        "to": "9:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "6:00 PM",
+        "to": "9:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Saturday",
+        "from": "6:00 PM",
+        "to": "9:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Sunday",
+        "from": "6:00 PM",
+        "to": "9:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food,Shelter,Resources",
+    "serviceSubtype": "Emergency Assistance, Warming Shelter, Evening Drop-in Center, Transitional Storage",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1489969800,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://hopeforlongmont.org/"
+  },
+  "-KgRJ41arDtwbGK-Fozd": {
+    "address": {
+      "address1": "17 Descombes Dr.",
+      "city": "Broomfield",
+      "state": "CO",
+      "zip": 80020
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Project Safeguard (Broomfield County Combined Courts)",
+    "description": "\"Project Safeguard, founded in 1981 and incorporated in 1984, is a non-profit organization committed to helping end domestic violence by holding society responsible for developing, implementing and enforcing sanctions against abusers while increasing safety and survival options for abused women and their children. Project Safeguard’s mission is dedicated to providing safety planning, legal advocacy, and direct court support to victims of domestic violence and abuse, ensuring their safety and survival.  Legal Advocates are available in Adams, Arapahoe, Broomfield and Denver counties, Monday – Friday between 8:30 am and 4:30 pm. Offices are closed on all court holidays. Advocates may be in court when you call. Please leave a message and a SAFE phone number or SAFE email address for us to respond to. With the exception of weekends and holidays, advocates will do their best to respond within 24 hours.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 39.9207028,
+      "_longitude": -105.06824219999999
+    },
+    "phone": "720-887-2179",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "8:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "8:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "8:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "8:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "8:30 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Resources",
+    "serviceSubtype": "Legal Advocacy & Support,  Safety Planning",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://psghelps.org"
+  },
+  "-KhyYGCD-0JR0iLV6l7h": {
+    "address": {
+      "address1": "6739 S. Boulder Rd.",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80303
+    },
+    "category": "Women,Families",
+    "name": "Boulder Gabriel House",
+    "description": "\"Gabriel House is a network of parishes and volunteers that assist families throughout Northern Colorado. We are committed to providing much-needed supplies to mothers and families with young children.  The Gabriel Project is a ministry of Catholic Charities of Denver. We provide pregnant women and young families in need with spiritual, material, and emotional support. All families are welcome!\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 39.9883808,
+      "_longitude": -105.19547130000001
+    },
+    "phone": "303-449-0122",
+    "schedule": [
+      {
+        "day": "Tuesday",
+        "from": "9:00 AM",
+        "to": "2:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Saturday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": false,
+    "serviceType": "Food,Resources",
+    "serviceSubtype": "Diapers, Wipes, Formula, Baby Food, Blankets, Clothing (up to 5T)",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://ccdenver.org/gabriel-house/"
+  },
+  "-Ki7nr4qiMKJMu_tqL6k": {
+    "address": {
+      "address1": "P.O. Box 231",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": 80502
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Safe Shelter of St. Vrain Valley",
+    "description": "\"Safe Shelter of St. Vrain Valley provides a comprehensive system of programs and services to address the needs of victims of domestic abuse: Our services includes: 24-hour crisis line, Emergency shelter, Individual and group counseling, Case management, Legal advocacy, Community and peer education, Information and referrals. All services are available in English and Spanish. Safe Shelter provides safety, support and resources to individuals affected by domestic abuse. We promote empowerment through direct services and community education, advocating for the right of every individual to live a life free of intimidation, exploitation and abuse.\"",
+    "isApproved": true,
+    "kudos": 1,
+    "location": {
+      "_latitude": 40.1672068,
+      "_longitude": -105.10192749999999
+    },
+    "phone": "303-772-4422",
+    "schedule": [
+      {
+        "type": "Open 24/7"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Shelter",
+    "serviceSubtype": "24 hr Crisis Line & Domestic Violence Shelter",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1492648620,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.safeshelterofstvrain.org/"
+  },
+  "-Kigar_wzpTiyh2mUEXy": {
+    "address": {
+      "address1": "20 West Mountain View Ave",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": 80501
+    },
+    "category": "Women",
+    "name": "Life Choices - Longmont",
+    "description": "\"Life Choices helps women and men who are facing unplanned pregnancies, offers healing from after-abortion stress, and educates about sexual life choices.  At Life Choices our goal is to educate women on all their options so that each woman can make a choice that she is comfortable with. We come along side each woman to support her no matter what her choice may be. Whether a woman decides to carry her child to full term, go through the adoption process, or terminate the pregnancy, we will provide support.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.1815242,
+      "_longitude": -105.09414649999997
+    },
+    "phone": "303-651-2050",
+    "schedule": [],
+    "selectedAll": false,
+    "serviceType": "Health",
+    "serviceSubtype": "Free Pregnancy, Ultrasound, STI Testing",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.lifechoices.org"
+  },
+  "-KiliQAW-IOchLqY8vbk": {
+    "address": {
+      "address1": "2825 Wilderness Pl, Suite 100",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80301
+    },
+    "category": "Kids,Families",
+    "name": "There With Care Boulder",
+    "description": "\"When a family receives a medical diagnosis of critical illness for their child, the wholeness of the family is threatened. There With Care works with the hospitals and social workers to identify and ease the stresses for the families, giving them more time with their children. The meaningful support There With Care provides is unique to each family.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.0256846,
+      "_longitude": -105.2493538
+    },
+    "phone": "303.447.2273",
+    "schedule": [],
+    "selectedAll": false,
+    "serviceType": "Food,Health,Resources",
+    "serviceSubtype": "Meal Program, Baby Essentials, Home Maintenance, Computers, Telephones, Transportation Assistance and More",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://therewithcare.org"
+  },
+  "-KiqaeDbhOHKTgtUIgED": {
+    "address": {
+      "address1": "487 Foley St.",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80301
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Colorado Mental Health and Addiction Services",
+    "description": "\"Colorado Mental Health and Addiction Services is an organization located in Boulder, Colorado that provides counseling services for those with mental illnesses or substance abuse issues. Founded in 2015, the Colorado Mental Health and Addiction Services has had a great deal of success hoping those in addiction recovery and helping those who have been diagnosed with a mental illness.\"",
+    "isApproved": true,
+    "kudos": 1,
+    "location": {
+      "_latitude": 39.9695284,
+      "_longitude": -105.08585949999997
+    },
+    "phone": "954-655-6377",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "9:00 AM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "9:00 AM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "9:00 AM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "9:00 AM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "9:00 AM",
+        "to": "3:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Health",
+    "serviceSubtype": "Couseling Services",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.mhacolorado.org"
+  },
+  "-KiqwwCPrr7P_iCIcqIa": {
+    "address": {
+      "address1": "515 Coffman St., Second Floor",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": 80501
+    },
+    "category": "Kids,LGBT+",
+    "name": "OASOS",
+    "description": "\"Join us for positive support and fun! OASOS is for Lesbian, Gay, Bisexual, Transgender, Questioning, Intersex, and Asexual (LGBTQIA+) youth 13-18 (12 with parent/guardian permission). Peer youth groups, Leadership opportunities, Advocacy, support, and referrals, Fun and a chance to meet other LGBTQIA+\"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 40.1824136,
+      "_longitude": -105.10397319999998
+    },
+    "phone": "303-579-2676",
+    "schedule": [
+      {
+        "day": "Thursday",
+        "from": "4:00 PM",
+        "to": "6:00 PM",
+        "type": "Monthly"
+      },
+      {
+        "day": "Thursday",
+        "from": "4:00 PM",
+        "to": "6:00 PM",
+        "type": "Monthly"
+      }
+    ],
+    "selectedAll": false,
+    "serviceType": "Resources",
+    "serviceSubtype": "Advocacy & Support",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1493422680,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://www.bouldercounty.org/families/lgbtiq/oasos/"
+  },
+  "-KiqzFcnaNsHW8a9y9ke": {
+    "address": {
+      "address1": "2132 14th St.",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80302
+    },
+    "category": "LGBT+",
+    "name": "Out Boulder County - Pridehouse",
+    "description": "\"Since 1994 Out Boulder County has educated, advocated and provided services, programs and support to Boulder County's Lesbian Gay Bisexual Transgender and Queer (LGBTQ) communities. Through activites, support groups and events we reach over 7,000 people each year.\"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 40.0201731,
+      "_longitude": -105.2776518
+    },
+    "phone": "303-499-5777",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Monday",
+        "from": "1:00 PM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "1:00 PM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "1:00 PM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "1:00 PM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "1:00 PM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": false,
+    "serviceType": "Resources",
+    "serviceSubtype": "Advocacy & Support",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1493423340,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.outboulder.org"
+  },
+  "-Kir0-yZwIk_84LR7zRR": {
+    "address": {
+      "address1": "463 Main St.",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": 80501
+    },
+    "category": "LGBT+",
+    "name": "Out Boulder County - Longmont",
+    "description": "\"Since 1994 Out Boulder County has educated, advocated and provided services, programs and support to Boulder County's Lesbian Gay Bisexual Transgender and Queer (LGBTQ) communities. Through activites, support groups and events we reach over 7,000 people each year.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.1670169,
+      "_longitude": -105.10291410000002
+    },
+    "phone": "720.600.4138",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Monday",
+        "from": "1:00 PM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "1:00 PM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "1:00 PM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "1:00 PM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "9:00 AM",
+        "to": "12:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "1:00 PM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": false,
+    "serviceType": "Resources",
+    "serviceSubtype": "Advocacy & Support",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.outboulder.org"
+  },
+  "-Kir7alus3dG6ZkCBQQG": {
+    "address": {
+      "address1": "2118 14th St.",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80302
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Boulder County AIDS Project (BCAP) - Boulder",
+    "description": "\"The Mission of Boulder County AIDS Project (BCAP) is to provide support, advocacy and education to those in our community who are living with or affected by the Human Immunodeficiency Virus (HIV) and to serve as an outreach and information center to prevent further transmission of HIV and the resulting\nAcquired Immune Deficiency Syndrome (AIDS).\"",
+    "isApproved": true,
+    "kudos": 2,
+    "location": {
+      "_latitude": 40.0197631,
+      "_longitude": -105.27770620000001
+    },
+    "phone": "303.444.6121",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "9:00 AM",
+        "to": "5:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "9:00 AM",
+        "to": "5:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "9:00 AM",
+        "to": "5:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "9:00 AM",
+        "to": "5:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "9:00 AM",
+        "to": "5:30 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Food,Shelter,Health,Resources",
+    "serviceSubtype": "Food Bank, Emergency Fianancial Assistance for Rent, Utility, Transportation, Medication, Medical and Dental Care Costs",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1493425620,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://bcap.org"
+  },
+  "-Kir8MIVBky2gNKwpfWn": {
+    "address": {
+      "address1": "515 Kimbark St., Suite 100",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": 80501
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Boulder County AIDS Project (BCAP) - Longmont",
+    "description": "\"The Mission of Boulder County AIDS Project (BCAP) is to provide support, advocacy and education to those in our community who are living with or affected by the Human Immunodeficiency Virus (HIV) and to serve as an outreach and information center to prevent further transmission of HIV and the resulting\nAcquired Immune Deficiency Syndrome (AIDS).\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.1679979,
+      "_longitude": -105.1015473
+    },
+    "phone": "303.774.8827",
+    "schedule": [],
+    "selectedAll": true,
+    "serviceType": "Food,Shelter,Health,Resources",
+    "serviceSubtype": "Food Bank, Emergency Fianancial Assistance for Rent, Utility, Transportation, Medication, Medical and Dental Care Costs",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://bcap.org"
+  },
+  "-KirBtsI2jXVhrgWt8Pm": {
+    "address": {
+      "address1": "515 Kimbark St.",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": 80501
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "The Inn Between",
+    "description": "\"Our goal is to address the needs of a diverse population of families and individuals experiencing homelessness by providing time-limited housing with case management and life skills training to build their capacity to live self-sufficiently. The Inn Between has created a safe place and community of support for those facing homelessness. The Inn Between of Longmont believes that education is necessary to live self-sufficiently and to break the cycle of homelessness. Skills classes help resident's learn to live independently and are taught by experts from the community. \"",
+    "isApproved": true,
+    "kudos": 2,
+    "location": {
+      "_latitude": 40.1679979,
+      "_longitude": -105.1015473
+    },
+    "phone": "303-684-0810",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "8:00 AM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "8:00 AM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "8:00 AM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "8:00 AM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "8:00 AM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Shelter,Work",
+    "serviceSubtype": "Supportive Housing, Life Skills Training",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1493426940,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://www.theinnbetween.org"
+  },
+  "-Kiv27_0Q2Uqm4znmbvX": {
+    "address": {
+      "address1": "P.O. Box 19122",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80308
+    },
+    "category": "Kids,Families",
+    "name": "Blue Sky Bridge",
+    "description": "\"Blue Sky Bridge was established to provide a safe and supportive environment for abuse victims where a neutral, professionally-led forensic interview provides case information for all participating law enforcement, judicial and social service agencies. Blue Sky Bridge is committed to serving both the children who enter the abuse investigation process and those children who have not yet found a way to tell their story. Our School-based Education and Training Programs help ensure that kids know they are the boss of their own bodies and that they, and the adults around them, know where to turn for help.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.0149856,
+      "_longitude": -105.27054559999999
+    },
+    "phone": "(303) 444-1388",
+    "schedule": [],
+    "selectedAll": false,
+    "serviceType": "Resources",
+    "serviceSubtype": "Child Advocacy Program",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://blueskybridge.org"
+  },
+  "-KivSvwhUwdOoZtWALXt": {
+    "address": {
+      "address1": "315 W. South Boulder Rd., Suite 205",
+      "city": "Louisville",
+      "state": "CO",
+      "zip": 80027
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Colorado Legal Services - Boulder",
+    "description": "\"Colorado Legal Services is a non-profit organization that has assisted persons with low income and seniors in the state of Colorado for over 90 years. The mission of Colorado Legal Services is to provide meaningful access to high quality, civil legal services in the pursuit of justice for as many low-income persons and members of vulnerable populations throughout Colorado as possible. Call the office nearest you before visiting, as each office has different hours. Many of our offices have Spanish-speaking receptionists and others on staff who speak Spanish.\"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 39.9877126,
+      "_longitude": -105.1401558
+    },
+    "phone": "303.449.7575",
+    "schedule": [],
+    "selectedAll": true,
+    "serviceType": "Resources",
+    "serviceSubtype": "Legal Assistance",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1493498640,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "www.coloradolegalservices.org"
+  },
+  "-KjuBpB3k2AndC90XA19": {
+    "address": {
+      "address1": "1820 15th St",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80302
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "First Presbyterian Church Boulder",
+    "description": "\"As the hands and feet of Jesus Christ, we seek to meet physical and spiritual needs of the homeless and disadvantaged in the Boulder area. Through shared food, shared faith, and shared fellowship, we encourage all in the Lamb's Ministry to grow closer to Jesus. Lamb's Lunch - Saturday mornings beginning at 10:00 (November thru week before Easter).\"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 40.01733,
+      "_longitude": -105.27482910000003
+    },
+    "phone": "303.402.6400",
+    "schedule": [],
+    "selectedAll": true,
+    "serviceType": "Food",
+    "serviceSubtype": "Lamb's Lunch",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 1494551040,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://fpcboulder.org"
+  },
+  "-KjuD-NcUr-B_EY7Z-xR": {
+    "address": {
+      "address1": "455 Kimbark St.",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": 80501
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "El Comité de Longmont",
+    "description": "\"El Comité de Longmont is a grassroots organization that improves the social justice, education and economic status of the Latino and non-Latino people of Longmont, Boulder County and surrounding communities. El Comité also facilitates communication and understanding between Latinos and non-Latinos in the community. Bi-lingual comprehensive case management is the only of its kind in the Boulder Valley and beyond. We provide a multitude of invaluable bi-lingual functions to almost 2,000 clients on a walk-in basis. Our clients receive trustworthy and knowledgeable navigation support, advocacy and effective referrals to health, legal, social, basic needs, educational and emergency services.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.16678479999999,
+      "_longitude": -105.10144489999999
+    },
+    "phone": "(303) 651-6125",
+    "schedule": [],
+    "selectedAll": true,
+    "serviceType": "Resources,Work",
+    "serviceSubtype": "Adult Education, Life Skills Training, Advocacy & Support and more",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.elcomitedelongmont.org"
+  },
+  "-KmOFmcStxVNB-5Tszdx": {
+    "address": {
+      "address1": "PO Box 270181",
+      "city": "Louisville",
+      "state": "CO",
+      "zip": 80027
+    },
+    "category": "Women",
+    "name": "The Little Flower Maternity Home",
+    "description": "\"The Little Flower Maternity Home is a home where pregnant mothers over 18, can come and live free of charge from any point in their pregnancy until their baby is 6 months old.  The Little Flower is not a hand-out, but rather a hand-up to these homeless mothers in need.    Mothers at The Little Flower spend their time saving money and working towards self-sufficiency.  Staff members and Volunteers guide and encourage her on her way toward self-sufficiency.   This gives her the opportunity to focus on having a safe & healthy pregnancy and to set future goals for her baby and herself.  The Little Flower provides a safe, healthy and loving community environment.  Mothers can enter the next chapter of their lives, leaving behind unhealthy and unsafe behavior. Basic Qualifications for Mothers: Pregnant, At least 18 years old, Currently Drug and Alcohol free, Free from immediate physical danger, Free from diagnosed severe mental illness, Without other children in her care\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 39.977763,
+      "_longitude": -105.13192960000003
+    },
+    "phone": "(720) 609-2934",
+    "schedule": [],
+    "selectedAll": false,
+    "serviceType": "Shelter",
+    "serviceSubtype": "Maternity housing",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://littleflowermaternity.org"
+  },
+  "-Kmtp8XK0X80H0IqPgQE": {
+    "address": {
+      "address1": "10656 Parkridge Ave",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": 80504
+    },
+    "category": "Men,Women,Kids,Seniors,Families,Disabled,LGBT+,All",
+    "name": "Agape Family Services (AFS) - Safe Haven",
+    "description": "\"The Safe Haven is an overnight shelter for homeless adults. Our capacity is 25 guests. Our guests are selected from an application and interview process. When a guest enters the program they will have a guaranteed bed for the season. We select guests based on the following criteria: 1) making a concerted effort to become self-sufficient, 2) peaceful by nature, 3) sobriety, 4) emotionally or physically vulnerable at a warming center, 5) helpful. Note that we are not able to support certain levels of physical or mental limitations. We employ the homeless guests who show a desire to overcome their addiction(s) and/or situation. After a few interviews and discussions a guest will be hired on a part-time basis, which allows for resume building and the opportunity to rejoin the work environment. AFS has seen this program rebuild hope and dignity in many guests. \"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.20625690000001,
+      "_longitude": -105.1037273
+    },
+    "phone": "(303) 774-7994",
+    "schedule": [],
+    "selectedAll": true,
+    "serviceType": "Shelter,Work",
+    "serviceSubtype": "Overnight Shelter, Employment Opportunities",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.agapelongmont.org"
+  },
+  "-Ko9fWHDO51AXHCjrlne": {
+    "address": {
+      "address1": "1001 Arapahoe Ave",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80302
+    },
+    "category": "Men,Women,Kids,Seniors,Disabled,Families,LGBT+,All",
+    "name": "Boulder Public Library - Main Library",
+    "description": "\"The mission of the Boulder Public Library is to enhance the personal and professional growth of Boulder residents and contribute to the development and sustainability of an engaged community through free access to ideas, information, cultural experiences and educational opportunities.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.013952,
+      "_longitude": -105.281769
+    },
+    "phone": "303-441-3100",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "9:00 AM",
+        "to": "8:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "9:00 AM",
+        "to": "8:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "9:00 AM",
+        "to": "8:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "9:00 AM",
+        "to": "8:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "10:00 AM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Saturday",
+        "from": "10:00 AM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Sunday",
+        "from": "12:00 PM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Resources",
+    "serviceSubtype": "Computers, Internet, Restrooms, Charging Stations, Books, Study & Meeting Rooms",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://boulderlibrary.org"
+  },
+  "-Ko9hVTE7r8njUu_8AEv": {
+    "address": {
+      "address1": "1125 Pine St",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80302
+    },
+    "category": "Men,Women,Kids,Seniors,Disabled,Families,LGBT+,All",
+    "name": "Boulder Public Library - Carnegie Branch Library",
+    "description": "\"The mission of the Boulder Public Library is to enhance the personal and professional growth of Boulder residents and contribute to the development and sustainability of an engaged community through free access to ideas, information, cultural experiences and educational opportunities.\"",
+    "isApproved": true,
+    "kudos": 2,
+    "location": {
+      "_latitude": 40.0200621,
+      "_longitude": -105.28151909999997
+    },
+    "phone": "303-441-3110",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "1:00 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "1:00 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "1:00 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "1:00 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "1:00 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Saturday",
+        "from": "10:00 AM",
+        "to": "3:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Resources",
+    "serviceSubtype": "Books, Internet, Restrooms, Charging Stations",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://boulderlibrary.org"
+  },
+  "-Ko9iFGMnAIG38WHURrE": {
+    "address": {
+      "address1": "3595 Table Mesa Dr",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80305
+    },
+    "category": "Men,Women,Kids,Seniors,Disabled,Families,LGBT+,All",
+    "name": "Boulder Public Library - George Reynolds Branch Library",
+    "description": "\"The mission of the Boulder Public Library is to enhance the personal and professional growth of Boulder residents and contribute to the development and sustainability of an engaged community through free access to ideas, information, cultural experiences and educational opportunities.\"",
+    "isApproved": true,
+    "kudos": 1,
+    "location": {
+      "_latitude": 39.9844549,
+      "_longitude": -105.2526229
+    },
+    "phone": "303-441-3100",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "9:00 AM",
+        "to": "8:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "9:00 AM",
+        "to": "8:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "9:00 AM",
+        "to": "8:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "10:00 AM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "10:00 AM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Saturday",
+        "from": "10:00 AM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Sunday",
+        "from": "12:00 PM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Resources",
+    "serviceSubtype": "Computers, Internet, Restrooms, Charging Stations, Books, Study & Meeting Rooms",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://boulderlibrary.org"
+  },
+  "-Ko9jYF7x7JhrXpS4oYR": {
+    "address": {
+      "address1": "4800 Baseline Rd",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80303
+    },
+    "category": "Men,Women,Kids,Seniors,Disabled,Families,LGBT+,All",
+    "name": "Boulder Public Library - Meadows Branch Library",
+    "description": "\"The mission of the Boulder Public Library is to enhance the personal and professional growth of Boulder residents and contribute to the development and sustainability of an engaged community through free access to ideas, information, cultural experiences and educational opportunities.\"",
+    "isApproved": true,
+    "kudos": 1,
+    "location": {
+      "_latitude": 40.0000189,
+      "_longitude": -105.23479859999998
+    },
+    "phone": "303-441-3100",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "9:00 AM",
+        "to": "8:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "9:00 AM",
+        "to": "8:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "9:00 AM",
+        "to": "8:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "10:00 AM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "10:00 AM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Saturday",
+        "from": "10:00 AM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Sunday",
+        "from": "12:00 PM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Resources",
+    "serviceSubtype": "Computers, Internet, Restrooms, Charging Stations, Books, Study & Meeting Rooms",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://boulderlibrary.org"
+  },
+  "-Ko9kmFi8WKmK97qgpVk": {
+    "address": {
+      "address1": "4600 Broadway",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": 80304
+    },
+    "category": "Men,Women,Kids,Seniors,Disabled,Families,LGBT+,All",
+    "name": "Boulder Public Library - NoBo Corner Library",
+    "description": "\"The mission of the Boulder Public Library is to enhance the personal and professional growth of Boulder residents and contribute to the development and sustainability of an engaged community through free access to ideas, information, cultural experiences and educational opportunities.\"",
+    "isApproved": true,
+    "kudos": 1,
+    "location": {
+      "_latitude": 40.0586947,
+      "_longitude": -105.28188490000002
+    },
+    "phone": "303-441-3100",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "10:00 AM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "10:00 AM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "10:00 AM",
+        "to": "8:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Saturday",
+        "from": "10:00 AM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Sunday",
+        "from": "12:00 PM",
+        "to": "6:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Resources",
+    "serviceSubtype": "Computers, Internet, Charging Stations, Books",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://boulderlibrary.org"
+  },
+  "-Ko9oQ9U3tjf2_H0dTmz": {
+    "address": {
+      "address1": "200 N Hwy 72",
+      "city": "Nederland",
+      "state": "CO",
+      "zip": 80466
+    },
+    "category": "Men,Women,Kids,Seniors,Disabled,Families,LGBT+,All",
+    "name": "Nederland Community Library",
+    "description": "\"Our mission is to enrich the residents and visitors of the Nederland mountain community by providing library services and access to information which encourages reading, fosters learning and promotes an educated community.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 39.9630717,
+      "_longitude": -105.51231359999997
+    },
+    "phone": "(303) 258-1101",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "10:00 AM",
+        "to": "7:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "10:00 AM",
+        "to": "7:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "10:00 AM",
+        "to": "7:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "10:00 AM",
+        "to": "7:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "10:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Saturday",
+        "from": "10:00 AM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Resources",
+    "serviceSubtype": "Computers, Internet, Restrooms, Charging Stations, Books",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://nederland.colibraries.org"
+  },
+  "-KoKNuVl6_7sKGL6Q7BE": {
+    "address": {
+      "address1": "405 Main St",
+      "city": "Lyons",
+      "state": "CO",
+      "zip": 80540
+    },
+    "category": "Men,Women,Kids,Seniors,Disabled,Families,LGBT+,All",
+    "name": "Lyons Regional Library",
+    "description": "\"The mission of Lyons Regional Library is to provide access to quality resources and programs that serve the lifelong cultural, educational, informational and entertainment needs and interests of people of all ages and backgrounds within Lyons Regional Library District.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.2244197,
+      "_longitude": -105.27027099999998
+    },
+    "phone": "303-823-5165",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "10:30 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "10:30 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "10:30 AM",
+        "to": "8:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "10:30 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "10:30 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Saturday",
+        "from": "9:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Resources",
+    "serviceSubtype": "Computers, Internet, Restrooms, Charging Stations, Books, Study & Meeting Rooms",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://lyons.colibraries.org/"
+  },
+  "-KoKQsQWlnJu86Ea5-tj": {
+    "address": {
+      "address1": "409 4th Ave",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": 80501
+    },
+    "category": "Men,Women,Kids,Seniors,Disabled,Families,LGBT+,All",
+    "name": "Longmont Public Library",
+    "description": "\"The mission of the Longmont Public Library is to serve our community by providing equal access to information and resources for education, enrichment and enjoyment.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.1652106,
+      "_longitude": -105.10058909999998
+    },
+    "phone": "(303) 651-8470",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "9:00 AM",
+        "to": "9:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "9:00 AM",
+        "to": "9:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "9:00 AM",
+        "to": "9:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "9:00 AM",
+        "to": "9:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "9:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Saturday",
+        "from": "9:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Resources",
+    "serviceSubtype": "Computers, Internet, Restrooms, Charging Stations, Books, Study & Meeting Rooms",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://longmontcolorado.gov/library"
+  },
+  "-KoPSbG7T5gjCrKrolsX": {
+    "address": {
+      "address1": "3 Community Park Rd",
+      "city": "Broomfield",
+      "state": "CO",
+      "zip": 80019
+    },
+    "category": "Men,Women,Kids,Seniors,Disabled,Families,LGBT+,All",
+    "name": "Broomfield library",
+    "description": "\"Working in partnership with the community, the City and County of Broomfield provides excellent services in an efficient, respectful, and courteous manner to enhance and protect the environment and quality of life of Broomfield citizens.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 39.9175983,
+      "_longitude": -105.06898439999998
+    },
+    "phone": "(720) 887-2300",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "9:00 AM",
+        "to": "9:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "9:00 AM",
+        "to": "9:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "9:00 AM",
+        "to": "9:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "9:00 AM",
+        "to": "9:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "9:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Saturday",
+        "from": "9:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Sunday",
+        "from": "1:00 PM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Resources",
+    "serviceSubtype": "Computers, Internet, Restrooms, Charging Stations, Books, Study & Meeting Rooms",
+    "shouldShow": false,
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://broomfieldlibrary.org"
+  },
+  "-LCKo5MLsLR6B9_-xddP": {
+    "address": {
+      "address1": "2691 30th St",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": "80301"
+    },
+    "category": "Men,Women,Kids,Seniors,Disabled,Families,LGBT+,All",
+    "name": "Boulder County Homeless Systems Coordinated Entry",
+    "description": "\"All single homeless adults must go through the Coordinated Entry process to receive services from Boulder County or the cities of Boulder or Longmont. After meeting with a staff person and going through a short screening, clients will be referred to the most appropriate service depending on their needs. If you need help after hours, or on days when Coordinated Entry is not available (see schedules below) you may seek help at an existing homeless service provider in Boulder or Longmont, or get information on available services by calling 2-1-1. You will be screened for additional services the next day CE is available. 2-1-1 is a FREE number all can access when they need help with anything from childcare, to basic needs and much more.\"",
+    "isApproved": true,
+    "kudos": 1,
+    "location": {
+      "_latitude": 40.0275718,
+      "_longitude": -105.25449739999999
+    },
+    "phone": "2-1-1",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "10:00 AM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "12:00 PM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "10:00 AM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "10:00 AM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "10:00 AM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Saturday",
+        "from": "10:00 AM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Sunday",
+        "from": "10:00 AM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Shelter",
+    "serviceSubtype": "Coordinated Entry",
+    "updateDate": {
+      "_seconds": 1526152080,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://www.bouldercounty.org/homeless/"
+  },
+  "-LCKqWC7O9e-TcBEMYxD": {
+    "address": {
+      "address1": "220 Collyer St",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": "80501"
+    },
+    "category": "Men,Women,Kids,Seniors,Disabled,Families,LGBT+,All",
+    "name": "Longmont Coordinated Entry - The OUR Center",
+    "description": "\"All single homeless adults must go through the Coordinated Entry process to receive services from Boulder County or the cities of Boulder or Longmont. After meeting with a staff person and going through a short screening, clients will be referred to the most appropriate service depending on their needs. If you need help after hours, or on days when Coordinated Entry is not available (see schedules below) you may seek help at an existing homeless service provider in Boulder or Longmont, or get information on available services by calling 2-1-1. You will be screened for additional services the next day CE is available. 2-1-1 is a FREE number all can access when they need help with anything from childcare, to basic needs and much more.\"",
+    "isApproved": true,
+    "kudos": 0,
+    "location": {
+      "_latitude": 40.1630974,
+      "_longitude": -105.09766589999998
+    },
+    "phone": "2-1-1",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "10:00 AM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "12:00 PM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "10:00 AM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "10:00 AM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "10:00 AM",
+        "to": "4:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Saturday",
+        "from": "11:30 AM",
+        "to": "2:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Sunday",
+        "from": "11:30 AM",
+        "to": "2:30 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Shelter",
+    "serviceSubtype": "Coordinated Entry",
+    "updateDate": {
+      "_seconds": 1526153160,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://www.bouldercounty.org/homeless/"
+  },
+  "-L_Y1j6esBGORtRf7pdf": {
+    "address": {
+      "address1": "5755 Central Ave",
+      "address2": "Suite B",
+      "city": "Boulder",
+      "state": "CO",
+      "zip": "80301"
+    },
+    "category": "Men,Women,Kids,Seniors,Disabled,Families,LGBT+,All",
+    "name": "Workforce Boulder County (WfBC) - Boulder",
+    "description": "\"Whether you’re looking for a new career, changing careers, or searching for the right person to fill your position, Workforce Boulder County has your solution. WfBC is your partner in making Boulder County a vital place to work, live, and play.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.0255306,
+      "_longitude": -105.22154239999998
+    },
+    "phone": "303.413.7555",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "8:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "8:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "8:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "8:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "8:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Work",
+    "serviceSubtype": "Employment Assistance",
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://www.bouldercounty.org/departments/community-services/workforce-boulder-county/"
+  },
+  "-L_Y2Oa-TQ33-4qCurJw": {
+    "address": {
+      "address1": "515 Coffman St",
+      "address2": "Suite 150",
+      "city": "Longmont",
+      "state": "CO",
+      "zip": "80501"
+    },
+    "category": "Men,Women,Kids,Seniors,Disabled,Families,LGBT+,All",
+    "name": "Workforce Boulder County (WfBC) - Longmont - St Vrain Community Hub",
+    "description": "\"Whether you’re looking for a new career, changing careers, or searching for the right person to fill your position, Workforce Boulder County has your solution. WfBC is your partner in making Boulder County a vital place to work, live, and play.\"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 40.1684772,
+      "_longitude": -105.10424319999998
+    },
+    "phone": "720.864.6600",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "8:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "8:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "8:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "8:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "8:00 AM",
+        "to": "4:30 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Work",
+    "serviceSubtype": "Employment Assistance",
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "https://www.bouldercounty.org/departments/community-services/workforce-boulder-county/"
+  },
+  "-L_YEcBNCOwbFlc1H3g3": {
+    "address": {
+      "address1": "100 Spader Way",
+      "city": "Broomfield",
+      "state": "CO",
+      "zip": "80020"
+    },
+    "category": "Men,Women,Kids,Seniors,Disabled,Families,LGBT+,All",
+    "name": "Broomfield Workforce Center",
+    "description": "\"The Broomfield Workforce Center offers a wide range of support for both job seekers and businesses. \"",
+    "isApproved": true,
+    "location": {
+      "_latitude": 39.9163427,
+      "_longitude": -105.06660970000001
+    },
+    "phone": "(303) 464-5855",
+    "schedule": [
+      {
+        "day": "Monday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Tuesday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Wednesday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Thursday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      },
+      {
+        "day": "Friday",
+        "from": "8:00 AM",
+        "to": "5:00 PM",
+        "type": "Weekly"
+      }
+    ],
+    "selectedAll": true,
+    "serviceType": "Work",
+    "serviceSubtype": "Employment Assistance",
+    "updateDate": {
+      "_seconds": 0,
+      "_nanoseconds": 0
+    },
+    "user": {
+      "email": "patrudu36@gmail.com",
+      "id": "70b8446e-61ca-41c9-93f9-9f3fb4996e6c"
+    },
+    "websiteUrl": "http://www.broomfieldworkforce.org"
+  }
+}
