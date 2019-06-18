@@ -9,7 +9,7 @@ Upswyng is a digital directory that contains information on local services and p
 
 The initial project structure was generated using [Create React App](https://github.com/facebook/create-react-app).
 
-### Firebase DB Setup
+### Firebase DB Setup (Optional)
 
 For local development, you'll want to have your own Firebase database to query data from. Below are the steps for setting up your own database.
 
@@ -33,9 +33,10 @@ For local development, you'll want to have your own Firebase database to query d
 
 1. Navigate to your newly initialized database (see above).
 2. In the dropdown located next to the "Database" header, select **"Realtime Database"**
-3. In top, right of the main panel displaying your data, find and open the kebab menu icon (3 stacked dots). In that menu, select **"Import JSON"**.
-4. Upload the `data_pipeline/all.json` found in this repo.
-5. Click the **"Import"** button.
+3. In your terminal while in the repo, run `npm run datapipe`. This should create a new file called `data_pipeline/all.json`.
+4. In top, right of the main panel displaying your data, find and open the kebab menu icon (3 stacked dots). In that menu, select **"Import JSON"**.
+5. Upload the `data_pipeline/all.json` found in this repo.
+6. Click the **"Import"** button.
 
 🎉 You should now see your database populated! 🎉
 
