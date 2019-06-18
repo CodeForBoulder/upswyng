@@ -19,6 +19,15 @@ You can do this via your system's file explorer or via the following terminal co
 cp .env.local.example .env.local
 ```
 
+### Google API Key Configuration
+
+You will need an API key for Google Maps JavaScript API/Directions API.
+Get started here: [https://cloud.google.com/maps-platform/](https://cloud.google.com/maps-platform/)
+
+Click `Get Started`, select `Maps` and `Routes` and proceed with the setup.
+
+You will be presented with your key, which you will then need to save to your Upswyng directory's `.env.local` as `REACT_APP_GOOGLE_MAPS_API_KEY=yourUniqueGoogleAPIKeyHere`
+
 Once you've copied the file, you'll need to start/restart the application (see commands section below).
 
 ### Firebase DB Setup (Optional)
@@ -86,15 +95,6 @@ REACT_APP_PROJECT_ID=upswyng-local
 ```
 
 3. Once you've updated all variables, you'll need to start/restart the application (see commands section below).
-
-### Google API Key Configuration
-
-You will need an API key for Google Maps JavaScript API/Directions API.
-Get started here: [https://cloud.google.com/maps-platform/](https://cloud.google.com/maps-platform/)
-
-Click `Get Started`, select `Maps` and `Routes` and proceed with the setup.
-
-You will be presented with your key, which you will then need to save to your Upswyng directory's `.env.local` as `REACT_APP_GOOGLE_MAPS_API_KEY=yourUniqueGoogleAPIKeyHere`
 
 ## Commands
 
