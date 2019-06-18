@@ -27,7 +27,8 @@
   "scripts": {
     "build": "react-scripts build",
     "ci-lint": "prettier --check --loglevel error '{data_pipeline,.github,src,.vscode}/**/*.{json,css,scss,md}' && tsc --noEmit && eslint 'src/**/*.{js,jsx,ts,tsx}' --quiet",
-    "datapipe": "npm run strapped && npm run filter",
+    "combine": "node data_pipeline/combine.js",
+    "datapipe": "npm run strapped && npm run filter && npm run combine",
     "eject": "react-scripts eject",
     "filter": "node data_pipeline/filter.js",
     "lint": "prettier --write --loglevel warn '{data_pipeline,.github,src,.vscode}/**/*.{json,css,scss,md}' && tsc --noEmit && eslint 'src/**/*.{js,jsx,ts,tsx}' --quiet --fix",
