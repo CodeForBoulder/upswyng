@@ -9,9 +9,23 @@ Upswyng is a digital directory that contains information on local services and p
 
 The initial project structure was generated using [Create React App](https://github.com/facebook/create-react-app).
 
+### Create `.env.local` file
+
+To use the local development database, you'll only need to create a copy of `.env.local.example` and name that copy `.env.local`.
+
+You can do this via your system's file explorer or via the following terminal command while in the repo:
+
+```
+cp .env.local.example .env.local
+```
+
+Once you've copied the file, you'll need to start/restart the application (see commands section below).
+
 ### Firebase DB Setup (Optional)
 
-For local development, you'll want to have your own Firebase database to query data from. Below are the steps for setting up your own database.
+If you want to work with your own copy of the database, you'll need to setup your own Firebase project. Below are the steps for setting one up.
+
+**NOTE: THESE ARE OPTIONAL STEPS.**
 
 #### Create a Firebase Project
 
