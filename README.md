@@ -63,7 +63,7 @@ If you want to work with your own copy of the database, you'll need to setup you
 
 A new screen should display scripts to be added to a project. Go ahead keep this page open, ignore the instructions given in Firebase, and move on to the next section of this README.
 
-### Update .env.local Variables
+#### Update .env.local Variables
 
 After completely setting up your Firebase project and registering your app (above), you'll need to setup some local environment variables to ensure the source compiles correctly.
 
