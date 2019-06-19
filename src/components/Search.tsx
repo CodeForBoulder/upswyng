@@ -14,6 +14,16 @@ class Search extends Component {
     submitted: false
   };
 
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { value }
+    } = e;
+
+    this.setState({
+      query: value
+    });
+  };
+
   handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     this.setState({
@@ -22,7 +32,7 @@ class Search extends Component {
   };
 
   render() {
-    const { submitted } = this.state;
+    const { submitted, query } = this.state;
     return (
       <Fragment>
         <form onSubmit={this.handleSubmit}>
@@ -37,6 +47,8 @@ class Search extends Component {
                 </InputAdornment>
               )
             }}
+            onChange={this.handleChange}
+            value={query}
           />
         </form>
         {submitted ? <Redirect to="/" /> : null}

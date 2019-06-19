@@ -16,6 +16,22 @@ describe('<Search />', () => {
     expect(wrapper.find('TextField').length).toBe(1);
   });
 
+  describe('when the <TextField/> changes', () => {
+    it('has a value prop equal to the changed value', () => {
+      const getRenderedTextField = () => wrapper.find('TextField');
+      const mockInputValue = 'a submitted search';
+
+      getRenderedTextField().simulate('change', {
+        target: {
+          value: mockInputValue
+        }
+      });
+      wrapper.update();
+
+      expect(getRenderedTextField().prop('value')).toBe(mockInputValue);
+    });
+  });
+
   describe('when the form is submitted', () => {
     it('prevents the default event action', () => {
       const mockPreventDefault = jest.fn();
