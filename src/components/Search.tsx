@@ -24,7 +24,7 @@ class Search extends Component {
     });
   };
 
-  handleSubmit = (e: React.FormEvent) => {
+  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     this.setState({
       submitted: true
