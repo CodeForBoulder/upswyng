@@ -18,7 +18,8 @@ describe('<Search />', () => {
 
   describe('when the <TextField/> changes', () => {
     it('has a value prop equal to the changed value', () => {
-      const getRenderedTextField = () => wrapper.find('TextField');
+      const getRenderedTextField = (): enzyme.ShallowWrapper =>
+        wrapper.find('TextField');
       const mockInputValue = 'a submitted search';
 
       getRenderedTextField().simulate('change', {
@@ -43,15 +44,41 @@ describe('<Search />', () => {
       expect(mockPreventDefault).toBeCalled();
     });
 
-    it('renders a <Redirect/> element', () => {
-      expect(wrapper.find('Redirect').length).toBe(0);
+    describe('<Redirect/>', () => {
+      const getRenderedRedirect = (): enzyme.ShallowWrapper =>
+        wrapper.find('Redirect');
 
-      wrapper.find('form').simulate('submit', {
-        preventDefault: jest.fn()
+      it('renders', () => {
+        expect(getRenderedRedirect().length).toBe(0);
+
+        wrapper.find('form').simulate('submit', {
+          preventDefault: jest.fn()
+        });
+        wrapper.update();
+
+        expect(getRenderedRedirect().length).toBe(1);
       });
-      wrapper.update();
 
-      expect(wrapper.find('Redirect').length).toBe(1);
+      it('has a "to.search" prop containing its <TextField/>s value', () => {
+        const mockInputValue = 'a submitted search';
+
+        wrapper.find('TextField').simulate('change', {
+          target: {
+            value: mockInputValue
+          }
+        });
+        wrapper.find('form').simulate('submit', {
+          preventDefault: jest.fn()
+        });
+        wrapper.update();
+
+        interface RedirectTo {
+          search: string;
+        }
+        const redirectTo: RedirectTo = getRenderedRedirect().prop('to');
+
+        expect(redirectTo.search).toContain(mockInputValue);
+      });
     });
   });
 });
