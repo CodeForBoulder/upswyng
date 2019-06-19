@@ -1,14 +1,45 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import enzyme, { shallow } from 'enzyme';
 import Search from './Search';
+
+jest.mock('react-router/Redirect', () => 'Redirect');
 jest.mock('@material-ui/core/TextField', () => 'TextField');
 
 describe('<Search />', () => {
-  const wrapper = mount(<Search />);
+  let wrapper: enzyme.ShallowWrapper;
+
+  beforeEach(() => {
+    wrapper = shallow(<Search />);
+  });
+
   it('renders a required form element', () => {
     expect(wrapper.find('form').length).toBe(1);
   });
+
   it('renders a TextField', () => {
     expect(wrapper.find('TextField').length).toBe(1);
+  });
+
+  describe('when the form is submitted', () => {
+    it('prevents the default event action', () => {
+      const mockPreventDefault = jest.fn();
+
+      wrapper.find('form').simulate('submit', {
+        preventDefault: mockPreventDefault
+      });
+
+      expect(mockPreventDefault).toBeCalled();
+    });
+
+    it('renders a <Redirect/> element', () => {
+      expect(wrapper.find('Redirect').length).toBe(0);
+
+      wrapper.find('form').simulate('submit', {
+        preventDefault: jest.fn()
+      });
+      wrapper.update();
+
+      expect(wrapper.find('Redirect').length).toBe(1);
+    });
   });
 });
