@@ -12,10 +12,6 @@ describe('<Search />', () => {
     wrapper = shallow(<Search />);
   });
 
-  it('renders a required form element', () => {
-    expect(wrapper.find('form').length).toBe(1);
-  });
-
   it('renders a TextField', () => {
     expect(wrapper.find('TextField').length).toBe(1);
   });
