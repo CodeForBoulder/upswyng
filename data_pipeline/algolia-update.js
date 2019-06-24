@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const fs = require('fs');
 const dotenv = require('dotenv');
-const algoliasearch = require('algoliasearch');
+const algoliaSearch = require('algoliasearch');
 
 //load local environment variables
 const env = {
@@ -27,7 +27,7 @@ for (const charityID in charities) {
 }
 
 // initialize Algolia project
-const algolia = algoliasearch(
+const algolia = algoliaSearch(
   env.local.ALGOLIA_APP_ID,
   env.local.ALGOLIA_ADMIN_API_KEY
 );
