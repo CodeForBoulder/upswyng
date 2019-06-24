@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { InputAdornment, TextField } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { Redirect } from 'react-router';
@@ -36,7 +36,7 @@ class Search extends Component {
   render() {
     const { submitted, query } = this.state;
     return (
-      <Fragment>
+      <>
         <form onSubmit={this.handleSubmit}>
           <TextField
             id="search"
@@ -61,7 +61,7 @@ class Search extends Component {
             }}
           />
         ) : null}
-      </Fragment>
+      </>
     );
   }
 }
