@@ -5,40 +5,19 @@
 
 Upswyng is a digital directory that contains information on local services and providers who serve the homeless community in the Boulder area.
 
-## Development
+## Setup
 
 The initial project structure was generated using [Create React App](https://github.com/facebook/create-react-app).
 
-### Commands
+### Create `.env.local` file
 
-#### `npm i`
+To use the local development database, you'll only need to create a copy of `.env.local.example` and name that copy `.env.local`.
 
-Installs project dependencies.
+You can do this via your system's file explorer or via the following terminal command while in the repo:
 
-#### `npm start`
-
-Runs the app in the development mode.
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-#### `npm test`
-
-Launches the test runner in the interactive watch mode.
-
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-#### `npm run build`
-
-Builds the app for production to the build folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.
-
-#### `npm run datapipe`
-
-Retrieves latest data and filters it for our target locale.
+```
+cp .env.local.example .env.local
+```
 
 ### Google API Key Configuration
 
@@ -48,6 +27,105 @@ Get started here: [https://cloud.google.com/maps-platform/](https://cloud.google
 Click `Get Started`, select `Maps` and `Routes` and proceed with the setup.
 
 You will be presented with your key, which you will then need to save to your Upswyng directory's `.env.local` as `REACT_APP_GOOGLE_MAPS_API_KEY=yourUniqueGoogleAPIKeyHere`
+
+Once you've copied the file, you'll need to start/restart the application (see commands section below).
+
+### Firebase DB Setup (Optional)
+
+If you want to work with your own copy of the database, you'll need to setup your own Firebase project. Below are the steps for setting one up.
+
+**NOTE: THESE ARE OPTIONAL STEPS.**
+
+#### Create a Firebase Project
+
+1. If you don't have one already, create a [Google Account](https://account.google.com/)
+2. Navigate to the [Firebase Console](https://console.firebase.google.com/)
+3. Click the **"New Project"** button
+4. Provide a name for your project, such as (but not required to be) `upswyng-local`
+5. Read and agree to the terms of service, and click the **"Create Project"** button
+
+#### Initialize Database
+
+1. Navigate to your newly made project (see above) in the [Firebase Console](https://console.firebase.google.com/).
+2. In the left, main navigation find and click **Database** in the "Develop" section.
+3. Click on the **"Create Database"** button.
+4. In the new modal, select **Start in test mode**
+5. Click the **"Enable"** button
+
+#### Upload Data to Database
+
+1. Navigate to your newly initialized database (see above).
+2. In the dropdown located next to the "Database" header, select **"Realtime Database"**
+3. In your terminal while in the repo, run `npm run datapipe`. This should create a new file called `data_pipeline/all.json`.
+4. In top, right of the main panel displaying your data, find and open the kebab menu icon (3 stacked dots). In that menu, select **"Import JSON"**.
+5. Upload the `data_pipeline/all.json` found in this repo.
+6. Click the **"Import"** button.
+
+🎉 You should now see your database populated! 🎉
+
+#### Add an App to Your Firebase Project
+
+1. Return to the **"Project Overview"** page in your Firebase project in your [Firebase Console](https://console.firebase.google.com/)
+2. In the "Get started by adding Firebase to your app" section of the page, find and select the **"Web"** button, which looks like a self-closed HTML element **</>**.
+3. Give your app a nickname, such as (but not required to be) `upswyng-local`
+4. Click **"Register App"** button
+
+A new screen should display scripts to be added to a project. Go ahead keep this page open, ignore the instructions given in Firebase, and move on to the next section of this README.
+
+#### Update .env.local Variables
+
+After completely setting up your Firebase project and registering your app (above), you'll need to setup some local environment variables to ensure the source compiles correctly.
+
+1. Create a copy of the `.env.local.example` in this repo named `.env.local`
+2. In your newly created `.env.local` you'll want to update the value of each of the placeholder variables. Each variable corresponds with your Firebase configuration (see previous section). Below details which variable values match your Firebase configuration property.
+
+| `.env.local` variable name  | Firebase Config Property |
+| --------------------------- | ------------------------ |
+| REACT_APP_API_KEY           | apiKey                   |
+| REACT_APP_AUTH_DOMAIN       | authDomain               |
+| REACT_APP_DATABASE_URL      | databaseURL              |
+| REACT_APP_PROJECT_ID        | projectId                |
+| REACT_APP_STORAGE_BUCKET    | storageBucket            |
+| REACT_APP_MESSAGE_SENDER_ID | messagingSenderId        |
+
+So if the value of the `projectId` in your Firebase Config is `upswyng-local`, set your `REACT_APP_PROJECT_ID` in your `.env.local` like below.
+
+```
+REACT_APP_PROJECT_ID=upswyng-local
+```
+
+3. Once you've updated all variables, you'll need to start/restart the application (see commands section below).
+
+## Commands
+
+### `npm i`
+
+Installs project dependencies.
+
+### `npm start`
+
+Runs the app in the development mode.
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.
+
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the build folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.
+
+### `npm run datapipe`
+
+Retrieves latest data and filters it for our target locale.
 
 ## Contributing
 
