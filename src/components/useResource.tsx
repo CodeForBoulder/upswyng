@@ -21,8 +21,6 @@ import firebase from '../firebase';
 function useResource(dataPath: string): TResource | null {
   const [resource, setResource] = useState(null);
   useEffect(() => {
-    // Update 'resource' when the Firebase Realtime Database data
-    // under the '/someData' path changes.
     const firebaseRef = firebase.database().ref(dataPath);
     const firebaseCallback = firebaseRef.on('value', snapshot => {
       if (!snapshot) {
@@ -31,7 +29,6 @@ function useResource(dataPath: string): TResource | null {
       setResource(snapshot.val());
     });
     return () => {
-      // Un-register the listener on '/someData'.
       firebaseCallback &&
         firebaseRef &&
         firebaseRef.off('value', firebaseCallback as (

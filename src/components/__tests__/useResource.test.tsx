@@ -24,7 +24,7 @@ it('should set init value', async () => {
   expect(result.current).toBeNull();
 });
 
-it('should update the result when a resource has been recieved', async () => {
+it('should update the result when a resource has been received', async () => {
   // This currently raises a Jest warning for not wrapping the async action in `act`.
   // It will be fixed eventually in the react-hooks testing library. See:
   // https://github.com/testing-library/react-hooks-testing-library/blob/master/docs/usage/advanced-hooks.md#act-warning
