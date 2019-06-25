@@ -12,19 +12,16 @@ const charities = JSON.parse(
   fs.readFileSync('data_pipeline/charity.json').toString('utf8')
 );
 
-const updatedAlgoliaIndex = [];
-
-for (const charityID in charities) {
-  if (charities[charityID]) {
-    const { charityname, category, servicetype } = charities[charityID];
-    updatedAlgoliaIndex.push({
+const updatedAlgoliaIndex = Object.entries(charities).map(
+  ([charityID, { charityname, category, servicetype }]) => {
+    return {
       objectID: charityID, //objectID required by Algolia
       charityname,
       category,
       servicetype
-    });
+    };
   }
-}
+);
 
 // initialize Algolia project
 const algolia = algoliaSearch(
