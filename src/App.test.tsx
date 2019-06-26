@@ -11,6 +11,8 @@ jest.mock('./components/Hotlines', () => 'Hotlines');
 jest.mock('./components/Food', () => 'Food');
 jest.mock('./components/Transit', () => 'Transit');
 jest.mock('./components/Resource', () => 'Resource');
+jest.mock('./components/Transit', () => 'Transit');
+jest.mock('./components/SearchResults', () => 'SearchResults');
 
 describe('<App />', () => {
   const wrapper = shallow(<App />);
@@ -42,6 +44,10 @@ describe('<App />', () => {
     {
       path: '/resource',
       component: 'Resource'
+    },
+    {
+      path: '/search',
+      component: 'SearchResults'
     }
   ];
   it('renders the header component', () => {
