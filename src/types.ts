@@ -1,5 +1,13 @@
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
 
+export interface TEnvVariables {
+  env: {
+    REACT_APP_ALGOLIA_APP_ID: string;
+    REACT_APP_ALGOLIA_SEARCH_API_KEY: string;
+    REACT_APP_ALGOLIA_INDEX_NAME: string;
+  };
+}
+
 export type TDay =
   | 'Monday'
   | 'Tuesday'
