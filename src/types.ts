@@ -53,3 +53,10 @@ export interface THomeButton {
   icon: React.ReactElement<SvgIconProps>;
   to: string;
 }
+
+export interface TSearchResult {
+  charityname: string;
+  category: string;
+  servicetype: string;
+  objectID: string;
+}
