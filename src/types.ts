@@ -54,9 +54,32 @@ export interface THomeButton {
   to: string;
 }
 
-export interface TSearchResult {
-  charityname: string;
+export interface TAlgoliaSearchHitHighlightResult {
+  fullyHighlighted: boolean;
+  value: string;
+  matchLevel: string;
+  matchedWords: string[];
+}
+export interface TAlgoliaSearchHitHighlightResults {
+  [key: string]: TAlgoliaSearchHitHighlightResult;
+}
+
+export interface TAlgoliaSearchHit {
   category: string;
-  servicetype: string;
+  charityname: string;
   objectID: string;
+  servicetype: string;
+  _highlightResult: TAlgoliaSearchHitHighlightResult;
+}
+
+export interface TAlgoliaSearchResults {
+  exhaustiveNbHits: boolean;
+  hits: TAlgoliaSearchHit[];
+  hitsPerPage: number;
+  nbHits: number;
+  nbPages: number;
+  page: number;
+  params: string;
+  processingTimeMS: number;
+  query: string;
 }
