@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, EnzymeAdapter, ShallowWrapper } from 'enzyme';
+import { shallow, ShallowWrapper } from 'enzyme';
 import SearchResults from '../SearchResults';
 import useSearchResults from '../useSearchResults';
 import { SEARCH_PARAM_QUERY } from '../../constants';
@@ -14,7 +14,7 @@ describe('<SearchResults/>', () => {
   describe('when it does not receive any search hits', () => {
     beforeAll(() => {
       const mockHits: [] = [];
-      useSearchResults.mockImplementation(() => ({
+      (useSearchResults as jest.Mock).mockImplementation(() => ({
         hits: mockHits
       }));
     });
@@ -38,7 +38,7 @@ describe('<SearchResults/>', () => {
     ];
 
     beforeEach(() => {
-      useSearchResults.mockImplementation(() => ({
+      (useSearchResults as jest.Mock).mockImplementation(() => ({
         hits: mockHits
       }));
     });
@@ -64,9 +64,9 @@ describe('<SearchResults/>', () => {
         const getLink = (component: ShallowWrapper) => component.find('Link');
         it('has a to.search prop containing the proper query', () => {
           getListItems().forEach((listItem, index) => {
-            expect(getLink(listItem).prop('to').search).toContain(
-              `${SEARCH_PARAM_QUERY}=${mockHits[index].objectID}`
-            );
+            expect(getLink(listItem).prop('to')).toMatchObject({
+              search: `?${SEARCH_PARAM_QUERY}=${mockHits[index].objectID}`
+            });
           });
         });
 
