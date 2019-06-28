@@ -1,5 +1,20 @@
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
 
+export interface TEnvVariables {
+  env: {
+    REACT_APP_ALGOLIA_APP_ID: string;
+    REACT_APP_ALGOLIA_SEARCH_API_KEY: string;
+    REACT_APP_ALGOLIA_INDEX_NAME: string;
+    FIREBASE_API_KEY: string;
+    FIREBASE_AUTH_DOMAIN: string;
+    FIREBASE_DATABASE_URL: string;
+    FIREBASE_PROJECT_ID: string;
+    FIREBASE_STORAGE_BUCKET: string;
+    FIREBASE_MESSAGE_SENDER_ID: string;
+    GOOGLE_MAPS_API_KEY: string;
+  };
+}
+
 export type TDay =
   | 'Monday'
   | 'Tuesday'

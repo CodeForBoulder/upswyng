@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
+    "@types/algoliasearch": "^3.30.12",
     "@types/enzyme": "^3.9.1",
     "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/google-map-react": "^0.23.11",
