@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import algoliaSearch from 'algoliasearch';
 import useSearchResults from './useSearchResults';
-import { SEARCH_PARAM_QUERY } from '../constants';
+import { SEARCH_PARAM_RESOURCE } from '../constants';
 
 const renderResults = (results: algoliaSearch.Response) => {
   const { hits } = results;
@@ -14,7 +14,7 @@ const renderResults = (results: algoliaSearch.Response) => {
             <Link
               to={{
                 pathname: '/resource',
-                search: `?${SEARCH_PARAM_QUERY}=${objectID}`
+                search: `?${SEARCH_PARAM_RESOURCE}=${objectID}`
               }}
             >
               {charityname}
