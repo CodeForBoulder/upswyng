@@ -152,7 +152,7 @@ class Map extends Component<any, any> {
         </button>
         <GoogleMapReact
           bootstrapURLKeys={{
-            key: `${process.env.GOOGLE_MAPS_API_KEY}`
+            key: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
           }}
           defaultCenter={boulderCoordinates}
           defaultZoom={13}
