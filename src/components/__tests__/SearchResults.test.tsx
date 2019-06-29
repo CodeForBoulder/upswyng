@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
 import SearchResults from '../SearchResults';
 import useSearchResults from '../useSearchResults';
-import { SEARCH_PARAM_QUERY } from '../../constants';
+import { SEARCH_PARAM_RESOURCE } from '../../constants';
 
 jest.mock('../useSearchResults');
 jest.mock('react-router-dom', () => ({
@@ -65,7 +65,7 @@ describe('<SearchResults/>', () => {
         it('has a to.search prop containing the proper query', () => {
           getListItems().forEach((listItem, index) => {
             expect(getLink(listItem).prop('to')).toMatchObject({
-              search: `?${SEARCH_PARAM_QUERY}=${mockHits[index].objectID}`
+              search: `?${SEARCH_PARAM_RESOURCE}=${mockHits[index].objectID}`
             });
           });
         });
