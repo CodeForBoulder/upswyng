@@ -26,7 +26,7 @@ Get started here: [https://cloud.google.com/maps-platform/](https://cloud.google
 
 Click `Get Started`, select `Maps` and `Routes` and proceed with the setup.
 
-You will be presented with your key, which you will then need to save to your Upswyng directory's `.env.local` as `GOOGLE_MAPS_API_KEY=yourUniqueGoogleAPIKeyHere`
+You will be presented with your key, which you will then need to save to your Upswyng directory's `.env.local` as `REACT_APP_GOOGLE_MAPS_API_KEY=yourUniqueGoogleAPIKeyHere`
 
 Once you've copied the file, you'll need to start/restart the application (see commands section below).
 
@@ -79,19 +79,19 @@ After completely setting up your Firebase project and registering your app (abov
 1. Create a copy of the `.env.local.example` in this repo named `.env.local`
 2. In your newly created `.env.local` you'll want to update the value of each of the placeholder variables. Each variable corresponds with your Firebase configuration (see previous section). Below details which variable values match your Firebase configuration property.
 
-| `.env.local` variable name | Firebase Config Property |
-| -------------------------- | ------------------------ |
-| FIREBASE_API_KEY           | apiKey                   |
-| FIREBASE_AUTH_DOMAIN       | authDomain               |
-| FIREBASE_DATABASE_URL      | databaseURL              |
-| FIREBASE_PROJECT_ID        | projectId                |
-| FIREBASE_STORAGE_BUCKET    | storageBucket            |
-| FIREBASE_MESSAGE_SENDER_ID | messagingSenderId        |
+| `.env.local` variable name           | Firebase Config Property |
+| ------------------------------------ | ------------------------ |
+| REACT_APP_FIREBASE_API_KEY           | apiKey                   |
+| REACT_APP_FIREBASE_AUTH_DOMAIN       | authDomain               |
+| REACT_APP_FIREBASE_DATABASE_URL      | databaseURL              |
+| REACT_APP_FIREBASE_PROJECT_ID        | projectId                |
+| REACT_APP_FIREBASE_STORAGE_BUCKET    | storageBucket            |
+| REACT_APP_FIREBASE_MESSAGE_SENDER_ID | messagingSenderId        |
 
-So if the value of the `projectId` in your Firebase Config is `upswyng-local`, set your `FIREBASE_PROJECT_ID` in your `.env.local` like below.
+So if the value of the `projectId` in your Firebase Config is `upswyng-local`, set your `REACT_APP_FIREBASE_PROJECT_ID` in your `.env.local` like below.
 
 ```
-FIREBASE_PROJECT_ID=upswyng-local
+REACT_APP_FIREBASE_PROJECT_ID=upswyng-local
 ```
 
 3. Once you've updated all variables, you'll need to start/restart the application (see commands section below).
