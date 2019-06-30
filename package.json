@@ -24,6 +24,7 @@
     "react-router-config": "^4.4.0-beta.6",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5",
+    "styled-components": "^4.3.2",
     "typescript": "^3.3.4000"
   },
   "scripts": {
