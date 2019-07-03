@@ -17,17 +17,13 @@ const StyledHeader = styled(AppBar)`
   }
 ` as typeof AppBar;
 
-const onMenuClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-  //handle when the menu button is clicked here
-};
-
 const Header = () => {
   return (
     <StyledHeader position="static">
       <Toolbar>
         <Container container justify="space-between" alignItems="center">
           <Grid item>
-            <IconButton color="inherit" onClick={onMenuClick} aria-label="Menu">
+            <IconButton color="inherit" aria-label="Menu">
               <MenuIcon />
             </IconButton>
           </Grid>
