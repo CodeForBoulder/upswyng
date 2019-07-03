@@ -7,6 +7,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import Logo from './Logo';
 import { Container } from '../App.styles';
 
 const StyledHeader = styled(AppBar)`
@@ -32,7 +33,7 @@ const Header = () => {
           </Grid>
           <Grid item>
             <Link to="/">
-              <img src="https://via.placeholder.com/150x50" alt="UpSwyng" />
+              <Logo />
             </Link>
           </Grid>
         </Container>
