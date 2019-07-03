@@ -79,7 +79,7 @@ const HomeButton = styled(Button)`
     display: flex;
     align-items: stretch;
     width: 100%;
-    height: 72px;
+    padding: 10px;
     border-radius: 0;
     background: ${colors.greyDark};
     color: ${colors.white};
