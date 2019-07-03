@@ -43,9 +43,7 @@ const renderButtons = (buttons: THomeButton[], props: Props) =>
 const Home = () => (
   <Container container justify="space-evenly">
     <Grid item xs={12}>
-      <Grid container justify="space-evenly">
-        <Grid component={Search} item xs={12} />
-      </Grid>
+      <Search />
     </Grid>
     <Grid item xs={12}>
       <Grid container justify="space-evenly">
