@@ -10,10 +10,14 @@ import styled from 'styled-components';
 import Logo from './Logo';
 import { Container } from '../App.styles';
 
+const headerVerticalPadding = '24px';
+
 const StyledHeader = styled(AppBar)`
   && {
     background: none;
     box-shadow: none;
+    padding-top: ${headerVerticalPadding};
+    padding-bottom: ${headerVerticalPadding};
   }
 ` as typeof AppBar;
 
