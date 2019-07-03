@@ -15,6 +15,7 @@ import {
   InfoIcon
 } from './Icons';
 import { THomeButton } from '../types';
+import { colors, fonts } from '../App.styles';
 
 const buttons: THomeButton[] = [
   {
@@ -69,19 +70,53 @@ const buttons: THomeButton[] = [
   }
 ];
 
+const HomeLink = styled(Link)`
+  text-decoration: none;
+`;
+
+const HomeButton = styled(Button)`
+  && {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    height: 72px;
+    border-radius: 0;
+    background: ${colors.greyDark};
+    color: ${colors.white};
+    text-decoration: none;
+  }
+  &&:hover {
+    background: ${colors.greyDark};
+  }
+  > span {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-family: ${fonts.openSans};
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 24px;
+    text-transform: none;
+  }
+  svg {
+    width: 42px;
+    height: auto;
+    align-self: flex-end;
+  }
+` as typeof Button;
+
 const HomeButtons = () => (
   <>
     {buttons.map((button: THomeButton) => {
       return (
         <Grid item xs={6} key={button.text}>
-          <Grid container direction="column" alignItems="center">
-            <Link to={button.to} data-test={button.text}>
-              <Button component={'span'}>
-                {button.icon}
-                {button.text}
-              </Button>
-            </Link>
-          </Grid>
+          <HomeLink to={button.to} data-test={button.text}>
+            <HomeButton disableRipple={true} component={'span'}>
+              {button.text}
+              {button.icon}
+            </HomeButton>
+          </HomeLink>
         </Grid>
       );
     })}
