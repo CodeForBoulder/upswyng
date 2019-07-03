@@ -30,6 +30,17 @@ const SearchInput = styled(TextField)`
   }
 ` as typeof TextField;
 
+const SearchAdornment = styled(InputAdornment)`
+  && {
+    margin-left: 7px;
+    margin-right: 7px;
+  }
+  svg {
+    width: 0.75em;
+    height: 0.75em;
+  }
+` as typeof InputAdornment;
+
 interface State {
   query: string;
   submitted: boolean;
@@ -71,9 +82,9 @@ class Search extends Component {
             InputProps={{
               disableUnderline: true,
               startAdornment: (
-                <InputAdornment position="start">
+                <SearchAdornment position="start">
                   <SearchIcon />
-                </InputAdornment>
+                </SearchAdornment>
               )
             }}
             onChange={this.handleChange}
