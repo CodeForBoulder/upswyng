@@ -1,4 +1,5 @@
-import styled, { css } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
+import { Grid } from '@material-ui/core';
 
 export const colors = {
   black: '#000',
@@ -21,7 +22,14 @@ export const colors = {
   white: '#FFF'
 };
 
-export default styled.div`
-  background: ${colors.charcoal};
-  color: ${colors.white};
+export const Container = styled(Grid)`
+  margin: 0 auto;
+  max-width: 480px;
+` as typeof Grid;
+
+export default createGlobalStyle`
+  body {
+    background: ${colors.charcoal};
+    color: ${colors.white};
+  }
 `;

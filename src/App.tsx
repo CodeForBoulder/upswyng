@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import AppContainer from './App.styles';
+import GlobalStyle from './App.styles';
 import Header from './components/Header';
 import Home from './components/Home';
 import Shelters from './components/Shelters';
@@ -14,7 +14,8 @@ import SearchResults from './components/SearchResults';
 class App extends Component {
   render() {
     return (
-      <AppContainer>
+      <div>
+        <GlobalStyle />
         <Router>
           <div>
             <Header />
@@ -28,7 +29,7 @@ class App extends Component {
             <Route exact path="/search" component={SearchResults} />
           </div>
         </Router>
-      </AppContainer>
+      </div>
     );
   }
 }
