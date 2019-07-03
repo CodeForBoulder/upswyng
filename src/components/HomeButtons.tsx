@@ -1,3 +1,7 @@
+import React from 'react';
+import { Button, Grid } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import {
   CallIcon,
   RestaurantIcon,
@@ -6,14 +10,13 @@ import {
   BusIcon,
   GroceryStoreIcon,
   HealingIcon,
-  LibraryBooksIcon,
-  PetsIcon,
   WifiIcon,
   WorkIcon,
   InfoIcon
 } from './Icons';
+import { THomeButton } from '../types';
 
-const HomeButtonsMajor = [
+const buttons: THomeButton[] = [
   {
     text: 'Food',
     icon: RestaurantIcon,
@@ -66,4 +69,23 @@ const HomeButtonsMajor = [
   }
 ];
 
-export default HomeButtonsMajor;
+const HomeButtons = () => (
+  <>
+    {buttons.map((button: THomeButton) => {
+      return (
+        <Grid item xs={6} key={button.text}>
+          <Grid container direction="column" alignItems="center">
+            <Link to={button.to} data-test={button.text}>
+              <Button component={'span'}>
+                {button.icon}
+                {button.text}
+              </Button>
+            </Link>
+          </Grid>
+        </Grid>
+      );
+    })}
+  </>
+);
+
+export default HomeButtons;
