@@ -22,6 +22,10 @@ export const colors = {
   white: '#FFF'
 };
 
+export const fonts = {
+  openSans: "'Open Sans', sans-serif"
+};
+
 export const ScreenReaderOnly = css`
   clip: rect(1px, 1px, 1px, 1px);
   clip-path: inset(50%);
@@ -42,5 +46,6 @@ export default createGlobalStyle`
   body {
     background: ${colors.charcoal};
     color: ${colors.white};
+    font-family: ${fonts.openSans};
   }
 `;

@@ -5,7 +5,7 @@ import { Redirect } from 'react-router';
 import styled from 'styled-components';
 
 import { SEARCH_PARAM_QUERY } from '../constants';
-import { colors, ScreenReaderOnly } from '../App.styles';
+import { colors, fonts, ScreenReaderOnly } from '../App.styles';
 
 const SearchInput = styled(TextField)`
   && {
@@ -20,7 +20,8 @@ const SearchInput = styled(TextField)`
     ${ScreenReaderOnly}
   }
   input {
-    padding: 7px;
+    padding: 7px 7px 7px 0;
+    font-family: ${fonts.openSans};
     font-size: 1em;
   }
   input::placeholder {
@@ -70,7 +71,7 @@ class Search extends Component {
             InputProps={{
               disableUnderline: true,
               startAdornment: (
-                <InputAdornment position="end">
+                <InputAdornment position="start">
                   <SearchIcon />
                 </InputAdornment>
               )
