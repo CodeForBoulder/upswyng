@@ -37,6 +37,15 @@ export const ScreenReaderOnly = css`
   position: absolute;
 `;
 
+export const aStyles = css`
+  &:link,
+  &:visited,
+  &:hover,
+  &:active {
+    color: ${colors.white};
+  }
+`;
+
 export const Container = styled(Grid)`
   margin: 0 auto;
   max-width: 480px;
@@ -47,5 +56,8 @@ export default createGlobalStyle`
     background: ${colors.charcoal};
     color: ${colors.white};
     font-family: ${fonts.openSans};
+  }
+  a {
+    ${aStyles}
   }
 `;
