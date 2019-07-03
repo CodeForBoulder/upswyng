@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button, Grid } from '@material-ui/core';
 import HomeButtonsMajor from './HomeButtonsMajor';
 import HomeButtonsMinor from './HomeButtonsMinor';
+import { Container } from '../App.styles';
 import Search from './Search';
 import { THomeButton } from '../types';
 
@@ -40,26 +41,26 @@ const renderButtons = (buttons: THomeButton[], props: Props) =>
   });
 
 const Home = () => (
-  <Grid container className="home" spacing={16} justify="space-evenly">
+  <Container container justify="space-evenly">
     <Grid item xs={12}>
-      <Grid container className="home" spacing={16} justify="space-evenly">
+      <Grid container justify="space-evenly">
         <Grid component={Search} item xs={12} />
       </Grid>
     </Grid>
     <Grid item xs={12}>
-      <Grid container spacing={16} justify="space-evenly">
+      <Grid container justify="space-evenly">
         {renderButtons(HomeButtonsMajor, { classBlock: 'tile' })}
       </Grid>
     </Grid>
     <Grid item xs={12}>
-      <Grid container spacing={16} justify="space-evenly">
+      <Grid container justify="space-evenly">
         {renderButtons(HomeButtonsMinor, {
           classBlock: 'tile',
           classModifier: 'minor'
         })}
       </Grid>
     </Grid>
-  </Grid>
+  </Container>
 );
 
 export default Home;
