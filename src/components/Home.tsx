@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Grid } from '@material-ui/core';
-import HomeButtonsMajor from './HomeButtonsMajor';
-import HomeButtonsMinor from './HomeButtonsMinor';
+import HomeButtons from './HomeButtons';
 import { Container } from '../App.styles';
 import Search from './Search';
 import { THomeButton } from '../types';
@@ -13,7 +12,7 @@ interface Props {
 }
 
 const renderButtons = (buttons: THomeButton[], props: Props) =>
-  buttons.map((button: THomeButton, index: number) => {
+  buttons.map((button: THomeButton) => {
     const { classBlock, classModifier } = props;
     const blockClassName = `${classBlock} ${classBlock}--home${
       classModifier ? ` ${classBlock}--home-${classModifier}` : ''
@@ -23,7 +22,7 @@ const renderButtons = (buttons: THomeButton[], props: Props) =>
     }`;
 
     return (
-      <Grid item xs={4} key={button.text}>
+      <Grid item xs={6} key={button.text}>
         <Grid container direction="column" alignItems="center">
           <Link
             to={button.to}
@@ -47,15 +46,7 @@ const Home = () => (
     </Grid>
     <Grid item xs={12}>
       <Grid container justify="space-evenly">
-        {renderButtons(HomeButtonsMajor, { classBlock: 'tile' })}
-      </Grid>
-    </Grid>
-    <Grid item xs={12}>
-      <Grid container justify="space-evenly">
-        {renderButtons(HomeButtonsMinor, {
-          classBlock: 'tile',
-          classModifier: 'minor'
-        })}
+        {renderButtons(HomeButtons, { classBlock: 'tile' })}
       </Grid>
     </Grid>
   </Container>

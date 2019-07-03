@@ -4,15 +4,16 @@ import {
   HomeIcon,
   HotTubIcon,
   BusIcon,
-  GroceryStoreIcon
+  GroceryStoreIcon,
+  HealingIcon,
+  LibraryBooksIcon,
+  PetsIcon,
+  WifiIcon,
+  WorkIcon,
+  InfoIcon
 } from './Icons';
 
 const HomeButtonsMajor = [
-  {
-    text: 'Hotlines',
-    icon: CallIcon,
-    to: '/hotlines'
-  },
   {
     text: 'Food',
     icon: RestaurantIcon,
@@ -37,6 +38,31 @@ const HomeButtonsMajor = [
     text: 'Resources',
     icon: GroceryStoreIcon,
     to: '/resources'
+  },
+  {
+    text: 'Hotlines',
+    icon: CallIcon,
+    to: '/hotlines'
+  },
+  {
+    text: 'Health',
+    icon: HealingIcon,
+    to: '/health'
+  },
+  {
+    text: 'Wifi & Tech',
+    icon: WifiIcon,
+    to: '/wifi-and-tech'
+  },
+  {
+    text: 'Job Training',
+    icon: WorkIcon,
+    to: '/work'
+  },
+  {
+    text: 'Social Services',
+    icon: InfoIcon,
+    to: '/social-services'
   }
 ];
 
