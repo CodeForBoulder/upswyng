@@ -5,17 +5,27 @@ import { Redirect } from 'react-router';
 import styled from 'styled-components';
 
 import { SEARCH_PARAM_QUERY } from '../constants';
-import { colors } from '../App.styles';
+import { colors, ScreenReaderOnly } from '../App.styles';
 
-const StyledSearch = styled(TextField)`
+const SearchInput = styled(TextField)`
   && {
     width: 100%;
     background: ${colors.white};
     color: ${colors.black};
   }
+  && > div {
+    margin-top: 0;
+  }
+  label {
+    ${ScreenReaderOnly}
+  }
   input {
     padding: 7px;
     font-size: 1em;
+  }
+  input::placeholder {
+    color: ${colors.black};
+    opacity: 1;
   }
 ` as typeof TextField;
 
@@ -52,7 +62,7 @@ class Search extends Component {
     return (
       <>
         <form onSubmit={this.handleSubmit} className="search">
-          <StyledSearch
+          <SearchInput
             id="search"
             label="Search"
             placeholder="Search - What are your needs today?"
@@ -65,7 +75,6 @@ class Search extends Component {
                 </InputAdornment>
               )
             }}
-            className="search__input-container"
             onChange={this.handleChange}
             value={query}
           />

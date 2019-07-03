@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle, css } from 'styled-components';
 import { Grid } from '@material-ui/core';
 
 export const colors = {
@@ -21,6 +21,17 @@ export const colors = {
   teal: '#40ACBF',
   white: '#FFF'
 };
+
+export const ScreenReaderOnly = css`
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+`;
 
 export const Container = styled(Grid)`
   margin: 0 auto;
