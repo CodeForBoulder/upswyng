@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Grid } from '@material-ui/core';
+import { ButtonProps } from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {
@@ -21,52 +22,62 @@ const buttons: THomeButton[] = [
   {
     text: 'Food',
     icon: RestaurantIcon,
-    to: '/food'
+    to: '/food',
+    color: colors.gold
   },
   {
     text: 'Shelter',
     icon: HomeIcon,
-    to: '/shelter'
+    to: '/shelter',
+    color: colors.orangeDark
   },
   {
     text: 'Hygiene',
     icon: HotTubIcon,
-    to: '/hygiene'
+    to: '/hygiene',
+    color: colors.teal
   },
   {
     text: 'Transit',
     icon: BusIcon,
-    to: '/transit'
+    to: '/transit',
+    color: colors.green
   },
   {
     text: 'Resources',
     icon: GroceryStoreIcon,
-    to: '/resources'
+    to: '/resources',
+    color: colors.purple
   },
   {
     text: 'Hotlines',
     icon: CallIcon,
-    to: '/hotlines'
+    to: '/hotlines',
+    color: colors.pink
   },
   {
     text: 'Health',
     icon: HealingIcon,
-    to: '/health'
+    to: '/health',
+    color: colors.red
   },
   {
     text: 'Wifi & Tech',
     icon: WifiIcon,
-    to: '/wifi-and-tech'
+    to: '/wifi-and-tech',
+    color: colors.blue
   },
   {
     text: 'Job Training',
     icon: WorkIcon,
-    to: '/work'
+    to: '/work',
+    color: colors.lavendar
   },
   {
     text: 'Social Services',
     icon: InfoIcon,
-    to: '/social-services'
+    to: '/social-services',
+    color: colors.brown
   }
 ];
 
@@ -74,19 +85,28 @@ const HomeLink = styled(Link)`
   text-decoration: none;
 `;
 
-const HomeButton = styled(Button)`
+interface HomeButtonProps extends ButtonProps {
+  readonly buttonColor: string;
+}
+
+const HomeButton = styled((props: HomeButtonProps) => {
+  return <Button {...props} />;
+})`
   && {
     display: flex;
     align-items: stretch;
     width: 100%;
     padding: 10px;
     border-radius: 0;
-    background: ${colors.greyDark};
+    background: ${(props: HomeButtonProps) =>
+      props.buttonColor || colors.greyDark};
     color: ${colors.white};
     text-decoration: none;
   }
   &&:hover {
-    background: ${colors.greyDark};
+    background: ${(props: HomeButtonProps) =>
+      props.buttonColor || colors.greyDark};
+    filter: brightness(95%);
   }
   > span {
     display: flex;
@@ -104,7 +124,7 @@ const HomeButton = styled(Button)`
     height: auto;
     align-self: flex-end;
   }
-` as typeof Button;
+`;
 
 const HomeButtons = () => (
   <>
@@ -112,7 +132,11 @@ const HomeButtons = () => (
       return (
         <Grid item xs={6} key={button.text}>
           <HomeLink to={button.to} data-test={button.text}>
-            <HomeButton disableRipple={true} component={'span'}>
+            <HomeButton
+              disableRipple={true}
+              component={'span'}
+              buttonColor={button.color}
+            >
               {button.text}
               {button.icon}
             </HomeButton>
