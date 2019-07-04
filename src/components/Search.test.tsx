@@ -12,14 +12,14 @@ describe('<Search />', () => {
     wrapper = shallow(<Search />);
   });
 
-  it('renders a TextField', () => {
-    expect(wrapper.find('TextField').length).toBe(1);
+  it('renders a Styled TextField', () => {
+    expect(wrapper.find('Styled(TextField)').length).toBe(1);
   });
 
   describe('when the <TextField/> changes', () => {
     it('has a value prop equal to the changed value', () => {
       const getRenderedTextField = (): enzyme.ShallowWrapper =>
-        wrapper.find('TextField');
+        wrapper.find('Styled(TextField)');
       const mockInputValue = 'a submitted search';
 
       getRenderedTextField().simulate('change', {
@@ -62,7 +62,7 @@ describe('<Search />', () => {
       it('has a "to.search" prop containing its <TextField/>s value', () => {
         const mockInputValue = 'a submitted search';
 
-        wrapper.find('TextField').simulate('change', {
+        wrapper.find('Styled(TextField)').simulate('change', {
           target: {
             value: mockInputValue
           }
