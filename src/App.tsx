@@ -14,7 +14,7 @@ import SearchResults from './components/SearchResults';
 class App extends Component {
   render() {
     return (
-      <div>
+      <>
         <GlobalStyle />
         <Router>
           <div>
@@ -29,7 +29,7 @@ class App extends Component {
             <Route exact path="/search" component={SearchResults} />
           </div>
         </Router>
-      </div>
+      </>
     );
   }
 }
