@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import algoliaSearch from 'algoliasearch';
 import useSearchResults from './useSearchResults';
-import { SEARCH_PARAM_RESOURCE } from '../constants';
+import { getSearchParamVal } from '../utils/searchParams';
+import { SEARCH_PARAM_QUERY, SEARCH_PARAM_RESOURCE } from '../constants';
 
 const renderResults = (results: algoliaSearch.Response) => {
   const { hits } = results;
@@ -29,13 +30,17 @@ const renderResults = (results: algoliaSearch.Response) => {
 };
 
 const SearchResults = () => {
-  const searchResults = useSearchResults('test');
-  return (
-    <div>
-      <h1>Search</h1>
-      {searchResults && renderResults(searchResults)}
-    </div>
-  );
+  const searchQuery = getSearchParamVal(SEARCH_PARAM_QUERY);
+  if (searchQuery) {
+    const searchResults = useSearchResults(searchQuery);
+    return (
+      <div>
+        <h1>Search</h1>
+        {searchResults && renderResults(searchResults)}
+      </div>
+    );
+  }
+  return null;
 };
 
 export default SearchResults;
