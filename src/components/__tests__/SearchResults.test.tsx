@@ -4,6 +4,9 @@ import SearchResults from '../SearchResults';
 import useSearchResults from '../useSearchResults';
 import { SEARCH_PARAM_RESOURCE } from '../../constants';
 
+jest.mock('../../utils/searchParams', () => ({
+  getSearchParamVal: () => 'someSearchQuery'
+}));
 jest.mock('../useSearchResults');
 jest.mock('react-router-dom', () => ({
   Link: 'Link'
