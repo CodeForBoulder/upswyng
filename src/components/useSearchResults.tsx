@@ -27,10 +27,6 @@ function useSearchResults(query: string): algoliaSearch.Response | null {
         }
         setSearchResults(res);
       });
-
-      return () => {
-        algoliaClient.destroy();
-      };
     }
   }, [query]);
 
