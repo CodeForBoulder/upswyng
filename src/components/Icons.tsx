@@ -4,7 +4,6 @@ import {
   Call,
   DirectionsBus,
   Home,
-  LibraryBooks,
   LocalHospital,
   People,
   Pets,
@@ -23,9 +22,6 @@ export const BusinessCenterIcon: React.ReactElement<SvgIconProps> = (
 export const CallIcon: React.ReactElement<SvgIconProps> = <Call />;
 export const HomeIcon: React.ReactElement<SvgIconProps> = <Home />;
 export const HygieneIcon: React.ReactElement<SvgIconProps> = <Hygiene />;
-export const LibraryBooksIcon: React.ReactElement<SvgIconProps> = (
-  <LibraryBooks />
-);
 export const LocalHospitalIcon: React.ReactElement<SvgIconProps> = (
   <LocalHospital />
 );
