@@ -10,7 +10,7 @@ import {
   HotTubIcon,
   BusIcon,
   GroceryStoreIcon,
-  HealingIcon,
+  LocalHospitalIcon,
   WifiIcon,
   WorkIcon,
   InfoIcon
@@ -57,7 +57,7 @@ const buttons: THomeButton[] = [
   },
   {
     text: 'Health',
-    icon: HealingIcon,
+    icon: LocalHospitalIcon,
     to: '/health',
     color: colors.red
   },

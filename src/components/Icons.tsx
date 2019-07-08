@@ -6,7 +6,7 @@ import {
   HotTub,
   DirectionsBus,
   LocalGroceryStore,
-  Healing,
+  LocalHospital,
   LibraryBooks,
   Pets,
   Wifi,
@@ -23,7 +23,9 @@ export const BusIcon: React.ReactElement<SvgIconProps> = <DirectionsBus />;
 export const GroceryStoreIcon: React.ReactElement<SvgIconProps> = (
   <LocalGroceryStore />
 );
-export const HealingIcon: React.ReactElement<SvgIconProps> = <Healing />;
+export const LocalHospitalIcon: React.ReactElement<SvgIconProps> = (
+  <LocalHospital />
+);
 export const LibraryBooksIcon: React.ReactElement<SvgIconProps> = (
   <LibraryBooks />
 );
