@@ -7,7 +7,7 @@ export const colors = {
   brown: '#AA6A03',
   charcoal: '#1D1D1D',
   gold: '#F4BD21',
-  green: '#40ACBF',
+  green: '#68A840',
   greyDark: '#3c3c3c',
   greyLight: '#707070',
   lavendar: '#9F6CBA',
