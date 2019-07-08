@@ -21,15 +21,21 @@ const StyledHeader = styled(AppBar)`
   }
 ` as typeof AppBar;
 
+const StyledMenuButton = styled(IconButton)`
+  && {
+    margin-left: -12px;
+  }
+` as typeof IconButton;
+
 const Header = () => {
   return (
     <StyledHeader position="static">
       <Toolbar>
         <Container container justify="space-between" alignItems="center">
           <Grid item>
-            <IconButton color="inherit" aria-label="Menu">
+            <StyledMenuButton color="inherit" aria-label="Menu">
               <MenuIcon />
-            </IconButton>
+            </StyledMenuButton>
           </Grid>
           <Grid item>
             <Link to="/">
