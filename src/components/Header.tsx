@@ -2,28 +2,50 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
+import Grid from '@material-ui/core/Grid';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
-const onMenuClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-  //handle when the menu button is clicked here
-};
+import Logo from './Logo';
+import { Container } from '../App.styles';
 
-function Header() {
+const headerVerticalMargin = 24;
+
+const StyledHeader = styled(AppBar)`
+  && {
+    background: none;
+    box-shadow: none;
+    margin-bottom: ${headerVerticalMargin / 2}px;
+    margin-top: ${headerVerticalMargin}px;
+  }
+` as typeof AppBar;
+
+const StyledMenuButton = styled(IconButton)`
+  && {
+    margin-left: -12px;
+  }
+` as typeof IconButton;
+
+const Header = () => {
   return (
-    <header>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton color="inherit" onClick={onMenuClick} aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
-          <Link to="/">
-            <img src="https://via.placeholder.com/150x50" alt="UpSwyng" />
-          </Link>
-        </Toolbar>
-      </AppBar>
-    </header>
+    <StyledHeader position="static">
+      <Toolbar>
+        <Container container justify="space-between" alignItems="center">
+          <Grid item>
+            <StyledMenuButton color="inherit" aria-label="Menu">
+              <MenuIcon />
+            </StyledMenuButton>
+          </Grid>
+          <Grid item>
+            <Link to="/">
+              <Logo />
+            </Link>
+          </Grid>
+        </Container>
+      </Toolbar>
+    </StyledHeader>
   );
-}
+};
 
 export default Header;

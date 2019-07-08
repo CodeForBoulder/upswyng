@@ -67,4 +67,5 @@ export interface THomeButton {
   text: string;
   icon: React.ReactElement<SvgIconProps>;
   to: string;
+  color: string;
 }
