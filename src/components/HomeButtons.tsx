@@ -4,12 +4,12 @@ import { ButtonProps } from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {
-  CallIcon,
   BananaIcon,
-  HomeIcon,
-  HygieneIcon,
   BusIcon,
   BusinessCenterIcon,
+  CallIcon,
+  HomeIcon,
+  HygieneIcon,
   LocalHospitalIcon,
   PeopleIcon,
   SocksIcon,
