@@ -11,9 +11,9 @@ import {
   BusIcon,
   GroceryStoreIcon,
   LocalHospitalIcon,
+  PeopleIcon,
   WifiIcon,
-  WorkIcon,
-  InfoIcon
+  WorkIcon
 } from './Icons';
 import { THomeButton } from '../types';
 import { colors, fonts } from '../App.styles';
@@ -75,7 +75,7 @@ const buttons: THomeButton[] = [
   },
   {
     text: 'Social Services',
-    icon: InfoIcon,
+    icon: PeopleIcon,
     to: '/social-services',
     color: colors.brown
   }

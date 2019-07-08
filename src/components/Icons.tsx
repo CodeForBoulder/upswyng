@@ -8,10 +8,10 @@ import {
   LocalGroceryStore,
   LocalHospital,
   LibraryBooks,
+  People,
   Pets,
   Wifi,
-  Work,
-  Info
+  Work
 } from '@material-ui/icons';
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
 
@@ -29,7 +29,7 @@ export const LocalHospitalIcon: React.ReactElement<SvgIconProps> = (
 export const LibraryBooksIcon: React.ReactElement<SvgIconProps> = (
   <LibraryBooks />
 );
+export const PeopleIcon: React.ReactElement<SvgIconProps> = <People />;
 export const PetsIcon: React.ReactElement<SvgIconProps> = <Pets />;
 export const WifiIcon: React.ReactElement<SvgIconProps> = <Wifi />;
 export const WorkIcon: React.ReactElement<SvgIconProps> = <Work />;
-export const InfoIcon: React.ReactElement<SvgIconProps> = <Info />;
