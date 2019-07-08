@@ -10,9 +10,9 @@ import {
   HotTubIcon,
   BusIcon,
   BusinessCenterIcon,
-  GroceryStoreIcon,
   LocalHospitalIcon,
   PeopleIcon,
+  SocksIcon,
   WifiIcon
 } from './Icons';
 import { THomeButton } from '../types';
@@ -45,7 +45,7 @@ const buttons: THomeButton[] = [
   },
   {
     text: 'Resources',
-    icon: GroceryStoreIcon,
+    icon: SocksIcon,
     to: '/resources',
     color: colors.purple
   },
