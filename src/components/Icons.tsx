@@ -2,10 +2,10 @@ import React from 'react';
 import {
   BusinessCenter,
   Call,
-  Home,
   DirectionsBus,
-  LocalHospital,
+  Home,
   LibraryBooks,
+  LocalHospital,
   People,
   Pets,
   Wifi
@@ -15,19 +15,19 @@ import { default as Banana } from './BananaIcon';
 import { default as Hygiene } from './HygieneIcon';
 import { default as Socks } from './SocksIcon';
 
-export const CallIcon: React.ReactElement<SvgIconProps> = <Call />;
+export const BananaIcon: React.ReactElement<SvgIconProps> = <Banana />;
+export const BusIcon: React.ReactElement<SvgIconProps> = <DirectionsBus />;
 export const BusinessCenterIcon: React.ReactElement<SvgIconProps> = (
   <BusinessCenter />
 );
-export const BananaIcon: React.ReactElement<SvgIconProps> = <Banana />;
+export const CallIcon: React.ReactElement<SvgIconProps> = <Call />;
 export const HomeIcon: React.ReactElement<SvgIconProps> = <Home />;
 export const HygieneIcon: React.ReactElement<SvgIconProps> = <Hygiene />;
-export const BusIcon: React.ReactElement<SvgIconProps> = <DirectionsBus />;
-export const LocalHospitalIcon: React.ReactElement<SvgIconProps> = (
-  <LocalHospital />
-);
 export const LibraryBooksIcon: React.ReactElement<SvgIconProps> = (
   <LibraryBooks />
+);
+export const LocalHospitalIcon: React.ReactElement<SvgIconProps> = (
+  <LocalHospital />
 );
 export const PeopleIcon: React.ReactElement<SvgIconProps> = <People />;
 export const PetsIcon: React.ReactElement<SvgIconProps> = <Pets />;
