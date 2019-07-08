@@ -16,8 +16,8 @@ const StyledHeader = styled(AppBar)`
   && {
     background: none;
     box-shadow: none;
-    margin-top: ${headerVerticalMargin}px;
     margin-bottom: ${headerVerticalMargin / 2}px;
+    margin-top: ${headerVerticalMargin}px;
   }
 ` as typeof AppBar;
 

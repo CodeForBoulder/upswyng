@@ -93,15 +93,15 @@ const HomeButton = styled((props: HomeButtonProps) => {
   return <Button {...props} />;
 })`
   && {
-    display: flex;
     align-items: stretch;
-    width: 100%;
-    padding: 10px;
-    border-radius: 0;
     background: ${(props: HomeButtonProps) =>
       props.buttonColor || colors.greyDark};
+    border-radius: 0;
     color: ${colors.white};
+    display: flex;
+    padding: 10px;
     text-decoration: none;
+    width: 100%;
   }
   &&:hover {
     background: ${(props: HomeButtonProps) =>
@@ -109,20 +109,20 @@ const HomeButton = styled((props: HomeButtonProps) => {
     filter: brightness(95%);
   }
   > span {
+    align-items: flex-start;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
     font-family: ${fonts.openSans};
-    font-weight: 700;
     font-size: 22px;
+    font-weight: 700;
+    justify-content: space-between;
     line-height: 24px;
     text-transform: none;
   }
   svg {
-    width: 42px;
-    height: auto;
     align-self: flex-end;
+    height: auto;
+    width: 42px;
   }
 `;
 

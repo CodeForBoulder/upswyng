@@ -7,8 +7,8 @@ import Search from './Search';
 
 const HomeButtonsContainer = styled(Grid)`
   && {
-    margin-top: 15px;
     margin-bottom: 30px;
+    margin-top: 15px;
   }
 ` as typeof Grid;
 

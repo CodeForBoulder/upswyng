@@ -9,9 +9,9 @@ import { colors, fonts, ScreenReaderOnly } from '../App.styles';
 
 const SearchInput = styled(TextField)`
   && {
-    width: 100%;
     background: ${colors.white};
     color: ${colors.black};
+    width: 100%;
   }
   && > div {
     margin-top: 0;
@@ -20,9 +20,9 @@ const SearchInput = styled(TextField)`
     ${ScreenReaderOnly}
   }
   input {
-    padding: 7px 7px 7px 0;
     font-family: ${fonts.openSans};
     font-size: 1em;
+    padding: 7px 7px 7px 0;
   }
   input::placeholder {
     color: ${colors.black};
