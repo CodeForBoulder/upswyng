@@ -3,7 +3,6 @@ import {
   BusinessCenter,
   Call,
   Home,
-  HotTub,
   DirectionsBus,
   LocalHospital,
   LibraryBooks,
@@ -13,6 +12,7 @@ import {
 } from '@material-ui/icons';
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
 import { default as Banana } from './BananaIcon';
+import { default as Hygiene } from './HygieneIcon';
 import { default as Socks } from './SocksIcon';
 
 export const CallIcon: React.ReactElement<SvgIconProps> = <Call />;
@@ -21,7 +21,7 @@ export const BusinessCenterIcon: React.ReactElement<SvgIconProps> = (
 );
 export const BananaIcon: React.ReactElement<SvgIconProps> = <Banana />;
 export const HomeIcon: React.ReactElement<SvgIconProps> = <Home />;
-export const HotTubIcon: React.ReactElement<SvgIconProps> = <HotTub />;
+export const HygieneIcon: React.ReactElement<SvgIconProps> = <Hygiene />;
 export const BusIcon: React.ReactElement<SvgIconProps> = <DirectionsBus />;
 export const LocalHospitalIcon: React.ReactElement<SvgIconProps> = (
   <LocalHospital />
