@@ -2,7 +2,6 @@ import React from 'react';
 import {
   BusinessCenter,
   Call,
-  Restaurant,
   Home,
   HotTub,
   DirectionsBus,
@@ -13,13 +12,14 @@ import {
   Wifi
 } from '@material-ui/icons';
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
+import { default as Banana } from './BananaIcon';
 import { default as Socks } from './SocksIcon';
 
 export const CallIcon: React.ReactElement<SvgIconProps> = <Call />;
 export const BusinessCenterIcon: React.ReactElement<SvgIconProps> = (
   <BusinessCenter />
 );
-export const RestaurantIcon: React.ReactElement<SvgIconProps> = <Restaurant />;
+export const BananaIcon: React.ReactElement<SvgIconProps> = <Banana />;
 export const HomeIcon: React.ReactElement<SvgIconProps> = <Home />;
 export const HotTubIcon: React.ReactElement<SvgIconProps> = <HotTub />;
 export const BusIcon: React.ReactElement<SvgIconProps> = <DirectionsBus />;

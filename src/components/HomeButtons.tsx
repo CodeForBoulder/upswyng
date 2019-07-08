@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   CallIcon,
-  RestaurantIcon,
+  BananaIcon,
   HomeIcon,
   HotTubIcon,
   BusIcon,
@@ -21,7 +21,7 @@ import { colors, fonts } from '../App.styles';
 const buttons: THomeButton[] = [
   {
     text: 'Food',
-    icon: RestaurantIcon,
+    icon: BananaIcon,
     to: '/food',
     color: colors.gold
   },
