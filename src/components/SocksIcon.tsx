@@ -8,7 +8,6 @@ interface Props {
 
 const SocksIcon = (props: Props) => {
   const color = props.color || colors.white;
-  console.log(color);
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
