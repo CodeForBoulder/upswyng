@@ -9,11 +9,11 @@ import {
   HomeIcon,
   HotTubIcon,
   BusIcon,
+  BusinessCenterIcon,
   GroceryStoreIcon,
   LocalHospitalIcon,
   PeopleIcon,
-  WifiIcon,
-  WorkIcon
+  WifiIcon
 } from './Icons';
 import { THomeButton } from '../types';
 import { colors, fonts } from '../App.styles';
@@ -69,7 +69,7 @@ const buttons: THomeButton[] = [
   },
   {
     text: 'Job Training',
-    icon: WorkIcon,
+    icon: BusinessCenterIcon,
     to: '/work',
     color: colors.lavendar
   },
