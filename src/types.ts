@@ -1,4 +1,5 @@
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
+import { ButtonProps } from '@material-ui/core/Button';
 
 export interface TEnvVariables {
   env: {
@@ -64,8 +65,10 @@ export interface TSchedule {
 }
 
 export interface THomeButton {
-  text: string;
-  icon: React.ReactElement<SvgIconProps>;
-  to: string;
   color: string;
+  href?: string;
+  icon: React.ReactElement<SvgIconProps>;
+  target?: string;
+  text: string;
+  to?: string;
 }
