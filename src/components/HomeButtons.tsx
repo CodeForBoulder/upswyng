@@ -99,6 +99,7 @@ const HomeButton = styled((props: HomeButtonProps) => {
     border-radius: 0;
     color: ${colors.white};
     display: flex;
+    height: 100%;
     padding: 10px;
     text-decoration: none;
     width: 100%;

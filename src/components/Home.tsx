@@ -18,7 +18,13 @@ const Home = () => (
       <Search />
     </Grid>
     <Grid item xs={12}>
-      <HomeButtonsContainer container justify="space-evenly" spacing={8}>
+      <HomeButtonsContainer
+        container
+        direction="row"
+        justify="space-evenly"
+        spacing={8}
+        className="blah"
+      >
         <HomeButtons />
       </HomeButtonsContainer>
     </Grid>
