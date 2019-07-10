@@ -8,6 +8,7 @@ import {
   BusIcon,
   BusinessCenterIcon,
   CallIcon,
+  DoorIcon,
   HomeIcon,
   HygieneIcon,
   LocalHospitalIcon,
@@ -22,75 +23,127 @@ const buttons: THomeButton[] = [
   {
     text: 'Food',
     icon: BananaIcon,
-    to: '/food',
+    linkProps: {
+      to: '/food'
+    },
     color: colors.gold
   },
   {
     text: 'Shelter',
     icon: HomeIcon,
-    to: '/shelter',
+    linkProps: {
+      to: '/shelter'
+    },
     color: colors.orangeDark
   },
   {
     text: 'Hygiene',
     icon: HygieneIcon,
-    to: '/hygiene',
+    linkProps: {
+      to: '/hygiene'
+    },
     color: colors.teal
   },
   {
     text: 'Transit',
     icon: BusIcon,
-    to: '/transit',
+    linkProps: {
+      to: '/transit'
+    },
     color: colors.green
   },
   {
     text: 'Resources',
     icon: SocksIcon,
-    to: '/resources',
+    linkProps: {
+      to: '/resources'
+    },
     color: colors.purple
   },
   {
     text: 'Hotlines',
     icon: CallIcon,
-    to: '/hotlines',
+    linkProps: {
+      to: '/hotlines'
+    },
     color: colors.pink
   },
   {
     text: 'Health',
     icon: LocalHospitalIcon,
-    to: '/health',
+    linkProps: {
+      to: '/health'
+    },
     color: colors.red
   },
   {
     text: 'Wifi & Tech',
     icon: WifiIcon,
-    to: '/wifi-and-tech',
+    linkProps: {
+      to: '/wifi-and-tech'
+    },
     color: colors.blue
   },
   {
     text: 'Job Training',
     icon: BusinessCenterIcon,
-    to: '/work',
+    linkProps: {
+      to: '/work'
+    },
     color: colors.lavendar
   },
   {
     text: 'Social Services',
     icon: PeopleIcon,
-    to: '/social-services',
+    linkProps: {
+      to: '/social-services'
+    },
     color: colors.brown
+  },
+  {
+    text: 'Coordinated Entry',
+    href: 'https://www.bouldercounty.org/homeless/',
+    icon: DoorIcon,
+    color: colors.rosewood,
+    target: '_blank'
   }
 ];
+interface HomeLinkProps extends THomeButton {
+  children: React.ReactElement | React.ReactElement[];
+  key: string;
+}
 
-const HomeLink = styled(Link)`
+const HomeLink = styled((props: HomeLinkProps) => {
+  const { children, href, key, linkProps, ...rest } = props;
+  if (href) {
+    return (
+      <a {...props} key={key}>
+        {children}
+      </a>
+    );
+  }
+  if (linkProps) {
+    return (
+      <Link {...linkProps} key={key} {...rest}>
+        {children}
+      </Link>
+    );
+  }
+  return null;
+})`
+  display: block;
+  flex: 1 1 50%;
+  padding: 4px;
   text-decoration: none;
+  width: 100%;
 `;
-
 interface HomeButtonProps extends ButtonProps {
   readonly buttonColor: string;
 }
 
 const HomeButton = styled((props: HomeButtonProps) => {
-  return <Button {...props} />;
+  const { buttonColor, ...rest } = props;
+  return <Button {...rest} />;
 })`
   && {
     align-items: stretch;
@@ -123,6 +176,7 @@ const HomeButton = styled((props: HomeButtonProps) => {
   svg {
     align-self: flex-end;
     height: auto;
+    max-height: 45px;
     width: 42px;
   }
 `;
@@ -131,18 +185,16 @@ const HomeButtons = () => (
   <>
     {buttons.map((button: THomeButton) => {
       return (
-        <Grid item xs={6} key={button.text}>
-          <HomeLink to={button.to} data-test={button.text}>
-            <HomeButton
-              disableRipple={true}
-              component={'span'}
-              buttonColor={button.color}
-            >
-              {button.text}
-              {button.icon}
-            </HomeButton>
-          </HomeLink>
-        </Grid>
+        <HomeLink {...button} key={button.text}>
+          <HomeButton
+            disableRipple={true}
+            component={'span'}
+            buttonColor={button.color}
+          >
+            {button.text}
+            {button.icon}
+          </HomeButton>
+        </HomeLink>
       );
     })}
   </>

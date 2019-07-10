@@ -52,6 +52,9 @@ export const Container = styled(Grid)`
 ` as typeof Grid;
 
 export default createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
   body {
     background: ${colors.charcoal};
     color: ${colors.white};
