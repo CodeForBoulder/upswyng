@@ -11,15 +11,17 @@ import {
 } from '@material-ui/icons';
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
 import { default as Banana } from './BananaIcon';
+import { default as Door } from './DoorIcon';
 import { default as Hygiene } from './HygieneIcon';
 import { default as Socks } from './SocksIcon';
 
 export const BananaIcon: React.ReactElement<SvgIconProps> = <Banana />;
+export const CallIcon: React.ReactElement<SvgIconProps> = <Call />;
+export const DoorIcon: React.ReactElement<SvgIconProps> = <Door />;
 export const BusIcon: React.ReactElement<SvgIconProps> = <DirectionsBus />;
 export const BusinessCenterIcon: React.ReactElement<SvgIconProps> = (
   <BusinessCenter />
 );
-export const CallIcon: React.ReactElement<SvgIconProps> = <Call />;
 export const HomeIcon: React.ReactElement<SvgIconProps> = <Home />;
 export const HygieneIcon: React.ReactElement<SvgIconProps> = <Hygiene />;
 export const LocalHospitalIcon: React.ReactElement<SvgIconProps> = (
