@@ -4,16 +4,16 @@ import { ButtonProps } from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {
-  CallIcon,
-  RestaurantIcon,
-  HomeIcon,
-  HotTubIcon,
+  BananaIcon,
   BusIcon,
-  GroceryStoreIcon,
-  HealingIcon,
-  WifiIcon,
-  WorkIcon,
-  InfoIcon
+  BusinessCenterIcon,
+  CallIcon,
+  HomeIcon,
+  HygieneIcon,
+  LocalHospitalIcon,
+  PeopleIcon,
+  SocksIcon,
+  WifiIcon
 } from './Icons';
 import { THomeButton } from '../types';
 import { colors, fonts } from '../App.styles';
@@ -21,7 +21,7 @@ import { colors, fonts } from '../App.styles';
 const buttons: THomeButton[] = [
   {
     text: 'Food',
-    icon: RestaurantIcon,
+    icon: BananaIcon,
     to: '/food',
     color: colors.gold
   },
@@ -33,7 +33,7 @@ const buttons: THomeButton[] = [
   },
   {
     text: 'Hygiene',
-    icon: HotTubIcon,
+    icon: HygieneIcon,
     to: '/hygiene',
     color: colors.teal
   },
@@ -45,7 +45,7 @@ const buttons: THomeButton[] = [
   },
   {
     text: 'Resources',
-    icon: GroceryStoreIcon,
+    icon: SocksIcon,
     to: '/resources',
     color: colors.purple
   },
@@ -57,7 +57,7 @@ const buttons: THomeButton[] = [
   },
   {
     text: 'Health',
-    icon: HealingIcon,
+    icon: LocalHospitalIcon,
     to: '/health',
     color: colors.red
   },
@@ -69,13 +69,13 @@ const buttons: THomeButton[] = [
   },
   {
     text: 'Job Training',
-    icon: WorkIcon,
+    icon: BusinessCenterIcon,
     to: '/work',
     color: colors.lavendar
   },
   {
     text: 'Social Services',
-    icon: InfoIcon,
+    icon: PeopleIcon,
     to: '/social-services',
     color: colors.brown
   }
@@ -99,6 +99,7 @@ const HomeButton = styled((props: HomeButtonProps) => {
     border-radius: 0;
     color: ${colors.white};
     display: flex;
+    height: 100%;
     padding: 10px;
     text-decoration: none;
     width: 100%;
