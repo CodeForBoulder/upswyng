@@ -23,7 +23,6 @@ const Home = () => (
         direction="row"
         justify="space-evenly"
         spacing={8}
-        className="blah"
       >
         <HomeButtons />
       </HomeButtonsContainer>
