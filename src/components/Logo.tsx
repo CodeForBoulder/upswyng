@@ -45,7 +45,7 @@ const Logo = () => (
       transform="translate(-37.409 -37.117)"
     />
     <path
-      fill={colors.orangePrimary}
+      fill={colors.gold}
       d="M27.943.04l6.495,8.581H30.5L24.81.936Z"
       transform="translate(-17.519 -0.028)"
     />
