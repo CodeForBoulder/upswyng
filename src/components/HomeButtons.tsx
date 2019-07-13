@@ -113,11 +113,7 @@ const HomeButtons = () => (
     {routerLinkButtons.map(button => {
       return (
         <HomeRouterLink {...button} key={button.text}>
-          <HomeButton
-            disableRipple={true}
-            component={'span'}
-            buttonColor={button.color}
-          >
+          <HomeButton component={'span'} buttonColor={button.color}>
             {button.text}
             {button.icon}
           </HomeButton>
@@ -128,11 +124,7 @@ const HomeButtons = () => (
       {...coordinatedEntryButton}
       key={coordinatedEntryButton.text}
     >
-      <HomeButton
-        disableRipple={true}
-        component={'span'}
-        buttonColor={coordinatedEntryButton.color}
-      >
+      <HomeButton component={'span'} buttonColor={coordinatedEntryButton.color}>
         {coordinatedEntryButton.text}
         {coordinatedEntryButton.icon}
       </HomeButton>
