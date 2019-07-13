@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Grid } from '@material-ui/core';
 import { ButtonProps } from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import {
   BananaIcon,
   BusIcon,
@@ -16,10 +16,10 @@ import {
   SocksIcon,
   WifiIcon
 } from './Icons';
-import { THomeButton } from '../types';
+import { THomeButtonAnchor, THomeButtonRouterLink } from '../types';
 import { colors, fonts } from '../App.styles';
 
-const buttons: THomeButton[] = [
+const routerLinkButtons: THomeButtonRouterLink[] = [
   {
     text: 'Food',
     icon: BananaIcon,
@@ -99,43 +99,53 @@ const buttons: THomeButton[] = [
       to: '/social-services'
     },
     color: colors.brown
-  },
-  {
-    text: 'Coordinated Entry',
-    href: 'https://www.bouldercounty.org/homeless/',
-    icon: DoorIcon,
-    color: colors.rosewood,
-    target: '_blank'
   }
 ];
-interface HomeLinkProps extends THomeButton {
+
+const coordinatedEntryButton: THomeButtonAnchor = {
+  text: 'Coordinated Entry',
+  href: 'https://www.bouldercounty.org/homeless/',
+  icon: DoorIcon,
+  color: colors.rosewood,
+  target: '_blank'
+};
+
+interface HomeLinkPropsBase {
   children: React.ReactElement | React.ReactElement[];
   key: string;
 }
 
-const HomeLink = styled((props: HomeLinkProps) => {
-  const { children, href, key, linkProps, ...rest } = props;
-  if (href) {
-    return (
-      <a {...props} key={key}>
-        {children}
-      </a>
-    );
-  }
-  if (linkProps) {
-    return (
-      <Link {...linkProps} key={key} {...rest}>
-        {children}
-      </Link>
-    );
-  }
-  return null;
-})`
+type HomeRouterLinkProps = HomeLinkPropsBase & THomeButtonRouterLink;
+type HomeAnchorProps = HomeLinkPropsBase & THomeButtonAnchor;
+
+const HomeLinkStyles = css`
   display: block;
   flex: 1 1 50%;
   padding: 4px;
   text-decoration: none;
   width: 100%;
+`;
+
+const HomeRouterLink = styled((props: HomeRouterLinkProps) => {
+  const { children, key, linkProps, ...rest } = props;
+  return (
+    <Link {...linkProps} key={key} {...rest}>
+      {children}
+    </Link>
+  );
+})`
+  ${HomeLinkStyles}
+`;
+
+const HomeAnchorLink = styled((props: HomeAnchorProps) => {
+  const { children, key, href, target, ...rest } = props;
+  return (
+    <a key={key} href={href} target={target} {...rest}>
+      {children}
+    </a>
+  );
+})`
+  ${HomeLinkStyles}
 `;
 interface HomeButtonProps extends ButtonProps {
   readonly buttonColor: string;
@@ -183,9 +193,9 @@ const HomeButton = styled((props: HomeButtonProps) => {
 
 const HomeButtons = () => (
   <>
-    {buttons.map((button: THomeButton) => {
+    {routerLinkButtons.map(button => {
       return (
-        <HomeLink {...button} key={button.text}>
+        <HomeRouterLink {...button} key={button.text}>
           <HomeButton
             disableRipple={true}
             component={'span'}
@@ -194,9 +204,22 @@ const HomeButtons = () => (
             {button.text}
             {button.icon}
           </HomeButton>
-        </HomeLink>
+        </HomeRouterLink>
       );
     })}
+    <HomeAnchorLink
+      {...coordinatedEntryButton}
+      key={coordinatedEntryButton.text}
+    >
+      <HomeButton
+        disableRipple={true}
+        component={'span'}
+        buttonColor={coordinatedEntryButton.color}
+      >
+        {coordinatedEntryButton.text}
+        {coordinatedEntryButton.icon}
+      </HomeButton>
+    </HomeAnchorLink>
   </>
 );
 

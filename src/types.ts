@@ -64,11 +64,16 @@ export interface TSchedule {
   type: string;
 }
 
-export interface THomeButton {
+interface THomeButtonBase {
   color: string;
-  href?: string;
   icon: React.ReactElement<SvgIconProps>;
-  linkProps?: LinkProps;
-  target?: string;
   text: string;
+}
+export interface THomeButtonAnchor extends THomeButtonBase {
+  href: string;
+  target: string;
+}
+
+export interface THomeButtonRouterLink extends THomeButtonBase {
+  linkProps: LinkProps;
 }
