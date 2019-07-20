@@ -27,6 +27,13 @@ const StyledMenuButton = styled(IconButton)`
   }
 ` as typeof IconButton;
 
+const StyledLogo = styled(Logo)`
+  && {
+    height: 40px;
+    width: auto;
+  }
+` as typeof Logo;
+
 const Header = () => {
   return (
     <StyledHeader position="static">
@@ -39,7 +46,7 @@ const Header = () => {
           </Grid>
           <Grid item>
             <Link to="/">
-              <Logo />
+              <StyledLogo />
             </Link>
           </Grid>
         </Container>
