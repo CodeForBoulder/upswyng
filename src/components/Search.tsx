@@ -5,7 +5,7 @@ import { Redirect } from 'react-router';
 import styled from 'styled-components';
 
 import { SEARCH_PARAM_QUERY } from '../constants';
-import { colors, fonts, ScreenReaderOnly } from '../App.styles';
+import { colors, font, ScreenReaderOnly } from '../App.styles';
 
 const SearchInput = styled(TextField)`
   && {
@@ -20,7 +20,7 @@ const SearchInput = styled(TextField)`
     ${ScreenReaderOnly}
   }
   input {
-    font-family: ${fonts.openSans};
+    font-family: ${font.families.openSans};
     font-size: 1em;
     padding: 7px 7px 7px 0;
   }

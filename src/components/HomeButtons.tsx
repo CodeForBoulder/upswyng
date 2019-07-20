@@ -13,9 +13,9 @@ import {
   WifiIcon
 } from './Icons';
 import { THomeButtonAnchor, THomeButtonRouterLink } from '../types';
-import { colors } from '../App.styles';
 import { HomeRouterLink, HomeAnchorLink } from './HomeLink';
 import HomeButton from './HomeButton';
+import { colors, font } from '../App.styles';
 
 const routerLinkButtons: THomeButtonRouterLink[] = [
   {
@@ -107,6 +107,51 @@ const coordinatedEntryButton: THomeButtonAnchor = {
   color: colors.rosewood,
   target: '_blank'
 };
+const HomeLink = styled(Link)`
+  text-decoration: none;
+`;
+
+interface HomeButtonProps extends ButtonProps {
+  readonly buttonColor: string;
+}
+
+const HomeButton = styled((props: HomeButtonProps) => {
+  return <Button {...props} />;
+})`
+  && {
+    align-items: stretch;
+    background: ${(props: HomeButtonProps) =>
+      props.buttonColor || colors.greyDark};
+    border-radius: 0;
+    color: ${colors.white};
+    display: flex;
+    height: 100%;
+    padding: 10px;
+    text-decoration: none;
+    width: 100%;
+  }
+  &&:hover {
+    background: ${(props: HomeButtonProps) =>
+      props.buttonColor || colors.greyDark};
+    filter: brightness(95%);
+  }
+  > span {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    font-family: ${font.families.openSans};
+    font-size: 22px;
+    font-weight: 700;
+    justify-content: space-between;
+    line-height: 24px;
+    text-transform: none;
+  }
+  svg {
+    align-self: flex-end;
+    height: auto;
+    width: 42px;
+  }
+`;
 
 const HomeButtons = () => (
   <>
