@@ -32,6 +32,9 @@ export const font = {
   },
   families: {
     openSans: "'Open Sans', sans-serif"
+  },
+  helpers: {
+    convertPixelsToRems: (value: number): string => `${baseFontSize / value}rem`
   }
 };
 
