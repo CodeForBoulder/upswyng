@@ -26,6 +26,9 @@ export const fonts = {
   openSans: "'Open Sans', sans-serif"
 };
 
+const baseFontSizePixels = 16;
+const baseFontSizePercent = 16 / baseFontSizePixels;
+
 export const ScreenReaderOnly = css`
   clip: rect(1px, 1px, 1px, 1px);
   clip-path: inset(50%);
@@ -59,6 +62,7 @@ export default createGlobalStyle`
     background: ${colors.charcoal};
     color: ${colors.white};
     font-family: ${fonts.openSans};
+    font-size: ${baseFontSizePercent};
   }
   a {
     ${aStyles}
