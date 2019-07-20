@@ -4,6 +4,7 @@ import algoliaSearch from 'algoliasearch';
 import useSearchResults from './useSearchResults';
 import { getSearchParamVal } from '../utils/searchParams';
 import { SEARCH_PARAM_QUERY, SEARCH_PARAM_RESOURCE } from '../constants';
+import LoadingSpinner from './LoadingSpinner';
 
 const renderResults = (results: algoliaSearch.Response) => {
   const { hits } = results;
@@ -26,7 +27,6 @@ const renderResults = (results: algoliaSearch.Response) => {
     });
     return <ul>{listItems}</ul>;
   }
-  return null;
 };
 
 const SearchResults = () => {
@@ -36,6 +36,7 @@ const SearchResults = () => {
     return (
       <div>
         <h1>Search</h1>
+        {!searchResults && <LoadingSpinner />}
         {searchResults && renderResults(searchResults)}
       </div>
     );
