@@ -126,7 +126,7 @@ const HomeButton = styled((props: HomeButtonProps) => {
     color: ${colors.white};
     display: flex;
     height: 100%;
-    padding: 10px;
+    padding: ${font.helpers.convertPixelsToRems(10)};
     text-decoration: none;
     width: 100%;
   }
@@ -140,16 +140,16 @@ const HomeButton = styled((props: HomeButtonProps) => {
     display: flex;
     flex-direction: column;
     font-family: ${font.families.openSans};
-    font-size: 22px;
+    font-size: ${font.helpers.convertPixelsToRems(22)};
     font-weight: 700;
     justify-content: space-between;
-    line-height: 24px;
+    line-height: ${font.helpers.convertPixelsToRems(24)};
     text-transform: none;
   }
   svg {
     align-self: flex-end;
     height: auto;
-    width: 42px;
+    width: ${font.helpers.convertPixelsToRems(42)};
   }
 `;
 

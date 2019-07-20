@@ -34,7 +34,7 @@ export const font = {
     openSans: "'Open Sans', sans-serif"
   },
   helpers: {
-    convertPixelsToRems: (value: number): string => `${baseFontSize / value}rem`
+    convertPixelsToRems: (value: number): string => `${value / baseFontSize}rem`
   }
 };
 
@@ -60,7 +60,7 @@ export const aStyles = css`
 
 export const Container = styled(Grid)`
   margin: 0 auto;
-  max-width: 480px;
+  max-width: ${font.helpers.convertPixelsToRems(480)};
 ` as typeof Grid;
 
 export default createGlobalStyle`
