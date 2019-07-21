@@ -3,6 +3,7 @@ import { TResource } from '../types';
 import withResource from './withResource';
 import { getSearchParamVal } from '../utils/searchParams';
 import { SEARCH_PARAM_RESOURCE, FIREBASE_RESOURCE_BRANCH } from '../constants';
+import LoadingSpinner from './LoadingSpinner';
 
 interface Props {
   id: string;
@@ -14,6 +15,9 @@ export const Resource = (props: Props) => {
     resource: { charityname }
   } = props;
 
+  if (!charityname) {
+    return <LoadingSpinner />;
+  }
   return <div>{charityname}</div>;
 };
 
