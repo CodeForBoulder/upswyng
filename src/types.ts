@@ -61,8 +61,10 @@ export interface TSchedule {
   day: TDay;
   fromstring: string;
   tostring: string;
-  type: string;
+  type: TScheduleType;
 }
+
+export type TScheduleType = 'Weekly' | 'Monthly' | 'Open 24/7';
 
 interface THomeButtonBase {
   color: string;
