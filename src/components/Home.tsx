@@ -29,7 +29,7 @@ const Home = () => (
     </Grid>
     <Grid>
       <a href="https://www.netlify.com">
-        <img src="https://www.netlify.com/img/global/badges/netlify-light.svg" />
+        <img src="https://www.netlify.com/img/global/badges/netlify-light.svg" alt="deploys by Netlify" />
       </a>
     </Grid>
   </Container>
