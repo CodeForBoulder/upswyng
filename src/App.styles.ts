@@ -49,6 +49,16 @@ export const ScreenReaderOnly = css`
   width: 1px;
 `;
 
+const headingStyles = css`
+  font-family: ${fonts.openSans};
+`;
+
+const heading1Styles = css`
+  ${headingStyles}
+  font-size: 18px;
+  font-weight: 700;
+`;
+
 export const aStyles = css`
   &:link,
   &:visited,
@@ -75,5 +85,8 @@ export default createGlobalStyle`
   }
   a {
     ${aStyles}
+  }
+  h1{
+    ${heading1Styles}
   }
 `;
