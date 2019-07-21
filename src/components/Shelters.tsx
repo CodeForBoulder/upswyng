@@ -5,7 +5,7 @@ interface Props {
   resource: TResource;
 }
 
-const Shelters = (props: Props) => (
+const Shelters = () => (
   <div>
     <p>Shelters</p>
   </div>
