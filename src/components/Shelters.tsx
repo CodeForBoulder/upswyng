@@ -1,5 +1,4 @@
 import React from 'react';
-import withResource from './withResource';
 import { TResource } from '../types';
 
 interface Props {
@@ -9,8 +8,7 @@ interface Props {
 const Shelters = (props: Props) => (
   <div>
     <p>Shelters</p>
-    <p>{JSON.stringify(props.resource)}</p>
   </div>
 );
 
-export default withResource(Shelters, '/charity');
+export default Shelters;
