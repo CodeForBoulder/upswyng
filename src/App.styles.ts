@@ -50,7 +50,7 @@ export const ScreenReaderOnly = css`
 `;
 
 const headingStyles = css`
-  font-family: ${fonts.openSans};
+  font-family: ${font.families.openSans};
 `;
 
 const heading1Styles = css`
