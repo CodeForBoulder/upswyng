@@ -9,6 +9,9 @@ jest.mock('../constants');
 jest.mock('./LoadingSpinner.tsx', () => 'LoadingSpinner');
 jest.mock('./useResource.tsx');
 const mockedUseResource = useResource as jest.Mock;
+jest.mock('../App.styles', () => ({
+  Container: 'Container'
+}));
 
 describe('<Resource/>', () => {
   mockedUseResource.mockImplementation(() => foodResource) as typeof jest.mock;
