@@ -18,7 +18,7 @@ describe('<Resource/>', () => {
   const wrapper = shallow(<Resource />);
 
   it('renders the charityname property of the resource prop object', () => {
-    expect(wrapper.find('div').text()).toBe(foodResource.charityname);
+    expect(wrapper.find('h1').text()).toBe(foodResource.charityname);
   });
 
   it('renders nothing when a resource is not loaded', () => {

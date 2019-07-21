@@ -21,7 +21,11 @@ export const Resource = () => {
     return <LoadingSpinner />;
   }
 
-  return <Container>{charityname}</Container>;
+  return (
+    <Container>
+      <h1>{charityname}</h1>
+    </Container>
+  );
 };
 
 export default Resource;
