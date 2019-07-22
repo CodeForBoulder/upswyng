@@ -64,6 +64,8 @@ export interface TSchedule {
   type: TScheduleType;
 }
 
+export type TSchedulePeriod = 'First' | 'Second' | 'Third' | 'Fourth';
+
 export type TScheduleType = 'Weekly' | 'Monthly' | 'Open 24/7';
 
 interface THomeButtonBase {
