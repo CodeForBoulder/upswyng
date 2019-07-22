@@ -103,6 +103,12 @@ const generateSchedule = (schedule: TSchedule[]) => {
           return null;
         }
       );
+    case 'Open 24/7':
+      return (
+        <>
+          <p>{type}</p>
+        </>
+      );
     default:
       return null;
   }
