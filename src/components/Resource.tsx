@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { TDay, TResource, TSchedule } from '../types';
+import { TDay, TResource, TSchedule, TSchedulePeriod } from '../types';
 import useResource from './useResource';
 import { getSearchParamVal } from '../utils/searchParams';
 import { SEARCH_PARAM_RESOURCE, FIREBASE_RESOURCE_BRANCH } from '../constants';
@@ -31,6 +31,8 @@ const days: TDay[] = [
   'Saturday'
 ];
 
+const periods: TSchedulePeriod[] = ['First', 'Second', 'Third', 'Fourth'];
+
 const orderWeeklySchedule = (schedule: TSchedule[]) => {
   return schedule.sort(
     (
@@ -47,6 +49,29 @@ const orderWeeklySchedule = (schedule: TSchedule[]) => {
   );
 };
 
+const orderMonthlySchedule = (schedule: TSchedule[]) => {
+  return schedule.sort((schedule1, schedule2) => {
+    const { period: period1, day: day1, fromstring: fromstring1 } = schedule1;
+    const { period: period2, day: day2, fromstring: fromstring2 } = schedule2;
+    if (period1 && period2) {
+      if (period1 === period2) {
+        if (day1 === day2) {
+          const startTime1 = parseInt(
+            moment(fromstring1, 'h:mm A').format('H')
+          );
+          const startTime2 = parseInt(
+            moment(fromstring2, 'h:mm A').format('H')
+          );
+          return startTime1 - startTime2;
+        }
+        return days.indexOf(day1) - days.indexOf(day2);
+      }
+      return periods.indexOf(period1) - periods.indexOf(period2);
+    }
+    return 0;
+  });
+};
+
 const generateSchedule = (schedule: TSchedule[]) => {
   const { type } = schedule[0];
 
@@ -61,6 +86,22 @@ const generateSchedule = (schedule: TSchedule[]) => {
             </p>
           </>
         )
+      );
+    case 'Monthly':
+      return orderMonthlySchedule(schedule).map(
+        ({ day, fromstring, period, tostring }) => {
+          if (period) {
+            return (
+              <>
+                <p>
+                  every {period.toLowerCase()} {day} from {fromstring} -{' '}
+                  {tostring}
+                </p>
+              </>
+            );
+          }
+          return null;
+        }
       );
     default:
       return null;
