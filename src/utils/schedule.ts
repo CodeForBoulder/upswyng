@@ -36,7 +36,7 @@ const comparePeriods = (
   period2: TSchedulePeriod
 ): number => orderedPeriods.indexOf(period1) - orderedPeriods.indexOf(period2);
 
-const orderScheduleByPeriod = (schedule: TSchedule[]) => {
+const sortSchedule = (schedule: TSchedule[]) => {
   return schedule.sort((schedule1, schedule2) => {
     const { period: period1, day: day1, fromstring: startTime1 } = schedule1;
     const { period: period2, day: day2, fromstring: startTime2 } = schedule2;
@@ -63,6 +63,6 @@ export const orderSchedule = (schedule: TSchedule[]) => {
     case 'Weekly':
     case 'Monthly':
     default:
-      return orderScheduleByPeriod(schedule);
+      return sortSchedule(schedule);
   }
 };
