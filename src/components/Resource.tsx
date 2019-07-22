@@ -3,7 +3,7 @@ import moment from 'moment';
 import { TResource, TSchedule } from '../types';
 import useResource from './useResource';
 import { getSearchParamVal } from '../utils/searchParams';
-import { orderWeeklySchedule, orderMonthlySchedule } from '../utils/schedule';
+import { orderSchedule } from '../utils/schedule';
 import { SEARCH_PARAM_RESOURCE, FIREBASE_RESOURCE_BRANCH } from '../constants';
 import LoadingSpinner from './LoadingSpinner';
 import { Container } from '../App.styles';
@@ -27,18 +27,16 @@ const generateSchedule = (schedule: TSchedule[]) => {
 
   switch (type) {
     case 'Weekly':
-      return orderWeeklySchedule(schedule).map(
-        ({ day, fromstring, tostring }) => (
-          <>
-            <h3>{day}</h3>
-            <p>
-              {fromstring} - {tostring}
-            </p>
-          </>
-        )
-      );
+      return orderSchedule(schedule).map(({ day, fromstring, tostring }) => (
+        <>
+          <h3>{day}</h3>
+          <p>
+            {fromstring} - {tostring}
+          </p>
+        </>
+      ));
     case 'Monthly':
-      return orderMonthlySchedule(schedule).map(
+      return orderSchedule(schedule).map(
         ({ day, fromstring, period, tostring }) => {
           if (period) {
             return (

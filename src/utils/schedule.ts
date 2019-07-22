@@ -1,7 +1,14 @@
 import moment from 'moment';
 import { TDay, TSchedule, TSchedulePeriod } from '../types';
 
-const days: TDay[] = [
+const orderedPeriods: TSchedulePeriod[] = [
+  'First',
+  'Second',
+  'Third',
+  'Fourth'
+];
+
+const orderedDays: TDay[] = [
   'Sunday',
   'Monday',
   'Tuesday',
@@ -11,43 +18,51 @@ const days: TDay[] = [
   'Saturday'
 ];
 
-const periods: TSchedulePeriod[] = ['First', 'Second', 'Third', 'Fourth'];
+const convert12HourTo24Hour = (time: string): number =>
+  parseInt(moment(time, 'h:mm A').format('H'));
 
-export const orderWeeklySchedule = (schedule: TSchedule[]) => {
-  return schedule.sort(
-    (
-      { day: day1, tostring: fromstring1 },
-      { day: day2, fromstring: fromstring2 }
-    ) => {
-      if (day1 === day2) {
-        const startTime1 = parseInt(moment(fromstring1, 'h:mm A').format('H'));
-        const startTime2 = parseInt(moment(fromstring2, 'h:mm A').format('H'));
-        return startTime1 - startTime2;
-      }
-      return days.indexOf(day1) - days.indexOf(day2);
-    }
-  );
+const compareTimes = (time1: string, time2: string): number => {
+  const twentyFourHourTime1 = convert12HourTo24Hour(time1);
+  const twentyFourHourTime2 = convert12HourTo24Hour(time2);
+
+  return twentyFourHourTime1 - twentyFourHourTime2;
 };
 
-export const orderMonthlySchedule = (schedule: TSchedule[]) => {
+const compareDays = (day1: TDay, day2: TDay): number =>
+  orderedDays.indexOf(day1) - orderedDays.indexOf(day2);
+
+const comparePeriods = (
+  period1: TSchedulePeriod,
+  period2: TSchedulePeriod
+): number => orderedPeriods.indexOf(period1) - orderedPeriods.indexOf(period2);
+
+const orderScheduleByPeriod = (schedule: TSchedule[]) => {
   return schedule.sort((schedule1, schedule2) => {
-    const { period: period1, day: day1, fromstring: fromstring1 } = schedule1;
-    const { period: period2, day: day2, fromstring: fromstring2 } = schedule2;
-    if (period1 && period2) {
-      if (period1 === period2) {
-        if (day1 === day2) {
-          const startTime1 = parseInt(
-            moment(fromstring1, 'h:mm A').format('H')
-          );
-          const startTime2 = parseInt(
-            moment(fromstring2, 'h:mm A').format('H')
-          );
-          return startTime1 - startTime2;
-        }
-        return days.indexOf(day1) - days.indexOf(day2);
-      }
-      return periods.indexOf(period1) - periods.indexOf(period2);
+    const { period: period1, day: day1, fromstring: startTime1 } = schedule1;
+    const { period: period2, day: day2, fromstring: startTime2 } = schedule2;
+
+    if (period1 && period2 && period1 !== period2) {
+      // apples to monthly schedule, e.g., every first Sunday, third Wednesday, etc.
+      return comparePeriods(period1, period2);
     }
-    return 0;
+
+    if (day1 !== day2) {
+      return compareDays(day1, day2);
+    }
+
+    return compareTimes(startTime1, startTime2);
   });
+};
+
+export const orderSchedule = (schedule: TSchedule[]) => {
+  const { type } = schedule[0];
+
+  switch (type) {
+    case 'Open 24/7':
+      return schedule;
+    case 'Weekly':
+    case 'Monthly':
+    default:
+      return orderScheduleByPeriod(schedule);
+  }
 };
