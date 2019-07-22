@@ -24,10 +24,11 @@ const renderContactInfo = (resource: TResource) => {
 
 const generateSchedule = (schedule: TSchedule[]) => {
   const { type } = schedule[0];
+  const orderedSchedule = orderSchedule(schedule);
 
   switch (type) {
     case 'Weekly':
-      return orderSchedule(schedule).map(({ day, fromstring, tostring }) => (
+      return orderedSchedule.map(({ day, fromstring, tostring }) => (
         <>
           <h3>{day}</h3>
           <p>
@@ -36,21 +37,19 @@ const generateSchedule = (schedule: TSchedule[]) => {
         </>
       ));
     case 'Monthly':
-      return orderSchedule(schedule).map(
-        ({ day, fromstring, period, tostring }) => {
-          if (period) {
-            return (
-              <>
-                <p>
-                  every {period.toLowerCase()} {day} from {fromstring} -{' '}
-                  {tostring}
-                </p>
-              </>
-            );
-          }
-          return null;
+      return orderedSchedule.map(({ day, fromstring, period, tostring }) => {
+        if (period) {
+          return (
+            <>
+              <p>
+                every {period.toLowerCase()} {day} from {fromstring} -{' '}
+                {tostring}
+              </p>
+            </>
+          );
         }
-      );
+        return null;
+      });
     case 'Open 24/7':
       return (
         <>
