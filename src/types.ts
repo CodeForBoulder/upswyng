@@ -59,7 +59,7 @@ export interface TCloseSchedule {
 
 export interface TSchedule {
   day: TDay;
-  period: TSchedulePeriod;
+  period?: TSchedulePeriod;
   fromstring: string;
   tostring: string;
   type: TScheduleType;
