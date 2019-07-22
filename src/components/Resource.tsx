@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { TDay, TResource, TSchedule } from '../types';
 import useResource from './useResource';
 import { getSearchParamVal } from '../utils/searchParams';
@@ -32,14 +33,37 @@ const days: TDay[] = [
 
 const orderWeeklySchedule = (schedule: TSchedule[]) => {
   return schedule.sort(
-    ({ day: day1 }, { day: day2 }) => days.indexOf(day1) - days.indexOf(day2)
+    (
+      { day: day1, tostring: fromstring1 },
+      { day: day2, fromstring: fromstring2 }
+    ) => {
+      if (day1 === day2) {
+        const startTime1 = parseInt(moment(fromstring1, 'h:mm A').format('H'));
+        const startTime2 = parseInt(moment(fromstring2, 'h:mm A').format('H'));
+        return startTime1 - startTime2;
+      }
+      return days.indexOf(day1) - days.indexOf(day2);
+    }
   );
 };
 
 const generateSchedule = (schedule: TSchedule[]) => {
   const { type } = schedule[0];
-  if (type === 'Weekly') {
-    const orderedSchedule = orderWeeklySchedule(schedule);
+
+  switch (type) {
+    case 'Weekly':
+      return orderWeeklySchedule(schedule).map(
+        ({ day, fromstring, tostring }) => (
+          <>
+            <h3>{day}</h3>
+            <p>
+              {fromstring} - {tostring}
+            </p>
+          </>
+        )
+      );
+    default:
+      return null;
   }
 };
 
@@ -48,7 +72,7 @@ const renderHours = (schedule: TSchedule[]) => {
     return (
       <>
         <h2>Hours</h2>
-        <p>stuff</p>
+        {generateSchedule(schedule)}
       </>
     );
   }
