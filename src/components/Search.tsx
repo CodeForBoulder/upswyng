@@ -5,7 +5,7 @@ import { Redirect } from 'react-router';
 import styled from 'styled-components';
 
 import { SEARCH_PARAM_QUERY } from '../constants';
-import { colors, fonts, ScreenReaderOnly } from '../App.styles';
+import { colors, font, ScreenReaderOnly } from '../App.styles';
 
 const SearchInput = styled(TextField)`
   && {
@@ -20,9 +20,11 @@ const SearchInput = styled(TextField)`
     ${ScreenReaderOnly}
   }
   input {
-    font-family: ${fonts.openSans};
+    font-family: ${font.families.openSans};
     font-size: 1em;
-    padding: 7px 7px 7px 0;
+    padding: ${font.helpers.convertPixelsToRems(7)}
+      ${font.helpers.convertPixelsToRems(7)}
+      ${font.helpers.convertPixelsToRems(7)} 0;
   }
   input::placeholder {
     color: ${colors.black};
@@ -32,12 +34,12 @@ const SearchInput = styled(TextField)`
 
 const SearchAdornment = styled(InputAdornment)`
   && {
-    margin-left: 7px;
-    margin-right: 7px;
+    margin-left: ${font.helpers.convertPixelsToRems(7)};
+    margin-right: ${font.helpers.convertPixelsToRems(7)};
   }
   svg {
-    width: 0.75em;
-    height: 0.75em;
+    width: ${font.helpers.convertPixelsToRems(18)};
+    height: ${font.helpers.convertPixelsToRems(18)};
   }
 ` as typeof InputAdornment;
 

@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Logo from './Logo';
-import { Container } from '../App.styles';
+import { Container, font } from '../App.styles';
 
 const headerVerticalMargin = 24;
 
@@ -16,16 +16,25 @@ const StyledHeader = styled(AppBar)`
   && {
     background: none;
     box-shadow: none;
-    margin-bottom: ${headerVerticalMargin / 2}px;
-    margin-top: ${headerVerticalMargin}px;
+    margin-bottom: ${font.helpers.convertPixelsToRems(
+      headerVerticalMargin / 2
+    )};
+    margin-top: ${font.helpers.convertPixelsToRems(headerVerticalMargin)};
   }
 ` as typeof AppBar;
 
 const StyledMenuButton = styled(IconButton)`
   && {
-    margin-left: -12px;
+    margin-left: ${font.helpers.convertPixelsToRems(-12)};
   }
 ` as typeof IconButton;
+
+const StyledLogo = styled(Logo)`
+  && {
+    height: 40px;
+    width: auto;
+  }
+` as typeof Logo;
 
 const Header = () => {
   return (
@@ -39,7 +48,7 @@ const Header = () => {
           </Grid>
           <Grid item>
             <Link to="/">
-              <Logo />
+              <StyledLogo />
             </Link>
           </Grid>
         </Container>

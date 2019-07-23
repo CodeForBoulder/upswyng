@@ -2,13 +2,13 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import styled from 'styled-components';
 import HomeButtons from './HomeButtons';
-import { Container } from '../App.styles';
+import { Container, font } from '../App.styles';
 import Search from './Search';
 
 const HomeButtonsContainer = styled(Grid)`
   && {
-    margin-bottom: 30px;
-    margin-top: 15px;
+    margin-bottom: ${font.helpers.convertPixelsToRems(30)};
+    margin-top: ${font.helpers.convertPixelsToRems(15)};
   }
 ` as typeof Grid;
 
@@ -26,6 +26,14 @@ const Home = () => (
       >
         <HomeButtons />
       </HomeButtonsContainer>
+    </Grid>
+    <Grid>
+      <a href="https://www.netlify.com">
+        <img
+          src="https://www.netlify.com/img/global/badges/netlify-light.svg"
+          alt="deploys by Netlify"
+        />
+      </a>
     </Grid>
   </Container>
 );
