@@ -1,19 +1,43 @@
 import React from 'react';
 import { TSchedule } from '../types';
 import { orderSchedule } from '../utils/schedule';
+import styled from 'styled-components';
 
 interface ScheduleProps {
   schedule: TSchedule[];
 }
 
+const WeeklyContainer = styled.div`
+  display: flex;
+`;
+
+const WeeklyDay = styled.h3`
+  && {
+    flex: 0 1 30%;
+    font-size: inherit;
+    font-weight: 400;
+    margin: 0;
+    &::after {
+      content: ':';
+    }
+  }
+`;
+
+const WeeklyTime = styled.p`
+  && {
+    flex: 1 1 70%;
+    margin: 0;
+  }
+`;
+
 const renderWeeklySchedule = (schedule: TSchedule[]) =>
   schedule.map(({ day, fromstring, tostring }) => (
-    <React.Fragment key={`${day}-${fromstring}`}>
-      <h3>{day}</h3>
-      <p>
+    <WeeklyContainer key={`${day}-${fromstring}`}>
+      <WeeklyDay>{day}</WeeklyDay>
+      <WeeklyTime>
         {fromstring} - {tostring}
-      </p>
-    </React.Fragment>
+      </WeeklyTime>
+    </WeeklyContainer>
   ));
 
 const renderMonthlySchedule = (schedule: TSchedule[]) =>
