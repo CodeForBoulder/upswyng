@@ -11,15 +11,17 @@ jest.mock('../useSearchResults');
 jest.mock('react-router-dom', () => ({
   Link: 'Link'
 }));
+jest.mock('../LoadingSpinner', () => 'LoadingSpinner');
 
 describe('<SearchResults/>', () => {
   const getSubject = () => shallow(<SearchResults />);
   describe('when it does not receive any search hits', () => {
     beforeAll(() => {
-      const mockHits: [] = [];
-      (useSearchResults as jest.Mock).mockImplementation(() => ({
-        hits: mockHits
-      }));
+      (useSearchResults as jest.Mock).mockImplementation(() => null);
+    });
+
+    it('renders a loading spinner', () => {
+      expect(getSubject().find('LoadingSpinner').length).toBe(1);
     });
 
     it('does not render a list of results', () => {
