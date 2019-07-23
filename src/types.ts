@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
 import { LinkProps } from 'react-router-dom';
 
@@ -59,10 +60,15 @@ export interface TCloseSchedule {
 
 export interface TSchedule {
   day: TDay;
+  period?: TSchedulePeriod;
   fromstring: string;
   tostring: string;
-  type: string;
+  type: TScheduleType;
 }
+
+export type TSchedulePeriod = 'First' | 'Second' | 'Third' | 'Fourth';
+
+export type TScheduleType = 'Weekly' | 'Monthly' | 'Open 24/7';
 
 interface THomeButtonBase {
   color: string;

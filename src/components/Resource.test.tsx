@@ -9,13 +9,23 @@ jest.mock('../constants');
 jest.mock('./LoadingSpinner.tsx', () => 'LoadingSpinner');
 jest.mock('./useResource.tsx');
 const mockedUseResource = useResource as jest.Mock;
+jest.mock('../App.styles', () => ({
+  Container: 'Container'
+}));
+jest.mock('./Details', () => ({
+  __esModule: true,
+  default: 'Details',
+  DetailBody: 'DetailBody',
+  DetailHeading: 'DetailHeading'
+}));
+jest.mock('./Schedule', () => 'Schedule');
 
 describe('<Resource/>', () => {
   mockedUseResource.mockImplementation(() => foodResource) as typeof jest.mock;
   const wrapper = shallow(<Resource />);
 
   it('renders the charityname property of the resource prop object', () => {
-    expect(wrapper.find('div').text()).toBe(foodResource.charityname);
+    expect(wrapper.find('h1').text()).toBe(foodResource.charityname);
   });
 
   it('renders nothing when a resource is not loaded', () => {
