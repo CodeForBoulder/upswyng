@@ -26,11 +26,10 @@ describe('<Resource/>', () => {
   });
 
   describe('when it is passed a blank resource', () => {
-    const props = {
-      id: 'the ID of the resource being loaded',
-      resource: blankResource
-    };
-    const wrapper = shallow(<Resource {...props} />);
+    mockedUseResource.mockImplementation(
+      () => blankResource
+    ) as typeof jest.mock;
+    const wrapper = shallow(<Resource />);
 
     it('renders a <LoadingSpinner/>', () => {
       expect(wrapper.find('LoadingSpinner').length).toBe(1);
