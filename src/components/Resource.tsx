@@ -1,13 +1,13 @@
 import React from 'react';
 import moment from 'moment';
-import { TDetail, TResource, TSchedule } from '../types';
+import { TResource, TSchedule } from '../types';
 import useResource from './useResource';
 import { getSearchParamVal } from '../utils/searchParams';
 import { orderSchedule } from '../utils/schedule';
 import { SEARCH_PARAM_RESOURCE, FIREBASE_RESOURCE_BRANCH } from '../constants';
 import LoadingSpinner from './LoadingSpinner';
 import { Container } from '../App.styles';
-import Details from './Details';
+import Details, { DetailContainer, DetailBody, DetailHeading } from './Details';
 
 interface Props {
   id: string;
@@ -84,25 +84,23 @@ export const Resource = () => {
     return <LoadingSpinner />;
   }
 
-  const detailAddress: TDetail = {
-    headingText: 'Address',
-    children: [renderAddressContent(resource)]
-  };
-
-  const detailPhone: TDetail = {
-    headingText: 'Phone',
-    children: [renderPhoneContent(resource)]
-  };
-
-  const detailSchedule: TDetail = {
-    headingText: 'Schedule',
-    children: [generateSchedule(schedule)]
-  };
-
   return (
     <Container>
       <h1>{charityname}</h1>
-      <Details groups={[detailAddress, detailPhone, detailSchedule]} />
+      <Details>
+        <DetailContainer>
+          <DetailHeading>Address</DetailHeading>
+          <DetailBody>{renderAddressContent(resource)}</DetailBody>
+        </DetailContainer>
+        <DetailContainer>
+          <DetailHeading>Phone</DetailHeading>
+          <DetailBody>{renderPhoneContent(resource)}</DetailBody>
+        </DetailContainer>
+        <DetailContainer>
+          <DetailHeading>Schedule</DetailHeading>
+          <DetailBody>{generateSchedule(schedule)}</DetailBody>
+        </DetailContainer>
+      </Details>
     </Container>
   );
 };

@@ -1,35 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TDetail } from '../types';
 import { colors } from '../App.styles';
 
-interface DetailHeadingProps {
-  text: string;
-}
-
 interface DetailsProps {
-  groups: TDetail[];
+  children: React.ReactNode[];
 }
 
-const DetailHeading = ({ text }: DetailHeadingProps) => <h2>{text}</h2>;
+export const DetailContainer = styled.div`
+  display: flex;
+`;
 
-const StyledDetailHeading = styled(DetailHeading)`
+export const DetailHeading = styled.h2`
   color: ${colors.white};
   font-size: 10px;
-` as typeof DetailHeading;
+`;
 
-const Details = ({ groups }: DetailsProps) => (
-  <>
-    {groups.map(detail => {
-      const { headingText, children } = detail;
-      return (
-        <>
-          <StyledDetailHeading text={headingText} />
-          {children}
-        </>
-      );
-    })}
-  </>
-);
+export const DetailBody = styled.div`
+  flex: 1 1 auto;
+`;
+
+const Details = ({ children }: DetailsProps) => <>{children}</>;
 
 export default Details;

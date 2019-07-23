@@ -17,11 +17,6 @@ export interface TEnvVariables {
   };
 }
 
-export interface TDetail {
-  headingText: string;
-  children: ReactNode[];
-}
-
 export type TDay =
   | 'Monday'
   | 'Tuesday'
