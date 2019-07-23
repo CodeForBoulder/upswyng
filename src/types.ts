@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
 import { LinkProps } from 'react-router-dom';
 
@@ -14,6 +15,11 @@ export interface TEnvVariables {
     REACT_APP_FIREBASE_MESSAGE_SENDER_ID: string;
     REACT_APP_GOOGLE_MAPS_API_KEY: string;
   };
+}
+
+export interface TDetail {
+  headingText: string;
+  children: ReactNode[];
 }
 
 export type TDay =

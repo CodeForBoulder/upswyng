@@ -1,74 +1,69 @@
 import React from 'react';
 import moment from 'moment';
-import { TResource, TSchedule } from '../types';
+import { TDetail, TResource, TSchedule } from '../types';
 import useResource from './useResource';
 import { getSearchParamVal } from '../utils/searchParams';
 import { orderSchedule } from '../utils/schedule';
 import { SEARCH_PARAM_RESOURCE, FIREBASE_RESOURCE_BRANCH } from '../constants';
 import LoadingSpinner from './LoadingSpinner';
 import { Container } from '../App.styles';
+import Details from './Details';
 
-const renderContactInfo = (resource: TResource) => {
-  const { address1, address2, city, phone, state, zip } = resource;
+interface Props {
+  id: string;
+  resource: TResource;
+}
+
+const renderAddressContent = (resource: TResource) => {
+  const { address1, address2, city, state, zip } = resource;
   return (
-    <>
-      <h2>Address</h2>
-      <p>
-        {address1}, {address2 ? `${address2},` : ''} {city}, {state} {zip}
-      </p>
-      <h2>Phone</h2>
-      <p>{phone}</p>
-    </>
+    <p>
+      {address1}, {address2 ? `${address2},` : ''} {city}, {state} {zip}
+    </p>
   );
 };
 
-const generateSchedule = (schedule: TSchedule[]) => {
-  const { type } = schedule[0];
-  const orderedSchedule = orderSchedule(schedule);
-
-  switch (type) {
-    case 'Weekly':
-      return orderedSchedule.map(({ day, fromstring, tostring }) => (
-        <>
-          <h3>{day}</h3>
-          <p>
-            {fromstring} - {tostring}
-          </p>
-        </>
-      ));
-    case 'Monthly':
-      return orderedSchedule.map(({ day, fromstring, period, tostring }) => {
-        if (period) {
-          return (
-            <>
-              <p>
-                every {period.toLowerCase()} {day} from {fromstring} -{' '}
-                {tostring}
-              </p>
-            </>
-          );
-        }
-        return null;
-      });
-    case 'Open 24/7':
-      return (
-        <>
-          <p>{type}</p>
-        </>
-      );
-    default:
-      return null;
-  }
+const renderPhoneContent = (resource: TResource) => {
+  const { phone } = resource;
+  return <p>{phone}</p>;
 };
 
-const renderHours = (schedule: TSchedule[]) => {
+const generateSchedule = (schedule: TSchedule[]) => {
   if (schedule.length) {
-    return (
-      <>
-        <h2>Hours</h2>
-        {generateSchedule(schedule)}
-      </>
-    );
+    const { type } = schedule[0];
+    const orderedSchedule = orderSchedule(schedule);
+
+    switch (type) {
+      case 'Weekly':
+        return orderedSchedule.map(({ day, fromstring, tostring }) => (
+          <>
+            <h3>{day}</h3>
+            <p>
+              {fromstring} - {tostring}
+            </p>
+          </>
+        ));
+      case 'Monthly':
+        return orderedSchedule.map(({ day, fromstring, period, tostring }) => {
+          if (period) {
+            return (
+              <>
+                <p>
+                  every {period.toLowerCase()} {day} from {fromstring} -{' '}
+                  {tostring}
+                </p>
+              </>
+            );
+          }
+          return null;
+        });
+      case 'Open 24/7':
+        return (
+          <>
+            <p>{type}</p>
+          </>
+        );
+    }
   }
   return null;
 };
@@ -89,11 +84,25 @@ export const Resource = () => {
     return <LoadingSpinner />;
   }
 
+  const detailAddress: TDetail = {
+    headingText: 'Address',
+    children: [renderAddressContent(resource)]
+  };
+
+  const detailPhone: TDetail = {
+    headingText: 'Phone',
+    children: [renderPhoneContent(resource)]
+  };
+
+  const detailSchedule: TDetail = {
+    headingText: 'Schedule',
+    children: [generateSchedule(schedule)]
+  };
+
   return (
     <Container>
       <h1>{charityname}</h1>
-      {renderContactInfo(resource)}
-      {renderHours(schedule)}
+      <Details groups={[detailAddress, detailPhone, detailSchedule]} />
     </Container>
   );
 };
