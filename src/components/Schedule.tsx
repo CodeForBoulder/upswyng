@@ -8,23 +8,21 @@ interface ScheduleProps {
 
 const renderWeeklySchedule = (schedule: TSchedule[]) =>
   schedule.map(({ day, fromstring, tostring }) => (
-    <>
+    <React.Fragment key={`${day}-${fromstring}`}>
       <h3>{day}</h3>
       <p>
         {fromstring} - {tostring}
       </p>
-    </>
+    </React.Fragment>
   ));
 
 const renderMonthlySchedule = (schedule: TSchedule[]) =>
   schedule.map(({ day, fromstring, period, tostring }) => {
     if (period) {
       return (
-        <>
-          <p>
-            every {period.toLowerCase()} {day} from {fromstring} - {tostring}
-          </p>
-        </>
+        <p key={`${period}-${day}-${fromstring}`}>
+          every {period.toLowerCase()} {day} from {fromstring} - {tostring}
+        </p>
       );
     }
     return null;
