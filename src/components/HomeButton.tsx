@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@material-ui/core';
 import { ButtonProps } from '@material-ui/core/Button';
 import styled from 'styled-components';
-import { colors, fonts } from '../App.styles';
+import { colors, font } from '../App.styles';
 
 interface HomeLinkPropsBase {
   children: React.ReactElement | React.ReactElement[];
@@ -24,7 +24,7 @@ const HomeButton = styled((props: HomeButtonProps) => {
     border-radius: 0;
     color: ${colors.white};
     display: flex;
-    padding: 10px;
+    padding: ${font.helpers.convertPixelsToRems(10)};
     text-decoration: none;
     width: 100%;
   }
@@ -37,18 +37,18 @@ const HomeButton = styled((props: HomeButtonProps) => {
     align-items: flex-start;
     display: flex;
     flex-direction: column;
-    font-family: ${fonts.openSans};
-    font-size: 22px;
+    font-family: ${font.families.openSans};
+    font-size: ${font.helpers.convertPixelsToRems(22)};
     font-weight: 700;
     justify-content: space-between;
-    line-height: 24px;
+    line-height: ${font.helpers.convertPixelsToRems(24)};
     text-transform: none;
   }
   svg {
     align-self: flex-end;
     height: auto;
-    max-height: 45px;
-    width: 42px;
+    max-height: ${font.helpers.convertPixelsToRems(45)};
+    width: ${font.helpers.convertPixelsToRems(42)};
   }
 `;
 
