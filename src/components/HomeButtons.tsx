@@ -13,9 +13,9 @@ import {
   WifiIcon
 } from './Icons';
 import { THomeButtonAnchor, THomeButtonRouterLink } from '../types';
-import { colors } from '../App.styles';
 import { HomeRouterLink, HomeAnchorLink } from './HomeLink';
 import HomeButton from './HomeButton';
+import { colors } from '../App.styles';
 
 const routerLinkButtons: THomeButtonRouterLink[] = [
   {

@@ -22,8 +22,20 @@ export const colors = {
   white: '#FFF'
 };
 
-export const fonts = {
-  openSans: "'Open Sans', sans-serif"
+const baseFontSize = 16;
+const baseFontSizePercent = (16 / baseFontSize) * 100;
+export const font = {
+  sizes: {
+    base: baseFontSize,
+    basePixels: `${baseFontSize}px`,
+    basePercent: `${baseFontSizePercent}%`
+  },
+  families: {
+    openSans: "'Open Sans', sans-serif"
+  },
+  helpers: {
+    convertPixelsToRems: (value: number): string => `${value / baseFontSize}rem`
+  }
 };
 
 export const ScreenReaderOnly = css`
@@ -48,7 +60,7 @@ export const aStyles = css`
 
 export const Container = styled(Grid)`
   margin: 0 auto;
-  max-width: 480px;
+  max-width: ${font.helpers.convertPixelsToRems(480)};
 ` as typeof Grid;
 
 export default createGlobalStyle`
@@ -58,7 +70,8 @@ export default createGlobalStyle`
   body {
     background: ${colors.charcoal};
     color: ${colors.white};
-    font-family: ${fonts.openSans};
+    font-family: ${font.families.openSans};
+    font-size: ${font.sizes.basePercent};
   }
   a {
     ${aStyles}
