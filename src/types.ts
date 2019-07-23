@@ -1,4 +1,5 @@
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
+import { LinkProps } from 'react-router-dom';
 
 export interface TEnvVariables {
   env: {
@@ -63,9 +64,16 @@ export interface TSchedule {
   type: string;
 }
 
-export interface THomeButton {
-  text: string;
-  icon: React.ReactElement<SvgIconProps>;
-  to: string;
+interface THomeButtonBase {
   color: string;
+  icon: React.ReactElement<SvgIconProps>;
+  text: string;
+}
+export interface THomeButtonAnchor extends THomeButtonBase {
+  href: string;
+  target: string;
+}
+
+export interface THomeButtonRouterLink extends THomeButtonBase {
+  linkProps: LinkProps;
 }

@@ -1,13 +1,10 @@
 import React from 'react';
-import { Button, Grid } from '@material-ui/core';
-import { ButtonProps } from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 import {
   BananaIcon,
   BusIcon,
   BusinessCenterIcon,
   CallIcon,
+  DoorIcon,
   HomeIcon,
   HygieneIcon,
   LocalHospitalIcon,
@@ -15,136 +12,123 @@ import {
   SocksIcon,
   WifiIcon
 } from './Icons';
-import { THomeButton } from '../types';
-import { colors, fonts } from '../App.styles';
+import { THomeButtonAnchor, THomeButtonRouterLink } from '../types';
+import { colors } from '../App.styles';
+import { HomeRouterLink, HomeAnchorLink } from './HomeLink';
+import HomeButton from './HomeButton';
 
-const buttons: THomeButton[] = [
+const routerLinkButtons: THomeButtonRouterLink[] = [
   {
     text: 'Food',
     icon: BananaIcon,
-    to: '/food',
+    linkProps: {
+      to: '/food'
+    },
     color: colors.gold
   },
   {
     text: 'Shelter',
     icon: HomeIcon,
-    to: '/shelter',
+    linkProps: {
+      to: '/shelter'
+    },
     color: colors.orangeDark
   },
   {
     text: 'Hygiene',
     icon: HygieneIcon,
-    to: '/hygiene',
+    linkProps: {
+      to: '/hygiene'
+    },
     color: colors.teal
   },
   {
     text: 'Transit',
     icon: BusIcon,
-    to: '/transit',
+    linkProps: {
+      to: '/transit'
+    },
     color: colors.green
   },
   {
     text: 'Resources',
     icon: SocksIcon,
-    to: '/resources',
+    linkProps: {
+      to: '/resources'
+    },
     color: colors.purple
   },
   {
     text: 'Hotlines',
     icon: CallIcon,
-    to: '/hotlines',
+    linkProps: {
+      to: '/hotlines'
+    },
     color: colors.pink
   },
   {
     text: 'Health',
     icon: LocalHospitalIcon,
-    to: '/health',
+    linkProps: {
+      to: '/health'
+    },
     color: colors.red
   },
   {
     text: 'Wifi & Tech',
     icon: WifiIcon,
-    to: '/wifi-and-tech',
+    linkProps: {
+      to: '/wifi-and-tech'
+    },
     color: colors.blue
   },
   {
     text: 'Job Training',
     icon: BusinessCenterIcon,
-    to: '/work',
+    linkProps: {
+      to: '/work'
+    },
     color: colors.lavendar
   },
   {
     text: 'Social Services',
     icon: PeopleIcon,
-    to: '/social-services',
+    linkProps: {
+      to: '/social-services'
+    },
     color: colors.brown
   }
 ];
 
-const HomeLink = styled(Link)`
-  text-decoration: none;
-`;
-
-interface HomeButtonProps extends ButtonProps {
-  readonly buttonColor: string;
-}
-
-const HomeButton = styled((props: HomeButtonProps) => {
-  return <Button {...props} />;
-})`
-  && {
-    align-items: stretch;
-    background: ${(props: HomeButtonProps) =>
-      props.buttonColor || colors.greyDark};
-    border-radius: 0;
-    color: ${colors.white};
-    display: flex;
-    height: 100%;
-    padding: 10px;
-    text-decoration: none;
-    width: 100%;
-  }
-  &&:hover {
-    background: ${(props: HomeButtonProps) =>
-      props.buttonColor || colors.greyDark};
-    filter: brightness(95%);
-  }
-  > span {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: column;
-    font-family: ${fonts.openSans};
-    font-size: 22px;
-    font-weight: 700;
-    justify-content: space-between;
-    line-height: 24px;
-    text-transform: none;
-  }
-  svg {
-    align-self: flex-end;
-    height: auto;
-    width: 42px;
-  }
-`;
+const coordinatedEntryButton: THomeButtonAnchor = {
+  text: 'Coordinated Entry',
+  href: 'https://www.bouldercounty.org/homeless/',
+  icon: DoorIcon,
+  color: colors.rosewood,
+  target: '_blank'
+};
 
 const HomeButtons = () => (
   <>
-    {buttons.map((button: THomeButton) => {
+    {routerLinkButtons.map(button => {
       return (
-        <Grid item xs={6} key={button.text}>
-          <HomeLink to={button.to} data-test={button.text}>
-            <HomeButton
-              disableRipple={true}
-              component={'span'}
-              buttonColor={button.color}
-            >
-              {button.text}
-              {button.icon}
-            </HomeButton>
-          </HomeLink>
-        </Grid>
+        <HomeRouterLink {...button} key={button.text}>
+          <HomeButton component={'span'} buttonColor={button.color}>
+            {button.text}
+            {button.icon}
+          </HomeButton>
+        </HomeRouterLink>
       );
     })}
+    <HomeAnchorLink
+      {...coordinatedEntryButton}
+      key={coordinatedEntryButton.text}
+    >
+      <HomeButton component={'span'} buttonColor={coordinatedEntryButton.color}>
+        {coordinatedEntryButton.text}
+        {coordinatedEntryButton.icon}
+      </HomeButton>
+    </HomeAnchorLink>
   </>
 );
 
