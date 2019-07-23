@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { colors } from '../App.styles';
 
 interface DetailsProps {
-  children: React.ReactNode[];
+  children: React.ReactChild | React.ReactChild[];
 }
 
 export const StyledDetails = styled.div`

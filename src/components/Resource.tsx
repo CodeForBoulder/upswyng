@@ -3,11 +3,11 @@ import moment from 'moment';
 import { TResource, TSchedule } from '../types';
 import useResource from './useResource';
 import { getSearchParamVal } from '../utils/searchParams';
-import { orderSchedule } from '../utils/schedule';
 import { SEARCH_PARAM_RESOURCE, FIREBASE_RESOURCE_BRANCH } from '../constants';
 import LoadingSpinner from './LoadingSpinner';
 import { Container } from '../App.styles';
 import Details, { DetailBody, DetailHeading } from './Details';
+import Schedule from './Schedule';
 
 interface Props {
   id: string;
@@ -26,46 +26,6 @@ const renderAddressContent = (resource: TResource) => {
 const renderPhoneContent = (resource: TResource) => {
   const { phone } = resource;
   return <p>{phone}</p>;
-};
-
-const generateSchedule = (schedule: TSchedule[]) => {
-  if (schedule.length) {
-    const { type } = schedule[0];
-    const orderedSchedule = orderSchedule(schedule);
-
-    switch (type) {
-      case 'Weekly':
-        return orderedSchedule.map(({ day, fromstring, tostring }) => (
-          <>
-            <h3>{day}</h3>
-            <p>
-              {fromstring} - {tostring}
-            </p>
-          </>
-        ));
-      case 'Monthly':
-        return orderedSchedule.map(({ day, fromstring, period, tostring }) => {
-          if (period) {
-            return (
-              <>
-                <p>
-                  every {period.toLowerCase()} {day} from {fromstring} -{' '}
-                  {tostring}
-                </p>
-              </>
-            );
-          }
-          return null;
-        });
-      case 'Open 24/7':
-        return (
-          <>
-            <p>{type}</p>
-          </>
-        );
-    }
-  }
-  return null;
 };
 
 export const Resource = () => {
@@ -93,7 +53,9 @@ export const Resource = () => {
         <DetailHeading>Phone</DetailHeading>
         <DetailBody>{renderPhoneContent(resource)}</DetailBody>
         <DetailHeading>Schedule</DetailHeading>
-        <DetailBody>{generateSchedule(schedule)}</DetailBody>
+        <DetailBody>
+          <Schedule schedule={schedule} />
+        </DetailBody>
       </Details>
     </Container>
   );
