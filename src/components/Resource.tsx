@@ -7,7 +7,7 @@ import { orderSchedule } from '../utils/schedule';
 import { SEARCH_PARAM_RESOURCE, FIREBASE_RESOURCE_BRANCH } from '../constants';
 import LoadingSpinner from './LoadingSpinner';
 import { Container } from '../App.styles';
-import Details, { DetailContainer, DetailBody, DetailHeading } from './Details';
+import Details, { DetailBody, DetailHeading } from './Details';
 
 interface Props {
   id: string;
@@ -88,18 +88,12 @@ export const Resource = () => {
     <Container>
       <h1>{charityname}</h1>
       <Details>
-        <DetailContainer>
-          <DetailHeading>Address</DetailHeading>
-          <DetailBody>{renderAddressContent(resource)}</DetailBody>
-        </DetailContainer>
-        <DetailContainer>
-          <DetailHeading>Phone</DetailHeading>
-          <DetailBody>{renderPhoneContent(resource)}</DetailBody>
-        </DetailContainer>
-        <DetailContainer>
-          <DetailHeading>Schedule</DetailHeading>
-          <DetailBody>{generateSchedule(schedule)}</DetailBody>
-        </DetailContainer>
+        <DetailHeading>Address</DetailHeading>
+        <DetailBody>{renderAddressContent(resource)}</DetailBody>
+        <DetailHeading>Phone</DetailHeading>
+        <DetailBody>{renderPhoneContent(resource)}</DetailBody>
+        <DetailHeading>Schedule</DetailHeading>
+        <DetailBody>{generateSchedule(schedule)}</DetailBody>
       </Details>
     </Container>
   );
