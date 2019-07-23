@@ -12,6 +12,13 @@ const mockedUseResource = useResource as jest.Mock;
 jest.mock('../App.styles', () => ({
   Container: 'Container'
 }));
+jest.mock('./Details', () => ({
+  __esModule: true,
+  default: 'Details',
+  DetailBody: 'DetailBody',
+  DetailHeading: 'DetailHeading'
+}));
+jest.mock('./Schedule', () => 'Schedule');
 
 describe('<Resource/>', () => {
   mockedUseResource.mockImplementation(() => foodResource) as typeof jest.mock;
