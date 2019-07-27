@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import GoogleMapReact from 'google-map-react';
 
 import { TResource } from '../types';
+import { MapsLocalPrintshop } from 'material-ui/svg-icons';
 
 interface Props {
   resource: TResource;
@@ -11,6 +13,11 @@ const boulderCoordinates = {
   lat: 40.0156852,
   lng: -105.2792069
 };
+
+const MapContainer = styled.div`
+  height: 60vh;
+  width: 100%;
+`;
 
 // TODO #58: Provide type params and fix type errors
 class Map extends Component<any, any> {
@@ -144,8 +151,7 @@ class Map extends Component<any, any> {
     };
 
     return (
-      // Map must have height/width defined - but manipulate as necessary
-      <div style={{ height: '60vh', width: '100%' }}>
+      <MapContainer>
         <h2>Map</h2>
         <button onClick={this.toggleDirections}>
           Show/Hide Directions to {name}
@@ -160,7 +166,7 @@ class Map extends Component<any, any> {
           yesIWantToUseGoogleMapApiInternals={true}
           onGoogleApiLoaded={({ map, maps }) => this.initMap(map, maps)}
         />
-      </div>
+      </MapContainer>
     );
   }
 }
