@@ -4,6 +4,7 @@ import GoogleMapReact from 'google-map-react';
 
 import { font } from '../App.styles';
 import { TResource } from '../types';
+import LoadingSpinner from './LoadingSpinner';
 
 interface CurrentUser {
   location: Position | null;
@@ -181,6 +182,7 @@ class Map extends Component<Props, any> {
         </button>
         <MapOuterContainer>
           <MapInnerContainer>
+            {!this.state.maps && <LoadingSpinner />}
             <GoogleMapReact
               bootstrapURLKeys={{
                 key: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
