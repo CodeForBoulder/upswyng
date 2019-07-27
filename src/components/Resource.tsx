@@ -35,14 +35,10 @@ export const Resource = () => {
   const resource = useResource(resourceDataRef);
 
   if (!resource) {
-    return null;
+    return <LoadingSpinner />;
   }
 
   const { charityname, schedule } = resource;
-
-  if (!charityname) {
-    return <LoadingSpinner />;
-  }
 
   return (
     <Container>
