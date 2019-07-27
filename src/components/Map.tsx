@@ -3,10 +3,13 @@ import styled from 'styled-components';
 import GoogleMapReact from 'google-map-react';
 
 import { TResource } from '../types';
-import { MapsLocalPrintshop } from 'material-ui/svg-icons';
 
+interface CurrentUser {
+  location: Position | null;
+}
 interface Props {
-  resource: TResource;
+  resources: TResource[];
+  currentUser: CurrentUser;
 }
 
 const boulderCoordinates = {
@@ -20,7 +23,7 @@ const MapContainer = styled.div`
 `;
 
 // TODO #58: Provide type params and fix type errors
-class Map extends Component<any, any> {
+class Map extends Component<Props, any> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -34,27 +37,33 @@ class Map extends Component<any, any> {
     resourceAsDestination: any
   ) => {
     const userLocation = this.props.currentUser.location;
+    if (userLocation) {
+      const userLatLng = new this.state.maps.LatLng(
+        userLocation.coords.latitude,
+        userLocation.coords.longitude
+      );
 
-    // remove default markers A and B (origin/destination)
-    directionsDisplay.setOptions({ suppressMarkers: true });
+      // remove default markers A and B (origin/destination)
+      directionsDisplay.setOptions({ suppressMarkers: true });
 
-    directionsService.route(
-      {
-        origin: userLocation,
-        destination: {
-          lat: resourceAsDestination.lat,
-          lng: resourceAsDestination.lng
+      directionsService.route(
+        {
+          origin: userLatLng,
+          destination: {
+            lat: resourceAsDestination.lat,
+            lng: resourceAsDestination.lng
+          },
+          travelMode: 'DRIVING'
         },
-        travelMode: 'TRANSIT'
-      },
-      function(response: any, status: any) {
-        if (status === 'OK') {
-          directionsDisplay.setDirections(response);
-        } else {
-          console.log(`Directions request failed due to ${status}`);
+        function(response: any, status: any) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+          } else {
+            console.log(`Directions request failed due to ${status}`);
+          }
         }
-      }
-    );
+      );
+    }
   };
 
   toggleDirections = () => {
@@ -105,7 +114,7 @@ class Map extends Component<any, any> {
           resource.audience +
           '<br>' +
           '<b>Offers</b>: ' +
-          resource.services.join(', ') +
+          resource.servicetype +
           '</div>'
         // TODO: Include if its open/hours (unsure of how resource.hours will be formatted)
         // TODO: Use a custom component instead of an infoWindow
@@ -144,7 +153,7 @@ class Map extends Component<any, any> {
 
   render() {
     const firstResource = this.props.resources[0];
-    const { name, lat, lng } = firstResource;
+    const { charityname, lat, lng } = firstResource;
     const centerOnFirstResource = {
       lat: lat,
       lng: lng
@@ -154,7 +163,7 @@ class Map extends Component<any, any> {
       <MapContainer>
         <h2>Map</h2>
         <button onClick={this.toggleDirections}>
-          Show/Hide Directions to {name}
+          Show/Hide Directions to {charityname}
         </button>
         <GoogleMapReact
           bootstrapURLKeys={{

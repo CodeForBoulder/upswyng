@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 import { TResource, TSchedule } from '../types';
 import useResource from './useResource';
@@ -8,6 +8,7 @@ import LoadingSpinner from './LoadingSpinner';
 import { Container } from '../App.styles';
 import Details, { DetailBody, DetailHeading } from './Details';
 import Schedule from './Schedule';
+import Map from './Map';
 
 interface Props {
   id: string;
@@ -34,6 +35,12 @@ export const Resource = () => {
   )}`;
   const resource = useResource(resourceDataRef);
 
+  const [userPosition, setUserPosition] = useState<Position | null>(null);
+
+  const userLocation = navigator.geolocation.getCurrentPosition(pos =>
+    setUserPosition(pos)
+  );
+
   if (!resource) {
     return null;
   }
@@ -57,6 +64,7 @@ export const Resource = () => {
           <Schedule schedule={schedule} />
         </DetailBody>
       </Details>
+      <Map resources={[resource]} currentUser={{ location: userPosition }} />
     </Container>
   );
 };
