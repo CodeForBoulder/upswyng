@@ -35,12 +35,6 @@ export const Resource = () => {
   )}`;
   const resource = useResource(resourceDataRef);
 
-  const [userPosition, setUserPosition] = useState<Position | null>(null);
-
-  const userLocation = navigator.geolocation.getCurrentPosition(pos =>
-    setUserPosition(pos)
-  );
-
   if (!resource) {
     return null;
   }
@@ -64,7 +58,7 @@ export const Resource = () => {
           <Schedule schedule={schedule} />
         </DetailBody>
       </Details>
-      <Map resources={[resource]} currentUser={{ location: userPosition }} />
+      <Map resources={[resource]} />
     </Container>
   );
 };

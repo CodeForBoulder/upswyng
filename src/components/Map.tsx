@@ -6,12 +6,17 @@ import { font } from '../App.styles';
 import { TResource } from '../types';
 import LoadingSpinner from './LoadingSpinner';
 
-interface CurrentUser {
-  location: Position | null;
-}
 interface Props {
   resources: TResource[];
-  currentUser: CurrentUser;
+}
+
+interface State {
+  maps: any;
+  map: any;
+  userPosition: Position | null;
+  directionsDisplay: any;
+  directionsService: any;
+  directionsAreToggled: boolean;
 }
 
 const boulderCoordinates = {
@@ -43,20 +48,28 @@ class Map extends Component<Props, any> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      directionsAreToggled: false
+      directionsAreToggled: false,
+      userPosition: null
     };
   }
+
+  getUsersPosition = () =>
+    navigator.geolocation.getCurrentPosition(pos =>
+      this.setState({
+        userPosition: pos
+      })
+    );
 
   calculateAndDisplayRoute = (
     directionsService: any,
     directionsDisplay: any,
     resourceAsDestination: any
   ) => {
-    const userLocation = this.props.currentUser.location;
-    if (userLocation) {
+    const userPosition = this.state.userPosition;
+    if (userPosition) {
       const userLatLng = new this.state.maps.LatLng(
-        userLocation.coords.latitude,
-        userLocation.coords.longitude
+        userPosition.coords.latitude,
+        userPosition.coords.longitude
       );
 
       // remove default markers A and B (origin/destination)
@@ -87,8 +100,14 @@ class Map extends Component<Props, any> {
       map,
       directionsDisplay,
       directionsService,
-      directionsAreToggled
+      directionsAreToggled,
+      userPosition
     } = this.state;
+
+    if (!userPosition) {
+      this.getUsersPosition();
+      return;
+    }
 
     if (!directionsAreToggled) {
       directionsDisplay.setMap(map);
@@ -166,6 +185,17 @@ class Map extends Component<Props, any> {
 
     this.createMarkers(map, maps);
   };
+
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    const { userPosition: prevPosition } = prevState;
+    const { userPosition: currentPosition } = this.state;
+
+    console.log(prevPosition, currentPosition);
+
+    if (currentPosition !== prevPosition) {
+      this.toggleDirections();
+    }
+  }
 
   render() {
     const firstResource = this.props.resources[0];
