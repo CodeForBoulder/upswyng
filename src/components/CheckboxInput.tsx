@@ -4,6 +4,7 @@ import { Checkbox, FormControlLabel } from '@material-ui/core';
 import { colors, font } from '../App.styles';
 
 interface CheckboxInputProps {
+  checked: boolean;
   label: string;
   onChange: Function;
   value: string;
@@ -18,7 +19,13 @@ const StyledFormControlLabel = styled(FormControlLabel)`
 
 const CheckboxInput = (props: CheckboxInputProps) => (
   <StyledFormControlLabel
-    control={<Checkbox onChange={() => props.onChange()} value={props.value} />}
+    control={
+      <Checkbox
+        checked={props.checked}
+        onChange={() => props.onChange()}
+        value={props.value}
+      />
+    }
     label={props.label}
   />
 );

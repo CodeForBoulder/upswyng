@@ -222,6 +222,7 @@ class Map extends Component<Props, any> {
           </MapInnerContainer>
         </MapOuterContainer>
         <CheckboxInput
+          checked={this.state.directionsAreToggled}
           onChange={this.toggleDirections}
           value="directionsVisible"
           label="show directions"
