@@ -28,21 +28,10 @@ describe('<Resource/>', () => {
     expect(wrapper.find('h1').text()).toBe(foodResource.charityname);
   });
 
-  it('renders nothing when a resource is not loaded', () => {
+  it('renders a loading spinner when a resource is not loaded', () => {
     mockedUseResource.mockImplementation(() => null) as typeof jest.mock;
     const wrapper = shallow(<Resource />);
 
-    expect(wrapper.isEmptyRender).toBeTruthy();
-  });
-
-  describe('when it is passed a blank resource', () => {
-    mockedUseResource.mockImplementation(
-      () => blankResource
-    ) as typeof jest.mock;
-    const wrapper = shallow(<Resource />);
-
-    it('renders a <LoadingSpinner/>', () => {
-      expect(wrapper.find('LoadingSpinner').length).toBe(1);
-    });
+    expect(wrapper.find('LoadingSpinner').length).toBe(1);
   });
 });
