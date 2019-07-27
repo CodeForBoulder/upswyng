@@ -176,7 +176,6 @@ class Map extends Component<Props, any> {
 
     return (
       <>
-        <h2>Map</h2>
         <button onClick={this.toggleDirections}>
           Show/Hide Directions to {charityname}
         </button>
