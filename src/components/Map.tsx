@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import GoogleMapReact from 'google-map-react';
+import { Checkbox, FormControlLabel } from '@material-ui/core';
 
 import { font } from '../App.styles';
 import { TResource } from '../types';
@@ -190,8 +191,6 @@ class Map extends Component<Props, any> {
     const { userPosition: prevPosition } = prevState;
     const { userPosition: currentPosition } = this.state;
 
-    console.log(prevPosition, currentPosition);
-
     if (currentPosition !== prevPosition) {
       this.toggleDirections();
     }
@@ -199,7 +198,7 @@ class Map extends Component<Props, any> {
 
   render() {
     const firstResource = this.props.resources[0];
-    const { charityname, lat, lng } = firstResource;
+    const { lat, lng } = firstResource;
     const centerOnFirstResource = {
       lat: lat,
       lng: lng
@@ -207,9 +206,6 @@ class Map extends Component<Props, any> {
 
     return (
       <>
-        <button onClick={this.toggleDirections}>
-          Show/Hide Directions to {charityname}
-        </button>
         <MapOuterContainer>
           <MapInnerContainer>
             {!this.state.maps && <LoadingSpinner />}
@@ -225,6 +221,15 @@ class Map extends Component<Props, any> {
             />
           </MapInnerContainer>
         </MapOuterContainer>
+        <FormControlLabel
+          control={
+            <Checkbox
+              onChange={this.toggleDirections}
+              value={'directionsVisible'}
+            />
+          }
+          label="show directions"
+        />
       </>
     );
   }
