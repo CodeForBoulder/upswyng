@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import GoogleMapReact from 'google-map-react';
-import { Checkbox, FormControlLabel } from '@material-ui/core';
 
 import { font } from '../App.styles';
 import { TResource } from '../types';
+import CheckboxInput from './CheckboxInput';
 import LoadingSpinner from './LoadingSpinner';
 
 interface Props {
@@ -221,13 +221,9 @@ class Map extends Component<Props, any> {
             />
           </MapInnerContainer>
         </MapOuterContainer>
-        <FormControlLabel
-          control={
-            <Checkbox
-              onChange={this.toggleDirections}
-              value={'directionsVisible'}
-            />
-          }
+        <CheckboxInput
+          onChange={this.toggleDirections}
+          value="directionsVisible"
           label="show directions"
         />
       </>
