@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import moment from 'moment';
-import { TResource, TSchedule } from '../types';
+import React from 'react';
+import { TResource } from '../types';
 import useResource from './useResource';
 import { getSearchParamVal } from '../utils/searchParams';
 import { SEARCH_PARAM_RESOURCE, FIREBASE_RESOURCE_BRANCH } from '../constants';
