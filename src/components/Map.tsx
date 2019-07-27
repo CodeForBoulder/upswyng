@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import GoogleMapReact from 'google-map-react';
 
+import { font } from '../App.styles';
 import { TResource } from '../types';
 
 interface CurrentUser {
@@ -17,9 +18,23 @@ const boulderCoordinates = {
   lng: -105.2792069
 };
 
-const MapContainer = styled.div`
-  height: 60vh;
+const MapOuterContainer = styled.div`
+  position: relative;
   width: 100%;
+  &::before {
+    content: '';
+    display: block;
+    padding-bottom: 55%;
+    width: 100%;
+  }
+`;
+
+const MapInnerContainer = styled.div`
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
 `;
 
 // TODO #58: Provide type params and fix type errors
@@ -160,22 +175,26 @@ class Map extends Component<Props, any> {
     };
 
     return (
-      <MapContainer>
+      <>
         <h2>Map</h2>
         <button onClick={this.toggleDirections}>
           Show/Hide Directions to {charityname}
         </button>
-        <GoogleMapReact
-          bootstrapURLKeys={{
-            key: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
-          }}
-          defaultCenter={boulderCoordinates}
-          defaultZoom={13}
-          center={centerOnFirstResource}
-          yesIWantToUseGoogleMapApiInternals={true}
-          onGoogleApiLoaded={({ map, maps }) => this.initMap(map, maps)}
-        />
-      </MapContainer>
+        <MapOuterContainer>
+          <MapInnerContainer>
+            <GoogleMapReact
+              bootstrapURLKeys={{
+                key: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
+              }}
+              defaultCenter={boulderCoordinates}
+              defaultZoom={13}
+              center={centerOnFirstResource}
+              yesIWantToUseGoogleMapApiInternals={true}
+              onGoogleApiLoaded={({ map, maps }) => this.initMap(map, maps)}
+            />
+          </MapInnerContainer>
+        </MapOuterContainer>
+      </>
     );
   }
 }
