@@ -19,6 +19,7 @@ jest.mock('./Details', () => ({
   DetailHeading: 'DetailHeading'
 }));
 jest.mock('./Schedule', () => 'Schedule');
+jest.mock('./Map', () => 'Map');
 
 describe('<Resource/>', () => {
   mockedUseResource.mockImplementation(() => foodResource) as typeof jest.mock;
@@ -26,6 +27,10 @@ describe('<Resource/>', () => {
 
   it('renders the charityname property of the resource prop object', () => {
     expect(wrapper.find('h1').text()).toBe(foodResource.charityname);
+  });
+
+  it('renders a map component', () => {
+    expect(wrapper.find('Map').length).toBe(1);
   });
 
   it('renders a loading spinner when a resource is not loaded', () => {

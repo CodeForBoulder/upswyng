@@ -1,6 +1,5 @@
 import React from 'react';
-import moment from 'moment';
-import { TResource, TSchedule } from '../types';
+import { TResource } from '../types';
 import useResource from './useResource';
 import { getSearchParamVal } from '../utils/searchParams';
 import { SEARCH_PARAM_RESOURCE, FIREBASE_RESOURCE_BRANCH } from '../constants';
@@ -8,6 +7,7 @@ import LoadingSpinner from './LoadingSpinner';
 import { Container } from '../App.styles';
 import Details, { DetailBody, DetailHeading } from './Details';
 import Schedule from './Schedule';
+import Map from './Map';
 
 interface Props {
   id: string;
@@ -53,6 +53,7 @@ export const Resource = () => {
           <Schedule schedule={schedule} />
         </DetailBody>
       </Details>
+      <Map resources={[resource]} />
     </Container>
   );
 };
