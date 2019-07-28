@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import GoogleMapReact from 'google-map-react';
 
-import { font } from '../App.styles';
 import { TResource } from '../types';
 import CheckboxInput from './CheckboxInput';
 import LoadingSpinner from './LoadingSpinner';
