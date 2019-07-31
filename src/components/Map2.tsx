@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import GoogleMapReact from 'google-map-react';
 import { TResource } from '../types';
+import { colors } from '../App.styles';
 
 const boulderCoordinates = {
   lat: 40.0156852,
@@ -29,6 +30,17 @@ const MapInnerContainer = styled.div`
   position: absolute;
   right: 0;
   top: 0;
+  & .google-map__info-window {
+    background: ${colors.white};
+    color: ${colors.black};
+    display: block;
+  }
+  & .google-map__charity-name {
+    font-weight: 700;
+  }
+  & .google-map__address-line {
+    display: block;
+  }
 `;
 
 const Map2 = ({ resource }: Props) => {
@@ -48,15 +60,48 @@ const Map2 = ({ resource }: Props) => {
     setDirectionsService(new maps.DirectionsService());
   };
 
-  const addMapMarker = ({ charityname, lat, lng }: TResource) => {
+  const addMapMarker = ({
+    charityname,
+    lat,
+    lng,
+    address1,
+    address2,
+    city,
+    state,
+    zip
+  }: TResource) => {
     if (googleMaps) {
-      new googleMaps.Marker({
+      const resourceMarker = new googleMaps.Marker({
         map: googleMap,
         title: charityname,
         position: {
           lat,
           lng
         }
+      });
+
+      const resourceMarkerInfoWindow = new googleMaps.InfoWindow({
+        content: `
+          <div class="google-map__info-window">
+            <span class="google-map__charity-name">${charityname}</span>
+            <span class="google-map__address-line">${address1}</span>
+            <span class="google-map__address-line">${address2 || ''}</span>
+            <span class="google-map__address-line">${city}, ${state} ${zip}</span>
+          </div>
+        `
+      });
+
+      resourceMarker.addListener('mouseover', () => {
+        resourceMarkerInfoWindow.open(googleMap, resourceMarker);
+      });
+      resourceMarker.addListener('focus', () => {
+        resourceMarkerInfoWindow.open(googleMap, resourceMarker);
+      });
+      resourceMarker.addListener('mouseout', () => {
+        resourceMarkerInfoWindow.close();
+      });
+      resourceMarker.addListener('blur', () => {
+        resourceMarkerInfoWindow.close();
       });
     }
   };
