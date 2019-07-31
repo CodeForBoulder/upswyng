@@ -24,7 +24,8 @@ const Map2 = ({ resource }: Props) => {
     const { map, maps } = googleMapObjects;
     setGoogleMap(map);
     setGoogleMaps(maps);
-    setDirectionsDisplay(new maps.DirectionsService());
+    setDirectionsDisplay(new maps.DirectionsDisplay());
+    setDirectionsService(new maps.DirectionsService());
   };
 
   const { lat: resourceLat, lng: resourceLng } = resource;
