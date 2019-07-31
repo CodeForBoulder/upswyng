@@ -8,6 +8,7 @@ import { Container } from '../App.styles';
 import Details, { DetailBody, DetailHeading } from './Details';
 import Schedule from './Schedule';
 import Map from './Map';
+import Map2 from './Map2';
 
 interface Props {
   id: string;
@@ -54,6 +55,7 @@ export const Resource = () => {
         </DetailBody>
       </Details>
       <Map resources={[resource]} />
+      <Map2 resource={resource} />
     </Container>
   );
 };
