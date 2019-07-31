@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import { TResource } from '../types';
-import { map, maps } from '@types/googleMaps';
 
 const boulderCoordinates = {
   lat: 40.0156852,
@@ -13,8 +12,8 @@ interface Props {
 }
 
 const Map2 = ({ resource }: Props) => {
-  const [googleMap, setGoogleMap] = useState<map | null>(null);
-  const [googleMaps, setGoogleMaps] = useState<maps | null>(null);
+  const [googleMap, setGoogleMap] = useState<any | null>(null);
+  const [googleMaps, setGoogleMaps] = useState<any | null>(null);
   const [directionsDisplay, setDirectionsDisplay] = useState(null);
   const [directionsService, setDirectionsService] = useState(null);
 
