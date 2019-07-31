@@ -18,8 +18,8 @@ const Map2 = ({ resource }: Props) => {
   const [directionsService, setDirectionsService] = useState(null);
 
   const handleGoogleMapApiLoaded = (googleMapObjects: {
-    map: map;
-    maps: maps;
+    map: any;
+    maps: any;
   }) => {
     const { map, maps } = googleMapObjects;
     setGoogleMap(map);
