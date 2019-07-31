@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import GoogleMapReact from 'google-map-react';
 import { TResource } from '../types';
@@ -48,11 +48,28 @@ const Map2 = ({ resource }: Props) => {
     setDirectionsService(new maps.DirectionsService());
   };
 
+  const addMapMarker = ({ charityname, lat, lng }: TResource) => {
+    if (googleMaps) {
+      new googleMaps.Marker({
+        map: googleMap,
+        title: charityname,
+        position: {
+          lat,
+          lng
+        }
+      });
+    }
+  };
+
   const { lat: resourceLat, lng: resourceLng } = resource;
   const resourceLatLng = {
     lat: resourceLat,
     lng: resourceLng
   };
+
+  useEffect(() => {
+    addMapMarker(resource);
+  }, [googleMap, googleMaps]);
 
   return (
     <MapOuterContainer>
