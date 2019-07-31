@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import GoogleMapReact from 'google-map-react';
 import { TResource } from '../types';
 
@@ -10,6 +11,25 @@ const boulderCoordinates = {
 interface Props {
   resource: TResource;
 }
+
+const MapOuterContainer = styled.div`
+  position: relative;
+  width: 100%;
+  &::before {
+    content: '';
+    display: block;
+    padding-bottom: 55%;
+    width: 100%;
+  }
+`;
+
+const MapInnerContainer = styled.div`
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+`;
 
 const Map2 = ({ resource }: Props) => {
   const [googleMap, setGoogleMap] = useState<any | null>(null);
@@ -35,16 +55,20 @@ const Map2 = ({ resource }: Props) => {
   };
 
   return (
-    <GoogleMapReact
-      bootstrapURLKeys={{
-        key: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
-      }}
-      defaultCenter={boulderCoordinates}
-      defaultZoom={13}
-      center={resourceLatLng}
-      yesIWantToUseGoogleMapApiInternals={true}
-      onGoogleApiLoaded={handleGoogleMapApiLoaded}
-    />
+    <MapOuterContainer>
+      <MapInnerContainer>
+        <GoogleMapReact
+          bootstrapURLKeys={{
+            key: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
+          }}
+          defaultCenter={boulderCoordinates}
+          defaultZoom={13}
+          center={resourceLatLng}
+          yesIWantToUseGoogleMapApiInternals={true}
+          onGoogleApiLoaded={handleGoogleMapApiLoaded}
+        />
+      </MapInnerContainer>
+    </MapOuterContainer>
   );
 };
 
