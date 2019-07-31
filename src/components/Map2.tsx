@@ -14,7 +14,7 @@ interface Props {
 const Map2 = ({ resource }: Props) => {
   const [googleMap, setGoogleMap] = useState<any | null>(null);
   const [googleMaps, setGoogleMaps] = useState<any | null>(null);
-  const [directionsDisplay, setDirectionsDisplay] = useState(null);
+  const [directionsRenderer, setDirectionsRenderer] = useState(null);
   const [directionsService, setDirectionsService] = useState(null);
 
   const handleGoogleMapApiLoaded = (googleMapObjects: {
@@ -24,7 +24,7 @@ const Map2 = ({ resource }: Props) => {
     const { map, maps } = googleMapObjects;
     setGoogleMap(map);
     setGoogleMaps(maps);
-    setDirectionsDisplay(new maps.DirectionsDisplay());
+    setDirectionsRenderer(new maps.DirectionsRenderer());
     setDirectionsService(new maps.DirectionsService());
   };
 
@@ -47,3 +47,5 @@ const Map2 = ({ resource }: Props) => {
     />
   );
 };
+
+export default Map2;
