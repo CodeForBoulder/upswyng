@@ -1,11 +1,49 @@
 import React, { useState } from 'react';
+import GoogleMapReact from 'google-map-react';
+import { TResource } from '../types';
+import { map, maps } from '@types/googleMaps';
 
-const Map = () => {
-  const [googleMap, setGoogleMap] = useState(null);
-  const [googleMaps, setGoogleMaps] = useState(null);
+const boulderCoordinates = {
+  lat: 40.0156852,
+  lng: -105.2792069
+};
+
+interface Props {
+  resource: TResource;
+}
+
+const Map2 = ({ resource }: Props) => {
+  const [googleMap, setGoogleMap] = useState<map | null>(null);
+  const [googleMaps, setGoogleMaps] = useState<maps | null>(null);
   const [directionsDisplay, setDirectionsDisplay] = useState(null);
   const [directionsService, setDirectionsService] = useState(null);
-  const [directionsAreToggled, setDirectionsAreToggled] = useState(false);
 
-  return <div />;
+  const handleGoogleMapApiLoaded = (googleMapObjects: {
+    map: map;
+    maps: maps;
+  }) => {
+    const { map, maps } = googleMapObjects;
+    setGoogleMap(map);
+    setGoogleMaps(maps);
+    setDirectionsDisplay(new maps.DirectionsService());
+  };
+
+  const { lat: resourceLat, lng: resourceLng } = resource;
+  const resourceLatLng = {
+    lat: resourceLat,
+    lng: resourceLng
+  };
+
+  return (
+    <GoogleMapReact
+      bootstrapURLKeys={{
+        key: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
+      }}
+      defaultCenter={boulderCoordinates}
+      defaultZoom={13}
+      center={resourceLatLng}
+      yesIWantToUseGoogleMapApiInternals={true}
+      onGoogleApiLoaded={handleGoogleMapApiLoaded}
+    />
+  );
 };
