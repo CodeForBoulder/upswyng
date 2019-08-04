@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import GoogleMapReact from 'google-map-react';
 import { TResource, TStatusFetch } from '../types';
-import { colors } from '../App.styles';
+import { colors, font } from '../App.styles';
 import CheckboxInput from './CheckboxInput';
 import LoadingSpinner from './LoadingSpinner';
 
@@ -16,6 +16,7 @@ interface Props {
 }
 
 const MapOuterContainer = styled.div`
+  margin: ${font.helpers.convertPixelsToRems(16)} auto 0;
   position: relative;
   width: 100%;
   &::before {
