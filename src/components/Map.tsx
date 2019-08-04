@@ -119,7 +119,7 @@ const Map = ({ resource }: Props) => {
     setAreDirectionsShown(false);
   };
 
-  const placeDirections = (userPosition: Position): Promise<boolean> =>
+  const fetchDirections = (userPosition: Position): Promise<boolean> =>
     new Promise((resolve, reject) => {
       directionsRenderer.setMap(googleMap);
 
@@ -152,11 +152,11 @@ const Map = ({ resource }: Props) => {
       );
     });
 
-  const fetchDirections = (): Promise<boolean> =>
+  const placeDirections = (): Promise<boolean> =>
     new Promise(async (resolve, reject) => {
       try {
         const userPosition = await getUserPosition();
-        await placeDirections(userPosition);
+        await fetchDirections(userPosition);
         setFetchDirectionsStatus(TStatusFetch.STATUS_FETCH_SUCCESS);
         resolve();
       } catch (e) {
@@ -186,7 +186,7 @@ const Map = ({ resource }: Props) => {
         case TStatusFetch.STATUS_FETCH_ERROR:
         case TStatusFetch.STATUS_NOT_FETCHED:
         default:
-          await fetchDirections();
+          await placeDirections();
           setAreDirectionsShown(true);
       }
     } else {
