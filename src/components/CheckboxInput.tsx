@@ -12,7 +12,11 @@ interface CheckboxInputProps {
 }
 
 const StyledFormControlLabel = styled(FormControlLabel)`
-  span {
+  && {
+    opacity: ${props => (props.disabled ? '0.25' : '1')};
+    transition: opacity 300ms ease-in;
+  }
+  && span {
     color: ${colors.white};
     font-family: ${font.families.openSans};
   }
@@ -20,6 +24,7 @@ const StyledFormControlLabel = styled(FormControlLabel)`
 
 const CheckboxInput = (props: CheckboxInputProps) => (
   <StyledFormControlLabel
+    disabled={props.disabled}
     control={
       <Checkbox
         checked={props.checked}
