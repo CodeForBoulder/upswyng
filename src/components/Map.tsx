@@ -5,6 +5,7 @@ import { TResource, TStatusFetch } from '../types';
 import { colors, font } from '../App.styles';
 import CheckboxInput from './CheckboxInput';
 import LoadingSpinner from './LoadingSpinner';
+import console = require('console');
 
 const boulderCoordinates = {
   lat: 40.0156852,
@@ -176,11 +177,10 @@ const Map = ({ resource }: Props) => {
         const userPosition = await getUserPosition();
         await fetchDirections(userPosition);
         setFetchDirectionsStatus(TStatusFetch.STATUS_FETCH_SUCCESS);
-        resolve();
-      } catch (e) {
+        resolve(true);
+      } catch (err) {
         setFetchDirectionsStatus(TStatusFetch.STATUS_FETCH_ERROR);
-        console.log('there was some kind of problem idk');
-        reject();
+        reject(err);
       }
     });
 
@@ -193,6 +193,7 @@ const Map = ({ resource }: Props) => {
     setGoogleMaps(maps);
     setDirectionsRenderer(new maps.DirectionsRenderer());
     setDirectionsService(new maps.DirectionsService());
+    setFetchGoogleMapsStatus(TStatusFetch.STATUS_FETCH_SUCCESS);
   };
 
   const handleShowDirectionsChange = async () => {
@@ -204,8 +205,12 @@ const Map = ({ resource }: Props) => {
         case TStatusFetch.STATUS_FETCH_ERROR:
         case TStatusFetch.STATUS_NOT_FETCHED:
         default:
-          await placeDirections();
-          setAreDirectionsShown(true);
+          try {
+            await placeDirections();
+            setAreDirectionsShown(true);
+          } catch (err) {
+            console.log(err);
+          }
       }
     } else {
       hideDirections();
