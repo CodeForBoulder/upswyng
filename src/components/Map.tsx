@@ -5,7 +5,6 @@ import { TResource, TStatusFetch } from '../types';
 import { colors, font } from '../App.styles';
 import CheckboxInput from './CheckboxInput';
 import LoadingSpinner from './LoadingSpinner';
-import console = require('console');
 
 const boulderCoordinates = {
   lat: 40.0156852,
