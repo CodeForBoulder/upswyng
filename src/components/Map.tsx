@@ -171,6 +171,7 @@ const Map = ({ resource }: Props) => {
           }
         );
       } catch (err) {
+        setFetchDirectionsStatus(TStatusFetch.STATUS_FETCH_ERROR);
         reject(err);
       }
     });
