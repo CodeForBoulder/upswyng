@@ -5,6 +5,7 @@ import { colors, font } from '../App.styles';
 
 interface CheckboxInputProps {
   checked: boolean;
+  disabled: boolean;
   label: string;
   onChange: Function;
   value: string;
@@ -24,6 +25,7 @@ const CheckboxInput = (props: CheckboxInputProps) => (
         checked={props.checked}
         onChange={() => props.onChange()}
         value={props.value}
+        disabled={props.disabled}
       />
     }
     label={props.label}
