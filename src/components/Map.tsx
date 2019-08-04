@@ -155,7 +155,8 @@ const Map = ({ resource }: Props) => {
             lat: resource.lat,
             lng: resource.lng
           },
-          travelMode: 'DRIVING'
+          // TODO: allow updating the travel mode
+          travelMode: 'TRANSIT'
         },
         (response: any, status: string) => {
           if (status === 'OK') {
