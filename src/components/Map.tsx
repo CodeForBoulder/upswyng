@@ -53,7 +53,6 @@ const MapLoadingMask = styled.div`
   display: flex;
   justify-content: center;
   left: 0;
-  opacity: 0.75;
   position: absolute;
   right: 0;
   top: 0;
@@ -62,6 +61,9 @@ const MapLoadingMask = styled.div`
 const Map = ({ resource }: Props) => {
   const [googleMap, setGoogleMap] = useState<any | null>(null);
   const [googleMaps, setGoogleMaps] = useState<any | null>(null);
+  const [fetchGoogleMapsStatus, setFetchGoogleMapsStatus] = useState<
+    TStatusFetch
+  >(TStatusFetch.STATUS_FETCHING);
   const [directionsRenderer, setDirectionsRenderer] = useState<any | null>(
     null
   );
@@ -223,7 +225,10 @@ const Map = ({ resource }: Props) => {
   }, [googleMaps]);
 
   const MapLoadingElements = () => {
-    if (fetchDirectionsStatus === TStatusFetch.STATUS_FETCHING) {
+    if (
+      fetchGoogleMapsStatus === TStatusFetch.STATUS_FETCHING ||
+      fetchDirectionsStatus === TStatusFetch.STATUS_FETCHING
+    ) {
       return (
         <MapLoadingMask>
           <LoadingSpinner />
