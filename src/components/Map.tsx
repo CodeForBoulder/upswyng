@@ -148,26 +148,31 @@ const Map = ({ resource }: Props) => {
       // remove default markers A and B (origin/destination)
       directionsRenderer.setOptions({ suppressMarkers: true });
 
-      directionsService.route(
-        {
-          origin: userLatLng,
-          destination: {
-            lat: resource.lat,
-            lng: resource.lng
+      try {
+        directionsService.route(
+          {
+            origin: userLatLng,
+            destination: {
+              lat: resource.lat,
+              lng: resource.lng
+            },
+            // TODO: allow updating the travel mode
+            travelMode: 'TRANSIT'
           },
-          // TODO: allow updating the travel mode
-          travelMode: 'TRANSIT'
-        },
-        (response: any, status: string) => {
-          if (status === 'OK') {
-            directionsRenderer.setDirections(response);
-            resolve(true);
-          } else {
-            setFetchDirectionsStatus(TStatusFetch.STATUS_FETCH_ERROR);
-            reject('whoopsies could not place directions');
+          (response: any, status: string) => {
+            console.log(response);
+            if (status === 'OK') {
+              directionsRenderer.setDirections(response);
+              resolve(true);
+            } else {
+              setFetchDirectionsStatus(TStatusFetch.STATUS_FETCH_ERROR);
+              reject(status);
+            }
           }
-        }
-      );
+        );
+      } catch (err) {
+        reject(err);
+      }
     });
 
   const placeDirections = (): Promise<boolean> =>
