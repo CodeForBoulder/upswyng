@@ -44,7 +44,7 @@ const MapInnerContainer = styled.div`
   }
 `;
 
-const Map2 = ({ resource }: Props) => {
+const Map = ({ resource }: Props) => {
   const [googleMap, setGoogleMap] = useState<any | null>(null);
   const [googleMaps, setGoogleMaps] = useState<any | null>(null);
   const [directionsRenderer, setDirectionsRenderer] = useState<any | null>(
@@ -233,4 +233,4 @@ const Map2 = ({ resource }: Props) => {
   );
 };
 
-export default Map2;
+export default Map;
