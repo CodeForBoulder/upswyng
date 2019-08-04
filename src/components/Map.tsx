@@ -4,6 +4,7 @@ import GoogleMapReact from 'google-map-react';
 import { TResource, TStatusFetch } from '../types';
 import { colors } from '../App.styles';
 import CheckboxInput from './CheckboxInput';
+import LoadingSpinner from './LoadingSpinner';
 
 const boulderCoordinates = {
   lat: 40.0156852,
@@ -42,6 +43,19 @@ const MapInnerContainer = styled.div`
   & .google-map__address-line {
     display: block;
   }
+`;
+
+const MapLoadingMask = styled.div`
+  align-items: center;
+  background: rgba(0, 0, 0, 0.75);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  opacity: 0.75;
+  position: absolute;
+  right: 0;
+  top: 0;
 `;
 
 const Map = ({ resource }: Props) => {
@@ -155,6 +169,7 @@ const Map = ({ resource }: Props) => {
   const placeDirections = (): Promise<boolean> =>
     new Promise(async (resolve, reject) => {
       try {
+        setFetchDirectionsStatus(TStatusFetch.STATUS_FETCHING);
         const userPosition = await getUserPosition();
         await fetchDirections(userPosition);
         setFetchDirectionsStatus(TStatusFetch.STATUS_FETCH_SUCCESS);
@@ -206,6 +221,17 @@ const Map = ({ resource }: Props) => {
     }
   }, [googleMaps]);
 
+  const MapLoadingElements = () => {
+    if (fetchDirectionsStatus === TStatusFetch.STATUS_FETCHING) {
+      return (
+        <MapLoadingMask>
+          <LoadingSpinner />
+        </MapLoadingMask>
+      );
+    }
+    return null;
+  };
+
   return (
     <>
       <MapOuterContainer>
@@ -221,6 +247,7 @@ const Map = ({ resource }: Props) => {
             onGoogleApiLoaded={handleGoogleMapApiLoaded}
           />
         </MapInnerContainer>
+        <MapLoadingElements />
       </MapOuterContainer>
       <CheckboxInput
         checked={areDirectionsShown}
