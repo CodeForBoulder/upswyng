@@ -30,7 +30,7 @@ class App extends Component {
             <Route exact path="/transit" component={Transit} />
             <Route exact path="/resources" component={Resources} />
             <Route exact path="/search" component={Search} />
-            <Route exact path="/wifi-tech" component={WifiTech} />
+            <Route exact path="/wifi-and-tech" component={WifiTech} />
           </div>
         </Router>
       </>
