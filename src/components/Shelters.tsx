@@ -1,14 +1,17 @@
 import React from 'react';
-import { TResource } from '../types';
+import { Container } from '../App.styles';
+import useSimilarSearchResults from './useSimilarSearchResults';
+import SearchResults from './SearchResults';
 
-interface Props {
-  resource: TResource;
-}
-
-const Shelters = () => (
-  <div>
-    <p>Shelters</p>
-  </div>
-);
+const Shelters = () => {
+  const searchQuery = 'shelter';
+  const searchResults = useSimilarSearchResults(searchQuery);
+  return (
+    <Container>
+      <h1>Shelters</h1>
+      <SearchResults results={searchResults} />
+    </Container>
+  );
+};
 
 export default Shelters;
