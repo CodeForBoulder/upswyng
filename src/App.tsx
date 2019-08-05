@@ -4,6 +4,7 @@ import GlobalStyle from './App.styles';
 import Header from './components/Header';
 import Home from './components/Home';
 import Shelters from './components/Shelters';
+import Health from './components/Health';
 import Hygiene from './components/Hygiene';
 import Hotlines from './components/Hotlines';
 import Food from './components/Food';
@@ -21,6 +22,7 @@ class App extends Component {
             <Header />
             <Route exact path="/" component={Home} />
             <Route exact path="/shelters" component={Shelters} />
+            <Route exact path="/health" component={Health} />
             <Route exact path="/hygiene" component={Hygiene} />
             <Route exact path="/hotlines" component={Hotlines} />
             <Route exact path="/food" component={Food} />
