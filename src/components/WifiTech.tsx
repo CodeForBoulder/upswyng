@@ -8,7 +8,7 @@ const WifiTech = () => {
   const searchResults = useSimilarSearchResults(searchQuery);
   return (
     <Container>
-      <h1>WifiTech</h1>
+      <h1>Wifi &amp; Tech</h1>
       <SearchResults results={searchResults} />
     </Container>
   );
