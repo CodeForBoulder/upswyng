@@ -48,41 +48,8 @@ describe('<Search/>', () => {
       }));
     });
 
-    it('renders one <ul>', () => {
-      expect(getSubject().find('ul').length).toBe(1);
-    });
-
-    const getListItems = () => getSubject().find('li');
-
-    it('renders an <li> for each hit', () => {
-      expect(getListItems().length).toBe(mockHits.length);
-    });
-
-    describe('each <li>', () => {
-      it('has a key equal to the hits objectID property', () => {
-        getListItems().forEach((listItem, index) => {
-          expect(listItem.key()).toBe(mockHits[index].objectID);
-        });
-      });
-
-      describe('<Link/>', () => {
-        const getLink = (component: ShallowWrapper) => component.find('Link');
-        it('has a to.search prop containing the proper query', () => {
-          getListItems().forEach((listItem, index) => {
-            expect(getLink(listItem).prop('to')).toMatchObject({
-              search: `?${SEARCH_PARAM_RESOURCE}=${mockHits[index].objectID}`
-            });
-          });
-        });
-
-        it('contains the charity name', () => {
-          getListItems().forEach((listItem, index) => {
-            expect(getLink(listItem).text()).toContain(
-              mockHits[index].charityname
-            );
-          });
-        });
-      });
+    it('renders a <SearchResults/>', () => {
+      expect(getSubject().find('SearchResults').length).toBe(1);
     });
   });
 });
