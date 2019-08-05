@@ -1,15 +1,15 @@
 import React from 'react';
 import enzyme, { shallow } from 'enzyme';
-import Search from './Search';
+import SearchInput from './SearchInput';
 
 jest.mock('react-router/Redirect', () => 'Redirect');
 jest.mock('@material-ui/core/TextField', () => 'TextField');
 
-describe('<Search />', () => {
+describe('<SearchInput />', () => {
   let wrapper: enzyme.ShallowWrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<Search />);
+    wrapper = shallow(<SearchInput />);
   });
 
   it('renders a Styled TextField', () => {

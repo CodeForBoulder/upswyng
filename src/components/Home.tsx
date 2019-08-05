@@ -3,7 +3,7 @@ import { Grid } from '@material-ui/core';
 import styled from 'styled-components';
 import HomeButtons from './HomeButtons';
 import { Container, font } from '../App.styles';
-import Search from './Search';
+import SearchInput from './SearchInput';
 
 const HomeButtonsContainer = styled(Grid)`
   && {
@@ -15,7 +15,7 @@ const HomeButtonsContainer = styled(Grid)`
 const Home = () => (
   <Container container justify="space-evenly">
     <Grid item xs={12}>
-      <Search />
+      <SearchInput />
     </Grid>
     <Grid item xs={12}>
       <HomeButtonsContainer
