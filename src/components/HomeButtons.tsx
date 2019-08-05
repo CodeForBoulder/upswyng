@@ -30,7 +30,7 @@ const routerLinkButtons: THomeButtonRouterLink[] = [
     text: 'Shelter',
     icon: HomeIcon,
     linkProps: {
-      to: '/shelter'
+      to: '/shelters'
     },
     color: colors.orangeDark
   },
