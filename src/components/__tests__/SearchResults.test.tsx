@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
-import SearchResults from '../SearchResults';
+import Search from '../Search';
 import useSearchResults from '../useSearchResults';
 import { SEARCH_PARAM_RESOURCE } from '../../constants';
 
@@ -13,8 +13,8 @@ jest.mock('react-router-dom', () => ({
 }));
 jest.mock('../LoadingSpinner', () => 'LoadingSpinner');
 
-describe('<SearchResults/>', () => {
-  const getSubject = () => shallow(<SearchResults />);
+describe('<Search/>', () => {
+  const getSubject = () => shallow(<Search />);
   describe('when it does not receive any search hits', () => {
     beforeAll(() => {
       (useSearchResults as jest.Mock).mockImplementation(() => null);

@@ -9,7 +9,7 @@ import Hotlines from './components/Hotlines';
 import Food from './components/Food';
 import Transit from './components/Transit';
 import Resource from './components/Resource';
-import SearchResults from './components/SearchResults';
+import Search from './components/Search';
 
 class App extends Component {
   render() {
@@ -26,7 +26,7 @@ class App extends Component {
             <Route exact path="/food" component={Food} />
             <Route exact path="/transit" component={Transit} />
             <Route exact path="/resource" component={Resource} />
-            <Route exact path="/search" component={SearchResults} />
+            <Route exact path="/search" component={Search} />
           </div>
         </Router>
       </>
