@@ -9,7 +9,6 @@ interface Props {
 }
 
 const SearchResults = ({ results }: Props) => {
-  console.log(results);
   if (results) {
     const { hits } = results;
     if (hits && hits.length) {
