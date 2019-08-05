@@ -7,16 +7,12 @@ import { Container } from '../App.styles';
 
 const Search = () => {
   const searchQuery = getSearchParamVal(SEARCH_PARAM_QUERY);
-  if (searchQuery) {
-    const searchResults = useSearchResults(searchQuery);
-    return (
-      <Container>
-        <h1>Search</h1>
-        <SearchResults results={searchResults} />
-      </Container>
-    );
-  }
-  return null;
+  return (
+    <Container>
+      <h1>Search</h1>
+      {searchQuery && <SearchResults results={useSearchResults(searchQuery)} />}
+    </Container>
+  );
 };
 
 export default Search;

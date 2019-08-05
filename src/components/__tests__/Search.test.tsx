@@ -1,55 +1,27 @@
 import React from 'react';
-import { shallow, ShallowWrapper } from 'enzyme';
+import { shallow } from 'enzyme';
 import Search from '../Search';
-import useSearchResults from '../useSearchResults';
-import { SEARCH_PARAM_RESOURCE } from '../../constants';
+import { getSearchParamVal } from '../../utils/searchParams';
 
+const mockedGetSearchParamVal = getSearchParamVal as jest.Mock;
 jest.mock('../../utils/searchParams', () => ({
-  getSearchParamVal: () => 'someSearchQuery'
+  getSearchParamVal: jest.fn()
 }));
 jest.mock('../useSearchResults');
 jest.mock('react-router-dom', () => ({
   Link: 'Link'
 }));
-jest.mock('../LoadingSpinner', () => 'LoadingSpinner');
 
 describe('<Search/>', () => {
   const getSubject = () => shallow(<Search />);
-  describe('when it does not receive any search hits', () => {
-    beforeAll(() => {
-      (useSearchResults as jest.Mock).mockImplementation(() => null);
-    });
 
-    it('renders a loading spinner', () => {
-      expect(getSubject().find('LoadingSpinner').length).toBe(1);
-    });
-
-    it('does not render a list of results', () => {
-      expect(getSubject().find('ul').length).toBe(0);
-    });
+  it('renders a <SearchResults/> when provided a search query', () => {
+    mockedGetSearchParamVal.mockImplementation(() => 'a search query');
+    expect(getSubject().find('SearchResults').length).toBe(1);
   });
 
-  describe('when it receives at least one search hit', () => {
-    const mockHits = [
-      {
-        charityname: 'Mikes Tots',
-        objectID: '-someRandomId'
-      },
-      {
-        charityname:
-          "Al Harrington's Wacky Waving Inflatable Arm-Flailing Tubeman Emporium and Warehouse",
-        objectID: '-anotherRandomId'
-      }
-    ];
-
-    beforeEach(() => {
-      (useSearchResults as jest.Mock).mockImplementation(() => ({
-        hits: mockHits
-      }));
-    });
-
-    it('renders a <SearchResults/>', () => {
-      expect(getSubject().find('SearchResults').length).toBe(1);
-    });
+  it('does not render <SearchResults/> when a search query is not provided', () => {
+    mockedGetSearchParamVal.mockImplementation(() => null);
+    expect(getSubject().find('SearchResults').length).toBe(0);
   });
 });
