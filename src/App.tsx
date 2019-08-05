@@ -11,6 +11,7 @@ import Food from './components/Food';
 import Transit from './components/Transit';
 import Resources from './components/Resources';
 import Search from './components/Search';
+import WifiTech from './components/WifiTech';
 
 class App extends Component {
   render() {
@@ -29,6 +30,7 @@ class App extends Component {
             <Route exact path="/transit" component={Transit} />
             <Route exact path="/resources" component={Resources} />
             <Route exact path="/search" component={Search} />
+            <Route exact path="/wifi-tech" component={WifiTech} />
           </div>
         </Router>
       </>
