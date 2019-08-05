@@ -9,6 +9,7 @@ interface Props {
 }
 
 const SearchResults = ({ results }: Props) => {
+  console.log(results);
   if (results) {
     const { hits } = results;
     if (hits && hits.length) {
@@ -30,6 +31,7 @@ const SearchResults = ({ results }: Props) => {
       });
       return <ul>{listItems}</ul>;
     }
+    // TODO: Add message when there are no matching results
   }
   return <LoadingSpinner />;
 };
