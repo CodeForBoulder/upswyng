@@ -1,6 +1,7 @@
 import React from 'react';
-import { TSchedule } from '../types';
+import { TDay, TSchedule } from '../types';
 import { orderSchedule } from '../utils/schedule';
+import { font } from '../App.styles';
 import styled from 'styled-components';
 
 interface ScheduleProps {
@@ -23,22 +24,54 @@ const WeeklyDay = styled.h3`
   }
 `;
 
-const WeeklyTime = styled.p`
+const WeeklyTimes = styled.p`
   && {
+    display: flex;
     flex: 1 1 70%;
+    flex-direction: column;
     margin: 0;
   }
 `;
 
-const renderWeeklySchedule = (schedule: TSchedule[]) =>
-  schedule.map(({ day, fromstring, tostring }) => (
-    <WeeklyContainer key={`${day}-${fromstring}`}>
+const WeeklyTime = styled.span`
+  && {
+    margin: 0;
+    && + && {
+      margin-top: ${font.helpers.convertPixelsToRems(4)};
+    }
+  }
+`;
+
+const renderDaySchedule = (schedule: TSchedule[]) => {
+  const { day } = schedule[0];
+  return (
+    <WeeklyContainer key={day}>
       <WeeklyDay>{day}</WeeklyDay>
-      <WeeklyTime>
-        {fromstring} - {tostring}
-      </WeeklyTime>
+      <WeeklyTimes>
+        {schedule.map(({ day, fromstring, tostring }) => (
+          <WeeklyTime key={`${day}-${fromstring}`}>
+            {fromstring} - {tostring}
+          </WeeklyTime>
+        ))}
+      </WeeklyTimes>
     </WeeklyContainer>
-  ));
+  );
+};
+
+const renderWeeklySchedule = (schedule: TSchedule[]) => {
+  const renderedDays: TDay[] = [];
+
+  return schedule.map(({ day: currentDay, fromstring, tostring }) => {
+    if (!renderedDays.includes(currentDay)) {
+      renderedDays.push(currentDay);
+      const currentDaySchedule = schedule.filter(
+        ({ day }) => day === currentDay
+      );
+      return renderDaySchedule(currentDaySchedule);
+    }
+    return null;
+  });
+};
 
 const renderMonthlySchedule = (schedule: TSchedule[]) =>
   schedule.map(({ day, fromstring, period, tostring }) => {
