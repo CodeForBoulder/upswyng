@@ -13,22 +13,23 @@ const charities = JSON.parse(
 );
 
 const updatedAlgoliaIndex = Object.entries(charities).map(
-  ([charityID, { charityname, category, servicetype }]) => ({
+  ([charityID, { charityname, category, servicetype, description }]) => ({
     objectID: charityID, //objectID required by Algolia
     charityname,
     category,
+    description,
     servicetype
   })
 );
 
 // initialize Algolia project
 const algolia = algoliaSearch(
-  env.local.ALGOLIA_APP_ID,
-  env.local.ALGOLIA_ADMIN_API_KEY
+  env.local.REACT_APP_ALGOLIA_APP_ID,
+  env.local.REACT_APP_ALGOLIA_ADMIN_API_KEY
 );
 
 // initialize Algolia project index
-const index = algolia.initIndex(env.local.ALGOLIA_INDEX_NAME);
+const index = algolia.initIndex(env.local.REACT_APP_ALGOLIA_INDEX_NAME);
 
 // add/update charities
 index
