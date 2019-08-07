@@ -1,14 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 interface Props {
   text: string;
 }
 
+const CategoryBannerLink = styled(Link)`
+  text-decoration: none;
+  &:hover,
+  &:active {
+    text-decoration: underline;
+  }
+`;
+
 const CategoryBanner = ({ text }: Props) => (
-  <Link to="/">
+  <CategoryBannerLink to="/">
     <h1>{text}</h1>
-  </Link>
+  </CategoryBannerLink>
 );
 
 export default CategoryBanner;
