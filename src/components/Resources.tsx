@@ -4,7 +4,7 @@ import useSimilarSearchResults from './useSimilarSearchResults';
 import SearchResults from './SearchResults';
 
 const Resources = () => {
-  const searchQuery = 'resources';
+  const searchQuery = 'CATEGORY-resources';
   const searchResults = useSimilarSearchResults(searchQuery);
   return (
     <Container>
