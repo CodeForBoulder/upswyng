@@ -1,23 +1,62 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Icon } from '@material-ui/core';
+import { ArrowBack } from '@material-ui/icons';
+import { colors, font } from '../App.styles';
 
 interface Props {
   text: string;
 }
 
+const CategoryBannerContainer = styled.div`
+  align-items: stretch;
+  background: ${colors.greyLight};
+  display: flex;
+  flex-direction: row;
+  padding: ${font.helpers.convertPixelsToRems(14)} 0;
+  wrap: no-wrap;
+`;
+
 const CategoryBannerLink = styled(Link)`
-  text-decoration: none;
-  &:hover,
-  &:active {
-    text-decoration: underline;
+  align-items: center;
+  display: flex;
+  padding-right: ${font.helpers.convertPixelsToRems(12)};
+`;
+
+const CategoryBannerIcon = styled(Icon)`
+  && {
+    align-items: center;
+    display: flex;
+    font-size: ${font.helpers.convertPixelsToRems(36)};
+    height: auto;
+    width: auto;
   }
+` as typeof Icon;
+
+const CategoryBannerArrowBack = styled(ArrowBack)`
+  && {
+    font-size: inherit;
+  }
+` as typeof ArrowBack;
+
+const CategoryBannerHeading = styled.h1`
+  align-items: center;
+  display: flex;
+  font-size: ${font.helpers.convertPixelsToRems(24)};
+  font-weight: 400;
+  margin: ${font.helpers.convertPixelsToRems(-2)} 0 0;
 `;
 
 const CategoryBanner = ({ text }: Props) => (
-  <CategoryBannerLink to="/">
-    <h1>{text}</h1>
-  </CategoryBannerLink>
+  <CategoryBannerContainer>
+    <CategoryBannerLink to="/">
+      <CategoryBannerIcon>
+        <CategoryBannerArrowBack />
+      </CategoryBannerIcon>
+    </CategoryBannerLink>
+    <CategoryBannerHeading>{text}</CategoryBannerHeading>
+  </CategoryBannerContainer>
 );
 
 export default CategoryBanner;
