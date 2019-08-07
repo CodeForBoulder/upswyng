@@ -2,6 +2,7 @@ import React from 'react';
 import { Response } from 'algoliasearch';
 import { Link } from 'react-router-dom';
 import { SEARCH_PARAM_RESOURCE } from '../constants';
+import ResourceCard from './ResourceCard';
 import LoadingSpinner from './LoadingSpinner';
 
 interface Props {
@@ -16,14 +17,7 @@ const SearchResults = ({ results }: Props) => {
         if (charityname && objectID) {
           return (
             <li key={objectID}>
-              <Link
-                to={{
-                  pathname: '/resource',
-                  search: `?${SEARCH_PARAM_RESOURCE}=${objectID}`
-                }}
-              >
-                {charityname}
-              </Link>
+              <ResourceCard resourceId={objectID} resourceName={charityname} />
             </li>
           );
         }
