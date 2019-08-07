@@ -4,8 +4,7 @@ import useSimilarSearchResults from './useSimilarSearchResults';
 import SearchResults from './SearchResults';
 
 const Health = () => {
-  const searchQuery =
-    'health, medical, clinic, dental, vision, eye, hospital, nurse, pediatrician, mental, routine, urgent, therapy, physical, pharmacy';
+  const searchQuery = 'CATEGORY-health';
   const searchResults = useSimilarSearchResults(searchQuery);
   return (
     <Container>
