@@ -1,11 +1,11 @@
 import React from 'react';
 import { Container } from '../App.styles';
-import useSimilarSearchResults from './useSimilarSearchResults';
+import useSearchResults from './useSearchResults';
 import SearchResults from './SearchResults';
 
 const JobTraining = () => {
   const searchQuery = 'CATEGORY-jobTraining';
-  const searchResults = useSimilarSearchResults(searchQuery);
+  const searchResults = useSearchResults(searchQuery);
   return (
     <Container>
       <h1>Job Training</h1>
