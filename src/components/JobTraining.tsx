@@ -1,6 +1,7 @@
 import React from 'react';
-import { Container } from '../App.styles';
+import { colors, Container } from '../App.styles';
 import useSearchResults from './useSearchResults';
+import CategoryBanner from './CategoryBanner';
 import SearchResults from './SearchResults';
 
 const JobTraining = () => {
@@ -8,7 +9,7 @@ const JobTraining = () => {
   const searchResults = useSearchResults(searchQuery);
   return (
     <Container>
-      <h1>Job Training</h1>
+      <CategoryBanner text="Job Training" color={colors.lavendar} />
       <SearchResults results={searchResults} />
     </Container>
   );
