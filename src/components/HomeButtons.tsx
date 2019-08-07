@@ -30,7 +30,7 @@ const routerLinkButtons: THomeButtonRouterLink[] = [
     text: 'Shelter',
     icon: HomeIcon,
     linkProps: {
-      to: '/shelter'
+      to: '/shelters'
     },
     color: colors.orangeDark
   },
@@ -86,7 +86,7 @@ const routerLinkButtons: THomeButtonRouterLink[] = [
     text: 'Job Training',
     icon: BusinessCenterIcon,
     linkProps: {
-      to: '/work'
+      to: '/job-training'
     },
     color: colors.lavendar
   },
