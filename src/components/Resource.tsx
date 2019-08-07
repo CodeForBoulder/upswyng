@@ -7,6 +7,7 @@ import LoadingSpinner from './LoadingSpinner';
 import { Container } from '../App.styles';
 import Details, { DetailBody, DetailHeading } from './Details';
 import Schedule from './Schedule';
+import Services from './Services';
 import Map from './Map';
 
 interface Props {
@@ -51,6 +52,10 @@ export const Resource = () => {
         <DetailHeading>Schedule</DetailHeading>
         <DetailBody>
           <Schedule schedule={schedule} />
+        </DetailBody>
+        <DetailHeading>Services</DetailHeading>
+        <DetailBody>
+          <Services resource={resource} />
         </DetailBody>
       </Details>
       <Map resource={resource} />
