@@ -2,7 +2,12 @@ import React from 'react';
 import { colors } from '../App.styles';
 
 const AlgoliaBadge = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="168" height="24">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="168"
+    height="24"
+    aria-label="Search by Algolia"
+  >
     <g fill="none">
       <path
         fill={colors.white}
