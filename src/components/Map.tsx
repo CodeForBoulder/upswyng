@@ -1,31 +1,22 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import GoogleMapReact from 'google-map-react';
-
-import { font } from '../App.styles';
-import { TResource } from '../types';
+import { TResource, TStatusFetch } from '../types';
+import { colors, font } from '../App.styles';
 import CheckboxInput from './CheckboxInput';
 import LoadingSpinner from './LoadingSpinner';
-
-interface Props {
-  resources: TResource[];
-}
-
-interface State {
-  maps: any;
-  map: any;
-  userPosition: Position | null;
-  directionsDisplay: any;
-  directionsService: any;
-  directionsAreToggled: boolean;
-}
 
 const boulderCoordinates = {
   lat: 40.0156852,
   lng: -105.2792069
 };
 
+interface Props {
+  resource: TResource;
+}
+
 const MapOuterContainer = styled.div`
+  margin: ${font.helpers.convertPixelsToRems(16)} auto 0;
   position: relative;
   width: 100%;
   &::before {
@@ -42,194 +33,248 @@ const MapInnerContainer = styled.div`
   position: absolute;
   right: 0;
   top: 0;
+  & .google-map__info-window {
+    background: ${colors.white};
+    color: ${colors.black};
+    display: block;
+  }
+  & .google-map__charity-name {
+    font-weight: 700;
+  }
+  & .google-map__address-line {
+    display: block;
+  }
 `;
 
-// TODO #58: Provide type params and fix type errors
-class Map extends Component<Props, any> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      directionsAreToggled: false,
-      userPosition: null
-    };
-  }
+const MapLoadingMask = styled.div`
+  align-items: center;
+  background: rgba(0, 0, 0, 0.75);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+`;
 
-  getUsersPosition = () =>
-    navigator.geolocation.getCurrentPosition(pos =>
-      this.setState({
-        userPosition: pos
-      })
-    );
+const Map = ({ resource }: Props) => {
+  const [googleMap, setGoogleMap] = useState<any | null>(null);
+  const [googleMaps, setGoogleMaps] = useState<any | null>(null);
+  const [fetchGoogleMapsStatus, setFetchGoogleMapsStatus] = useState<
+    TStatusFetch
+  >(TStatusFetch.STATUS_FETCHING);
+  const [directionsRenderer, setDirectionsRenderer] = useState<any | null>(
+    null
+  );
+  const [directionsService, setDirectionsService] = useState<any | null>(null);
+  const [fetchDirectionsStatus, setFetchDirectionsStatus] = useState<
+    TStatusFetch
+  >(TStatusFetch.STATUS_NOT_FETCHED);
+  const [areDirectionsShown, setAreDirectionsShown] = useState(false);
 
-  calculateAndDisplayRoute = (
-    directionsService: any,
-    directionsDisplay: any,
-    resourceAsDestination: any
-  ) => {
-    const userPosition = this.state.userPosition;
-    if (userPosition) {
-      const userLatLng = new this.state.maps.LatLng(
+  const addMapMarker = () => {
+    const {
+      charityname,
+      lat,
+      lng,
+      address1,
+      address2,
+      city,
+      state,
+      zip
+    } = resource;
+
+    const resourceMarker = new googleMaps.Marker({
+      map: googleMap,
+      title: charityname,
+      position: {
+        lat,
+        lng
+      }
+    });
+
+    const resourceMarkerInfoWindow = new googleMaps.InfoWindow({
+      content: `
+          <div class="google-map__info-window">
+            <span class="google-map__charity-name">${charityname}</span>
+            <span class="google-map__address-line">${address1}</span>
+            <span class="google-map__address-line">${address2 || ''}</span>
+            <span class="google-map__address-line">${city}, ${state} ${zip}</span>
+          </div>
+        `
+    });
+
+    resourceMarker.addListener('mouseover', () => {
+      resourceMarkerInfoWindow.open(googleMap, resourceMarker);
+    });
+    resourceMarker.addListener('focus', () => {
+      resourceMarkerInfoWindow.open(googleMap, resourceMarker);
+    });
+    resourceMarker.addListener('mouseout', () => {
+      resourceMarkerInfoWindow.close();
+    });
+    resourceMarker.addListener('blur', () => {
+      resourceMarkerInfoWindow.close();
+    });
+  };
+
+  const getUserPosition = (): Promise<Position> =>
+    new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          resolve(pos);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+
+  const hideDirections = () => {
+    directionsRenderer.setMap(null);
+    setAreDirectionsShown(false);
+  };
+
+  const fetchDirections = (userPosition: Position): Promise<boolean> =>
+    new Promise((resolve, reject) => {
+      directionsRenderer.setMap(googleMap);
+
+      const userLatLng = new googleMaps.LatLng(
         userPosition.coords.latitude,
         userPosition.coords.longitude
       );
 
       // remove default markers A and B (origin/destination)
-      directionsDisplay.setOptions({ suppressMarkers: true });
+      directionsRenderer.setOptions({ suppressMarkers: true });
 
-      directionsService.route(
-        {
-          origin: userLatLng,
-          destination: {
-            lat: resourceAsDestination.lat,
-            lng: resourceAsDestination.lng
+      try {
+        directionsService.route(
+          {
+            origin: userLatLng,
+            destination: {
+              lat: resource.lat,
+              lng: resource.lng
+            },
+            // TODO: allow updating the travel mode
+            travelMode: 'TRANSIT'
           },
-          travelMode: 'DRIVING'
-        },
-        function(response: any, status: any) {
-          if (status === 'OK') {
-            directionsDisplay.setDirections(response);
-          } else {
-            console.log(`Directions request failed due to ${status}`);
+          (response: any, status: string) => {
+            console.log(response);
+            if (status === 'OK') {
+              directionsRenderer.setDirections(response);
+              resolve(true);
+            } else {
+              setFetchDirectionsStatus(TStatusFetch.STATUS_FETCH_ERROR);
+              reject(status);
+            }
           }
-        }
-      );
-    }
+        );
+      } catch (err) {
+        setFetchDirectionsStatus(TStatusFetch.STATUS_FETCH_ERROR);
+        reject(err);
+      }
+    });
+
+  const placeDirections = (): Promise<boolean> =>
+    new Promise(async (resolve, reject) => {
+      try {
+        setFetchDirectionsStatus(TStatusFetch.STATUS_FETCHING);
+        const userPosition = await getUserPosition();
+        await fetchDirections(userPosition);
+        setFetchDirectionsStatus(TStatusFetch.STATUS_FETCH_SUCCESS);
+        resolve(true);
+      } catch (err) {
+        setFetchDirectionsStatus(TStatusFetch.STATUS_FETCH_ERROR);
+        reject(err);
+      }
+    });
+
+  const handleGoogleMapApiLoaded = (googleMapObjects: {
+    map: any;
+    maps: any;
+  }) => {
+    const { map, maps } = googleMapObjects;
+    setGoogleMap(map);
+    setGoogleMaps(maps);
+    setDirectionsRenderer(new maps.DirectionsRenderer());
+    setDirectionsService(new maps.DirectionsService());
+    setFetchGoogleMapsStatus(TStatusFetch.STATUS_FETCH_SUCCESS);
   };
 
-  toggleDirections = () => {
-    const {
-      map,
-      directionsDisplay,
-      directionsService,
-      directionsAreToggled,
-      userPosition
-    } = this.state;
-
-    if (!userPosition) {
-      this.getUsersPosition();
-      return;
-    }
-
-    if (!directionsAreToggled) {
-      directionsDisplay.setMap(map);
-
-      this.calculateAndDisplayRoute(
-        directionsService,
-        directionsDisplay,
-        this.props.resources[0]
-      );
+  const handleShowDirectionsChange = async () => {
+    if (!areDirectionsShown) {
+      switch (fetchDirectionsStatus) {
+        case TStatusFetch.STATUS_FETCHING:
+          break;
+        case TStatusFetch.STATUS_FETCH_SUCCESS:
+        case TStatusFetch.STATUS_FETCH_ERROR:
+        case TStatusFetch.STATUS_NOT_FETCHED:
+        default:
+          try {
+            await placeDirections();
+            setAreDirectionsShown(true);
+          } catch (err) {
+            console.log(err);
+          }
+      }
     } else {
-      directionsDisplay.setMap(null);
+      hideDirections();
     }
-
-    this.setState({ directionsAreToggled: !directionsAreToggled });
   };
 
-  createMarkers = (map: any, maps: any) => {
-    const resources = this.props.resources;
-    resources.forEach((resource: any) => {
-      let marker = new maps.Marker({
-        map: map,
-        title: resource.name,
-        position: {
-          lat: resource.lat,
-          lng: resource.lng
-        }
-      });
-
-      let infoWindow = new maps.InfoWindow({
-        content:
-          '<div><b>' +
-          resource.name +
-          '</b><br>' +
-          resource.category +
-          '<br>' +
-          resource.address +
-          '<br><br>' +
-          '<b>For</b>: ' +
-          resource.audience +
-          '<br>' +
-          '<b>Offers</b>: ' +
-          resource.servicetype +
-          '</div>'
-        // TODO: Include if its open/hours (unsure of how resource.hours will be formatted)
-        // TODO: Use a custom component instead of an infoWindow
-      });
-
-      marker.addListener('mouseover', function() {
-        infoWindow.open(map, marker);
-      });
-
-      marker.addListener('focus', function() {
-        infoWindow.open(map, marker);
-      });
-
-      marker.addListener('mouseout', function() {
-        infoWindow.close();
-      });
-
-      marker.addListener('blur', function() {
-        infoWindow.close();
-      });
-    });
+  const { lat: resourceLat, lng: resourceLng } = resource;
+  const resourceLatLng = {
+    lat: resourceLat,
+    lng: resourceLng
   };
 
-  initMap = (map: any, maps: any) => {
-    let directionsService = new maps.DirectionsService();
-    let directionsDisplay = new maps.DirectionsRenderer();
-    this.setState({
-      map: map,
-      maps: maps,
-      directionsService: directionsService,
-      directionsDisplay: directionsDisplay
-    });
-
-    this.createMarkers(map, maps);
-  };
-
-  componentDidUpdate(prevProps: Props, prevState: State) {
-    const { userPosition: prevPosition } = prevState;
-    const { userPosition: currentPosition } = this.state;
-
-    if (currentPosition !== prevPosition) {
-      this.toggleDirections();
+  useEffect(() => {
+    if (googleMaps) {
+      addMapMarker();
     }
-  }
+  }, [googleMaps]);
 
-  render() {
-    const firstResource = this.props.resources[0];
-    const { lat, lng } = firstResource;
-    const centerOnFirstResource = {
-      lat: lat,
-      lng: lng
-    };
+  const MapLoadingElements = () => {
+    if (
+      fetchGoogleMapsStatus === TStatusFetch.STATUS_FETCHING ||
+      fetchDirectionsStatus === TStatusFetch.STATUS_FETCHING
+    ) {
+      return (
+        <MapLoadingMask>
+          <LoadingSpinner />
+        </MapLoadingMask>
+      );
+    }
+    return null;
+  };
 
-    return (
-      <>
-        <MapOuterContainer>
-          <MapInnerContainer>
-            {!this.state.maps && <LoadingSpinner />}
-            <GoogleMapReact
-              bootstrapURLKeys={{
-                key: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
-              }}
-              defaultCenter={boulderCoordinates}
-              defaultZoom={13}
-              center={centerOnFirstResource}
-              yesIWantToUseGoogleMapApiInternals={true}
-              onGoogleApiLoaded={({ map, maps }) => this.initMap(map, maps)}
-            />
-          </MapInnerContainer>
-        </MapOuterContainer>
-        <CheckboxInput
-          checked={this.state.directionsAreToggled}
-          onChange={this.toggleDirections}
-          value="directionsVisible"
-          label="show directions"
-        />
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <MapOuterContainer>
+        <MapInnerContainer>
+          <GoogleMapReact
+            bootstrapURLKeys={{
+              key: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
+            }}
+            defaultCenter={boulderCoordinates}
+            defaultZoom={13}
+            center={resourceLatLng}
+            yesIWantToUseGoogleMapApiInternals={true}
+            onGoogleApiLoaded={handleGoogleMapApiLoaded}
+          />
+        </MapInnerContainer>
+        <MapLoadingElements />
+      </MapOuterContainer>
+      <CheckboxInput
+        checked={areDirectionsShown}
+        onChange={handleShowDirectionsChange}
+        disabled={fetchDirectionsStatus === TStatusFetch.STATUS_FETCHING}
+        value="directionsVisible"
+        label="show directions"
+      />
+    </>
+  );
+};
 
 export default Map;

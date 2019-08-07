@@ -53,7 +53,7 @@ export const Resource = () => {
           <Schedule schedule={schedule} />
         </DetailBody>
       </Details>
-      <Map resources={[resource]} />
+      <Map resource={resource} />
     </Container>
   );
 };
