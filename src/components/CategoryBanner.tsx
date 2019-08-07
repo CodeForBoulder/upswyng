@@ -6,12 +6,13 @@ import { ArrowBack } from '@material-ui/icons';
 import { colors, font } from '../App.styles';
 
 interface Props {
+  color?: string;
   text: string;
 }
 
 const CategoryBannerContainer = styled.div`
   align-items: stretch;
-  background: ${colors.greyLight};
+  background: ${props => (props.color ? props.color : colors.greyLight)};
   display: flex;
   flex-direction: row;
   padding: ${font.helpers.convertPixelsToRems(14)} 0;
@@ -48,8 +49,8 @@ const CategoryBannerHeading = styled.h1`
   margin: ${font.helpers.convertPixelsToRems(-2)} 0 0;
 `;
 
-const CategoryBanner = ({ text }: Props) => (
-  <CategoryBannerContainer>
+const CategoryBanner = ({ color, text }: Props) => (
+  <CategoryBannerContainer color={color}>
     <CategoryBannerLink to="/">
       <CategoryBannerIcon>
         <CategoryBannerArrowBack />
