@@ -11,7 +11,13 @@ jest.mock('./useResource.tsx');
 const mockedUseResource = useResource as jest.Mock;
 jest.mock('../App.styles', () => ({
   Container: 'Container',
+  colors: {
+    greyLight: ''
+  },
   font: {
+    families: {
+      openSans: ''
+    },
     helpers: {
       convertPixelsToRems: (pixels: number) => pixels
     }
