@@ -55,14 +55,17 @@ const sortSchedule = (schedule: TSchedule[]) => {
 };
 
 export const orderSchedule = (schedule: TSchedule[]) => {
-  const { type } = schedule[0];
+  if (schedule && schedule.length) {
+    const { type } = schedule[0];
 
-  switch (type) {
-    case 'Open 24/7':
-      return schedule;
-    case 'Weekly':
-    case 'Monthly':
-    default:
-      return sortSchedule(schedule);
+    switch (type) {
+      case 'Open 24/7':
+        return schedule;
+      case 'Weekly':
+      case 'Monthly':
+      default:
+        return sortSchedule(schedule);
+    }
   }
+  return schedule;
 };
