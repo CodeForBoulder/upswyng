@@ -4,8 +4,7 @@ import useSimilarSearchResults from './useSimilarSearchResults';
 import SearchResults from './SearchResults';
 
 const Hygiene = () => {
-  const searchQuery =
-    'hygiene, feminine products, hair cut, laundry, restroom, shower';
+  const searchQuery = 'CATEGORY-hygiene';
   const searchResults = useSimilarSearchResults(searchQuery);
   return (
     <Container>
