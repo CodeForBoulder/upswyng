@@ -4,7 +4,7 @@ import useSimilarSearchResults from './useSimilarSearchResults';
 import SearchResults from './SearchResults';
 
 const Food = () => {
-  const searchQuery = 'food';
+  const searchQuery = 'food, pantry, meal, snack, water';
   const searchResults = useSimilarSearchResults(searchQuery);
   return (
     <Container>
