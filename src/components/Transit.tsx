@@ -4,7 +4,7 @@ import useSimilarSearchResults from './useSimilarSearchResults';
 import SearchResults from './SearchResults';
 
 const Transit = () => {
-  const searchQuery = 'transit';
+  const searchQuery = 'CATEGORY-transit';
   const searchResults = useSimilarSearchResults(searchQuery);
   return (
     <Container>
