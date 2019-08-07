@@ -4,7 +4,7 @@ import useSimilarSearchResults from './useSimilarSearchResults';
 import SearchResults from './SearchResults';
 
 const WifiTech = () => {
-  const searchQuery = 'wifi, tech';
+  const searchQuery = 'CATEGORY-wifiTech';
   const searchResults = useSimilarSearchResults(searchQuery);
   return (
     <Container>
