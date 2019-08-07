@@ -4,7 +4,7 @@ import useSimilarSearchResults from './useSimilarSearchResults';
 import SearchResults from './SearchResults';
 
 const Shelters = () => {
-  const searchQuery = 'shelter, housing, family, permanent, temporary';
+  const searchQuery = 'CATEGORY-shelter';
   const searchResults = useSimilarSearchResults(searchQuery);
   return (
     <Container>
