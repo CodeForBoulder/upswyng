@@ -24,6 +24,7 @@ const SearchResultsItem = styled.li`
   display: flex;
   flex: 1 1 50%;
   list-style-type: none;
+  max-width: 50%;
   padding: ${font.helpers.convertPixelsToRems(8)};
 `;
 
