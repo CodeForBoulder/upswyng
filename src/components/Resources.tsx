@@ -4,8 +4,7 @@ import useSimilarSearchResults from './useSimilarSearchResults';
 import SearchResults from './SearchResults';
 
 const Resources = () => {
-  const searchQuery =
-    'resources, supplies, sleeping bag, gear, camp, clothes, shoes, pet';
+  const searchQuery = 'resources';
   const searchResults = useSimilarSearchResults(searchQuery);
   return (
     <Container>
