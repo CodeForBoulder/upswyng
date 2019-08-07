@@ -1,6 +1,7 @@
 import React from 'react';
-import { Container } from '../App.styles';
+import { colors, Container } from '../App.styles';
 import useSearchResults from './useSearchResults';
+import CategoryBanner from './CategoryBanner';
 import SearchResults from './SearchResults';
 
 const Health = () => {
@@ -8,7 +9,7 @@ const Health = () => {
   const searchResults = useSearchResults(searchQuery);
   return (
     <Container>
-      <h1>Health</h1>
+      <CategoryBanner text="Health" color={colors.red} />
       <SearchResults results={searchResults} />
     </Container>
   );
