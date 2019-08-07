@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Resource } from './Resource';
-import { foodResource, blankResource } from '../DataMocks';
+import { foodResource } from '../DataMocks';
 import useResource from './useResource';
 
 jest.mock('../utils/searchParams');
@@ -10,7 +10,12 @@ jest.mock('./LoadingSpinner.tsx', () => 'LoadingSpinner');
 jest.mock('./useResource.tsx');
 const mockedUseResource = useResource as jest.Mock;
 jest.mock('../App.styles', () => ({
-  Container: 'Container'
+  Container: 'Container',
+  font: {
+    helpers: {
+      convertPixelsToRems: (pixels: number) => pixels
+    }
+  }
 }));
 jest.mock('./Details', () => ({
   __esModule: true,
