@@ -13,11 +13,15 @@ const charities = JSON.parse(
 );
 
 const updatedAlgoliaIndex = Object.entries(charities).map(
-  ([charityID, { charityname, category, servicetype, description }]) => ({
+  ([
+    charityID,
+    { charityname, category, description, service, servicetype }
+  ]) => ({
     objectID: charityID, //objectID required by Algolia
     charityname,
     category,
     description,
+    service,
     servicetype
   })
 );
