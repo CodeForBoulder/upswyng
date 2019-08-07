@@ -1,4 +1,5 @@
 import React from 'react';
+import { Add } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { SEARCH_PARAM_RESOURCE } from '../constants';
@@ -10,10 +11,23 @@ interface Props {
 }
 
 const ResourceCardContainer = styled(Link)`
+  border-radius: 6px;
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
   font-family: ${font.families.openSans};
+  overflow: hidden;
+  &:link,
+  &:visited {
+    text-decoration: none;
+  }
+  &:hover,
+  &:active {
+    text-decoration: none;
+    & > *:first-child {
+      text-decoration: underline;
+    }
+  }
 `;
 
 const ResourceCardImageContainer = styled.div`
@@ -33,12 +47,38 @@ const ResourceCardResourceName = styled.span`
   color: ${colors.white};
   display: flex;
   flex-direction: column;
-  font-shadow: 
   font-size: ${font.helpers.convertPixelsToRems(14)};
   font-weight: 700;
   padding: 0 8px 8px;
   position: absolute;
   width: 100%;
+  text-decoration: inherit;
+  text-shadow: 0 3px 6px ${colors.black};
+`;
+
+const ResourceCardFooter = styled.span`
+  align-items: stretch;
+  display: flex;
+  flex-direction: row;
+`;
+
+const ResourceCardScheduleContainer = styled.span`
+  align-items: center;
+  background: ${colors.greyMedium};
+  display: flex;
+  flex: 1 1 auto;
+  font-size: ${font.helpers.convertPixelsToRems(12)};
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0 8px;
+`;
+
+const ResourceCardIconContainer = styled.span`
+  align-items: center;
+  display: flex;
+  background: ${colors.orangePrimary};
+  flex: 0 1 auto;
+  padding: 6px 12px;
 `;
 
 const ResourceCard = ({ resourceId, resourceName }: Props) => (
@@ -51,6 +91,14 @@ const ResourceCard = ({ resourceId, resourceName }: Props) => (
     <ResourceCardImageContainer>
       <ResourceCardResourceName>{resourceName}</ResourceCardResourceName>
     </ResourceCardImageContainer>
+    <ResourceCardFooter>
+      <ResourceCardScheduleContainer>
+        schedule placeholder
+      </ResourceCardScheduleContainer>
+      <ResourceCardIconContainer>
+        <Add />
+      </ResourceCardIconContainer>
+    </ResourceCardFooter>
   </ResourceCardContainer>
 );
 
