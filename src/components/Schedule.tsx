@@ -99,7 +99,7 @@ const Schedule = ({ schedule }: ScheduleProps) => {
         return <p>{type}</p>;
     }
   }
-  return <p>{'not available'}</p>;
+  return <p>not available</p>;
 };
 
 export default Schedule;
