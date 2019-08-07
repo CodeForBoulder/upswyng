@@ -4,8 +4,7 @@ import useSimilarSearchResults from './useSimilarSearchResults';
 import SearchResults from './SearchResults';
 
 const JobTraining = () => {
-  const searchQuery =
-    'job, career, financial aid, GED, school, K-12, library, vocational, training';
+  const searchQuery = 'CATEGORY-jobTraining';
   const searchResults = useSimilarSearchResults(searchQuery);
   return (
     <Container>
