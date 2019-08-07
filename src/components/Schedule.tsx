@@ -86,7 +86,7 @@ const renderMonthlySchedule = (schedule: TSchedule[]) =>
   });
 
 const Schedule = ({ schedule }: ScheduleProps) => {
-  if (schedule.length) {
+  if (schedule && schedule.length) {
     const { type } = schedule[0];
     const orderedSchedule = orderSchedule(schedule);
 
@@ -96,14 +96,10 @@ const Schedule = ({ schedule }: ScheduleProps) => {
       case 'Monthly':
         return <>{renderMonthlySchedule(orderedSchedule)}</>;
       case 'Open 24/7':
-        return (
-          <>
-            <p>{type}</p>
-          </>
-        );
+        return <p>{type}</p>;
     }
   }
-  return null;
+  return <p>{'not available'}</p>;
 };
 
 export default Schedule;
