@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components';
 import { colors, font } from '../App.styles';
 
 interface Props {
+  color: string;
   subCategories: TSubCategory[];
   handleSubCategoryClick: Function;
 }
@@ -27,30 +28,37 @@ const SubCategoryItem = styled.li`
   margin: 0 ${font.helpers.convertPixelsToRems(subCategoryHorizontalSpacing)};
 `;
 
-const baseButtonStyles = css`
-  color: ${colors.white};
-  font-family: ${font.families.openSans};
-  font-size: ${font.helpers.convertPixelsToRems(16)};
-  text-transform: none;
-`;
-
-const SubCategoryButton = styled(Button)`
-  && {
-    ${baseButtonStyles}
-  }
-` as typeof Button;
-
-const SelectedSubCategoryButton = styled(Button)`
-  && {
-    ${baseButtonStyles}
-    background:red;
-  }
-` as typeof Button;
-
-const SubCategories = ({ handleSubCategoryClick, subCategories }: Props) => {
+const SubCategories = ({
+  color,
+  handleSubCategoryClick,
+  subCategories
+}: Props) => {
   const [selectedSubCategory, updateSelectedSubCategory] = useState<
     TSubCategory
   >(subCategories[0]);
+
+  const baseButtonStyles = css`
+    color: ${colors.white};
+    font-family: ${font.families.openSans};
+    font-size: ${font.helpers.convertPixelsToRems(16)};
+    text-transform: none;
+  `;
+
+  const SubCategoryButton = styled(Button)`
+    && {
+      ${baseButtonStyles}
+    }
+  ` as typeof Button;
+
+  const SelectedSubCategoryButton = styled(Button)`
+    && {
+      ${baseButtonStyles}
+      background: ${color};
+      &:hover, &:focus {
+        background: ${color};
+      }
+    }
+  ` as typeof Button;
 
   const handleClick = (subCategory: TSubCategory) => {
     const { query } = subCategory;
