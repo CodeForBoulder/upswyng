@@ -22,7 +22,7 @@ const SearchResultsList = styled.ul`
 const SearchResultsItem = styled.li`
   align-items: stretch;
   display: flex;
-  flex: 1 1 50%;
+  flex: 0 1 50%;
   list-style-type: none;
   padding: ${font.helpers.convertPixelsToRems(8)};
 `;
