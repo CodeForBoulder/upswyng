@@ -3,6 +3,7 @@ import { TSubCategory } from '../types';
 import { colors, Container } from '../App.styles';
 import useSearchResults from './useSearchResults';
 import CategoryBanner from './CategoryBanner';
+import SubCategories from './SubCategories';
 import SearchResults from './SearchResults';
 
 const Health = () => {
@@ -39,24 +40,15 @@ const Health = () => {
     }
   ];
 
-  const handleSubCategoryClick = (query: string) => {
-    updateSearchQuery(query);
-  };
-
-  const renderSubCategories = (subCategories: TSubCategory[]) => (
-    <ul>
-      {subCategories.map(({ text, query }) => (
-        <li key={query} onClick={() => handleSubCategoryClick(query)}>
-          {text}
-        </li>
-      ))}
-    </ul>
-  );
+  const handleSubCategoryClick = (query: string) => updateSearchQuery(query);
 
   return (
     <Container>
       <CategoryBanner text="Health" color={colors.red} />
-      {renderSubCategories(subCategories)}
+      <SubCategories
+        subCategories={subCategories}
+        handleSubCategoryClick={handleSubCategoryClick}
+      />
       <SearchResults results={searchResults} />
     </Container>
   );
