@@ -75,10 +75,10 @@ const routerLinkButtons: THomeButtonRouterLink[] = [
     color: colors.red
   },
   {
-    text: 'Wifi & Tech',
+    text: 'Wifi',
     icon: WifiIcon,
     linkProps: {
-      to: '/wifi-and-tech'
+      to: '/wifi'
     },
     color: colors.blue
   },
