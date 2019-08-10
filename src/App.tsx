@@ -14,7 +14,7 @@ import Resource from './components/Resource';
 import Resources from './components/Resources';
 import Search from './components/Search';
 import SocialServices from './components/SocialServices';
-import WifiTech from './components/WifiTech';
+import Wifi from './components/Wifi';
 
 class App extends Component {
   render() {
@@ -36,7 +36,7 @@ class App extends Component {
             <Route exact path="/resources" component={Resources} />
             <Route exact path="/social-services" component={SocialServices} />
             <Route exact path="/search" component={Search} />
-            <Route exact path="/wifi-and-tech" component={WifiTech} />
+            <Route exact path="/wifi" component={Wifi} />
           </div>
         </Router>
       </>
