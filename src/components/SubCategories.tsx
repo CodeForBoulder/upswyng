@@ -11,7 +11,7 @@ interface Props {
   handleSubCategoryClick: Function;
 }
 
-const subCategoryHorizontalSpacing = 10;
+const subCategoryHorizontalSpacing = 5;
 
 const SubCategoriesList = styled.ul`
   display: flex;
