@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TSubCategory } from '../types';
 import Button from '@material-ui/core/Button';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { colors, font } from '../App.styles';
 
 interface Props {
-  defaultQuery: string;
   subCategories: TSubCategory[];
   handleSubCategoryClick: Function;
 }
@@ -28,34 +27,59 @@ const SubCategoryItem = styled.li`
   margin: 0 ${font.helpers.convertPixelsToRems(subCategoryHorizontalSpacing)};
 `;
 
+const baseButtonStyles = css`
+  color: ${colors.white};
+  font-family: ${font.families.openSans};
+  font-size: ${font.helpers.convertPixelsToRems(16)};
+  text-transform: none;
+`;
+
 const SubCategoryButton = styled(Button)`
   && {
-    color: ${colors.white};
-    font-family: ${font.families.openSans};
-    font-size: ${font.helpers.convertPixelsToRems(16)};
-    text-transform: none;
+    ${baseButtonStyles}
   }
 ` as typeof Button;
 
-const SubCategories = ({
-  defaultQuery,
-  handleSubCategoryClick,
-  subCategories
-}: Props) => (
-  <SubCategoriesList>
-    <SubCategoryItem key={defaultQuery}>
-      <SubCategoryButton onClick={() => handleSubCategoryClick(defaultQuery)}>
-        All
-      </SubCategoryButton>
-    </SubCategoryItem>
-    {subCategories.map(({ text, query }) => (
-      <SubCategoryItem key={query}>
-        <SubCategoryButton onClick={() => handleSubCategoryClick(query)}>
-          {text}
-        </SubCategoryButton>
-      </SubCategoryItem>
-    ))}
-  </SubCategoriesList>
-);
+const SelectedSubCategoryButton = styled(Button)`
+  && {
+    ${baseButtonStyles}
+    background:red;
+  }
+` as typeof Button;
+
+const SubCategories = ({ handleSubCategoryClick, subCategories }: Props) => {
+  const [selectedSubCategory, updateSelectedSubCategory] = useState<
+    TSubCategory
+  >(subCategories[0]);
+
+  const handleClick = (subCategory: TSubCategory) => {
+    const { query } = subCategory;
+    updateSelectedSubCategory(subCategory);
+    handleSubCategoryClick(query);
+  };
+
+  return (
+    <SubCategoriesList>
+      {subCategories.map(subCategory => {
+        const { text, query } = subCategory;
+        return (
+          <SubCategoryItem key={query}>
+            {selectedSubCategory.query === query ? (
+              <SelectedSubCategoryButton
+                onClick={() => handleClick(subCategory)}
+              >
+                {text}
+              </SelectedSubCategoryButton>
+            ) : (
+              <SubCategoryButton onClick={() => handleClick(subCategory)}>
+                {text}
+              </SubCategoryButton>
+            )}
+          </SubCategoryItem>
+        );
+      })}
+    </SubCategoriesList>
+  );
+};
 
 export default SubCategories;

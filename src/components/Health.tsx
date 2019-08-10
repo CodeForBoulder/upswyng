@@ -12,6 +12,10 @@ const Health = () => {
   const searchResults = useSearchResults(searchQuery);
   const subCategories: TSubCategory[] = [
     {
+      text: 'All',
+      query: categoryQuery
+    },
+    {
       text: 'Addiction Recovery Services',
       query: 'SUBCATEGORY-health-addictionRecoveryServices'
     },
@@ -47,7 +51,6 @@ const Health = () => {
     <Container>
       <CategoryBanner text="Health" color={colors.red} />
       <SubCategories
-        defaultQuery={categoryQuery}
         subCategories={subCategories}
         handleSubCategoryClick={handleSubCategoryClick}
       />
