@@ -7,7 +7,8 @@ import SubCategories from './SubCategories';
 import SearchResults from './SearchResults';
 
 const Health = () => {
-  const [searchQuery, updateSearchQuery] = useState('CATEGORY-health');
+  const categoryQuery = 'CATEGORY-health';
+  const [searchQuery, updateSearchQuery] = useState(categoryQuery);
   const searchResults = useSearchResults(searchQuery);
   const subCategories: TSubCategory[] = [
     {
@@ -46,6 +47,7 @@ const Health = () => {
     <Container>
       <CategoryBanner text="Health" color={colors.red} />
       <SubCategories
+        defaultQuery={categoryQuery}
         subCategories={subCategories}
         handleSubCategoryClick={handleSubCategoryClick}
       />
