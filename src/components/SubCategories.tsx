@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { TSubCategory } from '../types';
 import Button from '@material-ui/core/Button';
 import styled, { css } from 'styled-components';
+import { darken } from 'polished';
 import { colors, font } from '../App.styles';
 
 interface Props {
@@ -42,6 +43,10 @@ const SubCategories = ({
     font-family: ${font.families.openSans};
     font-size: ${font.helpers.convertPixelsToRems(16)};
     text-transform: none;
+    &:hover,
+    &:focus {
+      background: ${darken(0.1, color)};
+    }
   `;
 
   const SubCategoryButton = styled(Button)`
@@ -54,9 +59,6 @@ const SubCategories = ({
     && {
       ${baseButtonStyles}
       background: ${color};
-      &:hover, &:focus {
-        background: ${color};
-      }
     }
   ` as typeof Button;
 
