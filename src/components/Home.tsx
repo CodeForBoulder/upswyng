@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import HomeButtons from './HomeButtons';
 import { Container, font } from '../App.styles';
 import SearchInput from './SearchInput';
+import AlgoliaBadge from './AlgoliaBadge';
 
 const HomeButtonsContainer = styled(Grid)`
   && {
@@ -13,7 +14,7 @@ const HomeButtonsContainer = styled(Grid)`
 ` as typeof Grid;
 
 const Home = () => (
-  <Container container justify="space-evenly">
+  <Container container justify="space-evenly" alignItems="center">
     <Grid item xs={12}>
       <SearchInput />
     </Grid>
@@ -27,13 +28,22 @@ const Home = () => (
         <HomeButtons />
       </HomeButtonsContainer>
     </Grid>
-    <Grid>
-      <a href="https://www.netlify.com">
-        <img
-          src="https://www.netlify.com/img/global/badges/netlify-light.svg"
-          alt="deploys by Netlify"
-        />
-      </a>
+    <Grid item xs={6}>
+      <Grid container justify="center">
+        <a href="https://www.netlify.com">
+          <img
+            src="https://www.netlify.com/img/global/badges/netlify-light.svg"
+            alt="deploys by Netlify"
+          />
+        </a>
+      </Grid>
+    </Grid>
+    <Grid item xs={6}>
+      <Grid container justify="center">
+        <a href="https://www.algolia.com/">
+          <AlgoliaBadge />
+        </a>
+      </Grid>
     </Grid>
   </Container>
 );
