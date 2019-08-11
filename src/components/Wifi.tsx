@@ -1,18 +1,36 @@
 import React from 'react';
+import { TResourceCategory } from '../types';
 import { colors, Container } from '../App.styles';
-import useSearchResults from './useSearchResults';
-import CategoryBanner from './CategoryBanner';
-import SearchResults from './SearchResults';
+import CategoryResults from './CategoryResults';
 
-const WifiTech = () => {
-  const searchQuery = 'CATEGORY-wifiTech';
-  const searchResults = useSearchResults(searchQuery);
-  return (
-    <Container>
-      <CategoryBanner text="Wifi &amp; Tech" color={colors.blue} />
-      <SearchResults results={searchResults} />
-    </Container>
-  );
+const categoryColor = colors.blue;
+const category: TResourceCategory = {
+  text: 'Wifi',
+  query: 'CATEGORY-wifi'
 };
+const subCategories: TResourceCategory[] = [
+  {
+    text: 'Free Wifi',
+    query: 'SUBCATEGORY-wifi-freeWifi'
+  },
+  {
+    text: 'Public Computer',
+    query: 'SUBCATEGORY-wifi-publicComputer'
+  },
+  {
+    text: 'Charging',
+    query: 'SUBCATEGORY-wifi-charging'
+  }
+];
 
-export default WifiTech;
+const Wifi = () => (
+  <Container>
+    <CategoryResults
+      category={category}
+      color={categoryColor}
+      subCategories={subCategories}
+    />
+  </Container>
+);
+
+export default Wifi;
