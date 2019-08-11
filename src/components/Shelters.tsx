@@ -5,7 +5,7 @@ import CategoryResults from './CategoryResults';
 
 const categoryColor = colors.orangePrimary;
 const category: TResourceCategory = {
-  text: 'Shelters',
+  text: 'Shelter',
   query: 'CATEGORY-shelter'
 };
 const subCategories: TResourceCategory[] = [
