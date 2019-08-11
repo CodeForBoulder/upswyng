@@ -6,6 +6,7 @@ import { darken } from 'polished';
 import { colors, font } from '../App.styles';
 
 interface Props {
+  category: TSubCategory;
   color: string;
   subCategories: TSubCategory[];
   handleSubCategoryClick: Function;
@@ -30,13 +31,15 @@ const SubCategoryItem = styled.li`
 `;
 
 const SubCategories = ({
+  category,
   color,
   handleSubCategoryClick,
   subCategories
 }: Props) => {
+  const { query: categoryQuery } = category;
   const [selectedSubCategory, updateSelectedSubCategory] = useState<
     TSubCategory
-  >(subCategories[0]);
+  >(category);
 
   const baseButtonStyles = css`
     color: ${colors.white};
@@ -70,6 +73,17 @@ const SubCategories = ({
 
   return (
     <SubCategoriesList>
+      <SubCategoryItem key={categoryQuery}>
+        {selectedSubCategory.query === categoryQuery ? (
+          <SelectedSubCategoryButton onClick={() => handleClick(category)}>
+            All
+          </SelectedSubCategoryButton>
+        ) : (
+          <SubCategoryButton onClick={() => handleClick(category)}>
+            All
+          </SubCategoryButton>
+        )}
+      </SubCategoryItem>
       {subCategories.map(subCategory => {
         const { text, query } = subCategory;
         return (

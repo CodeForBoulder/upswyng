@@ -20,14 +20,13 @@ const CategoryResults = ({
   const [searchQuery, updateSearchQuery] = useState(categoryQuery);
   const searchResults = useSearchResults(searchQuery);
 
-  subCategories.unshift({ text: 'All', query: categoryQuery });
-
   const handleSubCategoryClick = (query: string) => updateSearchQuery(query);
 
   return (
     <>
       <CategoryBanner text={categoryText} color={categoryColor} />
       <SubCategories
+        category={category}
         color={categoryColor}
         subCategories={subCategories}
         handleSubCategoryClick={handleSubCategoryClick}
