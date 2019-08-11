@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { TResourceCategory } from '../types';
-import Button from '@material-ui/core/Button';
-import styled, { css } from 'styled-components';
-import { darken } from 'polished';
-import { colors, font } from '../App.styles';
+import styled from 'styled-components';
+import { font } from '../App.styles';
+import SubCategoryButton from './SubCategoryButton';
 
 interface Props {
   category: TResourceCategory;
@@ -30,23 +29,6 @@ const SubCategoryItem = styled.li`
   margin: 0 ${font.helpers.convertPixelsToRems(subCategoryHorizontalSpacing)};
 `;
 
-const baseButtonStyles = css`
-  color: ${colors.white};
-  font-family: ${font.families.openSans};
-  font-size: ${font.helpers.convertPixelsToRems(16)};
-  text-transform: none;
-  &:hover,
-  &:focus {
-    background: ${darken(0.05, colors.charcoal)};
-  }
-`;
-
-const SubCategoryButton = styled(Button)`
-  && {
-    ${baseButtonStyles}
-  }
-` as typeof Button;
-
 const SubCategories = ({
   category,
   color,
@@ -58,17 +40,6 @@ const SubCategories = ({
     TResourceCategory
   >(category);
 
-  const SelectedSubCategoryButton = styled(Button)`
-    && {
-      ${baseButtonStyles}
-      background: ${color};
-      &:hover,
-      &:focus {
-        background: ${darken(0.1, color)};
-      }
-    }
-  ` as typeof Button;
-
   const handleClick = (subCategory: TResourceCategory) => {
     const { query } = subCategory;
     updateSelectedSubCategory(subCategory);
@@ -78,31 +49,25 @@ const SubCategories = ({
   return (
     <SubCategoriesList>
       <SubCategoryItem key={categoryQuery}>
-        {selectedSubCategory.query === categoryQuery ? (
-          <SelectedSubCategoryButton onClick={() => handleClick(category)}>
-            All
-          </SelectedSubCategoryButton>
-        ) : (
-          <SubCategoryButton onClick={() => handleClick(category)}>
-            All
-          </SubCategoryButton>
-        )}
+        <SubCategoryButton
+          buttonColor={color}
+          isSelected={selectedSubCategory.query === categoryQuery}
+          onClick={() => handleClick(category)}
+        >
+          All
+        </SubCategoryButton>
       </SubCategoryItem>
       {subCategories.map(subCategory => {
         const { text, query } = subCategory;
         return (
           <SubCategoryItem key={query}>
-            {selectedSubCategory.query === query ? (
-              <SelectedSubCategoryButton
-                onClick={() => handleClick(subCategory)}
-              >
-                {text}
-              </SelectedSubCategoryButton>
-            ) : (
-              <SubCategoryButton onClick={() => handleClick(subCategory)}>
-                {text}
-              </SubCategoryButton>
-            )}
+            <SubCategoryButton
+              buttonColor={color}
+              isSelected={selectedSubCategory.query === query}
+              onClick={() => handleClick(subCategory)}
+            >
+              {text}
+            </SubCategoryButton>
           </SubCategoryItem>
         );
       })}
