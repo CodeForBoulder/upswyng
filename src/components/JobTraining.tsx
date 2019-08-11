@@ -3,7 +3,7 @@ import { TResourceCategory } from '../types';
 import { colors, Container } from '../App.styles';
 import CategoryResults from './CategoryResults';
 
-const categoryColor = colors.brown;
+const categoryColor = colors.lavendar;
 const category: TResourceCategory = {
   text: 'Job Training',
   query: 'CATEGORY-jobTraining'
