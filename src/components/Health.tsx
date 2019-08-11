@@ -1,21 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TSubCategory } from '../types';
 import { colors, Container } from '../App.styles';
-import useSearchResults from './useSearchResults';
-import CategoryBanner from './CategoryBanner';
-import SubCategories from './SubCategories';
-import SearchResults from './SearchResults';
+import CategoryResults from './CategoryResults';
 
 const Health = () => {
-  const categoryQuery = 'CATEGORY-health';
   const categoryColor = colors.red;
-  const [searchQuery, updateSearchQuery] = useState(categoryQuery);
-  const searchResults = useSearchResults(searchQuery);
+  const category: TSubCategory = {
+    text: 'Health',
+    query: 'CATEGORY-health'
+  };
   const subCategories: TSubCategory[] = [
-    {
-      text: 'All',
-      query: categoryQuery
-    },
     {
       text: 'Addiction Recovery Services',
       query: 'SUBCATEGORY-health-addictionRecoveryServices'
@@ -46,17 +40,13 @@ const Health = () => {
     }
   ];
 
-  const handleSubCategoryClick = (query: string) => updateSearchQuery(query);
-
   return (
     <Container>
-      <CategoryBanner text="Health" color={categoryColor} />
-      <SubCategories
+      <CategoryResults
+        category={category}
         color={categoryColor}
         subCategories={subCategories}
-        handleSubCategoryClick={handleSubCategoryClick}
       />
-      <SearchResults results={searchResults} />
     </Container>
   );
 };
