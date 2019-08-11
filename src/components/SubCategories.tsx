@@ -30,6 +30,22 @@ const SubCategoryItem = styled.li`
   margin: 0 ${font.helpers.convertPixelsToRems(subCategoryHorizontalSpacing)};
 `;
 
+const baseButtonStyles = css`
+  color: ${colors.white};
+  font-family: ${font.families.openSans};
+  font-size: ${font.helpers.convertPixelsToRems(16)};
+  text-transform: none;
+`;
+
+const SubCategoryButton = styled(Button)`
+  && {
+    ${baseButtonStyles}
+    &:hover,&:focus {
+      background: ${darken(0.05, colors.charcoal)};
+    }
+  }
+` as typeof Button;
+
 const SubCategories = ({
   category,
   color,
@@ -41,27 +57,14 @@ const SubCategories = ({
     TSubCategory
   >(category);
 
-  const baseButtonStyles = css`
-    color: ${colors.white};
-    font-family: ${font.families.openSans};
-    font-size: ${font.helpers.convertPixelsToRems(16)};
-    text-transform: none;
-    &:hover,
-    &:focus {
-      background: ${darken(0.1, color)};
-    }
-  `;
-
-  const SubCategoryButton = styled(Button)`
-    && {
-      ${baseButtonStyles}
-    }
-  ` as typeof Button;
-
   const SelectedSubCategoryButton = styled(Button)`
     && {
       ${baseButtonStyles}
       background: ${color};
+      &:hover,
+      &:focus {
+        background: ${darken(0.1, color)};
+      }
     }
   ` as typeof Button;
 
