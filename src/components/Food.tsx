@@ -3,7 +3,7 @@ import { TResourceCategory } from '../types';
 import { colors, Container } from '../App.styles';
 import CategoryResults from './CategoryResults';
 
-const categoryColor = colors.orangePrimary;
+const categoryColor = colors.gold;
 const category: TResourceCategory = {
   text: 'Food',
   query: 'CATEGORY-food'
