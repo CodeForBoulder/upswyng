@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { TSubCategory } from '../types';
+import { TResourceCategory } from '../types';
 import Button from '@material-ui/core/Button';
 import styled, { css } from 'styled-components';
 import { darken } from 'polished';
 import { colors, font } from '../App.styles';
 
 interface Props {
-  category: TSubCategory;
+  category: TResourceCategory;
   color: string;
-  subCategories: TSubCategory[];
+  subCategories: TResourceCategory[];
   handleSubCategoryClick: Function;
 }
 
@@ -35,14 +35,15 @@ const baseButtonStyles = css`
   font-family: ${font.families.openSans};
   font-size: ${font.helpers.convertPixelsToRems(16)};
   text-transform: none;
+  &:hover,
+  &:focus {
+    background: ${darken(0.05, colors.charcoal)};
+  }
 `;
 
 const SubCategoryButton = styled(Button)`
   && {
     ${baseButtonStyles}
-    &:hover,&:focus {
-      background: ${darken(0.05, colors.charcoal)};
-    }
   }
 ` as typeof Button;
 
@@ -54,7 +55,7 @@ const SubCategories = ({
 }: Props) => {
   const { query: categoryQuery } = category;
   const [selectedSubCategory, updateSelectedSubCategory] = useState<
-    TSubCategory
+    TResourceCategory
   >(category);
 
   const SelectedSubCategoryButton = styled(Button)`
@@ -68,7 +69,7 @@ const SubCategories = ({
     }
   ` as typeof Button;
 
-  const handleClick = (subCategory: TSubCategory) => {
+  const handleClick = (subCategory: TResourceCategory) => {
     const { query } = subCategory;
     updateSelectedSubCategory(subCategory);
     handleSubCategoryClick(query);

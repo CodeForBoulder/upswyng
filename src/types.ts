@@ -77,7 +77,7 @@ export type TSchedulePeriod = 'First' | 'Second' | 'Third' | 'Fourth';
 
 export type TScheduleType = 'Weekly' | 'Monthly' | 'Open 24/7';
 
-export interface TSubCategory {
+export interface TResourceCategory {
   text: string;
   query: string;
 }

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { TSubCategory } from '../types';
+import { TResourceCategory } from '../types';
 import useSearchResults from './useSearchResults';
 import CategoryBanner from './CategoryBanner';
 import SubCategories from './SubCategories';
 import SearchResults from './SearchResults';
 
 interface Props {
-  category: TSubCategory;
+  category: TResourceCategory;
   color: string;
-  subCategories: TSubCategory[];
+  subCategories: TResourceCategory[];
 }
 
 const CategoryResults = ({

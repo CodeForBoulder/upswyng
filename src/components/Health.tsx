@@ -1,15 +1,15 @@
 import React from 'react';
-import { TSubCategory } from '../types';
+import { TResourceCategory } from '../types';
 import { colors, Container } from '../App.styles';
 import CategoryResults from './CategoryResults';
 
 const Health = () => {
   const categoryColor = colors.red;
-  const category: TSubCategory = {
+  const category: TResourceCategory = {
     text: 'Health',
     query: 'CATEGORY-health'
   };
-  const subCategories: TSubCategory[] = [
+  const subCategories: TResourceCategory[] = [
     {
       text: 'Addiction Recovery Services',
       query: 'SUBCATEGORY-health-addictionRecoveryServices'
