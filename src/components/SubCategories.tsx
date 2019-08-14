@@ -17,7 +17,6 @@ const SubCategoriesList = styled.ul`
   display: flex;
   flex-direction: row;
   margin: 0 ${font.helpers.convertPixelsToRems(-subCategoryHorizontalSpacing)};
-  overflow-y: scroll;
   padding: ${font.helpers.convertPixelsToRems(20)} 0
     ${font.helpers.convertPixelsToRems(10)};
   width: auto;
