@@ -1,18 +1,32 @@
 import React from 'react';
+import { TResourceCategory } from '../types';
 import { colors, Container } from '../App.styles';
-import useSearchResults from './useSearchResults';
-import CategoryBanner from './CategoryBanner';
-import SearchResults from './SearchResults';
+import CategoryResults from './CategoryResults';
 
-const Food = () => {
-  const searchQuery = 'CATEGORY-food';
-  const searchResults = useSearchResults(searchQuery);
-  return (
-    <Container>
-      <CategoryBanner text="Food" color={colors.gold} />
-      <SearchResults results={searchResults} />
-    </Container>
-  );
+const categoryColor = colors.gold;
+const category: TResourceCategory = {
+  text: 'Food',
+  query: 'CATEGORY-food'
 };
+const subCategories: TResourceCategory[] = [
+  {
+    text: 'Meals',
+    query: 'SUBCATEGORY-food-meal'
+  },
+  {
+    text: 'Food Pantries',
+    query: 'SUBCATEGORY-food-pantry'
+  }
+];
+
+const Food = () => (
+  <Container>
+    <CategoryResults
+      category={category}
+      color={categoryColor}
+      subCategories={subCategories}
+    />
+  </Container>
+);
 
 export default Food;

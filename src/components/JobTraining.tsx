@@ -1,18 +1,44 @@
 import React from 'react';
+import { TResourceCategory } from '../types';
 import { colors, Container } from '../App.styles';
-import useSearchResults from './useSearchResults';
-import CategoryBanner from './CategoryBanner';
-import SearchResults from './SearchResults';
+import CategoryResults from './CategoryResults';
 
-const JobTraining = () => {
-  const searchQuery = 'CATEGORY-jobTraining';
-  const searchResults = useSearchResults(searchQuery);
-  return (
-    <Container>
-      <CategoryBanner text="Job Training" color={colors.lavendar} />
-      <SearchResults results={searchResults} />
-    </Container>
-  );
+const categoryColor = colors.lavendar;
+const category: TResourceCategory = {
+  text: 'Job Training',
+  query: 'CATEGORY-jobTraining'
 };
+const subCategories: TResourceCategory[] = [
+  {
+    text: 'Craigs List',
+    query: 'SUBCATEGORY-jobTraining-craigsList'
+  },
+  {
+    text: 'Temp Agency',
+    query: 'SUBCATEGORY-jobTraining-tempAgency'
+  },
+  {
+    text: 'Day Labor',
+    query: 'SUBCATEGORY-jobTraining-dayLabor'
+  },
+  {
+    text: 'Ready to Work',
+    query: 'SUBCATEGORY-jobTraining-readyToWork'
+  },
+  {
+    text: 'Career Counseling',
+    query: 'SUBCATEGORY-jobTraining-careerCounseling'
+  }
+];
+
+const JobTraining = () => (
+  <Container>
+    <CategoryResults
+      category={category}
+      color={categoryColor}
+      subCategories={subCategories}
+    />
+  </Container>
+);
 
 export default JobTraining;
