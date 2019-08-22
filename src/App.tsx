@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import GlobalStyle from './App.styles';
-import JobTaining from './components/JobTraining';
+import Categories from './components/Categories';
 import Header from './components/Header';
 import Home from './components/Home';
-import Shelters from './components/Shelters';
-import Health from './components/Health';
-import Hygiene from './components/Hygiene';
 import Hotlines from './components/Hotlines';
-import Food from './components/Food';
-import Transit from './components/Transit';
 import Resource from './components/Resource';
-import Resources from './components/Resources';
 import Search from './components/Search';
-import SocialServices from './components/SocialServices';
-import Wifi from './components/Wifi';
+
+const {
+  Food,
+  Health,
+  Hygiene,
+  JobTraining,
+  Resources,
+  Shelters,
+  SocialServices,
+  Transit,
+  Wifi
+} = Categories;
 
 class App extends Component {
   render() {
@@ -26,7 +30,7 @@ class App extends Component {
             <Header />
             <Route exact path="/" component={Home} />
             <Route exact path="/shelters" component={Shelters} />
-            <Route exact path="/job-training" component={JobTaining} />
+            <Route exact path="/job-training" component={JobTraining} />
             <Route exact path="/health" component={Health} />
             <Route exact path="/hygiene" component={Hygiene} />
             <Route exact path="/hotlines" component={Hotlines} />
