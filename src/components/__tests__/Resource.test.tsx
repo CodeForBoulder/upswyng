@@ -1,15 +1,15 @@
-import React from 'react';
 import { shallow } from 'enzyme';
-import { Resource } from './Resource';
-import { foodResource } from '../DataMocks';
-import useResource from './useResource';
+import React from 'react';
+import { foodResource } from '../../DataMocks';
+import { Resource } from '../Resource';
+import useResource from '../useResource';
 
-jest.mock('../utils/searchParams');
-jest.mock('../constants');
-jest.mock('./LoadingSpinner.tsx', () => 'LoadingSpinner');
-jest.mock('./useResource.tsx');
+jest.mock('../../utils/searchParams');
+jest.mock('../../constants');
+jest.mock('../LoadingSpinner.tsx', () => 'LoadingSpinner');
+jest.mock('../useResource.tsx');
 const mockedUseResource = useResource as jest.Mock;
-jest.mock('../App.styles', () => ({
+jest.mock('../../App.styles', () => ({
   Container: 'Container',
   colors: {
     greyLight: ''
@@ -23,14 +23,14 @@ jest.mock('../App.styles', () => ({
     }
   }
 }));
-jest.mock('./Details', () => ({
+jest.mock('../Details', () => ({
   __esModule: true,
   default: 'Details',
   DetailBody: 'DetailBody',
   DetailHeading: 'DetailHeading'
 }));
-jest.mock('./Schedule', () => 'Schedule');
-jest.mock('./Map', () => 'Map');
+jest.mock('../Schedule', () => 'Schedule');
+jest.mock('../Map', () => 'Map');
 
 describe('<Resource/>', () => {
   mockedUseResource.mockImplementation(() => foodResource) as typeof jest.mock;
