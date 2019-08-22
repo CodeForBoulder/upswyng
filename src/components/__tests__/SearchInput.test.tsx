@@ -1,6 +1,6 @@
-import React from 'react';
 import enzyme, { shallow } from 'enzyme';
-import SearchInput from './SearchInput';
+import React from 'react';
+import SearchInput from '../SearchInput';
 
 jest.mock('react-router/Redirect', () => 'Redirect');
 jest.mock('@material-ui/core/TextField', () => 'TextField');
