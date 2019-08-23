@@ -8,17 +8,32 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "algoliasearch": "^3.33.0",
     "expo": "^34.0.1",
     "react": "16.8.3",
     "react-dom": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
+    "react-native-grid-component": "^2.0.0",
     "react-native-material-ui": "^1.30.1",
-    "react-native-web": "^0.11.4"
+    "react-native-vector-icons": "^4.6.0",
+    "react-native-web": "^0.11.4",
+    "react-router-native": "^5.0.1",
+    "styled-components": "^4.3.2"
   },
   "devDependencies": {
-    "@types/react": "^16.8.23",
+    "@types/react": "^16.9.2",
     "@types/react-native": "^0.57.65",
+    "@types/react-native-material-ui": "^1.32.0",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
     "babel-preset-expo": "^6.0.0",
+    "eslint": "^5.0.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-css-modules": "^2.11.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-native": "^3.7.0",
+    "prettier": "^1.18.2",
     "typescript": "^3.4.5"
   },
   "rnpm": {
