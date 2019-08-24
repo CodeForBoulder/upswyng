@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, StatusBar, Platform } from "react-native";
 import { NativeRouter, Route } from "react-router-native";
 import Home from "./src/components/Home";
 import Categories from "./src/components/Categories";
@@ -43,6 +43,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: Platform.OS === "ios" ? 20 : StatusBar.currentHeight,
     flex: 1,
     backgroundColor: "#000",
     alignItems: "center",

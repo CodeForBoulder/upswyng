@@ -16,9 +16,8 @@ import { THomeButtonAnchor, THomeButtonRouterLink } from "../types";
 import { HomeRouterLink, HomeAnchorLink } from "./HomeLink";
 import HomeButton from "./HomeButton";
 import { colors } from "../App.styles";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 
-import Grid from "react-native-grid-component";
 const routerLinkButtons: THomeButtonRouterLink[] = [
   {
     text: "Food",
@@ -102,47 +101,71 @@ const routerLinkButtons: THomeButtonRouterLink[] = [
   },
 ];
 
-// const coordinatedEntryButton: THomeButtonAnchor = {
-//   text: "Coordinated Entry",
-//   href: "https://www.bouldercounty.org/homeless/",
-//   icon: DoorIcon,
-//   color: colors.rosewood,
-//   target: "_blank",
-// };
+const coordinatedEntryButton: THomeButtonAnchor = {
+  text: "Coordinated Entry",
+  href: "https://www.bouldercounty.org/homeless/",
+  icon: DoorIcon,
+  color: colors.rosewood,
+  target: "_blank",
+};
 
-class HomeButtons extends React.Component {
-  styles = StyleSheet.create({
-    item: {
-      flex: 1,
-      height: 160,
-      margin: 1,
-    },
-    list: {
-      flex: 1,
-    },
-  });
+const styles = StyleSheet.create({
+  twoColumn: {
+    alignContent: "stretch",
+    flex: 5.75,
+    width: "100%",
+  },
+  oneColumn: {
+    alignContent: "stretch",
+    flex: 1,
+    width: "100%",
+    borderColor: "blue",
+  },
+});
 
-  _renderItem = (data: THomeButtonRouterLink, i: number) => (
-    <HomeButton
-      buttonColor={data.color}
-      height={90}
-      text={data.text}
-      icon={data.icon}
-      key={i}
-    />
+const HomeButtons = function() {
+  return (
+    <>
+      <View style={styles.twoColumn}>
+        {routerLinkButtons.map((_, i, buttons) => {
+          const leftButton = buttons[i - 1];
+          const rightButton = buttons[i];
+          if (i % 2 === 1) {
+            return (
+              <View
+                style={{
+                  alignContent: "stretch",
+                  flexDirection: "row",
+                  flex: 1,
+                  marginBottom: 12,
+                }}>
+                <HomeButton
+                  buttonColor={leftButton.color}
+                  text={leftButton.text}
+                  icon={leftButton.icon}
+                  key={leftButton.text}
+                />
+                <View style={{ width: 12, flexDirection: "row" }} />
+                <HomeButton
+                  buttonColor={rightButton.color}
+                  text={rightButton.text}
+                  icon={rightButton.icon}
+                  key={rightButton.text}
+                />
+              </View>
+            );
+          }
+        })}
+      </View>
+      <View style={styles.oneColumn}>
+        <HomeButton
+          buttonColor={coordinatedEntryButton.color}
+          text={coordinatedEntryButton.text}
+          icon={coordinatedEntryButton.icon}
+        />
+      </View>
+    </>
   );
-
-  render() {
-    return (
-      <Grid
-        style={this.styles.list}
-        renderItem={this._renderItem}
-        // renderPlaceholder={this._renderPlaceholder}
-        data={routerLinkButtons}
-        numColumns={2}
-      />
-    );
-  }
-}
+};
 
 export default HomeButtons;

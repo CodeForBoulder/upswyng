@@ -20,9 +20,7 @@ const Home = () => (
     {/* <View>
       <SearchInput />
     </View> */}
-    <View>
-      <HomeButtons />
-    </View>
+    <HomeButtons />
     <View>
       {/* <View>
         <a href="https://www.netlify.com">
@@ -44,7 +42,12 @@ const Home = () => (
 );
 
 const styles = StyleSheet.create({
-  container: { paddingLeft: 12, paddingRight: 12 },
+  container: {
+    paddingLeft: 12,
+    paddingRight: 12,
+    flex: 1,
+    width: "100%",
+  },
 });
 
 export default Home;

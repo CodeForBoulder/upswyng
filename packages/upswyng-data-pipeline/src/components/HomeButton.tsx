@@ -13,7 +13,6 @@ import { TIconProps } from "../types";
 interface HomeButtonProps {
   readonly buttonColor: string;
   readonly text: string;
-  readonly height: number;
   readonly icon: React.ReactElement<TIconProps>;
 }
 
@@ -28,7 +27,6 @@ const HomeButton = (props: HomeButtonProps) => {
         style={
           createStyles({
             color: props.buttonColor || colors.greyDark,
-            height: props.height,
           }).item
         }>
         <Text style={textStyle.text}>{props.text}</Text>
@@ -37,16 +35,13 @@ const HomeButton = (props: HomeButtonProps) => {
   );
 };
 
-const createStyles = ({ color, height }: { color: string; height: number }) =>
+const createStyles = ({ color }: { color: string }) =>
   StyleSheet.create({
     item: {
       backgroundColor: `${color}`,
-      height,
-      marginRight: 6,
-      marginLeft: 6,
-      marginBottom: 12,
-      padding: 6,
-      width: "50%",
+      padding: 12,
+      flex: 1,
+      flexDirection: "row",
     },
   });
 
