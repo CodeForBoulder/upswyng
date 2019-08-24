@@ -43,8 +43,8 @@ const Home = () => (
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: 12,
-    paddingRight: 12,
+    paddingLeft: 8,
+    paddingRight: 8,
     flex: 1,
     width: "100%",
   },

@@ -138,14 +138,14 @@ const HomeButtons = function() {
                   alignContent: "stretch",
                   flexDirection: "row",
                   flex: 1,
-                  marginBottom: 12,
+                  marginBottom: 8,
                 }}>
                 <HomeButton
                   buttonColor={leftButton.color}
                   text={leftButton.text}
                   icon={leftButton.icon}
                 />
-                <View style={{ width: 12, flexDirection: "row" }} />
+                <View style={{ width: 8, flexDirection: "row" }} />
                 <HomeButton
                   buttonColor={rightButton.color}
                   text={rightButton.text}
@@ -157,7 +157,7 @@ const HomeButtons = function() {
         })}
       </View>
       <View style={styles.oneColumn}>
-        <View style={{ flex: 1, marginBottom: 12 }}>
+        <View style={{ flex: 1, marginBottom: 8 }}>
           <HomeButton
             buttonColor={coordinatedEntryButton.color}
             text={coordinatedEntryButton.text}
