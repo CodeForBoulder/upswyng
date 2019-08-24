@@ -4,6 +4,7 @@ import { NativeRouter, Route } from "react-router-native";
 import Home from "./src/components/Home";
 import Categories from "./src/components/Categories";
 import { colors } from "./src/App.styles";
+import Header from "./src/components/Header";
 // import Hotlines from "./src/components/Hotlines";
 // import Resource from "./src/components/Resource";
 // import Search from "./src/components/Search";
@@ -24,6 +25,7 @@ export default function App() {
   return (
     <NativeRouter>
       <View style={styles.container}>
+        <Header />
         <Route exact path="/" component={Home} />
         <Route exact path="/shelters" component={Shelters} />
         <Route exact path="/job-training" component={JobTraining} />
@@ -49,5 +51,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.charcoal,
     alignItems: "center",
     justifyContent: "center",
+    paddingLeft: 8,
+    paddingRight: 8,
   },
 });
