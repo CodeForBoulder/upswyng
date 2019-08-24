@@ -4,16 +4,12 @@ import HomeButtons from "./HomeButtons";
 import { font } from "../App.styles";
 // import SearchInput from "./SearchInput";
 import AlgoliaSearchIcon from "../icons/AlgoliaSearch";
-import { StyleSheet } from "react-native";
-import { View } from "react-native";
+import { StyleSheet, TouchableWithoutFeedback } from "react-native";
+import { Linking, View } from "react-native";
 
-// const ButtonGrid = styled.div`
-//   && {
-//     display: grid;
-//     grid-template-columns: 1fr 1fr;
-//     grid-gap: ${font.helpers.convertPixelsToRems(8)};
-//   }
-// `;
+const openAlgolia = () => {
+  Linking.openURL("https://www.algolia.com");
+};
 
 const Home = () => (
   <View style={styles.container}>
@@ -22,9 +18,11 @@ const Home = () => (
     </View> */}
     <HomeButtons />
     <View style={styles.footer}>
-      <View>
-        <AlgoliaSearchIcon />
-      </View>
+      <TouchableWithoutFeedback onPress={openAlgolia}>
+        <View>
+          <AlgoliaSearchIcon />
+        </View>
+      </TouchableWithoutFeedback>
     </View>
   </View>
 );
