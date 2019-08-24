@@ -75,7 +75,7 @@ const CategoryBanner = ({ color, text, history }: Props) => (
       style={{
         height: 48,
         backgroundColor: color,
-        padding: 4,
+        padding: 8,
         flexDirection: "row",
         alignItems: "center",
       }}>
