@@ -91,9 +91,8 @@ interface THomeButtonBase {
 }
 export interface THomeButtonAnchor extends THomeButtonBase {
   href: string;
-  target: string;
 }
 
 export interface THomeButtonRouterLink extends THomeButtonBase {
-  linkProps: LinkProps;
+  linkState: string;
 }

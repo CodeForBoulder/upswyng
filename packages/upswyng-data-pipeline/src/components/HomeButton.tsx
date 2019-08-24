@@ -9,9 +9,11 @@ import {
 } from "react-native";
 import { BoldText } from "./UpText";
 import { TIconProps } from "../types";
+import { withRouter, RouteComponentProps } from "react-router-native";
 
-interface HomeButtonProps {
+interface HomeButtonProps extends RouteComponentProps {
   buttonColor: string;
+  linkState: string;
   text: string;
   icon: React.ComponentType<TIconProps>;
 }
@@ -22,9 +24,13 @@ const Touchable = (Platform.OS === "android"
 
 const HomeButton = (props: HomeButtonProps) => {
   const Icon = props.icon;
+  const styles = createStyles(props.buttonColor || colors.greyDark);
   return (
-    <Touchable>
-      <View style={createStyles(props.buttonColor || colors.greyDark).item}>
+    <Touchable
+      accessibilityLabel={props.text}
+      testID={`button_test_${props.text}`}
+      onPress={() => props.history.push(props.linkState)}>
+      <View style={styles.item}>
         <BoldText fontSize={20} style={{ color: "#fff" }}>
           {props.text}
         </BoldText>
@@ -52,4 +58,4 @@ const createStyles = (color: string) =>
     },
   });
 
-export default HomeButton;
+export default withRouter(HomeButton);

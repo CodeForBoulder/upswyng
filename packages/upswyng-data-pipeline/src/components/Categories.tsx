@@ -1,3 +1,4 @@
+import React from "react";
 import { TResourceCategory } from "../types";
 import { colors } from "../App.styles";
 import CategoryResults from "./CategoryResults";
@@ -276,13 +277,11 @@ export default Object.entries(categories).reduce(
   (result, [categoryName, categoryValue]) => ({
     ...result,
     [categoryName]: () => (
-      <View>
-        <CategoryResults
-          category={categoryValue.mainCategory}
-          color={colors[categoryValue.color]}
-          subCategories={categoryValue.subCategories}
-        />
-      </View>
+      <CategoryResults
+        category={categoryValue.mainCategory}
+        color={colors[categoryValue.color]}
+        subCategories={categoryValue.subCategories}
+      />
     ),
   }),
   // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion

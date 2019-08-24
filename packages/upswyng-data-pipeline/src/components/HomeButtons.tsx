@@ -22,81 +22,62 @@ const routerLinkButtons: THomeButtonRouterLink[] = [
   {
     text: "Food",
     icon: BananaIcon,
-    linkProps: {
-      to: "/food",
-    },
+    linkState: "/food",
     color: colors.gold,
   },
   {
     text: "Shelter",
     icon: HomeIcon,
-    linkProps: {
-      to: "/shelters",
-    },
+    linkState: "/shelters",
     color: colors.orangeDark,
   },
   {
     text: "Hygiene",
     icon: HygieneIcon,
-    linkProps: {
-      to: "/hygiene",
-    },
+    linkState: "/hygiene",
     color: colors.teal,
   },
   {
     text: "Transit",
     icon: DirectionsBusIcon,
-    linkProps: {
-      to: "/transit",
-    },
+    linkState: "/transit",
+
     color: colors.green,
   },
   {
     text: "Resources",
     icon: SocksIcon,
-    linkProps: {
-      to: "/resources",
-    },
+    linkState: "/resources",
     color: colors.purple,
   },
   {
     text: "Hotlines",
     icon: CallIcon,
-    linkProps: {
-      to: "/hotlines",
-    },
+    linkState: "/hotlines",
     color: colors.pink,
   },
   {
     text: "Health",
     icon: LocalHospitalIcon,
-    linkProps: {
-      to: "/health",
-    },
+    linkState: "/health",
     color: colors.red,
   },
   {
     text: "Wifi",
     icon: WifiIcon,
-    linkProps: {
-      to: "/wifi",
-    },
+    linkState: "/wifi",
     color: colors.blue,
   },
   {
     text: "Job Training",
     icon: BusinessCenterIcon,
-    linkProps: {
-      to: "/job-training",
-    },
+    linkState: "/job-training",
     color: colors.lavendar,
   },
   {
     text: "Social Services",
     icon: PeopleIcon,
-    linkProps: {
-      to: "/social-services",
-    },
+    linkState: "/social-services",
     color: colors.brown,
   },
 ];
@@ -106,7 +87,6 @@ const coordinatedEntryButton: THomeButtonAnchor = {
   href: "https://www.bouldercounty.org/homeless/",
   icon: DoorIcon,
   color: colors.rosewood,
-  target: "_blank",
 };
 
 const styles = StyleSheet.create({
@@ -142,12 +122,14 @@ const HomeButtons = function() {
                 }}>
                 <HomeButton
                   buttonColor={leftButton.color}
+                  linkState={leftButton.linkState}
                   text={leftButton.text}
                   icon={leftButton.icon}
                 />
                 <View style={{ width: 8, flexDirection: "row" }} />
                 <HomeButton
                   buttonColor={rightButton.color}
+                  linkState={rightButton.linkState}
                   text={rightButton.text}
                   icon={rightButton.icon}
                 />
