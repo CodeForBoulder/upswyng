@@ -4,7 +4,7 @@ import { colors } from "../App.styles";
 
 const Logo = () => (
   <Svg
-    viewBox="0 0 318.4 80"
+    viewBox="0 0 320 80"
     width="100%"
     height="100%"
     preserveAspectRatio="xMinYMin">
