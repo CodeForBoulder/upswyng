@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "ios" ? 20 : StatusBar.currentHeight,
     flex: 1,
     backgroundColor: colors.charcoal,
-    alignItems: "center",
+    alignItems: "stretch",
     justifyContent: "center",
     paddingLeft: 8,
     paddingRight: 8,

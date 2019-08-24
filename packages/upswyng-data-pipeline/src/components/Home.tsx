@@ -3,7 +3,7 @@ import styled from "styled-components";
 import HomeButtons from "./HomeButtons";
 import { font } from "../App.styles";
 // import SearchInput from "./SearchInput";
-// import AlgoliaBadge from "./AlgoliaBadge";
+import AlgoliaSearchIcon from "../icons/AlgoliaSearch";
 import { StyleSheet } from "react-native";
 import { View } from "react-native";
 
@@ -21,22 +21,10 @@ const Home = () => (
       <SearchInput />
     </View> */}
     <HomeButtons />
-    <View>
-      {/* <View>
-        <a href="https://www.netlify.com">
-          <img
-            src="https://www.netlify.com/img/global/badges/netlify-light.svg"
-            alt="deploys by Netlify"
-          />
-        </a>
-      </View> */}
-    </View>
-    <View>
-      {/* <View>
-        <a href="https://www.algolia.com/">
-          <AlgoliaBadge />
-        </a>
-      </View> */}
+    <View style={styles.footer}>
+      <View>
+        <AlgoliaSearchIcon />
+      </View>
     </View>
   </View>
 );
@@ -44,7 +32,11 @@ const Home = () => (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "100%",
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginBottom: 8,
   },
 });
 
