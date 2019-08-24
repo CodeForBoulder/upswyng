@@ -1,6 +1,19 @@
-import React from "react";
-import { StyleSheet, View, StatusBar, Platform } from "react-native";
-import { NativeRouter, Route } from "react-router-native";
+import React, { useEffect } from "react";
+import {
+  StyleSheet,
+  View,
+  StatusBar,
+  Platform,
+  BackHandler,
+  NativeEventSubscription,
+} from "react-native";
+import {
+  NativeRouter,
+  Route,
+  Switch,
+  withRouter,
+  RouteComponentProps,
+} from "react-router-native";
 import Home from "./src/components/Home";
 import Categories from "./src/components/Categories";
 import { colors } from "./src/App.styles";
@@ -21,25 +34,49 @@ const {
   Wifi,
 } = Categories;
 
+const AppContents = withRouter((props: RouteComponentProps) => {
+  let listener: NativeEventSubscription | null;
+  useEffect(() => {
+    // Make the Android back button make React Router go back
+    listener && listener.remove();
+    listener = BackHandler.addEventListener("hardwareBackPress", () => {
+      if (props.location.pathname === "/") {
+        return false;
+      }
+      props.history.goBack();
+      return true;
+    });
+    return () => {
+      listener && listener.remove();
+    };
+  }, [props.location.pathname]);
+
+  return (
+    <View style={styles.container}>
+      <Header />
+      <Route exact path="/" component={Home} />
+      <Switch>
+        <Route path="/shelters" component={Shelters} />
+        <Route path="/job-training" component={JobTraining} />
+        <Route path="/health" component={Health} />
+        <Route path="/hygiene" component={Hygiene} />
+        {/* <Route  path="/hotlines" component={Hotlines} /> */}
+        <Route path="/food" component={Food} />
+        <Route path="/transit" component={Transit} />
+        {/* <Route  path="/resource" component={Resource} /> */}
+        <Route path="/resources" component={Resources} />
+        <Route path="/social-services" component={SocialServices} />
+        {/* <Route  path="/search" component={Search} /> */}
+        <Route path="/wifi" component={Wifi} />
+      </Switch>
+    </View>
+  );
+});
+
 export default function App() {
   return (
     <NativeRouter>
-      <View style={styles.container}>
-        <Header />
-        <Route exact path="/" component={Home} />
-        <Route exact path="/shelters" component={Shelters} />
-        <Route exact path="/job-training" component={JobTraining} />
-        <Route exact path="/health" component={Health} />
-        <Route exact path="/hygiene" component={Hygiene} />
-        {/* <Route exact path="/hotlines" component={Hotlines} /> */}
-        <Route exact path="/food" component={Food} />
-        <Route exact path="/transit" component={Transit} />
-        {/* <Route exact path="/resource" component={Resource} /> */}
-        <Route exact path="/resources" component={Resources} />
-        <Route exact path="/social-services" component={SocialServices} />
-        {/* <Route exact path="/search" component={Search} /> */}
-        <Route exact path="/wifi" component={Wifi} />
-      </View>
+      <AppContents />
     </NativeRouter>
   );
 }
