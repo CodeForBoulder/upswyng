@@ -1,22 +1,22 @@
 import React from "react";
-import {
-  BananaIcon,
-  BusIcon,
-  BusinessCenterIcon,
-  CallIcon,
-  DoorIcon,
-  HomeIcon,
-  HygieneIcon,
-  LocalHospitalIcon,
-  PeopleIcon,
-  SocksIcon,
-  WifiIcon,
-} from "./Icons";
 import { THomeButtonAnchor, THomeButtonRouterLink } from "../types";
 import { HomeRouterLink, HomeAnchorLink } from "./HomeLink";
 import HomeButton from "./HomeButton";
 import { colors } from "../App.styles";
 import { StyleSheet, View } from "react-native";
+
+import BananaIcon from "../icons/Banana";
+import BusinessCenterIcon from "../icons/BusinessCenter";
+import CallIcon from "../icons/Call";
+import DirectionsBusIcon from "../icons/DirectionsBus";
+import DoorIcon from "../icons/Door";
+import HomeIcon from "../icons/Home";
+import HygieneIcon from "../icons/Hygiene";
+import LocalHospitalIcon from "../icons/LocalHospital";
+import PeopleIcon from "../icons/People";
+import PetsIcon from "../icons/Pets";
+import SocksIcon from "../icons/Socks";
+import WifiIcon from "../icons/Wifi";
 
 const routerLinkButtons: THomeButtonRouterLink[] = [
   {
@@ -45,7 +45,7 @@ const routerLinkButtons: THomeButtonRouterLink[] = [
   },
   {
     text: "Transit",
-    icon: BusIcon,
+    icon: DirectionsBusIcon,
     linkProps: {
       to: "/transit",
     },
@@ -112,7 +112,7 @@ const coordinatedEntryButton: THomeButtonAnchor = {
 const styles = StyleSheet.create({
   twoColumn: {
     alignContent: "stretch",
-    flex: 5.75,
+    flex: 5,
     width: "100%",
   },
   oneColumn: {
@@ -157,11 +157,13 @@ const HomeButtons = function() {
         })}
       </View>
       <View style={styles.oneColumn}>
-        <HomeButton
-          buttonColor={coordinatedEntryButton.color}
-          text={coordinatedEntryButton.text}
-          icon={coordinatedEntryButton.icon}
-        />
+        <View style={{ flex: 1, marginBottom: 12 }}>
+          <HomeButton
+            buttonColor={coordinatedEntryButton.color}
+            text={coordinatedEntryButton.text}
+            icon={coordinatedEntryButton.icon}
+          />
+        </View>
       </View>
     </>
   );

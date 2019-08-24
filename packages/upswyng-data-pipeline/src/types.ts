@@ -86,7 +86,7 @@ export interface TResourceCategory {
 
 interface THomeButtonBase {
   color: string;
-  icon: React.ReactElement<TIconProps>;
+  icon: React.ComponentType<TIconProps>;
   text: string;
 }
 export interface THomeButtonAnchor extends THomeButtonBase {

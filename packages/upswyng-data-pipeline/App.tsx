@@ -3,6 +3,7 @@ import { StyleSheet, View, StatusBar, Platform } from "react-native";
 import { NativeRouter, Route } from "react-router-native";
 import Home from "./src/components/Home";
 import Categories from "./src/components/Categories";
+import { colors } from "./src/App.styles";
 // import Hotlines from "./src/components/Hotlines";
 // import Resource from "./src/components/Resource";
 // import Search from "./src/components/Search";
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: Platform.OS === "ios" ? 20 : StatusBar.currentHeight,
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: colors.charcoal,
     alignItems: "center",
     justifyContent: "center",
   },

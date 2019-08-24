@@ -5,16 +5,15 @@ import {
   TouchableNativeFeedback,
   TouchableOpacity,
   StyleSheet,
-  Text,
   View,
 } from "react-native";
 import { BoldText } from "./UpText";
 import { TIconProps } from "../types";
 
 interface HomeButtonProps {
-  readonly buttonColor: string;
-  readonly text: string;
-  readonly icon: React.ReactElement<TIconProps>;
+  buttonColor: string;
+  text: string;
+  icon: React.ComponentType<TIconProps>;
 }
 
 const Touchable = (Platform.OS === "android"
@@ -22,30 +21,35 @@ const Touchable = (Platform.OS === "android"
   : TouchableOpacity) as React.ReactType;
 
 const HomeButton = (props: HomeButtonProps) => {
+  const Icon = props.icon;
   return (
     <Touchable>
-      <View
-        style={
-          createStyles({
-            color: props.buttonColor || colors.greyDark,
-          }).item
-        }>
-        <BoldText style={textStyle.text}>{props.text}</BoldText>
+      <View style={createStyles(props.buttonColor || colors.greyDark).item}>
+        <BoldText fontSize={20} style={{ color: "#fff" }}>
+          {props.text}
+        </BoldText>
+        <View
+          style={{
+            alignSelf: "flex-end",
+            height: 36,
+            width: 36,
+            justifyContent: "flex-end",
+          }}>
+          <Icon color="#fff" />
+        </View>
       </View>
     </Touchable>
   );
 };
 
-const createStyles = ({ color }: { color: string }) =>
+const createStyles = (color: string) =>
   StyleSheet.create({
     item: {
       backgroundColor: `${color}`,
       padding: 12,
       flex: 1,
-      flexDirection: "row",
+      justifyContent: "space-between",
     },
   });
-
-const textStyle = StyleSheet.create({ text: { color: "white" } });
 
 export default HomeButton;

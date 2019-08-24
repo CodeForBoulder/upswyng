@@ -19,19 +19,18 @@ export function BoldText<T>(props: TUpTextProps<T>) {
     }).then(() => setReady(true));
   });
 
-  return (
+  return isReady ? (
     <Text
       style={[
-        props.style || {},
         {
           fontSize: props.fontSize || 16,
-          fontFamily: isReady ? "open-sans-bold" : "",
-          fontWeight: "700",
+          fontFamily: "open-sans-bold",
         },
+        props.style || {},
       ]}>
       {props.children}
     </Text>
-  );
+  ) : null;
 }
 
 export function RegularText<T>(props: TUpTextProps<T>) {
@@ -42,17 +41,16 @@ export function RegularText<T>(props: TUpTextProps<T>) {
     }).then(() => setReady(true));
   });
 
-  return (
+  return isReady ? (
     <Text
       style={[
-        props.style || {},
         {
           fontSize: props.fontSize || 12,
-          fontFamily: isReady ? "open-sans" : "",
-          fontWeight: "400",
+          fontFamily: "open-sans",
         },
+        props.style || {},
       ]}>
       {props.children}
     </Text>
-  );
+  ) : null;
 }
