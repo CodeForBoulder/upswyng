@@ -8,6 +8,7 @@ import {
   Text,
   View,
 } from "react-native";
+import { BoldText } from "./UpText";
 import { TIconProps } from "../types";
 
 interface HomeButtonProps {
@@ -29,7 +30,7 @@ const HomeButton = (props: HomeButtonProps) => {
             color: props.buttonColor || colors.greyDark,
           }).item
         }>
-        <Text style={textStyle.text}>{props.text}</Text>
+        <BoldText style={textStyle.text}>{props.text}</BoldText>
       </View>
     </Touchable>
   );

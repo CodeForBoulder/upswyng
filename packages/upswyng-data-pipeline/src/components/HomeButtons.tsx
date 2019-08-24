@@ -127,12 +127,13 @@ const HomeButtons = function() {
   return (
     <>
       <View style={styles.twoColumn}>
-        {routerLinkButtons.map((_, i, buttons) => {
+        {routerLinkButtons.map((button, i, buttons) => {
           const leftButton = buttons[i - 1];
           const rightButton = buttons[i];
           if (i % 2 === 1) {
             return (
               <View
+                key={button.text}
                 style={{
                   alignContent: "stretch",
                   flexDirection: "row",
@@ -143,14 +144,12 @@ const HomeButtons = function() {
                   buttonColor={leftButton.color}
                   text={leftButton.text}
                   icon={leftButton.icon}
-                  key={leftButton.text}
                 />
                 <View style={{ width: 12, flexDirection: "row" }} />
                 <HomeButton
                   buttonColor={rightButton.color}
                   text={rightButton.text}
                   icon={rightButton.icon}
-                  key={rightButton.text}
                 />
               </View>
             );
