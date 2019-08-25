@@ -1,6 +1,5 @@
 import React from "react";
 import { THomeButtonAnchor, THomeButtonRouterLink } from "../types";
-import { HomeRouterLink, HomeAnchorLink } from "./HomeLink";
 import HomeButton from "./HomeButton";
 import { colors } from "../App.styles";
 import { StyleSheet, View } from "react-native";
@@ -83,7 +82,7 @@ const routerLinkButtons: THomeButtonRouterLink[] = [
 ];
 
 const coordinatedEntryButton: THomeButtonAnchor = {
-  text: "Coordinated Entry",
+  text: "Boulder Coordinated Entry",
   href: "https://www.bouldercounty.org/homeless/",
   icon: DoorIcon,
   color: colors.rosewood,
@@ -144,6 +143,7 @@ const HomeButtons = function() {
             buttonColor={coordinatedEntryButton.color}
             text={coordinatedEntryButton.text}
             icon={coordinatedEntryButton.icon}
+            href={coordinatedEntryButton.href}
           />
         </View>
       </View>

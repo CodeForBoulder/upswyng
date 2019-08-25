@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   View,
+  Linking,
 } from "react-native";
 import { BoldText } from "./UpText";
 import { TIconProps } from "../types";
@@ -13,9 +14,10 @@ import { withRouter, RouteComponentProps } from "react-router-native";
 
 interface HomeButtonProps extends RouteComponentProps {
   buttonColor: string;
-  linkState: string;
-  text: string;
+  href?: string; // 'href' will override `linkState`
   icon: React.ComponentType<TIconProps>;
+  linkState?: string; // 'href' will override `linkState`
+  text: string;
 }
 
 const Touchable = (Platform.OS === "android"
@@ -25,13 +27,20 @@ const Touchable = (Platform.OS === "android"
 const HomeButton = (props: HomeButtonProps) => {
   const Icon = props.icon;
   const styles = createStyles(props.buttonColor || colors.greyDark);
+  let onPress = () => {};
+  if (props.linkState) {
+    onPress = () => props.history.push(props.linkState);
+  }
+  if (props.href) {
+    onPress = () => Linking.openURL(props.href);
+  }
   return (
     <Touchable
       accessibilityLabel={props.text}
       testID={`button_test_${props.text}`}
-      onPress={() => props.history.push(props.linkState)}>
+      onPress={onPress}>
       <View style={styles.item}>
-        <BoldText fontSize={20} style={{ color: "#fff" }}>
+        <BoldText fontSize={20} style={{ color: colors.white }}>
           {props.text}
         </BoldText>
         <View
