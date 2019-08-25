@@ -1,5 +1,5 @@
 import React from "react";
-import { colors, font } from "../App.styles";
+import { colors } from "../App.styles";
 import {
   Platform,
   TouchableNativeFeedback,
