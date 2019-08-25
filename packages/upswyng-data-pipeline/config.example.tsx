@@ -5,7 +5,7 @@
  */
 import { TEnvVariables } from "./src/types";
 
-const config: TEnvVariables = {
+const config_PUT_YOUR_DATA_HERE: TEnvVariables = {
   REACT_APP_ALGOLIA_ADMIN_API_KEY: "<EXAMPLE VALUE>",
   REACT_APP_ALGOLIA_APP_ID: "8ABD2RTEFV",
   REACT_APP_ALGOLIA_INDEX_NAME: "dev_UPSWYNG",
@@ -19,4 +19,19 @@ const config: TEnvVariables = {
   REACT_APP_GOOGLE_MAPS_API_KEY: "<EXAMPLE VALUE",
 };
 
-export default config;
+/***********************************************/
+/*        DO NOT MODIFY BELOW HERE             */
+/***********************************************/
+
+const c = config_PUT_YOUR_DATA_HERE;
+
+export const firebaseConfig = {
+  apiKey: c.REACT_APP_FIREBASE_API_KEY,
+  authDomain: c.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: c.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: c.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: c.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: c.REACT_APP_FIREBASE_MESSAGE_SENDER_ID,
+};
+
+export default config_PUT_YOUR_DATA_HERE;

@@ -20,6 +20,7 @@ import Categories from "./src/components/Categories";
 import { colors } from "./src/App.styles";
 import * as Font from "expo-font";
 import Header from "./src/components/Header";
+import Resource from "./src/components/Resource";
 
 // import Hotlines from "./src/components/Hotlines";
 // import Resource from "./src/components/Resource";
@@ -75,7 +76,7 @@ const AppContents = withRouter((props: RouteComponentProps) => {
         {/* <Route  path="/hotlines" component={Hotlines} /> */}
         <Route path="/food" component={Food} />
         <Route path="/transit" component={Transit} />
-        {/* <Route  path="/resource" component={Resource} /> */}
+        <Route path="/resource/:id" component={Resource} />
         <Route path="/resources" component={Resources} />
         <Route path="/social-services" component={SocialServices} />
         {/* <Route  path="/search" component={Search} /> */}

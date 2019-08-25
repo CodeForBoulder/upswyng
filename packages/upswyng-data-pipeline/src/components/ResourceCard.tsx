@@ -1,5 +1,4 @@
 import React from "react";
-import { SEARCH_PARAM_RESOURCE } from "../constants";
 import { View } from "react-native";
 import { colors } from "../App.styles";
 import { RegularText, BoldText } from "./UpText";
@@ -15,8 +14,7 @@ const ResourceCard = ({ resourceId, resourceName }: Props) => (
   <Link
     style={{ flex: 1 }}
     to={{
-      pathname: "/resource",
-      search: `?${SEARCH_PARAM_RESOURCE}=${resourceId}`,
+      pathname: `/resource/${resourceId}`,
     }}>
     <View
       style={{ flex: 1, backgroundColor: colors.greyLight, borderRadius: 8 }}>
