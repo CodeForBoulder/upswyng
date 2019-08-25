@@ -1,5 +1,4 @@
 import React from "react";
-import { darken } from "polished";
 import { colors, font } from "../App.styles";
 import {
   Platform,

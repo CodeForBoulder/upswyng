@@ -5,7 +5,7 @@ import { View, BackHandler } from "react-native";
 import CategoryBanner from "./CategoryBanner";
 import SubCategories from "./SubCategories";
 // import SubCategories from "./SubCategories";
-// import SearchResults from "./SearchResults";
+import SearchResults from "./SearchResults";
 
 interface Props {
   category: TResourceCategory;
@@ -20,7 +20,7 @@ const CategoryResults = ({
 }: Props) => {
   const { text: categoryText, query: categoryQuery } = category;
   const [searchQuery, updateSearchQuery] = useState(categoryQuery);
-  // const searchResults = useSearchResults(searchQuery);
+  const searchResults = useSearchResults(searchQuery);
 
   const handleSubCategoryClick = (query: string) => updateSearchQuery(query);
 
@@ -43,8 +43,7 @@ const CategoryResults = ({
           handleSubCategoryClick={handleSubCategoryClick}
         />
       </View>
-      {/* 
-        <SearchResults results={searchResults} /> */}
+      <SearchResults results={searchResults} />
     </View>
   );
 };

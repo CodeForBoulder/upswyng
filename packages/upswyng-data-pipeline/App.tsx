@@ -18,6 +18,7 @@ import Home from "./src/components/Home";
 import Categories from "./src/components/Categories";
 import { colors } from "./src/App.styles";
 import Header from "./src/components/Header";
+
 // import Hotlines from "./src/components/Hotlines";
 // import Resource from "./src/components/Resource";
 // import Search from "./src/components/Search";
