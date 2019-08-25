@@ -12,19 +12,7 @@ interface TUpTextProps<
 }
 
 export function BoldText<T>(props: TUpTextProps<T>) {
-  const [isReady, setReady] = useState(false);
-  const UnstyledText = (
-    <Text
-      style={[
-        {
-          fontSize: props.fontSize || 16,
-        },
-        props.style || {},
-      ]}>
-      {props.children}
-    </Text>
-  );
-  const StyledText = (
+  return (
     <Text
       style={[
         {
@@ -36,29 +24,9 @@ export function BoldText<T>(props: TUpTextProps<T>) {
       {props.children}
     </Text>
   );
-  useEffect(() => {
-    Font.loadAsync({
-      "open-sans-bold": require("../../assets/fonts/OpenSans-Bold.ttf"),
-    }).then(() => setReady(true));
-  });
-
-  return isReady ? StyledText : UnstyledText;
 }
-
 export function RegularText<T>(props: TUpTextProps<T>) {
-  const [isReady, setReady] = useState(false);
-  const UnstyledText = (
-    <Text
-      style={[
-        {
-          fontSize: props.fontSize || 12,
-        },
-        props.style || {},
-      ]}>
-      {props.children}
-    </Text>
-  );
-  const StyledText = (
+  return (
     <Text
       style={[
         {
@@ -70,11 +38,4 @@ export function RegularText<T>(props: TUpTextProps<T>) {
       {props.children}
     </Text>
   );
-  useEffect(() => {
-    Font.loadAsync({
-      "open-sans": require("../../assets/fonts/OpenSans-Regular.ttf"),
-    }).then(() => setReady(true));
-  });
-
-  return isReady ? StyledText : UnstyledText;
 }

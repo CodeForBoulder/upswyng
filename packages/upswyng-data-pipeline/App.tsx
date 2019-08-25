@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -6,6 +6,7 @@ import {
   Platform,
   BackHandler,
   NativeEventSubscription,
+  ActivityIndicator,
 } from "react-native";
 import {
   NativeRouter,
@@ -17,6 +18,7 @@ import {
 import Home from "./src/components/Home";
 import Categories from "./src/components/Categories";
 import { colors } from "./src/App.styles";
+import * as Font from "expo-font";
 import Header from "./src/components/Header";
 
 // import Hotlines from "./src/components/Hotlines";
@@ -52,7 +54,16 @@ const AppContents = withRouter((props: RouteComponentProps) => {
     };
   }, [props.location.pathname]);
 
-  return (
+  // Font loading
+  const [isReady, setReady] = useState(false);
+  useEffect(() => {
+    Font.loadAsync({
+      "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
+      "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
+    }).then(() => setReady(true));
+  });
+
+  return isReady ? (
     <View style={styles.container}>
       <Header />
       <Route exact path="/" component={Home} />
@@ -70,6 +81,10 @@ const AppContents = withRouter((props: RouteComponentProps) => {
         {/* <Route  path="/search" component={Search} /> */}
         <Route path="/wifi" component={Wifi} />
       </Switch>
+    </View>
+  ) : (
+    <View style={styles.container}>
+      <ActivityIndicator size="large" color={colors.orangePrimary} />
     </View>
   );
 });
