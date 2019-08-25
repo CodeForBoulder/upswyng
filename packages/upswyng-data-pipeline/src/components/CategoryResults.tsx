@@ -3,7 +3,7 @@ import { TResourceCategory } from "../types";
 import useSearchResults from "../useSearchResults";
 import { View, BackHandler } from "react-native";
 import CategoryBanner from "./CategoryBanner";
-// import CategoryBanner from "./CategoryBanner";
+import SubCategories from "./SubCategories";
 // import SubCategories from "./SubCategories";
 // import SearchResults from "./SearchResults";
 
@@ -19,10 +19,10 @@ const CategoryResults = ({
   subCategories,
 }: Props) => {
   const { text: categoryText, query: categoryQuery } = category;
-  //   const [searchQuery, updateSearchQuery] = useState(categoryQuery);
-  //   const searchResults = useSearchResults(searchQuery);
+  const [searchQuery, updateSearchQuery] = useState(categoryQuery);
+  // const searchResults = useSearchResults(searchQuery);
 
-  //   const handleSubCategoryClick = (query: string) => updateSearchQuery(query);
+  const handleSubCategoryClick = (query: string) => updateSearchQuery(query);
 
   return (
     <View
@@ -32,13 +32,18 @@ const CategoryResults = ({
         flex: 1,
         alignItems: "stretch",
       }}>
-      <CategoryBanner text={categoryText} color={categoryColor} />
-      {/* <SubCategories
+      <View style={{ marginBottom: 8 }}>
+        <CategoryBanner text={categoryText} color={categoryColor} />
+      </View>
+      <View style={{ marginBottom: 8, marginLeft: -8, marginRight: -8 }}>
+        <SubCategories
           category={category}
-          color={categoryColor}
           subCategories={subCategories}
+          color={categoryColor}
           handleSubCategoryClick={handleSubCategoryClick}
         />
+      </View>
+      {/* 
         <SearchResults results={searchResults} /> */}
     </View>
   );

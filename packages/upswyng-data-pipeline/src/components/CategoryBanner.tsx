@@ -59,14 +59,6 @@ const Touchable = (Platform.OS === "android"
   : TouchableOpacity) as React.ReactType;
 
 const CategoryBanner = ({ color, text, history }: Props) => (
-  //   <CategoryBannerContainer color={color}>
-  //     <CategoryBannerLink to="/">
-  //       <CategoryBannerIcon>
-  //         <CategoryBannerArrowBack />
-  //       </CategoryBannerIcon>
-  //     </CategoryBannerLink>
-  //     <CategoryBannerHeading>{text}</CategoryBannerHeading>
-  //   </CategoryBannerContainer>
   <Touchable
     accessibilityLabel="Go back"
     testID={`test_back_button`}
