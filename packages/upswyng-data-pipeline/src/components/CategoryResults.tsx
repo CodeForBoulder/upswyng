@@ -27,8 +27,6 @@ const CategoryResults = ({
   return (
     <View
       style={{
-        borderColor: "blue",
-        borderWidth: 1,
         flex: 1,
         alignItems: "stretch",
       }}>
