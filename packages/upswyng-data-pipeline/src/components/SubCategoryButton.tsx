@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import { RegularText } from "./UpText";
 import { RouteComponentProps, withRouter } from "react-router";
-import { any } from "prop-types";
 
 interface Props extends RouteComponentProps {
   buttonColor: string;
