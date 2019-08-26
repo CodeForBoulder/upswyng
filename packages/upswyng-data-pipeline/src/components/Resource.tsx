@@ -2,9 +2,6 @@ import React, { Children } from "react";
 import { TResource, TSchedule, TDay } from "../types";
 import useResource from "../useResource";
 import { FIREBASE_RESOURCE_BRANCH } from "../constants";
-// import Details, { DetailBody, DetailHeading } from "./Details";
-// import Schedule from "./Schedule";
-// import Services from "./Services";
 // import Map from "./Map";
 import { orderSchedule } from "../utility/schedule";
 import { withRouter, RouteComponentProps } from "react-router-native";
@@ -42,7 +39,15 @@ export const Resource = (props: Props) => {
   }
 
   const { charityname: resourceName, schedule } = resource;
-  const { address1, address2, city, phone, state, zip } = resource;
+  const {
+    address1,
+    address2,
+    city,
+    phone,
+    servicetype: serviceType,
+    state,
+    zip,
+  } = resource;
 
   return (
     <View style={{ flex: 1 }}>
@@ -63,9 +68,7 @@ export const Resource = (props: Props) => {
         <Heading>Schedule:</Heading>
         <Schedule schedule={schedule} />
         <Heading>Services:</Heading>
-        {/* <DetailBody>
-        <Services resource={resource} />
-      </DetailBody> */}
+        <Services serviceType={serviceType} />
         {/* <Map resource={resource} /> */}
       </ScrollView>
     </View>
@@ -133,3 +136,40 @@ class Schedule extends React.Component<{ schedule: TSchedule[] }> {
     return <Body>Unavailable</Body>;
   }
 }
+
+interface TServicesProps {
+  serviceType: string;
+}
+
+const Services = (props: TServicesProps) => {
+  // technically we should have made sure this was a string
+  // already though data validation, but just for good measure:
+  const s = props.serviceType || "";
+  return (
+    <View style={{ flexDirection: "row", flexWrap: "wrap", marginBottom: 24 }}>
+      {s.split(",").map((item: string, i: number) => {
+        const x = item.trim();
+        if (!x) return null;
+        return (
+          <BoldText
+            fontSize={14}
+            key={i}
+            style={{
+              backgroundColor: colors.greyLight,
+              borderRadius: 24,
+              color: colors.white,
+              flex: 0,
+              marginBottom: 6,
+              marginRight: 8,
+              paddingBottom: 4,
+              paddingLeft: 12,
+              paddingRight: 14,
+              paddingTop: 4,
+            }}>
+            {x}
+          </BoldText>
+        );
+      })}
+    </View>
+  );
+};
