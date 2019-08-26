@@ -1,8 +1,8 @@
-import React, { Children } from "react";
-import { TResource, TSchedule, TDay } from "../types";
+import React from "react";
+import { TResource, TSchedule } from "../types";
 import useResource from "../useResource";
 import { FIREBASE_RESOURCE_BRANCH } from "../constants";
-// import Map from "./Map";
+import Map from "./Map";
 import { orderSchedule } from "../utility/schedule";
 import { withRouter, RouteComponentProps } from "react-router-native";
 import { colors } from "../App.styles";
@@ -28,7 +28,7 @@ const Body = (props: { children: React.ReactChild }) => (
 export const Resource = (props: Props) => {
   const id = props.match.params.id;
   const resourceDataRef = `${FIREBASE_RESOURCE_BRANCH}/${id}`;
-  const resource = useResource(resourceDataRef);
+  const resource: TResource | null = useResource(resourceDataRef);
 
   if (!resource) {
     return (
@@ -69,7 +69,7 @@ export const Resource = (props: Props) => {
         <Schedule schedule={schedule} />
         <Heading>Services:</Heading>
         <Services serviceType={serviceType} />
-        {/* <Map resource={resource} /> */}
+        <Map resource={resource} />
       </ScrollView>
     </View>
   );
