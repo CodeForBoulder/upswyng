@@ -1,11 +1,6 @@
-/**
- * This is an example config file.
- *
- * Rename it `config.tsx` and insert your values below.
- */
 import { TEnvVariables } from "./src/types";
 
-const config_PUT_YOUR_DATA_HERE: TEnvVariables = {
+const config: TEnvVariables = {
   REACT_APP_ALGOLIA_ADMIN_API_KEY: "<EXAMPLE VALUE>",
   REACT_APP_ALGOLIA_APP_ID: "8ABD2RTEFV",
   REACT_APP_ALGOLIA_INDEX_NAME: "dev_UPSWYNG",
@@ -16,14 +11,10 @@ const config_PUT_YOUR_DATA_HERE: TEnvVariables = {
   REACT_APP_FIREBASE_PROJECT_ID: "upswyng-local",
   REACT_APP_FIREBASE_STORAGE_BUCKET: "upswyng-local.appspot.com",
   REACT_APP_FIREBASE_MESSAGE_SENDER_ID: "225583536875",
-  REACT_APP_GOOGLE_MAPS_API_KEY: "<EXAMPLE VALUE",
+  REACT_APP_GOOGLE_MAPS_API_KEY: "<EXAMPLE VALUE>",
 };
 
-/***********************************************/
-/*        DO NOT MODIFY BELOW HERE             */
-/***********************************************/
-
-const c = config_PUT_YOUR_DATA_HERE;
+const c = config;
 
 export const firebaseConfig = {
   apiKey: c.REACT_APP_FIREBASE_API_KEY,
@@ -34,4 +25,4 @@ export const firebaseConfig = {
   messagingSenderId: c.REACT_APP_FIREBASE_MESSAGE_SENDER_ID,
 };
 
-export default config_PUT_YOUR_DATA_HERE;
+export default config;
