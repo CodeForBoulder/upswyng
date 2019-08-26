@@ -2,6 +2,8 @@
 
 Upswyng is a digital directory that contains information on local services and providers who serve the homeless community in the Boulder area.
 
+<img src='readme_android.png' height=600 alt="Upswyng mockup running on a Pixel phone" />
+
 ## Setup
 
 The initial project structure was generated using the [Create React Native App](https://facebook.github.io/react-native/blog/2017/03/13/introducing-create-react-native-app) and is powered by [Expo](https://expo.io/).
