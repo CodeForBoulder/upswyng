@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "algoliasearch": "^3.33.0",
+    "debounce": "^1.2.0",
     "expo": "^34.0.1",
     "expo-font": "^6.0.1",
     "firebase": "^5.8.4",
@@ -24,6 +25,7 @@
     "react-router-native": "^5.0.1"
   },
   "devDependencies": {
+    "@types/debounce": "^1.2.0",
     "@types/react": "^16.9.2",
     "@types/react-native": "^0.57.65",
     "@types/react-native-material-ui": "^1.32.0",

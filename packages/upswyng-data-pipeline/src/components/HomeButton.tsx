@@ -40,15 +40,23 @@ const HomeButton = (props: HomeButtonProps) => {
       testID={`button_test_${props.text}`}
       onPress={onPress}>
       <View style={styles.item}>
-        <BoldText fontSize={20} style={{ color: colors.white }}>
+        <BoldText
+          fontSize={20}
+          style={{
+            color: colors.white,
+            left: 0,
+            marginBottom: -12,
+            position: "relative",
+            top: 0,
+          }}>
           {props.text}
         </BoldText>
         <View
           style={{
             alignSelf: "flex-end",
             height: 36,
+            position: "relative",
             width: 36,
-            justifyContent: "flex-end",
           }}>
           <Icon color="#fff" />
         </View>

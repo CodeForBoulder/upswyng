@@ -20,8 +20,7 @@ const CategoryResults = ({
 }: Props) => {
   const { text: categoryText, query: categoryQuery } = category;
   const [searchQuery, updateSearchQuery] = useState(categoryQuery);
-  const searchResults = useSearchResults(searchQuery);
-
+  const searchHits = useSearchResults(searchQuery);
   const handleSubCategoryClick = (query: string) => updateSearchQuery(query);
 
   return (
@@ -41,7 +40,7 @@ const CategoryResults = ({
           handleSubCategoryClick={handleSubCategoryClick}
         />
       </View>
-      <SearchResults results={searchResults} />
+      <SearchResults searchHits={searchHits} />
     </View>
   );
 };

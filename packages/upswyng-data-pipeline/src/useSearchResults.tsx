@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import algoliaSearch from "algoliasearch";
 import config from "../config";
+import { TResource } from "./types";
 
-function useSearchResults(query: string): algoliaSearch.Response | null {
-  const [
-    searchResults,
-    setSearchResults,
-  ] = useState<algoliaSearch.Response | null>(null);
+export interface TSearchHit {
+  objectId: string | null;
+  resourceName: string | null;
+}
+
+function useSearchResults(query: string): TSearchHit[] | null {
+  const [searchResults, setSearchResults] = useState<TSearchHit[] | null>(null);
 
   useEffect(() => {
     if (query) {
@@ -23,7 +26,14 @@ function useSearchResults(query: string): algoliaSearch.Response | null {
         if (err) {
           throw new Error(err.message);
         }
-        setSearchResults(res);
+        if (res && res.hits) {
+          setSearchResults(res.hits.map(h => ({
+            ...h,
+            objectId: h.objectID,
+            resourceName: h.charityname,
+          })) as TSearchHit[]);
+        }
+        return null;
       });
     }
   }, [query]);
