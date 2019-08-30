@@ -10,3 +10,11 @@ npm-debug.*
 web-build/
 web-report/
 config.ts
+
+# Sapper Server
+.DS_Store
+server/node_modules/
+server/src/node_modules/@sapper/
+yarn-error.log
+/cypress/screenshots/
+/__sapper__/
