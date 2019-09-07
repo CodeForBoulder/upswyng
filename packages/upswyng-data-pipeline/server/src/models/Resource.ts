@@ -120,6 +120,63 @@ export const resourceToSchema = (r: TResource) => {
   };
 };
 
+/**
+ * Convert a resource document from the database into our `TResource` type.
+ * Explicity enumerate keys so we make TypeScript happy.
+ */
+const schemaToResource = (r: any /* schema format */): TResource => ({
+  address: {
+    address1: r.address.address1,
+    address2: r.address.address2,
+    city: r.address.city,
+    state: r.address.state,
+    zip: r.address.zip
+  },
+  closeSchedule: r.closeSchedule,
+  createdAt: r.createdAt,
+  description: r.description,
+  kudos: r.kudos,
+  lastModifiedAt: r.lastModifiedAt,
+  latitude: r.location ? r.location.coordinates[1] : null,
+  legacyId: r.legacyId,
+  longitude: r.location ? r.location.coordinates[0] : null,
+  name: r.name,
+  phone: r.phone,
+  schedule: r.schedule,
+  services: r.services,
+  website: r.website
+});
+
+/**
+ * Takes a legacy object from Strappd and puts it into the database.
+ * If the Resource already exists in the database, this will over write the entry if
+ * the last modified time of the legacy object is newer than the last modified time
+ * of our record.
+ */
+ResourceSchema.statics.addOrUpdateLegacyResource = async function(
+  resource: TLegacyResource,
+  id: string
+): Promise<TResource> {
+  const existingRecord = await this.find({ legacyId: id });
+  if (!existingRecord) {
+    const newRecord = new this(
+      resourceToSchema(legacyResourceToResource(resource))
+    );
+    return newRecord.save().then(r => schemaToResource(r));
+  }
+  const newDate = resource.updateshelter
+    ? new Date(resource.updateshelter)
+    : /* a long time ago */ new Date("1975-01-01");
+  if (newDate > existingRecord.lastModifiedAt) {
+    // update the record and return the updated record
+    existingRecord.set(resourceToSchema(legacyResourceToResource(resource)));
+    return existingRecord.save().then(r=>schemaToResource(r));
+  } else {
+    // return our current record
+    return Promise.resolve(schemaToResource(existingRecord));
+  }
+};
+
 const Resource = mongoose.model("Resource", ResourceSchema);
 
 export default Resource;
