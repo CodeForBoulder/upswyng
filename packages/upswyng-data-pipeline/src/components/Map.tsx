@@ -1,4 +1,4 @@
-import { TResource } from "../types";
+import { TLegacyResource } from "../types";
 import React from "react";
 import MapView, { Marker, Callout } from "react-native-maps";
 import { View } from "react-native";
@@ -6,7 +6,7 @@ import { Resource } from "./Resource";
 import { colors } from "../App.styles";
 import { RegularText, BoldText } from "./UpText";
 
-class Map extends React.Component<{ resource: TResource }> {
+class Map extends React.Component<{ resource: TLegacyResource }> {
   render() {
     const {
       address1,

@@ -1,5 +1,5 @@
 import moment from "moment";
-import { TDay, TSchedule, TSchedulePeriod } from "../types";
+import { TDay, TLegacySchedule, TSchedulePeriod } from "../types";
 
 const orderedPeriods: TSchedulePeriod[] = [
   "First",
@@ -36,7 +36,7 @@ const comparePeriods = (
   period2: TSchedulePeriod
 ): number => orderedPeriods.indexOf(period1) - orderedPeriods.indexOf(period2);
 
-const sortSchedule = (schedule: TSchedule[]) => {
+const sortSchedule = (schedule: TLegacySchedule[]) => {
   return schedule.sort((schedule1, schedule2) => {
     const { period: period1, day: day1, fromstring: startTime1 } = schedule1;
     const { period: period2, day: day2, fromstring: startTime2 } = schedule2;
@@ -54,7 +54,7 @@ const sortSchedule = (schedule: TSchedule[]) => {
   });
 };
 
-export const orderSchedule = (schedule: TSchedule[]) => {
+export const orderSchedule = (schedule: TLegacySchedule[]) => {
   if (schedule && schedule.length) {
     const { type } = schedule[0];
 

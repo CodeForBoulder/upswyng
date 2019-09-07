@@ -1,4 +1,4 @@
-import { TResource } from "./types";
+import { TLegacyResource } from "./types";
 import { useState, useEffect } from "react";
 import firebase from "./firebase";
 
@@ -18,7 +18,7 @@ import firebase from "./firebase";
  *   );
  * };
  */
-function useResource(dataPath: string): TResource | null {
+function useResource(dataPath: string): TLegacyResource | null {
   const [resource, setResource] = useState(null);
   useEffect(() => {
     const firebaseRef = firebase.database().ref(dataPath);

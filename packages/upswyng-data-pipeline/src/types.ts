@@ -1,5 +1,3 @@
-import { LinkProps } from "react-router-native";
-
 export interface TEnvVariables {
   REACT_APP_ALGOLIA_ADMIN_API_KEY: string;
   REACT_APP_ALGOLIA_APP_ID: string;
@@ -23,7 +21,7 @@ export type TDay =
   | "Saturday"
   | "Sunday";
 
-export interface TResource {
+export interface TLegacyResource {
   address1: string;
   address2: string;
   approved: 0 | 1;
@@ -36,7 +34,7 @@ export interface TResource {
   lat: number;
   lng: number;
   phone: string;
-  schedule: TSchedule[];
+  schedule: TLegacySchedule[];
   selectedAll: boolean;
   service: string;
   servicetype: string;
@@ -49,6 +47,31 @@ export interface TResource {
   zip: number;
 }
 
+export interface TAddress {
+  address1: string;
+  address2?: string;
+  city: string;
+  state: string;
+  zip: number;
+}
+
+export interface TResource {
+  address: TAddress;
+  closeSchedule: TCloseSchedule[];
+  createdAt: Date;
+  description: string;
+  kudos: number;
+  lastModifiedAt: Date;
+  latitude: number;
+  legacyId?: string; // ID from strappd
+  longitude: number;
+  name: string;
+  phone: string;
+  schedule: TSchedule[];
+  services: string[]; // maps from servicetype
+  website: string;
+}
+
 export interface TIconProps {
   color?: string;
 }
@@ -57,7 +80,7 @@ export enum TStatusFetch {
   STATUS_NOT_FETCHED = "NOT_FETCHED",
   STATUS_FETCHING = "FETCHING",
   STATUS_FETCH_SUCCESS = "FETCH_SUCCESS",
-  STATUS_FETCH_ERROR = "FETCH_ERROR",
+  STATUS_FETCH_ERROR = "FETCH_ERROR"
 }
 
 export interface TCloseSchedule {
@@ -66,11 +89,19 @@ export interface TCloseSchedule {
   type: string;
 }
 
-export interface TSchedule {
+export interface TLegacySchedule {
   day: TDay;
   period?: TSchedulePeriod;
   fromstring: string;
   tostring: string;
+  type: TScheduleType;
+}
+
+export interface TSchedule {
+  day: TDay;
+  period?: TSchedulePeriod;
+  from: string;
+  to: string;
   type: TScheduleType;
 }
 

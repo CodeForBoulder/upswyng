@@ -1,5 +1,5 @@
 import React from "react";
-import { TResource, TSchedule } from "../types";
+import { TLegacyResource, TLegacySchedule } from "../types";
 import useResource from "../useResource";
 import { FIREBASE_RESOURCE_BRANCH } from "../constants";
 import Map from "./Map";
@@ -28,7 +28,7 @@ const Body = (props: { children: React.ReactChild }) => (
 export const Resource = (props: Props) => {
   const id = props.match.params.id;
   const resourceDataRef = `${FIREBASE_RESOURCE_BRANCH}/${id}`;
-  const resource: TResource | null = useResource(resourceDataRef);
+  const resource: TLegacyResource | null = useResource(resourceDataRef);
 
   if (!resource) {
     return (
@@ -77,8 +77,8 @@ export const Resource = (props: Props) => {
 
 export default withRouter(Resource);
 
-class Schedule extends React.Component<{ schedule: TSchedule[] }> {
-  static WeeklySchedule = ({ schedule }: { schedule: TSchedule[] }) => (
+class Schedule extends React.Component<{ schedule: TLegacySchedule[] }> {
+  static WeeklySchedule = ({ schedule }: { schedule: TLegacySchedule[] }) => (
     <View style={{ marginBottom: 20 }}>
       {schedule.map((line, i) => (
         <View key={i} style={{ flexDirection: "row", marginBottom: 4 }}>
@@ -99,7 +99,7 @@ class Schedule extends React.Component<{ schedule: TSchedule[] }> {
     </View>
   );
 
-  static MonthlySchedule = ({ schedule }: { schedule: TSchedule[] }) => (
+  static MonthlySchedule = ({ schedule }: { schedule: TLegacySchedule[] }) => (
     <>
       {schedule.map(s => {
         const { day, fromstring, period, tostring } = s;
