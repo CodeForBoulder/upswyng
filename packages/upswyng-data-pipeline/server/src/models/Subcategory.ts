@@ -4,6 +4,7 @@ const SubcategorySchema = new Schema({
   name: { type: String, required: true, index: true, unique: true },
   resources: [
     {
+      // corresponds to the `Resource.id` (note: NOT `Resource._id`)
       type: Schema.Types.ObjectId,
       ref: "Resource"
     }
@@ -17,7 +18,7 @@ SubcategorySchema.statics.findByNameOrCreate = async function(name: string) {
   if (result) {
     return result;
   } else {
-    return Promise.resolve(new this({ name }));
+    return new this({ name });
   }
 };
 

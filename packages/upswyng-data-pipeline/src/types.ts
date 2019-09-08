@@ -60,6 +60,7 @@ export interface TResource {
   closeSchedule: TCloseSchedule[];
   createdAt: Date;
   description: string;
+  id: string;
   kudos: number;
   lastModifiedAt: Date;
   latitude: number;

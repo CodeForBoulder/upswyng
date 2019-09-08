@@ -6,6 +6,8 @@
  */
 import mongoose, { Schema } from "mongoose";
 import { TLegacyResource, TResource } from "../../../src/types";
+import Subcategory from "./Subcategory";
+import { ObjectId } from "bson";
 
 export const ResourceSchema = new Schema({
   address /* TAddress */: {
@@ -22,6 +24,14 @@ export const ResourceSchema = new Schema({
   description: {
     type: String,
     required: false // TODO: Make this required
+  },
+  id: {
+    // This is the canonical ID for the resource and should be referenced in
+    // other database entries, URLs, etc.
+    type: Schema.Types.ObjectId,
+    required: true,
+    index: true,
+    unique: true
   },
   kudos: { type: Number, default: 0 },
   lastModifiedAt: { type: Date, default: Date.now, required: true },
@@ -100,11 +110,12 @@ const legacyResourceToResource = (
     address2: r.address2,
     city: r.city,
     state: r.state,
-    zip: r.zip.toString()
+    zip: (r.zip || "").toString()
   },
   closeSchedule: r.closeschedule || [],
   createdAt,
   description: trimQuotes(r.description),
+  id: new ObjectId().toHexString(),
   kudos: r.kudos,
   lastModifiedAt:
     new Date(r.updateshelter) instanceof Date &&
@@ -154,6 +165,7 @@ const schemaToResource = (r: any /* schema format */): TResource => {
     closeSchedule: r.closeSchedule,
     createdAt: r.createdAt,
     description: r.description,
+    id: r.id,
     kudos: r.kudos,
     lastModifiedAt: r.lastModifiedAt,
     latitude: r.location ? r.location.coordinates[1] : null,
@@ -183,6 +195,21 @@ ResourceSchema.statics.addOrUpdateLegacyResource = async function(
     const newRecord = new this(
       resourceToSchema(legacyResourceToResource(resource, new Date(), id))
     );
+    const subcategory = await Subcategory.findOne({
+      name: resource.servicetype
+    });
+    if (subcategory) {
+      (subcategory as any).resources.push(newRecord.id);
+      try {
+        await subcategory.save();
+      } catch (e) {
+        console.log(
+          `There was an error updating subcategory ${
+            (subcategory as any).name
+          }` + `with new Resource with ID: ${newRecord.id}`
+        );
+      }
+    }
     return newRecord.save().then(schemaToResource);
   }
   const newDate = resource.updateshelter

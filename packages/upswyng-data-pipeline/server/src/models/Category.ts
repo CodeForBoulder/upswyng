@@ -17,9 +17,9 @@ const CategorySchema = new Schema({
 CategorySchema.statics.findByNameOrCreate = async function(name: string) {
   const result = await this.findOne({ name });
   if (result) {
-    return Promise.resolve(result);
+    return result;
   } else {
-    return Promise.resolve(new this({ name }));
+    return new this({ name });
   }
 };
 
