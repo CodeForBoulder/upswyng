@@ -7,7 +7,7 @@
 import mongoose, { Schema } from "mongoose";
 import { TLegacyResource, TResource } from "../../../src/types";
 
-const ResourceSchema = new Schema({
+export const ResourceSchema = new Schema({
   address /* TAddress */: {
     address1: String,
     address2: { type: String, required: false },
@@ -79,7 +79,7 @@ const ResourceSchema = new Schema({
       }
     }
   ],
-  services: [{type: String, trim: true}],
+  services: [{ type: String, trim: true }],
   website: String
 });
 
@@ -142,28 +142,44 @@ const resourceToSchema = (r: TResource) => {
  * Convert a resource document from the database into our `TResource` type.
  * Explicity enumerate keys so we make TypeScript happy.
  */
-const schemaToResource = (r: any /* schema format */): TResource => ({
-  address: {
-    address1: r.address.address1,
-    address2: r.address.address2,
-    city: r.address.city,
-    state: r.address.state,
-    zip: r.address.zip
-  },
-  closeSchedule: r.closeSchedule,
-  createdAt: r.createdAt,
-  description: r.description,
-  kudos: r.kudos,
-  lastModifiedAt: r.lastModifiedAt,
-  latitude: r.location ? r.location.coordinates[1] : null,
-  legacyId: r.legacyId,
-  longitude: r.location ? r.location.coordinates[0] : null,
-  name: r.name,
-  phone: r.phone,
-  schedule: r.schedule,
-  services: r.services,
-  website: r.website
-});
+const schemaToResource = (r: any /* schema format */): TResource => {
+  const result = {
+    address: {
+      address1: r.address.address1,
+      address2: r.address.address2,
+      city: r.address.city,
+      state: r.address.state,
+      zip: r.address.zip
+    },
+    closeSchedule: r.closeSchedule,
+    createdAt: r.createdAt,
+    description: r.description,
+    kudos: r.kudos,
+    lastModifiedAt: r.lastModifiedAt,
+    latitude: r.location ? r.location.coordinates[1] : null,
+    legacyId: r.legacyId,
+    longitude: r.location ? r.location.coordinates[0] : null,
+    name: r.name,
+    phone: r.phone,
+    schedule: r.schedule,
+    services: r.services,
+    website: r.website
+  };
+  removeBlankKeys(result);
+  return result;
+};
+
+/**
+ * Recursively remove blank keys from an object which have `undefined` values
+ */
+const removeBlankKeys = <T extends Object>(x: T): void => {
+  Object.keys(x).forEach(key => x[key] === undefined && delete x[key]);
+  for (let [_, v] of Object.entries(x)) {
+    if (typeof v === "object") {
+      removeBlankKeys(v);
+    }
+  }
+};
 
 /**
  * Takes a legacy object from Strappd and puts it into the database.
