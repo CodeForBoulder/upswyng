@@ -165,20 +165,7 @@ const schemaToResource = (r: any /* schema format */): TResource => {
     services: r.services,
     website: r.website
   };
-  removeBlankKeys(result);
   return result;
-};
-
-/**
- * Recursively remove blank keys from an object which have `undefined` values
- */
-const removeBlankKeys = <T extends Object>(x: T): void => {
-  Object.keys(x).forEach(key => x[key] === undefined && delete x[key]);
-  for (let [_, v] of Object.entries(x)) {
-    if (typeof v === "object") {
-      removeBlankKeys(v);
-    }
-  }
 };
 
 /**
@@ -196,7 +183,7 @@ ResourceSchema.statics.addOrUpdateLegacyResource = async function(
     const newRecord = new this(
       resourceToSchema(legacyResourceToResource(resource, new Date(), id))
     );
-    return newRecord.save().then(r => schemaToResource(r));
+    return newRecord.save().then(schemaToResource);
   }
   const newDate = resource.updateshelter
     ? new Date(resource.updateshelter)
@@ -206,7 +193,7 @@ ResourceSchema.statics.addOrUpdateLegacyResource = async function(
     existingRecord.set(
       resourceToSchema(legacyResourceToResource(resource, new Date(), id))
     );
-    return existingRecord.save().then(r => schemaToResource(r));
+    return existingRecord.save().then(schemaToResource);
   } else {
     // return our current record
     return Promise.resolve(schemaToResource(existingRecord));
@@ -223,12 +210,12 @@ ResourceSchema.statics.getById = async function(
   return this.findOne({ _id: id }).then(schemaToResource);
 };
 
-const _Resource = mongoose.model("Resource", ResourceSchema);
+const Resource = mongoose.model("Resource", ResourceSchema);
 
-export default {
-  addOrUpdateLegacyResource: (_Resource as any).addOrUpdateLegacyResource as (
+export default Resource as typeof Resource & {
+  addOrUpdateLegacyResource: (
     id: string,
     resource: TLegacyResource
-  ) => Promise<TResource>,
-  getById: (_Resource as any).getById as (id: string) => Promise<TResource>
+  ) => Promise<TResource>;
+  getById: (id: string) => Promise<TResource>;
 };

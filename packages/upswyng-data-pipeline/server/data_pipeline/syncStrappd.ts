@@ -31,7 +31,7 @@ mongoose
   )
   .then(() => {
     const bar = new cliProgress.Bar(
-      {},
+      { etaBuffer: 100 },
       cliProgress.Presets.rect
     );
 
@@ -55,13 +55,14 @@ mongoose
           try {
             await Resource.addOrUpdateLegacyResource(id, legacyResource);
           } catch (e) {
-            console.log(
-              `Error saving record ${id}:\n${e}\nOriginal Data:\n${JSON.stringify(
-                legacyResource,
-                null,
-                2
-              )}\n`
-            );
+            console.log(e);
+            // console.log(
+            //   `Error saving record ${id}:\n${e}\nOriginal Data:\n${JSON.stringify(
+            //     legacyResource,
+            //     null,
+            //     2
+            //   )}\n`
+            // );
           }
           bar.update(currentRecord++);
         }
