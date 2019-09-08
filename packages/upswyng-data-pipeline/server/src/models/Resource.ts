@@ -79,7 +79,7 @@ const ResourceSchema = new Schema({
       }
     }
   ],
-  services: [String],
+  services: [{type: String, trim: true}],
   website: String
 });
 
@@ -124,7 +124,7 @@ const legacyResourceToResource = (
     to: s.tostring,
     type: s.type
   })),
-  services: r.servicetype.split(",").map(x => x.trim()),
+  services: r.servicetype.split(","),
   website: r.website
 });
 
