@@ -1,3 +1,9 @@
+/**
+ * Schema, accessor methods, and mutation methods for an entity which
+ * represents a resource for a person experiencing homelessness. Users of
+ * `Resource` should only be interacting with `TResource` and `TLegacyResource`;
+ * the internal schema is abstracted away by the logic in this module.
+ */
 import mongoose, { Schema } from "mongoose";
 import { TLegacyResource, TResource } from "../../../src/types";
 
@@ -191,13 +197,22 @@ ResourceSchema.statics.addOrUpdateLegacyResource = async function(
   }
 };
 
-const Resource = mongoose.model("Resource", ResourceSchema);
-
-type TUpResource = typeof Resource & {
-  addOrUpdateLegacyResource: (
-    id: string,
-    resource: TLegacyResource
-  ) => Promise<TResource>;
+/**
+ * Retrieve a resource by its ID. Converts the Resource document to a
+ * `TResource`.
+ */
+ResourceSchema.statics.getById = async function(
+  id: string
+): Promise<TResource> {
+  return this.findOne({ _id: id }).then(schemaToResource);
 };
 
-export default Resource as TUpResource;
+const _Resource = mongoose.model("Resource", ResourceSchema);
+
+export default {
+  addOrUpdateLegacyResource: (_Resource as any).addOrUpdateLegacyResource as (
+    id: string,
+    resource: TLegacyResource
+  ) => Promise<TResource>,
+  getById: (_Resource as any).getById as (id: string) => Promise<TResource>
+};

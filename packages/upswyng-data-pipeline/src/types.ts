@@ -100,7 +100,7 @@ export interface TLegacySchedule {
 
 export interface TSchedule {
   day?: TDay;
-  date: string;
+  date?: string;
   period?: TSchedulePeriod;
   from?: string;
   to?: string;
