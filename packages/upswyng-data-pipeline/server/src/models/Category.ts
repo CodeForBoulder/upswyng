@@ -31,6 +31,10 @@ CategorySchema.statics.findByNameOrCreate = async function(name: string) {
   }
 };
 
+CategorySchema.statics.getCategoryList = async function() {
+  return await this.find();
+};
+
 /**
  * Creates or finds an existing subcategory by its name and adds
  * it as a child of this category
@@ -48,4 +52,5 @@ const Category = mongoose.model<TCategoryFields>("Category", CategorySchema);
 
 export default Category as typeof Category & {
   findByNameOrCreate: (name: string) => Promise<Schema<TCategoryFields>>;
+  getCategoryList: () => Promise<{ name: string; color: string }[]>;
 };
