@@ -7,13 +7,16 @@ const ResourceSchema = new Schema({
     address2: { type: String, required: false },
     city: String,
     state: String,
-    zip: Number
+    zip: String
   },
   closesSchedule /* TClosesSchedule[] */: [
     { day: String, period: String, type: String }
   ],
   createdAt: { type: Date, default: Date.now, required: true },
-  description: { type: String, required: true },
+  description: {
+    type: String,
+    required: false // TODO: Make this required
+  },
   kudos: { type: Number, default: 0 },
   lastModifiedAt: { type: Date, default: Date.now, required: true },
   legacyId: { type: String, required: false, index: true },
@@ -35,7 +38,7 @@ const ResourceSchema = new Schema({
     {
       day: {
         type: String,
-        required: true,
+        required: false,
         enum: [
           "Monday",
           "Tuesday",
@@ -46,22 +49,26 @@ const ResourceSchema = new Schema({
           "Sunday"
         ]
       },
+      date: {
+        type: String,
+        required: false
+      },
       period: {
         type: String,
         required: false,
-        enum: ["First", "Second", "Third", "Fourth"]
+        enum: ["Last", "First", "Second", "Third", "Fourth", "Fifth"]
       },
       from: {
         type: String,
-        required: true
+        required: false
       },
       to: {
         type: String,
-        required: true
+        required: false
       },
       type: {
         type: String,
-        enum: ["Weekly", "Monthly", "Open 24/7"],
+        enum: ["Weekly", "Monthly", "Open 24/7", "Date Range"],
         required: true
       }
     }
@@ -77,7 +84,7 @@ const trimQuotes = (s: string): string => {
   return s;
 };
 
-export const legacyResourceToResource = (
+const legacyResourceToResource = (
   r: TLegacyResource,
   createdAt: Date = new Date(),
   id?: string
@@ -87,30 +94,35 @@ export const legacyResourceToResource = (
     address2: r.address2,
     city: r.city,
     state: r.state,
-    zip: r.zip
+    zip: r.zip.toString()
   },
-  closeSchedule: r.closeschedule,
+  closeSchedule: r.closeschedule || [],
   createdAt,
   description: trimQuotes(r.description),
   kudos: r.kudos,
-  lastModifiedAt: new Date(r.updateshelter),
+  lastModifiedAt:
+    new Date(r.updateshelter) instanceof Date &&
+    !isNaN(new Date(r.updateshelter).valueOf())
+      ? new Date(r.updateshelter)
+      : new Date(),
   latitude: r.lat,
   legacyId: id,
   longitude: r.lng,
   name: r.charityname,
   phone: r.phone,
-  schedule: r.schedule.map(s => ({
+  schedule: (r.schedule || []).map(s => ({
     day: s.day,
+    date: s.date,
     period: s.period,
     from: s.fromstring,
     to: s.tostring,
     type: s.type
   })),
-  services: r.servicetype.split(","),
+  services: r.servicetype.split(",").map(x => x.trim()),
   website: r.website
 });
 
-export const resourceToSchema = (r: TResource) => {
+const resourceToSchema = (r: TResource) => {
   let result = { ...r };
   delete result.latitude;
   delete result.longitude;
@@ -154,13 +166,13 @@ const schemaToResource = (r: any /* schema format */): TResource => ({
  * of our record.
  */
 ResourceSchema.statics.addOrUpdateLegacyResource = async function(
-  resource: TLegacyResource,
-  id: string
+  id: string,
+  resource: TLegacyResource
 ): Promise<TResource> {
-  const existingRecord = await this.find({ legacyId: id });
+  const existingRecord = await this.findOne({ legacyId: id });
   if (!existingRecord) {
     const newRecord = new this(
-      resourceToSchema(legacyResourceToResource(resource))
+      resourceToSchema(legacyResourceToResource(resource, new Date(), id))
     );
     return newRecord.save().then(r => schemaToResource(r));
   }
@@ -169,8 +181,10 @@ ResourceSchema.statics.addOrUpdateLegacyResource = async function(
     : /* a long time ago */ new Date("1975-01-01");
   if (newDate > existingRecord.lastModifiedAt) {
     // update the record and return the updated record
-    existingRecord.set(resourceToSchema(legacyResourceToResource(resource)));
-    return existingRecord.save().then(r=>schemaToResource(r));
+    existingRecord.set(
+      resourceToSchema(legacyResourceToResource(resource, new Date(), id))
+    );
+    return existingRecord.save().then(r => schemaToResource(r));
   } else {
     // return our current record
     return Promise.resolve(schemaToResource(existingRecord));
@@ -179,4 +193,11 @@ ResourceSchema.statics.addOrUpdateLegacyResource = async function(
 
 const Resource = mongoose.model("Resource", ResourceSchema);
 
-export default Resource;
+type TUpResource = typeof Resource & {
+  addOrUpdateLegacyResource: (
+    id: string,
+    resource: TLegacyResource
+  ) => Promise<TResource>;
+};
+
+export default Resource as TUpResource;

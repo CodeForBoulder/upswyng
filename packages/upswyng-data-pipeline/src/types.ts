@@ -44,7 +44,7 @@ export interface TLegacyResource {
   useremail: string;
   userid: string;
   website: string;
-  zip: number;
+  zip: string;
 }
 
 export interface TAddress {
@@ -52,7 +52,7 @@ export interface TAddress {
   address2?: string;
   city: string;
   state: string;
-  zip: number;
+  zip: string;
 }
 
 export interface TResource {
@@ -91,6 +91,7 @@ export interface TCloseSchedule {
 
 export interface TLegacySchedule {
   day: TDay;
+  date: string;
   period?: TSchedulePeriod;
   fromstring: string;
   tostring: string;
@@ -98,16 +99,23 @@ export interface TLegacySchedule {
 }
 
 export interface TSchedule {
-  day: TDay;
+  day?: TDay;
+  date: string;
   period?: TSchedulePeriod;
-  from: string;
-  to: string;
+  from?: string;
+  to?: string;
   type: TScheduleType;
 }
 
-export type TSchedulePeriod = "First" | "Second" | "Third" | "Fourth";
+export type TSchedulePeriod =
+  | "Last"
+  | "First"
+  | "Second"
+  | "Third"
+  | "Fourth"
+  | "Fifth";
 
-export type TScheduleType = "Weekly" | "Monthly" | "Open 24/7";
+export type TScheduleType = "Weekly" | "Monthly" | "Open 24/7" | "Date Range";
 
 export interface TResourceCategory {
   text: string;
