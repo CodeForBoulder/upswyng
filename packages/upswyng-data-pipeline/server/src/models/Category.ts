@@ -1,5 +1,13 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 import Subcategory from "./Subcategory";
+
+export interface TCategoryFields extends Document {
+  name: string;
+  color: string;
+  subcategories: Schema.Types.ObjectId[];
+  createdAt: Date;
+  lastModifiedAt: Date;
+}
 
 const CategorySchema = new Schema({
   name: { type: String, required: true, index: true, unique: true },
@@ -36,8 +44,8 @@ CategorySchema.methods.addSubcategory = async function(
   return this.save();
 };
 
-const Category = mongoose.model("Category", CategorySchema);
+const Category = mongoose.model<TCategoryFields>("Category", CategorySchema);
 
 export default Category as typeof Category & {
-  findByNameOrCreate: (name: string) => Promise<Schema<any>>;
+  findByNameOrCreate: (name: string) => Promise<Schema<TCategoryFields>>;
 };

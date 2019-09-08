@@ -1,4 +1,11 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
+
+export interface TSubcategoryFields extends Document {
+  name: string;
+  resources: Schema.Types.ObjectId[];
+  createdAt: Date;
+  lastModifiedAt: Date;
+}
 
 const SubcategorySchema = new Schema({
   name: { type: String, required: true, index: true, unique: true },
@@ -22,8 +29,13 @@ SubcategorySchema.statics.findByNameOrCreate = async function(name: string) {
   }
 };
 
-const Subcategory = mongoose.model("Subcategory", SubcategorySchema);
+const Subcategory = mongoose.model<TSubcategoryFields>(
+  "Subcategory",
+  SubcategorySchema
+);
 
-export default Subcategory as typeof Subcategory & {
-  findByNameOrCreate: (name: string) => Promise<Schema<any>>;
-};
+export interface TSubcategory extends mongoose.Model<TSubcategoryFields, {}> {
+  findByNameOrCreate: (name: string) => Promise<Schema<TSubcategoryFields>>;
+}
+
+export default Subcategory as TSubcategory;
