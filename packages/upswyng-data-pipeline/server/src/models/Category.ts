@@ -2,15 +2,17 @@ import mongoose, { Schema, Document } from "mongoose";
 import Subcategory from "./Subcategory";
 
 export interface TCategoryFields extends Document {
-  name: string;
   color: string;
-  subcategories: Schema.Types.ObjectId[];
   createdAt: Date;
   lastModifiedAt: Date;
+  name: string;
+  stub: string;
+  subcategories: Schema.Types.ObjectId[];
 }
 
 const CategorySchema = new Schema({
-  name: { type: String, required: true, index: true, unique: true },
+  name: { type: String, required: true },
+  stub: { type: String, lowercase: true, required: true, trim: true, unique: true },
   color: String,
   subcategories: [
     {
@@ -22,12 +24,12 @@ const CategorySchema = new Schema({
   lastModifiedAt: { type: Date, default: Date.now, required: true }
 });
 
-CategorySchema.statics.findByNameOrCreate = async function(name: string) {
-  const result = await this.findOne({ name });
+CategorySchema.statics.findOrCreate = async function(name: string, stub: string) {
+  const result = await this.findOne({ name, stub });
   if (result) {
     return result;
   } else {
-    return new this({ name });
+    return new this({ name, stub });
   }
 };
 
@@ -40,9 +42,9 @@ CategorySchema.statics.getCategoryList = async function() {
  * it as a child of this category
  */
 CategorySchema.methods.addSubcategory = async function(
-  subcategoryName: string
+  subcategoryName: string, subcategoryStub:string
 ) {
-  const subcategory = await Subcategory.findByNameOrCreate(subcategoryName);
+  const subcategory = await Subcategory.findOrCreate(subcategoryName, subcategoryStub);
   await (subcategory as any).save();
   this.subcategories.push((subcategory as any)._id);
   return this.save();
@@ -51,6 +53,6 @@ CategorySchema.methods.addSubcategory = async function(
 const Category = mongoose.model<TCategoryFields>("Category", CategorySchema);
 
 export default Category as typeof Category & {
-  findByNameOrCreate: (name: string) => Promise<Schema<TCategoryFields>>;
-  getCategoryList: () => Promise<{ name: string; color: string }[]>;
+  findOrCreate: (name: string, stub: string) => Promise<Schema<TCategoryFields>>;
+  getCategoryList: () => Promise<{ name: string; color: string, stub: string }[]>;
 };

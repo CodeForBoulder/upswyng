@@ -1,14 +1,16 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface TSubcategoryFields extends Document {
-  name: string;
-  resources: Schema.Types.ObjectId[];
   createdAt: Date;
   lastModifiedAt: Date;
+  name: string;
+  resources: Schema.Types.ObjectId[];
+  stub:string;
 }
 
 const SubcategorySchema = new Schema({
-  name: { type: String, required: true, index: true, unique: true },
+  name: { type: String, required: true },
+  stub: { type: String, lowercase: true, required: true, trim: true, unique: true },
   resources: [
     {
       // corresponds to the `Resource.id` (note: NOT `Resource._id`)
@@ -20,12 +22,12 @@ const SubcategorySchema = new Schema({
   lastModifiedAt: { type: Date, default: Date.now, required: true }
 });
 
-SubcategorySchema.statics.findByNameOrCreate = async function(name: string) {
-  const result = await this.findOne({ name });
+SubcategorySchema.statics.findOrCreate = async function(name: string, stub: string) {
+  const result = await this.findOne({ name, stub });
   if (result) {
     return result;
   } else {
-    return new this({ name });
+    return new this({ name, stub });
   }
 };
 
@@ -35,7 +37,7 @@ const Subcategory = mongoose.model<TSubcategoryFields>(
 );
 
 export interface TSubcategory extends mongoose.Model<TSubcategoryFields, {}> {
-  findByNameOrCreate: (name: string) => Promise<Schema<TSubcategoryFields>>;
+  findOrCreate: (name: string, stub: string) => Promise<Schema<TSubcategoryFields>>;
 }
 
 export default Subcategory as TSubcategory;

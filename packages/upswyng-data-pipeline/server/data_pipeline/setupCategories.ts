@@ -4,91 +4,119 @@ import Category from "../src/models/Category";
 
 dotenv.config();
 
-const categories: { name: string; color: string; subcategories: string[] }[] = [
+const categories: {
+  name: string;
+  color: string;
+  stub: string;
+  subcategories: { name: string; stub: string }[];
+}[] = [
   {
-    name: "Food",
     color: "gold",
-    subcategories: ["Meals", "Food Pantries"]
+    name: "Food",
+    stub: "food",
+    subcategories: [
+      { name: "Meals", stub: "meals" },
+      { name: "Food Pantries", stub: "food_pantries" }
+    ]
   },
   {
-    name: "Health",
     color: "red",
+    name: "Health",
+    stub: "health",
     subcategories: [
-      "Addiction Recovery Services",
-      "Clinics",
-      "Dental",
-      "Hospital",
-      "Mental",
-      "Pharmacies",
-      "Vision"
+      {
+        name: "Addiction Recovery Services",
+        stub: "addiction_recovery_services"
+      },
+      { name: "Clinics", stub: "clinics" },
+      { name: "Dental", stub: "dental" },
+      { name: "Hospital", stub: "hospital" },
+      { name: "Mental", stub: "mental" },
+      { name: "Pharmacies", stub: "pharmacies" },
+      { name: "Vision", stub: "vision" }
     ]
   },
   {
-    name: "Hygiene",
     color: "teal",
+    name: "Hygiene",
+    stub: "hygiene",
     subcategories: [
-      "Feminine Products",
-      "Water Fountains",
-      "Showers",
-      "Restrooms"
+      { name: "Feminine Products", stub: "feminine_products" },
+      { name: "Water Fountains", stub: "water_fountains" },
+      { name: "Showers", stub: "showers" },
+      { name: "Restrooms", stub: "restrooms" }
     ]
   },
   {
-    name: "Job Training",
     color: "lavendar",
+    name: "Job Training",
+    stub: "job_training",
     subcategories: [
-      "Craigs List",
-      "Temp Agency",
-      "Day Labor",
-      "Ready to Work",
-      "Career Counseling"
+      { name: "Craigs List", stub: "craigslist" },
+      { name: "Temp Agency", stub: "temp_agency" },
+      { name: "Day Labor", stub: "day_labor" },
+      { name: "Ready to Work", stub: "ready_to_work" },
+      { name: "Career Counseling", stub: "career_counseling" }
     ]
   },
   {
-    name: "Resources",
     color: "purple",
+    name: "Resources",
+    stub: "resources",
     subcategories: [
-      "Pets",
-      "Hair Care",
-      "Laundry",
-      "Legal Help",
-      "Outdoor Gear",
-      "Home Goods",
-      "Shoes",
-      "Clothing"
+      { name: "Pets", stub: "pets" },
+      { name: "Hair Care", stub: "hair_care" },
+      { name: "Laundry", stub: "laundry" },
+      { name: "Legal Help", stub: "legal_help" },
+      { name: "Outdoor Gear", stub: "outdoor_gear" },
+      { name: "Home Goods", stub: "home_goods" },
+      { name: "Shoes", stub: "shoes" },
+      { name: "Clothing", stub: "clothing" }
     ]
   },
   {
-    name: "Shelters",
     color: "orangePrimary",
+    name: "Shelters",
+    stub: "shelters",
     subcategories: [
-      "Pregnant",
-      "Abused",
-      "Youth",
-      "Family",
-      "Transitional",
-      "Temporary",
-      "Emergency"
+      { name: "Pregnant", stub: "pregnant" },
+      { name: "Abused", stub: "abused" },
+      { name: "Youth", stub: "youth" },
+      { name: "Family", stub: "family" },
+      { name: "Transitional", stub: "transitional" },
+      { name: "Temporary", stub: "temporary" },
+      { name: "Emergency", stub: "emergency" }
     ]
   },
   {
-    name: "Social Services",
     color: "brown",
+    name: "Social Services",
+    stub: "social_services",
     subcategories: [
-      "Social Security",
-      "Health and Human Services",
-      "Food Stamps"
+      { name: "Social Security", stub: "social_security" },
+      { name: "Health and Human Services", stub: "health_and_human_services" },
+      { name: "Food Stamps", stub: "food_stamps" }
     ]
   },
   {
-    name: "Transit",
     color: "green",
-    subcategories: ["Bus", "Bicycle", "Lite Rail"]
+    name: "Transit",
+    stub: "transit",
+    subcategories: [
+      { name: "Bus", stub: "bus" },
+      { name: "Bicycle", stub: "bicycle" },
+      { name: "Lite Rail", stub: "lite_rail" }
+    ]
   },
   {
-    name: "Wifi",
     color: "blue",
-    subcategories: ["Free Wifi", "Public Computer", "Charging"]
+    name: "Wifi",
+    stub: "wifi",
+    subcategories: [
+      { name: "Free Wifi", stub: "free_wifi" },
+      { name: "Public Computer", stub: "public_computer" },
+      { name: "Charging", stub: "charging" }
+    ]
   }
 ];
 
@@ -114,9 +142,9 @@ mongoose
   )
   .then(async () => {
     for (const category of categories) {
-      const categoryRecord = await Category.findByNameOrCreate(category.name);
+      const categoryRecord = await Category.findOrCreate(category.name, category.stub);
       for (const subcategory of category.subcategories) {
-        await (categoryRecord as any).addSubcategory(subcategory);
+        await (categoryRecord as any).addSubcategory(subcategory.name, subcategory.stub);
       }
       await (categoryRecord as any).save();
     }
