@@ -23,7 +23,9 @@
 <div class="content">
   <ul>
     {#each subcategory.resources as resource}
-      <li>{resource.name}</li>
+      <li>
+        <a href={`resource/${resource.id}`}>{resource.name}</a>
+      </li>
     {/each}
   </ul>
 </div>

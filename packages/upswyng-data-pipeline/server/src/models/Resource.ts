@@ -233,7 +233,7 @@ ResourceSchema.statics.addOrUpdateLegacyResource = async function(
 ResourceSchema.statics.getById = async function(
   id: string
 ): Promise<TResource> {
-  return this.findOne({ _id: id }).then(schemaToResource);
+  return this.findOne({ id }).then(schemaToResource);
 };
 
 const Resource = mongoose.model("Resource", ResourceSchema);
