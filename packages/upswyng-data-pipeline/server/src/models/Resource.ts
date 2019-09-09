@@ -4,10 +4,9 @@
  * `Resource` should only be interacting with `TResource` and `TLegacyResource`;
  * the internal schema is abstracted away by the logic in this module.
  */
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 import { TLegacyResource, TResource } from "../../../src/types";
 import Subcategory from "./Subcategory";
-import { ObjectId } from "bson";
 
 export const ResourceSchema = new Schema({
   address /* TAddress */: {
@@ -115,7 +114,7 @@ const legacyResourceToResource = (
   closeSchedule: r.closeschedule || [],
   createdAt,
   description: trimQuotes(r.description),
-  id: new ObjectId().toHexString(),
+  id: new Types.ObjectId().toHexString(),
   kudos: r.kudos,
   lastModifiedAt:
     new Date(r.updateshelter) instanceof Date &&

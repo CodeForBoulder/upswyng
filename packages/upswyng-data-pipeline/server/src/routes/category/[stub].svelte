@@ -23,7 +23,9 @@
 <div class="content">
   <ul>
     {#each category.subcategories as subcategory}
-      <li>{subcategory.name}</li>
+      <a href={`../subcategory/${subcategory.stub}`}>
+        <li>{subcategory.name}</li>
+      </a>
     {/each}
   </ul>
 </div>
