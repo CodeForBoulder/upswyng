@@ -57,7 +57,6 @@
   <img alt="Borat" src="great-success.png" />
   <figcaption>HIGH FIVE!</figcaption>
 </figure>
-<div>{JSON.stringify(grant, null, 2)}</div>
 
 <p>
   <strong>

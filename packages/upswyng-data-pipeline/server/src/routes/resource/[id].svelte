@@ -19,8 +19,8 @@
 </svelte:head>
 
 <h1>{resource.name}</h1>
-
 <div class="content">
+  <p>ID: {resource.id}</p>
   <p>{resource.description}</p>
-  <p>{JSON.stringify(resource.address,null,2)}</p>
+  <p>{JSON.stringify(resource.address, null, 2)}</p>
 </div>
