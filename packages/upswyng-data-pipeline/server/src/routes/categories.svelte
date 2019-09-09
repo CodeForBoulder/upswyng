@@ -21,7 +21,9 @@
 {#if categories.length}
   <ul>
     {#each categories as category}
-      <li>{category.name}</li>
+      <li>
+        <a href={`../category/${category.stub}`}>{category.name}</a>
+      </li>
     {/each}
   </ul>
 {:else}

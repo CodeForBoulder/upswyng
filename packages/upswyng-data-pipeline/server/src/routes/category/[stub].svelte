@@ -20,4 +20,10 @@
 
 <h1>{category.name}</h1>
 
-<div class="content">{JSON.stringify(category, null, 2)}</div>
+<div class="content">
+  <ul>
+    {#each category.subcategories as subcategory}
+      <li>{subcategory.name}</li>
+    {/each}
+  </ul>
+</div>
