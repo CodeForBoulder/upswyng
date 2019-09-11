@@ -11,8 +11,20 @@ const charityDetails: TQuestionMap = {
   servicetype: 1330295798
 };
 
+const publicContactInfo = {
+  address1: 1476826077,
+  address2: 924605331,
+  city: 357517818,
+  phone: 208446925,
+  state: 121062456,
+  useremail: 1767539604,
+  website: 739996235,
+  zip: 566189547
+};
+
 const questionMap: TQuestionMap = {
-  ...charityDetails
+  ...charityDetails,
+  ...publicContactInfo
 };
 
 const baseUrl =
@@ -41,6 +53,7 @@ const getQuestionUrlParam = (key: string, value: any) => {
 };
 
 const generatePreFilledLink = (resource: TResource) => {
+  console.log(resource);
   const urlParams = Object.entries(questionMap).map(([resourceProp]) =>
     getQuestionUrlParam(resourceProp, resource[resourceProp])
   );
@@ -49,17 +62,6 @@ const generatePreFilledLink = (resource: TResource) => {
 };
 
 export default generatePreFilledLink;
-
-// const publicContactInfo = {
-//   address1: 1476826077,
-//   address2: 924605331,
-//   city: 357517818,
-//   phone: 208446925,
-//   state: 121062456,
-//   useremail: 1767539604,
-//   website: 739996235,
-//   zip: 566189547,
-// }
 
 // const schedules = {
 //   closeschedule: TCloseSchedule[];
