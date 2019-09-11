@@ -1,7 +1,63 @@
 import { TResource } from '../types';
 
+interface TCategoryQuestionValue {
+  value: string;
+  synonyms: string[];
+}
+interface TCategoryQuestionMap {
+  questionNum: number;
+  values: TCategoryQuestionValue[];
+  [key: string]: number | TCategoryQuestionValue[];
+}
+
+const foodCategoryQuestionMap: TCategoryQuestionMap = {
+  questionNum: 339162976,
+  values: [
+    {
+      value: 'Food Pantry',
+      synonyms: ['pantry', 'food share', 'food co-op', 'market']
+    },
+    {
+      value: 'Meals',
+      synonyms: [
+        'meal',
+        'breakfast',
+        'lunch',
+        'dinner',
+        'supper',
+        'soup kitchen'
+      ]
+    }
+  ]
+};
+
+const healthCategoryQuestionMap = {
+  questionNum: 692757337,
+  values: [
+    {
+      value: 'addiction recovery services',
+      synonyms: []
+    },
+    {
+      value: 'clinic',
+      synonyms: []
+    },
+    { value: 'dental', synonyms: [] },
+    { value: 'hospital', synonyms: [] },
+    { value: 'mental', synonyms: [] },
+    { value: 'pharmacy', synonyms: [] },
+    { value: 'vision', synonyms: [] }
+  ]
+};
+
+const categoryQuestionMap = {
+  food: foodCategoryQuestionMap,
+  health: healthCategoryQuestionMap
+};
+
+// the number value refers to which Google form question number the corresponding resource property maps to
 interface TQuestionMap {
-  [key: string]: number;
+  [key: string]: number | TCategoryQuestionMap;
 }
 
 const charityDetails: TQuestionMap = {
@@ -31,34 +87,64 @@ const baseUrl =
   'https://docs.google.com/forms/d/e/1FAIpQLScr5GdjaHNjRkdWY-MoASJlb1lnH0iM2gm3wuwgX_0ZZqu5Mg/viewform?usp=pp_url';
 const questionParamKey = 'entry.';
 
-const modifyQuestionUrlParamValue = (resourceProp: string, value: any) => {
-  switch (resourceProp) {
-    case 'category':
-      return value
-        .split(',')
-        .join(`&${questionParamKey}${questionMap[resourceProp]}=`);
-    default:
-      return value;
-  }
+const getCategoryQuestionUrlParam = (
+  categoryQuestionMap: TCategoryQuestionMap,
+  resource: TResource
+) => {
+  const { questionNum, values } = categoryQuestionMap;
+  const { description, servicetype } = resource;
+
+  const matchedValues = values.filter(({ synonyms }) =>
+    synonyms.find(synonym => {
+      const lowerCaseSynonym = synonym.toLowerCase();
+
+      return (
+        description.toLowerCase().includes(lowerCaseSynonym) ||
+        servicetype.toLowerCase().includes(lowerCaseSynonym)
+      );
+    })
+  );
+
+  const combinedValues = matchedValues
+    .map(({ value }) => value)
+    .join(`&${questionParamKey}${questionNum}=`);
+
+  return `${questionParamKey}${questionNum}=${combinedValues}`;
 };
 
-const getQuestionUrlParam = (key: string, value: any) => {
-  if (!questionMap[key] || !value) {
-    return '';
+const getQuestionUrlParam = (questionKey: string, resource: TResource) => {
+  let modifiedValue;
+  switch (questionKey) {
+    case 'category':
+      modifiedValue = resource[questionKey]
+        .split(',')
+        .join(`&${questionParamKey}${questionMap[questionKey]}=`);
+      break;
+    default:
+      modifiedValue = resource[questionKey];
   }
 
-  const modifiedValue = modifyQuestionUrlParamValue(key, value);
+  if (modifiedValue) {
+    const questionNum = questionMap[questionKey];
 
-  return `${questionParamKey}${questionMap[key]}=${modifiedValue}`;
+    return `${questionParamKey}${questionNum}=${modifiedValue}`;
+  }
+
+  return '';
 };
 
 const generatePreFilledLink = (resource: TResource) => {
-  console.log(resource);
-  const urlParams = Object.entries(questionMap).map(([resourceProp]) =>
-    getQuestionUrlParam(resourceProp, resource[resourceProp])
+  const questionUrlParams = Object.entries(questionMap).map(([resourceProp]) =>
+    getQuestionUrlParam(resourceProp, resource)
+  );
+  const categoryQuestionUrlParams = Object.entries(categoryQuestionMap).map(
+    ([category, categoryMap]) =>
+      getCategoryQuestionUrlParam(categoryMap, resource)
   );
 
-  return `${baseUrl}&${urlParams.join('&')}`;
+  return `${baseUrl}&${questionUrlParams
+    .concat(categoryQuestionUrlParams)
+    .join('&')}`;
 };
 
 export default generatePreFilledLink;
@@ -90,28 +176,6 @@ export default generatePreFilledLink;
 //   updateshelter: string,
 //   userid: string,
 // }
-
-// const categoryQuestionMap = {
-//   food: {
-//     id: 339162976,
-//     subCategories: [
-//       'food pantry',
-//       'meals',
-//     ],
-//   },
-//   health: {
-//     id: 692757337,
-//     subCategories: [
-//       'addiction recovery services',
-//       'clinic',
-//       'dental',
-//       'hospital',
-//       'mental',
-//       'pharmacy',
-//       'vision',
-//     ],
-//   },
-// };
 
 // entry.1957797771=what+should+clients+know+before+using+service?
 
