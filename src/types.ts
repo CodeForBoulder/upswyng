@@ -50,6 +50,7 @@ export interface TResource {
   userid: string;
   website: string;
   zip: number;
+  [key: string]: TCloseSchedule[] | TSchedule[] | boolean | string | number;
 }
 
 export enum TStatusFetch {
