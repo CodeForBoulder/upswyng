@@ -31,28 +31,417 @@ const foodCategoryQuestionMap: TCategoryQuestionMap = {
   ]
 };
 
-const healthCategoryQuestionMap = {
+const healthCategoryQuestionMap: TCategoryQuestionMap = {
   questionNum: 692757337,
   values: [
     {
-      value: 'addiction recovery services',
-      synonyms: []
+      value: 'Addiction Recovery Services',
+      synonyms: ['addict', 'recover']
     },
     {
-      value: 'clinic',
-      synonyms: []
+      value: 'Clinic',
+      synonyms: [
+        'clinic',
+        'general med',
+        'general practice',
+        'doctor',
+        'nurse',
+        'physical',
+        'checkup',
+        'check-up'
+      ]
     },
-    { value: 'dental', synonyms: [] },
-    { value: 'hospital', synonyms: [] },
-    { value: 'mental', synonyms: [] },
-    { value: 'pharmacy', synonyms: [] },
-    { value: 'vision', synonyms: [] }
+    {
+      value: 'Dental',
+      synonyms: ['dental', 'dentist', 'tooth', 'teeth', 'emergency']
+    },
+    {
+      value: 'Hospital',
+      synonyms: [
+        'hospital',
+        'urgent care',
+        'doctor',
+        'nurse',
+        'emergency',
+        'emt',
+        'trauma'
+      ]
+    },
+    {
+      value: 'Mental',
+      synonyms: ['mental', 'therapy', 'therapies', 'mind', 'mindful']
+    },
+    {
+      value: 'Pharmacy',
+      synonyms: ['pharmacy', 'pharmacies', 'prescription', 'medicine']
+    },
+    {
+      value: 'Vision',
+      synonyms: [
+        'vision',
+        'optometry',
+        'optometrist',
+        'eye',
+        'glasses',
+        'contacts'
+      ]
+    }
+  ]
+};
+
+const hygieneQuestionMap: TCategoryQuestionMap = {
+  questionNum: 163376122,
+  values: [
+    {
+      value: 'Feminine Products',
+      synonyms: ['feminine products', 'feminine', 'female', 'tampon']
+    },
+    {
+      value: 'Water Fountains',
+      synonyms: ['water', 'bottle', 'portable']
+    },
+    {
+      value: 'Showers',
+      synonyms: ['shower']
+    },
+    {
+      value: 'Restrooms',
+      synonyms: ['bathroom', 'restroom', 'toilet', 'water closet', 'sink']
+    }
+  ]
+};
+
+const jobTrainingQuestionMap: TCategoryQuestionMap = {
+  questionNum: 287762356,
+  values: [
+    {
+      value: 'Craigs List',
+      synonyms: ['craigs list', 'job list']
+    },
+    {
+      value: 'Temp Agency',
+      synonyms: [
+        'temp agency',
+        'temporary work',
+        'temporary agency',
+        'temp work'
+      ]
+    },
+    {
+      value: 'Day Labor',
+      synonyms: ['day labor', 'labor']
+    },
+    {
+      value: 'Ready to Work',
+      synonyms: ['ready to work']
+    },
+    {
+      value: 'Career Counseling',
+      synonyms: ['career counseling', 'career counsel', 'career advice']
+    }
+  ]
+};
+
+const resourcesQuestionMap: TCategoryQuestionMap = {
+  questionNum: 2146328654,
+  values: [
+    {
+      value: 'Pet Resources',
+      synonyms: [
+        'pets',
+        'pet food',
+        'pet supplies',
+        'vet',
+        'veterinary',
+        'veterinarian',
+        'parks',
+        'dog',
+        'cat',
+        'animal'
+      ]
+    },
+    {
+      value: 'Hair Care',
+      synonyms: [
+        'hair care',
+        'hair',
+        'hair cut',
+        'haircut',
+        'shampoo',
+        'conditioner',
+        'barber',
+        'hairdresser',
+        'salon'
+      ]
+    },
+    {
+      value: 'Laundry',
+      synonyms: ['laundry', 'washer', 'dryer', 'laundromat', 'clean cloth']
+    },
+    {
+      value: 'Legal Help',
+      synonyms: [
+        'legal help',
+        'legal',
+        'criminal',
+        'civil',
+        'crime',
+        'lawyer',
+        'law',
+        'paralegal',
+        'custody'
+      ]
+    },
+    {
+      value: 'Outdoor Gear',
+      synonyms: [
+        'outdoor gear',
+        'tent',
+        'sleeping bag',
+        'sleeping pad',
+        'rain gear',
+        'coat',
+        'backpack',
+        'pack',
+        'boot'
+      ]
+    },
+    {
+      value: 'Home Goods',
+      synonyms: [
+        'home goods',
+        'pot',
+        'pan',
+        'silverwear',
+        'silver wear',
+        'utensil',
+        'bedding',
+        'mattress',
+        'plate',
+        'dish',
+        'bowl',
+        'hanger',
+        'furniture'
+      ]
+    },
+    {
+      value: 'Shoes',
+      synonyms: ['shoe', 'boot', 'sandal']
+    },
+    {
+      value: 'Clothing',
+      synonyms: [
+        'clothing',
+        'clothes',
+        'jacket',
+        'coat',
+        'hat',
+        'glove',
+        'rain gear',
+        'sock',
+        'snow gear',
+        'waterproof',
+        'water proof',
+        'sunglasses',
+        'scarf',
+        'bottle',
+        'mug',
+        'thermos'
+      ]
+    }
+  ]
+};
+
+const shelterQuestionMap: TCategoryQuestionMap = {
+  questionNum: 1736089063,
+  values: [
+    {
+      value: 'Shelter for pregnant individuals',
+      synonyms: [
+        'pregnant women shelter',
+        'pregnant',
+        'pregnancy',
+        'safe place',
+        'harass'
+      ]
+    },
+    {
+      value: 'Shelter for abused individuals',
+      synonyms: [
+        'abused shelter',
+        'abused',
+        'beaten',
+        'battered',
+        'verbal abuse',
+        'abuse',
+        'hate crime',
+        'hate act',
+        'safe place',
+        'harass'
+      ]
+    },
+    {
+      value: 'Shelter for youth',
+      synonyms: [
+        'youth shelter',
+        'underage',
+        'youth',
+        'runaway',
+        'lgbtq',
+        'safe place',
+        'harass'
+      ]
+    },
+    {
+      value: 'Shelter for families',
+      synonyms: [
+        'family shelter',
+        'safe place',
+        'harass',
+        'families',
+        'children shelter',
+        'married shelter'
+      ]
+    },
+    {
+      value: 'Transitional Shelter',
+      synonyms: [
+        'safe place',
+        'harass',
+        'transitional shelter',
+        'transitional housing'
+      ]
+    },
+    {
+      value: 'Temporary Shelter',
+      synonyms: [
+        'temporary shelter',
+        'safe place',
+        'harass',
+        'community shelter',
+        'pod share'
+      ]
+    },
+    {
+      value: 'Emergency Shelter',
+      synonyms: [
+        'emergency',
+        'emergency shelter',
+        'safe place',
+        'harass',
+        'emergency',
+        'overflow',
+        'severe weather'
+      ]
+    }
+  ]
+};
+
+const socialServicesQuestionMap: TCategoryQuestionMap = {
+  questionNum: 757691226,
+  values: [
+    {
+      value: 'Social Security',
+      synonyms: ['social security']
+    },
+    {
+      value: 'Health and Human Services',
+      synonyms: [
+        'health and human services',
+        'leap',
+        'utility assistance',
+        'food stamp',
+        'food stamps'
+      ]
+    },
+    {
+      value: 'Food Stamps',
+      synonyms: ['food stamps', 'food stamp', 'snap']
+    }
+  ]
+};
+
+const transitQuestionMap: TCategoryQuestionMap = {
+  questionNum: 656504316,
+  values: [
+    {
+      value: 'Bus',
+      synonyms: ['bus', 'rtd', 'bus schedule', 'bus ticket', 'flex']
+    },
+    {
+      value: 'Bicycle',
+      synonyms: [
+        'bicycle rental',
+        'bike',
+        'bicycle',
+        'bike rental',
+        'cycle',
+        'bike shop',
+        'bicycle shop'
+      ]
+    },
+    {
+      value: 'Lite Rail',
+      synonyms: ['lite rail', 'train', 'subway', 'rail']
+    }
+  ]
+};
+
+const wifiQuestionMap: TCategoryQuestionMap = {
+  questionNum: 239744685,
+  values: [
+    {
+      value: 'Free Wifi',
+      synonyms: [
+        'free wifi',
+        'wifi',
+        'open wifi',
+        'boulder wifi',
+        'city wifi',
+        'public wifi'
+      ]
+    },
+    {
+      value: 'Public Computers',
+      synonyms: [
+        'public computer',
+        'public computers',
+        'library computer',
+        'library computers',
+        'school computer',
+        'school computers',
+        'internet cafe'
+      ]
+    },
+    {
+      value: 'Charging Stations',
+      synonyms: [
+        'charging station',
+        'charge',
+        'charging',
+        'charging location',
+        'charge phone',
+        'power',
+        'power station',
+        'power location',
+        'outlet',
+        'outlets',
+        'usb'
+      ]
+    }
   ]
 };
 
 const categoryQuestionMap = {
   food: foodCategoryQuestionMap,
-  health: healthCategoryQuestionMap
+  health: healthCategoryQuestionMap,
+  hygiene: hygieneQuestionMap,
+  jobTraining: jobTrainingQuestionMap,
+  resources: resourcesQuestionMap,
+  shelter: shelterQuestionMap,
+  socialServices: socialServicesQuestionMap,
+  transit: transitQuestionMap,
+  wifi: wifiQuestionMap
 };
 
 // the number value refers to which Google form question number the corresponding resource property maps to
@@ -92,24 +481,28 @@ const getCategoryQuestionUrlParam = (
   resource: TResource
 ) => {
   const { questionNum, values } = categoryQuestionMap;
-  const { description, servicetype } = resource;
+  const { charityname, description, servicetype } = resource;
 
   const matchedValues = values.filter(({ synonyms }) =>
     synonyms.find(synonym => {
       const lowerCaseSynonym = synonym.toLowerCase();
-
       return (
+        charityname.toLowerCase().includes(lowerCaseSynonym) ||
         description.toLowerCase().includes(lowerCaseSynonym) ||
         servicetype.toLowerCase().includes(lowerCaseSynonym)
       );
     })
   );
 
-  const combinedValues = matchedValues
-    .map(({ value }) => value)
-    .join(`&${questionParamKey}${questionNum}=`);
+  if (matchedValues.length) {
+    const combinedValues = matchedValues
+      .map(({ value }) => value)
+      .join(`&${questionParamKey}${questionNum}=`);
 
-  return `${questionParamKey}${questionNum}=${combinedValues}`;
+    return `&${questionParamKey}${questionNum}=${combinedValues}`;
+  }
+
+  return '';
 };
 
 const getQuestionUrlParam = (questionKey: string, resource: TResource) => {
@@ -121,7 +514,10 @@ const getQuestionUrlParam = (questionKey: string, resource: TResource) => {
         .join(`&${questionParamKey}${questionMap[questionKey]}=`);
       break;
     default:
-      modifiedValue = resource[questionKey];
+      modifiedValue =
+        resource[questionKey] !== undefined
+          ? encodeURIComponent(`${resource[questionKey]}`)
+          : '';
   }
 
   if (modifiedValue) {
@@ -134,17 +530,18 @@ const getQuestionUrlParam = (questionKey: string, resource: TResource) => {
 };
 
 const generatePreFilledLink = (resource: TResource) => {
-  const questionUrlParams = Object.entries(questionMap).map(([resourceProp]) =>
-    getQuestionUrlParam(resourceProp, resource)
-  );
-  const categoryQuestionUrlParams = Object.entries(categoryQuestionMap).map(
-    ([category, categoryMap]) =>
+  const questionUrlParams = Object.entries(questionMap)
+    .map(([resourceProp]) => getQuestionUrlParam(resourceProp, resource))
+    .filter(value => value)
+    .join('&');
+  const categoryQuestionUrlParams = Object.entries(categoryQuestionMap)
+    .map(([_, categoryMap]) =>
       getCategoryQuestionUrlParam(categoryMap, resource)
-  );
+    )
+    .filter(value => value)
+    .join('');
 
-  return `${baseUrl}&${questionUrlParams
-    .concat(categoryQuestionUrlParams)
-    .join('&')}`;
+  return `${baseUrl}&${questionUrlParams}${categoryQuestionUrlParams}`;
 };
 
 export default generatePreFilledLink;
@@ -181,68 +578,32 @@ export default generatePreFilledLink;
 
 // entry.1777246851=weekly
 
+// entry.339162976=__other_option__
 // entry.339162976.other_option_response=food+other
 
-// entry.692757337=Addiction+Recovery+Services
-// entry.692757337=Clinic
-// entry.692757337=Dental
-// entry.692757337=Hospital
-// entry.692757337=Mental
-// entry.692757337=Pharmacy
-// entry.692757337=Vision
 // entry.692757337=__other_option__
 // entry.692757337.other_option_response=health+other
 
-// entry.163376122=Feminine+Products
-// entry.163376122=Water+Fountains
-// entry.163376122=Showers
-// entry.163376122=Restrooms
 // entry.163376122=__other_option__
 // entry.163376122.other_option_response=hygiene+other
 
-// entry.287762356=Craigs+List
-// entry.287762356=Temp+Agency
-// entry.287762356=Day+Labor
-// entry.287762356=Ready+to+Work
-// entry.287762356=Career+Counseling
 // entry.287762356=__other_option__
 // entry.287762356.other_option_response=job+training+other
 
-// entry.2146328654=Pet+Resources
-// entry.2146328654=Hair+Care
-// entry.2146328654=Laundry
-// entry.2146328654=Legal+Help
-// entry.2146328654=Outdoor+Gear
-// entry.2146328654=Home+Goods
-// entry.2146328654=Shoes
-// entry.2146328654=Clothing
 // entry.2146328654=__other_option__
+// entry.2146328654.other_option_response=job+training+other
 
+// entry.2146328654=__other_option__
 // entry.2146328654.other_option_response=resources+other
-// entry.1736089063=Shelter+for+pregnant+individuals
-// entry.1736089063=Shelter+for+abused+individuals
-// entry.1736089063=Shelter+for+youth
-// entry.1736089063=Shelter+for+families
-// entry.1736089063=Transitional+Shelter
-// entry.1736089063=Temporary+Shelter
-// entry.1736089063=Emergency+Shelter
+
 // entry.1736089063=__other_option__
 // entry.1736089063.other_option_response=shelters+other
 
-// entry.757691226=Social+Security
-// entry.757691226=Health+and+Human+Services
-// entry.757691226=Food+Stamps
 // entry.757691226=__other_option__
 // entry.757691226.other_option_response=social+services+other
 
-// entry.656504316=Bus
-// entry.656504316=Bicycle
-// entry.656504316=Lite+Rail
 // entry.656504316=__other_option__
 // entry.656504316.other_option_response=transit+other
 
-// entry.239744685=Free+Wifi
-// entry.239744685=Public+Computers
-// entry.239744685=Charging+Stations
 // entry.239744685=__other_option__
 // entry.239744685.other_option_response=wifi+other
