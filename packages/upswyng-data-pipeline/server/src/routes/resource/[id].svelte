@@ -13,6 +13,7 @@
 <script>
   import { form as svelteForm } from "svelte-forms";
   import ScheduleInput from "../../components/ScheduleInput.svelte";
+  import CloseScheduleInput from "../../components/CloseScheduleInput.svelte";
 
   export let resource;
 
@@ -28,9 +29,10 @@
     state: { value: resource.address.state, validators: ["required"] },
     zip: { value: resource.address.zip, validators: ["required"] },
     //
+    closeSchedule: { value: resource.closeSchedule || [], validators: [] },
     phone: { value: resource.phone || "", validators: ["required", "min:10"] },
-    schedule: { value: resource.schedule || [] },
-    website: { value: resource.address.website || "" }
+    schedule: { value: resource.schedule || ["min:1"] },
+    website: { value: resource.website || "" }
   }));
 </script>
 
@@ -73,15 +75,15 @@
       bind:value={resource.description} />
     <label for="description">Description</label>
   </p>
+  <p>
+    <input
+      name="phone"
+      autocomplete="tel"
+      type="text"
+      bind:value={resource.phone} />
+    <label for="phone">Phone</label>
+  </p>
   <fieldset>
-    <p>
-      <input
-        name="phone"
-        autocomplete="tel"
-        type="text"
-        bind:value={resource.phone} />
-      <label for="phone">Phone</label>
-    </p>
     <p>
       <input
         name="address1"
@@ -125,6 +127,9 @@
   </fieldset>
   <p>
     <ScheduleInput bind:value={resource.schedule} />
+  </p>
+  <p>
+    <CloseScheduleInput bind:value={resource.closeSchedule} />
   </p>
   <p>
     <input name="website" type="url" bind:value={resource.website} />

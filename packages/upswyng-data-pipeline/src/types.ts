@@ -84,10 +84,23 @@ export enum TStatusFetch {
   STATUS_FETCH_ERROR = "FETCH_ERROR"
 }
 
-export interface TCloseSchedule {
-  day: TDay;
-  period: string;
-  type: string;
+interface TScheduleBase {
+  day?: TDay;
+  date?: string;
+  period?: TSchedulePeriod;
+  from?: string;
+  to?: string;
+}
+
+export interface TSchedule extends TScheduleBase {
+  type: TScheduleType;
+}
+
+export type TScheduleType = "Weekly" | "Monthly" | "Open 24/7" | "Date Range";
+export type TCloseScheduleType = TScheduleType | "Permanently Closed";
+
+export interface TCloseSchedule extends TScheduleBase {
+  type: TCloseScheduleType;
 }
 
 export interface TLegacySchedule {
@@ -99,15 +112,6 @@ export interface TLegacySchedule {
   type: TScheduleType;
 }
 
-export interface TSchedule {
-  day?: TDay;
-  date?: string;
-  period?: TSchedulePeriod;
-  from?: string;
-  to?: string;
-  type: TScheduleType;
-}
-
 export type TSchedulePeriod =
   | "Last"
   | "First"
@@ -115,8 +119,6 @@ export type TSchedulePeriod =
   | "Third"
   | "Fourth"
   | "Fifth";
-
-export type TScheduleType = "Weekly" | "Monthly" | "Open 24/7" | "Date Range";
 
 export interface TResourceCategory {
   text: string;
