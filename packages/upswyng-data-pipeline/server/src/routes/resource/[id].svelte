@@ -12,8 +12,9 @@
 
 <script>
   import { form as svelteForm } from "svelte-forms";
-  import ScheduleInput from "../../components/ScheduleInput.svelte";
   import CloseScheduleInput from "../../components/CloseScheduleInput.svelte";
+  import ScheduleInput from "../../components/ScheduleInput.svelte";
+  import ServicesInput from "../../components/ServicesInput.svelte";
 
   export let resource;
 
@@ -32,6 +33,7 @@
     closeSchedule: { value: resource.closeSchedule || [], validators: [] },
     phone: { value: resource.phone || "", validators: ["required", "min:10"] },
     schedule: { value: resource.schedule || ["min:1"] },
+    services: { value: resource.services || [], validators: [] },
     website: { value: resource.website || "" }
   }));
 </script>
@@ -130,6 +132,9 @@
   </p>
   <p>
     <CloseScheduleInput bind:value={resource.closeSchedule} />
+  </p>
+  <p>
+    <ServicesInput bind:value={resource.services} />
   </p>
   <p>
     <input name="website" type="url" bind:value={resource.website} />
