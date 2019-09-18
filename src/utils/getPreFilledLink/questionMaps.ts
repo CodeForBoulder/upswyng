@@ -435,6 +435,7 @@ export const categoryQuestionMaps = {
 };
 
 const charityDetails: TQuestionMap = {
+  id: 867253131,
   category: 1284266761,
   charityname: 1494150320,
   description: 2046501879,

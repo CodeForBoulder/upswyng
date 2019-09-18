@@ -5,12 +5,13 @@ import { TResource } from '../types';
 import getPreFilledLink from '../utils/getPreFilledLink';
 
 interface Props {
+  resourceId: string;
   resource: TResource;
 }
 
-const UpdateResourceButton = ({ resource }: Props) => {
+const UpdateResourceButton = ({ resourceId, resource }: Props) => {
   return (
-    <Button href={getPreFilledLink(resource)} target="_blank">
+    <Button href={getPreFilledLink(resourceId, resource)} target="_blank">
       Request an Update
     </Button>
   );

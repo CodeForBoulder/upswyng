@@ -31,14 +31,15 @@ const getQuestionUrlParams = (questionKey: string, resource: TResource) => {
   return getQuestionUrlParam(questionNum, modifiedValue);
 };
 
-const generatePreFilledLink = (resource: TResource) => {
+const generatePreFilledLink = (resourceId: string, resource: TResource) => {
+  const resourceIdUrlParam = getQuestionUrlParam(questionMap['id'], resourceId);
   const questionUrlParams = Object.entries(questionMap)
     .map(([resourceProp]) => getQuestionUrlParams(resourceProp, resource))
     .filter(value => value)
     .join('&');
   const categoryQuestionUrlParams = getCategoryQuestionUrlParams(resource);
 
-  return `${baseUrl}&${questionUrlParams}&${categoryQuestionUrlParams}`;
+  return `${baseUrl}&${resourceIdUrlParam}&${questionUrlParams}&${categoryQuestionUrlParams}`;
 };
 
 export default generatePreFilledLink;
