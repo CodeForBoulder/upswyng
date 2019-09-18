@@ -89,7 +89,7 @@
     "rollup-plugin-typescript2": "^0.24.0",
     "sapper": "^0.27.0",
     "svelte": "^3.0.0",
-    "svelte-forms": "^1.0.1",
+    "svelte-forms": "github:rhinodavid/svelte-forms#url-validator-fix",
     "svelte-select": "github:rob-balfre/svelte-select#7973bb712c2cadb7abf0bc701ccd46785c48fd07",
     "typescript": "^3.4.5"
   },
