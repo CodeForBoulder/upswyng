@@ -1,7 +1,19 @@
-import { ReactNode } from 'react';
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
 import { LinkProps } from 'react-router-dom';
 
+interface TCategoryQuestionValue {
+  value: string;
+  synonyms: string[];
+}
+export interface TCategoryQuestionMap {
+  questionNum: number;
+  values: TCategoryQuestionValue[];
+  [key: string]: TCategoryQuestionValue[] | number;
+}
+
+export interface TQuestionMap {
+  [key: string]: number;
+}
 export interface TEnvVariables {
   env: {
     REACT_APP_ALGOLIA_APP_ID: string;
