@@ -1,4 +1,4 @@
-import { TResource } from '../types';
+import { TResource } from '../../types';
 
 interface TCategoryQuestionValue {
   value: string;
