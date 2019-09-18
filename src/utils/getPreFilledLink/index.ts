@@ -3,6 +3,7 @@ import { questionMap } from './questionMaps';
 
 import getQuestionUrlParam from './getQuestionUrlParam';
 import getCategoryQuestionUrlParams from './getCategoryUrlParams';
+import getScheduleUrlParams from './getScheduleUrlParams';
 
 const baseUrl =
   'https://docs.google.com/forms/d/e/1FAIpQLScr5GdjaHNjRkdWY-MoASJlb1lnH0iM2gm3wuwgX_0ZZqu5Mg/viewform?usp=pp_url';
@@ -38,8 +39,9 @@ const generatePreFilledLink = (resourceId: string, resource: TResource) => {
     .filter(value => value)
     .join('&');
   const categoryQuestionUrlParams = getCategoryQuestionUrlParams(resource);
+  const scheduleQuestionUrlParams = getScheduleUrlParams(resource);
 
-  return `${baseUrl}&${resourceIdUrlParam}&${questionUrlParams}&${categoryQuestionUrlParams}`;
+  return `${baseUrl}&${resourceIdUrlParam}&${questionUrlParams}&${categoryQuestionUrlParams}&${scheduleQuestionUrlParams}`;
 };
 
 export default generatePreFilledLink;
