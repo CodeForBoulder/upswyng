@@ -51,20 +51,6 @@ export default generatePreFilledLink;
 //   schedule: TSchedule[];
 // }
 
-// //NOT IN DB
-
-// const contactPersonInfo = {
-//   contactPersonName: 2033960682,
-//   contactPersonPhone: 1972742378,
-//   contactPersonEmail: 14414236,
-// };
-
-// const socialMediaLinks = {
-//   facebook: 1792737995,
-//   instagram: 1965878317,
-//   twitter: 223349880,
-// }
-
 // const UNUSED = {
 //   lat: number,
 //   lng: number,
@@ -73,8 +59,6 @@ export default generatePreFilledLink;
 //   updateshelter: string,
 //   userid: string,
 // }
-
-// entry.1957797771=what+should+clients+know+before+using+service?
 
 // entry.1777246851=weekly
 
