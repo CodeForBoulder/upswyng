@@ -70,15 +70,7 @@ const ResourceCardScheduleContainer = styled.span`
   font-size: ${font.helpers.convertPixelsToRems(12)};
   font-weight: 600;
   text-decoration: none;
-  padding: 0 8px;
-`;
-
-const ResourceCardIconContainer = styled.span`
-  align-items: center;
-  display: flex;
-  background: ${colors.orangePrimary};
-  flex: 0 1 auto;
-  padding: 6px 12px;
+  padding: 6px 8px;
 `;
 
 const ResourceCard = ({ resourceId, resourceName }: Props) => (
@@ -95,9 +87,6 @@ const ResourceCard = ({ resourceId, resourceName }: Props) => (
       <ResourceCardScheduleContainer>
         schedule placeholder
       </ResourceCardScheduleContainer>
-      <ResourceCardIconContainer>
-        <Add />
-      </ResourceCardIconContainer>
     </ResourceCardFooter>
   </ResourceCardContainer>
 );
