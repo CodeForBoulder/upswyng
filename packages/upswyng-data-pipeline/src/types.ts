@@ -59,6 +59,7 @@ export interface TResource {
   address: TAddress;
   closeSchedule: TCloseSchedule[];
   createdAt: Date;
+  deleted: boolean; // We leave entries in the DB so they don't get resynced from Strapped, but for all intents & purposes this resource doesn't exist.
   description: string;
   id: string;
   kudos: number;

@@ -20,6 +20,7 @@ export const ResourceSchema = new Schema({
     { day: String, period: String, type: String }
   ],
   createdAt: { type: Date, default: Date.now, required: true },
+  deleted: { type: Boolean, default: false, required: true },
   description: {
     type: String,
     required: false // TODO: Make this required
@@ -113,6 +114,11 @@ const legacyResourceToResource = (
   },
   closeSchedule: r.closeschedule || [],
   createdAt,
+  deleted:
+    true ||
+    r.closeschedule
+      .map(x => x.type.toLowerCase())
+      .includes("permanently closed"),
   description: trimQuotes(r.description),
   id: new Types.ObjectId().toHexString(),
   kudos: r.kudos,
@@ -163,6 +169,7 @@ const schemaToResource = (r: any /* schema format */): TResource => {
     },
     closeSchedule: r.closeSchedule,
     createdAt: r.createdAt,
+    deleted: r.deleted,
     description: r.description,
     id: r.id,
     kudos: r.kudos,
