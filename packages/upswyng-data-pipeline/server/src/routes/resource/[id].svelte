@@ -69,6 +69,18 @@
 </svelte:head>
 
 <h1>{resource.name}</h1>
+{#each resource.subcategories as subcategory}
+  <section>
+    <a href={`/category/${subcategory.parentCategory.stub}`}>
+      {subcategory.parentCategory.name}
+    </a>
+    >
+    <a href={`/subcategory/${subcategory.stub}`}>{subcategory.name}</a>
+    > {resource.name}
+  </section>
+  {:else}
+  <p>This resource has no subcategories.</p>
+{/each}
 <div class="content">
   <p>ID: {resource.id}</p>
   <p>Legacy ID: {resource.legacyId}</p>

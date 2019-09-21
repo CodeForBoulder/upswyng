@@ -12,25 +12,23 @@
     );
   }
 
-  const removeSubcategory = subcategory => {
+  function removeSubcategory(subcategory) {
     value = value.filter(s => s._id !== subcategory._id);
-  };
+  }
 
-  const addSubcategory = subcategory => {
+  function addSubcategory(subcategory) {
     if (!value.map(s => s._id).includes(subcategory._id)) {
       value.push(subcategory);
       value = value; // need this nonsense so the svelte component updates
-    } else {
-      console.log(`value includes ${subcategory}`);
     }
-  };
+  }
 </script>
 
 <style>
   .bullet {
     display: inline-block;
-    width: 1em;
-    height: 1em;
+    width: 0.75em;
+    height: 0.75em;
     border-radius: 100%;
   }
 </style>
