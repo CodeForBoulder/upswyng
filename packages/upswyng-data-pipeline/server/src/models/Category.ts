@@ -1,5 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 import Subcategory from "./Subcategory";
+import { ObjectId } from "bson";
 
 export interface TCategoryFields extends Document {
   color: string;
@@ -7,7 +8,7 @@ export interface TCategoryFields extends Document {
   lastModifiedAt: Date;
   name: string;
   stub: string;
-  subcategories: Schema.Types.ObjectId[];
+  subcategories: ObjectId;
 }
 
 const CategorySchema = new Schema({
@@ -32,14 +33,13 @@ const CategorySchema = new Schema({
 
 CategorySchema.statics.findOrCreate = async function(
   name: string,
-  stub: string
+  stub: string,
+  // only used to update the color;
+  // will not create two categories if the only thing different is the color
+  color?: string
 ) {
   const result = await this.findOne({ name, stub });
-  if (result) {
-    return result;
-  } else {
-    return new this({ name, stub });
-  }
+  return result ? result.update({ color }) : new this({ name, stub, color });
 };
 
 CategorySchema.statics.getCategoryList = async function() {
@@ -73,7 +73,8 @@ const Category = mongoose.model<TCategoryFields>("Category", CategorySchema);
 export default Category as typeof Category & {
   findOrCreate: (
     name: string,
-    stub: string
+    stub: string,
+    color?: string
   ) => Promise<Schema<TCategoryFields>>;
   getCategoryList: () => Promise<
     { name: string; color: string; stub: string }[]

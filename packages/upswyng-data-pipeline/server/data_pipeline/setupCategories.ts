@@ -141,13 +141,28 @@ mongoose
     )
   )
   .then(async () => {
+    let createdCategoryCount = 0;
+    let createdSubcategoryCount = 0;
+
     for (const category of categories) {
-      const categoryRecord = await Category.findOrCreate(category.name, category.stub);
+      createdCategoryCount++;
+      const categoryRecord = await Category.findOrCreate(
+        category.name,
+        category.stub,
+        category.color
+      );
       for (const subcategory of category.subcategories) {
-        await (categoryRecord as any).addSubcategory(subcategory.name, subcategory.stub);
+        createdSubcategoryCount++;
+        await (categoryRecord as any).addSubcategory(
+          subcategory.name,
+          subcategory.stub
+        );
       }
       await (categoryRecord as any).save();
     }
+    console.log(
+      `Created or updated ${createdCategoryCount} categories and ${createdSubcategoryCount} subcategories.`
+    );
   })
   .catch(e =>
     console.log(
