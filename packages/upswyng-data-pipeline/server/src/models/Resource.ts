@@ -4,9 +4,34 @@
  * `Resource` should only be interacting with `TResource` and `TLegacyResource`;
  * the internal schema is abstracted away by the logic in this module.
  */
-import mongoose, { Schema, Types } from "mongoose";
-import { TLegacyResource, TResource } from "../../../src/types";
-import Subcategory from "./Subcategory";
+import mongoose, { Document, Schema, Types } from "mongoose";
+import {
+  TLegacyResource,
+  TResource,
+  TAddress,
+  TCloseSchedule,
+  TSchedule
+} from "../../../src/types";
+import { ObjectId } from "bson";
+
+export interface TResourceFields extends Document {
+  address: TAddress;
+  closeSchedule: TCloseSchedule[];
+  createdAt: Date;
+  deleted: boolean;
+  description: string;
+  id: ObjectId;
+  kudos: number;
+  lastModifiedAt: Date;
+  legacyId: string | null | undefined;
+  location: { type: string; coordinates: number[] };
+  name: string;
+  phone: string;
+  schedule: TSchedule[];
+  services: string[];
+  subcategories: ObjectId[];
+  website: string;
+}
 
 export const ResourceSchema = new Schema({
   address /* TAddress */: {
@@ -16,7 +41,7 @@ export const ResourceSchema = new Schema({
     state: String,
     zip: String
   },
-  closesSchedule /* TClosesSchedule[] */: [
+  closeSchedule /* TCloseSchedule[] */: [
     { day: String, period: String, type: String }
   ],
   createdAt: { type: Date, default: Date.now, required: true },
@@ -90,6 +115,12 @@ export const ResourceSchema = new Schema({
     }
   ],
   services: [{ type: String, trim: true }],
+  subcategories: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Subcategory"
+    }
+  ],
   website: String
 });
 
@@ -114,11 +145,9 @@ const legacyResourceToResource = (
   },
   closeSchedule: r.closeschedule || [],
   createdAt,
-  deleted:
-    true ||
-    r.closeschedule
-      .map(x => x.type.toLowerCase())
-      .includes("permanently closed"),
+  deleted: r.closeschedule
+    .map(item => item.type.toLowerCase())
+    .includes("permanently closed"),
   description: trimQuotes(r.description),
   id: new Types.ObjectId().toHexString(),
   kudos: r.kudos,
@@ -197,25 +226,11 @@ ResourceSchema.statics.addOrUpdateLegacyResource = async function(
   resource: TLegacyResource
 ): Promise<TResource> {
   const existingRecord = await this.findOne({ legacyId: id });
+  const self = this;
   if (!existingRecord) {
-    const newRecord = new this(
+    const newRecord = new self(
       resourceToSchema(legacyResourceToResource(resource, new Date(), id))
     );
-    const subcategory = await Subcategory.findOne({
-      name: resource.servicetype
-    });
-    if (subcategory) {
-      (subcategory as any).resources.push(newRecord.id);
-      try {
-        await subcategory.save();
-      } catch (e) {
-        console.log(
-          `There was an error updating subcategory ${
-            (subcategory as any).name
-          }` + `with new Resource with ID: ${newRecord.id}`
-        );
-      }
-    }
     return newRecord.save().then(schemaToResource);
   }
   const newDate = resource.updateshelter
@@ -243,7 +258,7 @@ ResourceSchema.statics.getById = async function(
   return this.findOne({ id }).then(schemaToResource);
 };
 
-const Resource = mongoose.model("Resource", ResourceSchema);
+const Resource = mongoose.model<TResourceFields>("Resource", ResourceSchema);
 
 export default Resource as typeof Resource & {
   addOrUpdateLegacyResource: (

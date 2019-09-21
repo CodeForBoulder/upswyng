@@ -1,12 +1,13 @@
 import mongoose, { Schema, Document, Types } from "mongoose";
 import Resource from "./Resource";
+import { ObjectId } from "bson";
 
 export interface TSubcategoryFields extends Document {
   createdAt: Date;
   lastModifiedAt: Date;
   name: string;
-  parentCategory: Schema.Types.ObjectId;
-  resources: Schema.Types.ObjectId[];
+  parentCategory: ObjectId;
+  resources: ObjectId[];
   stub: string;
 }
 
