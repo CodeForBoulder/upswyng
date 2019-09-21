@@ -15,6 +15,23 @@ const {
   DATABASE_USER
 } = process.env;
 
+function locationInBoulder(latitude: number, longitude: number): boolean {
+  const boulderLimits = {
+    latitudeLow: 39.914301,
+    latitudeHi: 40.260222,
+    longitudeLow: -105.690812,
+    longitudeHi: -105.055875
+  };
+  return (
+    latitude >= boulderLimits.latitudeLow &&
+    latitude <= boulderLimits.latitudeHi &&
+    longitude >= boulderLimits.longitudeLow &&
+    longitude <= boulderLimits.longitudeHi
+  );
+}
+
+console.log("Syncing Boulder Resources from Strappd");
+
 mongoose
   .connect(DATABASE_URL, {
     useNewUrlParser: true,
@@ -48,25 +65,41 @@ mongoose
         let currentRecord = 0;
         bar.start(entries.length, currentRecord++);
 
+        let resourceCount = 0;
+        let addedResourceCount = 0;
+        let locationFilteredResourceCount = 0;
+
         for (const [id, legacyResource] of entries) {
+          resourceCount++;
           if (!id || !legacyResource || typeof id !== "string") {
             throw new Error();
           }
           try {
-            await Resource.addOrUpdateLegacyResource(id, legacyResource);
+            if (locationInBoulder(legacyResource.lat, legacyResource.lng)) {
+              addedResourceCount++;
+              await Resource.addOrUpdateLegacyResource(id, legacyResource);
+            } else {
+              locationFilteredResourceCount++;
+            }
           } catch (e) {
-            console.log(e);
-            // console.log(
-            //   `Error saving record ${id}:\n${e}\nOriginal Data:\n${JSON.stringify(
-            //     legacyResource,
-            //     null,
-            //     2
-            //   )}\n`
-            // );
+            console.error(
+              `Error saving record ${id}:\n${e}\nOriginal Data:\n${JSON.stringify(
+                legacyResource,
+                null,
+                2
+              )}\n`
+            );
+            throw e;
           }
           bar.update(currentRecord++);
         }
         bar.stop();
-        mongoose.connection.close();
-      });
+        console.log(`Finished syncing from Strappd`);
+        console.log(`Resources added or updated:\t\t${addedResourceCount}`);
+        console.log(
+          `Resources filtered out for location:\t${locationFilteredResourceCount}`
+        );
+        console.log(`Total Strappd resources examined:\t${resourceCount}`);
+      })
+      .finally(() => mongoose.connection.close());
   });

@@ -39,7 +39,12 @@ CategorySchema.statics.findOrCreate = async function(
   color?: string
 ) {
   const result = await this.findOne({ name, stub });
-  return result ? result.update({ color }) : new this({ name, stub, color });
+  if (result) {
+     result.color = color;
+     return result;
+  } else {
+    return new this({ name, stub, color });
+  }
 };
 
 CategorySchema.statics.getCategoryList = async function() {

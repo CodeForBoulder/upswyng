@@ -1,11 +1,17 @@
 <script context="module">
   export async function preload({ params, query }) {
-    const res = await this.fetch(`api/resource/${params.id}`);
-    const data = await res.json();
-    if (res.status === 200) {
-      return { resource: data.resource };
+    const resourceResponse = await this.fetch(`api/resource/${params.id}`);
+    const { resource } = await resourceResponse.json();
+
+    const subcategoryResponse = await this.fetch(`/api/subcategories`);
+    const { subcategories } = await subcategoryResponse.json();
+
+    if (resourceResponse.status !== 200) {
+      this.error(resourceResponse.status, resourceData.message);
+    } else if (subcategoryResponse.status !== 200) {
+      this.error(subcategoryResponse.status, subcategoryData.message);
     } else {
-      this.error(res.status, data.message);
+      return { resource, subcategories };
     }
   }
 </script>
@@ -15,8 +21,10 @@
   import CloseScheduleInput from "../../components/CloseScheduleInput.svelte";
   import ScheduleInput from "../../components/ScheduleInput.svelte";
   import ServicesInput from "../../components/ServicesInput.svelte";
+  import SubcategoryInput from "../../components/SubcategoryInput.svelte";
 
   export let resource;
+  export let subcategories; // TSubcategory[], all subcategories in the app
 
   function extractErrors(form) {
     return Object.entries(form).reduce((result, [k, v]) => {
@@ -71,7 +79,6 @@
     <p>
       <label for="name">Resource Name</label>
       <input name="name" type="text" bind:value={resource.name} />
-      {@debug $resourceForm}
       {#if $resourceForm.name.errors.includes('required')}
         <p>The name is required</p>
       {/if}
@@ -185,6 +192,9 @@
       {#if $resourceForm.website.errors.includes('url')}
         <p>Enter a valid URL.</p>
       {/if}
+    </p>
+    <p>
+      <SubcategoryInput bind:value={resource.subcategories} {subcategories} />
     </p>
     <p>
       <button disabled={!$resourceForm.valid}>Login</button>

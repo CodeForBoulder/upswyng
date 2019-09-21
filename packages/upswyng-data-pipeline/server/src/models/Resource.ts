@@ -42,7 +42,7 @@ export const ResourceSchema = new Schema({
     zip: String
   },
   closeSchedule /* TCloseSchedule[] */: [
-    { day: String, period: String, type: String }
+    { day: String, period: String, scheduleType: String }
   ],
   createdAt: { type: Date, default: Date.now, required: true },
   deleted: { type: Boolean, default: false, required: true },
@@ -107,7 +107,7 @@ export const ResourceSchema = new Schema({
         type: String,
         required: false
       },
-      type: {
+      scheduleType: {
         type: String,
         enum: ["Weekly", "Monthly", "Open 24/7", "Date Range"],
         required: true
@@ -135,43 +135,53 @@ const legacyResourceToResource = (
   r: TLegacyResource,
   createdAt: Date = new Date(),
   id?: string
-): TResource => ({
-  address: {
-    address1: r.address1,
-    address2: r.address2,
-    city: r.city,
-    state: r.state,
-    zip: (r.zip || "").toString()
-  },
-  closeSchedule: r.closeschedule || [],
-  createdAt,
-  deleted: r.closeschedule
-    .map(item => item.type.toLowerCase())
-    .includes("permanently closed"),
-  description: trimQuotes(r.description),
-  id: new Types.ObjectId().toHexString(),
-  kudos: r.kudos,
-  lastModifiedAt:
-    new Date(r.updateshelter) instanceof Date &&
-    !isNaN(new Date(r.updateshelter).valueOf())
-      ? new Date(r.updateshelter)
-      : new Date(),
-  latitude: r.lat,
-  legacyId: id,
-  longitude: r.lng,
-  name: r.charityname,
-  phone: r.phone,
-  schedule: (r.schedule || []).map(s => ({
-    day: s.day,
-    date: s.date,
-    period: s.period,
-    from: s.fromstring,
-    to: s.tostring,
-    type: s.type
-  })),
-  services: r.servicetype.split(","),
-  website: r.website
-});
+): TResource => {
+  return {
+    address: {
+      address1: r.address1,
+      address2: r.address2,
+      city: r.city,
+      state: r.state,
+      zip: (r.zip || "").toString()
+    },
+    closeSchedule: (r.closeschedule || []).map(i => ({
+      day: i.day,
+      date: i.date,
+      period: i.period,
+      from: i.fromstring,
+      to: i.tostring,
+      scheduleType: i.type
+    })),
+    createdAt,
+    deleted: (r.closeschedule || [])
+      .map(item => item.type.toLowerCase())
+      .includes("permanently closed"),
+    description: trimQuotes(r.description),
+    id: new Types.ObjectId().toHexString(),
+    kudos: r.kudos,
+    lastModifiedAt:
+      new Date(r.updateshelter) instanceof Date &&
+      !isNaN(new Date(r.updateshelter).valueOf())
+        ? new Date(r.updateshelter)
+        : new Date(),
+    latitude: r.lat,
+    legacyId: id,
+    longitude: r.lng,
+    name: r.charityname,
+    phone: r.phone,
+    subcategories: [],
+    schedule: (r.schedule || []).map(s => ({
+      day: s.day,
+      date: s.date,
+      period: s.period,
+      string: s.fromstring,
+      to: s.tostring,
+      scheduleType: s.type
+    })),
+    services: r.servicetype.split(","),
+    website: r.website
+  };
+};
 
 const resourceToSchema = (r: TResource) => {
   let result = { ...r };
@@ -210,6 +220,7 @@ const schemaToResource = (r: any /* schema format */): TResource => {
     phone: r.phone,
     schedule: r.schedule,
     services: r.services,
+    subcategories: r.subcategories,
     website: r.website
   };
   return result;

@@ -45,7 +45,7 @@
       period: false,
       from: true,
       to: true,
-      type: true
+      scheduleType: true
     },
     Monthly: {
       day: true,
@@ -53,7 +53,7 @@
       period: true,
       from: true,
       to: true,
-      type: true
+      scheduleType: true
     },
     "Open 24/7": {
       day: false,
@@ -61,7 +61,7 @@
       period: false,
       from: false,
       to: false,
-      type: true
+      scheduleType: true
     },
     "Date Range": {
       day: false,
@@ -69,7 +69,7 @@
       period: false,
       from: true,
       to: true,
-      type: true
+      scheduleType: true
     }
   };
 
@@ -90,7 +90,7 @@
   function addScheduleItem() {
     value = [
       ...value,
-      { day: day.value, date, period: period.value, from, to, type: type.value }
+      { day: day.value, date, period: period.value, from, to, scheduleType: scheduleType.value }
     ];
     resetFieldDefaults();
   }
@@ -102,18 +102,18 @@
       case "Monthly":
       case "Open 24/7":
       case "Date Range":
-        type = t;
+        scheduleType = t;
         fieldRequiredMask = fieldRequiredMasks[t.value];
         break;
       default:
         throw new Error(`Unexpected schedule type: ${t}`);
     }
-    type = t;
+    scheduleType = t;
   }
 
   function displayScheduleEntry(scheduleEntry /*: TSchedule */) /*: string */ {
-    const { day, date, period, from, to, type } = scheduleEntry;
-    switch (type) {
+    const { day, date, period, from, to, scheduleType } = scheduleEntry;
+    switch (scheduleType) {
       case "Weekly":
         return `<span>${day} ${from} - ${to}<span>Weekly</span></span>`;
       case "Monthly":
@@ -123,7 +123,7 @@
       case "Date Range":
         return `<span>${date} ${from} - ${to}<span>Date Range</span></span>`;
       default:
-        throw new Error(`Unexpected schedule type: ${t}`);
+        throw new Error(`Unexpected schedule type: ${scheduleType}`);
     }
   }
 
@@ -135,7 +135,7 @@
     to = "";
   }
   let day, date, period, from, to;
-  let type = { value: "Weekly", label: "Weekly" };
+  let scheduleType = { value: "Weekly", label: "Weekly" };
   resetFieldDefaults();
 </script>
 
@@ -154,12 +154,12 @@
   {/each}
 </ul>
 <fieldset>
-<h2>Add Schedule Entry</h2>
+  <h2>Add Schedule Entry</h2>
   <p>
     <label for="schedule_type">Schedule Type</label>
     <Select
-      bind:selectedValue={type}
-      on:clear={() => (type = { value: null, label: 'None' })}
+      bind:selectedValue={scheduleType}
+      on:clear={() => (scheduleType = { value: null, label: 'None' })}
       on:select={t => updateScheduleType(t.detail)}
       items={scheduleTypeOptions} />
   </p>
