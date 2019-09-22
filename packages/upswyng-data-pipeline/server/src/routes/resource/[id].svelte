@@ -26,6 +26,10 @@
   export let resource;
   export let subcategories; // TSubcategory[], all subcategories in the app
 
+  let isSaving = false;
+  let isSuccessfulSave = false;
+  let saveError /* Error? */ = null;
+
   function extractErrors(form) {
     return Object.entries(form).reduce((result, [k, v]) => {
       if (typeof v === "object" && Object.keys(v).includes("errors")) {
@@ -78,7 +82,7 @@
     <a href={`/subcategory/${subcategory.stub}`}>{subcategory.name}</a>
     > {resource.name}
   </section>
-  {:else}
+{:else}
   <p>This resource has no subcategories.</p>
 {/each}
 <div class="content">
@@ -209,7 +213,12 @@
       <SubcategoryInput bind:value={resource.subcategories} {subcategories} />
     </p>
     <p>
-      <button disabled={!$resourceForm.valid}>Login</button>
+      <button disabled={!$resourceForm.valid}>Save</button>
+    </p>
+    <p>
+      {#if isSaving}Loading...{/if}
+      {#if isSuccessfulSave}Saved{/if}
+      {#if saveError}{saveError.message}{/if}
     </p>
   </form>
 </div>

@@ -259,6 +259,18 @@ ResourceSchema.statics.addOrUpdateLegacyResource = async function(
   }
 };
 
+ResourceSchema.statics.create = async function(
+  resource: TResource
+): Promise<TResource> {
+  if (resource.hasOwnProperty("_id")) {
+    throw new Error(
+      "This method creates new resources; allow mongo to assign the resource an ID"
+    );
+  }
+  const self = this;
+  return new self(resourceToSchema(resource)).save().then(schemaToResource);
+};
+
 /**
  * Retrieve a resource by its ID. Converts the Resource document to a
  * `TResource`.
@@ -276,5 +288,18 @@ export default Resource as typeof Resource & {
     id: string,
     resource: TLegacyResource
   ) => Promise<TResource>;
+  create: (resource: TResource) => Promise<TResource>;
+  getById: (id: string) => Promise<TResource>;
+};
+
+export const DraftResource = mongoose.model<TResourceFields>(
+  "DraftResource",
+  ResourceSchema
+) as typeof Resource & {
+  addOrUpdateLegacyResource: (
+    id: string,
+    resource: TLegacyResource
+  ) => Promise<TResource>;
+  create: (resource: TResource) => Promise<TResource>;
   getById: (id: string) => Promise<TResource>;
 };
