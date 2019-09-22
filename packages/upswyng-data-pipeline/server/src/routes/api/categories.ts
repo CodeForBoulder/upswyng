@@ -1,6 +1,6 @@
 import Category from "../../models/Category";
 
-export async function get(req, res) {
+export async function get(_req, res) {
   try {
     const categories = await Category.getCategoryList();
     res.writeHead(200, { "Content-Type": "application/json" });
