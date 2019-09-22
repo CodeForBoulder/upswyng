@@ -1,4 +1,5 @@
 import axios from "axios";
+import devalue from "devalue";
 import mongoose from "mongoose";
 import * as cliProgress from "cli-progress";
 import * as dotenv from "dotenv";
@@ -83,10 +84,8 @@ mongoose
             }
           } catch (e) {
             console.error(
-              `Error saving record ${id}:\n${e}\nOriginal Data:\n${JSON.stringify(
-                legacyResource,
-                null,
-                2
+              `Error saving record ${id}:\n${e}\nOriginal Data:\n${devalue(
+                legacyResource
               )}\n`
             );
             throw e;

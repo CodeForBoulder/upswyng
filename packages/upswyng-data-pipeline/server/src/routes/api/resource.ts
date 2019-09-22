@@ -1,4 +1,3 @@
-import Category from "../../models/Category";
 import { DraftResource } from "../../models/Resource";
 
 /**
@@ -7,13 +6,21 @@ import { DraftResource } from "../../models/Resource";
  * into the `Resource` collection.
  */
 export async function post(req, res) {
-  const { resource } = req.body;
   try {
-    const draftResource = await DraftResource.create(resource);
+    const { draftResource } = req.body;
+    const newResource = await DraftResource.create(draftResource);
     res.writeHead(201, { "Content-Type": "application/json" });
-    return res.end(JSON.stringify({ resource: draftResource }));
+    return res.end(JSON.stringify({ draftResource: newResource }));
   } catch (e) {
     console.error(e);
-    res.writeHead(500).end("Error creating resource");
+    res.writeHead(500, {
+      "Content-Type": "application/json"
+    });
+
+    return res.end(
+      JSON.stringify({
+        message: `Error creating resource: ${e.message}`
+      })
+    );
   }
 }

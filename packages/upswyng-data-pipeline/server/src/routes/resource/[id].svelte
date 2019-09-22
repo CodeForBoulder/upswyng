@@ -1,6 +1,6 @@
 <script context="module">
   export async function preload({ params, query }) {
-    const resourceResponse = await this.fetch(`api/resource/${params.id}`);
+    const resourceResponse = await this.fetch(`/api/resource/${params.id}`);
     const { resource } = await resourceResponse.json();
 
     const subcategoryResponse = await this.fetch(`/api/subcategories`);
@@ -27,7 +27,6 @@
   export let subcategories; // TSubcategory[], all subcategories in the app
 
   let isSaving = false;
-  let isSuccessfulSave = false;
   let saveError /* Error? */ = null;
 
   function extractErrors(form) {
@@ -37,6 +36,30 @@
       }
       return result;
     }, {});
+  }
+
+  function handleSaveClick(resource) {
+    const options = {
+      method: "POST",
+      body: JSON.stringify({ draftResource: resource }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    isSaving = true;
+
+    fetch("/api/resource", options)
+      .then(res => res.json())
+      .then(res => {
+        if (res.draftResource) {
+          window.location.href = "/resources";
+        } else {
+          saveError = new Error("There was an error creating the resource");
+        }
+      })
+      .catch(e => (saveError = e))
+      .finally(() => (isSaving = false));
   }
 
   const resourceForm = svelteForm(() => ({
@@ -82,8 +105,6 @@
     <a href={`/subcategory/${subcategory.stub}`}>{subcategory.name}</a>
     > {resource.name}
   </section>
-{:else}
-  <p>This resource has no subcategories.</p>
 {/each}
 <div class="content">
   <p>ID: {resource.id}</p>
@@ -213,11 +234,16 @@
       <SubcategoryInput bind:value={resource.subcategories} {subcategories} />
     </p>
     <p>
-      <button disabled={!$resourceForm.valid}>Save</button>
+      <button
+        type="button"
+        preventDefault
+        on:click={() => handleSaveClick(resource)}
+        disabled={!$resourceForm.valid}>
+        Save Draft
+      </button>
     </p>
     <p>
-      {#if isSaving}Loading...{/if}
-      {#if isSuccessfulSave}Saved{/if}
+      {#if isSaving}Saving...{/if}
       {#if saveError}{saveError.message}{/if}
     </p>
   </form>

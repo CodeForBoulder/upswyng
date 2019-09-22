@@ -56,6 +56,7 @@ polka()
   .use(
     compression({ threshold: 0 }),
     bodyParser.urlencoded({ extended: true }),
+    bodyParser.json(),
     session({
       // store,
       secret: process.env.DATABASE_SESSION_SECRET || "default_secret",

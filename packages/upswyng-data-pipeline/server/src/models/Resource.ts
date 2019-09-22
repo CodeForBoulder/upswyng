@@ -56,7 +56,9 @@ export const ResourceSchema = new Schema({
     type: Schema.Types.ObjectId,
     required: true,
     index: true,
-    unique: true
+    // unique in the `Resource` collection, but may not be unique
+    // in the `DraftResource` collection
+    unique: false 
   },
   kudos: { type: Number, default: 0 },
   lastModifiedAt: { type: Date, default: Date.now, required: true },
@@ -278,7 +280,29 @@ ResourceSchema.statics.create = async function(
 ResourceSchema.statics.getById = async function(
   id: string
 ): Promise<TResource> {
-  return this.findOne({ id }).then(schemaToResource);
+  return this.findOne({ id })
+    .populate({ path: "subcategories", populate: { path: "categories" } })
+    .then(schemaToResource);
+};
+
+/**
+ * Retrieve all resources.
+ */
+ResourceSchema.statics.getAll = async function(): Promise<TResource[]> {
+  return this.find({})
+    .populate({ path: "subcategories", populate: { path: "categories" } })
+    .then(r => r.map(schemaToResource));
+};
+
+/**
+ * Retrieve the resources which haven't assigned to at least one subcategory.
+ */
+ResourceSchema.statics.getUncategorized = async function(): Promise<
+  TResource[]
+> {
+  return this.find({ "subcategories.0": { $exists: false } }).then(r =>
+    r.map(schemaToResource)
+  );
 };
 
 const Resource = mongoose.model<TResourceFields>("Resource", ResourceSchema);
@@ -288,8 +312,10 @@ export default Resource as typeof Resource & {
     id: string,
     resource: TLegacyResource
   ) => Promise<TResource>;
-  create: (resource: TResource) => Promise<TResource>;
+  create: never; // technically this exists, but we only want to directly create draft resources
   getById: (id: string) => Promise<TResource>;
+  getAll: never; // exists, but not used until we add paginate
+  getUncategorized: () => Promise<TResource[]>;
 };
 
 export const DraftResource = mongoose.model<TResourceFields>(
@@ -302,4 +328,6 @@ export const DraftResource = mongoose.model<TResourceFields>(
   ) => Promise<TResource>;
   create: (resource: TResource) => Promise<TResource>;
   getById: (id: string) => Promise<TResource>;
+  getAll: () => Promise<TResource[]>;
+  getUncategorized: never; // technically exists, but shouldn't be used
 };
