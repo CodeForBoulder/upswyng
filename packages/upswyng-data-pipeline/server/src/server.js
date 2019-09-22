@@ -22,7 +22,7 @@ mongoose
   .then(
     () => console.log(`Connected to MongoDB instance at ${DATABASE_URL}`),
     e =>
-      console.log(
+      console.error(
         `There was an error connecting to the MongoDB instance at ${DATABASE_URL}:\n${e}`
       )
   );
@@ -65,16 +65,16 @@ polka()
     grant(grantConfig),
     sirv("static", { dev })
   )
-  .get("/callback", oidc(grantConfig), (req, res) => {
+  .get("/callback", oidc(grantConfig), (_req, res) => {
     res.redirect("/");
   })
   .use(
     sapper.middleware({
-      session: (req, res) => ({
+      session: (req, _res) => ({
         grant: req.session.grant || null
       })
     })
   )
   .listen(PORT, err => {
-    if (err) console.log("error", err);
+    if (err) console.error("Error starting polka server:", err);
   });
