@@ -201,6 +201,7 @@ const resourceToSchema = (r: TResource) => {
  */
 const schemaToResource = (r: any /* schema format */): TResource => {
   const result = {
+    _id: r._id,
     address: {
       address1: r.address.address1,
       address2: r.address.address2,
@@ -286,6 +287,18 @@ ResourceSchema.statics.getById = async function(
 };
 
 /**
+ * Retrieve a resource by its record ID (_id). Converts the Resource document
+ * to a `TResource`.
+ */
+ResourceSchema.statics.getByRecordId = async function(
+  id: string
+): Promise<TResource> {
+  return this.findOne({ _id: id })
+    .populate({ path: "subcategories", populate: { path: "categories" } })
+    .then(schemaToResource);
+};
+
+/**
  * Retrieve all resources.
  */
 ResourceSchema.statics.getAll = async function(): Promise<TResource[]> {
@@ -314,6 +327,7 @@ export default Resource as typeof Resource & {
   ) => Promise<TResource>;
   create: never; // technically this exists, but we only want to directly create draft resources
   getById: (id: string) => Promise<TResource>;
+  getByRecordId: (id: string) => Promise<TResource>;
   getAll: never; // exists, but not used until we add paginate
   getUncategorized: () => Promise<TResource[]>;
 };
@@ -328,6 +342,7 @@ export const DraftResource = mongoose.model<TResourceFields>(
   ) => Promise<TResource>;
   create: (resource: TResource) => Promise<TResource>;
   getById: (id: string) => Promise<TResource>;
+  getByRecordId: (id: string) => Promise<TResource>;
   getAll: () => Promise<TResource[]>;
   getUncategorized: never; // technically exists, but shouldn't be used
 };

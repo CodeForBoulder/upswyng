@@ -43,7 +43,7 @@
   <ul>
     {#each draftResources as draftResource}
       <li>
-        <a href={`/api/resource/draft/${draftResource._id}`}>
+        <a href={`/resource/draft/${draftResource._id}`}>
           {draftResource.name}
         </a>
       </li>

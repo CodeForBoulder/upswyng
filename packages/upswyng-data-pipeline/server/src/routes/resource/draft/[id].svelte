@@ -3,11 +3,14 @@
     const resourceResponse = await this.fetch(
       `/api/resource/draft/${params.id}`
     );
+    console.log(resourceResponse);
     const resourceData = await resourceResponse.json();
 
     if (resourceResponse.status !== 200) {
+      console.log(resourceResponse);
       this.error(resourceResponse.status, resourceData.message);
     } else {
+      console.log(resourceData);
       return { draftResource: resourceData.draftResource };
     }
   }
@@ -28,4 +31,6 @@
   <title>Upswyng: {draftResource.name} [draft]</title>
 </svelte:head>
 
-<div><p>{devalue(draftResource)}</p></div>
+<div>
+  <p>{devalue(draftResource)}</p>
+</div>
