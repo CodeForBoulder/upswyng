@@ -57,7 +57,7 @@
     <!-- for the resources link, we're using rel=prefetch so that Sapper prefetches
 		     the resources data when we hover over the link or tap it on a touchscreen -->
     <li>
-      <a class={segment === 'resources' ? 'selected' : ''} href="resources">
+      <a class={segment === 'resources' ? 'selected' : ''} href="resource">
         resources
       </a>
     </li>
