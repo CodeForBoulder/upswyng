@@ -58,7 +58,7 @@ export const ResourceSchema = new Schema({
     index: true,
     // unique in the `Resource` collection, but may not be unique
     // in the `DraftResource` collection
-    unique: false 
+    unique: false
   },
   kudos: { type: Number, default: 0 },
   lastModifiedAt: { type: Date, default: Date.now, required: true },
@@ -265,11 +265,7 @@ ResourceSchema.statics.addOrUpdateLegacyResource = async function(
 ResourceSchema.statics.create = async function(
   resource: TResource
 ): Promise<TResource> {
-  if (resource.hasOwnProperty("_id")) {
-    throw new Error(
-      "This method creates new resources; allow mongo to assign the resource an ID"
-    );
-  }
+  delete resource._id;
   const self = this;
   return new self(resourceToSchema(resource)).save().then(schemaToResource);
 };
@@ -318,21 +314,45 @@ ResourceSchema.statics.getUncategorized = async function(): Promise<
   );
 };
 
+/**
+ * Delete a resource by its record ID (_id). Returns the deleted resource.
+ */
+ResourceSchema.statics.deleteByRecordId = async function(
+  id: string
+): Promise<TResource> {
+  return this.findByIdAndDelete(id)
+    .populate({ path: "subcategories", populate: { path: "categories" } })
+    .then(schemaToResource);
+};
+
 const Resource = mongoose.model<TResourceFields>("Resource", ResourceSchema);
+(Resource as any).create = () => {
+  throw new Error(
+    "Create should only be called to make DraftResources. To make a new resource, make a draft and then approve it."
+  );
+};
+(Resource as any).deleteByRecordId = () => {
+  throw new Error(
+    'Only drafts should be deleted. Once a resource is in the directory, set the "deleted" field on it to `true` instead of deleting from the database'
+  );
+};
+(Resource as any).getAll = () => {
+  throw new Error(
+    "getAll can only be called on the Draft Resources collection."
+  );
+};
 
 export default Resource as typeof Resource & {
   addOrUpdateLegacyResource: (
     id: string,
     resource: TLegacyResource
   ) => Promise<TResource>;
-  create: never; // technically this exists, but we only want to directly create draft resources
   getById: (id: string) => Promise<TResource>;
   getByRecordId: (id: string) => Promise<TResource>;
-  getAll: never; // exists, but not used until we add paginate
   getUncategorized: () => Promise<TResource[]>;
 };
 
-export const DraftResource = mongoose.model<TResourceFields>(
+const DraftResource = mongoose.model<TResourceFields>(
   "DraftResource",
   ResourceSchema
 ) as typeof Resource & {
@@ -341,8 +361,14 @@ export const DraftResource = mongoose.model<TResourceFields>(
     resource: TLegacyResource
   ) => Promise<TResource>;
   create: (resource: TResource) => Promise<TResource>;
+  deleteByRecordId: (id: string) => Promise<TResource>;
   getById: (id: string) => Promise<TResource>;
   getByRecordId: (id: string) => Promise<TResource>;
   getAll: () => Promise<TResource[]>;
-  getUncategorized: never; // technically exists, but shouldn't be used
 };
+
+(DraftResource as any).getUncategorized = () => {
+  throw new Error("getUncategorized can only be called on normal Resources");
+};
+
+export { DraftResource };

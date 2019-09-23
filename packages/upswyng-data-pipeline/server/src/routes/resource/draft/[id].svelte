@@ -32,19 +32,27 @@
       }
     }
   }
+
+  function deleteDraft(id) {
+    isDeleting = true;
+
+    fetch(`/api/resource/draft/delete/${id}`, { method: "POST" })
+      .then(_res => {
+        window.location.href = "/resource";
+      })
+      .catch(e => (deleteError = e))
+      .finally(() => (isDeleting = false));
+  }
 </script>
 
 <script>
-  import { form as svelteForm } from "svelte-forms";
-  import CloseScheduleInput from "../../../components/CloseScheduleInput.svelte";
-  import devalue from "devalue";
   import ResourceDisplay from "../../../components/ResourceDisplay.svelte";
-  import ScheduleInput from "../../../components/ScheduleInput.svelte";
-  import ServicesInput from "../../../components/ServicesInput.svelte";
-  import SubcategoryInput from "../../../components/SubcategoryInput.svelte";
 
   export let draftResource;
   export let existingResource; // resource in the directory which this draft would update; null for new resources
+
+  let isDeleting = false; // Whether we've issued a call to the server to delete the draft resource
+  let deleteError = null; // error? Poupulated with the error from a detete attempt, if there has been one
 </script>
 
 <svelte:head>
@@ -58,3 +66,20 @@
 {/if}
 
 <ResourceDisplay resource={draftResource} />
+
+<div>
+  <button
+    type="button"
+    preventDefault
+    disabled={isDeleting}
+    on:click={() => deleteDraft(draftResource._id)}>
+    Delete Draft
+  </button>
+  <button
+    type="button"
+    preventDefault
+    disabled={isDeleting}
+    on:click={() => console.log('Approve Update')}>
+    Approve Update
+  </button>
+</div>

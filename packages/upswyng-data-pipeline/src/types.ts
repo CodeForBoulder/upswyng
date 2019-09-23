@@ -78,6 +78,7 @@ export interface TSubcategory {
 }
 
 export interface TResource {
+  _id?: ObjectID; // DO NOT normally reference this, use `id`
   address: TAddress;
   closeSchedule: TCloseSchedule[];
   createdAt: Date;

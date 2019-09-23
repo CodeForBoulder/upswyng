@@ -53,8 +53,9 @@
       .then(res => res.json())
       .then(res => {
         if (res.draftResource) {
-          window.location.href = "/resources";
+          window.location.href = "/resource";
         } else {
+          console.error(res);
           saveError = new Error("There was an error creating the resource");
         }
       })
