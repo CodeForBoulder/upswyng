@@ -29,7 +29,7 @@
   <ul>
     {#each categories as category}
       <li>
-        <a href={`/api/category/${category.stub}`}>{category.name}</a>
+        <a href={`/category/${category.stub}`}>{category.name}</a>
       </li>
     {/each}
   </ul>
