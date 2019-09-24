@@ -58,7 +58,7 @@ export interface TAddress {
 }
 
 export interface TCategory {
-  _id: ObjectID,
+  _id: ObjectID;
   color: string;
   createdAt: Date;
   lastModifiedAt: Date;
@@ -68,7 +68,7 @@ export interface TCategory {
 }
 
 export interface TSubcategory {
-  _id: ObjectID,
+  _id: ObjectID;
   createdAt: Date;
   lastModifiedAt: Date;
   name: string;
@@ -97,6 +97,19 @@ export interface TResource {
   subcategories: TSubcategory[];
   website: string;
 }
+
+// Data needed to create a new resource; these fields will be automatically
+// assigned upon creation
+export type TNewResource = Omit<
+  TResource,
+  | "_id"
+  | "createdAt"
+  | "deleted"
+  | "id"
+  | "kudos"
+  | "legacyId"
+  | "lastModifiedAt"
+>;
 
 export interface TIconProps {
   color?: string;
