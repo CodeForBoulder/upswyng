@@ -12,18 +12,15 @@
   ul {
     margin: 0;
     padding: 0;
-  }
-
-  /* clearfix */
-  ul::after {
-    content: "";
-    display: block;
-    clear: both;
+    display: flex;
   }
 
   li {
     display: block;
-    float: left;
+  }
+
+  div.spacer {
+    flex: 1;
   }
 
   .selected {
@@ -57,9 +54,13 @@
     <!-- for the resources link, we're using rel=prefetch so that Sapper prefetches
 		     the resources data when we hover over the link or tap it on a touchscreen -->
     <li>
-      <a class={segment === 'resources' ? 'selected' : ''} href="resource">
+      <a class={segment === 'resource' ? 'selected' : ''} href="resource">
         resources
       </a>
+    </li>
+    <div class="spacer" />
+    <li class="login">
+      <a class={segment === 'login' ? 'selected' : ''} href="login">log in</a>
     </li>
   </ul>
 </nav>
