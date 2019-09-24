@@ -21,8 +21,6 @@ const getCategoryQuestionUrlParam = (
     })
   );
 
-  console.log('matchedValues: ', matchedValues);
-
   if (matchedValues.length) {
     const combinedValues = matchedValues
       .map(({ value }) => `${getQuestionUrlParam(questionNum, value, true)}`)
