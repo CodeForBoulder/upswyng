@@ -48,7 +48,7 @@ interface TScheduleTypeValues {
   Weekly: string;
   Monthly: string;
   'Date Range': string;
-  [key: TScheduleType]: string;
+  [key: string]: string;
 }
 
 export interface TScheduleTypeMap {

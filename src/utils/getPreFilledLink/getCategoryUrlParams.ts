@@ -1,4 +1,5 @@
-import { TCategoryQuestionMap, TResource } from '../../types';
+import { TResource } from '../../types';
+import { TCategoryQuestionMap } from './types';
 import { categoryQuestionMaps } from './questionMaps';
 
 import getQuestionUrlParam from './getQuestionUrlParam';
