@@ -4,7 +4,7 @@ import {
   TWeeklyQuestionMap,
   TWeeklyDayQuestionMap,
   TMonthlyQuestionMap
-} from '../../types';
+} from './types';
 
 const foodCategoryQuestionMap: TCategoryQuestionMap = {
   questionNum: 339162976,
