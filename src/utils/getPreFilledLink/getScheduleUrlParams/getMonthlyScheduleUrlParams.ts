@@ -5,6 +5,10 @@ import { TSchedule } from '../../../types';
 import { monthlyScheduleMap } from '../questionMaps';
 import getQuestionUrlParam from '../getQuestionUrlParam';
 
+const convertToTwentyFourHr = (twelveHrTime: string) => {
+  return moment(twelveHrTime, 'h:mm A').format('HH:mm');
+};
+
 const getMonthlyScheduleUrlParams = (schedules: TSchedule[]) => {
   return monthlyScheduleMap
     .map((questionGroup, index) => {
@@ -23,11 +27,11 @@ const getMonthlyScheduleUrlParams = (schedules: TSchedule[]) => {
         );
 
         // TODO: add handling of multiple time periods in a day
+        // NOTE: the above was not handled because no Boulder resources have a monthly schedule with multiple time periods in a day
 
         const { fromstring: from12Hr, tostring: to12Hr } = currentSchedule;
-
-        const from24Hr = moment(from12Hr, 'h:mm A').format('HH:mm');
-        const to24Hr = moment(to12Hr, 'h:mm A').format('HH:mm');
+        const from24Hr = convertToTwentyFourHr(from12Hr);
+        const to24Hr = convertToTwentyFourHr(to12Hr);
 
         const {
           open: openQuestion,
