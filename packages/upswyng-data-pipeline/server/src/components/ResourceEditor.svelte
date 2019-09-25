@@ -48,7 +48,7 @@
       validators: ["between:-180:180"]
     },
     name: { value: resource.name, validators: ["required", "min:6"] },
-    phone: { value: resource.phone || "", validators: ["required", "min:10"] },
+    phone: { value: resource.phone || "", validators: ["required", "min:3"] }, // ex: 911
     schedule: { value: resource.schedule || [] },
     services: { value: resource.services || [], validators: [] },
     website: { value: resource.website || "", validators: ["url"] }
