@@ -5,7 +5,7 @@ import { TSchedule } from '../../../types';
 import { monthlyScheduleMap } from '../questionMaps';
 import getQuestionUrlParam from '../getQuestionUrlParam';
 
-const getMonthlyScheduleUrlParams = (schedules: TSchedule[]) => {
+const getMonthlyScheduleUrlParams = (schedules: TScheduleType) => {
   return monthlyScheduleMap
     .map((questionGroup, index) => {
       const currentSchedule = schedules[index];

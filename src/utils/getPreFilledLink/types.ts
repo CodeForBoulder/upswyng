@@ -1,3 +1,5 @@
+import { TScheduleType } from '../../types';
+
 interface TCategoryQuestionValue {
   value: string;
   synonyms: string[];
@@ -39,4 +41,18 @@ export interface TMonthlyQuestionMap {
 
 export interface TQuestionMap {
   [key: string]: number;
+}
+
+interface TScheduleTypeValues {
+  'Open 24/7': string;
+  Weekly: string;
+  Monthly: string;
+  'Date Range': string;
+  [key: TScheduleType]: string;
+}
+
+export interface TScheduleTypeMap {
+  questionNum: 1777246851;
+  values: TScheduleTypeValues;
+  [key: string]: number | TScheduleTypeValues;
 }
