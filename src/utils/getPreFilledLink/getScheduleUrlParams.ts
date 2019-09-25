@@ -135,9 +135,13 @@ const getScheduleQuestionUrlParams = ({ schedule }: TResource) => {
   switch (scheduleType) {
     case 'Weekly':
       scheduleTimeQuestionParams = getWeeklyScheduleUrlParams(schedule);
+      break;
     case 'Monthly':
       scheduleTimeQuestionParams = getMonthlyScheduleUrlParams(schedule);
+      break;
     case 'Date Range':
+    //TODO: implement URL param generator for date range
+    //NOTE: this was not implemented because no current, open resources are open during a date range
   }
 
   return `${scheduleTypeQuestionParam}&${scheduleTimeQuestionParams}`;
