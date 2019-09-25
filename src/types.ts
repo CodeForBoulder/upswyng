@@ -11,15 +11,15 @@ export interface TCategoryQuestionMap {
   [key: string]: TCategoryQuestionValue[] | number;
 }
 
-interface TWeeklyDayPeriodQuestionMap {
+interface TDayPeriodQuestionMap {
   open: number;
   close: number;
   [key: string]: number;
 }
 export interface TWeeklyDayQuestionMap {
   isOpen: number;
-  periods: TWeeklyDayPeriodQuestionMap[];
-  [key: string]: number | TWeeklyDayPeriodQuestionMap[];
+  periods: TDayPeriodQuestionMap[];
+  [key: string]: number | TDayPeriodQuestionMap[];
 }
 
 export interface TWeeklyQuestionMap {
@@ -31,6 +31,13 @@ export interface TWeeklyQuestionMap {
   Friday: TWeeklyDayQuestionMap;
   Saturday: TWeeklyDayQuestionMap;
   [key: string]: TWeeklyDayQuestionMap;
+}
+
+export interface TMonthlyQuestionMap {
+  frequency: number;
+  day: number;
+  periods: TDayPeriodQuestionMap[];
+  areMoreDays?: number;
 }
 
 export interface TQuestionMap {

@@ -2,7 +2,8 @@ import {
   TCategoryQuestionMap,
   TQuestionMap,
   TWeeklyQuestionMap,
-  TWeeklyDayQuestionMap
+  TWeeklyDayQuestionMap,
+  TMonthlyQuestionMap
 } from '../../types';
 
 const foodCategoryQuestionMap: TCategoryQuestionMap = {
@@ -545,3 +546,35 @@ export const weeklyDayScheduleMap: TWeeklyQuestionMap = {
   Friday: fridayQuestionMap,
   Saturday: saturdayQuestionMap
 };
+
+export const monthlyScheduleMap: TMonthlyQuestionMap[] = [
+  {
+    frequency: 1575815530,
+    day: 700192180,
+    periods: [
+      { open: 1797993226, close: 555054765 },
+      { open: 284728865, close: 450008012 },
+      { open: 30213332, close: 952365778 }
+    ],
+    areMoreDays: 290595452
+  },
+  {
+    frequency: 1686705485,
+    day: 1671899384,
+    periods: [
+      { open: 7840001, close: 61850287 },
+      { open: 890055405, close: 13337086 },
+      { open: 1517545248, close: 1330950241 }
+    ],
+    areMoreDays: 913986497
+  },
+  {
+    frequency: 1523257133,
+    day: 1245321805,
+    periods: [
+      { open: 1136493988, close: 575201484 },
+      { open: 1357482823, close: 814300290 },
+      { open: 861516469, close: 1875385125 }
+    ]
+  }
+];
