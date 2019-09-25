@@ -11,6 +11,28 @@ export interface TCategoryQuestionMap {
   [key: string]: TCategoryQuestionValue[] | number;
 }
 
+interface TWeeklyDayPeriodQuestionMap {
+  open: number;
+  close: number;
+  [key: string]: number;
+}
+export interface TWeeklyDayQuestionMap {
+  isOpen: number;
+  periods: TWeeklyDayPeriodQuestionMap[];
+  [key: string]: number | TWeeklyDayPeriodQuestionMap[];
+}
+
+export interface TWeeklyQuestionMap {
+  Sunday: TWeeklyDayQuestionMap;
+  Monday: TWeeklyDayQuestionMap;
+  Tuesday: TWeeklyDayQuestionMap;
+  Wednesday: TWeeklyDayQuestionMap;
+  Thursday: TWeeklyDayQuestionMap;
+  Friday: TWeeklyDayQuestionMap;
+  Saturday: TWeeklyDayQuestionMap;
+  [key: string]: TWeeklyDayQuestionMap;
+}
+
 export interface TQuestionMap {
   [key: string]: number;
 }
@@ -88,7 +110,7 @@ export interface TSchedule {
 
 export type TSchedulePeriod = 'First' | 'Second' | 'Third' | 'Fourth';
 
-export type TScheduleType = 'Weekly' | 'Monthly' | 'Open 24/7';
+export type TScheduleType = 'Weekly' | 'Monthly' | 'Open 24/7' | 'Date Range';
 
 export interface TResourceCategory {
   text: string;

@@ -1,4 +1,9 @@
-import { TCategoryQuestionMap, TQuestionMap } from '../../types';
+import {
+  TCategoryQuestionMap,
+  TQuestionMap,
+  TWeeklyQuestionMap,
+  TWeeklyDayQuestionMap
+} from '../../types';
 
 const foodCategoryQuestionMap: TCategoryQuestionMap = {
   questionNum: 339162976,
@@ -456,4 +461,87 @@ const publicContactInfo: TQuestionMap = {
 export const questionMap: TQuestionMap = {
   ...charityDetails,
   ...publicContactInfo
+};
+
+export const scheduleTypeQuestionMap = {
+  questionNum: 1777246851,
+  values: {
+    'Open 24/7': '24/7',
+    Weekly: 'weekly',
+    Monthly: 'monthly',
+    'Date Range': 'on specific dates'
+  }
+};
+
+const sundayQuestionMap: TWeeklyDayQuestionMap = {
+  isOpen: 1213768315,
+  periods: [
+    { open: 356047562, close: 1808323700 },
+    { open: 843164424, close: 1966060873 },
+    { open: 833448141, close: 1713574172 }
+  ]
+};
+
+const mondayQuestionMap: TWeeklyDayQuestionMap = {
+  isOpen: 1081288702,
+  periods: [
+    { open: 1958941767, close: 931177940 },
+    { open: 280778571, close: 1087648342 },
+    { open: 1443553693, close: 1960089759 }
+  ]
+};
+
+const tuesdayQuestionMap: TWeeklyDayQuestionMap = {
+  isOpen: 1529643968,
+  periods: [
+    { open: 2136907295, close: 1255226189 },
+    { open: 757722187, close: 212213357 },
+    { open: 1891109763, close: 1655953754 }
+  ]
+};
+
+const wednesdayQuestionMap: TWeeklyDayQuestionMap = {
+  isOpen: 739878872,
+  periods: [
+    { open: 201612578, close: 1225681957 },
+    { open: 1397309441, close: 1998717788 },
+    { open: 1444863315, close: 212157870 }
+  ]
+};
+
+const thursdayQuestionMap: TWeeklyDayQuestionMap = {
+  isOpen: 852434146,
+  periods: [
+    { open: 1778373916, close: 63490289 },
+    { open: 771684300, close: 1158369559 },
+    { open: 2072305999, close: 196780919 }
+  ]
+};
+
+const fridayQuestionMap: TWeeklyDayQuestionMap = {
+  isOpen: 2025420990,
+  periods: [
+    { open: 504415746, close: 746877066 },
+    { open: 1268357070, close: 1528746071 },
+    { open: 1561145450, close: 751897535 }
+  ]
+};
+
+const saturdayQuestionMap: TWeeklyDayQuestionMap = {
+  isOpen: 1716781122,
+  periods: [
+    { open: 1727838029, close: 1596061201 },
+    { open: 953984539, close: 1853312742 },
+    { open: 718346789, close: 587889244 }
+  ]
+};
+
+export const weeklyDayScheduleMap: TWeeklyQuestionMap = {
+  Sunday: sundayQuestionMap,
+  Monday: mondayQuestionMap,
+  Tuesday: tuesdayQuestionMap,
+  Wednesday: wednesdayQuestionMap,
+  Thursday: thursdayQuestionMap,
+  Friday: fridayQuestionMap,
+  Saturday: saturdayQuestionMap
 };
