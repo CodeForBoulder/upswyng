@@ -23,6 +23,9 @@ jest.mock('../../App.styles', () => ({
     }
   }
 }));
+jest.mock('../../utils/searchParams', () => ({
+  getSearchParamVal: () => 'some resource ID'
+}));
 jest.mock('../Details', () => ({
   __esModule: true,
   default: 'Details',
