@@ -5,7 +5,14 @@ import getQuestionUrlParam from '../getQuestionUrlParam';
 import getWeeklyScheduleUrlParams from './getWeeklyScheduleUrlParams';
 import getMonthlyScheduleUrlParams from './getMonthlyScheduleUrlParams';
 
-const getScheduleTypeQuestionParam = (scheduleType: TScheduleType) => {
+const getScheduleType = (schedules: TSchedule[]) => {
+  // TODO: add handling of mixture of schedules types
+  // NOTE: this was not done because no Boulder county resources have a mixture
+  return schedules[0].type;
+};
+
+const getScheduleTypeQuestionParam = (schedules: TSchedule[]) => {
+  const scheduleType = getScheduleType(schedules);
   return getQuestionUrlParam(
     scheduleTypeQuestionMap.questionNum,
     scheduleTypeQuestionMap.values[scheduleType],
@@ -13,12 +20,13 @@ const getScheduleTypeQuestionParam = (scheduleType: TScheduleType) => {
   );
 };
 
-const getScheduleTimesQuestionParams = (schedule: TSchedule) => {
+const getScheduleTimesQuestionParams = (schedules: TSchedule[]) => {
+  const scheduleType = getScheduleType(schedules);
   switch (scheduleType) {
     case 'Weekly':
-      return getWeeklyScheduleUrlParams(schedule);
+      return getWeeklyScheduleUrlParams(schedules);
     case 'Monthly':
-      return getMonthlyScheduleUrlParams(schedule);
+      return getMonthlyScheduleUrlParams(schedules);
     case 'Date Range':
     //TODO: implement URL param generator for date range
     //NOTE: this was not implemented because no current, open resources are open during a date range
@@ -27,20 +35,18 @@ const getScheduleTimesQuestionParams = (schedule: TSchedule) => {
   }
 };
 
-const getScheduleQuestionUrlParams = ({ schedule }: TResource) => {
-  if (!schedule.length) {
+const getScheduleQuestionUrlParams = ({ schedule: schedules }: TResource) => {
+  if (!schedules.length) {
     return '';
   }
 
-  // TODO: add handling of mixture of schedule types
-  // NOTE: this was not done because no Boulder county resources have a mixture
-  const { type: scheduleType } = schedule[0];
+  const scheduleType = getScheduleType(schedules);
   if (!scheduleTypeQuestionMap.values[scheduleType]) {
     return '';
   }
 
-  const scheduleTypeQuestionParam = getScheduleTypeQuestionParam(scheduleType);
-  const scheduleTimeQuestionParams = getScheduleTimesQuestionParams(schedule);
+  const scheduleTypeQuestionParam = getScheduleTypeQuestionParam(schedules);
+  const scheduleTimeQuestionParams = getScheduleTimesQuestionParams(schedules);
 
   return `${scheduleTypeQuestionParam}&${scheduleTimeQuestionParams}`;
 };
