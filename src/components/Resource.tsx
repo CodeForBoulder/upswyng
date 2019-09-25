@@ -9,6 +9,7 @@ import Details, { DetailBody, DetailHeading } from './Details';
 import Schedule from './Schedule';
 import Services from './Services';
 import Map from './Map';
+import UpdateResourceButton from './UpdateResourceButton';
 
 interface Props {
   id: string;
@@ -30,9 +31,13 @@ const renderPhoneContent = (resource: TResource) => {
 };
 
 export const Resource = () => {
-  const resourceDataRef = `${FIREBASE_RESOURCE_BRANCH}/${getSearchParamVal(
-    SEARCH_PARAM_RESOURCE
-  )}`;
+  const resourceId = getSearchParamVal(SEARCH_PARAM_RESOURCE);
+
+  if (!resourceId) {
+    return <p>We&apos;re sorry, this service was not found.</p>;
+  }
+
+  const resourceDataRef = `${FIREBASE_RESOURCE_BRANCH}/${resourceId}`;
   const resource = useResource(resourceDataRef);
 
   if (!resource) {
@@ -59,6 +64,7 @@ export const Resource = () => {
         </DetailBody>
       </Details>
       <Map resource={resource} />
+      <UpdateResourceButton resourceId={resourceId} resource={resource} />
     </Container>
   );
 };
