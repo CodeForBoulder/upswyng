@@ -45,14 +45,14 @@
   }
 </script>
 
-<script>
+<script lang="ts">
   import ResourceDisplay from "../../../components/ResourceDisplay.svelte";
 
   export let draftResource;
   export let existingResource; // resource in the directory which this draft would update; null for new resources
 
-  let isDeleting = false; // Whether we've issued a call to the server to delete the draft resource
-  let deleteError = null; // error? Poupulated with the error from a detete attempt, if there has been one
+  let isDeleting: boolean = false; // Whether we've issued a call to the server to delete the draft resource
+  let deleteError: Error | null = null; // error? Poupulated with the error from a detete attempt, if there has been one
 </script>
 
 <svelte:head>

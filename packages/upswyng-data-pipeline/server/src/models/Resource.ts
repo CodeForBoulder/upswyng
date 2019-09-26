@@ -10,7 +10,8 @@ import {
   TResource,
   TAddress,
   TCloseSchedule,
-  TSchedule
+  TSchedule,
+  TSubcategory
 } from "../../../src/types";
 import { ObjectId } from "bson";
 
@@ -159,7 +160,7 @@ const legacyResourceToResource = (
       .map(item => item.type.toLowerCase())
       .includes("permanently closed"),
     description: trimQuotes(r.description),
-    id: new Types.ObjectId().toHexString(),
+    id: new Types.ObjectId(),
     kudos: r.kudos,
     lastModifiedAt:
       new Date(r.updateshelter) instanceof Date &&
@@ -199,9 +200,11 @@ const resourceToSchema = (r: TResource) => {
  * Convert a resource document from the database into our `TResource` type.
  * Explicity enumerate keys so we make TypeScript happy.
  */
-const schemaToResource = (r: any /* schema format */): TResource => {
-  const result = {
-    _id: r._id,
+const schemaToResource = (
+  r: (TResourceFields & { subcategories: TSubcategory[] }) | null
+): TResource | null => {
+  if (!r) return null;
+  return {
     address: {
       address1: r.address.address1,
       address2: r.address.address2,
@@ -226,7 +229,6 @@ const schemaToResource = (r: any /* schema format */): TResource => {
     subcategories: r.subcategories,
     website: r.website
   };
-  return result;
 };
 
 /**
@@ -272,11 +274,11 @@ ResourceSchema.statics.create = async function(
 
 /**
  * Retrieve a resource by its ID. Converts the Resource document to a
- * `TResource`.
+ * `TResource`. `null` if there is no matching Resource.
  */
 ResourceSchema.statics.getById = async function(
   id: string
-): Promise<TResource> {
+): Promise<TResource | null> {
   return this.findOne({ id })
     .populate({ path: "subcategories", populate: { path: "categories" } })
     .then(schemaToResource);
@@ -284,11 +286,11 @@ ResourceSchema.statics.getById = async function(
 
 /**
  * Retrieve a resource by its record ID (_id). Converts the Resource document
- * to a `TResource`.
+ * to a `TResource`. `null` if there is no matching Resource.
  */
 ResourceSchema.statics.getByRecordId = async function(
   id: string
-): Promise<TResource> {
+): Promise<TResource | null> {
   return this.findOne({ _id: id })
     .populate({ path: "subcategories", populate: { path: "categories" } })
     .then(schemaToResource);
@@ -347,8 +349,8 @@ export default Resource as typeof Resource & {
     id: string,
     resource: TLegacyResource
   ) => Promise<TResource>;
-  getById: (id: string) => Promise<TResource>;
-  getByRecordId: (id: string) => Promise<TResource>;
+  getById: (id: string) => Promise<TResource | null>;
+  getByRecordId: (id: string) => Promise<TResource | null>;
   getUncategorized: () => Promise<TResource[]>;
 };
 
@@ -362,8 +364,8 @@ const DraftResource = mongoose.model<TResourceFields>(
   ) => Promise<TResource>;
   create: (resource: TResource) => Promise<TResource>;
   deleteByRecordId: (id: string) => Promise<TResource>;
-  getById: (id: string) => Promise<TResource>;
-  getByRecordId: (id: string) => Promise<TResource>;
+  getById: (id: string) => Promise<TResource | null>;
+  getByRecordId: (id: string) => Promise<TResource | null>;
   getAll: () => Promise<TResource[]>;
 };
 
