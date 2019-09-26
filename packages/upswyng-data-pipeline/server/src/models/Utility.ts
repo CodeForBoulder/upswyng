@@ -1,5 +1,7 @@
-import Resource from "./Resource";
 import { ObjectId } from "bson";
+import { TResource } from "../../../src/types";
+import canonical from "canonical-instance";
+import Resource from "./Resource";
 import Subcategory from "./Subcategory";
 import Transaction from "mongoose-transactions";
 
@@ -47,4 +49,39 @@ export async function addResourceToSubcategory(
       return rollbackObj;
     }
   }
+}
+
+/**
+ * Takes two resources and removes the fields that are the same on each.
+ */
+export function diffResources(
+  left: TResource,
+  right: TResource
+): { left: Partial<TResource>; right: Partial<TResource> } {
+  const leftResult: Partial<TResource> = {};
+  const rightResult: Partial<TResource> = {};
+  const fieldsToCompare: (keyof TResource)[] = [
+    "address",
+    "closeSchedule",
+    "deleted",
+    "description",
+    "kudos",
+    "latitude",
+    "legacyId",
+    "longitude",
+    "name",
+    "phone",
+    "schedule",
+    "services",
+    "subcategories",
+    "website"
+  ];
+  fieldsToCompare.forEach(fieldName => {
+    if (canonical(left[fieldName]) !== canonical(right[fieldName])) {
+      (leftResult[fieldName] as any) = left[fieldName];
+      (rightResult[fieldName] as any) = right[fieldName];
+    }
+  });
+
+  return { left: leftResult, right: rightResult };
 }
