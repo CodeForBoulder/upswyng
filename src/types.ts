@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
 import { LinkProps } from 'react-router-dom';
 
@@ -50,6 +49,7 @@ export interface TResource {
   userid: string;
   website: string;
   zip: number;
+  [key: string]: TCloseSchedule[] | TSchedule[] | boolean | string | number;
 }
 
 export enum TStatusFetch {
@@ -75,7 +75,7 @@ export interface TSchedule {
 
 export type TSchedulePeriod = 'First' | 'Second' | 'Third' | 'Fourth';
 
-export type TScheduleType = 'Weekly' | 'Monthly' | 'Open 24/7';
+export type TScheduleType = 'Weekly' | 'Monthly' | 'Open 24/7' | 'Date Range';
 
 export interface TResourceCategory {
   text: string;
