@@ -11,9 +11,16 @@ import {
   TAddress,
   TCloseSchedule,
   TSchedule,
-  TSubcategory
+  TSubcategory,
+  TNewResource
 } from "../../../src/types";
 import { ObjectId } from "bson";
+import {
+  diffResources,
+  removeResourceFromSubcategory,
+  addResourceToSubcategory
+} from "./Utility";
+import Subcategory from "./Subcategory";
 
 export interface TResourceFields extends Document {
   address: TAddress;
@@ -186,14 +193,16 @@ const legacyResourceToResource = (
   };
 };
 
-const resourceToSchema = (r: TResource) => {
+const resourceToSchema = (r: Partial<TResource>) => {
   let result = { ...r };
   delete result.latitude;
   delete result.longitude;
-  return {
-    ...result,
-    location: { type: "Point", coordinates: [r.longitude, r.latitude] }
-  };
+  return r.longitude && r.latitude
+    ? {
+        ...result,
+        location: { type: "Point", coordinates: [r.longitude, r.latitude] }
+      }
+    : result;
 };
 
 /**
@@ -277,7 +286,7 @@ ResourceSchema.statics.create = async function(
  * `TResource`. `null` if there is no matching Resource.
  */
 ResourceSchema.statics.getById = async function(
-  id: string
+  id: ObjectId
 ): Promise<TResource | null> {
   return this.findOne({ id })
     .populate({ path: "subcategories", populate: { path: "categories" } })
@@ -289,7 +298,7 @@ ResourceSchema.statics.getById = async function(
  * to a `TResource`. `null` if there is no matching Resource.
  */
 ResourceSchema.statics.getByRecordId = async function(
-  id: string
+  id: ObjectId
 ): Promise<TResource | null> {
   return this.findOne({ _id: id })
     .populate({ path: "subcategories", populate: { path: "categories" } })
@@ -317,10 +326,81 @@ ResourceSchema.statics.getUncategorized = async function(): Promise<
 };
 
 /**
+ * Takes the Record ID (_id) of a draft and either creates a new Resource, or updates a Resource
+ * if there already exists a Record with the same ID (id) as the draft.
+ */
+ResourceSchema.statics.createOrUpdateFromDraft = async function(
+  draftResource: TResource | TNewResource
+): Promise<TResource> {
+  if (draftResource.hasOwnProperty("id")) {
+    const existingResource = this.findOne({
+      id: (draftResource as TResource).id
+    });
+    if (!existingResource) {
+      throw new Error(`This draft has an \`id\`, ${(draftResource as TResource).id.toHexString()}
+      } and is therefore supposed to update an existing resource; however, a resource with the draft's \`id\` doesn't exist`);
+    }
+    const updateObject = diffResources(
+      schemaToResource(existingResource),
+      draftResource as TResource
+    );
+    // go over each subcategory the old resource was in.. if it's not in the new resource, remove it
+    updateObject.left.subcategories &&
+      updateObject.right.subcategories &&
+      updateObject.left.subcategories.forEach(async subcategory => {
+        if (
+          !updateObject.right.subcategories
+            .map(s => s._id.toHexString())
+            .includes(subcategory._id.toHexString())
+        ) {
+          await removeResourceFromSubcategory(
+            existingResource._id,
+            subcategory._id
+          );
+        }
+      });
+    // go over each subcategory the new resource is in.. if its not in the old resource, then add it
+    updateObject.left.subcategories &&
+      updateObject.right.subcategories &&
+      updateObject.right.subcategories.forEach(async subcategory => {
+        if (
+          !updateObject.left.subcategories
+            .map(s => s._id.toHexString())
+            .includes(subcategory._id.toHexString())
+        ) {
+          await addResourceToSubcategory(existingResource._id, subcategory._id);
+        }
+      });
+
+    delete updateObject.right.subcategories;
+    existingResource.set({
+      ...resourceToSchema(updateObject.right),
+      lastModifiedAt: new Date()
+    });
+    return await existingResource
+      .save()
+      .populate("subcategories")
+      .then(schemaToResource);
+  } else {
+    const subcategories = draftResource.subcategories;
+    const newResource = await new this({
+      ...resourceToSchema(draftResource),
+      subcategories: []
+    }).save();
+    await Promise.all(
+      subcategories.map(s => addResourceToSubcategory(newResource._id, s._id))
+    );
+    return await this.findOne({ _id: newResource._id })
+      .populate("subcategories")
+      .then(schemaToResource);
+  }
+};
+
+/**
  * Delete a resource by its record ID (_id). Returns the deleted resource.
  */
 ResourceSchema.statics.deleteByRecordId = async function(
-  id: string
+  id: ObjectId
 ): Promise<TResource> {
   return this.findByIdAndDelete(id)
     .populate({ path: "subcategories", populate: { path: "categories" } })
@@ -349,8 +429,11 @@ export default Resource as typeof Resource & {
     id: string,
     resource: TLegacyResource
   ) => Promise<TResource>;
-  getById: (id: string) => Promise<TResource | null>;
-  getByRecordId: (id: string) => Promise<TResource | null>;
+  createOrUpdateFromDraft: (
+    draftResource: TResource | TNewResource
+  ) => Promise<TResource>;
+  getById: (id: ObjectId) => Promise<TResource | null>;
+  getByRecordId: (id: ObjectId) => Promise<TResource | null>;
   getUncategorized: () => Promise<TResource[]>;
 };
 
@@ -363,14 +446,20 @@ const DraftResource = mongoose.model<TResourceFields>(
     resource: TLegacyResource
   ) => Promise<TResource>;
   create: (resource: TResource) => Promise<TResource>;
-  deleteByRecordId: (id: string) => Promise<TResource>;
-  getById: (id: string) => Promise<TResource | null>;
-  getByRecordId: (id: string) => Promise<TResource | null>;
+  deleteByRecordId: (id: ObjectId) => Promise<TResource>;
+  getById: (id: ObjectId) => Promise<TResource | null>;
+  getByRecordId: (id: ObjectId) => Promise<TResource | null>;
   getAll: () => Promise<TResource[]>;
 };
 
 (DraftResource as any).getUncategorized = () => {
   throw new Error("getUncategorized can only be called on normal Resources");
+};
+
+(DraftResource as any).createOrUpdateFromDraft = () => {
+  throw new Error(
+    "createOrUpdateFromDraft can only be called on the normal Resouce collection."
+  );
 };
 
 export { DraftResource };

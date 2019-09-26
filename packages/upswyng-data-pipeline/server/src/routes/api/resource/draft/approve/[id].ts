@@ -1,10 +1,9 @@
-import { DraftResource } from "../../../../../models/Resource";
-import canonical from "canonical-instance";
-import Resource from "../../../../../models/Resource";
+import Resource, { DraftResource } from "../../../../../models/Resource";
+import { TResource } from "../../../../../../../src/types";
 
 export async function post(req, res, next) {
   const { id: resourceId } = req.params; // _id of resource to be approved
-  let draftToApprove = null;
+  let draftToApprove: TResource | null = null;
   try {
     draftToApprove = await DraftResource.getByRecordId(resourceId);
     if (!draftToApprove) {
@@ -29,18 +28,26 @@ export async function post(req, res, next) {
       })
     );
   }
+  try {
+    const updateResource = await Resource.createOrUpdateFromDraft(
+      draftToApprove
+    );
+    await DraftResource.deleteByRecordId(draftToApprove._id);
 
-  const existingResource = Resource.getById(draftToApprove.id);
+    res.writeHead(204, {
+      "Content-Type": "application/json"
+    });
 
-  if (!existingResource) {
-      // create new resource based on draft
-  } else {
-      // update old resource
+    res.end(JSON.stringify({ resource: updateResource }));
+  } catch (e) {
+    res.writeHead(500, {
+      "Content-Type": "application/json"
+    });
+
+    return res.end(
+      JSON.stringify({
+        message: "Error updating with draft: " + e.message
+      })
+    );
   }
-
-  res.writeHead(204, {
-    "Content-Type": "application/json"
-  });
-
-  res.end(JSON.stringify({}));
 }
