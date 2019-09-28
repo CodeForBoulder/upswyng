@@ -8,6 +8,7 @@
     "eject": "expo eject",
     "data-setup-categories": "npx rollup --config data-pipeline.rollup.config.js && node __build__/setupCategories.js",
     "data-sync-strappd": "npx rollup --config data-pipeline.rollup.config.js && node __build__/syncStrappd.js",
+    "heroku-postbuild": "sapper build --src server/src --routes server/src/routes --output server/src/node_modules/@sapper --legacy",
     "server-dev": "sapper dev --src server/src --routes server/src/routes --output server/src/node_modules/@sapper",
     "server-build": "sapper build --src server/src --routes server/src/routes --output server/src/node_modules/@sapper --legacy",
     "server-start": "node __sapper__/build",
