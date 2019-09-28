@@ -18,7 +18,7 @@ const StyledTemp = styled.p`
   flex-direction: column;
   margin-right: ${font.helpers.convertPixelsToRems(12)};
   padding: ${font.helpers.convertPixelsToRems(5)}
-    ${font.helpers.convertPixelsToRems(8)};
+    ${font.helpers.convertPixelsToRems(10)};
 `;
 
 const StyledDegrees = styled.span`
