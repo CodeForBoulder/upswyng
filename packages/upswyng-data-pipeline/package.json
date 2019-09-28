@@ -10,7 +10,6 @@
     "data-sync-strappd": "npx rollup --config data-pipeline.rollup.config.js && node __build__/syncStrappd.js",
     "server-dev": "sapper dev --src server/src --routes server/src/routes --output server/src/node_modules/@sapper",
     "server-build": "sapper build --src server/src --routes server/src/routes --output server/src/node_modules/@sapper --legacy",
-    "server-export": "sapper export --src server/src --routes server/src/routes --output server/src/node_modules/@sapper --legacy",
     "server-start": "node __sapper__/build",
     "server-cy:run": "cypress run",
     "server-cy:open": "cypress open",
@@ -95,6 +94,9 @@
     "svelte-forms": "github:rhinodavid/svelte-forms#url-validator-fix",
     "svelte-select": "github:rob-balfre/svelte-select#7973bb712c2cadb7abf0bc701ccd46785c48fd07",
     "typescript": "^3.4.5"
+  },
+  "engines": {
+    "node": "11.x"
   },
   "rnpm": {
     "assets": [

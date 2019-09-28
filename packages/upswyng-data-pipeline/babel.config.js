@@ -1,6 +1,7 @@
 module.exports = function(api) {
   api.cache(true);
   return {
-    presets: ['babel-preset-expo'],
+    // Disabling now because it's interfering with the Sapper build
+    // presets: ['babel-preset-expo'],
   };
 };
