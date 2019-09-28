@@ -58,7 +58,10 @@ export default {
         browser: true,
         dedupe
       }),
-      commonjs(),
+      commonjs({
+        include: /node_modules/,
+        namedExports: { "node_modules/bson/index.js": ["ObjectId"] }
+      }),
       typescript(),
 
       legacy &&
@@ -108,7 +111,10 @@ export default {
       resolve({
         dedupe
       }),
-      commonjs(),
+      commonjs({
+        include: /node_modules/,
+        namedExports: { "node_modules/bson/index.js": ["ObjectId"] }
+      }),
       typescript(),
       json()
     ],
@@ -129,7 +135,10 @@ export default {
         "process.browser": true,
         "process.env.NODE_ENV": JSON.stringify(mode)
       }),
-      commonjs(),
+      commonjs({
+        include: /node_modules/,
+        namedExports: { "node_modules/bson/index.js": ["ObjectId"] }
+      }),
       typescript(),
       !dev && terser()
     ],

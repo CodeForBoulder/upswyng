@@ -214,6 +214,7 @@ const schemaToResource = (
 ): TResource | null => {
   if (!r) return null;
   return {
+    _id: r._id,
     address: {
       address1: r.address.address1,
       address2: r.address.address2,
@@ -289,7 +290,7 @@ ResourceSchema.statics.getById = async function(
   id: ObjectId
 ): Promise<TResource | null> {
   return this.findOne({ id })
-    .populate({ path: "subcategories", populate: { path: "categories" } })
+    .populate({ path: "subcategories", populate: { path: "parentCategory" } })
     .then(schemaToResource);
 };
 
@@ -301,7 +302,7 @@ ResourceSchema.statics.getByRecordId = async function(
   id: ObjectId
 ): Promise<TResource | null> {
   return this.findOne({ _id: id })
-    .populate({ path: "subcategories", populate: { path: "categories" } })
+    .populate({ path: "subcategories", populate: { path: "parentCategory" } })
     .then(schemaToResource);
 };
 
@@ -310,7 +311,7 @@ ResourceSchema.statics.getByRecordId = async function(
  */
 ResourceSchema.statics.getAll = async function(): Promise<TResource[]> {
   return this.find({})
-    .populate({ path: "subcategories", populate: { path: "categories" } })
+    .populate({ path: "subcategories", populate: { path: "parentCategory" } })
     .then(r => r.map(schemaToResource));
 };
 

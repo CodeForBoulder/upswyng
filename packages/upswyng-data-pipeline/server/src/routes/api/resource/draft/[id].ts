@@ -1,10 +1,13 @@
 import { DraftResource } from "../../../../models/Resource";
+import { ObjectId } from "bson";
 
 export async function get(req, res, next) {
   const { id } = req.params;
   let draftResource = null;
   try {
-    draftResource = await DraftResource.getByRecordId(id);
+    draftResource = await DraftResource.getByRecordId(
+      ObjectId.createFromHexString(id)
+    );
   } catch (e) {
     res.writeHead(500, {
       "Content-Type": "application/json"
