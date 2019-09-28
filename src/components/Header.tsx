@@ -48,12 +48,14 @@ const Header = () => {
             </StyledMenuButton>
           </Grid>
           <Grid item>
-            <Temperature />
-          </Grid>
-          <Grid item>
-            <Link to="/">
-              <StyledLogo />
-            </Link>
+            <Grid container alignItems="center" justify="space-between">
+              <Grid item component={Temperature} />
+              <Grid item>
+                <Link to="/">
+                  <StyledLogo />
+                </Link>
+              </Grid>
+            </Grid>
           </Grid>
         </Container>
       </Toolbar>

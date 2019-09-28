@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Grid, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -16,6 +16,7 @@ const StyledTemp = styled.p`
   border-right: solid 2px ${colors.white};
   display: flex;
   flex-direction: column;
+  margin-right: ${font.helpers.convertPixelsToRems(12)};
   padding: ${font.helpers.convertPixelsToRems(5)}
     ${font.helpers.convertPixelsToRems(8)};
 `;
