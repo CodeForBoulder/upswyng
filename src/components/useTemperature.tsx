@@ -47,6 +47,11 @@ const useTemperature = (): undefined | null | number => {
 
         const currentTempCelsius: number =
           latestObservation.properties.temperature.value;
+
+        if (!currentTempCelsius) {
+          throw new Error('the current temperature is not provided');
+        }
+
         const currentTempFarenheit: number = convertCelsiusToFarenheit(
           currentTempCelsius
         );
@@ -54,7 +59,9 @@ const useTemperature = (): undefined | null | number => {
         const roundedTemp: number = Math.round(currentTempFarenheit);
         setTemperature(roundedTemp);
       } catch (e) {
-        setTemperature(null);
+        if (!temperature) {
+          setTemperature(null);
+        }
       }
     };
 
