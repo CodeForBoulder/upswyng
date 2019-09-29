@@ -5,7 +5,6 @@ import { THomeButtonAnchor, THomeButtonRouterLink } from '../types';
 
 interface HomeLinkPropsBase {
   children: React.ReactElement | React.ReactElement[];
-  key: string;
 }
 
 type HomeRouterLinkProps = HomeLinkPropsBase & THomeButtonRouterLink;
@@ -21,9 +20,9 @@ const HomeLinkStyles = css`
 `;
 
 export const HomeRouterLink = styled((props: HomeRouterLinkProps) => {
-  const { children, key, linkProps, ...rest } = props;
+  const { children, linkProps, ...rest } = props;
   return (
-    <Link {...linkProps} key={key} {...rest}>
+    <Link {...linkProps} {...rest}>
       {children}
     </Link>
   );
@@ -32,9 +31,9 @@ export const HomeRouterLink = styled((props: HomeRouterLinkProps) => {
 `;
 
 export const HomeAnchorLink = styled((props: HomeAnchorProps) => {
-  const { children, key, href, target, ...rest } = props;
+  const { children, href, target, ...rest } = props;
   return (
-    <a key={key} href={href} target={target} {...rest}>
+    <a href={href} target={target} {...rest}>
       {children}
     </a>
   );

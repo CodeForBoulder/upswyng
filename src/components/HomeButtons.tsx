@@ -1,4 +1,5 @@
 import React from 'react';
+import { Box, Grid } from '@material-ui/core';
 import {
   BananaIcon,
   BusIcon,
@@ -112,23 +113,29 @@ const HomeButtons = () => (
   <>
     {routerLinkButtons.map(button => {
       return (
-        <HomeRouterLink {...button} key={button.text}>
-          <HomeButton component={'span'} buttonColor={button.color}>
-            {button.text}
-            {button.icon}
-          </HomeButton>
-        </HomeRouterLink>
+        <Grid item xs={6} key={button.text}>
+          <Box display="flex" alignItems="stretch">
+            <HomeRouterLink {...button}>
+              <HomeButton buttonColor={button.color}>
+                {button.text}
+                {button.icon}
+              </HomeButton>
+            </HomeRouterLink>
+          </Box>
+        </Grid>
       );
-    })}
-    <HomeAnchorLink
-      {...coordinatedEntryButton}
-      key={coordinatedEntryButton.text}
-    >
-      <HomeButton component={'span'} buttonColor={coordinatedEntryButton.color}>
-        {coordinatedEntryButton.text}
-        {coordinatedEntryButton.icon}
-      </HomeButton>
-    </HomeAnchorLink>
+    })}{' '}
+    <Grid item xs={12}>
+      <HomeAnchorLink
+        {...coordinatedEntryButton}
+        key={coordinatedEntryButton.text}
+      >
+        <HomeButton buttonColor={coordinatedEntryButton.color}>
+          {coordinatedEntryButton.text}
+          {coordinatedEntryButton.icon}
+        </HomeButton>
+      </HomeAnchorLink>
+    </Grid>
   </>
 );
 
