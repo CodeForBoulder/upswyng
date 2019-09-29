@@ -1,25 +1,13 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-interface TCoordMeta {
-  data: {
-    properties: {
-      radarStation: string;
-    };
-  };
-}
+import {
+  TWeatherCoordMetaResponse,
+  TWeatherLatestObservationResponse
+} from '../types';
 
-interface TLatestObservation {
-  data: {
-    properties: {
-      temperature: {
-        value: number;
-      };
-    };
-  };
-}
-
-const convertCelsiusToFarenheit = (cTemp: number) => cTemp * (9 / 5) + 32;
+const convertCelsiusToFarenheit = (cTemp: number): number =>
+  cTemp * (9 / 5) + 32;
 
 const useTemperature = (): undefined | null | number => {
   const [temperature, setTemperature] = useState<undefined | null | number>();
@@ -30,7 +18,7 @@ const useTemperature = (): undefined | null | number => {
   };
 
   useEffect(() => {
-    const getCoordMeta = (): Promise<TCoordMeta> =>
+    const getCoordMeta = (): Promise<TWeatherCoordMetaResponse> =>
       axios.get(
         `https://api.weather.gov/points/${boulderCoords.lat},${
           boulderCoords.lng
@@ -38,24 +26,29 @@ const useTemperature = (): undefined | null | number => {
       );
     const getLatestObservation = (
       stationId: string
-    ): Promise<TLatestObservation> =>
+    ): Promise<TWeatherLatestObservationResponse> =>
       axios.get(
-        `https://api.weather.gov/stations/${stationId}/observations/latest`,
-        {}
+        `https://api.weather.gov/stations/${stationId}/observations/latest`
       );
 
     const getTemperature = async () => {
       try {
-        const { data: coordMeta } = await getCoordMeta();
-        const { data: latestObservation } = await getLatestObservation(
+        const {
+          data: coordMeta
+        }: TWeatherCoordMetaResponse = await getCoordMeta();
+        const {
+          data: latestObservation
+        }: TWeatherLatestObservationResponse = await getLatestObservation(
           coordMeta.properties.radarStation
         );
-        const currentTempCelsius =
+
+        const currentTempCelsius: number =
           latestObservation.properties.temperature.value;
-        const currentTempFarenheit = convertCelsiusToFarenheit(
+        const currentTempFarenheit: number = convertCelsiusToFarenheit(
           currentTempCelsius
         );
-        const roundedTemp = Math.round(currentTempFarenheit);
+
+        const roundedTemp: number = Math.round(currentTempFarenheit);
         setTemperature(roundedTemp);
       } catch (e) {
         setTemperature(null);

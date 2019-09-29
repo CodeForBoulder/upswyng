@@ -1,5 +1,6 @@
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
 import { LinkProps } from 'react-router-dom';
+import geoJson from 'geojson';
 
 export interface TEnvVariables {
   env: {
@@ -94,4 +95,26 @@ export interface THomeButtonAnchor extends THomeButtonBase {
 
 export interface THomeButtonRouterLink extends THomeButtonBase {
   linkProps: LinkProps;
+}
+
+export interface TWeatherCoordMetaData {
+  radarStation: string;
+}
+
+export interface TWeatherLatestObservation {
+  temperature: {
+    value: number;
+  };
+}
+
+export interface TWeatherCoordMetaResponse {
+  data: {
+    properties: TWeatherCoordMetaData & geoJson.GeoJsonProperties;
+  };
+}
+
+export interface TWeatherLatestObservationResponse {
+  data: {
+    properties: TWeatherLatestObservation & geoJson.GeoJsonProperties;
+  };
 }

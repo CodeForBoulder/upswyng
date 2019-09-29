@@ -51,7 +51,7 @@ const StyledTooltip = styled(props => (
 ` as typeof Tooltip;
 
 const Temperature = () => {
-  const temp = useTemperature();
+  const temp: undefined | null | number = useTemperature();
   return (
     <StyledContainer>
       <Typography variant="srOnly" component="h2">
