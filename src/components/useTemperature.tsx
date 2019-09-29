@@ -6,6 +6,8 @@ import {
   TWeatherLatestObservationResponse
 } from '../types';
 
+const GET_TEMP_INTERVAL_MS = 600000;
+
 const convertCelsiusToFarenheit = (cTemp: number): number =>
   cTemp * (9 / 5) + 32;
 
@@ -33,6 +35,7 @@ const useTemperature = (): undefined | null | number => {
 
     const getTemperature = async () => {
       try {
+        console.log('getting temp');
         const {
           data: coordMeta
         }: TWeatherCoordMetaResponse = await getCoordMeta();
@@ -56,6 +59,12 @@ const useTemperature = (): undefined | null | number => {
     };
 
     getTemperature();
+    const getTemperatureInterval = window.setInterval(
+      getTemperature,
+      GET_TEMP_INTERVAL_MS
+    );
+
+    return () => window.clearInterval(getTemperatureInterval);
   }, [setTemperature]);
 
   return temperature;
