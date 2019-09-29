@@ -104,7 +104,8 @@ const Temperature = () => {
         const currentTempFarenheit = convertCelsiusToFarenheit(
           currentTempCelsius
         );
-        setTemperature(currentTempFarenheit);
+        const roundedTemp = Math.round(currentTempFarenheit);
+        setTemperature(roundedTemp);
       } catch (e) {
         setTemperature(null);
       }
