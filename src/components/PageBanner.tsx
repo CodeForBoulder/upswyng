@@ -11,7 +11,7 @@ interface Props {
 
 const CategoryBannerContainer = styled.div`
   align-items: stretch;
-  background: ${props => (props.color ? props.color : colors.greyLight)};
+  background: ${props => (props.color ? props.color : colors.greyMedium)};
   display: flex;
   flex-direction: row;
   padding: ${font.helpers.convertPixelsToRems(14)} 0;

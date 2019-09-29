@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TResourceCategory } from '../types';
 import useSearchResults from './useSearchResults';
-import CategoryBanner from './CategoryBanner';
+import PageBanner from './PageBanner';
 import SubCategories from './SubCategories';
 import SearchResults from './SearchResults';
 
@@ -24,7 +24,7 @@ const CategoryResults = ({
 
   return (
     <>
-      <CategoryBanner text={categoryText} color={categoryColor} />
+      <PageBanner text={categoryText} color={categoryColor} />
       <SubCategories
         category={category}
         color={categoryColor}

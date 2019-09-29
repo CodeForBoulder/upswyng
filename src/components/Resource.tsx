@@ -3,7 +3,9 @@ import { TResource } from '../types';
 import useResource from './useResource';
 import { getSearchParamVal } from '../utils/searchParams';
 import { SEARCH_PARAM_RESOURCE, FIREBASE_RESOURCE_BRANCH } from '../constants';
+
 import LoadingSpinner from './LoadingSpinner';
+import PageBanner from './PageBanner';
 import { Container } from '../App.styles';
 import Details, { DetailBody, DetailHeading } from './Details';
 import Schedule from './Schedule';
@@ -48,7 +50,7 @@ export const Resource = () => {
 
   return (
     <Container>
-      <h1>{charityname}</h1>
+      <PageBanner text={charityname} />
       <Details>
         <DetailHeading>Address</DetailHeading>
         <DetailBody>{renderAddressContent(resource)}</DetailBody>

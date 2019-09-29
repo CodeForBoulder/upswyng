@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { colors } from '../App.styles';
+import { colors, font } from '../App.styles';
 
 interface DetailsProps {
   children: React.ReactChild | React.ReactChild[];
@@ -11,6 +11,7 @@ export const StyledDetails = styled.div`
   flex-wrap: wrap;
   font-size: 14px;
   line-height: 1;
+  margin-top: ${font.helpers.convertPixelsToRems(30)};
 `;
 
 export const DetailItemStyles = css`
