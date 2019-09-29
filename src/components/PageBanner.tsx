@@ -9,7 +9,7 @@ interface Props {
   text: string;
 }
 
-const CategoryBannerContainer = styled.div`
+const PageBannerContainer = styled.div`
   align-items: stretch;
   background: ${props => (props.color ? props.color : colors.greyMedium)};
   display: flex;
@@ -18,7 +18,7 @@ const CategoryBannerContainer = styled.div`
   wrap: no-wrap;
 `;
 
-const CategoryBannerHeading = styled.h1`
+const PageBannerHeading = styled.h1`
   align-items: center;
   display: flex;
   font-size: ${font.helpers.convertPixelsToRems(24)};
@@ -26,11 +26,11 @@ const CategoryBannerHeading = styled.h1`
   margin: ${font.helpers.convertPixelsToRems(-2)} 0 0;
 `;
 
-const CategoryBanner = ({ color, text }: Props) => (
-  <CategoryBannerContainer color={color}>
+const PageBanner = ({ color, text }: Props) => (
+  <PageBannerContainer color={color}>
     <BackButton />
-    <CategoryBannerHeading>{text}</CategoryBannerHeading>
-  </CategoryBannerContainer>
+    <PageBannerHeading>{text}</PageBannerHeading>
+  </PageBannerContainer>
 );
 
-export default CategoryBanner;
+export default PageBanner;
