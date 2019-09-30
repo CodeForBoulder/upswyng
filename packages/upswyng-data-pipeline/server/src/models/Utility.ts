@@ -1,6 +1,6 @@
 import { ObjectId } from "bson";
 import { TResource } from "../../../src/types";
-import canonical from "canonical-instance";
+import { canonical } from "canonical-instance";
 import Resource from "./Resource";
 import Subcategory from "./Subcategory";
 import Transaction from "mongoose-transactions";

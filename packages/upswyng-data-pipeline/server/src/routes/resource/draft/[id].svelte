@@ -38,9 +38,24 @@
 
     fetch(`/api/resource/draft/delete/${id}`, { method: "POST" })
       .then(_res => {
+        if (_res.status >= 400) {
+          throw new Error(_res);
+        }
         window.location.href = "/resource";
       })
       .catch(e => (deleteError = e))
+      .finally(() => (isDeleting = false));
+  }
+
+  function approveUpdate(id) {
+    fetch(`/api/resource/draft/approve/${id}`, { method: "POST" })
+      .then(_res => {
+        if (_res.status >= 400) {
+          throw new Error(_res);
+        }
+        window.location.href = "/resource";
+      })
+      .catch(e => (approveError = e))
       .finally(() => (isDeleting = false));
   }
 </script>
@@ -51,8 +66,11 @@
   export let draftResource;
   export let existingResource; // resource in the directory which this draft would update; null for new resources
 
-  let isDeleting  = false; // Whether we've issued a call to the server to delete the draft resource
+  let isDeleting = false; // Whether we've issued a call to the server to delete the draft resource
   let deleteError = null; // error? Poupulated with the error from a detete attempt, if there has been one
+
+  let isApproving = false; // Whether we've issued a call to the server to approve the draft resource
+  let approveError = null; // error? Poupulated with the error from an approve attempt, if there has been one
 </script>
 
 <svelte:head>
@@ -71,15 +89,23 @@
   <button
     type="button"
     preventDefault
-    disabled={isDeleting}
+    disabled={isDeleting || isApproving}
     on:click={() => deleteDraft(draftResource._id)}>
     Delete Draft
   </button>
   <button
     type="button"
     preventDefault
-    disabled={isDeleting}
-    on:click={() => console.log('Approve Update')}>
+    disabled={isDeleting || isApproving}
+    on:click={() => approveUpdate(draftResource._id)}>
     Approve Update
   </button>
+</div>
+<div>
+  {#if approveError}
+    <p>There was an error approving the resource: {approveError.meessage}</p>
+  {/if}
+  {#if deleteError}
+    <p>There was an error deleting the resource: {deleteError.meessage}</p>
+  {/if}
 </div>

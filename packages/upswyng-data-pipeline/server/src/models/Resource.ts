@@ -213,6 +213,7 @@ const schemaToResource = (
   r: (TResourceFields & { subcategories: TSubcategory[] }) | null
 ): TResource | null => {
   if (!r) return null;
+  r = r.toObject(); // convert from Mongoose Document to JS Object
   return {
     _id: r._id,
     address: {
@@ -334,7 +335,7 @@ ResourceSchema.statics.createOrUpdateFromDraft = async function(
   draftResource: TResource | TNewResource
 ): Promise<TResource> {
   if (draftResource.hasOwnProperty("id")) {
-    const existingResource = this.findOne({
+    const existingResource = await this.findOne({
       id: (draftResource as TResource).id
     });
     if (!existingResource) {
@@ -378,8 +379,10 @@ ResourceSchema.statics.createOrUpdateFromDraft = async function(
       ...resourceToSchema(updateObject.right),
       lastModifiedAt: new Date()
     });
-    return await existingResource
-      .save()
+    await existingResource.save();
+    return await this.findOne({
+      id: (draftResource as TResource).id
+    })
       .populate("subcategories")
       .then(schemaToResource);
   } else {
