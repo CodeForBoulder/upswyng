@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { SEARCH_PARAM_RESOURCE } from '../constants';
 import { colors, font } from '../App.styles';
-import { grey } from '@material-ui/core/colors';
 
 interface Props {
   index?: number;
