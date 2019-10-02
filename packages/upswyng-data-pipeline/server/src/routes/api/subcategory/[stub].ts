@@ -1,10 +1,11 @@
 import Subcategory from "../../../models/Subcategory";
+import { getSubcategoryByStub } from "../../../models/Utility";
 
 export async function get(req, res, next) {
   const { stub } = req.params;
   let subcategory = null;
   try {
-    subcategory = await Subcategory.getByStub(stub);
+    subcategory = await getSubcategoryByStub(stub);
   } catch (e) {
     res.writeHead(500, {
       "Content-Type": "application/json"

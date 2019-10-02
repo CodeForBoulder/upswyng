@@ -1,7 +1,6 @@
-import mongoose, { Schema, Document, Types } from "mongoose";
-import Resource from "./Resource";
-import { ObjectId } from "bson";
 import { TSubcategory } from "../../../src/types";
+import mongoose, { Schema, Document } from "mongoose";
+import { ObjectId } from "bson";
 
 export interface TSubcategoryFields extends Document {
   createdAt: Date;
@@ -46,25 +45,6 @@ SubcategorySchema.statics.findOrCreate = async function(
   }
 };
 
-SubcategorySchema.statics.getByStub = async function(stub: string) {
-  const subcategory = await this.findOne({ stub });
-  if (!subcategory) {
-    return Promise.resolve(null);
-  }
-  try {
-    const resources = await Promise.all([
-      ...subcategory.resources.map(r =>
-        Resource.findOne({ id: new Types.ObjectId(r.id) })
-      )
-    ]);
-    subcategory.resources = resources;
-    return subcategory;
-  } catch (e) {
-    console.log(e);
-    throw new Error(e);
-  }
-};
-
 SubcategorySchema.statics.getSubcategoryList = async function(
   includeResources = false
 ) {
@@ -90,6 +70,5 @@ export default Subcategory as typeof Subcategory & {
     stub: string,
     parentCategory: Schema.Types.ObjectId
   ) => Promise<Schema<TSubcategoryFields>>;
-  getByStub: (stub: string) => Promise<Schema<TSubcategoryFields> | null>;
   getSubcategoryList: (includeResources?: boolean) => Promise<TSubcategory[]>;
 };

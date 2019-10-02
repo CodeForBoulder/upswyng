@@ -1,4 +1,5 @@
-import Resource, { DraftResource } from "../../../../../models/Resource";
+import { DraftResource } from "../../../../../models/Resource";
+import { createOrUpdateResourceFromDraft } from "../../../../../models/Utility";
 import { TResource } from "../../../../../../../src/types";
 
 export async function post(req, res, next) {
@@ -18,6 +19,7 @@ export async function post(req, res, next) {
       );
     }
   } catch (e) {
+    console.error("Error approving draft resource:\n", e.message);
     res.writeHead(500, {
       "Content-Type": "application/json"
     });
@@ -29,16 +31,15 @@ export async function post(req, res, next) {
     );
   }
   try {
-    const updateResource = await Resource.createOrUpdateFromDraft(
+    const updateResource = await createOrUpdateResourceFromDraft(
       draftToApprove
     );
     await DraftResource.deleteByRecordId(draftToApprove._id);
-
     res.writeHead(204, {
       "Content-Type": "application/json"
     });
 
-    res.end(JSON.stringify({ resource: updateResource }));
+    return res.end(JSON.stringify({ resource: updateResource }));
   } catch (e) {
     res.writeHead(500, {
       "Content-Type": "application/json"
