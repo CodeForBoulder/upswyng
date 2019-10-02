@@ -12,7 +12,8 @@ type HomeRouterLinkProps = HomeLinkPropsBase & THomeButtonRouterLink;
 type HomeAnchorProps = HomeLinkPropsBase & THomeButtonAnchor;
 
 const HomeLinkStyles = css`
-  display: block;
+  align-items: stretch;
+  display: flex;
   flex: 1 1 50%;
   padding: 4px;
   text-decoration: none;
