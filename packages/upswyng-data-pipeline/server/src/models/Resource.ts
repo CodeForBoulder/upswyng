@@ -11,7 +11,7 @@ import {
   TAddress,
   TCloseSchedule,
   TSchedule,
-  TSubcategory,
+  TSubcategory
 } from "../../../src/types";
 import { ObjectId } from "bson";
 
@@ -207,7 +207,7 @@ export const schemaToResource = (
 ): TResource | null => {
   if (!r) return null;
   r = r.toObject(); // convert from Mongoose Document to JS Object
-  return {
+  const result = {
     _id: r._id,
     address: {
       address1: r.address.address1,
@@ -233,7 +233,23 @@ export const schemaToResource = (
     subcategories: r.subcategories,
     website: r.website
   };
+
+  removeUndefinedFields(result);
+  return result;
 };
+
+function removeUndefinedFields(o: Object): void {
+  Object.keys(o).forEach(key => {
+    if (o[key] === undefined) {
+      delete o[key];
+    }
+    if (Array.isArray(o[key])) {
+      o[key].forEach(v => removeUndefinedFields(v));
+    } else if (o[key] instanceof Object) {
+      removeUndefinedFields(o[key]);
+    }
+  });
+}
 
 /**
  * Takes a legacy object from Strappd and puts it into the database.
@@ -266,14 +282,6 @@ ResourceSchema.statics.addOrUpdateLegacyResource = async function(
     // return our current record
     return Promise.resolve(schemaToResource(existingRecord));
   }
-};
-
-ResourceSchema.statics.create = async function(
-  resource: TResource
-): Promise<TResource> {
-  delete resource._id;
-  const self = this;
-  return new self(resourceToSchema(resource)).save().then(schemaToResource);
 };
 
 /**
@@ -332,11 +340,7 @@ ResourceSchema.statics.deleteByRecordId = async function(
 };
 
 const Resource = mongoose.model<TResourceFields>("Resource", ResourceSchema);
-(Resource as any).create = () => {
-  throw new Error(
-    "Create should only be called to make DraftResources. To make a new resource, make a draft and then approve it."
-  );
-};
+
 (Resource as any).deleteByRecordId = () => {
   throw new Error(
     'Only drafts should be deleted. Once a resource is in the directory, set the "deleted" field on it to `true` instead of deleting from the database'
@@ -366,7 +370,6 @@ const DraftResource = mongoose.model<TResourceFields>(
     id: string,
     resource: TLegacyResource
   ) => Promise<TResource>;
-  create: (resource: TResource) => Promise<TResource>;
   deleteByRecordId: (id: ObjectId) => Promise<TResource>;
   getById: (id: ObjectId) => Promise<TResource | null>;
   getByRecordId: (id: ObjectId) => Promise<TResource | null>;

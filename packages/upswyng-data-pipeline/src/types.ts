@@ -124,6 +124,7 @@ export enum TStatusFetch {
 }
 
 interface TScheduleBase {
+  _id?: ObjectId;
   day?: TDay;
   date?: string;
   period?: TSchedulePeriod;

@@ -1,4 +1,3 @@
-import Subcategory from "../../../models/Subcategory";
 import { getSubcategoryByStub } from "../../../models/Utility";
 
 export async function get(req, res, next) {

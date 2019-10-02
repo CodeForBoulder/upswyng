@@ -14,6 +14,12 @@
       return { resource, subcategories };
     }
   }
+</script>
+
+<script>
+  import ResourceEditor from "../../components/ResourceEditor.svelte";
+  export let resource; // TResource
+  export let subcategories; // TSubcategory[], all subcategories in the app
 
   let isSaving = false;
   let saveError = null; // Error | null
@@ -31,24 +37,28 @@
     };
 
     fetch("/api/resource", options)
-      .then(res => res.json())
+      .then(async res => {
+        if (res.status >= 400) {
+          const { message } = await res.json();
+          throw new Error(
+            message || "There was an error creating the draft resource."
+          );
+        }
+        return await res.json();
+      })
       .then(res => {
         if (res.draftResource) {
           window.location.href = "/resource";
         } else {
           console.error(res);
-          saveError = new Error("There was an error creating the resource");
+          saveError = new Error(
+            "There was an error creating the draft resource."
+          );
         }
       })
       .catch(e => (saveError = e))
       .finally(() => (isSaving = false));
   }
-</script>
-
-<script>
-  import ResourceEditor from "../../components/ResourceEditor.svelte";
-  export let resource; // TResource
-  export let subcategories; // TSubcategory[], all subcategories in the app
 </script>
 
 <svelte:head>

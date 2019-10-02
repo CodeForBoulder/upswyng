@@ -2,12 +2,51 @@ import Subcategory from "./Subcategory";
 import Resource, {
   resourceToSchema,
   schemaToResource,
-  TResourceFields
+  TResourceFields,
+  DraftResource
 } from "./Resource";
 import { ObjectId } from "bson";
 import { TResource, TSubcategory, TNewResource } from "../../../src/types";
-import { canonical } from "canonical-instance";
+import { deepEqual } from "fast-equals";
 
+export async function createDraftResource(
+  resource: TResource | TNewResource
+): Promise<TResource> {
+  if (resource.hasOwnProperty("id")) {
+    // This resource exists already; make sure the draft isn't the same
+    const existingResource = await Resource.findOne({
+      id: (resource as TResource).id
+    }).populate("subcategories");
+    if (!existingResource) {
+      throw new Error(
+        `This draft has an \`id\`, ${(resource as TResource).id.toHexString()} and is therefore supposed to update an existing resource; however, a resource with the draft's \`id\` doesn't exist`
+      );
+    }
+    const updateObject = diffResources(
+      schemaToResource(existingResource as TResourceFields & {
+        subcategories: TSubcategory[];
+      }),
+      resource as TResource
+    );
+    console.log(JSON.stringify(updateObject, null, 2));
+    if (
+      !Object.keys(updateObject.left).length &&
+      !Object.keys(updateObject.right).length
+    ) {
+      throw new Error("The new resource is the same as the existing resource");
+    }
+  }
+
+  let { _id: newResourceId } = await new DraftResource(
+    resourceToSchema(resource)
+  ).save();
+
+  const newDraft = await DraftResource.getByRecordId(newResourceId);
+  if (!newDraft) {
+    throw new Error("Could not find the new draft just created.");
+  }
+  return newDraft;
+}
 /**
  * Takes the Record ID (_id) of a draft and either creates a new Resource, or updates a Resource
  * if there already exists a Record with the same ID (id) as the draft.
@@ -180,6 +219,7 @@ export async function removeResourceFromSubcategory(
     subcategory.resources = subcategory.resources.filter(
       r => r.toHexString() !== resourceId.toHexString()
     );
+    await subcategory.save();
   }
 }
 
@@ -209,7 +249,7 @@ export function diffResources(
     "website"
   ];
   fieldsToCompare.forEach(fieldName => {
-    if (canonical(left[fieldName]) !== canonical(right[fieldName])) {
+    if (!deepEqual(left[fieldName], right[fieldName])) {
       (leftResult[fieldName] as any) = left[fieldName];
       (rightResult[fieldName] as any) = right[fieldName];
     }
