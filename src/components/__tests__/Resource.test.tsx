@@ -26,6 +26,7 @@ jest.mock('../../App.styles', () => ({
 jest.mock('../../utils/searchParams', () => ({
   getSearchParamVal: () => 'some resource ID'
 }));
+jest.mock('../PageBanner', () => 'PageBanner');
 jest.mock('../Details', () => ({
   __esModule: true,
   default: 'Details',
@@ -40,7 +41,9 @@ describe('<Resource/>', () => {
   const wrapper = shallow(<Resource />);
 
   it('renders the charityname property of the resource prop object', () => {
-    expect(wrapper.find('h1').text()).toBe(foodResource.charityname);
+    expect(wrapper.find('PageBanner').prop('text')).toBe(
+      foodResource.charityname
+    );
   });
 
   it('renders a map component', () => {
