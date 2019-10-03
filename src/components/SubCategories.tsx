@@ -16,8 +16,10 @@ const subCategoryHorizontalSpacing = 5;
 const SubCategoriesList = styled.ul`
   display: flex;
   flex-direction: row;
-  margin: 0 ${font.helpers.convertPixelsToRems(-subCategoryHorizontalSpacing)};
-  padding: ${font.helpers.convertPixelsToRems(20)} 0
+  margin: ${font.helpers.convertPixelsToRems(10)}
+    ${font.helpers.convertPixelsToRems(-subCategoryHorizontalSpacing)} 0;
+  overflow-x: scroll;
+  padding: ${font.helpers.convertPixelsToRems(10)} 0
     ${font.helpers.convertPixelsToRems(10)};
   width: auto;
 `;
