@@ -1,11 +1,23 @@
 import React from 'react';
 import { TResourceCategory } from '../types';
 import { colors, Container } from '../App.styles';
+import {
+  BananaIcon,
+  BusIcon,
+  BusinessCenterIcon,
+  HomeIcon,
+  HygieneIcon,
+  LocalHospitalIcon,
+  PeopleIcon,
+  SocksIcon,
+  WifiIcon
+} from './Icons';
 import CategoryResults from './CategoryResults';
 
 interface TCategory {
-  mainCategory: TResourceCategory;
   color: keyof typeof colors;
+  placeholder: React.ReactElement;
+  mainCategory: TResourceCategory;
   subCategories: TResourceCategory[];
 }
 
@@ -23,6 +35,7 @@ type TCategoryName =
 const categories: Record<TCategoryName, TCategory> = {
   Food: {
     color: 'gold',
+    placeholder: BananaIcon,
     mainCategory: {
       text: 'Food',
       query: 'CATEGORY-food'
@@ -40,6 +53,7 @@ const categories: Record<TCategoryName, TCategory> = {
   },
   Health: {
     color: 'red',
+    placeholder: LocalHospitalIcon,
     mainCategory: {
       text: 'Health',
       query: 'CATEGORY-health'
@@ -77,6 +91,7 @@ const categories: Record<TCategoryName, TCategory> = {
   },
   Hygiene: {
     color: 'teal',
+    placeholder: HygieneIcon,
     mainCategory: {
       text: 'Hygiene',
       query: 'CATEGORY-hygiene'
@@ -102,6 +117,7 @@ const categories: Record<TCategoryName, TCategory> = {
   },
   JobTraining: {
     color: 'lavendar',
+    placeholder: BusinessCenterIcon,
     mainCategory: {
       text: 'Job Training',
       query: 'CATEGORY-jobTraining'
@@ -131,6 +147,7 @@ const categories: Record<TCategoryName, TCategory> = {
   },
   Resources: {
     color: 'purple',
+    placeholder: SocksIcon,
     mainCategory: {
       text: 'Resources',
       query: 'CATEGORY-resources'
@@ -172,6 +189,7 @@ const categories: Record<TCategoryName, TCategory> = {
   },
   Shelters: {
     color: 'orangePrimary',
+    placeholder: HomeIcon,
     mainCategory: {
       text: 'Shelter',
       query: 'CATEGORY-shelter'
@@ -209,6 +227,7 @@ const categories: Record<TCategoryName, TCategory> = {
   },
   SocialServices: {
     color: 'brown',
+    placeholder: PeopleIcon,
     mainCategory: {
       text: 'Social Services',
       query: 'CATEGORY-socialServices'
@@ -230,6 +249,7 @@ const categories: Record<TCategoryName, TCategory> = {
   },
   Transit: {
     color: 'green',
+    placeholder: BusIcon,
     mainCategory: {
       text: 'Transit',
       query: 'CATEGORY-transit'
@@ -251,6 +271,7 @@ const categories: Record<TCategoryName, TCategory> = {
   },
   Wifi: {
     color: 'blue',
+    placeholder: WifiIcon,
     mainCategory: {
       text: 'Wifi',
       query: 'CATEGORY-wifi'
@@ -280,6 +301,7 @@ export default Object.entries(categories).reduce(
         <CategoryResults
           category={categoryValue.mainCategory}
           color={colors[categoryValue.color]}
+          placeholder={categoryValue.placeholder}
           subCategories={categoryValue.subCategories}
         />
       </Container>
