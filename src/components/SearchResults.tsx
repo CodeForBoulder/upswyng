@@ -6,6 +6,7 @@ import ResourceCard from './ResourceCard';
 import LoadingSpinner from './LoadingSpinner';
 
 interface Props {
+  placeholder?: React.ReactElement;
   results: Response | null;
 }
 
@@ -27,15 +28,20 @@ const SearchResultsItem = styled.li`
   padding: ${font.helpers.convertPixelsToRems(8)};
 `;
 
-const SearchResults = ({ results }: Props) => {
+const SearchResults = ({ placeholder, results }: Props) => {
   if (results) {
     const { hits } = results;
     if (hits && hits.length) {
-      const listItems = hits.map(({ charityname, objectID }) => {
+      const listItems = hits.map(({ charityname, objectID }, index) => {
         if (charityname && objectID) {
           return (
             <SearchResultsItem key={objectID}>
-              <ResourceCard resourceId={objectID} resourceName={charityname} />
+              <ResourceCard
+                index={index}
+                placeholder={placeholder}
+                resourceId={objectID}
+                resourceName={charityname}
+              />
             </SearchResultsItem>
           );
         }

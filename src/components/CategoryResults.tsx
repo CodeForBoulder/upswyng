@@ -8,12 +8,14 @@ import SearchResults from './SearchResults';
 interface Props {
   category: TResourceCategory;
   color: string;
+  placeholder?: React.ReactElement;
   subCategories: TResourceCategory[];
 }
 
 const CategoryResults = ({
   category,
   color: categoryColor,
+  placeholder,
   subCategories
 }: Props) => {
   const { text: categoryText, query: categoryQuery } = category;
@@ -31,7 +33,7 @@ const CategoryResults = ({
         subCategories={subCategories}
         handleSubCategoryClick={handleSubCategoryClick}
       />
-      <SearchResults results={searchResults} />
+      <SearchResults placeholder={placeholder} results={searchResults} />
     </>
   );
 };
