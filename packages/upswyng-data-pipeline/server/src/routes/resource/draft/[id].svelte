@@ -62,6 +62,7 @@
 
 <script>
   import ResourceDisplay from "../../../components/ResourceDisplay.svelte";
+  import ResourceDiff from "../../../components/ResourceDiff.svelte";
 
   export let draftResource;
   export let existingResource; // resource in the directory which this draft would update; null for new resources
@@ -78,12 +79,13 @@
 </svelte:head>
 
 {#if existingResource}
-  <p>Updating Resource</p>
+  <h1>Update Resource: {existingResource.name}</h1>
+  <span>ID: {existingResource.id}</span>
+  <ResourceDiff leftResource={existingResource} rightResource={draftResource} />
 {:else}
-  <p>New Resource</p>
+  <h1>Create New Resource: {draftResource.name}</h1>
+  <ResourceDisplay resource={draftResource} />
 {/if}
-
-<ResourceDisplay resource={draftResource} />
 
 <div>
   <button

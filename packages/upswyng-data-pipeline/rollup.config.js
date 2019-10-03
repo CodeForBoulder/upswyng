@@ -60,7 +60,10 @@ export default {
       }),
       commonjs({
         include: /node_modules/,
-        namedExports: { "node_modules/bson/index.js": ["ObjectId"] }
+        namedExports: {
+          "node_modules/bson/index.js": ["ObjectId"],
+          "node_modules/fast-equals/dist/fast-equals.js": ["deepEqual"]
+        }
       }),
       typescript(),
 
@@ -113,7 +116,10 @@ export default {
       }),
       commonjs({
         include: /node_modules/,
-        namedExports: { "node_modules/bson/index.js": ["ObjectId"] }
+        namedExports: {
+          "node_modules/bson/index.js": ["ObjectId"],
+          "node_modules/fast-equals/dist/fast-equals.js": ["deepEqual"]
+        }
       }),
       typescript(),
       json()
@@ -137,7 +143,10 @@ export default {
       }),
       commonjs({
         include: /node_modules/,
-        namedExports: { "node_modules/bson/index.js": ["ObjectId"] }
+        namedExports: {
+          "node_modules/bson/index.js": ["ObjectId"],
+          "node_modules/fast-equals/dist/fast-equals.js": ["deepEqual"]
+        }
       }),
       typescript(),
       !dev && terser()
