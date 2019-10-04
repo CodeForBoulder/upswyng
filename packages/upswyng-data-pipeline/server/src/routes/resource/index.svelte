@@ -23,6 +23,10 @@
   <title>Resources</title>
 </svelte:head>
 
+<h1>
+  <a href="/resource/create">Create a New Resource</a>
+</h1>
+
 <h1>Resource Categories</h1>
 
 {#if categories.length}

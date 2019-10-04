@@ -31,8 +31,10 @@
 <div class="content">
   <h2>ID</h2>
   <p>{resource.id}</p>
-  <h2>Legacy ID</h2>
-  <p>{resource.legacyId}</p>
+  {#if resource.legacyId}
+    <h2>Legacy ID</h2>
+    <p>{resource.legacyId}</p>
+  {/if}
   <h2>Kudos</h2>
   <p>{resource.kudos}</p>
   <h2>Created At</h2>

@@ -83,7 +83,7 @@
   <span>ID: {existingResource.id}</span>
   <ResourceDiff leftResource={existingResource} rightResource={draftResource} />
 {:else}
-  <h1>Create New Resource: {draftResource.name}</h1>
+  <h1>Create New Resource</h1>
   <ResourceDisplay resource={draftResource} />
 {/if}
 

@@ -1,5 +1,5 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher } from "svelte";
   import { form as svelteForm } from "svelte-forms";
   import CloseScheduleInput from "./CloseScheduleInput.svelte";
   import ScheduleInput from "./ScheduleInput.svelte";
@@ -33,9 +33,9 @@
       validators: ["required"]
     },
     address2: { value: resource.address.address2 || "", validators: [] },
-    city: { value: resource.address.city, validators: ["required"] },
-    state: { value: resource.address.state, validators: ["required"] },
-    zip: { value: resource.address.zip, validators: ["required"] },
+    city: { value: resource.address.city || "", validators: ["required"] },
+    state: { value: resource.address.state || "", validators: ["required"] },
+    zip: { value: resource.address.zip || "", validators: ["required"] },
     //
     closeSchedule: { value: resource.closeSchedule || [], validators: [] },
     description: { value: resource.description || "", validators: ["min:12"] },
@@ -47,7 +47,7 @@
       value: resource.longitude || -105.27,
       validators: ["between:-180:180"]
     },
-    name: { value: resource.name, validators: ["required", "min:6"] },
+    name: { value: resource.name || "", validators: ["required", "min:6"] },
     phone: { value: resource.phone || "", validators: ["required", "min:3"] }, // ex: 911
     schedule: { value: resource.schedule || [] },
     services: { value: resource.services || [], validators: [] },
@@ -55,8 +55,10 @@
   }));
 </script>
 
-<h1>{resource.name}</h1>
-{#each resource.subcategories as subcategory}
+<h1>
+  {#if resource.name}{resource.name}{:else}Create A Resource{/if}
+</h1>
+{#each resource.subcategories || [] as subcategory}
   <section>
     <a href={`/category/${subcategory.parentCategory.stub}`}>
       {subcategory.parentCategory.name}
@@ -67,11 +69,21 @@
   </section>
 {/each}
 <div class="content">
-  <p>ID: {resource.id}</p>
-  <p>Legacy ID: {resource.legacyId}</p>
-  <p>Kudos: {resource.kudos}</p>
-  <p>Created At: {resource.createdAt}</p>
-  <p>Last Modified At: {resource.lastModifiedAt}</p>
+  {#if resource.id}
+    <p>ID: {resource.id}</p>
+  {/if}
+  {#if resource.legacyId}
+    <p>Legacy ID: {resource.legacyId}</p>
+  {/if}
+  {#if resource.kudos}
+    <p>Kudos: {resource.kudos}</p>
+  {/if}
+  {#if resource.createdAt}
+    <p>Created At: {resource.createdAt}</p>
+  {/if}
+  {#if resource.lastModifiedAt}
+    <p>Last Modified At: {resource.lastModifiedAt}</p>
+  {/if}
   <form>
     <p>
       <label for="name">Resource Name</label>

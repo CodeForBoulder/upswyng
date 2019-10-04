@@ -7,7 +7,7 @@ import Resource, {
 } from "./Resource";
 import { ObjectId } from "bson";
 import { TResource, TSubcategory, TNewResource } from "../../../src/types";
-import dr from "../utility/diffResources"
+import dr from "../utility/diffResources";
 
 export const diffResources = dr;
 
@@ -40,7 +40,13 @@ export async function createDraftResource(
   }
 
   let { _id: newResourceId } = await new DraftResource(
-    resourceToSchema(resource)
+    resourceToSchema({
+      ...resource,
+      id: (resource as TResource).id || new ObjectId(),
+      createdAt: (resource as TResource).createdAt || new Date(),
+      lastModifiedAt: new Date(),
+      kudos: (resource as TResource).kudos || 0
+    })
   ).save();
 
   const newDraft = await DraftResource.getByRecordId(newResourceId);
@@ -56,14 +62,11 @@ export async function createDraftResource(
 export async function createOrUpdateResourceFromDraft(
   draftResource: TResource | TNewResource
 ): Promise<TResource> {
-  if (draftResource.hasOwnProperty("id")) {
-    const existingResource = await Resource.findOne({
-      id: (draftResource as TResource).id
-    }).populate("subcategories");
-    if (!existingResource) {
-      throw new Error(`This draft has an \`id\`, ${(draftResource as TResource).id.toHexString()}
-      } and is therefore supposed to update an existing resource; however, a resource with the draft's \`id\` doesn't exist`);
-    }
+  const existingResource = await Resource.findOne({
+    id: (draftResource as TResource).id
+  }).populate("subcategories");
+  if (existingResource) {
+    // update an existing resource
     const updateObject = diffResources(
       schemaToResource(existingResource as TResourceFields & {
         subcategories: TSubcategory[];
@@ -118,7 +121,7 @@ export async function createOrUpdateResourceFromDraft(
     await Promise.all(
       subcategories.map(s => addResourceToSubcategory(newResource._id, s._id))
     );
-    return await this.findOne({ _id: newResource._id })
+    return await Resource.findOne({ _id: newResource._id })
       .populate("subcategories")
       .then(schemaToResource);
   }
