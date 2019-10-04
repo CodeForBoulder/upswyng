@@ -16,9 +16,25 @@ const { PORT, NODE_ENV } = process.env;
 const dev = NODE_ENV === "development";
 
 // Database setup
-const { DATABASE_URL, DATABASE_NAME, DATABASE_PASSWORD, DATABASE_USER } = process.env;
+const {
+  DATABASE_URL,
+  DATABASE_NAME,
+  DATABASE_PASSWORD,
+  DATABASE_USER
+} = process.env;
+
+if (dev && /heroku_.*/.test(DATABASE_NAME)) {
+  throw new Error(
+    "💩 You're attempting to use the production datebase in a dev enviroment.");
+}
+
 mongoose
-  .connect(DATABASE_URL, {useNewUrlParser: true, dbName: DATABASE_NAME, user: DATABASE_USER, pass: DATABASE_PASSWORD})
+  .connect(DATABASE_URL, {
+    useNewUrlParser: true,
+    dbName: DATABASE_NAME,
+    user: DATABASE_USER,
+    pass: DATABASE_PASSWORD
+  })
   .then(
     () => console.log(`Connected to MongoDB instance at ${DATABASE_URL}`),
     e =>
