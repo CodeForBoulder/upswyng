@@ -6,10 +6,14 @@
     const { uncategorizedResources } = await this.fetch(
       "/api/resources/uncategorized"
     ).then(r => r.json());
+    // TODO: Remove displaying all resources once they get too big
+    const { resources: allResources } = await this.fetch("/api/resources").then(
+      r => r.json()
+    );
     const { draftResources } = await this.fetch("/api/resources/drafts").then(
       r => r.json()
     );
-    return { categories, draftResources, uncategorizedResources };
+    return { allResources, categories, draftResources, uncategorizedResources };
   }
 </script>
 
@@ -17,6 +21,7 @@
   export let categories = null;
   export let draftResources = null;
   export let uncategorizedResources = null;
+  export let allResources = null;
 </script>
 
 <svelte:head>
@@ -69,4 +74,17 @@
   </ul>
 {:else}
   <span>No uncategorized resources.</span>
+{/if}
+
+<h1>All Resources</h1>
+{#if allResources.length}
+  <ul>
+    {#each allResources as resource}
+      <li>
+        <a href={`/resource/${resource.id}`}>{resource.name}</a>
+      </li>
+    {/each}
+  </ul>
+{:else}
+  <span>There an no resources.</span>
 {/if}

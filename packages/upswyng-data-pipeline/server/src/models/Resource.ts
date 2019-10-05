@@ -346,17 +346,20 @@ const Resource = mongoose.model<TResourceFields>("Resource", ResourceSchema);
     'Only drafts should be deleted. Once a resource is in the directory, set the "deleted" field on it to `true` instead of deleting from the database'
   );
 };
-(Resource as any).getAll = () => {
-  throw new Error(
-    "getAll can only be called on the Draft Resources collection."
-  );
-};
+
+// TODO: Disable once this gets too big
+// (Resource as any).getAll = () => {
+//   throw new Error(
+//     "getAll can only be called on the Draft Resources collection."
+//   );
+// };
 
 export default Resource as typeof Resource & {
   addOrUpdateLegacyResource: (
     id: string,
     resource: TLegacyResource
   ) => Promise<TResource>;
+  getAll: () => Promise<TResource[]>;
   getById: (id: ObjectId) => Promise<TResource | null>;
   getByRecordId: (id: ObjectId) => Promise<TResource | null>;
   getUncategorized: () => Promise<TResource[]>;
