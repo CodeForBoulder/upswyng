@@ -9,6 +9,7 @@ import oidc from "grant-oidc";
 import polka from "polka";
 import session from "express-session";
 import sirv from "sirv";
+import userMiddleware from "./utility/userMiddleware.ts";
 
 dotenv.config();
 
@@ -25,7 +26,8 @@ const {
 
 if (dev && /heroku_.*/.test(DATABASE_NAME)) {
   throw new Error(
-    "💩 You're attempting to use the production datebase in a dev enviroment.");
+    "💩 You're attempting to use the production datebase in a dev enviroment."
+  );
 }
 
 mongoose
@@ -43,7 +45,6 @@ mongoose
       )
   );
 
-const MongoStore = connectMongo(session);
 const grantConfig = {
   defaults: {
     protocol: process.env.SERVER_PROTOCOL || "http",
@@ -58,38 +59,58 @@ const grantConfig = {
     nonce: true,
     custom_params: { access_type: "offline" },
     callback: "/callback"
+  },
+  facebook: {
+    key: process.env.OAUTH_FACEBOOK_CLIENT_ID,
+    secret: process.env.OAUTH_FACEBOOK_CLIENT_SECRET,
+    scope: ["email"],
+    nonce: true,
+    callback: "/callback"
   }
 };
 
-// const store =  new MongoStore({
-// 	url: process.env.DATABASE_URL,
-// 	dbName: process.env.DATABASE_NAME,
-// 	user: process.env.DATABASE_USER,
-// 	pass: process.env.DATABASE_PASSWORD,
-//   });
+const MongoStore = connectMongo(session);
+
+if (!process.env.DATABASE_SESSION_SECRET) {
+  console.warn(
+    "Starting session storage with default secret. \
+    Please set a secret at `DATABASE_SESSION_SECRET` ENV variable."
+  );
+}
 
 polka()
   .use(
     compression({ threshold: 0 }),
+    sirv("static", { dev }),
     bodyParser.urlencoded({ extended: true }),
     bodyParser.json(),
     session({
-      // store,
+      store: new MongoStore({ mongooseConnection: mongoose.connection }),
       secret: process.env.DATABASE_SESSION_SECRET || "default_secret",
       saveUninitialized: true,
       resave: true
     }),
     grant(grantConfig),
-    sirv("static", { dev })
+    userMiddleware
   )
   .get("/callback", oidc(grantConfig), (_req, res) => {
     res.redirect("/");
   })
   .use(
     sapper.middleware({
-      session: (req, _res) => ({
-        grant: req.session.grant || null
-      })
+      session: (req, _res) => {
+        const rawUsers = req.session.rawUsers || {};
+        const numUsers = Object.keys(rawUsers).length;
+        if (numUsers === 1) {
+          return { user: rawUsers[Object.keys(rawUsers)[0]] };
+        }
+        if (numUsers > 1) {
+          throw new Error(`More than one user is present on the session.`);
+        }
+        if (numUsers === 0) {
+          return { user: null };
+        }
+      }
     })
   )
   .listen(PORT, err => {

@@ -1,4 +1,5 @@
 <script>
+  import FacebookLoginButton from "../components/FacebookLoginButton.svelte";
   import GoogleLoginButton from "../components/GoogleLoginButton.svelte";
 </script>
 
@@ -8,11 +9,11 @@
     display: flex;
     flex-direction: column;
     list-style-type: none;
-    margin: 0 auto;
+    margin: 0 auto 3em auto;
   }
 
   li {
-    margin-bottom: 24px;
+    margin-bottom: .5em;
   }
 </style>
 
@@ -20,9 +21,11 @@
   <title>Login</title>
 </svelte:head>
 
-<h1>Login to UpSwyng</h1>
-
+<h1>Login to Upswyng</h1>
 <ul class="sign-in-buttons">
+  <li>
+    <FacebookLoginButton href="/connect/facebook" />
+  </li>
   <li>
     <GoogleLoginButton href="/connect/google" />
   </li>

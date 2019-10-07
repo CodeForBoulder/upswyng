@@ -184,3 +184,12 @@ export interface THomeButtonAnchor extends THomeButtonBase {
 export interface THomeButtonRouterLink extends THomeButtonBase {
   linkState: string;
 }
+
+export interface TUser {
+  id: string; // database ObjectId converted to hex string
+  name?: string;
+  email: string;
+  provider: "facebook" | "google";
+  isAdmin: boolean;
+  isSuperAdmin: boolean;
+}

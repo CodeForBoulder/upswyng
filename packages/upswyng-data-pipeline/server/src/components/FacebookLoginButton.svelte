@@ -6,9 +6,9 @@
   a {
     display: block;
     border: 0;
-    height: 48px;
+    height: 31px;
     padding: 0;
-    width: 198px;
+    width: 191px;
   }
 
   img {
@@ -18,5 +18,5 @@
 </style>
 
 <a href={href}>
-  <img alt="Sign in with Google" src="/google_signin_dark_normal.png" />
+  <img alt="Continue with Facebook" src="/facebook_signin.png" />
 </a>
