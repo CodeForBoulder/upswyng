@@ -7,7 +7,10 @@ export default function(req): TUser | null {
     return rawUsers[Object.keys(rawUsers)[0]];
   }
   if (numUsers > 1) {
-    throw new Error(`More than one user is present on the session.`);
+    console.warn(
+      `More than one user is present on the session. Using first user.`
+    );
+    return rawUsers[Object.keys(rawUsers)[0]];
   }
   if (numUsers === 0) {
     return null;
