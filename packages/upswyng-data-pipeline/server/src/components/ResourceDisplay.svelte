@@ -37,6 +37,10 @@
   {/if}
   <h2>Kudos</h2>
   <p>{resource.kudos}</p>
+  {#if resource.createdBy}
+    <h2>Created By</h2>
+    <p>{resource.createdBy.email}</p>
+  {/if}
   <h2>Created At</h2>
   <p>{resource.createdAt}</p>
   <h2>Last Modified At</h2>

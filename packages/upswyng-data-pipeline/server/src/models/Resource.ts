@@ -14,11 +14,13 @@ import {
   TSubcategory
 } from "../../../src/types";
 import { ObjectId } from "bson";
+import { schemaToUser, TUserFields } from "./User";
 
 export interface TResourceFields extends Document {
   address: TAddress;
   closeSchedule: TCloseSchedule[];
   createdAt: Date;
+  createdBy: ObjectId | undefined;
   deleted: boolean;
   description: string;
   id: ObjectId;
@@ -46,6 +48,7 @@ export const ResourceSchema = new Schema({
     { day: String, period: String, scheduleType: String }
   ],
   createdAt: { type: Date, default: Date.now, required: true },
+  createdBy: { type: Schema.Types.ObjectId, ref: "User", required: false },
   deleted: { type: Boolean, default: false, required: true },
   description: {
     type: String,
@@ -218,6 +221,9 @@ export const schemaToResource = (
     },
     closeSchedule: r.closeSchedule,
     createdAt: r.createdAt,
+    createdBy: r.createdBy
+      ? schemaToUser(r.createdBy as unknown as TUserFields)
+      : undefined,
     deleted: r.deleted,
     description: r.description,
     id: r.id,
@@ -305,6 +311,7 @@ ResourceSchema.statics.getByRecordId = async function(
 ): Promise<TResource | null> {
   return this.findOne({ _id: id })
     .populate({ path: "subcategories", populate: { path: "parentCategory" } })
+    .populate("createdBy")
     .then(schemaToResource);
 };
 

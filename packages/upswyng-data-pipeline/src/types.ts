@@ -81,6 +81,7 @@ export interface TSubcategory {
 export interface TResource {
   _id?: ObjectId; // DO NOT normally reference this, use `id`
   address: TAddress;
+  createdBy?: TUser; // id of the user who created this
   closeSchedule: TCloseSchedule[];
   createdAt: Date;
   deleted: boolean; // We leave entries in the DB so they don't get resynced from Strapped, but for all intents & purposes this resource doesn't exist.
@@ -189,7 +190,7 @@ export interface TUser {
   id: string; // database ObjectId converted to hex string
   name?: string;
   email: string;
-  provider: "facebook" | "google";
+  providers: Array<"facebook" | "google">;
   isAdmin: boolean;
   isSuperAdmin: boolean;
 }

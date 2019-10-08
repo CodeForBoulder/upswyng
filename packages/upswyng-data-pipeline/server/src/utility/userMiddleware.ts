@@ -3,7 +3,7 @@
  */
 
 import axios from "axios";
-import User from "../models/User";
+import User, { schemaToUser } from "../models/User";
 import { TUser } from "../../../src/types";
 
 interface TGrantGoogle {
@@ -43,13 +43,7 @@ async function googleGrantToUser(grant: TGrantGoogle): Promise<TUser> {
       grant.response.id_token.payload.sub,
       grant.response.id_token.payload.email
     );
-    return {
-      email: user.google.email,
-      id: user._id.toHexString(),
-      isAdmin: user.isAdmin,
-      isSuperAdmin: user.isSuperAdmin,
-      provider: "google"
-    };
+    return schemaToUser(user);
   } catch (e) {
     console.error(e);
     throw new Error(
@@ -76,14 +70,7 @@ async function facebookGrantToUser(grant: TGrantFacebook): Promise<TUser> {
     );
     try {
       const user = await User.findOrCreateFacebookUser(id, name, email);
-      return {
-        email: user.facebook.email,
-        id: user._id.toHexString(),
-        isAdmin: user.isAdmin,
-        isSuperAdmin: user.isSuperAdmin,
-        name: user.facebook.name,
-        provider: "facebook"
-      };
+      return schemaToUser(user);
     } catch (e) {
       throw new Error(`Error creating or finding new user with id ${id}`);
     }

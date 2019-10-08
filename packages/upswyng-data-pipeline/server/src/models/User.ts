@@ -1,7 +1,8 @@
 import mongoose, { Document, Schema } from "mongoose";
 import { ObjectId } from "bson";
+import { TUser } from "../../../src/types";
 
-interface TUserFields extends Document {
+export interface TUserFields extends Document {
   _id: ObjectId;
   facebook?: {
     id: string;
@@ -14,6 +15,25 @@ interface TUserFields extends Document {
   };
   isAdmin: boolean;
   isSuperAdmin: boolean;
+}
+
+export function schemaToUser(u: TUserFields): TUser {
+  const result: Partial<TUser> = {
+    id: u.id,
+    providers: [],
+    isAdmin: u.isAdmin || false,
+    isSuperAdmin: u.isSuperAdmin || false
+  };
+  if (u.facebook) {
+    result.providers.push("facebook");
+    result.name = u.facebook.name;
+    result.email = u.facebook.email;
+  }
+  if (u.google) {
+    result.providers.push("google");
+    result.email = u.google.email;
+  }
+  return result as TUser;
 }
 
 const UserSchema = new Schema(

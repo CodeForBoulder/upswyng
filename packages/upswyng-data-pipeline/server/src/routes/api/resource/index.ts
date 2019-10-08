@@ -1,14 +1,32 @@
 import { createDraftResource } from "../../../models/Utility";
 import { ObjectId } from "bson";
+import { requireAdmin, requireLoggedIn } from "../../../utility/authHelpers";
+import { TUser } from "../../../../../src/types";
 
 /**
  * Creates a new draft resource. Resources and updates to resources
  * start as draft resource records. Draft resource updates are then merged
  * into the `Resource` collection.
  */
-export async function post(req, res) {
+export async function post(req, res, next) {
+  let user: TUser | null = null;
+  try {
+    user = requireLoggedIn(req);
+  } catch (_e) {
+    res.writeHead(401, {
+      "Content-Type": "application/json"
+    });
+    res.end(
+      JSON.stringify({
+        message: `You must be logged in to create a new resource.`
+      })
+    );
+    next();
+    return;
+  }
   try {
     const { draftResource } = req.body;
+    draftResource.createdBy = (user as TUser).id;
     createObjectIds(draftResource);
     try {
       const newResource = await createDraftResource(draftResource);

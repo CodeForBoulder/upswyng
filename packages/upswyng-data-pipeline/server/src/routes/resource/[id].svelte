@@ -1,5 +1,5 @@
 <script context="module">
-  export async function preload({ params, query }) {
+  export async function preload({ params, query }, { user }) {
     const resourceResponse = await this.fetch(`/api/resource/${params.id}`);
     const { resource } = await resourceResponse.json();
 
@@ -11,15 +11,17 @@
     } else if (subcategoryResponse.status !== 200) {
       this.error(subcategoryResponse.status, subcategoryData.message);
     } else {
-      return { resource, subcategories };
+      return { resource, subcategories, isLoggedIn: !!user };
     }
   }
 </script>
 
 <script>
+  import ResourceDisplay from "../../components/ResourceDisplay.svelte";
   import ResourceEditor from "../../components/ResourceEditor.svelte";
   export let resource; // TResource
   export let subcategories; // TSubcategory[], all subcategories in the app
+  export let isLoggedIn; // booleans
 
   let isSaving = false;
   let saveError = null; // Error | null
@@ -65,8 +67,13 @@
   <title>Upswyng: {resource.name}</title>
 </svelte:head>
 
-<ResourceEditor
-  {resource}
-  {subcategories}
-  errorText={saveError ? saveError.message : ''}
-  on:dispatchSaveResource={e => handleSaveClick(e.detail)} />
+{#if isLoggedIn}
+  <ResourceEditor
+    {resource}
+    {subcategories}
+    errorText={saveError ? saveError.message : ''}
+    on:dispatchSaveResource={e => handleSaveClick(e.detail)} />
+{:else}
+  <ResourceDisplay {resource} />
+  <p>Log in to make changes to this resource</p>
+{/if}

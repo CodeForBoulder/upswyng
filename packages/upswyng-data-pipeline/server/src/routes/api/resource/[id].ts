@@ -1,5 +1,6 @@
 import Resource from "../../../models/Resource";
 import { ObjectId } from "bson";
+import { isAdmin } from "../../../utility/authHelpers";
 
 export async function get(req, res, next) {
   const { id } = req.params;
@@ -19,6 +20,10 @@ export async function get(req, res, next) {
   }
 
   if (resource) {
+    if (!isAdmin(req)) {
+      // don't let non-admins see the resource creator
+      delete resource.createdBy;
+    }
     res.writeHead(200, {
       "Content-Type": "application/json"
     });
