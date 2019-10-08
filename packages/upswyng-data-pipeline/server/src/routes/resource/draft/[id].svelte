@@ -1,5 +1,9 @@
 <script context="module">
-  export async function preload({ params, query }) {
+  export async function preload({ params, query }, { user }) {
+    if (!user || !user.isAdmin) {
+      this.error(401, "You must be an admin to access this page.");
+    }
+
     const resourceResponse = await this.fetch(
       `/api/resource/draft/${params.id}`
     );

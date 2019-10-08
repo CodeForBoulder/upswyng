@@ -1,5 +1,5 @@
 <script context="module">
-  export async function preload({ params, query }) {
+  export async function preload({ params, query }, { user }) {
     const { categories } = await this.fetch("/api/categories").then(r =>
       r.json()
     );
@@ -13,7 +13,13 @@
     const { draftResources } = await this.fetch("/api/resources/drafts").then(
       r => r.json()
     );
-    return { allResources, categories, draftResources, uncategorizedResources };
+    return {
+      allResources,
+      categories,
+      draftResources,
+      uncategorizedResources,
+      user
+    };
   }
 </script>
 
@@ -22,6 +28,7 @@
   export let draftResources = null;
   export let uncategorizedResources = null;
   export let allResources = null;
+  export let user = null;
 </script>
 
 <svelte:head>
@@ -46,20 +53,22 @@
   <span>No categories found.</span>
 {/if}
 
-<h1>Draft Resources</h1>
+{#if user && user.isAdmin}
+  <h1>Draft Resources</h1>
 
-{#if draftResources.length}
-  <ul>
-    {#each draftResources as draftResource}
-      <li>
-        <a href={`/resource/draft/${draftResource._id}`}>
-          {draftResource.name}
-        </a>
-      </li>
-    {/each}
-  </ul>
-{:else}
-  <span>No drafts at this time.</span>
+  {#if draftResources.length}
+    <ul>
+      {#each draftResources as draftResource}
+        <li>
+          <a href={`/resource/draft/${draftResource._id}`}>
+            {draftResource.name}
+          </a>
+        </li>
+      {/each}
+    </ul>
+  {:else}
+    <span>No drafts at this time.</span>
+  {/if}
 {/if}
 
 <h1>Uncategorized Resources</h1>
