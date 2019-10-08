@@ -1,5 +1,6 @@
 <script>
   export let segment;
+  export let user; // ?TUser
 </script>
 
 <style>
@@ -59,8 +60,14 @@
       </a>
     </li>
     <div class="spacer" />
-    <li class="login">
-      <a class={segment === 'login' ? 'selected' : ''} href="login">log in</a>
-    </li>
+    {#if !user}
+      <li class="login">
+        <a class={segment === 'login' ? 'selected' : ''} href="login">log in</a>
+      </li>
+    {:else}
+      <li class="logout">
+        <a href="logout">log out</a>
+      </li>
+    {/if}
   </ul>
 </nav>
