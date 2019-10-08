@@ -107,19 +107,31 @@ async function grantToUser(grant: TGrant) {
   }
 }
 
-export default async function(req, _res, next): Promise<void> {
-  if (req.session.grant && !req.session.rawUsers) {
-    req.session.rawUsers = {};
-  }
-  if (
-    req.session.grant &&
-    !req.session.rawUsers[grantToKey(req.session.grant)]
-  ) {
-    const user = await grantToUser(req.session.grant);
-    req.session.rawUsers[grantToKey(req.session.grant)] = user;
-  }
-  if (!req.session.grant && req.session.rawUsers) {
-    req.session.rawUsers = null;
+export default async function(req, res, next): Promise<void> {
+  try {
+    if (req.session.grant && !req.session.rawUsers) {
+      req.session.rawUsers = {};
+    }
+    if (
+      req.session.grant &&
+      !req.session.rawUsers[grantToKey(req.session.grant)]
+    ) {
+      const user = await grantToUser(req.session.grant);
+      req.session.rawUsers[grantToKey(req.session.grant)] = user;
+    }
+    if (!req.session.grant && req.session.rawUsers) {
+      req.session.rawUsers = null;
+    }
+  } catch (e) {
+    res.writeHead(500, {
+      "Content-Type": "application/json"
+    });
+
+    res.end(
+      JSON.stringify({
+        message: `There was an error logging in: ${e.message}`
+      })
+    );
   }
   next();
 }
