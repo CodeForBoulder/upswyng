@@ -48,7 +48,7 @@ CategorySchema.statics.findOrCreate = async function(
 };
 
 CategorySchema.statics.getCategoryList = async function() {
-  return await this.find();
+  return await this.find().populate("subcategories");
 };
 
 CategorySchema.statics.getByStub = async function(stub: string) {
