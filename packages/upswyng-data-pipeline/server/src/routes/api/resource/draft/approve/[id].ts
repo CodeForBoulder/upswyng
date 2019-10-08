@@ -1,9 +1,25 @@
 import { DraftResource } from "../../../../../models/Resource";
 import { createOrUpdateResourceFromDraft } from "../../../../../models/Utility";
 import { TResource } from "../../../../../../../src/types";
+import { requireAdmin } from "../../../../../utility/authHelpers";
 
 export async function post(req, res, next) {
   const { id: resourceId } = req.params; // _id of resource to be approved
+  try {
+    requireAdmin(req);
+  } catch (_e) {
+    res.writeHead(401, {
+      "Content-Type": "application/json"
+    });
+    res.end(
+      JSON.stringify({
+        message: `You are not authorized to approve drafts.`
+      })
+    );
+    next();
+    return;
+  }
+
   let draftToApprove: TResource | null = null;
   try {
     draftToApprove = await DraftResource.getByRecordId(resourceId);

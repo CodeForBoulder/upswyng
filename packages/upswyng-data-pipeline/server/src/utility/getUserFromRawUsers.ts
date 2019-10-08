@@ -1,4 +1,6 @@
-export default function(req) {
+import { TUser } from "../../../src/types";
+
+export default function(req): TUser | null {
   const rawUsers = req.session.rawUsers || {};
   const numUsers = Object.keys(rawUsers).length;
   if (numUsers === 1) {
