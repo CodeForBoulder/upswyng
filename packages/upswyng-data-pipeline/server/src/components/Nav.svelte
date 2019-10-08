@@ -24,6 +24,12 @@
     flex: 1;
   }
 
+  .admin {
+    position: relative;
+    display: inline-block;
+    color: gray;
+  }
+
   .selected {
     position: relative;
     display: inline-block;
@@ -39,7 +45,8 @@
     bottom: -1px;
   }
 
-  a {
+  a,
+  .admin span {
     text-decoration: none;
     padding: 1em 0.5em;
     display: block;
@@ -60,6 +67,11 @@
       </a>
     </li>
     <div class="spacer" />
+    {#if user && user.isAdmin}
+      <li class="admin">
+        <span>admin</span>
+      </li>
+    {/if}
     {#if !user}
       <li class="login">
         <a class={segment === 'login' ? 'selected' : ''} href="login">log in</a>
