@@ -3,6 +3,7 @@ import * as sapper from "@sapper/server";
 import bodyParser from "body-parser";
 import compression from "compression";
 import connectMongo from "connect-mongo";
+import getUserFromRawUsers from "./utility/getUserFromRawUsers.ts";
 import grant from "grant-express";
 import mongoose from "mongoose";
 import oidc from "grant-oidc";
@@ -99,17 +100,7 @@ polka()
   .use(
     sapper.middleware({
       session: (req, _res) => {
-        const rawUsers = req.session.rawUsers || {};
-        const numUsers = Object.keys(rawUsers).length;
-        if (numUsers === 1) {
-          return { user: rawUsers[Object.keys(rawUsers)[0]] };
-        }
-        if (numUsers > 1) {
-          throw new Error(`More than one user is present on the session.`);
-        }
-        if (numUsers === 0) {
-          return { user: null };
-        }
+        return { user: getUserFromRawUsers(req) };
       }
     })
   )
