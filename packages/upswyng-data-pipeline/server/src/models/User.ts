@@ -50,7 +50,7 @@ UserSchema.statics.findOrCreateFacebookUser = async function(
     );
   } else if (!user) {
     try {
-      const newUser = new self({ facebook: { id, name, user } });
+      const newUser = new self({ facebook: { id, name, email } });
       const result = await newUser.save();
       return result.toObject();
     } catch (e) {
@@ -73,6 +73,38 @@ UserSchema.statics.findOrCreateFacebookUser = async function(
   return user.toObject();
 };
 
+UserSchema.statics.findOrCreateGoogleUser = async function(
+  sub: string,
+  email?: string
+): Promise<TUserFields> {
+  const self = this;
+  const user = await this.findOne({ "google.sub": sub });
+  if (!user && !email) {
+    throw new Error(
+      `User with sub ${sub} not found and no email included to create the user.`
+    );
+  } else if (!user) {
+    try {
+      const newUser = new self({ google: { sub, email } });
+      const result = await newUser.save();
+      return result.toObject();
+    } catch (e) {
+      console.error(`Error creating new user:\t${e}`);
+      throw e;
+    }
+  }
+  if (user.google.email !== email) {
+    // if the user has updated their email on google,
+    // update it in our records
+    if (email) {
+      user.google.email = email;
+    }
+    const updatedUser = await user.save();
+    return updatedUser.toObject();
+  }
+  return user.toObject();
+};
+
 const User = mongoose.model<TUserFields>("User", UserSchema);
 
 export default User as typeof User & {
@@ -81,4 +113,5 @@ export default User as typeof User & {
     name?: string,
     email?: string
   ) => Promise<TUserFields>;
+  findOrCreateGoogleUser: (sub: string, email?: string) => TUserFields;
 };

@@ -32,6 +32,32 @@ function grantToKey(grant: TGrant) {
   return `${grant.provider}_${grant.state}_${grant.nonce}`;
 }
 
+async function googleGrantToUser(grant: TGrantGoogle): Promise<TUser> {
+  if (!grant.provider || grant.provider !== "google") {
+    throw new Error(
+      "Attempted to convert a non-google grant to user with google logic"
+    );
+  }
+  try {
+    const user = await User.findOrCreateGoogleUser(
+      grant.response.id_token.payload.sub,
+      grant.response.id_token.payload.email
+    );
+    return {
+      email: user.google.email,
+      id: user._id.toHexString(),
+      isAdmin: user.isAdmin,
+      isSuperAdmin: user.isSuperAdmin,
+      provider: "google"
+    };
+  } catch (e) {
+    console.error(e);
+    throw new Error(
+      `Error creating or finding new user with sub ${grant.response.id_token.payload.sub}`
+    );
+  }
+}
+
 async function facebookGrantToUser(grant: TGrantFacebook): Promise<TUser> {
   if (!grant.provider || grant.provider !== "facebook") {
     throw new Error(
@@ -56,7 +82,7 @@ async function facebookGrantToUser(grant: TGrantFacebook): Promise<TUser> {
         isAdmin: user.isAdmin,
         isSuperAdmin: user.isSuperAdmin,
         name: user.facebook.name,
-        provider: "facebook",
+        provider: "facebook"
       };
     } catch (e) {
       throw new Error(`Error creating or finding new user with id ${id}`);
@@ -66,13 +92,17 @@ async function facebookGrantToUser(grant: TGrantFacebook): Promise<TUser> {
   }
 }
 
-async function grantToUser(grant:TGrant) {
+async function grantToUser(grant: TGrant) {
   switch (grant.provider) {
     case "facebook":
       return await facebookGrantToUser(grant);
+    case "google":
+      return await googleGrantToUser(grant);
     default:
       throw new Error(
-        `Received unknown provider ${grant.provider} when converting grant to user.`
+        `Received unknown provider ${
+          (grant as any).provider
+        } when converting grant to user.`
       );
   }
 }
@@ -81,7 +111,10 @@ export default async function(req, _res, next): Promise<void> {
   if (req.session.grant && !req.session.rawUsers) {
     req.session.rawUsers = {};
   }
-  if (req.session.grant && !req.session.rawUsers[grantToKey(req.session.grant)]) {
+  if (
+    req.session.grant &&
+    !req.session.rawUsers[grantToKey(req.session.grant)]
+  ) {
     const user = await grantToUser(req.session.grant);
     req.session.rawUsers[grantToKey(req.session.grant)] = user;
   }
