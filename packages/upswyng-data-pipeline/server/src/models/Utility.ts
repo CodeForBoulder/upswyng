@@ -30,7 +30,7 @@ export async function createDraftResource(
       }),
       resource as TResource
     );
-    console.log(JSON.stringify(updateObject, null, 2));
+
     if (
       !Object.keys(updateObject.left).length &&
       !Object.keys(updateObject.right).length
