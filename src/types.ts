@@ -14,6 +14,7 @@ export interface TEnvVariables {
     REACT_APP_FIREBASE_STORAGE_BUCKET: string;
     REACT_APP_FIREBASE_MESSAGE_SENDER_ID: string;
     REACT_APP_GOOGLE_MAPS_API_KEY: string;
+    REACT_APP_OPEN_WEATHER_API_KEY: string;
   };
 }
 
