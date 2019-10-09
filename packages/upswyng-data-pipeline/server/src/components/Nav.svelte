@@ -1,85 +1,75 @@
 <script>
   export let segment;
   export let user; // ?TUser
+
+  let toggled = false;
+
+  function burgerClick() {
+    toggled = !toggled;
+  }
 </script>
 
-<style>
-  nav {
-    border-bottom: 1px solid rgba(255, 62, 0, 0.1);
-    font-weight: 300;
-    padding: 0 1em;
-  }
-
-  ul {
-    margin: 0;
-    padding: 0;
-    display: flex;
-  }
-
-  li {
-    display: block;
-  }
-
-  div.spacer {
-    flex: 1;
-  }
-
-  .admin {
-    position: relative;
-    display: inline-block;
-    color: gray;
-  }
-
-  .selected {
-    position: relative;
-    display: inline-block;
-  }
-
-  .selected::after {
-    position: absolute;
-    content: "";
-    width: calc(100% - 1em);
-    height: 2px;
-    background-color: rgb(255, 62, 0);
-    display: block;
-    bottom: -1px;
-  }
-
-  a,
-  .admin span {
-    text-decoration: none;
-    padding: 1em 0.5em;
-    display: block;
-  }
-</style>
-
-<nav>
-  <ul>
-    <li>
-      <a class={segment === undefined ? 'selected' : ''} href=".">home</a>
-    </li>
-
-    <!-- for the resources link, we're using rel=prefetch so that Sapper prefetches
-		     the resources data when we hover over the link or tap it on a touchscreen -->
-    <li>
-      <a class={segment === 'resource' ? 'selected' : ''} href="resource">
-        resources
+<nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">Upswyng</a>
+    <!-- svelte-ignore a11y-missing-attribute -->
+    <a
+      role="button"
+      class="navbar-burger burger"
+      class:is-active={toggled}
+      on:click={burgerClick}
+      aria-label="menu"
+      aria-expanded="false"
+      data-target="upswyng-main-nav">
+      <span aria-hidden="true" />
+      <span aria-hidden="true" />
+      <span aria-hidden="true" />
+    </a>
+  </div>
+  <div id="upswyng-main-nav" class="navbar-menu" class:is-active={toggled}>
+    <div class="navbar-start">
+      <a class:has-text-weight-semibold={!segment} class="navbar-item" href="/">
+        Home
       </a>
-    </li>
-    <div class="spacer" />
-    {#if user && user.isAdmin}
-      <li class="admin">
-        <span>admin</span>
-      </li>
-    {/if}
-    {#if !user}
-      <li class="login">
-        <a class={segment === 'login' ? 'selected' : ''} href="login">log in</a>
-      </li>
-    {:else}
-      <li class="logout">
-        <a href="logout">log out</a>
-      </li>
-    {/if}
-  </ul>
+      <a
+        class:has-text-weight-semibold={segment === 'resource'}
+        class="navbar-item"
+        href="resource">
+        Resources
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <!-- svelte-ignore a11y-missing-attribute -->
+        <a class="navbar-link">More</a>
+
+        <div class="navbar-dropdown">
+          <!-- svelte-ignore a11y-missing-attribute -->
+          <a class="navbar-item">About</a>
+          <!-- svelte-ignore a11y-missing-attribute -->
+          <a class="navbar-item">Privacy</a>
+          <!-- svelte-ignore a11y-missing-attribute -->
+          <a class="navbar-item">Contact</a>
+          <hr class="navbar-divider" />
+          <!-- svelte-ignore a11y-missing-attribute -->
+          <a class="navbar-item">Report an issue</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          {#if !user}
+            <a class="button is-primary" href="login">
+              <strong>Log In</strong>
+            </a>
+          {:else}
+            <a class="button" href="logout">
+              <strong>Log Out</strong>
+            </a>
+          {/if}
+        </div>
+      </div>
+    </div>
+  </div>
 </nav>

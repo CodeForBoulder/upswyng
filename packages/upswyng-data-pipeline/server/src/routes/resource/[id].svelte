@@ -67,13 +67,19 @@
   <title>Upswyng: {resource.name}</title>
 </svelte:head>
 
-{#if isLoggedIn}
-  <ResourceEditor
-    {resource}
-    {subcategories}
-    errorText={saveError ? saveError.message : ''}
-    on:dispatchSaveResource={e => handleSaveClick(e.detail)} />
-{:else}
-  <ResourceDisplay {resource} />
-  <p>Log in to make changes to this resource</p>
-{/if}
+<section class="section">
+  <div class="container">
+    {#if isLoggedIn}
+      <ResourceEditor
+        {resource}
+        {subcategories}
+        {isSaving}
+        errorText={saveError ? saveError.message : ''}
+        on:clearErrorText={() => (saveError = null)}
+        on:dispatchSaveResource={e => handleSaveClick(e.detail)} />
+    {:else}
+      <ResourceDisplay {resource} />
+      <p>Log in to make changes to this resource</p>
+    {/if}
+  </div>
+</section>

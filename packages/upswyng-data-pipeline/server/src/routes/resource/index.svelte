@@ -35,65 +35,73 @@
   <title>Resources</title>
 </svelte:head>
 
-<h1>
-  <a href="/resource/create">Create a New Resource</a>
-</h1>
+<section class="section">
+  <div class="container">
+    <h1 class="title">Resources</h1>
+    <div class="content">
+      <!-- TODO: Gate this for logged in only -->
+      <a href="/resource/create" class="button is-large">
+        Create a New Resource
+      </a>
+    </div>
 
-<h1>Resource Categories</h1>
+    <p class="subtitle">Resource Categories</p>
 
-{#if categories.length}
-  <ul>
-    {#each categories as category}
-      <li>
-        <a href={`/category/${category.stub}`}>{category.name}</a>
-      </li>
-    {/each}
-  </ul>
-{:else}
-  <span>No categories found.</span>
-{/if}
+    {#if categories.length}
+      <ul class="content">
+        {#each categories as category}
+          <li>
+            <a href={`/category/${category.stub}`}>{category.name}</a>
+          </li>
+        {/each}
+      </ul>
+    {:else}
+      <span>No categories found.</span>
+    {/if}
 
-{#if user && user.isAdmin}
-  <h1>Draft Resources</h1>
+    {#if user && user.isAdmin}
+      <p class="subtitle">Draft Resources</p>
 
-  {#if draftResources.length}
-    <ul>
-      {#each draftResources as draftResource}
-        <li>
-          <a href={`/resource/draft/${draftResource._id}`}>
-            {draftResource.name}
-          </a>
-        </li>
-      {/each}
-    </ul>
-  {:else}
-    <span>No drafts at this time.</span>
-  {/if}
-{/if}
+      {#if draftResources.length}
+        <ul class="content">
+          {#each draftResources as draftResource}
+            <li>
+              <a href={`/resource/draft/${draftResource._id}`}>
+                {draftResource.name}
+              </a>
+            </li>
+          {/each}
+        </ul>
+      {:else}
+        <span>No drafts at this time.</span>
+      {/if}
+    {/if}
 
-<h1>Uncategorized Resources</h1>
+    <p class="subtitle">Uncategorized Resources</p>
 
-{#if uncategorizedResources.length}
-  <ul>
-    {#each uncategorizedResources as resource}
-      <li>
-        <a href={`/resource/${resource.id}`}>{resource.name}</a>
-      </li>
-    {/each}
-  </ul>
-{:else}
-  <span>No uncategorized resources.</span>
-{/if}
+    {#if uncategorizedResources.length}
+      <ul class="content">
+        {#each uncategorizedResources as resource}
+          <li>
+            <a href={`/resource/${resource.id}`}>{resource.name}</a>
+          </li>
+        {/each}
+      </ul>
+    {:else}
+      <span>No uncategorized resources.</span>
+    {/if}
 
-<h1>All Resources</h1>
-{#if allResources.length}
-  <ul>
-    {#each allResources as resource}
-      <li>
-        <a href={`/resource/${resource.id}`}>{resource.name}</a>
-      </li>
-    {/each}
-  </ul>
-{:else}
-  <span>There an no resources.</span>
-{/if}
+    <p class="subtitle">All Resources</p>
+    {#if allResources.length}
+      <ul class="content">
+        {#each allResources as resource}
+          <li>
+            <a href={`/resource/${resource.id}`}>{resource.name}</a>
+          </li>
+        {/each}
+      </ul>
+    {:else}
+      <span>There an no resources.</span>
+    {/if}
+  </div>
+</section>

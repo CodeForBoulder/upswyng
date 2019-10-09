@@ -13,7 +13,7 @@
   }
 
   li {
-    margin-bottom: .5em;
+    margin-bottom: 0.5em;
   }
 </style>
 
@@ -21,12 +21,16 @@
   <title>Login</title>
 </svelte:head>
 
-<h1>Login to Upswyng</h1>
-<ul class="sign-in-buttons">
-  <li>
-    <FacebookLoginButton href="/connect/facebook" />
-  </li>
-  <li>
-    <GoogleLoginButton href="/connect/google" />
-  </li>
-</ul>
+<section class="section">
+  <div class="container">
+    <h1 class="title">Login to Upswyng</h1>
+    <ul class="sign-in-buttons">
+      <li>
+        <FacebookLoginButton href="/connect/facebook" />
+      </li>
+      <li>
+        <GoogleLoginButton href="/connect/google" />
+      </li>
+    </ul>
+  </div>
+</section>

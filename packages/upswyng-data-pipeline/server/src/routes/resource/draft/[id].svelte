@@ -82,36 +82,54 @@
   <title>Upswyng: {draftResource.name} [draft]</title>
 </svelte:head>
 
-{#if existingResource}
-  <h1>Update Resource: {existingResource.name}</h1>
-  <span>ID: {existingResource.id}</span>
-  <ResourceDiff leftResource={existingResource} rightResource={draftResource} />
-{:else}
-  <h1>Create New Resource</h1>
-  <ResourceDisplay resource={draftResource} />
-{/if}
+<section class="section">
+  <div class="container">
+    {#if existingResource}
+      <h1 class="title">Update Resource: {existingResource.name}</h1>
+      <p class="subtitle">ID: {existingResource.id}</p>
+      <ResourceDiff
+        leftResource={existingResource}
+        rightResource={draftResource} />
+    {:else}
+      <h1 class="title">Create New Resource</h1>
+      <ResourceDisplay resource={draftResource} />
+    {/if}
 
-<div>
-  <button
-    type="button"
-    preventDefault
-    disabled={isDeleting || isApproving}
-    on:click={() => deleteDraft(draftResource._id)}>
-    Delete Draft
-  </button>
-  <button
-    type="button"
-    preventDefault
-    disabled={isDeleting || isApproving}
-    on:click={() => approveUpdate(draftResource._id)}>
-    Approve Update
-  </button>
-</div>
-<div>
-  {#if approveError}
-    <p>There was an error approving the resource: {approveError.meessage}</p>
-  {/if}
-  {#if deleteError}
-    <p>There was an error deleting the resource: {deleteError.meessage}</p>
-  {/if}
-</div>
+    <div class="buttons">
+      <button
+        class="button is-danger is-outlined"
+        class:is-loading={isDeleting}
+        type="button"
+        preventDefault
+        disabled={isApproving}
+        on:click={() => deleteDraft(draftResource._id)}>
+        <span class="icon is-small">
+          <i class="fas fa-times" />
+        </span>
+        <span>Delete Draft</span>
+      </button>
+      <button
+        class="button is-success"
+        class:is-loading={isApproving}
+        type="button"
+        preventDefault
+        disabled={isDeleting}
+        on:click={() => approveUpdate(draftResource._id)}>
+        <span class="icon is-medium has-text-success">
+          <i class="fas fa-check" />
+        </span>
+        <span>Approve Update</span>
+      </button>
+    </div>
+    <div>
+      {#if approveError}
+        <p>
+          There was an error approving the resource: {approveError.meessage}
+        </p>
+      {/if}
+      {#if deleteError}
+        <p>There was an error deleting the resource: {deleteError.meessage}</p>
+      {/if}
+    </div>
+  </div>
+</section>
