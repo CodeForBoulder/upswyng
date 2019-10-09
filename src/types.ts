@@ -13,6 +13,7 @@ export interface TEnvVariables {
     REACT_APP_FIREBASE_STORAGE_BUCKET: string;
     REACT_APP_FIREBASE_MESSAGE_SENDER_ID: string;
     REACT_APP_GOOGLE_MAPS_API_KEY: string;
+    REACT_APP_OPEN_WEATHER_API_KEY: string;
   };
 }
 
@@ -94,4 +95,38 @@ export interface THomeButtonAnchor extends THomeButtonBase {
 
 export interface THomeButtonRouterLink extends THomeButtonBase {
   linkProps: LinkProps;
+}
+
+export interface TWeatherCurrentItem {
+  id: number;
+  main: string;
+  description: string;
+  icon: string;
+}
+
+export interface TWeatherCurrentResponse {
+  coord: { lon: number; lat: number };
+  weather: TWeatherCurrentItem[];
+  base: string;
+  main: {
+    temp: number;
+    pressure: number;
+    humidity: number;
+    temp_min: number;
+    temp_max: number;
+    sea_level: number;
+    grnd_level: number;
+  };
+  wind: { speed: number; deg: number };
+  clouds: { all: number };
+  dt: number;
+  sys: {
+    message: number;
+    country: string;
+    sunrise: number;
+    sunset: number;
+  };
+  id: number;
+  name: string;
+  cod: number;
 }

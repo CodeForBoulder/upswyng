@@ -13,10 +13,7 @@ interface HomeButtonProps extends ButtonProps {
   readonly buttonColor: string;
 }
 
-const HomeButton = styled((props: HomeButtonProps) => {
-  const { buttonColor, ...rest } = props;
-  return <Button {...rest} />;
-})`
+const HomeButton = styled.span`
   && {
     align-items: stretch;
     background: ${(props: HomeButtonProps) =>
@@ -24,25 +21,21 @@ const HomeButton = styled((props: HomeButtonProps) => {
     border-radius: 0;
     color: ${colors.white};
     display: flex;
-    padding: ${font.helpers.convertPixelsToRems(10)};
-    text-decoration: none;
-    width: 100%;
-  }
-  &&:hover {
-    background: ${(props: HomeButtonProps) =>
-      props.buttonColor || colors.greyDark};
-    filter: brightness(95%);
-  }
-  > span {
-    align-items: flex-start;
-    display: flex;
     flex-direction: column;
     font-family: ${font.families.openSans};
     font-size: ${font.helpers.convertPixelsToRems(22)};
     font-weight: 700;
     justify-content: space-between;
     line-height: ${font.helpers.convertPixelsToRems(24)};
+    padding: ${font.helpers.convertPixelsToRems(10)};
+    text-decoration: none;
     text-transform: none;
+    width: 100%;
+  }
+  &&:hover {
+    background: ${(props: HomeButtonProps) =>
+      props.buttonColor || colors.greyDark};
+    filter: brightness(95%);
   }
   svg {
     align-self: flex-end;

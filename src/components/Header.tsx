@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Logo from './Logo';
+import Temperature from './Temperature';
 import { Container, font } from '../App.styles';
 
 const headerVerticalMargin = 24;
@@ -47,9 +48,14 @@ const Header = () => {
             </StyledMenuButton>
           </Grid>
           <Grid item>
-            <Link to="/">
-              <StyledLogo />
-            </Link>
+            <Grid container alignItems="center" justify="space-between">
+              <Grid item component={Temperature} />
+              <Grid item>
+                <Link to="/">
+                  <StyledLogo />
+                </Link>
+              </Grid>
+            </Grid>
           </Grid>
         </Container>
       </Toolbar>

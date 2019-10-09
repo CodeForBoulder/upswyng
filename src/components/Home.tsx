@@ -9,7 +9,10 @@ import AlgoliaBadge from './AlgoliaBadge';
 const HomeButtonsContainer = styled(Grid)`
   && {
     margin-bottom: ${font.helpers.convertPixelsToRems(30)};
+    margin-left: ${font.helpers.convertPixelsToRems(-4)};
+    margin-right: ${font.helpers.convertPixelsToRems(-4)};
     margin-top: ${font.helpers.convertPixelsToRems(15)};
+    width: auto;
   }
 ` as typeof Grid;
 
@@ -23,7 +26,8 @@ const Home = () => (
         container
         direction="row"
         justify="space-evenly"
-        spacing={8}
+        alignItems="stretch"
+        spacing={0}
       >
         <HomeButtons />
       </HomeButtonsContainer>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Grid } from '@material-ui/core';
 import {
   BananaIcon,
   BusIcon,
@@ -12,6 +13,7 @@ import {
   SocksIcon,
   WifiIcon
 } from './Icons';
+import styled from 'styled-components';
 import { THomeButtonAnchor, THomeButtonRouterLink } from '../types';
 import { HomeRouterLink, HomeAnchorLink } from './HomeLink';
 import HomeButton from './HomeButton';
@@ -108,27 +110,36 @@ const coordinatedEntryButton: THomeButtonAnchor = {
   target: '_blank'
 };
 
+const HomeButtonContainer = styled(Grid)`
+  display: flex;
+  alignitems: stretch;
+` as typeof Grid;
+
 const HomeButtons = () => (
   <>
     {routerLinkButtons.map(button => {
       return (
-        <HomeRouterLink {...button} key={button.text}>
-          <HomeButton component={'span'} buttonColor={button.color}>
-            {button.text}
-            {button.icon}
-          </HomeButton>
-        </HomeRouterLink>
+        <HomeButtonContainer item xs={6} key={button.text}>
+          <HomeRouterLink {...button}>
+            <HomeButton buttonColor={button.color}>
+              {button.text}
+              {button.icon}
+            </HomeButton>
+          </HomeRouterLink>
+        </HomeButtonContainer>
       );
-    })}
-    <HomeAnchorLink
-      {...coordinatedEntryButton}
-      key={coordinatedEntryButton.text}
-    >
-      <HomeButton component={'span'} buttonColor={coordinatedEntryButton.color}>
-        {coordinatedEntryButton.text}
-        {coordinatedEntryButton.icon}
-      </HomeButton>
-    </HomeAnchorLink>
+    })}{' '}
+    <Grid item xs={12}>
+      <HomeAnchorLink
+        {...coordinatedEntryButton}
+        key={coordinatedEntryButton.text}
+      >
+        <HomeButton buttonColor={coordinatedEntryButton.color}>
+          {coordinatedEntryButton.text}
+          {coordinatedEntryButton.icon}
+        </HomeButton>
+      </HomeAnchorLink>
+    </Grid>
   </>
 );
 
