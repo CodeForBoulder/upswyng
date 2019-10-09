@@ -53,16 +53,15 @@ const useCategory = (category: TCategoryStub): null | TResourcesByCategory => {
     if (category) {
       const getResourceByCategory = async (): Promise<void> => {
         try {
-          const response = await axios.get<TResourcesByCategoryResponse>(
+          const { data } = await axios.get<TResourcesByCategoryResponse>(
             `https://upswyng-server.herokuapp.com/api/category/${category}`
           );
-          const {
-            data: { category: resourcesByCategory }
-          } = response;
-
-          setResourcesByCategory(resourcesByCategory);
+          if (data.category) {
+            const { category: resourcesByCategory } = data;
+            setResourcesByCategory(resourcesByCategory);
+          }
         } catch (err) {
-          //do something with error
+          // TODO: log this error
         }
       };
 
