@@ -97,24 +97,36 @@ export interface THomeButtonRouterLink extends THomeButtonBase {
   linkProps: LinkProps;
 }
 
-export interface TWeatherCoordMetaData {
-  radarStation: string;
+export interface TWeatherCurrentItem {
+  id: number;
+  main: string;
+  description: string;
+  icon: string;
 }
 
-export interface TWeatherLatestObservation {
-  temperature: {
-    value: number;
+export interface TWeatherCurrentResponse {
+  coord: { lon: number; lat: number };
+  weather: TWeatherCurrentItem[];
+  base: string;
+  main: {
+    temp: number;
+    pressure: number;
+    humidity: number;
+    temp_min: number;
+    temp_max: number;
+    sea_level: number;
+    grnd_level: number;
   };
-}
-
-export interface TWeatherCoordMetaResponse {
-  data: {
-    properties: TWeatherCoordMetaData & geoJson.GeoJsonProperties;
+  wind: { speed: number; deg: number };
+  clouds: { all: number };
+  dt: number;
+  sys: {
+    message: number;
+    country: string;
+    sunrise: number;
+    sunset: number;
   };
-}
-
-export interface TWeatherLatestObservationResponse {
-  data: {
-    properties: TWeatherLatestObservation & geoJson.GeoJsonProperties;
-  };
+  id: number;
+  name: string;
+  cod: number;
 }
