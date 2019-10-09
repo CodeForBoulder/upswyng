@@ -7,15 +7,9 @@
   const { session } = stores();
 </script>
 
-<style>
-  main {
-    position: relative;
-    max-width: 56em;
-    background-color: white;
-    padding: 2em;
-    margin: 0 auto;
-    box-sizing: border-box;
-  }
+<style global lang="scss">
+  @import './style/main.scss';
+
 </style>
 
 <Nav {segment} user={$session.user} />

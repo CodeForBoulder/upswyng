@@ -1,4 +1,5 @@
 import { terser } from "rollup-plugin-terser";
+import autoPreprocess from "svelte-preprocess";
 import babel from "rollup-plugin-babel";
 import commonjs from "rollup-plugin-commonjs";
 import config from "sapper/config/rollup.js";
@@ -14,17 +15,25 @@ import svelte from "rollup-plugin-svelte";
  */
 import {
   createEnv,
-  preprocess,
+  preprocess as tsPreprocess,
   readConfigFile
 } from "@pyoner/svelte-ts-preprocess";
 import typescript from "rollup-plugin-typescript2";
 const env = createEnv();
 const compilerOptions = readConfigFile(env);
-const opts = {
+const tsOpts = {
   env,
   compilerOptions: {
     ...compilerOptions,
     allowNonTsExtensions: true
+  }
+};
+const styleOpts = {
+  scss: {
+    includePaths: ["node_modules", "server/src"]
+  },
+  postcss: {
+    plugins: [require("autoprefixer")]
   }
 };
 
@@ -52,7 +61,7 @@ export default {
         dev,
         hydratable: true,
         emitCss: true,
-        preprocess: preprocess(opts)
+        preprocess: [tsPreprocess(tsOpts), autoPreprocess(styleOpts)]
       }),
       resolve({
         browser: true,
@@ -109,7 +118,7 @@ export default {
       svelte({
         generate: "ssr",
         dev,
-        preprocess: preprocess(opts)
+        preprocess: [tsPreprocess(tsOpts), autoPreprocess(styleOpts)]
       }),
       resolve({
         dedupe
