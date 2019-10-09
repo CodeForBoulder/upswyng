@@ -22,11 +22,14 @@ const useTemperature = (): undefined | null | number => {
     const getCurrentTemp = async (): Promise<void> => {
       try {
         const { data } = await axios.get<TWeatherCurrentResponse>(
-          `https://api.openweathermap.org/data/2.5/weather?units=imperial&lat=${
-            boulderCoords.lat
-          }&lon=${boulderCoords.lon}&APPID=${
-            process.env.REACT_APP_OPEN_WEATHER_API_KEY
-          }`
+          'https://api.openweathermap.org/data/2.5/weather?units=imperial',
+          {
+            params: {
+              lat: boulderCoords.lat,
+              lon: boulderCoords.lon,
+              APPID: process.env.REACT_APP_OPEN_WEATHER_API_KEY
+            }
+          }
         );
         const currentTemp: number = data.main.temp;
 
