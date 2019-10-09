@@ -1,6 +1,5 @@
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
 import { LinkProps } from 'react-router-dom';
-import geoJson from 'geojson';
 
 export interface TEnvVariables {
   env: {
