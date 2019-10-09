@@ -13,6 +13,7 @@ import {
   SocksIcon,
   WifiIcon
 } from './Icons';
+import styled from 'styled-components';
 import { THomeButtonAnchor, THomeButtonRouterLink } from '../types';
 import { HomeRouterLink, HomeAnchorLink } from './HomeLink';
 import HomeButton from './HomeButton';
@@ -109,20 +110,23 @@ const coordinatedEntryButton: THomeButtonAnchor = {
   target: '_blank'
 };
 
+const HomeButtonContainer = styled(Grid)`
+  display: flex;
+  alignitems: stretch;
+` as typeof Grid;
+
 const HomeButtons = () => (
   <>
     {routerLinkButtons.map(button => {
       return (
-        <Grid item xs={6} key={button.text}>
-          <Box display="flex" alignItems="stretch">
-            <HomeRouterLink {...button}>
-              <HomeButton buttonColor={button.color}>
-                {button.text}
-                {button.icon}
-              </HomeButton>
-            </HomeRouterLink>
-          </Box>
-        </Grid>
+        <HomeButtonContainer item xs={6} key={button.text}>
+          <HomeRouterLink {...button}>
+            <HomeButton buttonColor={button.color}>
+              {button.text}
+              {button.icon}
+            </HomeButton>
+          </HomeRouterLink>
+        </HomeButtonContainer>
       );
     })}{' '}
     <Grid item xs={12}>

@@ -13,7 +13,7 @@ type HomeAnchorProps = HomeLinkPropsBase & THomeButtonAnchor;
 const HomeLinkStyles = css`
   align-items: stretch;
   display: flex;
-  flex: 1 1 50%;
+  flex: 1 1 100%;
   padding: 4px;
   text-decoration: none;
   width: 100%;
