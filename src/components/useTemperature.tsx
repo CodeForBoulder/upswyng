@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import {
-  TWeatherCoordMetaResponse,
-  TWeatherLatestObservationResponse
-} from '../types';
+import { TEnvVariables, TWeatherCurrentResponse } from '../types';
+
+declare const process: TEnvVariables;
 
 const GET_TEMP_INTERVAL_MS = 600000;
 
@@ -16,58 +15,32 @@ const useTemperature = (): undefined | null | number => {
 
   const boulderCoords = {
     lat: 40.015,
-    lng: -105.2705
+    lon: -105.2705
   };
 
   useEffect(() => {
-    const getCoordMeta = (): Promise<TWeatherCoordMetaResponse> =>
-      axios.get(
-        `https://api.weather.gov/points/${boulderCoords.lat},${
-          boulderCoords.lng
-        }`
-      );
-    const getLatestObservation = (
-      stationId: string
-    ): Promise<TWeatherLatestObservationResponse> =>
-      axios.get(
-        `https://api.weather.gov/stations/${stationId}/observations/latest`
-      );
-
-    const getTemperature = async () => {
+    const getCurrentTemp = async (): Promise<void> => {
       try {
-        console.log('getting temp');
-        const {
-          data: coordMeta
-        }: TWeatherCoordMetaResponse = await getCoordMeta();
-        const {
-          data: latestObservation
-        }: TWeatherLatestObservationResponse = await getLatestObservation(
-          coordMeta.properties.radarStation
+        const { data } = await axios.get<TWeatherCurrentResponse>(
+          `https://api.openweathermap.org/data/2.5/weather?units=imperial&lat=${
+            boulderCoords.lat
+          }&lon=${boulderCoords.lon}&APPID=${
+            process.env.REACT_APP_OPEN_WEATHER_API_KEY
+          }`
         );
+        const currentTemp: number = data.main.temp;
 
-        const currentTempCelsius: number =
-          latestObservation.properties.temperature.value;
-
-        if (!currentTempCelsius) {
-          throw new Error('the current temperature is not provided');
-        }
-
-        const currentTempFarenheit: number = convertCelsiusToFarenheit(
-          currentTempCelsius
-        );
-
-        const roundedTemp: number = Math.round(currentTempFarenheit);
+        const roundedTemp: number = Math.round(currentTemp);
         setTemperature(roundedTemp);
-      } catch (e) {
-        if (!temperature) {
-          setTemperature(null);
-        }
+      } catch (err) {
+        // TODO: log this error
+        setTemperature(null);
       }
     };
 
-    getTemperature();
+    getCurrentTemp();
     const getTemperatureInterval = window.setInterval(
-      getTemperature,
+      getCurrentTemp,
       GET_TEMP_INTERVAL_MS
     );
 
