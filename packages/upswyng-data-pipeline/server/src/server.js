@@ -3,6 +3,7 @@ import * as sapper from "@sapper/server";
 import bodyParser from "body-parser";
 import compression from "compression";
 import connectMongo from "connect-mongo";
+import cors from "cors";
 import getUserFromRawUsers from "./utility/getUserFromRawUsers.ts";
 import grant from "grant-express";
 import mongoose from "mongoose";
@@ -82,6 +83,7 @@ if (!process.env.DATABASE_SESSION_SECRET) {
 polka()
   .use(
     compression({ threshold: 0 }),
+    cors(), // TODO: Lock this down to non-admin routes
     sirv("static", { dev }),
     bodyParser.urlencoded({ extended: true }),
     bodyParser.json(),

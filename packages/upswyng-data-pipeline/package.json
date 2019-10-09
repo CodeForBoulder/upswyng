@@ -24,6 +24,7 @@
     "canonical-instance": "^2.0.0",
     "compression": "^1.7.1",
     "connect-mongo": "^3.0.0",
+    "cors": "^2.8.5",
     "debounce": "^1.2.0",
     "devalue": "^2.0.0",
     "expo": "^34.0.1",
