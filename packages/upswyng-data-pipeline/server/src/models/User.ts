@@ -39,15 +39,15 @@ export function schemaToUser(u: TUserFields): TUser {
 const UserSchema = new Schema(
   {
     facebook: {
-      id: { type: String, index: true, unique: true },
+      id: { type: String, index: true },
       name: { type: String },
-      email: { type: String, index: true, unique: true }
+      email: { type: String, index: true }
     },
     google: {
       // The google ID; doesn't ever change.
       // See https://developers.google.com/identity/protocols/OpenIDConnect?hl=en#obtainuserinfo
-      sub: { type: String, index: true, unique: true },
-      email: { type: String, index: true, unique: true }
+      sub: { type: String, index: true },
+      email: { type: String, index: true }
     },
     // can approve new resources, etc
     isAdmin: { type: Boolean, default: false },
