@@ -9,9 +9,17 @@
   }
 </script>
 
+<style>
+  img {
+    width: 2.5em;
+  }
+</style>
+
 <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" href="/">Upswyng</a>
+    <a class="navbar-item" href="/">
+      <img alt="Upswyng: Resources within reach" src="upswyng_arrow.svg" />
+    </a>
     <!-- svelte-ignore a11y-missing-attribute -->
     <a
       role="button"

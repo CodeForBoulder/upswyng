@@ -18,14 +18,16 @@
   <title>Upswyng: {subcategory.name}</title>
 </svelte:head>
 
-<h1>{subcategory.name}</h1>
+<section class="section">
+  <div class="container">
+    <h1>{subcategory.name}</h1>
 
-<div class="content">
-  <ul>
-    {#each subcategory.resources as resource}
-      <li>
-        <a href={`resource/${resource.id}`}>{resource.name}</a>
-      </li>
-    {/each}
-  </ul>
-</div>
+    <ul class="content">
+      {#each subcategory.resources as resource}
+        <li>
+          <a href={`resource/${resource.id}`}>{resource.name}</a>
+        </li>
+      {/each}
+    </ul>
+  </div>
+</section>

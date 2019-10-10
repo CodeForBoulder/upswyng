@@ -18,14 +18,18 @@
   <title>Upswyng: {category.name}</title>
 </svelte:head>
 
-<h1>{category.name}</h1>
+<section class="section">
+  <div class="container">
+    <h1 class="title">{category.name}</h1>
 
-<div class="content">
-  <ul>
-    {#each category.subcategories as subcategory}
-      <a href={`../subcategory/${subcategory.stub}`}>
-        <li>{subcategory.name}</li>
-      </a>
-    {/each}
-  </ul>
-</div>
+    <div class="content">
+      <ul>
+        {#each category.subcategories as subcategory}
+          <a href={`../subcategory/${subcategory.stub}`}>
+            <li>{subcategory.name}</li>
+          </a>
+        {/each}
+      </ul>
+    </div>
+  </div>
+</section>

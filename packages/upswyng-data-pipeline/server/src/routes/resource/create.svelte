@@ -71,8 +71,12 @@
   <title>Upswyng: Create a New Resource</title>
 </svelte:head>
 
-<ResourceEditor
-  {resource}
-  {subcategories}
-  errorText={saveError ? saveError.message : ''}
-  on:dispatchSaveResource={e => handleSaveClick(e.detail)} />
+<section class="section">
+  <div class="container">
+    <ResourceEditor
+      {resource}
+      {subcategories}
+      errorText={saveError ? saveError.message : ''}
+      on:dispatchSaveResource={e => handleSaveClick(e.detail)} />
+  </div>
+</section>
