@@ -362,13 +362,18 @@
         preventDefault
         on:click={() => dispatchSaveResource('dispatchSaveResource', resource)}
         disabled={!$resourceForm.valid}>
-        {saveButtonLabel}
+        <span class="icon is-small">
+          <i class="fas fa-check" />
+        </span>
+        <span>{saveButtonLabel}</span>
       </button>
     </div>
     {#if errorText}
       <div class="content">
         <div class="notification is-danger">
-          <button class="delete" on:click={() => dispatchClearErrorText('clearErrorText')} />
+          <button
+            class="delete"
+            on:click={() => dispatchClearErrorText('clearErrorText')} />
           {errorText}
         </div>
       </div>

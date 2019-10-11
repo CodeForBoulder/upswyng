@@ -115,7 +115,7 @@
         preventDefault
         disabled={isDeleting}
         on:click={() => approveUpdate(draftResource._id)}>
-        <span class="icon is-medium has-text-success">
+        <span class="icon is-small">
           <i class="fas fa-check" />
         </span>
         <span>Approve Update</span>
