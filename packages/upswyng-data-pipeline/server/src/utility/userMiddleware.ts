@@ -110,6 +110,9 @@ export default async function(req, res, next): Promise<void> {
       req.session.rawUsers = null;
     }
   } catch (e) {
+    // if there's an error, wipe out `grant` so we don't get stuck with this
+    // error on every reload
+    req.session.grant = null;
     res.writeHead(500, {
       "Content-Type": "application/json"
     });
