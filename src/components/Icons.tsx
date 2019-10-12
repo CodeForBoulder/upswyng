@@ -2,7 +2,10 @@ import React from 'react';
 import {
   BusinessCenter,
   Call,
+  DirectionsBike,
   DirectionsBus,
+  DirectionsCar,
+  DirectionsWalk,
   Home,
   LocalHospital,
   People,
@@ -16,7 +19,9 @@ import { default as Hygiene } from './HygieneIcon';
 import { default as Socks } from './SocksIcon';
 
 export const BananaIcon: React.ReactElement<SvgIconProps> = <Banana />;
+export const BikeIcon: React.ReactElement<SvgIconProps> = <DirectionsBike />;
 export const CallIcon: React.ReactElement<SvgIconProps> = <Call />;
+export const CarIcon: React.ReactElement<SvgIconProps> = <DirectionsCar />;
 export const DoorIcon: React.ReactElement<SvgIconProps> = <Door />;
 export const BusIcon: React.ReactElement<SvgIconProps> = <DirectionsBus />;
 export const BusinessCenterIcon: React.ReactElement<SvgIconProps> = (
@@ -30,4 +35,5 @@ export const LocalHospitalIcon: React.ReactElement<SvgIconProps> = (
 export const PeopleIcon: React.ReactElement<SvgIconProps> = <People />;
 export const PetsIcon: React.ReactElement<SvgIconProps> = <Pets />;
 export const SocksIcon: React.ReactElement<SvgIconProps> = <Socks />;
+export const WalkIcon: React.ReactElement<SvgIconProps> = <DirectionsWalk />;
 export const WifiIcon: React.ReactElement<SvgIconProps> = <Wifi />;
