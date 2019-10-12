@@ -39,7 +39,8 @@ const TravelButton: FunctionComponent<TTravelButtonProps> = ({
 
 const StyledTravelButton = styled(TravelButton)`
   && {
-    background: none;
+    background: ${(props: TTravelButtonProps) =>
+      props.selected ? 'rgba(250,250,250,0.1)' : 'none'};
     border-radius: 0;
     color: ${(props: TTravelButtonProps) =>
       props.selected ? colors.orangePrimary : colors.white};
