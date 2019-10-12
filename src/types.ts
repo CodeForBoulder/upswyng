@@ -136,3 +136,14 @@ export type TGoogleMapTravelMode =
   | 'DRIVING'
   | 'WALKING'
   | 'BICYCLING';
+
+export type TGoogleMapDirectionsStatusCode =
+  | 'OK'
+  | 'ZERO_RESULTS'
+  | 'MAX_WAYPOINTS_EXCEEDED'
+  | 'MAX_ROUTE_LENGTH_EXCEEDED'
+  | 'INVALID_REQUEST'
+  | 'OVER_DAILY_LIMIT'
+  | 'OVER_QUERY_LIMIT'
+  | 'REQUEST_DENIED'
+  | 'UNKNOWN_ERROR';
