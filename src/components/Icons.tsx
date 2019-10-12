@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Close,
   BusinessCenter,
   Call,
   DirectionsBike,
@@ -20,13 +21,14 @@ import { default as Socks } from './SocksIcon';
 
 export const BananaIcon: React.ReactElement<SvgIconProps> = <Banana />;
 export const BikeIcon: React.ReactElement<SvgIconProps> = <DirectionsBike />;
-export const CallIcon: React.ReactElement<SvgIconProps> = <Call />;
-export const CarIcon: React.ReactElement<SvgIconProps> = <DirectionsCar />;
 export const DoorIcon: React.ReactElement<SvgIconProps> = <Door />;
 export const BusIcon: React.ReactElement<SvgIconProps> = <DirectionsBus />;
 export const BusinessCenterIcon: React.ReactElement<SvgIconProps> = (
   <BusinessCenter />
 );
+export const CallIcon: React.ReactElement<SvgIconProps> = <Call />;
+export const CarIcon: React.ReactElement<SvgIconProps> = <DirectionsCar />;
+export const CloseIcon: React.ReactElement<SvgIconProps> = <Close />;
 export const HomeIcon: React.ReactElement<SvgIconProps> = <Home />;
 export const HygieneIcon: React.ReactElement<SvgIconProps> = <Hygiene />;
 export const LocalHospitalIcon: React.ReactElement<SvgIconProps> = (
