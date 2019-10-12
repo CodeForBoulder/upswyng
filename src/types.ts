@@ -135,4 +135,4 @@ export type TGoogleMapTravelMode =
   | 'TRANSIT'
   | 'DRIVING'
   | 'WALKING'
-  | 'CYCLING';
+  | 'BICYCLING';
