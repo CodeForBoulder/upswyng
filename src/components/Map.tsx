@@ -1,12 +1,18 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import IconButton, { IconButtonProps } from '@material-ui/core/IconButton';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Snackbar from '@material-ui/core/Snackbar';
 import styled from 'styled-components';
 import GoogleMapReact from 'google-map-react';
 
-import { TResource, TStatusFetch, TGoogleMapTravelMode } from '../types';
+import {
+  TResource,
+  TStatusFetch,
+  TGoogleMapTravelMode,
+  TGoogleMapDirectionsStatusCode
+} from '../types';
 import { colors, font } from '../App.styles';
-import { BikeIcon, BusIcon, CarIcon, WalkIcon } from './Icons';
+import { BikeIcon, BusIcon, CarIcon, CloseIcon, WalkIcon } from './Icons';
 import LoadingSpinner from './LoadingSpinner';
 
 const boulderCoordinates = {
@@ -91,6 +97,20 @@ const MapLoadingMask = styled.div`
   top: 0;
 `;
 
+const StyledSnackbar = styled(Snackbar)`
+  && .MuiSnackbarContent-root {
+    align-items: center;
+    display: inline-flex;
+    flex-wrap: nowrap;
+  }
+` as typeof Snackbar;
+
+const SnackbarCloseButton = styled(IconButton)`
+  && {
+    color: ${colors.white};
+  }
+` as typeof IconButton;
+
 const Map = ({ resource }: Props) => {
   const [googleMap, setGoogleMap] = useState<any | null>(null);
   const [googleMaps, setGoogleMaps] = useState<any | null>(null);
@@ -107,6 +127,7 @@ const Map = ({ resource }: Props) => {
   const [travelMode, setTravelMode] = useState<TGoogleMapTravelMode | null>(
     null
   );
+  const [directionsError, setDirectionsError] = useState<string | null>(null);
 
   const addMapMarker = () => {
     const {
@@ -174,6 +195,33 @@ const Map = ({ resource }: Props) => {
     directionsRenderer.setMap(null);
   };
 
+  const handleDirectionsError = (status: TGoogleMapDirectionsStatusCode) => {
+    setFetchDirectionsStatus(TStatusFetch.STATUS_FETCH_ERROR);
+    switch (status) {
+      case 'ZERO_RESULTS':
+        const directionTypeText: string = travelMode
+          ? ` by ${travelMode.toLowerCase()}`
+          : '';
+        setDirectionsError(
+          `It looks like we couldn't get directions${directionTypeText}. Please try a different type of travel.`
+        );
+        break;
+      case 'INVALID_REQUEST':
+      case 'MAX_ROUTE_LENGTH_EXCEEDED':
+      case 'MAX_WAYPOINTS_EXCEEDED':
+      case 'OVER_DAILY_LIMIT':
+      case 'OVER_QUERY_LIMIT':
+      case 'REQUEST_DENIED':
+      case 'UNKNOWN_ERROR':
+      default:
+        setDirectionsError(
+          "We're sorry, there was a problem getting directions. Please try again later."
+        );
+    }
+  };
+
+  const handleErrorSnackbarClose = () => setDirectionsError(null);
+
   const fetchDirections = (userPosition: Position): Promise<boolean> =>
     new Promise((resolve, reject) => {
       directionsRenderer.setMap(googleMap);
@@ -189,27 +237,26 @@ const Map = ({ resource }: Props) => {
       try {
         directionsService.route(
           {
+            avoidTolls: true,
             origin: userLatLng,
             destination: {
               lat: resource.lat,
               lng: resource.lng
             },
-            // TODO: allow updating the travel mode
             travelMode
           },
-          (response: any, status: string) => {
-            console.log(response);
+          (response: any, status: TGoogleMapDirectionsStatusCode) => {
             if (status === 'OK') {
               directionsRenderer.setDirections(response);
               resolve(true);
             } else {
-              setFetchDirectionsStatus(TStatusFetch.STATUS_FETCH_ERROR);
+              handleDirectionsError(status);
               reject(status);
             }
           }
         );
       } catch (err) {
-        setFetchDirectionsStatus(TStatusFetch.STATUS_FETCH_ERROR);
+        handleDirectionsError('UNKNOWN_ERROR');
         reject(err);
       }
     });
@@ -252,7 +299,7 @@ const Map = ({ resource }: Props) => {
         try {
           await placeDirections();
         } catch (err) {
-          console.log(err);
+          // TODO: logo this error
         }
     }
   };
@@ -339,6 +386,21 @@ const Map = ({ resource }: Props) => {
         </MapInnerContainer>
         <MapLoadingElements />
       </MapOuterContainer>
+      <StyledSnackbar
+        autoHideDuration={10000}
+        message={directionsError}
+        onClose={() => setDirectionsError(null)}
+        open={!!directionsError}
+        action={[
+          <SnackbarCloseButton
+            key="close"
+            aria-label="close"
+            onClick={handleErrorSnackbarClose}
+          >
+            {CloseIcon}
+          </SnackbarCloseButton>
+        ]}
+      />
     </>
   );
 };
