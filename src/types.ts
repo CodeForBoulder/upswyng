@@ -130,3 +130,9 @@ export interface TWeatherCurrentResponse {
   name: string;
   cod: number;
 }
+
+export type TGoogleMapTravelMode =
+  | 'TRANSIT'
+  | 'DRIVING'
+  | 'WALKING'
+  | 'CYCLING';

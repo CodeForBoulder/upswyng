@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import GoogleMapReact from 'google-map-react';
-import { TResource, TStatusFetch } from '../types';
+import { TResource, TStatusFetch, TGoogleMapTravelMode } from '../types';
 import { colors, font } from '../App.styles';
 import CheckboxInput from './CheckboxInput';
 import LoadingSpinner from './LoadingSpinner';
@@ -72,6 +72,7 @@ const Map = ({ resource }: Props) => {
     TStatusFetch
   >(TStatusFetch.STATUS_NOT_FETCHED);
   const [areDirectionsShown, setAreDirectionsShown] = useState(false);
+  const [travelMode, setTravelMode] = useState<TGoogleMapTravelMode>('TRANSIT');
 
   const addMapMarker = () => {
     const {
@@ -157,7 +158,7 @@ const Map = ({ resource }: Props) => {
               lng: resource.lng
             },
             // TODO: allow updating the travel mode
-            travelMode: 'TRANSIT'
+            travelMode
           },
           (response: any, status: string) => {
             console.log(response);
