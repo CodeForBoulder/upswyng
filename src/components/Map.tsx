@@ -7,7 +7,6 @@ import GoogleMapReact from 'google-map-react';
 
 import {
   TResource,
-  TStatusFetch,
   TGoogleMapTravelMode,
   TGoogleMapDirectionsStatusCode
 } from '../types';
@@ -114,16 +113,16 @@ const SnackbarCloseButton = styled(IconButton)`
 const Map = ({ resource }: Props) => {
   const [googleMap, setGoogleMap] = useState<any | null>(null);
   const [googleMaps, setGoogleMaps] = useState<any | null>(null);
-  const [fetchGoogleMapsStatus, setFetchGoogleMapsStatus] = useState<
-    TStatusFetch
-  >(TStatusFetch.STATUS_FETCHING);
+  const [isFetchingGoogleMaps, setIsFetchingGoogleMaps] = useState<boolean>(
+    false
+  );
   const [directionsRenderer, setDirectionsRenderer] = useState<any | null>(
     null
   );
   const [directionsService, setDirectionsService] = useState<any | null>(null);
-  const [fetchDirectionsStatus, setFetchDirectionsStatus] = useState<
-    TStatusFetch
-  >(TStatusFetch.STATUS_NOT_FETCHED);
+  const [isFetchingDirections, setIsFetchingDirections] = useState<boolean>(
+    false
+  );
   const [travelMode, setTravelMode] = useState<TGoogleMapTravelMode | null>(
     null
   );
@@ -196,7 +195,7 @@ const Map = ({ resource }: Props) => {
   };
 
   const handleDirectionsError = (status: TGoogleMapDirectionsStatusCode) => {
-    setFetchDirectionsStatus(TStatusFetch.STATUS_FETCH_ERROR);
+    setIsFetchingDirections(false);
     switch (status) {
       case 'ZERO_RESULTS':
         const directionTypeText: string = travelMode
@@ -206,13 +205,6 @@ const Map = ({ resource }: Props) => {
           `It looks like we couldn't get directions${directionTypeText}. Please try a different type of travel.`
         );
         break;
-      case 'INVALID_REQUEST':
-      case 'MAX_ROUTE_LENGTH_EXCEEDED':
-      case 'MAX_WAYPOINTS_EXCEEDED':
-      case 'OVER_DAILY_LIMIT':
-      case 'OVER_QUERY_LIMIT':
-      case 'REQUEST_DENIED':
-      case 'UNKNOWN_ERROR':
       default:
         setDirectionsError(
           "We're sorry, there was a problem getting directions. Please try again later."
@@ -264,13 +256,13 @@ const Map = ({ resource }: Props) => {
   const placeDirections = (): Promise<boolean> =>
     new Promise(async (resolve, reject) => {
       try {
-        setFetchDirectionsStatus(TStatusFetch.STATUS_FETCHING);
+        setIsFetchingDirections(true);
         const userPosition = await getUserPosition();
         await fetchDirections(userPosition);
-        setFetchDirectionsStatus(TStatusFetch.STATUS_FETCH_SUCCESS);
+        setIsFetchingDirections(false);
         resolve(true);
       } catch (err) {
-        setFetchDirectionsStatus(TStatusFetch.STATUS_FETCH_ERROR);
+        setIsFetchingDirections(false);
         hideDirections();
         reject(err);
       }
@@ -285,22 +277,17 @@ const Map = ({ resource }: Props) => {
     setGoogleMaps(maps);
     setDirectionsRenderer(new maps.DirectionsRenderer());
     setDirectionsService(new maps.DirectionsService());
-    setFetchGoogleMapsStatus(TStatusFetch.STATUS_FETCH_SUCCESS);
+    setIsFetchingGoogleMaps(false);
   };
 
   const handleShowDirectionsChange = async () => {
-    switch (fetchDirectionsStatus) {
-      case TStatusFetch.STATUS_FETCHING:
-        break;
-      case TStatusFetch.STATUS_FETCH_SUCCESS:
-      case TStatusFetch.STATUS_FETCH_ERROR:
-      case TStatusFetch.STATUS_NOT_FETCHED:
-      default:
-        try {
-          await placeDirections();
-        } catch (err) {
-          // TODO: logo this error
-        }
+    if (isFetchingDirections) {
+      return;
+    }
+    try {
+      await placeDirections();
+    } catch (err) {
+      // TODO: log this error
     }
   };
 
@@ -330,10 +317,7 @@ const Map = ({ resource }: Props) => {
   }, [travelMode]);
 
   const MapLoadingElements = () => {
-    if (
-      fetchGoogleMapsStatus === TStatusFetch.STATUS_FETCHING ||
-      fetchDirectionsStatus === TStatusFetch.STATUS_FETCHING
-    ) {
+    if (isFetchingGoogleMaps || isFetchingDirections) {
       return (
         <MapLoadingMask>
           <LoadingSpinner />

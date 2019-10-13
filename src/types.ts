@@ -53,13 +53,6 @@ export interface TResource {
   [key: string]: TCloseSchedule[] | TSchedule[] | boolean | string | number;
 }
 
-export enum TStatusFetch {
-  STATUS_NOT_FETCHED = 'NOT_FETCHED',
-  STATUS_FETCHING = 'FETCHING',
-  STATUS_FETCH_SUCCESS = 'FETCH_SUCCESS',
-  STATUS_FETCH_ERROR = 'FETCH_ERROR'
-}
-
 export interface TCloseSchedule {
   day: TDay;
   period: string;
