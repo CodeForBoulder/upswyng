@@ -39,6 +39,7 @@
     state: { value: resource.address.state || "", validators: ["required"] },
     zip: { value: resource.address.zip || "", validators: ["required"] },
     //
+    deleted: { value: resource.deleted || false, validators: [] },
     closeSchedule: { value: resource.closeSchedule || [], validators: [] },
     description: { value: resource.description || "", validators: ["min:12"] },
     latitude: {
@@ -71,36 +72,41 @@
   </section>
 {/each}
 <div class="content">
-  {#if resource.id}
-    <p>
-      <span class="label">ID</span>
-      {resource.id}
-    </p>
-  {/if}
-  {#if resource.legacyId}
-    <p>
-      <span class="label">Legacy ID</span>
-      {resource.legacyId}
-    </p>
-  {/if}
-  {#if resource.kudos}
-    <p>
-      <span class="label">Kudos</span>
-      {resource.kudos}
-    </p>
-  {/if}
-  {#if resource.createdAt}
-    <p>
-      <span class="label">Created At</span>
-      {resource.createdAt}
-    </p>
-  {/if}
-  {#if resource.lastModifiedAt}
-    <p>
-      <span class="label">Last Modified At</span>
-      {resource.lastModifiedAt.toLocaleString('en-US')}
-    </p>
-  {/if}
+  <div class="box" class:has-ribbon={resource.deleted}>
+    {#if resource.deleted}
+      <div class="ribbon is-danger">Trashed</div>
+    {/if}
+    {#if resource.id}
+      <p>
+        <span class="label">ID</span>
+        {resource.id}
+      </p>
+    {/if}
+    {#if resource.legacyId}
+      <p>
+        <span class="label">Legacy ID</span>
+        {resource.legacyId}
+      </p>
+    {/if}
+    {#if resource.kudos}
+      <p>
+        <span class="label">Kudos</span>
+        {resource.kudos}
+      </p>
+    {/if}
+    {#if resource.createdAt}
+      <p>
+        <span class="label">Created At</span>
+        {resource.createdAt}
+      </p>
+    {/if}
+    {#if resource.lastModifiedAt}
+      <p>
+        <span class="label">Last Modified At</span>
+        {resource.lastModifiedAt.toLocaleString('en-US')}
+      </p>
+    {/if}
+  </div>
   <form>
     <div class="field">
       <label class="label" for="name">Resource Name</label>
@@ -124,6 +130,22 @@
       {#if $resourceForm.name.errors.includes('min')}
         <p class="help is-danger">The name should be at least 6 characters</p>
       {/if}
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <input
+          id="trash"
+          type="checkbox"
+          name="trash"
+          class="switch is-danger"
+          bind:checked={resource.deleted} />
+        <label class="label" for="trash">Trash Resource</label>
+      </div>
+      <p class="has-text-weight-light">
+        Trashed resources won't show up anywhere in the app, but will remain
+        available in the admin control and can be restored later.
+      </p>
     </div>
 
     <div class="field">
@@ -378,6 +400,5 @@
         </div>
       </div>
     {/if}
-
   </form>
 </div>

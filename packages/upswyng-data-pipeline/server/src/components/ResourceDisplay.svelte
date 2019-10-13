@@ -27,8 +27,11 @@
   }
 </style>
 
-<h1>{resource.name}</h1>
-<div class="content">
+<h1 class="title">{resource.name}</h1>
+<div class="content" class:has-ribbon={resource.deleted}>
+  {#if resource.deleted}
+    <div class="ribbon is-danger">Trashed</div>
+  {/if}
   <h2>ID</h2>
   <p>{resource.id}</p>
   {#if resource.legacyId}
