@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { TResourceCategory } from '../types';
-import useResourcesByCategory from './useResourcesByCategory';
 import useSearchResults from './useSearchResults';
 import PageBanner from './PageBanner';
 import SubCategories from './SubCategories';
@@ -21,7 +20,6 @@ const CategoryResults = ({
 }: Props) => {
   const { text: categoryText, query: categoryQuery } = category;
   const [searchQuery, updateSearchQuery] = useState(categoryQuery);
-  const resourcesByCategory = useResourcesByCategory('food');
   const searchResults = useSearchResults(searchQuery);
 
   const handleSubCategoryClick = (query: string) => updateSearchQuery(query);

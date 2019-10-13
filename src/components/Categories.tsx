@@ -21,7 +21,7 @@ interface TCategory {
   subCategories: TResourceCategory[];
 }
 
-export type TCategoryName =
+type TCategoryName =
   | 'Food'
   | 'Health'
   | 'Hygiene'
