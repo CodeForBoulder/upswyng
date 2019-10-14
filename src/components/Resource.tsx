@@ -60,7 +60,7 @@ const renderWebsiteContent = (resource: TResource) => {
       <DetailHeading>Website</DetailHeading>
       <DetailBody>
         <p>
-          <a href={website} target="_blank">
+          <a href={website} target="_blank" rel="noopener noreferrer">
             {website}
           </a>
         </p>
