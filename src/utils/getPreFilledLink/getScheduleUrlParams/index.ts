@@ -36,7 +36,7 @@ const getScheduleTimesQuestionParams = (schedules: TSchedule[]) => {
 };
 
 const getScheduleQuestionUrlParams = ({ schedule: schedules }: TResource) => {
-  if (!schedules.length) {
+  if (!schedules || !schedules.length) {
     return '';
   }
 
