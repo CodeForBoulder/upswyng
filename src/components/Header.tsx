@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -9,6 +9,7 @@ import styled from 'styled-components';
 
 import Logo from './Logo';
 import Temperature from './Temperature';
+import MenuDrawer from './MenuDrawer';
 import { Container, font } from '../App.styles';
 
 const headerVerticalMargin = 24;
@@ -38,12 +39,18 @@ const StyledLogo = styled(Logo)`
 ` as typeof Logo;
 
 const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
   return (
     <StyledHeader position="static">
       <Toolbar>
         <Container container justify="space-between" alignItems="center">
           <Grid item>
-            <StyledMenuButton color="inherit" aria-label="Menu">
+            <StyledMenuButton
+              color="inherit"
+              aria-label="Menu"
+              onClick={() => setIsMenuOpen(true)}
+            >
               <MenuIcon />
             </StyledMenuButton>
           </Grid>
@@ -59,6 +66,7 @@ const Header = () => {
           </Grid>
         </Container>
       </Toolbar>
+      <MenuDrawer open={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </StyledHeader>
   );
 };
