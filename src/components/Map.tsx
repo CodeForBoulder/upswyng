@@ -40,7 +40,7 @@ interface TTravelButtonProps extends IconButtonProps {
 const TravelButton: FunctionComponent<TTravelButtonProps> = ({
   selected,
   ...rest
-}) => <IconButton {...rest} />;
+}: TTravelButtonProps) => <IconButton {...rest} />;
 
 const StyledTravelButton = styled(TravelButton)`
   && {
