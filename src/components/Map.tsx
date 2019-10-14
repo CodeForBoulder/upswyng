@@ -1,9 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import IconButton, { IconButtonProps } from '@material-ui/core/IconButton';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Snackbar from '@material-ui/core/Snackbar';
 import styled from 'styled-components';
 import GoogleMapReact from 'google-map-react';
-import { TResource, TStatusFetch } from '../types';
+
+import {
+  TResource,
+  TGoogleMapTravelMode,
+  TGoogleMapDirectionsStatusCode
+} from '../types';
 import { colors, font } from '../App.styles';
-import CheckboxInput from './CheckboxInput';
+import { BikeIcon, BusIcon, CarIcon, CloseIcon, WalkIcon } from './Icons';
 import LoadingSpinner from './LoadingSpinner';
 
 const boulderCoordinates = {
@@ -15,8 +23,38 @@ interface Props {
   resource: TResource;
 }
 
+const TravelButtonsContainer = styled(ButtonGroup)`
+  && {
+    align-items: stretch;
+    box-shadow: none;
+    display: flex;
+    margin: ${font.helpers.convertPixelsToRems(16)} auto
+      ${font.helpers.convertPixelsToRems(5)};
+  }
+` as typeof ButtonGroup;
+
+interface TTravelButtonProps extends IconButtonProps {
+  selected?: boolean;
+}
+
+const TravelButton: FunctionComponent<TTravelButtonProps> = ({
+  selected,
+  ...rest
+}: TTravelButtonProps) => <IconButton {...rest} />;
+
+const StyledTravelButton = styled(TravelButton)`
+  && {
+    background: ${(props: TTravelButtonProps) =>
+      props.selected ? 'rgba(250,250,250,0.1)' : 'none'};
+    border-radius: 0;
+    color: ${(props: TTravelButtonProps) =>
+      props.selected ? colors.orangePrimary : colors.white};
+    flex: 1 1 auto;
+  }
+` as typeof TravelButton;
+
 const MapOuterContainer = styled.div`
-  margin: ${font.helpers.convertPixelsToRems(16)} auto 0;
+  margin: auto 0;
   position: relative;
   width: 100%;
   &::before {
@@ -58,20 +96,37 @@ const MapLoadingMask = styled.div`
   top: 0;
 `;
 
+const StyledSnackbar = styled(Snackbar)`
+  && .MuiSnackbarContent-root {
+    align-items: center;
+    display: inline-flex;
+    flex-wrap: nowrap;
+  }
+` as typeof Snackbar;
+
+const SnackbarCloseButton = styled(IconButton)`
+  && {
+    color: ${colors.white};
+  }
+` as typeof IconButton;
+
 const Map = ({ resource }: Props) => {
   const [googleMap, setGoogleMap] = useState<any | null>(null);
   const [googleMaps, setGoogleMaps] = useState<any | null>(null);
-  const [fetchGoogleMapsStatus, setFetchGoogleMapsStatus] = useState<
-    TStatusFetch
-  >(TStatusFetch.STATUS_FETCHING);
+  const [isFetchingGoogleMaps, setIsFetchingGoogleMaps] = useState<boolean>(
+    false
+  );
   const [directionsRenderer, setDirectionsRenderer] = useState<any | null>(
     null
   );
   const [directionsService, setDirectionsService] = useState<any | null>(null);
-  const [fetchDirectionsStatus, setFetchDirectionsStatus] = useState<
-    TStatusFetch
-  >(TStatusFetch.STATUS_NOT_FETCHED);
-  const [areDirectionsShown, setAreDirectionsShown] = useState(false);
+  const [isFetchingDirections, setIsFetchingDirections] = useState<boolean>(
+    false
+  );
+  const [travelMode, setTravelMode] = useState<TGoogleMapTravelMode | null>(
+    null
+  );
+  const [directionsError, setDirectionsError] = useState<string | null>(null);
 
   const addMapMarker = () => {
     const {
@@ -132,9 +187,32 @@ const Map = ({ resource }: Props) => {
     });
 
   const hideDirections = () => {
+    if (!directionsRenderer) {
+      return;
+    }
+    setTravelMode(null);
     directionsRenderer.setMap(null);
-    setAreDirectionsShown(false);
   };
+
+  const handleDirectionsError = (status: TGoogleMapDirectionsStatusCode) => {
+    setIsFetchingDirections(false);
+    switch (status) {
+      case 'ZERO_RESULTS':
+        const directionTypeText: string = travelMode
+          ? ` by ${travelMode.toLowerCase()}`
+          : '';
+        setDirectionsError(
+          `It looks like we couldn't get directions${directionTypeText}. Please try a different type of travel.`
+        );
+        break;
+      default:
+        setDirectionsError(
+          "We're sorry, there was a problem getting directions. Please try again later."
+        );
+    }
+  };
+
+  const handleErrorSnackbarClose = () => setDirectionsError(null);
 
   const fetchDirections = (userPosition: Position): Promise<boolean> =>
     new Promise((resolve, reject) => {
@@ -151,27 +229,26 @@ const Map = ({ resource }: Props) => {
       try {
         directionsService.route(
           {
+            avoidTolls: true,
             origin: userLatLng,
             destination: {
               lat: resource.lat,
               lng: resource.lng
             },
-            // TODO: allow updating the travel mode
-            travelMode: 'TRANSIT'
+            travelMode
           },
-          (response: any, status: string) => {
-            console.log(response);
+          (response: any, status: TGoogleMapDirectionsStatusCode) => {
             if (status === 'OK') {
               directionsRenderer.setDirections(response);
               resolve(true);
             } else {
-              setFetchDirectionsStatus(TStatusFetch.STATUS_FETCH_ERROR);
+              handleDirectionsError(status);
               reject(status);
             }
           }
         );
       } catch (err) {
-        setFetchDirectionsStatus(TStatusFetch.STATUS_FETCH_ERROR);
+        handleDirectionsError('UNKNOWN_ERROR');
         reject(err);
       }
     });
@@ -179,13 +256,14 @@ const Map = ({ resource }: Props) => {
   const placeDirections = (): Promise<boolean> =>
     new Promise(async (resolve, reject) => {
       try {
-        setFetchDirectionsStatus(TStatusFetch.STATUS_FETCHING);
+        setIsFetchingDirections(true);
         const userPosition = await getUserPosition();
         await fetchDirections(userPosition);
-        setFetchDirectionsStatus(TStatusFetch.STATUS_FETCH_SUCCESS);
+        setIsFetchingDirections(false);
         resolve(true);
       } catch (err) {
-        setFetchDirectionsStatus(TStatusFetch.STATUS_FETCH_ERROR);
+        setIsFetchingDirections(false);
+        hideDirections();
         reject(err);
       }
     });
@@ -199,29 +277,24 @@ const Map = ({ resource }: Props) => {
     setGoogleMaps(maps);
     setDirectionsRenderer(new maps.DirectionsRenderer());
     setDirectionsService(new maps.DirectionsService());
-    setFetchGoogleMapsStatus(TStatusFetch.STATUS_FETCH_SUCCESS);
+    setIsFetchingGoogleMaps(false);
   };
 
   const handleShowDirectionsChange = async () => {
-    if (!areDirectionsShown) {
-      switch (fetchDirectionsStatus) {
-        case TStatusFetch.STATUS_FETCHING:
-          break;
-        case TStatusFetch.STATUS_FETCH_SUCCESS:
-        case TStatusFetch.STATUS_FETCH_ERROR:
-        case TStatusFetch.STATUS_NOT_FETCHED:
-        default:
-          try {
-            await placeDirections();
-            setAreDirectionsShown(true);
-          } catch (err) {
-            console.log(err);
-          }
-      }
-    } else {
-      hideDirections();
+    if (isFetchingDirections) {
+      return;
+    }
+    try {
+      await placeDirections();
+    } catch (err) {
+      // TODO: log this error
     }
   };
+
+  const handleDirectionButtonClick = (newTravelMode: TGoogleMapTravelMode) =>
+    setTravelMode(prevTravelMode =>
+      newTravelMode !== prevTravelMode ? newTravelMode : null
+    );
 
   const { lat: resourceLat, lng: resourceLng } = resource;
   const resourceLatLng = {
@@ -235,11 +308,16 @@ const Map = ({ resource }: Props) => {
     }
   }, [googleMaps]);
 
+  useEffect(() => {
+    if (travelMode) {
+      handleShowDirectionsChange();
+    } else {
+      hideDirections();
+    }
+  }, [travelMode]);
+
   const MapLoadingElements = () => {
-    if (
-      fetchGoogleMapsStatus === TStatusFetch.STATUS_FETCHING ||
-      fetchDirectionsStatus === TStatusFetch.STATUS_FETCHING
-    ) {
+    if (isFetchingGoogleMaps || isFetchingDirections) {
       return (
         <MapLoadingMask>
           <LoadingSpinner />
@@ -251,6 +329,32 @@ const Map = ({ resource }: Props) => {
 
   return (
     <>
+      <TravelButtonsContainer variant="contained">
+        <StyledTravelButton
+          onClick={() => handleDirectionButtonClick('TRANSIT')}
+          selected={travelMode === 'TRANSIT'}
+        >
+          {BusIcon}
+        </StyledTravelButton>
+        <StyledTravelButton
+          onClick={() => handleDirectionButtonClick('BICYCLING')}
+          selected={travelMode === 'BICYCLING'}
+        >
+          {BikeIcon}
+        </StyledTravelButton>
+        <StyledTravelButton
+          onClick={() => handleDirectionButtonClick('DRIVING')}
+          selected={travelMode === 'DRIVING'}
+        >
+          {CarIcon}
+        </StyledTravelButton>
+        <StyledTravelButton
+          onClick={() => handleDirectionButtonClick('WALKING')}
+          selected={travelMode === 'WALKING'}
+        >
+          {WalkIcon}
+        </StyledTravelButton>
+      </TravelButtonsContainer>
       <MapOuterContainer>
         <MapInnerContainer>
           <GoogleMapReact
@@ -266,12 +370,20 @@ const Map = ({ resource }: Props) => {
         </MapInnerContainer>
         <MapLoadingElements />
       </MapOuterContainer>
-      <CheckboxInput
-        checked={areDirectionsShown}
-        onChange={handleShowDirectionsChange}
-        disabled={fetchDirectionsStatus === TStatusFetch.STATUS_FETCHING}
-        value="directionsVisible"
-        label="show directions"
+      <StyledSnackbar
+        autoHideDuration={10000}
+        message={directionsError}
+        onClose={() => setDirectionsError(null)}
+        open={!!directionsError}
+        action={[
+          <SnackbarCloseButton
+            key="close"
+            aria-label="close"
+            onClick={handleErrorSnackbarClose}
+          >
+            {CloseIcon}
+          </SnackbarCloseButton>
+        ]}
       />
     </>
   );

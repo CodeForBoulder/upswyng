@@ -53,13 +53,6 @@ export interface TResource {
   [key: string]: TCloseSchedule[] | TSchedule[] | boolean | string | number;
 }
 
-export enum TStatusFetch {
-  STATUS_NOT_FETCHED = 'NOT_FETCHED',
-  STATUS_FETCHING = 'FETCHING',
-  STATUS_FETCH_SUCCESS = 'FETCH_SUCCESS',
-  STATUS_FETCH_ERROR = 'FETCH_ERROR'
-}
-
 export interface TCloseSchedule {
   day: TDay;
   period: string;
@@ -130,3 +123,20 @@ export interface TWeatherCurrentResponse {
   name: string;
   cod: number;
 }
+
+export type TGoogleMapTravelMode =
+  | 'TRANSIT'
+  | 'DRIVING'
+  | 'WALKING'
+  | 'BICYCLING';
+
+export type TGoogleMapDirectionsStatusCode =
+  | 'OK'
+  | 'ZERO_RESULTS'
+  | 'MAX_WAYPOINTS_EXCEEDED'
+  | 'MAX_ROUTE_LENGTH_EXCEEDED'
+  | 'INVALID_REQUEST'
+  | 'OVER_DAILY_LIMIT'
+  | 'OVER_QUERY_LIMIT'
+  | 'REQUEST_DENIED'
+  | 'UNKNOWN_ERROR';
