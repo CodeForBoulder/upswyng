@@ -11,7 +11,6 @@ import Details, { DetailBody, DetailHeading } from './Details';
 import Schedule from './Schedule';
 import Services from './Services';
 import Map from './Map';
-import UpdateResourceButton from './UpdateResourceButton';
 
 interface Props {
   id: string;
@@ -66,7 +65,6 @@ export const Resource = () => {
         </DetailBody>
       </Details>
       <Map resource={resource} />
-      <UpdateResourceButton resourceId={resourceId} resource={resource} />
     </Container>
   );
 };
