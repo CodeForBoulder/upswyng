@@ -8,7 +8,9 @@ interface HomeLinkPropsBase {
 }
 
 type HomeRouterLinkProps = HomeLinkPropsBase & THomeButtonRouterLink;
-type HomeAnchorProps = HomeLinkPropsBase & THomeButtonAnchor;
+type HomeAnchorProps = HomeLinkPropsBase &
+  THomeButtonAnchor &
+  React.HTMLProps<HTMLAnchorElement>;
 
 const HomeLinkStyles = css`
   align-items: stretch;
@@ -31,12 +33,8 @@ export const HomeRouterLink = styled((props: HomeRouterLinkProps) => {
 `;
 
 export const HomeAnchorLink = styled((props: HomeAnchorProps) => {
-  const { children, href, target, ...rest } = props;
-  return (
-    <a href={href} target={target} {...rest}>
-      {children}
-    </a>
-  );
+  const { children, ...rest } = props;
+  return <a {...rest}>{children}</a>;
 })`
   ${HomeLinkStyles}
 `;

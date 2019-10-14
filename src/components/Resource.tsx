@@ -19,16 +19,54 @@ interface Props {
 
 const renderAddressContent = (resource: TResource) => {
   const { address1, address2, city, state, zip } = resource;
+  if (!address1 || !city || !state || !zip) {
+    return <></>;
+  }
   return (
-    <p>
-      {address1}, {address2 ? `${address2},` : ''} {city}, {state} {zip}
-    </p>
+    <>
+      <DetailHeading>Address</DetailHeading>
+      <DetailBody>
+        <p>
+          {' '}
+          {address1}, {address2 ? `${address2},` : ''} {city}, {state} {zip}
+        </p>
+      </DetailBody>
+    </>
   );
 };
 
 const renderPhoneContent = (resource: TResource) => {
   const { phone } = resource;
-  return <p>{phone}</p>;
+  if (!phone) {
+    return <></>;
+  }
+  return (
+    <>
+      <DetailHeading>Phone</DetailHeading>
+      <DetailBody>
+        <p>{phone}</p>
+      </DetailBody>
+    </>
+  );
+};
+
+const renderWebsiteContent = (resource: TResource) => {
+  const { website } = resource;
+  if (!website) {
+    return <></>;
+  }
+  return (
+    <>
+      <DetailHeading>Website</DetailHeading>
+      <DetailBody>
+        <p>
+          <a href={website} target="_blank" rel="noopener noreferrer">
+            {website}
+          </a>
+        </p>
+      </DetailBody>
+    </>
+  );
 };
 
 export const Resource = () => {
@@ -51,10 +89,9 @@ export const Resource = () => {
     <Container>
       <PageBanner text={charityname} />
       <Details>
-        <DetailHeading>Address</DetailHeading>
-        <DetailBody>{renderAddressContent(resource)}</DetailBody>
-        <DetailHeading>Phone</DetailHeading>
-        <DetailBody>{renderPhoneContent(resource)}</DetailBody>
+        {renderAddressContent(resource)}
+        {renderPhoneContent(resource)}
+        {renderWebsiteContent(resource)}
         <DetailHeading>Schedule</DetailHeading>
         <DetailBody>
           <Schedule schedule={schedule} />
