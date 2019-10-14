@@ -107,7 +107,8 @@ const coordinatedEntryButton: THomeButtonAnchor = {
   href: 'https://www.bouldercounty.org/homeless/',
   icon: DoorIcon,
   color: colors.rosewood,
-  target: '_blank'
+  target: '_blank',
+  rel: 'noopener noreferrer'
 };
 
 const HomeButtonContainer = styled(Grid)`
