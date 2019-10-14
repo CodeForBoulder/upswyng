@@ -1,9 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "downlevelIteration": true,
     "lib": ["dom", "dom.iterable", "esnext"],
-    "importHelpers": true,
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
