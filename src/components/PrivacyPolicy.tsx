@@ -44,7 +44,7 @@ const PrivacyPolicy = () => (
       <li>How you can correct any inaccuracies in your information.</li>
     </ol>
     <p>
-      Questions regarding this statement should be directed to the Strappd.org
+      Questions regarding this statement should be directed to the Upswyng.org
       by sending an email <a href="mailto:info@upswyng.org">info@upswyng.org</a>
       . Please reference this Privacy Policy in your subject line.
     </p>
@@ -84,7 +84,7 @@ const PrivacyPolicy = () => (
       emailing a photograph to the Site, you confirm that:
     </p>
     <ol>
-      <li>You are authorized to provide the photograph to Strappd.org;</li>
+      <li>You are authorized to provide the photograph to Upswyng.org;</li>
       <li>
         Any/all people appearing in the photograph have provided you with
         explicit approval to be photographed and for the photograph to be
@@ -95,12 +95,12 @@ const PrivacyPolicy = () => (
         <LowerAlphaList>
           <li>Having the photograph appear on the Site;</li>
           <li>
-            Allowing the photograph to be used by Strappd.org for informational
+            Allowing the photograph to be used by Upswyng.org for informational
             or educational purposes which may include appearing in mass media,
             video, presentations, printed material or emails on our Site;
           </li>
           <li>
-            The use of the photograph by Strappd.org for informational,
+            The use of the photograph by Upswyng.org for informational,
             educational or promotional purposes does not entitle you or anyone
             else to any prior notice, compensation or other remedies; and
           </li>
@@ -112,10 +112,10 @@ const PrivacyPolicy = () => (
       </li>
     </ol>
     <p>
-      Strappd.org will not publish or otherwise distribute your name or other
+      Upswyng.org will not publish or otherwise distribute your name or other
       personally identifying information (or that of others appearing in the
       textual, image or video) without your prior explicit consent. Instead,
-      Strappd.org may elect to use your initials and city/state if needed. We do
+      Upswyng.org may elect to use your initials and city/state if needed. We do
       not collect or store sensitive information such as credit card or social
       security numbers.
     </p>
@@ -134,11 +134,11 @@ const PrivacyPolicy = () => (
       action regarding illegal activities, suspected fraud, situations involving
       potential threats to the physical safety of any person, violations of our
       Terms of Use, or as otherwise required by law. Agents and contractors of
-      Strappd.org who have access to personally identifiable information are
+      Upswyng.org who have access to personally identifiable information are
       required to protect this information in a manner that is consistent with
       this Privacy Policy by, for example, not using the information for any
       purpose other than to carry out the services they are performing for
-      Strappd.org. Although we take appropriate measures to safeguard against
+      Upswyng.org. Although we take appropriate measures to safeguard against
       unauthorized disclosures of information, we cannot assure you that
       personally identifiable information that we collect will never be
       disclosed in a manner that is inconsistent with this Privacy Policy.
@@ -153,14 +153,14 @@ const PrivacyPolicy = () => (
     <p>
       Our Site contains links to other web sites. Please note that when you
       click on one of these links, you are entering another web site for which
-      Strappd.org has no responsibility. We encourage you to read the privacy
+      Upswyng.org has no responsibility. We encourage you to read the privacy
       statements on all such sites as their policies may be different than ours.
       We have no control over information that is submitted to, or collected by,
       these third parties.
     </p>
     <h2>Children’s Online Privacy Protection</h2>
     <p>
-      Strappd.org is not intended for children under 13 years of age. No one
+      Upswyng.org is not intended for children under 13 years of age. No one
       under the age 13 may provide any personal information to the Website or
       application. We do not knowingly collect personal information from
       children under 13. If you are under 13, do not use or provide any
@@ -184,7 +184,7 @@ const PrivacyPolicy = () => (
     <h2>Contacting the Web Site:</h2>
     <p>
       If you have any questions about this Privacy Policy, the practices of this
-      Site, or your dealings with this Site, you can contact:
+      Site, or your dealings with this Site, you can contact:{' '}
       <a href="mailto:info@upswyng.org">info@upswyng.org</a>.
     </p>
   </Container>
