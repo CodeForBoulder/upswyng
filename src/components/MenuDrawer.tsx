@@ -88,18 +88,25 @@ const MenuDrawer = ({ handleMenuClose, open }: MenuDrawerProps) => (
     </StyledDrawerHeader>
     <List>
       <ListItem>
-        <StyledMenuLink to="/" aria-label="home">
+        <StyledMenuLink
+          aria-label="home"
+          onClick={() => handleMenuClose()}
+          to="/"
+        >
           <StyledLogo />
         </StyledMenuLink>
       </ListItem>
       <ListItem>
-        <StyledMenuLink to="/about">
+        <StyledMenuLink onClick={() => handleMenuClose()} to="/about">
           <StyledListIcon>{InfoIcon}</StyledListIcon>
           About
         </StyledMenuLink>
       </ListItem>
       <ListItem>
-        <StyledMenuLink to="/terms-of-service">
+        <StyledMenuLink
+          onClick={() => handleMenuClose()}
+          to="/terms-of-service"
+        >
           <StyledListIcon>{TermsOfServiceIcon}</StyledListIcon>
           Terms of Service
         </StyledMenuLink>
