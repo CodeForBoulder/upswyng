@@ -66,7 +66,10 @@ const Header = () => {
           </Grid>
         </Container>
       </Toolbar>
-      <MenuDrawer open={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <MenuDrawer
+        open={isMenuOpen}
+        handleMenuClose={() => setIsMenuOpen(false)}
+      />
     </StyledHeader>
   );
 };
