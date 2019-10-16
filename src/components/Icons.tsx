@@ -13,6 +13,7 @@ import {
   NextWeek,
   People,
   Pets,
+  Policy,
   Wifi
 } from '@material-ui/icons';
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
@@ -42,6 +43,7 @@ export const TermsOfServiceIcon: React.ReactElement<SvgIconProps> = (
 );
 export const PeopleIcon: React.ReactElement<SvgIconProps> = <People />;
 export const PetsIcon: React.ReactElement<SvgIconProps> = <Pets />;
+export const PolicyIcon: React.ReactElement<SvgIconProps> = <Policy />;
 export const SocksIcon: React.ReactElement<SvgIconProps> = <Socks />;
 export const WalkIcon: React.ReactElement<SvgIconProps> = <DirectionsWalk />;
 export const WifiIcon: React.ReactElement<SvgIconProps> = <Wifi />;
