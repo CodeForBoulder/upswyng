@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import GlobalStyle from './App.styles';
+import About from './components/About';
 import Categories from './components/Categories';
 import Header from './components/Header';
 import Home from './components/Home';
 import Hotlines from './components/Hotlines';
 import Resource from './components/Resource';
 import Search from './components/Search';
+import TermsOfService from './components/TermsOfService';
 
 const {
   Food,
@@ -29,6 +31,7 @@ class App extends Component {
           <div>
             <Header />
             <Route exact path="/" component={Home} />
+            <Route exact path="/about" component={About} />
             <Route exact path="/shelters" component={Shelters} />
             <Route exact path="/job-training" component={JobTraining} />
             <Route exact path="/health" component={Health} />
@@ -40,6 +43,7 @@ class App extends Component {
             <Route exact path="/resources" component={Resources} />
             <Route exact path="/social-services" component={SocialServices} />
             <Route exact path="/search" component={Search} />
+            <Route exact path="/terms-of-service" component={TermsOfService} />
             <Route exact path="/wifi" component={Wifi} />
           </div>
         </Router>
