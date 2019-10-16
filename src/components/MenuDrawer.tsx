@@ -9,7 +9,7 @@ import { Link, NavLinkProps } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Logo from './Logo';
-import { CloseIcon, InfoIcon, TermsOfServiceIcon } from './Icons';
+import { CloseIcon, InfoIcon, PolicyIcon, TermsOfServiceIcon } from './Icons';
 import { colors, font } from '../App.styles';
 
 const StyledDrawer = styled(Drawer)`
@@ -109,6 +109,12 @@ const MenuDrawer = ({ handleMenuClose, open }: MenuDrawerProps) => (
         >
           <StyledListIcon>{TermsOfServiceIcon}</StyledListIcon>
           Terms of Service
+        </StyledMenuLink>
+      </ListItem>
+      <ListItem>
+        <StyledMenuLink onClick={() => handleMenuClose()} to="/privacy-policy">
+          <StyledListIcon>{PolicyIcon}</StyledListIcon>
+          Privacy policy
         </StyledMenuLink>
       </ListItem>
     </List>
