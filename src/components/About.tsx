@@ -20,11 +20,19 @@ const About = () => (
     <StyledLogo />
     <p>
       Upswyng is maintained by{' '}
-      <a href="http://www.codeforboulder.org" target="_blank" rel="noopener">
+      <a
+        href="http://www.codeforboulder.org"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         Code for Boulder
       </a>
       , part of{' '}
-      <a href="https://www.codeforamerica.org/" target="_blank" rel="noopener">
+      <a
+        href="https://www.codeforamerica.org/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         Code for America&apos;s
       </a>{' '}
       Brigade network.
