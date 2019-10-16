@@ -3,9 +3,9 @@ import React from 'react';
 import { Container, colors } from '../App.styles';
 import PageBanner from './PageBanner';
 
-const TermsOfService = () => (
+const TermsOfUse = () => (
   <Container>
-    <PageBanner color={colors.orangeDark} text={'Terms of Service'} />
+    <PageBanner color={colors.orangeDark} text={'Terms of Use'} />
     <p>
       Upswyng provides its content on this website (the “Site”) and mobile
       applications (the “App”) which enable users to locate resources including
@@ -138,4 +138,4 @@ const TermsOfService = () => (
   </Container>
 );
 
-export default TermsOfService;
+export default TermsOfUse;

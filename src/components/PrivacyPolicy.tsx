@@ -21,10 +21,9 @@ const PrivacyPolicy = () => (
     </p>
     <p>
       In order to fully understand your rights we encourage you to read this
-      Privacy Policy as well as our{' '}
-      <Link to="/terms-of-service">Terms of Use</Link>. This Privacy Policy is
-      incorporated by reference into and is subject to our{' '}
-      <Link to="/terms-of-service">Terms of Use</Link>. upswyng.org reserves the
+      Privacy Policy as well as our <Link to="/terms-of-use">Terms of Use</Link>
+      . This Privacy Policy is incorporated by reference into and is subject to
+      our <Link to="/terms-of-use">Terms of Use</Link>. upswyng.org reserves the
       right at any time and without notice to change this Privacy Policy simply
       by posting such changes on our Site. Any such change will be effective
       immediately upon posting.

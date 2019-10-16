@@ -9,7 +9,7 @@ import Hotlines from './components/Hotlines';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import Resource from './components/Resource';
 import Search from './components/Search';
-import TermsOfService from './components/TermsOfService';
+import TermsOfUse from './components/TermsOfUse';
 
 const {
   Food,
@@ -45,7 +45,7 @@ class App extends Component {
             <Route exact path="/resources" component={Resources} />
             <Route exact path="/social-services" component={SocialServices} />
             <Route exact path="/search" component={Search} />
-            <Route exact path="/terms-of-service" component={TermsOfService} />
+            <Route exact path="/terms-of-use" component={TermsOfUse} />
             <Route exact path="/wifi" component={Wifi} />
           </div>
         </Router>

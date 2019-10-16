@@ -103,12 +103,9 @@ const MenuDrawer = ({ handleMenuClose, open }: MenuDrawerProps) => (
         </StyledMenuLink>
       </ListItem>
       <ListItem>
-        <StyledMenuLink
-          onClick={() => handleMenuClose()}
-          to="/terms-of-service"
-        >
+        <StyledMenuLink onClick={() => handleMenuClose()} to="/terms-of-use">
           <StyledListIcon>{TermsOfServiceIcon}</StyledListIcon>
-          Terms of Service
+          Terms of Use
         </StyledMenuLink>
       </ListItem>
       <ListItem>
