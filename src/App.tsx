@@ -6,6 +6,7 @@ import Categories from './components/Categories';
 import Header from './components/Header';
 import Home from './components/Home';
 import Hotlines from './components/Hotlines';
+import PrivacyPolicy from './components/PrivacyPolicy';
 import Resource from './components/Resource';
 import Search from './components/Search';
 import TermsOfService from './components/TermsOfService';
@@ -38,6 +39,7 @@ class App extends Component {
             <Route exact path="/hygiene" component={Hygiene} />
             <Route exact path="/hotlines" component={Hotlines} />
             <Route exact path="/food" component={Food} />
+            <Route exact path="/privacy-policy" component={PrivacyPolicy} />
             <Route exact path="/transit" component={Transit} />
             <Route exact path="/resource" component={Resource} />
             <Route exact path="/resources" component={Resources} />
