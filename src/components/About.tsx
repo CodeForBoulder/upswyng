@@ -14,8 +14,8 @@ const About = () => (
   <Container>
     <PageBanner color={colors.orangeDark} text={'About Upswyng'} />
     <p>
-      Upswyng is a mobile app that can help people in need locate services where
-      they can find Food, Shelter, Health, Resources and Work.
+      UpSwyng is a mobile-ready, digital directory of resources to assist the
+      homeless and at-risk community.
     </p>
     <StyledLogo />
     <p>
@@ -38,8 +38,7 @@ const About = () => (
       Brigade network.
     </p>
     <p>
-      For questions related to Upswyng or if you want to deploy it in your
-      community, please contact{' '}
+      For questions related to Upswyng, please contact{' '}
       <a href="mailto:info@upswyng.org">info@upswyng.org</a>.
     </p>
   </Container>
