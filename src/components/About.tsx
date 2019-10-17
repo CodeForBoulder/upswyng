@@ -15,7 +15,7 @@ const About = () => (
     <PageBanner color={colors.orangeDark} text={'About Upswyng'} />
     <p>
       UpSwyng is a mobile-ready, digital directory of resources to assist the
-      homeless and at-risk community.
+      homeless and at-risk communities.
     </p>
     <StyledLogo />
     <p>
