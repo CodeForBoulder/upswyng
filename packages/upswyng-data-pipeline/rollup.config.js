@@ -1,4 +1,6 @@
 import { terser } from "rollup-plugin-terser";
+import builtins from "rollup-plugin-node-builtins";
+import * as dotenv from "dotenv";
 import autoPreprocess from "svelte-preprocess";
 import babel from "rollup-plugin-babel";
 import commonjs from "rollup-plugin-commonjs";
@@ -16,7 +18,7 @@ import svelte from "rollup-plugin-svelte";
 import {
   createEnv,
   preprocess as tsPreprocess,
-  readConfigFile
+  readConfigFile,
 } from "@pyoner/svelte-ts-preprocess";
 import typescript from "rollup-plugin-typescript2";
 const env = createEnv();
@@ -25,16 +27,16 @@ const tsOpts = {
   env,
   compilerOptions: {
     ...compilerOptions,
-    allowNonTsExtensions: true
-  }
+    allowNonTsExtensions: true,
+  },
 };
 const styleOpts = {
   scss: {
-    includePaths: ["node_modules", "server/src"]
+    includePaths: ["node_modules", "server/src"],
   },
   postcss: {
-    plugins: [require("autoprefixer")]
-  }
+    plugins: [require("autoprefixer")],
+  },
 };
 
 const mode = process.env.NODE_ENV;
@@ -48,6 +50,13 @@ const onwarn = (warning, onwarn) =>
 const dedupe = importee =>
   importee === "svelte" || importee.startsWith("svelte/");
 
+dotenv.config();
+const {
+  ALGOLIA_APP_ID,
+  ALGOLIA_SEARCH_API_KEY,
+  ALGOLIA_INDEX_NAME,
+} = process.env;
+
 export default {
   client: {
     input: config.client.input(),
@@ -55,24 +64,31 @@ export default {
     plugins: [
       replace({
         "process.browser": true,
-        "process.env.NODE_ENV": JSON.stringify(mode)
+        "process.env.ALGOLIA_APP_ID": JSON.stringify(ALGOLIA_APP_ID),
+        "process.env.ALGOLIA_INDEX_NAME": JSON.stringify(ALGOLIA_INDEX_NAME),
+        "process.env.ALGOLIA_SEARCH_API_KEY": JSON.stringify(
+          ALGOLIA_SEARCH_API_KEY
+        ),
+        "process.env.RESET_APP_DATA_TIMER": 60 * 2 * 1000, // two minutes; used inside the algoliasearch source
+        "process.env.NODE_ENV": JSON.stringify(mode),
       }),
+      builtins(),
       svelte({
         dev,
         hydratable: true,
         emitCss: true,
-        preprocess: [tsPreprocess(tsOpts), autoPreprocess(styleOpts)]
+        preprocess: [tsPreprocess(tsOpts), autoPreprocess(styleOpts)],
       }),
       resolve({
         browser: true,
-        dedupe
+        dedupe,
       }),
       commonjs({
         include: /node_modules/,
         namedExports: {
           "node_modules/bson/index.js": ["ObjectId"],
-          "node_modules/fast-equals/dist/fast-equals.js": ["deepEqual"]
-        }
+          "node_modules/fast-equals/dist/fast-equals.js": ["deepEqual"],
+        },
       }),
       typescript(),
 
@@ -84,27 +100,27 @@ export default {
           presets: [
             [
               "@babel/preset-env",
-              { modules: false, targets: "> 0.25%, not dead" }
-            ]
+              { modules: false, targets: "> 0.25%, not dead" },
+            ],
           ],
           plugins: [
             "@babel/plugin-syntax-dynamic-import",
             [
               "@babel/plugin-transform-runtime",
               {
-                useESModules: true
-              }
-            ]
-          ]
+                useESModules: true,
+              },
+            ],
+          ],
         }),
 
       !dev &&
         terser({
-          module: true
-        })
+          module: true,
+        }),
     ],
 
-    onwarn
+    onwarn,
   },
 
   server: {
@@ -113,32 +129,37 @@ export default {
     plugins: [
       replace({
         "process.browser": false,
-        "process.env.NODE_ENV": JSON.stringify(mode)
+        "process.env.ALGOLIA_APP_ID": JSON.stringify(ALGOLIA_APP_ID),
+        "process.env.ALGOLIA_INDEX_NAME": JSON.stringify(ALGOLIA_INDEX_NAME),
+        "process.env.ALGOLIA_SEARCH_API_KEY": JSON.stringify(
+          ALGOLIA_SEARCH_API_KEY
+        ),
+        "process.env.NODE_ENV": JSON.stringify(mode),
       }),
       svelte({
         generate: "ssr",
         dev,
-        preprocess: [tsPreprocess(tsOpts), autoPreprocess(styleOpts)]
+        preprocess: [tsPreprocess(tsOpts), autoPreprocess(styleOpts)],
       }),
       resolve({
-        dedupe
+        dedupe,
       }),
       commonjs({
         include: /node_modules/,
         namedExports: {
           "node_modules/bson/index.js": ["ObjectId"],
-          "node_modules/fast-equals/dist/fast-equals.js": ["deepEqual"]
-        }
+          "node_modules/fast-equals/dist/fast-equals.js": ["deepEqual"],
+        },
       }),
       typescript(),
-      json()
+      json(),
     ],
     external: Object.keys(pkg.dependencies || {}).concat(
       require("module").builtinModules ||
         Object.keys(process.binding("natives"))
     ),
 
-    onwarn
+    onwarn,
   },
 
   serviceworker: {
@@ -148,19 +169,24 @@ export default {
       resolve(),
       replace({
         "process.browser": true,
-        "process.env.NODE_ENV": JSON.stringify(mode)
+        "process.env.ALGOLIA_APP_ID": JSON.stringify(ALGOLIA_APP_ID),
+        "process.env.ALGOLIA_INDEX_NAME": JSON.stringify(ALGOLIA_INDEX_NAME),
+        "process.env.ALGOLIA_SEARCH_API_KEY": JSON.stringify(
+          ALGOLIA_SEARCH_API_KEY
+        ),
+        "process.env.NODE_ENV": JSON.stringify(mode),
       }),
       commonjs({
         include: /node_modules/,
         namedExports: {
           "node_modules/bson/index.js": ["ObjectId"],
-          "node_modules/fast-equals/dist/fast-equals.js": ["deepEqual"]
-        }
+          "node_modules/fast-equals/dist/fast-equals.js": ["deepEqual"],
+        },
       }),
       typescript(),
-      !dev && terser()
+      !dev && terser(),
     ],
 
-    onwarn
-  }
+    onwarn,
+  },
 };

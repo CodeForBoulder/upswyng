@@ -23,7 +23,7 @@ const {
   DATABASE_URL,
   DATABASE_NAME,
   DATABASE_PASSWORD,
-  DATABASE_USER
+  DATABASE_USER,
 } = process.env;
 
 if (dev && /heroku_.*/.test(DATABASE_NAME)) {
@@ -37,7 +37,7 @@ mongoose
     useNewUrlParser: true,
     dbName: DATABASE_NAME,
     user: DATABASE_USER,
-    pass: DATABASE_PASSWORD
+    pass: DATABASE_PASSWORD,
   })
   .then(
     () => console.log(`Connected to MongoDB instance at ${DATABASE_URL}`),
@@ -52,7 +52,7 @@ const grantConfig = {
     protocol: process.env.SERVER_PROTOCOL || "http",
     host: process.env.SERVER_HOST || "localhost:3000",
     transport: "session",
-    state: true
+    state: true,
   },
   google: {
     key: process.env.OAUTH_GOOGLE_CLIENT_ID,
@@ -60,15 +60,15 @@ const grantConfig = {
     scope: ["openid", "email"],
     nonce: true,
     custom_params: { access_type: "offline" },
-    callback: "/callback"
+    callback: "/callback",
   },
   facebook: {
     key: process.env.OAUTH_FACEBOOK_CLIENT_ID,
     secret: process.env.OAUTH_FACEBOOK_CLIENT_SECRET,
     scope: ["email"],
     nonce: true,
-    callback: "/callback"
-  }
+    callback: "/callback",
+  },
 };
 
 const MongoStore = connectMongo(session);
@@ -91,7 +91,7 @@ polka()
       store: new MongoStore({ mongooseConnection: mongoose.connection }),
       secret: process.env.DATABASE_SESSION_SECRET || "default_secret",
       saveUninitialized: true,
-      resave: true
+      resave: true,
     }),
     grant(grantConfig),
     userMiddleware
@@ -103,7 +103,7 @@ polka()
     sapper.middleware({
       session: (req, _res) => {
         return { user: getUserFromRawUsers(req) };
-      }
+      },
     })
   )
   .listen(PORT, err => {

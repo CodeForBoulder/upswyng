@@ -11,6 +11,8 @@
 </script>
 
 <script>
+  import ResourceSearch from "../../components/ResourceSearch.svelte";
+
   export let subcategory;
 </script>
 
@@ -20,8 +22,7 @@
 
 <section class="section">
   <div class="container">
-    <h1>{subcategory.name}</h1>
-
+    <h1 class="title">{subcategory.name}</h1>
     <ul class="content">
       {#each subcategory.resources as resource}
         <li>
@@ -29,5 +30,12 @@
         </li>
       {/each}
     </ul>
+    <div class="content">
+      <h2 class="subtitle">Add resources to {subcategory.name}</h2>
+      <ResourceSearch
+        on:resourceClick={({ detail: id }) => {
+          console.log(id);
+        }} />
+    </div>
   </div>
 </section>
