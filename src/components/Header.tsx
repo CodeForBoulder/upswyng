@@ -25,6 +25,12 @@ const StyledHeader = styled(AppBar)`
   }
 ` as typeof AppBar;
 
+const StyledToolbar = styled(Toolbar)`
+  && {
+    padding: 0;
+  }
+` as typeof Toolbar;
+
 const StyledMenuButton = styled(IconButton)`
   && {
     margin-left: ${font.helpers.convertPixelsToRems(-12)};
@@ -43,7 +49,7 @@ const Header = () => {
 
   return (
     <StyledHeader position="static">
-      <Toolbar>
+      <StyledToolbar>
         <Container container justify="space-between" alignItems="center">
           <Grid item>
             <StyledMenuButton
@@ -65,7 +71,7 @@ const Header = () => {
             </Grid>
           </Grid>
         </Container>
-      </Toolbar>
+      </StyledToolbar>
       <MenuDrawer
         open={isMenuOpen}
         handleMenuClose={() => setIsMenuOpen(false)}
