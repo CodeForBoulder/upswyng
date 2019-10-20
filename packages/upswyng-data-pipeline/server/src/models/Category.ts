@@ -52,7 +52,7 @@ CategorySchema.statics.getCategoryList = async function() {
 };
 
 CategorySchema.statics.getByStub = async function(stub: string) {
-  return await this.findOne({ stub }).populate("subcategories");
+  return await this.findOne({ stub }).populate({ path: "subcategories", populate: { path: "resources" } });
 };
 
 /**

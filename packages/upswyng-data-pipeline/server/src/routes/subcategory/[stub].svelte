@@ -30,12 +30,12 @@
         </li>
       {/each}
     </ul>
-    <div class="content">
+    <!-- <div class="content">
       <h2 class="subtitle">Add resources to {subcategory.name}</h2>
       <ResourceSearch
         on:resourceClick={({ detail: id }) => {
           console.log(id);
         }} />
-    </div>
+    </div> -->
   </div>
 </section>
