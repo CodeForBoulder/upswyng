@@ -26,6 +26,67 @@ export type TDay =
   | 'Saturday'
   | 'Sunday';
 
+export interface TAddress {
+  address1: string;
+  address2?: string;
+  city: string;
+  state: string;
+  zip: string;
+}
+export interface TUser {
+  id: string;
+  name?: string;
+  email: string;
+  providers: ('facebook' | 'google')[];
+  isAdmin: boolean;
+  isSuperAdmin: boolean;
+}
+export interface TResourceNew {
+  _id?: string;
+  address: TAddress;
+  createdBy?: TUser;
+  closeSchedule: TCloseSchedule[];
+  createdAt: Date;
+  deleted: boolean;
+  description: string;
+  id: string;
+  kudos: number;
+  lastModifiedAt: Date;
+  latitude: number;
+  legacyId?: string;
+  longitude: number;
+  name: string;
+  phone: string;
+  schedule: TSchedule[];
+  services: string[];
+  subcategories: TSubcategory[];
+  website: string;
+}
+
+export interface TResourcePayload {
+  message?: string;
+  resource?: TResourceNew;
+}
+
+export interface TCategory {
+  _id: string;
+  color: string;
+  createdAt: Date;
+  lastModifiedAt: Date;
+  name: string;
+  stub: string;
+  subcategories: TSubcategory[];
+}
+
+export interface TSubcategory {
+  _id: string;
+  createdAt: Date;
+  lastModifiedAt: Date;
+  name: string;
+  parentCategory: TCategory;
+  resources?: TResource[];
+  stub: string;
+}
 export interface TResource {
   address1: string;
   address2: string;
@@ -67,9 +128,28 @@ export interface TSchedule {
   type: TScheduleType;
 }
 
-export type TSchedulePeriod = 'First' | 'Second' | 'Third' | 'Fourth';
+export type TSchedulePeriod =
+  | 'Last'
+  | 'First'
+  | 'Second'
+  | 'Third'
+  | 'Fourth'
+  | 'Fifth';
 
 export type TScheduleType = 'Weekly' | 'Monthly' | 'Open 24/7' | 'Date Range';
+
+interface TScheduleBase {
+  _id?: string;
+  day?: TDay;
+  date?: string;
+  period?: TSchedulePeriod;
+  from?: string;
+  to?: string;
+}
+
+export interface TScheduleNew extends TScheduleBase {
+  scheduleType: TScheduleType;
+}
 
 export interface TResourceCategory {
   text: string;
