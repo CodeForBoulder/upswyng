@@ -45,7 +45,7 @@ export interface TResourceNew {
   _id?: string;
   address: TAddress;
   createdBy?: TUser;
-  closeSchedule: TCloseSchedule[];
+  closeSchedule: TCloseScheduleNew[];
   createdAt: Date;
   deleted: boolean;
   description: string;
@@ -63,9 +63,16 @@ export interface TResourceNew {
   website: string;
 }
 
-export interface TResourcePayload {
+interface TPayloadBase {
   message?: string;
+}
+
+export interface TResourcePayload extends TPayloadBase {
   resource?: TResourceNew;
+}
+
+export interface TResourcesByCategoryPayload extends TPayloadBase {
+  category?: TCategory;
 }
 
 export interface TCategory {
@@ -151,6 +158,11 @@ export interface TScheduleNew extends TScheduleBase {
   scheduleType: TScheduleType;
 }
 
+export type TCloseScheduleType = TScheduleType | 'Permanently Closed';
+
+export interface TCloseScheduleNew extends TScheduleBase {
+  scheduleType: TCloseScheduleType;
+}
 export interface TResourceCategory {
   text: string;
   query: string;
