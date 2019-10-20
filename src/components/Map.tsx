@@ -297,8 +297,6 @@ const Map = ({ resource }: Props) => {
     lng: resource.longitude
   };
 
-  console.log(resourceLatLng);
-
   useEffect(() => {
     if (googleMaps) {
       addMapMarker();
