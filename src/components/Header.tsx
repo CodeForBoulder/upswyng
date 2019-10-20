@@ -12,18 +12,20 @@ import Temperature from './Temperature';
 import MenuDrawer from './MenuDrawer';
 import { Container, font } from '../App.styles';
 
-const headerVerticalMargin = 24;
-
 const StyledHeader = styled(AppBar)`
   && {
     background: none;
     box-shadow: none;
-    margin-bottom: ${font.helpers.convertPixelsToRems(
-      headerVerticalMargin / 2
-    )};
-    margin-top: ${font.helpers.convertPixelsToRems(headerVerticalMargin)};
+    margin-bottom: ${font.helpers.convertPixelsToRems(12)};
+    margin-top: ${font.helpers.convertPixelsToRems(8)};
   }
 ` as typeof AppBar;
+
+const StyledToolbar = styled(Toolbar)`
+  && {
+    padding: 0;
+  }
+` as typeof Toolbar;
 
 const StyledMenuButton = styled(IconButton)`
   && {
@@ -43,7 +45,7 @@ const Header = () => {
 
   return (
     <StyledHeader position="static">
-      <Toolbar>
+      <StyledToolbar>
         <Container container justify="space-between" alignItems="center">
           <Grid item>
             <StyledMenuButton
@@ -65,7 +67,7 @@ const Header = () => {
             </Grid>
           </Grid>
         </Container>
-      </Toolbar>
+      </StyledToolbar>
       <MenuDrawer
         open={isMenuOpen}
         handleMenuClose={() => setIsMenuOpen(false)}

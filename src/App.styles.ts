@@ -72,6 +72,7 @@ export const aStyles = css`
 export const Container = styled(Grid)`
   margin: 0 auto;
   max-width: ${font.helpers.convertPixelsToRems(480)};
+  padding: 0 ${font.helpers.convertPixelsToRems(10)};
 ` as typeof Grid;
 
 export default createGlobalStyle`
