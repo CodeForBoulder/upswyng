@@ -88,7 +88,7 @@ export const Resource = () => {
   const resource = useResourceNew(resourceId);
 
   if (resource === undefined) {
-    return renderErrorMessage();
+    return <LoadingSpinner />;
   }
 
   if (resource === null) {
