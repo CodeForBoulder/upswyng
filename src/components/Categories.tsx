@@ -60,24 +60,20 @@ const categories: Record<TCategoryName, TCategory> = {
     },
     subCategories: [
       {
-        text: 'Addiction Recovery Services',
-        query: 'SUBCATEGORY-health-addictionRecoveryServices'
+        text: 'Hospital',
+        query: 'SUBCATEGORY-health-hospital'
       },
       {
         text: 'Clinics',
         query: 'SUBCATEGORY-health-clinic'
       },
       {
-        text: 'Dental',
-        query: 'SUBCATEGORY-health-dental'
-      },
-      {
-        text: 'Hospital',
-        query: 'SUBCATEGORY-health-hospital'
-      },
-      {
         text: 'Mental',
         query: 'SUBCATEGORY-health-mental'
+      },
+      {
+        text: 'Dental',
+        query: 'SUBCATEGORY-health-dental'
       },
       {
         text: 'Pharmacies',
@@ -86,6 +82,10 @@ const categories: Record<TCategoryName, TCategory> = {
       {
         text: 'Vision',
         query: 'SUBCATEGORY-health-vision'
+      },
+      {
+        text: 'Addiction',
+        query: 'SUBCATEGORY-health-addictionRecoveryServices'
       }
     ]
   },
@@ -98,20 +98,20 @@ const categories: Record<TCategoryName, TCategory> = {
     },
     subCategories: [
       {
-        text: 'Feminine Products',
-        query: 'SUBCATEGORY-hygiene-feminine'
-      },
-      {
-        text: 'Water Fountains',
-        query: 'SUBCATEGORY-hygiene-water'
+        text: 'Restrooms',
+        query: 'SUBCATEGORY-hygiene-bathroom'
       },
       {
         text: 'Showers',
         query: 'SUBCATEGORY-hygiene-shower'
       },
       {
-        text: 'Restrooms',
-        query: 'SUBCATEGORY-hygiene-bathroom'
+        text: 'Water Fountains',
+        query: 'SUBCATEGORY-hygiene-water'
+      },
+      {
+        text: 'Feminine Products',
+        query: 'SUBCATEGORY-hygiene-feminine'
       }
     ]
   },
@@ -124,6 +124,10 @@ const categories: Record<TCategoryName, TCategory> = {
     },
     subCategories: [
       {
+        text: 'Ready to Work',
+        query: 'SUBCATEGORY-jobTraining-readyToWork'
+      },
+      {
         text: 'Craigs List',
         query: 'SUBCATEGORY-jobTraining-craigsList'
       },
@@ -134,10 +138,6 @@ const categories: Record<TCategoryName, TCategory> = {
       {
         text: 'Day Labor',
         query: 'SUBCATEGORY-jobTraining-dayLabor'
-      },
-      {
-        text: 'Ready to Work',
-        query: 'SUBCATEGORY-jobTraining-readyToWork'
       },
       {
         text: 'Career Counseling',
@@ -154,36 +154,36 @@ const categories: Record<TCategoryName, TCategory> = {
     },
     subCategories: [
       {
-        text: 'Pets',
-        query: 'SUBCATEGORY-resources-pets'
-      },
-      {
-        text: 'Hair Care',
-        query: 'SUBCATEGORY-resources-hairCare'
-      },
-      {
-        text: 'Laundry',
-        query: 'SUBCATEGORY-resources-laundry'
-      },
-      {
-        text: 'Legal Help',
-        query: 'SUBCATEGORY-resources-legalHelp'
-      },
-      {
         text: 'Outdoor Gear',
         query: 'SUBCATEGORY-resources-outdoorGear'
       },
       {
-        text: 'Home Goods',
-        query: 'SUBCATEGORY-resources-homeGoods'
+        text: 'Clothing',
+        query: 'SUBCATEGORY-resources-clothing'
       },
       {
         text: 'Shoes',
         query: 'SUBCATEGORY-resources-shoes'
       },
       {
-        text: 'Clothing',
-        query: 'SUBCATEGORY-resources-clothing'
+        text: 'Legal Help',
+        query: 'SUBCATEGORY-resources-legalHelp'
+      },
+      {
+        text: 'Pets',
+        query: 'SUBCATEGORY-resources-pets'
+      },
+      {
+        text: 'Laundry',
+        query: 'SUBCATEGORY-resources-laundry'
+      },
+      {
+        text: 'Hair Care',
+        query: 'SUBCATEGORY-resources-hairCare'
+      },
+      {
+        text: 'Home Goods',
+        query: 'SUBCATEGORY-resources-homeGoods'
       }
     ]
   },
@@ -196,32 +196,32 @@ const categories: Record<TCategoryName, TCategory> = {
     },
     subCategories: [
       {
-        text: 'Pregnant',
-        query: 'SUBCATEGORY-shelter-pregnant'
-      },
-      {
-        text: 'Abused',
-        query: 'SUBCATEGORY-shelter-abused'
-      },
-      {
-        text: 'Youth',
-        query: 'SUBCATEGORY-shelter-youth'
+        text: 'Emergency',
+        query: 'SUBCATEGORY-shelter-emergency'
       },
       {
         text: 'Family',
         query: 'SUBCATEGORY-shelter-family'
       },
       {
-        text: 'Transitional',
-        query: 'SUBCATEGORY-shelter-transitional'
+        text: 'Youth',
+        query: 'SUBCATEGORY-shelter-youth'
+      },
+      {
+        text: 'Abused',
+        query: 'SUBCATEGORY-shelter-abused'
+      },
+      {
+        text: 'Pregnant',
+        query: 'SUBCATEGORY-shelter-pregnant'
       },
       {
         text: 'Temporary',
         query: 'SUBCATEGORY-shelter-temporary'
       },
       {
-        text: 'Emergency',
-        query: 'SUBCATEGORY-shelter-emergency'
+        text: 'Transitional',
+        query: 'SUBCATEGORY-shelter-transitional'
       }
     ]
   },
@@ -234,16 +234,16 @@ const categories: Record<TCategoryName, TCategory> = {
     },
     subCategories: [
       {
-        text: 'Social Security',
-        query: 'SUBCATEGORY-socialServices-socialSecurity'
-      },
-      {
         text: 'Health and Human Services',
         query: 'SUBCATEGORY-socialServices-healthAndHumanServices'
       },
       {
         text: 'Food Stamps',
         query: 'SUBCATEGORY-socialServices-foodStamps'
+      },
+      {
+        text: 'Social Security',
+        query: 'SUBCATEGORY-socialServices-socialSecurity'
       }
     ]
   },
