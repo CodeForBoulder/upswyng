@@ -4,6 +4,7 @@ import useSearchResults from './useSearchResults';
 import PageBanner from './PageBanner';
 import SubCategories from './SubCategories';
 import SearchResults from './SearchResults';
+import useResourcesByCategory from './useResourcesByCategory';
 
 interface Props {
   category: TResourceCategory;
@@ -19,6 +20,8 @@ const CategoryResults = ({
   subCategories
 }: Props) => {
   const { text: categoryText, query: categoryQuery } = category;
+  const resourcesByCategory = useResourcesByCategory('food');
+  console.log('useResourcesByCategory: ', resourcesByCategory);
   const [searchQuery, updateSearchQuery] = useState(categoryQuery);
   const searchResults = useSearchResults(searchQuery);
 
