@@ -1,6 +1,7 @@
 import React from 'react';
-import { TResource } from '../types';
+import { TResource, TResourceNew } from '../types';
 import useResource from './useResource';
+import useResourceNew from './useResourceNew';
 import { getSearchParamVal } from '../utils/searchParams';
 import { SEARCH_PARAM_RESOURCE, FIREBASE_RESOURCE_BRANCH } from '../constants';
 
@@ -17,11 +18,15 @@ interface Props {
   resource: TResource;
 }
 
-const renderAddressContent = (resource: TResource) => {
-  const { address1, address2, city, state, zip } = resource;
+const renderAddressContent = (resource: TResourceNew) => {
+  const {
+    address: { address1, address2, city, state, zip }
+  } = resource;
+
   if (!address1 || !city || !state || !zip) {
     return <></>;
   }
+
   return (
     <>
       <DetailHeading>Address</DetailHeading>
@@ -35,7 +40,7 @@ const renderAddressContent = (resource: TResource) => {
   );
 };
 
-const renderPhoneContent = (resource: TResource) => {
+const renderPhoneContent = (resource: TResourceNew) => {
   const { phone } = resource;
   if (!phone) {
     return <></>;
@@ -50,7 +55,7 @@ const renderPhoneContent = (resource: TResource) => {
   );
 };
 
-const renderWebsiteContent = (resource: TResource) => {
+const renderWebsiteContent = (resource: TResourceNew) => {
   const { website } = resource;
   if (!website) {
     return <></>;
@@ -69,6 +74,10 @@ const renderWebsiteContent = (resource: TResource) => {
   );
 };
 
+const renderErrorMessage = () => (
+  <p>We&apos;re sorry, this service was not found.</p>
+);
+
 export const Resource = () => {
   const resourceId = getSearchParamVal(SEARCH_PARAM_RESOURCE);
 
@@ -76,18 +85,21 @@ export const Resource = () => {
     return <p>We&apos;re sorry, this service was not found.</p>;
   }
 
-  const resourceDataRef = `${FIREBASE_RESOURCE_BRANCH}/${resourceId}`;
-  const resource = useResource(resourceDataRef);
+  const resource = useResourceNew(resourceId);
 
-  if (!resource) {
-    return <LoadingSpinner />;
+  if (resource === undefined) {
+    return renderErrorMessage();
   }
 
-  const { charityname, schedule } = resource;
+  if (resource === null) {
+    return renderErrorMessage();
+  }
+
+  const { name, schedule } = resource;
 
   return (
     <Container>
-      <PageBanner text={charityname} />
+      <PageBanner text={name} />
       <Details>
         {renderAddressContent(resource)}
         {renderPhoneContent(resource)}

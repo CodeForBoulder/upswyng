@@ -1,11 +1,11 @@
 import React from 'react';
 import { Chip } from '@material-ui/core';
 import styled from 'styled-components';
-import { TResource } from '../types';
+import { TResourceNew } from '../types';
 import { colors, font } from '../App.styles';
 
 interface Props {
-  resource: TResource;
+  resource: TResourceNew;
 }
 
 const ServicesList = styled.ul`
@@ -34,9 +34,9 @@ const ServicesChip = styled(Chip)`
 
 const Services = ({ resource }: Props) => {
   if (resource) {
-    const { servicetype: serviceType } = resource;
-    if (serviceType) {
-      const serviceItems = serviceType.split(',').map(service => (
+    const { services } = resource;
+    if (services) {
+      const serviceItems = services.map(service => (
         <ServicesItem key={service.trim()}>
           <ServicesChip component={'span'} label={service.trim()} role={''} />
         </ServicesItem>
