@@ -72,7 +72,7 @@
   </section>
 {/each}
 <div class="content">
-  <div class="box" class:has-ribbon={resource.deleted}>
+  <div class:box={resource.deleted} class:has-ribbon={resource.deleted}>
     {#if resource.deleted}
       <div class="ribbon is-danger">Trashed</div>
     {/if}
@@ -178,16 +178,14 @@
         <span class="icon is-small is-left">
           <i class="fas fa-phone" />
         </span>
-        {#if $resourceForm.phone.errors.includes('min')}
+        {#if $resourceForm.phone.errors}
           <span class="icon is-small is-right">
             <i class="fas fa-exclamation-triangle" />
           </span>
         {/if}
       </div>
-      {#if $resourceForm.phone.errors.includes('min')}
-        <p class="help is-danger">
-          The phone number should be at least 10 characters
-        </p>
+      {#if $resourceForm.phone.errors}
+        <p class="help is-danger">A phone number is required</p>
       {/if}
     </div>
 
@@ -214,7 +212,7 @@
               {/if}
             </div>
             {#if $resourceForm.address1.errors.includes('required')}
-              <p class="help is-danger">An address is required.</p>
+              <p class="help is-danger">An address is required</p>
             {/if}
           </div>
         </div>
@@ -259,7 +257,7 @@
               {/if}
             </div>
             {#if $resourceForm.city.errors.includes('required')}
-              <p class="help is-danger">An address is required.</p>
+              <p class="help is-danger">An address is required</p>
             {/if}
           </div>
         </div>
@@ -286,7 +284,7 @@
               {/if}
             </div>
             {#if $resourceForm.state.errors.includes('required')}
-              <p class="help is-danger">A state is required.</p>
+              <p class="help is-danger">A state is required</p>
             {/if}
           </div>
         </div>
