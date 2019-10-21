@@ -17,8 +17,12 @@
 </script>
 
 <script>
+  import { goto, stores } from "@sapper/app";
   import ResourceDisplay from "../../components/ResourceDisplay.svelte";
   import ResourceEditor from "../../components/ResourceEditor.svelte";
+
+  const { session } = stores();
+
   export let resource; // TResource
   export let subcategories; // TSubcategory[], all subcategories in the app
   export let isLoggedIn; // booleans
@@ -50,7 +54,15 @@
       })
       .then(res => {
         if (res.draftResource) {
-          window.location.href = "/resource";
+          const messages = $session.flash || [];
+          messages.push({
+            type: "success",
+            message: res.draftResource.name
+              ? `A draft update of ${res.draftResource.name} was created`
+              : "A draft update was created"
+          });
+          session.update(s => ({ ...s, flash: messages }));
+          goto("/resource");
         } else {
           console.error(res);
           saveError = new Error(

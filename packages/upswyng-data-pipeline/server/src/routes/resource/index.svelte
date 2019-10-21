@@ -25,9 +25,11 @@
 
 <script>
   import ResourceSearch from "../../components/ResourceSearch.svelte";
-  import * as sapper from "@sapper/app";
+  import { goto, stores } from "@sapper/app";
 
-  const { goto } = sapper;
+  const { session } = stores();
+  const flashMessages = $session.flash || [];
+  session.update(s => ({ ...s, flash: [] }));
 
   export let categories = null;
   export let draftResources = null;
@@ -42,6 +44,14 @@
 
 <section class="section">
   <div class="container">
+    {#each flashMessages as flashMessage}
+      <div
+        class="notification"
+        class:is-success={flashMessage.type === 'success'}
+        class:is-danger={flashMessage.type === 'error'}>
+        {flashMessage.message}
+      </div>
+    {/each}
     <h1 class="title">Resources</h1>
     {#if user}
       <div class="content">

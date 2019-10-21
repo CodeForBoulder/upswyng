@@ -11,7 +11,11 @@
 </script>
 
 <script>
+  import { goto, stores } from "@sapper/app";
   import ResourceEditor from "../../components/ResourceEditor.svelte";
+
+  const { session } = stores();
+
   export let subcategories; // TSubcategory[], all subcategories in the app
 
   let isSaving = false;
@@ -54,7 +58,15 @@
       })
       .then(res => {
         if (res.draftResource) {
-          window.location.href = "/resource";
+          const messages = $session.flash || [];
+          messages.push({
+            type: "success",
+            message: res.draftResource.name
+              ? `A draft of ${res.draftResource.name} was created`
+              : "A new draft was created"
+          });
+          session.update(s => ({ ...s, flash: messages }));
+          goto("/resource");
         } else {
           console.error(res);
           saveError = new Error(

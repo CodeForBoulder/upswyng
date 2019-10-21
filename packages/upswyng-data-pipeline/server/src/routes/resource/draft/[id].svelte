@@ -36,6 +36,23 @@
       }
     }
   }
+</script>
+
+<script>
+  import ResourceDisplay from "../../../components/ResourceDisplay.svelte";
+  import ResourceDiff from "../../../components/ResourceDiff.svelte";
+  import { goto, stores } from "@sapper/app";
+
+  const { session } = stores();
+
+  export let draftResource;
+  export let existingResource; // resource in the directory which this draft would update; null for new resources
+
+  let isDeleting = false; // Whether we've issued a call to the server to delete the draft resource
+  let deleteError = null; // error? Poupulated with the error from a detete attempt, if there has been one
+
+  let isApproving = false; // Whether we've issued a call to the server to approve the draft resource
+  let approveError = null; // error? Poupulated with the error from an approve attempt, if there has been one
 
   function deleteDraft(id) {
     isDeleting = true;
@@ -45,7 +62,15 @@
         if (_res.status >= 400) {
           throw new Error(_res);
         }
-        window.location.href = "/resource";
+        const messages = $session.flash || [];
+        messages.push({
+          type: "success",
+          message: draftResource.name
+            ? `The draft of ${draftResource.name} was deleted`
+            : "The draft resource was deleted"
+        });
+        session.update(s => ({ ...s, flash: messages }));
+        goto("/resource");
       })
       .catch(e => (deleteError = e))
       .finally(() => (isDeleting = false));
@@ -57,25 +82,17 @@
         if (_res.status >= 400) {
           throw new Error(_res);
         }
-        window.location.href = "/resource";
+        const messages = $session.flash || [];
+        messages.push({
+          type: "success",
+          message: `The draft of ${draftResource.name} was approved`
+        });
+        session.update(s => ({ ...s, flash: messages }));
+        goto("/resource");
       })
       .catch(e => (approveError = e))
       .finally(() => (isDeleting = false));
   }
-</script>
-
-<script>
-  import ResourceDisplay from "../../../components/ResourceDisplay.svelte";
-  import ResourceDiff from "../../../components/ResourceDiff.svelte";
-
-  export let draftResource;
-  export let existingResource; // resource in the directory which this draft would update; null for new resources
-
-  let isDeleting = false; // Whether we've issued a call to the server to delete the draft resource
-  let deleteError = null; // error? Poupulated with the error from a detete attempt, if there has been one
-
-  let isApproving = false; // Whether we've issued a call to the server to approve the draft resource
-  let approveError = null; // error? Poupulated with the error from an approve attempt, if there has been one
 </script>
 
 <svelte:head>
