@@ -3,6 +3,7 @@
 
   export let name;
   export let description;
+  export let action; // string "view | addToSubcategory"
 
   const EXPAND_DESCRIPTION_LENGTH = 120;
 
@@ -47,14 +48,24 @@
     {/if}
   </div>
   <footer class="card-footer result-footer">
-    <button
-      class="button is-success result-button is-small"
-      type="button"
-      on:click={() => dispatch('resourceClick')}>
-      <span class="icon is-small">
-        <i class="fas fa-plus" />
-      </span>
-      <span>Add to subcategory</span>
-    </button>
+    {#if action === 'addToSubcategory'}
+      <button
+        class="button is-success result-button is-small"
+        type="button"
+        on:click={() => dispatch('resourceClick')}>
+        <span class="icon is-small">
+          <i class="fas fa-plus" />
+        </span>
+        <span>Add to subcategory</span>
+      </button>
+    {/if}
+    {#if action === 'view'}
+      <button
+        class="button result-button is-small"
+        type="button"
+        on:click={() => dispatch('resourceClick')}>
+        <span>View</span>
+      </button>
+    {/if}
   </footer>
 </div>

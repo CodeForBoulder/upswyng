@@ -11,7 +11,7 @@ import {
   TAddress,
   TCloseSchedule,
   TSchedule,
-  TSubcategory
+  TSubcategory,
 } from "../../../src/types";
 import { ObjectId } from "bson";
 import { schemaToUser, TUserFields } from "./User";
@@ -42,17 +42,17 @@ export const ResourceSchema = new Schema({
     address2: { type: String, required: false },
     city: String,
     state: String,
-    zip: String
+    zip: String,
   },
   closeSchedule /* TCloseSchedule[] */: [
-    { day: String, period: String, scheduleType: String }
+    { day: String, period: String, scheduleType: String },
   ],
   createdAt: { type: Date, default: Date.now, required: true },
   createdBy: { type: Schema.Types.ObjectId, ref: "User", required: false },
   deleted: { type: Boolean, default: false, required: true },
   description: {
     type: String,
-    required: false // TODO: Make this required
+    required: false, // TODO: Make this required
   },
   id: {
     // This is the canonical ID for the resource and should be referenced in
@@ -62,7 +62,7 @@ export const ResourceSchema = new Schema({
     index: true,
     // unique in the `Resource` collection, but may not be unique
     // in the `DraftResource` collection
-    unique: false
+    unique: false,
   },
   kudos: { type: Number, default: 0 },
   lastModifiedAt: { type: Date, default: Date.now, required: true },
@@ -72,12 +72,12 @@ export const ResourceSchema = new Schema({
     type: {
       type: String,
       enum: ["Point"],
-      required: true
+      required: true,
     },
     coordinates: {
       type: [Number], // longitude, latitude
-      required: true
-    }
+      required: true,
+    },
   },
   name: { type: String, required: true, index: true },
   phone: String,
@@ -93,41 +93,41 @@ export const ResourceSchema = new Schema({
           "Thursday",
           "Friday",
           "Saturday",
-          "Sunday"
-        ]
+          "Sunday",
+        ],
       },
       date: {
         type: String,
-        required: false
+        required: false,
       },
       period: {
         type: String,
         required: false,
-        enum: ["Last", "First", "Second", "Third", "Fourth", "Fifth"]
+        enum: ["Last", "First", "Second", "Third", "Fourth", "Fifth"],
       },
       from: {
         type: String,
-        required: false
+        required: false,
       },
       to: {
         type: String,
-        required: false
+        required: false,
       },
       scheduleType: {
         type: String,
         enum: ["Weekly", "Monthly", "Open 24/7", "Date Range"],
-        required: true
-      }
-    }
+        required: true,
+      },
+    },
   ],
   services: [{ type: String, trim: true }],
   subcategories: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Subcategory"
-    }
+      ref: "Subcategory",
+    },
   ],
-  website: String
+  website: String,
 });
 
 const trimQuotes = (s: string): string => {
@@ -148,7 +148,7 @@ const legacyResourceToResource = (
       address2: r.address2,
       city: r.city,
       state: r.state,
-      zip: (r.zip || "").toString()
+      zip: (r.zip || "").toString(),
     },
     closeSchedule: (r.closeschedule || []).map(i => ({
       day: i.day,
@@ -156,7 +156,7 @@ const legacyResourceToResource = (
       period: i.period,
       from: i.fromstring,
       to: i.tostring,
-      scheduleType: i.type
+      scheduleType: i.type,
     })),
     createdAt,
     deleted: (r.closeschedule || [])
@@ -182,10 +182,10 @@ const legacyResourceToResource = (
       period: s.period,
       string: s.fromstring,
       to: s.tostring,
-      scheduleType: s.type
+      scheduleType: s.type,
     })),
     services: r.servicetype.split(","),
-    website: r.website
+    website: r.website,
   };
 };
 
@@ -196,7 +196,7 @@ export const resourceToSchema = (r: Partial<TResource>) => {
   return r.longitude && r.latitude
     ? {
         ...result,
-        location: { type: "Point", coordinates: [r.longitude, r.latitude] }
+        location: { type: "Point", coordinates: [r.longitude, r.latitude] },
       }
     : result;
 };
@@ -217,12 +217,12 @@ export const schemaToResource = (
       address2: r.address.address2,
       city: r.address.city,
       state: r.address.state,
-      zip: r.address.zip
+      zip: r.address.zip,
     },
     closeSchedule: r.closeSchedule,
     createdAt: r.createdAt,
     createdBy: r.createdBy
-      ? schemaToUser(r.createdBy as unknown as TUserFields)
+      ? schemaToUser((r.createdBy as unknown) as TUserFields)
       : undefined,
     deleted: r.deleted,
     description: r.description,
@@ -237,7 +237,7 @@ export const schemaToResource = (
     schedule: r.schedule,
     services: r.services,
     subcategories: r.subcategories,
-    website: r.website
+    website: r.website,
   };
 
   removeUndefinedFields(result);
@@ -330,9 +330,10 @@ ResourceSchema.statics.getAll = async function(): Promise<TResource[]> {
 ResourceSchema.statics.getUncategorized = async function(): Promise<
   TResource[]
 > {
-  return this.find({ "subcategories.0": { $exists: false } }).then(r =>
-    r.map(schemaToResource)
-  );
+  return this.find({
+    "subcategories.0": { $exists: false },
+    deleted: false,
+  }).then(r => r.map(schemaToResource));
 };
 
 /**

@@ -4,6 +4,13 @@
   import { createEventDispatcher } from "svelte";
 
   export let maxResults = 5;
+  export let action; // string "view | addToSubcategory"
+
+  if (!(action === "view" || action === "addToSubcategory")) {
+    throw new Error(
+      `The action for ResourceSearch must be 'view' or 'addToSubcategory'; received ${action}`
+    );
+  }
 
   let query = "";
   let results = [];
@@ -55,6 +62,7 @@
 <div class="content">
   {#each results as resource}
     <ResourceSearchResult
+      {action}
       name={resource.name}
       description={resource.description}
       on:resourceClick={() => dispatch('resourceClick', resource.objectID)} />

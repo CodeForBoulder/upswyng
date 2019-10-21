@@ -91,6 +91,7 @@
           </div>
         {/if}
         <ResourceSearch
+          action="addToSubcategory"
           on:resourceClick={async ({ detail: id }) => {
             await addResourceToSubcategory(id);
           }} />

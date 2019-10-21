@@ -24,6 +24,11 @@
 </script>
 
 <script>
+  import ResourceSearch from "../../components/ResourceSearch.svelte";
+  import * as sapper from "@sapper/app";
+
+  const { goto } = sapper;
+
   export let categories = null;
   export let draftResources = null;
   export let uncategorizedResources = null;
@@ -38,70 +43,76 @@
 <section class="section">
   <div class="container">
     <h1 class="title">Resources</h1>
-    <div class="content">
-      <!-- TODO: Gate this for logged in only -->
-      <a href="/resource/create" class="button is-large">
-        Create a New Resource
-      </a>
-    </div>
-
-    <p class="subtitle">Resource Categories</p>
-
-    {#if categories.length}
-      <ul class="content">
-        {#each categories as category}
-          <li>
-            <a href={`/category/${category.stub}`}>{category.name}</a>
-          </li>
-        {/each}
-      </ul>
+    {#if user}
+      <div class="content">
+        <a href="/resource/create" class="button is-large">
+          <span class="icon is-large">
+            <i class="fas fa-plus" />
+          </span>
+          <span>Create a New Resource</span>
+        </a>
+      </div>
     {:else}
-      <span>No categories found.</span>
+      <div class="notification">
+        <a href="/login">Log in</a>
+        to create a resource
+      </div>
     {/if}
 
-    {#if user && user.isAdmin}
-      <p class="subtitle">Draft Resources</p>
-
-      {#if draftResources.length}
+    <div class="content">
+      {#if categories.length}
+        <p class="subtitle">Resource Categories</p>
         <ul class="content">
-          {#each draftResources as draftResource}
+          {#each categories as category}
             <li>
-              <a href={`/resource/draft/${draftResource._id}`}>
-                {draftResource.name}
-              </a>
+              <a href={`/category/${category.stub}`}>{category.name}</a>
             </li>
           {/each}
         </ul>
       {:else}
-        <span>No drafts at this time.</span>
+        <div class="notification">No categories found.</div>
       {/if}
+    </div>
+
+    {#if user && user.isAdmin}
+      <div class="content">
+        <p class="subtitle">Draft Resources</p>
+        {#if draftResources.length}
+          <ul class="content">
+            {#each draftResources as draftResource}
+              <li>
+                <a href={`/resource/draft/${draftResource._id}`}>
+                  {draftResource.name}
+                </a>
+              </li>
+            {/each}
+          </ul>
+        {:else}
+          <div class="notification">No drafts at this time.</div>
+        {/if}
+      </div>
     {/if}
 
-    <p class="subtitle">Uncategorized Resources</p>
+    <div class="content">
+      <p class="subtitle">Search for a Resource</p>
+      <ResourceSearch
+        action="view"
+        on:resourceClick={({ detail: id }) => {
+          goto(`/resource/${id}`);
+        }} />
+    </div>
 
-    {#if uncategorizedResources.length}
-      <ul class="content">
-        {#each uncategorizedResources as resource}
-          <li>
-            <a href={`/resource/${resource.id}`}>{resource.name}</a>
-          </li>
-        {/each}
-      </ul>
-    {:else}
-      <span>No uncategorized resources.</span>
-    {/if}
-
-    <p class="subtitle">All Resources</p>
-    {#if allResources.length}
-      <ul class="content">
-        {#each allResources as resource}
-          <li>
-            <a href={`/resource/${resource.id}`}>{resource.name}</a>
-          </li>
-        {/each}
-      </ul>
-    {:else}
-      <span>There an no resources.</span>
+    {#if uncategorizedResources.length && user && user.isAdmin}
+      <div class="content">
+        <p class="subtitle">Uncategorized Resources</p>
+        <ul class="content">
+          {#each uncategorizedResources as resource}
+            <li>
+              <a href={`/resource/${resource.id}`}>{resource.name}</a>
+            </li>
+          {/each}
+        </ul>
+      </div>
     {/if}
   </div>
 </section>
