@@ -170,7 +170,7 @@
       <div class="control has-icons-left has-icons-right">
         <input
           class="input"
-          class:is-danger={$resourceForm.phone.errors.includes('min')}
+          class:is-danger={$resourceForm.phone.errors.length}
           autocomplete="tel"
           type="text"
           placeholder="Phone input"
@@ -178,13 +178,13 @@
         <span class="icon is-small is-left">
           <i class="fas fa-phone" />
         </span>
-        {#if $resourceForm.phone.errors}
+        {#if $resourceForm.phone.errors.length}
           <span class="icon is-small is-right">
             <i class="fas fa-exclamation-triangle" />
           </span>
         {/if}
       </div>
-      {#if $resourceForm.phone.errors}
+      {#if $resourceForm.phone.errors.length}
         <p class="help is-danger">A phone number is required</p>
       {/if}
     </div>
