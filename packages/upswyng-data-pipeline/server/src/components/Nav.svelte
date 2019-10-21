@@ -65,6 +65,9 @@
     </div>
 
     <div class="navbar-end">
+      {#if user && user.isAdmin}
+        <div class="navbar-item">Admin</div>
+      {/if}
       <div class="navbar-item">
         <div class="buttons">
           {#if !user}
