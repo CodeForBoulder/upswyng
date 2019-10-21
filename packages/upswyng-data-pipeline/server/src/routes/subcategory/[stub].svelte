@@ -69,7 +69,9 @@
       <ul class="content">
         {#each subcategory.resources as resource}
           <li>
-            <a href={`resource/${resource.id}`}>{resource.name}</a>
+            <a rel="prefetch" href={`resource/${resource.id}`}>
+              {resource.name}
+            </a>
           </li>
         {/each}
       </ul>

@@ -36,13 +36,14 @@
   </div>
   <div id="upswyng-main-nav" class="navbar-menu" class:is-active={toggled}>
     <div class="navbar-start">
-      <a class:has-text-weight-semibold={!segment} class="navbar-item" href="/">
+      <a class:has-text-weight-bold={!segment} class="navbar-item" href="/">
         Home
       </a>
       <a
-        class:has-text-weight-semibold={segment === 'resource'}
+        class:has-text-weight-bold={segment === 'resource'}
         class="navbar-item"
-        href="resource">
+        href="resource"
+        rel="prefetch">
         Resources
       </a>
 

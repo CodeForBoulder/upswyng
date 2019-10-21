@@ -25,7 +25,7 @@
     <div class="content">
       <ul>
         {#each category.subcategories as subcategory}
-          <a href={`../subcategory/${subcategory.stub}`}>
+          <a rel="prefetch" href={`../subcategory/${subcategory.stub}`}>
             <li>{subcategory.name}</li>
           </a>
         {/each}
