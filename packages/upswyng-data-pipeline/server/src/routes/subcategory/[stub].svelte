@@ -65,13 +65,19 @@
 <section class="section">
   <div class="container">
     <h1 class="title">{subcategory.name}</h1>
-    <ul class="content">
-      {#each subcategory.resources as resource}
-        <li>
-          <a href={`resource/${resource.id}`}>{resource.name}</a>
-        </li>
-      {/each}
-    </ul>
+    {#if subcategory.resources.length}
+      <ul class="content">
+        {#each subcategory.resources as resource}
+          <li>
+            <a href={`resource/${resource.id}`}>{resource.name}</a>
+          </li>
+        {/each}
+      </ul>
+    {:else}
+      <div class="notification">
+        There are no resources for this subcategory.
+      </div>
+    {/if}
     {#if user && user.isAdmin}
       <div class="content">
         <h2 class="subtitle">Add resources to {subcategory.name}</h2>
