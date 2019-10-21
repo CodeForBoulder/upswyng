@@ -65,8 +65,20 @@
     </div>
 
     <div class="navbar-end">
-      {#if user && user.isAdmin}
-        <div class="navbar-item">Admin</div>
+      {#if user && user.name}
+        <div class="navbar-item">
+          <span class="has-text-weight-semibold">{user.name}</span>
+          {#if user && user.isAdmin}
+            <span class="has-text-weight-light">&nbsp;[admin]</span>
+          {/if}
+        </div>
+      {:else if user && user.email}
+        <div class="navbar-item">
+          <span class="has-text-weight-semibold">{user.email}</span>
+          {#if user && user.isAdmin}
+            <span class="has-text-weight-light">&nbsp;[admin]</span>
+          {/if}
+        </div>
       {/if}
       <div class="navbar-item">
         <div class="buttons">
