@@ -18,18 +18,18 @@ const SubcategorySchema = new Schema({
     lowercase: true,
     required: true,
     trim: true,
-    unique: true
+    unique: true,
   },
   parentCategory: { type: Schema.Types.ObjectId, ref: "Category" },
   resources: [
     {
       // corresponds to the `Resource.id` (note: NOT `Resource._id`)
       type: Schema.Types.ObjectId,
-      ref: "Resource"
-    }
+      ref: "Resource",
+    },
   ],
   createdAt: { type: Date, default: Date.now, required: true },
-  lastModifiedAt: { type: Date, default: Date.now, required: true }
+  lastModifiedAt: { type: Date, default: Date.now, required: true },
 });
 
 SubcategorySchema.statics.findOrCreate = async function(
@@ -48,7 +48,7 @@ SubcategorySchema.statics.findOrCreate = async function(
 SubcategorySchema.statics.getSubcategoryList = async function(
   includeResources = false
 ) {
-  const records = await this.find().populate('parentCategory');
+  const records = await this.find().populate("parentCategory");
   if (includeResources) {
     throw new Error("Unimplemented");
   } else {
@@ -57,6 +57,14 @@ SubcategorySchema.statics.getSubcategoryList = async function(
       return r;
     });
   }
+};
+
+SubcategorySchema.statics.getByStub = async function(
+  stub: string
+): Promise<TSubcategory | null> {
+  return await this.find({ stub })
+    .populate("parentCategory")
+    .populate("resources");
 };
 
 const Subcategory = mongoose.model<TSubcategoryFields>(
@@ -70,5 +78,6 @@ export default Subcategory as typeof Subcategory & {
     stub: string,
     parentCategory: Schema.Types.ObjectId
   ) => Promise<Schema<TSubcategoryFields>>;
+  getByStub: (stub: string) => Promise<TSubcategory | null>;
   getSubcategoryList: (includeResources?: boolean) => Promise<TSubcategory[]>;
 };
