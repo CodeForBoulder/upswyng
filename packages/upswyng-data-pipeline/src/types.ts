@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import React from 'react';
+import React from "react";
 
 export interface TEnvVariables {
   REACT_APP_ALGOLIA_ADMIN_API_KEY: string;
@@ -121,7 +121,7 @@ export enum TStatusFetch {
   STATUS_NOT_FETCHED = "NOT_FETCHED",
   STATUS_FETCHING = "FETCHING",
   STATUS_FETCH_SUCCESS = "FETCH_SUCCESS",
-  STATUS_FETCH_ERROR = "FETCH_ERROR"
+  STATUS_FETCH_ERROR = "FETCH_ERROR",
 }
 
 interface TScheduleBase {
@@ -152,7 +152,7 @@ interface TLegacyScheduleBase {
   tostring: string;
 }
 
-interface TLegacySchedule extends TLegacyScheduleBase {
+export interface TLegacySchedule extends TLegacyScheduleBase {
   type: TScheduleType;
 }
 

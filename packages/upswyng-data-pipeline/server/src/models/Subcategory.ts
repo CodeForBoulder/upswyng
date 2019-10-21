@@ -61,7 +61,7 @@ SubcategorySchema.statics.getSubcategoryList = async function(
 
 SubcategorySchema.statics.getByStub = async function(
   stub: string
-): Promise<TSubcategory | null> {
+): Promise<TSubcategoryFields | null> {
   return await this.find({ stub })
     .populate("parentCategory")
     .populate("resources");
@@ -78,6 +78,8 @@ export default Subcategory as typeof Subcategory & {
     stub: string,
     parentCategory: Schema.Types.ObjectId
   ) => Promise<Schema<TSubcategoryFields>>;
-  getByStub: (stub: string) => Promise<TSubcategory | null>;
-  getSubcategoryList: (includeResources?: boolean) => Promise<TSubcategory[]>;
+  getByStub: (stub: string) => Promise<TSubcategoryFields | null>;
+  getSubcategoryList: (
+    includeResources?: boolean
+  ) => Promise<TSubcategoryFields[]>;
 };

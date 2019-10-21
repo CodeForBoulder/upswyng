@@ -1,9 +1,9 @@
 <script context="module">
-  export async function preload({ params, query }) {
+  export async function preload({ params, query }, { user }) {
     const res = await this.fetch(`api/subcategory/${params.stub}`);
     const data = await res.json();
     if (res.status === 200) {
-      return { subcategory: data.subcategory };
+      return { subcategory: data.subcategory, user };
     } else {
       this.error(res.status, data.message);
     }
@@ -14,6 +14,48 @@
   import ResourceSearch from "../../components/ResourceSearch.svelte";
 
   export let subcategory;
+  export let user = null;
+
+  let errorMessage = "";
+  let successMessage = "";
+  let isSaving = false;
+
+  async function addResourceToSubcategory(resourceId /* string */) {
+    isSaving = true;
+    errorMessage = "";
+    successMessage = "";
+
+    const options = {
+      method: "POST",
+      body: JSON.stringify({
+        subcategoryId: subcategory._id,
+        resourceId: resourceId
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    fetch("/api/subcategory/add-resource", options)
+      .then(async res => {
+        if (res.status >= 400) {
+          const { message } = await res.json();
+          errorMessage = message;
+        } else {
+          successMessage = `Resource added to ${subcategory.name}`;
+          // reload the subcategories
+          const res = await fetch(`api/subcategory/${subcategory.stub}`);
+          const { subcategory: updatedSubcategory } = await res.json();
+          if (res.status === 200) {
+            subcategory = updatedSubcategory;
+          } else {
+            this.error(res.status, data.message);
+          }
+        }
+      })
+      .catch(e => (errorMessage = e))
+      .finally(() => (isSaving = false));
+  }
 </script>
 
 <svelte:head>
@@ -30,12 +72,23 @@
         </li>
       {/each}
     </ul>
-    <!-- <div class="content">
-      <h2 class="subtitle">Add resources to {subcategory.name}</h2>
-      <ResourceSearch
-        on:resourceClick={({ detail: id }) => {
-          console.log(id);
-        }} />
-    </div> -->
+    {#if user && user.isAdmin}
+      <div class="content">
+        <h2 class="subtitle">Add resources to {subcategory.name}</h2>
+        {#if errorMessage}
+          <div class="notification is-danger">{errorMessage}</div>
+        {/if}
+        {#if successMessage}
+          <div class="notification is-success">
+            <button class="delete" on:click={() => (successMessage = '')} />
+            {successMessage}
+          </div>
+        {/if}
+        <ResourceSearch
+          on:resourceClick={async ({ detail: id }) => {
+            await addResourceToSubcategory(id);
+          }} />
+      </div>
+    {/if}
   </div>
 </section>
