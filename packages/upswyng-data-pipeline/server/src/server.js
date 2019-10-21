@@ -26,9 +26,18 @@ const {
   DATABASE_USER,
 } = process.env;
 
+const { ALGOLIA_INDEX_NAME } = process.env;
+
 if (dev && /heroku_.*/.test(DATABASE_NAME)) {
   throw new Error(
     "💩 You're attempting to use the production datebase in a dev enviroment."
+  );
+}
+
+if (dev && /prod/.test(ALGOLIA_INDEX_NAME)) {
+  console.warn(
+    "😮 You're running in a dev environment but it appears you're using the production Algolia index." +
+      "This can cause problems if it was not intentional."
   );
 }
 
