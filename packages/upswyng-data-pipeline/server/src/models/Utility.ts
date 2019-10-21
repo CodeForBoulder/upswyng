@@ -3,7 +3,7 @@ import Resource, {
   resourceToSchema,
   schemaToResource,
   TResourceFields,
-  DraftResource
+  DraftResource,
 } from "./Resource";
 import { ObjectId } from "bson";
 import { TResource, TSubcategory, TNewResource } from "../../../src/types";
@@ -17,7 +17,7 @@ export async function createDraftResource(
   if (resource.hasOwnProperty("id")) {
     // This resource exists already; make sure the draft isn't the same
     const existingResource = await Resource.findOne({
-      id: (resource as TResource).id
+      id: (resource as TResource).id,
     }).populate("subcategories");
     if (!existingResource) {
       throw new Error(
@@ -45,7 +45,7 @@ export async function createDraftResource(
       id: (resource as TResource).id || new ObjectId(),
       createdAt: (resource as TResource).createdAt || new Date(),
       lastModifiedAt: new Date(),
-      kudos: (resource as TResource).kudos || 0
+      kudos: (resource as TResource).kudos || 0,
     })
   ).save();
 
@@ -63,7 +63,7 @@ export async function createOrUpdateResourceFromDraft(
   draftResource: TResource | TNewResource
 ): Promise<TResource> {
   const existingResource = await Resource.findOne({
-    id: (draftResource as TResource).id
+    id: (draftResource as TResource).id,
   }).populate("subcategories");
   if (existingResource) {
     // update an existing resource
@@ -104,11 +104,11 @@ export async function createOrUpdateResourceFromDraft(
     delete updateObject.right.subcategories;
     existingResource.set({
       ...resourceToSchema(updateObject.right),
-      lastModifiedAt: new Date()
+      lastModifiedAt: new Date(),
     });
     await existingResource.save();
     return await Resource.findOne({
-      id: (draftResource as TResource).id
+      id: (draftResource as TResource).id,
     })
       .populate("subcategories")
       .then(schemaToResource);
@@ -116,7 +116,7 @@ export async function createOrUpdateResourceFromDraft(
     const subcategories = draftResource.subcategories;
     const newResource = await new Resource({
       ...resourceToSchema(draftResource),
-      subcategories: []
+      subcategories: [],
     }).save();
     await Promise.all(
       subcategories.map(s => addResourceToSubcategory(newResource._id, s._id))
