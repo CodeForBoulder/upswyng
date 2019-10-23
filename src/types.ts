@@ -75,6 +75,10 @@ export interface TResourcesByCategoryPayload extends TPayloadBase {
   category?: TCategory;
 }
 
+export interface TResourcesBySubcategoryPayload extends TPayloadBase {
+  subcategory?: TSubcategory;
+}
+
 export type TCategoryStub =
   | 'food'
   | 'health'
@@ -86,7 +90,7 @@ export type TCategoryStub =
   | 'transit'
   | 'wifi';
 
-type TSubcategoryStub =
+export type TSubcategoryStub =
   | 'meals'
   | 'food_pantries'
   | 'emergency'
