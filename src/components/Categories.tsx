@@ -129,7 +129,7 @@ const categories: Record<TCategoryName, TCategory> = {
       },
       {
         text: 'Craigs List',
-        stub: 'craigs_list'
+        stub: 'craigslist'
       },
       {
         text: 'Temp Agency',

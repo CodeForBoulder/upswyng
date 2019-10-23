@@ -126,7 +126,7 @@ export type TSubcategoryStub =
   | 'public_computer'
   | 'charging'
   | 'ready_to_work'
-  | 'craigs_list'
+  | 'craigslist'
   | 'temp_agency'
   | 'day_labor'
   | 'career_counseling'
