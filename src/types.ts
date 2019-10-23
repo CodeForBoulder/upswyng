@@ -91,7 +91,7 @@ export interface TSubcategory {
   lastModifiedAt: Date;
   name: string;
   parentCategory: TCategory;
-  resources?: TResource[];
+  resources?: TResourceNew[];
   stub: string;
 }
 export interface TResource {
