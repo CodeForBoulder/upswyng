@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   TCategoryStub,
   TSubcategoryStub,
   TResourceCategory,
-  TResourceNew,
   TResourceSubcategory
 } from '../types';
 import PageBanner from './PageBanner';
@@ -58,9 +57,7 @@ const CategoryResults = ({
         subCategories={subCategories}
         handleSubCategoryClick={handleSubCategoryClick}
       />
-      {resources && (
-        <ResourceList placeholder={placeholder} resources={resources} />
-      )}
+      <ResourceList placeholder={placeholder} resources={resources} />
     </>
   );
 };

@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import { font } from '../App.styles';
+import LoadingSpinner from './LoadingSpinner';
 import ResourceCard from './ResourceCard';
 
 interface Resource {
@@ -10,7 +12,7 @@ interface Resource {
 
 interface Props {
   placeholder?: React.ReactElement;
-  resources: Resource[];
+  resources: undefined | null | Resource[];
 }
 
 const SearchResultsList = styled.ul`
@@ -32,6 +34,10 @@ const SearchResultsItem = styled.li`
 `;
 
 const ResourceList = ({ placeholder, resources }: Props) => {
+  if (resources === undefined) {
+    return <LoadingSpinner />;
+  }
+
   if (resources && resources.length) {
     const listItems = resources.map(({ name, id }, index) => {
       if (name && id) {
@@ -49,8 +55,13 @@ const ResourceList = ({ placeholder, resources }: Props) => {
     });
     return <SearchResultsList>{listItems}</SearchResultsList>;
   }
-  return null;
-  // TODO: Add message when there are no matching results
+
+  return (
+    <>
+      Whoops, it looks like we are having trouble on our end. Please try again
+      in a bit.
+    </>
+  );
 };
 
 export default ResourceList;
