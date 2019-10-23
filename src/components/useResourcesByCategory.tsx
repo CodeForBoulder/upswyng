@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import apiClient from '../utils/apiClient';
 
 import {
@@ -8,7 +7,6 @@ import {
   TResourcesByCategoryPayload
 } from '../types';
 
-// TODO: use specific category types
 const useResourcesByCategory = (
   category: TCategoryStub
 ): undefined | null | TResourceNew[] => {
