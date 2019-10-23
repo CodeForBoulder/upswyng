@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import apiClient from '../utils/apiClient';
 
 import {
   TCategoryStub,
@@ -8,7 +9,7 @@ import {
 } from '../types';
 
 // TODO: use specific category types
-const useCategory = (
+const useResourcesByCategory = (
   category: TCategoryStub
 ): undefined | null | TResourceNew[] => {
   const [resourcesByCategory, setResourcesByCategory] = useState<
@@ -19,8 +20,8 @@ const useCategory = (
     if (category) {
       const getResourceByCategory = async (): Promise<void> => {
         try {
-          const { data } = await axios.get<TResourcesByCategoryPayload>(
-            `https://upswyng-server.herokuapp.com/api/category/${category}`
+          const { data } = await apiClient.get<TResourcesByCategoryPayload>(
+            `/category/${category}`
           );
 
           if (!data.category) {
@@ -73,4 +74,4 @@ const useCategory = (
   return resourcesByCategory;
 };
 
-export default useCategory;
+export default useResourcesByCategory;
