@@ -25,7 +25,6 @@ function useSearchResults(
       const getSearchResults = async (query: string): Promise<void> => {
         try {
           const searchResults = await searchIndex.search(query);
-          console.log(searchResults);
 
           setSearchResults(searchResults);
         } catch (err) {
