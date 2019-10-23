@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
-import { TResourceCategory, TResourceSubcategory } from '../types';
-import useSearchResults from './useSearchResults';
+import React, { useState, useEffect } from 'react';
+import {
+  TCategoryStub,
+  TSubcategoryStub,
+  TResourceCategory,
+  TResourceNew,
+  TResourceSubcategory
+} from '../types';
 import PageBanner from './PageBanner';
 import SubCategories from './SubCategories';
 import ResourceList from './ResourceList';
 import useResourcesByCategory from './useResourcesByCategory';
+import useResourcesBySubcategory from './useResourcesBySubcategory';
 
 interface Props {
   category: TResourceCategory;
@@ -20,12 +26,28 @@ const CategoryResults = ({
   subCategories
 }: Props) => {
   const { text: categoryText, stub: categoryStub } = category;
-  const resourcesByCategory = useResourcesByCategory(categoryStub);
-  // const [searchQuery, updateSearchQuery] = useState(categoryQuery);
-  // const searchResults = useSearchResults(searchQuery);
 
-  // const handleSubCategoryClick = (query: string) => updateSearchQuery(query);
-  const handleSubCategoryClick = () => {};
+  const [
+    currentSubcategory,
+    setCurrentSubcategory
+  ] = useState<TSubcategoryStub | null>(null);
+
+  const categoryResources = useResourcesByCategory(categoryStub);
+  const subCategoryResources = useResourcesBySubcategory(currentSubcategory);
+
+  const resources = currentSubcategory
+    ? subCategoryResources
+    : categoryResources;
+
+  const handleSubCategoryClick = (
+    newStub: TCategoryStub | TSubcategoryStub
+  ) => {
+    if (newStub !== currentSubcategory) {
+      setCurrentSubcategory(
+        newStub !== categoryStub ? (newStub as TSubcategoryStub) : null
+      );
+    }
+  };
 
   return (
     <>
@@ -36,11 +58,8 @@ const CategoryResults = ({
         subCategories={subCategories}
         handleSubCategoryClick={handleSubCategoryClick}
       />
-      {resourcesByCategory && (
-        <ResourceList
-          placeholder={placeholder}
-          resources={resourcesByCategory}
-        />
+      {resources && (
+        <ResourceList placeholder={placeholder} resources={resources} />
       )}
     </>
   );
