@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TResourceCategory } from '../types';
+import { TResourceCategory, TResourceSubcategory } from '../types';
 import styled from 'styled-components';
 import { font } from '../App.styles';
 import SubCategoryButton from './SubCategoryButton';
@@ -7,7 +7,7 @@ import SubCategoryButton from './SubCategoryButton';
 interface Props {
   category: TResourceCategory;
   color: string;
-  subCategories: TResourceCategory[];
+  subCategories: TResourceSubcategory[];
   handleSubCategoryClick: Function;
 }
 
@@ -36,35 +36,37 @@ const SubCategories = ({
   handleSubCategoryClick,
   subCategories
 }: Props) => {
-  const { query: categoryQuery } = category;
+  const { stub: categoryStub } = category;
   const [selectedSubCategory, updateSelectedSubCategory] = useState<
-    TResourceCategory
+    TResourceCategory | TResourceSubcategory
   >(category);
 
-  const handleClick = (subCategory: TResourceCategory) => {
-    const { query } = subCategory;
+  const handleClick = (
+    subCategory: TResourceCategory | TResourceSubcategory
+  ) => {
+    const { stub } = subCategory;
     updateSelectedSubCategory(subCategory);
-    handleSubCategoryClick(query);
+    handleSubCategoryClick(stub);
   };
 
   return (
     <SubCategoriesList>
-      <SubCategoryItem key={categoryQuery}>
+      <SubCategoryItem key={categoryStub}>
         <SubCategoryButton
           buttonColor={color}
-          isSelected={selectedSubCategory.query === categoryQuery}
+          isSelected={selectedSubCategory.stub === categoryStub}
           onClick={() => handleClick(category)}
         >
           All
         </SubCategoryButton>
       </SubCategoryItem>
       {subCategories.map(subCategory => {
-        const { text, query } = subCategory;
+        const { text, stub } = subCategory;
         return (
-          <SubCategoryItem key={query}>
+          <SubCategoryItem key={stub}>
             <SubCategoryButton
               buttonColor={color}
-              isSelected={selectedSubCategory.query === query}
+              isSelected={selectedSubCategory.stub === stub}
               onClick={() => handleClick(subCategory)}
             >
               {text}

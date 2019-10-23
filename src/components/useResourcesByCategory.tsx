@@ -1,18 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import { TResourceNew, TResourcesByCategoryPayload } from '../types';
-
-type TCategoryStub =
-  | 'food'
-  | 'health'
-  | 'hygiene'
-  | 'job_training'
-  | 'resources'
-  | 'shelters'
-  | 'social_services'
-  | 'transit'
-  | 'wifi';
+import {
+  TCategoryStub,
+  TResourceNew,
+  TResourcesByCategoryPayload
+} from '../types';
 
 // TODO: use specific category types
 const useCategory = (

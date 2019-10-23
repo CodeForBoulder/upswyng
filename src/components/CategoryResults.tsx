@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { TResourceCategory } from '../types';
+import { TResourceCategory, TResourceSubcategory } from '../types';
 import useSearchResults from './useSearchResults';
 import PageBanner from './PageBanner';
 import SubCategories from './SubCategories';
-import SearchResults from './SearchResults';
+import ResourceList from './ResourceList';
 import useResourcesByCategory from './useResourcesByCategory';
 
 interface Props {
   category: TResourceCategory;
   color: string;
   placeholder?: React.ReactElement;
-  subCategories: TResourceCategory[];
+  subCategories: TResourceSubcategory[];
 }
 
 const CategoryResults = ({
@@ -19,13 +19,13 @@ const CategoryResults = ({
   placeholder,
   subCategories
 }: Props) => {
-  const { text: categoryText, query: categoryQuery } = category;
-  const resourcesByCategory = useResourcesByCategory('food');
-  console.log('useResourcesByCategory: ', resourcesByCategory);
-  const [searchQuery, updateSearchQuery] = useState(categoryQuery);
-  const searchResults = useSearchResults(searchQuery);
+  const { text: categoryText, stub: categoryStub } = category;
+  const resourcesByCategory = useResourcesByCategory(categoryStub);
+  // const [searchQuery, updateSearchQuery] = useState(categoryQuery);
+  // const searchResults = useSearchResults(searchQuery);
 
-  const handleSubCategoryClick = (query: string) => updateSearchQuery(query);
+  // const handleSubCategoryClick = (query: string) => updateSearchQuery(query);
+  const handleSubCategoryClick = () => {};
 
   return (
     <>
@@ -36,7 +36,12 @@ const CategoryResults = ({
         subCategories={subCategories}
         handleSubCategoryClick={handleSubCategoryClick}
       />
-      <SearchResults placeholder={placeholder} results={searchResults} />
+      {resourcesByCategory && (
+        <ResourceList
+          placeholder={placeholder}
+          resources={resourcesByCategory}
+        />
+      )}
     </>
   );
 };

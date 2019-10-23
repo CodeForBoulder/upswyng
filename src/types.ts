@@ -75,6 +75,61 @@ export interface TResourcesByCategoryPayload extends TPayloadBase {
   category?: TCategory;
 }
 
+export type TCategoryStub =
+  | 'food'
+  | 'health'
+  | 'hygiene'
+  | 'job_training'
+  | 'resources'
+  | 'shelters'
+  | 'social_services'
+  | 'transit'
+  | 'wifi';
+
+type TSubcategoryStub =
+  | 'meals'
+  | 'food_pantries'
+  | 'emergency'
+  | 'family'
+  | 'youth'
+  | 'abused'
+  | 'pregnant'
+  | 'temporary'
+  | 'transitional'
+  | 'restrooms'
+  | 'showers'
+  | 'water_fountains'
+  | 'feminine_products'
+  | 'bus'
+  | 'bicycle'
+  | 'lite_rail'
+  | 'outdoor_gear'
+  | 'clothing'
+  | 'shoes'
+  | 'legal_help'
+  | 'pets'
+  | 'laundry'
+  | 'hair_care'
+  | 'home_goods'
+  | 'hospital'
+  | 'clinics'
+  | 'mental'
+  | 'dental'
+  | 'pharmacies'
+  | 'vision'
+  | 'addiction_recovery_services'
+  | 'free_wifi'
+  | 'public_computer'
+  | 'charging'
+  | 'ready_to_work'
+  | 'craigs_list'
+  | 'temp_agency'
+  | 'day_labor'
+  | 'career_counseling'
+  | 'health_and_human_services'
+  | 'food_stamps'
+  | 'social_security';
+
 export interface TCategory {
   _id: string;
   color: string;
@@ -165,7 +220,12 @@ export interface TCloseScheduleNew extends TScheduleBase {
 }
 export interface TResourceCategory {
   text: string;
-  query: string;
+  stub: TCategoryStub;
+}
+
+export interface TResourceSubcategory {
+  text: string;
+  stub: TSubcategoryStub;
 }
 
 interface THomeButtonBase {
