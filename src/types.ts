@@ -57,7 +57,7 @@ export interface TResourceNew {
   longitude: number;
   name: string;
   phone: string;
-  schedule: TSchedule[];
+  schedule: TScheduleNew[];
   services: string[];
   subcategories: TSubcategory[];
   website: string;
