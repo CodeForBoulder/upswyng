@@ -49,6 +49,7 @@ const ResourceList = ({ placeholder, resources }: Props) => {
     });
     return <SearchResultsList>{listItems}</SearchResultsList>;
   }
+  return null;
   // TODO: Add message when there are no matching results
 };
 
