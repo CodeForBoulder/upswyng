@@ -11,6 +11,7 @@
 </script>
 
 <script>
+  import { addFlashMessage } from "../../utility/flashMessage.ts";
   import { goto, stores } from "@sapper/app";
   import ResourceEditor from "../../components/ResourceEditor.svelte";
 
@@ -58,14 +59,13 @@
       })
       .then(res => {
         if (res.draftResource) {
-          const messages = $session.flash || [];
-          messages.push({
-            type: "success",
-            message: res.draftResource.name
+          addFlashMessage(
+            session,
+            "success",
+            res.draftResource.name
               ? `A draft of ${res.draftResource.name} was created`
               : "A new draft was created"
-          });
-          session.update(s => ({ ...s, flash: messages }));
+          );
           goto("/resource");
         } else {
           console.error(res);

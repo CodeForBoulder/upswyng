@@ -26,10 +26,10 @@
 <script>
   import ResourceSearch from "../../components/ResourceSearch.svelte";
   import { goto, stores } from "@sapper/app";
+  import { readFlashMessages } from "../../utility/flashMessage.ts";
 
   const { session } = stores();
-  const flashMessages = $session.flash || [];
-  session.update(s => ({ ...s, flash: [] }));
+  const flashMessages = readFlashMessages(session);
 
   export let categories = null;
   export let draftResources = null;

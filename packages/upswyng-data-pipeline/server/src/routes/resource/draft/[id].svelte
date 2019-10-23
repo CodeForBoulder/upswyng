@@ -39,9 +39,10 @@
 </script>
 
 <script>
-  import ResourceDisplay from "../../../components/ResourceDisplay.svelte";
-  import ResourceDiff from "../../../components/ResourceDiff.svelte";
+  import { addFlashMessage } from "../../../utility/flashMessage.ts";
   import { goto, stores } from "@sapper/app";
+  import ResourceDiff from "../../../components/ResourceDiff.svelte";
+  import ResourceDisplay from "../../../components/ResourceDisplay.svelte";
 
   const { session } = stores();
 
@@ -62,14 +63,13 @@
         if (_res.status >= 400) {
           throw new Error(_res);
         }
-        const messages = $session.flash || [];
-        messages.push({
-          type: "success",
-          message: draftResource.name
+        addFlashMessage(
+          session,
+          "success",
+          draftResource.name
             ? `The draft of ${draftResource.name} was deleted`
             : "The draft resource was deleted"
-        });
-        session.update(s => ({ ...s, flash: messages }));
+        );
         goto("/resource");
       })
       .catch(e => (deleteError = e))
@@ -82,12 +82,11 @@
         if (_res.status >= 400) {
           throw new Error(_res);
         }
-        const messages = $session.flash || [];
-        messages.push({
-          type: "success",
-          message: `The draft of ${draftResource.name} was approved`
-        });
-        session.update(s => ({ ...s, flash: messages }));
+        addFlashMessage(
+          session,
+          "success",
+          `The draft of ${draftResource.name} was approved`
+        );
         goto("/resource");
       })
       .catch(e => (approveError = e))
