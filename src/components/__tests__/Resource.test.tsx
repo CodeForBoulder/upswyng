@@ -2,13 +2,13 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import { foodResource } from '../../DataMocks';
 import { Resource } from '../Resource';
-import useResourceNew from '../useResourceNew';
+import useResource from '../useResource';
 
 jest.mock('../../utils/searchParams');
 jest.mock('../../constants');
 jest.mock('../LoadingSpinner.tsx', () => 'LoadingSpinner');
-jest.mock('../useResourceNew.tsx');
-const mockedUseResourceNew = useResourceNew as jest.Mock;
+jest.mock('../useResource.tsx');
+const mockedUseResource = useResource as jest.Mock;
 jest.mock('../../App.styles', () => ({
   Container: 'Container',
   colors: {
@@ -37,9 +37,7 @@ jest.mock('../Schedule', () => 'Schedule');
 jest.mock('../Map', () => 'Map');
 
 describe('<Resource/>', () => {
-  mockedUseResourceNew.mockImplementation(
-    () => foodResource
-  ) as typeof jest.mock;
+  mockedUseResource.mockImplementation(() => foodResource) as typeof jest.mock;
   const wrapper = shallow(<Resource />);
 
   it('renders the charityname property of the resource prop object', () => {
@@ -51,9 +49,7 @@ describe('<Resource/>', () => {
   });
 
   it('renders a loading spinner when a resource is not loaded', () => {
-    mockedUseResourceNew.mockImplementation(
-      () => undefined
-    ) as typeof jest.mock;
+    mockedUseResource.mockImplementation(() => undefined) as typeof jest.mock;
     const wrapper = shallow(<Resource />);
 
     expect(wrapper.find('LoadingSpinner').length).toBe(1);

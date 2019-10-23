@@ -3,15 +3,15 @@ import apiClient from '../utils/apiClient';
 
 import {
   TSubcategoryStub,
-  TResourceNew,
+  TResource,
   TResourcesBySubcategoryPayload
 } from '../types';
 
 const useResourcesBySubcategory = (
   subcategory: TSubcategoryStub | null
-): undefined | null | TResourceNew[] => {
+): undefined | null | TResource[] => {
   const [resourcesBySubcategory, setResourcesBySubcategory] = useState<
-    undefined | null | TResourceNew[]
+    undefined | null | TResource[]
   >();
 
   useEffect(() => {

@@ -38,8 +38,8 @@ const comparePeriods = (
 
 const sortSchedule = (schedule: TSchedule[]) => {
   return schedule.sort((schedule1, schedule2) => {
-    const { period: period1, day: day1, fromstring: startTime1 } = schedule1;
-    const { period: period2, day: day2, fromstring: startTime2 } = schedule2;
+    const { period: period1, day: day1, from: startTime1 } = schedule1;
+    const { period: period2, day: day2, from: startTime2 } = schedule2;
 
     if (period1 && period2 && period1 !== period2) {
       // apples to monthly schedule, e.g., every first Sunday, third Wednesday, etc.
@@ -56,9 +56,9 @@ const sortSchedule = (schedule: TSchedule[]) => {
 
 export const orderSchedule = (schedule: TSchedule[]) => {
   if (schedule && schedule.length) {
-    const { type } = schedule[0];
+    const { scheduleType } = schedule[0];
 
-    switch (type) {
+    switch (scheduleType) {
       case 'Open 24/7':
         return schedule;
       case 'Weekly':

@@ -1,9 +1,8 @@
 import React from 'react';
-import { TResource, TResourceNew } from '../types';
+import { TResource } from '../types';
 import useResource from './useResource';
-import useResourceNew from './useResourceNew';
 import { getSearchParamVal } from '../utils/searchParams';
-import { SEARCH_PARAM_RESOURCE, FIREBASE_RESOURCE_BRANCH } from '../constants';
+import { SEARCH_PARAM_RESOURCE } from '../constants';
 
 import LoadingSpinner from './LoadingSpinner';
 import PageBanner from './PageBanner';
@@ -18,7 +17,7 @@ interface Props {
   resource: TResource;
 }
 
-const renderAddressContent = (resource: TResourceNew) => {
+const renderAddressContent = (resource: TResource) => {
   const {
     address: { address1, address2, city, state, zip }
   } = resource;
@@ -40,7 +39,7 @@ const renderAddressContent = (resource: TResourceNew) => {
   );
 };
 
-const renderPhoneContent = (resource: TResourceNew) => {
+const renderPhoneContent = (resource: TResource) => {
   const { phone } = resource;
   if (!phone) {
     return <></>;
@@ -55,7 +54,7 @@ const renderPhoneContent = (resource: TResourceNew) => {
   );
 };
 
-const renderWebsiteContent = (resource: TResourceNew) => {
+const renderWebsiteContent = (resource: TResource) => {
   const { website } = resource;
   if (!website) {
     return <></>;
@@ -85,7 +84,7 @@ export const Resource = () => {
     return <p>We&apos;re sorry, this service was not found.</p>;
   }
 
-  const resource = useResourceNew(resourceId);
+  const resource = useResource(resourceId);
 
   if (resource === undefined) {
     return <LoadingSpinner />;

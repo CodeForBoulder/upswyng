@@ -1,6 +1,6 @@
-import { TResourceNew } from './types';
+import { TResource } from './types';
 
-export const blankResource: TResourceNew = {
+export const blankResource: TResource = {
   _id: '',
   address: {
     address1: '',
@@ -35,14 +35,13 @@ export const blankResource: TResourceNew = {
   website: ''
 };
 
-export const foodResource: TResourceNew = {
+export const foodResource: TResource = {
   address: {
     address1: '220 Collyer St',
     city: 'Longmont',
     state: 'CO',
     zip: '80501'
   },
-  location: { coordinates: [-105.09771369999999, 40.1630592], type: 'Point' },
   deleted: false,
   kudos: 0,
   services: ['Breakfast\\Lunch'],
@@ -58,75 +57,92 @@ export const foodResource: TResourceNew = {
     {
       _id: '5d9431ab521d2e1c354bd249',
       day: 'Monday',
+      from: '8:00 AM',
       to: '9:30 AM',
       scheduleType: 'Weekly'
     },
     {
       _id: '5d9431ab521d2e1c354bd248',
       day: 'Monday',
+      from: '12:00 PM',
       to: '1:00 PM',
       scheduleType: 'Weekly'
     },
     {
       _id: '5d9431ab521d2e1c354bd247',
       day: 'Tuesday',
+      from: '8:00 AM',
       to: '9:30 AM',
       scheduleType: 'Weekly'
     },
     {
       _id: '5d9431ab521d2e1c354bd246',
       day: 'Tuesday',
+      from: '12:00 PM',
       to: '1:00 PM',
       scheduleType: 'Weekly'
     },
     {
       _id: '5d9431ab521d2e1c354bd245',
       day: 'Wednesday',
+      from: '8:00 AM',
       to: '9:30 AM',
       scheduleType: 'Weekly'
     },
     {
       _id: '5d9431ab521d2e1c354bd244',
       day: 'Wednesday',
+      from: '12:00 PM',
       to: '1:00 PM',
       scheduleType: 'Weekly'
     },
     {
       _id: '5d9431ab521d2e1c354bd243',
       day: 'Thursday',
+      from: '8:00 AM',
       to: '9:30 AM',
       scheduleType: 'Weekly'
     },
     {
       _id: '5d9431ab521d2e1c354bd242',
       day: 'Thursday',
+      from: '12:00 PM',
       to: '1:00 PM',
       scheduleType: 'Weekly'
     },
     {
       _id: '5d9431ab521d2e1c354bd241',
       day: 'Friday',
+      from: '8:00 AM',
       to: '9:30 AM',
       scheduleType: 'Weekly'
     },
     {
       _id: '5d9431ab521d2e1c354bd240',
       day: 'Friday',
+      from: '12:00 PM',
       to: '1:00 PM',
       scheduleType: 'Weekly'
     },
     {
       _id: '5d9431ab521d2e1c354bd23f',
       day: 'Saturday',
+      from: '12:00 PM',
       to: '1:00 PM',
       scheduleType: 'Weekly'
     },
     {
       _id: '5d9431ab521d2e1c354bd23e',
       day: 'Sunday',
+      from: '12:00 PM',
       to: '1:00 PM',
       scheduleType: 'Weekly'
     }
   ],
-  website: 'https://www.ourcenter.org/hospitality-care/'
+  website: 'https://www.ourcenter.org/hospitality-care/',
+  createdAt: new Date(),
+  lastModifiedAt: new Date(),
+  latitude: 1234,
+  longitude: 5678,
+  subcategories: []
 };

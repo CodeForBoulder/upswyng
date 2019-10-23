@@ -48,9 +48,9 @@ const renderDaySchedule = (schedule: TSchedule[]) => {
     <WeeklyContainer key={day}>
       <WeeklyDay>{day}</WeeklyDay>
       <WeeklyTimes>
-        {schedule.map(({ day, fromstring, tostring }) => (
-          <WeeklyTime key={`${day}-${fromstring}`}>
-            {fromstring} - {tostring}
+        {schedule.map(({ day, from, to }) => (
+          <WeeklyTime key={`${day}-${from}`}>
+            {from} - {to}
           </WeeklyTime>
         ))}
       </WeeklyTimes>
@@ -61,7 +61,7 @@ const renderDaySchedule = (schedule: TSchedule[]) => {
 const renderWeeklySchedule = (schedule: TSchedule[]) => {
   const renderedDays: TDay[] = [];
 
-  return schedule.map(({ day: currentDay, fromstring, tostring }) => {
+  return schedule.map(({ day: currentDay }) => {
     if (!renderedDays.includes(currentDay)) {
       renderedDays.push(currentDay);
       const currentDaySchedule = schedule.filter(
@@ -74,11 +74,11 @@ const renderWeeklySchedule = (schedule: TSchedule[]) => {
 };
 
 const renderMonthlySchedule = (schedule: TSchedule[]) =>
-  schedule.map(({ day, fromstring, period, tostring }) => {
+  schedule.map(({ day, from, period, to }) => {
     if (period) {
       return (
-        <p key={`${period}-${day}-${fromstring}`}>
-          every {period.toLowerCase()} {day} from {fromstring} - {tostring}
+        <p key={`${period}-${day}-${from}`}>
+          every {period.toLowerCase()} {day} from {from} - {to}
         </p>
       );
     }
@@ -87,16 +87,16 @@ const renderMonthlySchedule = (schedule: TSchedule[]) =>
 
 const Schedule = ({ schedule }: ScheduleProps) => {
   if (schedule && schedule.length) {
-    const { type } = schedule[0];
+    const { scheduleType } = schedule[0];
     const orderedSchedule = orderSchedule(schedule);
 
-    switch (type) {
+    switch (scheduleType) {
       case 'Weekly':
         return <>{renderWeeklySchedule(orderedSchedule)}</>;
       case 'Monthly':
         return <>{renderMonthlySchedule(orderedSchedule)}</>;
       case 'Open 24/7':
-        return <p>{type}</p>;
+        return <p>{scheduleType}</p>;
     }
   }
   return <p>not available</p>;

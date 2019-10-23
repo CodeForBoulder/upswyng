@@ -3,15 +3,15 @@ import apiClient from '../utils/apiClient';
 
 import {
   TCategoryStub,
-  TResourceNew,
+  TResource,
   TResourcesByCategoryPayload
 } from '../types';
 
 const useResourcesByCategory = (
   category: TCategoryStub
-): undefined | null | TResourceNew[] => {
+): undefined | null | TResource[] => {
   const [resourcesByCategory, setResourcesByCategory] = useState<
-    undefined | null | TResourceNew[]
+    undefined | null | TResource[]
   >();
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const useResourcesByCategory = (
             );
           }
 
-          const uniqueResources = subcategories.reduce<TResourceNew[]>(
+          const uniqueResources = subcategories.reduce<TResource[]>(
             (categoryResources, subcategory) => {
               const { resources: subcategoryResources } = subcategory;
               if (!subcategoryResources || !subcategoryResources.length) {

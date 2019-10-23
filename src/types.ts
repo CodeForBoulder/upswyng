@@ -41,11 +41,11 @@ export interface TUser {
   isAdmin: boolean;
   isSuperAdmin: boolean;
 }
-export interface TResourceNew {
+export interface TResource {
   _id?: string;
   address: TAddress;
   createdBy?: TUser;
-  closeSchedule: TCloseScheduleNew[];
+  closeSchedule: TCloseSchedule[];
   createdAt: Date;
   deleted: boolean;
   description: string;
@@ -57,7 +57,7 @@ export interface TResourceNew {
   longitude: number;
   name: string;
   phone: string;
-  schedule: TScheduleNew[];
+  schedule: TSchedule[];
   services: string[];
   subcategories: TSubcategory[];
   website: string;
@@ -68,7 +68,7 @@ interface TPayloadBase {
 }
 
 export interface TResourcePayload extends TPayloadBase {
-  resource?: TResourceNew;
+  resource?: TResource;
 }
 
 export interface TResourcesByCategoryPayload extends TPayloadBase {
@@ -150,48 +150,8 @@ export interface TSubcategory {
   lastModifiedAt: Date;
   name: string;
   parentCategory: TCategory;
-  resources?: TResourceNew[];
+  resources?: TResource[];
   stub: string;
-}
-export interface TResource {
-  address1: string;
-  address2: string;
-  approved: 0 | 1;
-  category: string;
-  charityname: string;
-  city: string;
-  closeschedule: TCloseSchedule[];
-  description: string;
-  kudos: number;
-  lat: number;
-  lng: number;
-  phone: string;
-  schedule: TSchedule[];
-  selectedAll: boolean;
-  service: string;
-  servicetype: string;
-  showflag: boolean;
-  state: string;
-  updateshelter: string;
-  useremail: string;
-  userid: string;
-  website: string;
-  zip: number;
-  [key: string]: TCloseSchedule[] | TSchedule[] | boolean | string | number;
-}
-
-export interface TCloseSchedule {
-  day: TDay;
-  period: string;
-  type: string;
-}
-
-export interface TSchedule {
-  day: TDay;
-  period?: TSchedulePeriod;
-  fromstring: string;
-  tostring: string;
-  type: TScheduleType;
 }
 
 export type TSchedulePeriod =
@@ -206,20 +166,20 @@ export type TScheduleType = 'Weekly' | 'Monthly' | 'Open 24/7' | 'Date Range';
 
 interface TScheduleBase {
   _id?: string;
-  day?: TDay;
+  day: TDay;
   date?: string;
   period?: TSchedulePeriod;
-  from?: string;
-  to?: string;
+  from: string;
+  to: string;
 }
 
-export interface TScheduleNew extends TScheduleBase {
+export interface TSchedule extends TScheduleBase {
   scheduleType: TScheduleType;
 }
 
 export type TCloseScheduleType = TScheduleType | 'Permanently Closed';
 
-export interface TCloseScheduleNew extends TScheduleBase {
+export interface TCloseSchedule extends TScheduleBase {
   scheduleType: TCloseScheduleType;
 }
 export interface TResourceCategory {

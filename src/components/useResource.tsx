@@ -1,44 +1,35 @@
-import { TResource } from '../types';
-import { useState, useEffect } from 'react';
-import firebase from '../firebase';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-/**
- * Hook which provides a Resource record from Firebase
- *
- * @example
- * const CharityDisplay = props: {dataPath: string} => {
- *   const charityData: TResource | null = useResource(props.dataPath);
- *   return charityData ? (
- *     <div>
- *       <h1>{charityData.charityName}</h1>
- *       <p>{charityData.description}</p>
- *     </div>
- *   ) : (
- *     <Spinner />
- *   );
- * };
- */
-function useResource(dataPath: string): TResource | null {
-  const [resource, setResource] = useState(null);
+import { TResourcePayload, TResource } from '../types';
+
+const useResource = (resourceId: string): undefined | null | TResource => {
+  const [resource, setResource] = useState<undefined | null | TResource>();
+
   useEffect(() => {
-    const firebaseRef = firebase.database().ref(dataPath);
-    const firebaseCallback = firebaseRef.on('value', snapshot => {
-      if (!snapshot) {
-        throw new Error('No data was provided by the backend');
+    const getResource = async (): Promise<void> => {
+      try {
+        const { data } = await axios.get<TResourcePayload>(
+          `https://upswyng-server.herokuapp.com/api/resource/${resourceId}`
+        );
+        const resource: TResource | undefined = data.resource;
+        if (!resource) {
+          const errorMessage: string =
+            data.message || 'There was a problem retrieving the resource.';
+          throw new Error(errorMessage);
+        }
+
+        setResource(resource);
+      } catch (err) {
+        // TODO: log this error
+        setResource(null);
       }
-      setResource(snapshot.val());
-    });
-    return () => {
-      firebaseCallback &&
-        firebaseRef &&
-        firebaseRef.off('value', firebaseCallback as (
-          a: firebase.database.DataSnapshot,
-          b?: string | null
-        ) => unknown);
     };
-  }, [dataPath]);
+
+    getResource();
+  }, [setResource]);
 
   return resource;
-}
+};
 
 export default useResource;

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Chip } from '@material-ui/core';
 import styled from 'styled-components';
-import { TResourceNew } from '../types';
+import { TResource } from '../types';
 import { colors, font } from '../App.styles';
 
 interface Props {
-  resource: TResourceNew;
+  resource: TResource;
 }
 
 const ServicesList = styled.ul`

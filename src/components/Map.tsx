@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import GoogleMapReact from 'google-map-react';
 
 import {
-  TResourceNew,
+  TResource,
   TGoogleMapTravelMode,
   TGoogleMapDirectionsStatusCode
 } from '../types';
@@ -20,7 +20,7 @@ const boulderCoordinates = {
 };
 
 interface Props {
-  resource: TResourceNew;
+  resource: TResource;
 }
 
 const TravelButtonsContainer = styled(ButtonGroup)`
