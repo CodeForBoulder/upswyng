@@ -4,38 +4,84 @@
  * `Resource` should only be interacting with `TResource` and `TLegacyResource`;
  * the internal schema is abstracted away by the logic in this module.
  */
-import mongoose, { Document, Schema, Types } from "mongoose";
 import {
   TLegacyResource,
   TResource,
   TAddress,
   TCloseSchedule,
   TSchedule,
-  TSubcategory,
 } from "../../../src/types";
-import { ObjectId } from "bson";
-import { schemaToUser, TUserFields } from "./User";
+import { userDocumentToUser, TUserDocument } from "./User";
+import {
+  TSubcategoryDocument,
+  subcategoryDocumentToSubcategory,
+} from "./Subcategory";
+import mongoose, { Document, Schema, Types } from "mongoose";
+import removeUndefinedFields from "../utility/removeUndefinedFields";
+import { ObjectId } from "mongodb";
 
-export interface TResourceFields extends Document {
+export interface TResourceDocument extends Document {
+  _id: ObjectId; // this is the mongodb id of the record
   address: TAddress;
   closeSchedule: TCloseSchedule[];
   createdAt: Date;
-  createdBy: ObjectId | undefined;
+  createdBy: TUserDocument | undefined; // always populate
   deleted: boolean;
   description: string;
-  id: ObjectId;
+  id: ObjectId; // this is canonical upswyng ID
   kudos: number;
   lastModifiedAt: Date;
-  lastModifiedBy: ObjectId | undefined;
+  lastModifiedBy: TUserDocument | undefined; // always populate
   legacyId: string | null | undefined;
   location: { type: string; coordinates: number[] };
   name: string;
   phone: string;
   schedule: TSchedule[];
   services: string[];
-  subcategories: ObjectId[];
+  subcategories: TSubcategoryDocument[]; // always populate
   website: string;
 }
+
+/**
+ * Convert a resource document from the database into our `TResource` type.
+ * Explicity enumerate keys so we make TypeScript happy.
+ */
+export const resourceDocumentToResource = (r: TResourceDocument): TResource => {
+  r = r.toObject(); // convert from Mongoose Document to JS Object
+  const result = {
+    _id: r._id.toHexString(),
+    address: {
+      address1: r.address.address1,
+      address2: r.address.address2,
+      city: r.address.city,
+      state: r.address.state,
+      zip: r.address.zip,
+    },
+    closeSchedule: r.closeSchedule,
+    createdAt: r.createdAt,
+    createdBy: r.createdBy ? userDocumentToUser(r.createdBy) : undefined,
+    deleted: r.deleted,
+    description: r.description,
+    id: r.id.toHexString(),
+    kudos: r.kudos,
+    lastModifiedAt: r.lastModifiedAt,
+    lastModifiedBy: r.lastModifiedBy
+      ? userDocumentToUser((r.lastModifiedBy as unknown) as TUserDocument)
+      : undefined,
+    latitude: r.location ? r.location.coordinates[1] : null,
+    legacyId: r.legacyId,
+    longitude: r.location ? r.location.coordinates[0] : null,
+    name: r.name,
+    phone: r.phone,
+    schedule: r.schedule,
+    services: r.services,
+    subcategories: r.subcategories.map(subcategoryDocumentToSubcategory),
+    website: r.website,
+  };
+
+  removeUndefinedFields(result);
+  return result;
+};
 
 export const ResourceSchema = new Schema({
   address /* TAddress */: {
@@ -143,56 +189,57 @@ const legacyResourceToResource = (
   r: TLegacyResource,
   createdAt: Date = new Date(),
   id?: string
-): TResource => {
-  return {
-    address: {
-      address1: r.address1,
-      address2: r.address2,
-      city: r.city,
-      state: r.state,
-      zip: (r.zip || "").toString(),
-    },
-    closeSchedule: (r.closeschedule || []).map(i => ({
-      day: i.day,
-      date: i.date,
-      period: i.period,
-      from: i.fromstring,
-      to: i.tostring,
-      scheduleType: i.type,
-    })),
-    createdAt,
-    deleted: (r.closeschedule || [])
-      .map(item => item.type.toLowerCase())
-      .includes("permanently closed"),
-    description: trimQuotes(r.description),
-    id: new Types.ObjectId(),
-    kudos: r.kudos,
-    lastModifiedAt:
-      new Date(r.updateshelter) instanceof Date &&
-      !isNaN(new Date(r.updateshelter).valueOf())
-        ? new Date(r.updateshelter)
-        : new Date(),
-    latitude: r.lat,
-    legacyId: id,
-    longitude: r.lng,
-    name: r.charityname,
-    phone: r.phone,
-    subcategories: [],
-    schedule: (r.schedule || []).map(s => ({
-      day: s.day,
-      date: s.date,
-      period: s.period,
-      string: s.fromstring,
-      to: s.tostring,
-      scheduleType: s.type,
-    })),
-    services: r.servicetype.split(","),
-    website: r.website,
-  };
-};
+): Omit<TResource, "_id"> => ({
+  address: {
+    address1: r.address1,
+    address2: r.address2,
+    city: r.city,
+    state: r.state,
+    zip: (r.zip || "").toString(),
+  },
+  closeSchedule: (r.closeschedule || []).map(i => ({
+    day: i.day,
+    date: i.date,
+    period: i.period,
+    from: i.fromstring,
+    to: i.tostring,
+    scheduleType: i.type,
+  })),
+  createdAt,
+  deleted: (r.closeschedule || [])
+    .map(item => item.type.toLowerCase())
+    .includes("permanently closed"),
+  description: trimQuotes(r.description),
+  id: new ObjectId().toHexString(),
+  kudos: r.kudos,
+  lastModifiedAt: new Date(r.updateshelter) instanceof Date &&
+    !isNaN(new Date(r.updateshelter).valueOf())
+    ? new Date(r.updateshelter)
+    : new Date(),
+  latitude: r.lat,
+  legacyId: id,
+  longitude: r.lng,
+  name: r.charityname,
+  phone: r.phone,
+  subcategories: [],
+  schedule: (r.schedule || []).map(s => ({
+    day: s.day,
+    date: s.date,
+    period: s.period,
+    string: s.fromstring,
+    to: s.tostring,
+    scheduleType: s.type,
+  })),
+  services: r.servicetype.split(","),
+  website: r.website,
+});
 
 export const resourceToSchema = (r: Partial<TResource>) => {
-  let result = { ...r };
+  let result = {
+    ...r,
+    id: ObjectId.createFromHexString(r.id),
+    _id: ObjectId.createFromHexString(r._id),
+  };
   delete result.latitude;
   delete result.longitude;
   return r.longitude && r.latitude
@@ -204,65 +251,6 @@ export const resourceToSchema = (r: Partial<TResource>) => {
 };
 
 /**
- * Convert a resource document from the database into our `TResource` type.
- * Explicity enumerate keys so we make TypeScript happy.
- */
-export const schemaToResource = (
-  r: (TResourceFields & { subcategories: TSubcategory[] }) | null
-): TResource | null => {
-  if (!r) return null;
-  r = r.toObject(); // convert from Mongoose Document to JS Object
-  const result = {
-    _id: r._id,
-    address: {
-      address1: r.address.address1,
-      address2: r.address.address2,
-      city: r.address.city,
-      state: r.address.state,
-      zip: r.address.zip,
-    },
-    closeSchedule: r.closeSchedule,
-    createdAt: r.createdAt,
-    createdBy: r.createdBy
-      ? schemaToUser((r.createdBy as unknown) as TUserFields)
-      : undefined,
-    deleted: r.deleted,
-    description: r.description,
-    id: r.id,
-    kudos: r.kudos,
-    lastModifiedAt: r.lastModifiedAt,
-    lastModifiedBy: r.lastModifiedBy
-      ? schemaToUser((r.lastModifiedBy as unknown) as TUserFields)
-      : undefined,
-    latitude: r.location ? r.location.coordinates[1] : null,
-    legacyId: r.legacyId,
-    longitude: r.location ? r.location.coordinates[0] : null,
-    name: r.name,
-    phone: r.phone,
-    schedule: r.schedule,
-    services: r.services,
-    subcategories: r.subcategories,
-    website: r.website,
-  };
-
-  removeUndefinedFields(result);
-  return result;
-};
-
-function removeUndefinedFields(o: Object): void {
-  Object.keys(o).forEach(key => {
-    if (o[key] === undefined) {
-      delete o[key];
-    }
-    if (Array.isArray(o[key])) {
-      o[key].forEach(v => removeUndefinedFields(v));
-    } else if (o[key] instanceof Object) {
-      removeUndefinedFields(o[key]);
-    }
-  });
-}
-
-/**
  * Takes a legacy object from Strappd and puts it into the database.
  * If the Resource already exists in the database, this will over write the entry if
  * the last modified time of the legacy object is newer than the last modified time
@@ -271,14 +259,17 @@ function removeUndefinedFields(o: Object): void {
 ResourceSchema.statics.addOrUpdateLegacyResource = async function(
   id: string,
   resource: TLegacyResource
-): Promise<TResource> {
-  const existingRecord = await this.findOne({ legacyId: id });
+): Promise<void> {
+  const existingRecord = await this.findOne({ legacyId: id })
+    .populate("createdBy")
+    .populate("lastmodifiedBy");
   const self = this;
   if (!existingRecord) {
     const newRecord = new self(
       resourceToSchema(legacyResourceToResource(resource, new Date(), id))
     );
-    return newRecord.save().then(schemaToResource);
+    await newRecord.save();
+    return;
   }
   const newDate = resource.updateshelter
     ? new Date(resource.updateshelter)
@@ -288,71 +279,73 @@ ResourceSchema.statics.addOrUpdateLegacyResource = async function(
     existingRecord.set(
       resourceToSchema(legacyResourceToResource(resource, new Date(), id))
     );
-    return existingRecord.save().then(schemaToResource);
-  } else {
-    // return our current record
-    return Promise.resolve(schemaToResource(existingRecord));
+    await existingRecord.save().then(resourceDocumentToResource);
   }
 };
 
 /**
- * Retrieve a resource by its ID. Converts the Resource document to a
- * `TResource`. `null` if there is no matching Resource.
+ * Retrieve a resource by its ID. `null` if there is no matching Resource.
  */
 ResourceSchema.statics.getById = async function(
   id: ObjectId
-): Promise<TResource | null> {
-  return this.findOne({ id })
+): Promise<TResourceDocument | null> {
+  return await this.findOne({ id })
     .populate({ path: "subcategories", populate: { path: "parentCategory" } })
-    .then(schemaToResource);
+    .populate("createdBy")
+    .populate("lastModifiedBy");
 };
 
 /**
- * Retrieve a resource by its record ID (_id). Converts the Resource document
- * to a `TResource`. `null` if there is no matching Resource.
+ * Retrieve a resource by its record ID (_id). `null` if there is no matching Resource.
  */
 ResourceSchema.statics.getByRecordId = async function(
-  id: ObjectId
-): Promise<TResource | null> {
-  return this.findOne({ _id: id })
+  _id: ObjectId
+): Promise<TResourceDocument | null> {
+  return await this.findOne({ _id, deleted: false })
     .populate({ path: "subcategories", populate: { path: "parentCategory" } })
     .populate("createdBy")
-    .then(schemaToResource);
+    .populate("lastModifiedBy");
 };
 
 /**
  * Retrieve all resources.
  */
-ResourceSchema.statics.getAll = async function(): Promise<TResource[]> {
-  return this.find({})
+ResourceSchema.statics.getAll = async function(): Promise<TResourceDocument[]> {
+  return await this.find({ deleted: false })
     .populate({ path: "subcategories", populate: { path: "parentCategory" } })
-    .then(r => r.map(schemaToResource));
+    .populate("createdBy")
+    .populate("lastModifiedBy");
 };
 
 /**
  * Retrieve the resources which haven't assigned to at least one subcategory.
  */
 ResourceSchema.statics.getUncategorized = async function(): Promise<
-  TResource[]
+  TResourceDocument[]
 > {
-  return this.find({
+  return await this.find({
     "subcategories.0": { $exists: false },
     deleted: false,
-  }).then(r => r.map(schemaToResource));
+  })
+    .populate({ path: "subcategories", populate: { path: "parentCategory" } })
+    .populate("createdBy")
+    .populate("lastModifiedBy");
 };
 
 /**
- * Delete a resource by its record ID (_id). Returns the deleted resource.
+ * Delete a resource by its record ID (_id).
+ * @return {TResourceDocument} The deleted resource
  */
 ResourceSchema.statics.deleteByRecordId = async function(
   id: ObjectId
-): Promise<TResource> {
+): Promise<TResourceDocument> {
   return this.findByIdAndDelete(id)
-    .populate({ path: "subcategories", populate: { path: "categories" } })
-    .then(schemaToResource);
+    .populate({ path: "subcategories", populate: { path: "parentCategory" } })
+    .populate("createdBy")
+    .populate("lastModifiedBy");
 };
 
-const Resource = mongoose.model<TResourceFields>("Resource", ResourceSchema);
+const Resource = mongoose.model<TResourceDocument>("Resource", ResourceSchema);
 
 (Resource as any).deleteByRecordId = () => {
   throw new Error(
@@ -378,18 +371,18 @@ export default Resource as typeof Resource & {
   getUncategorized: () => Promise<TResource[]>;
 };
 
-const DraftResource = mongoose.model<TResourceFields>(
+const DraftResource = mongoose.model<TResourceDocument>(
   "DraftResource",
   ResourceSchema
 ) as typeof Resource & {
   addOrUpdateLegacyResource: (
     id: string,
     resource: TLegacyResource
-  ) => Promise<TResource>;
-  deleteByRecordId: (id: ObjectId) => Promise<TResource>;
-  getById: (id: ObjectId) => Promise<TResource | null>;
-  getByRecordId: (id: ObjectId) => Promise<TResource | null>;
-  getAll: () => Promise<TResource[]>;
+  ) => Promise<void>;
+  deleteByRecordId: (id: ObjectId) => Promise<TResourceDocument>;
+  getById: (id: ObjectId) => Promise<TResourceDocument | null>;
+  getByRecordId: (id: ObjectId) => Promise<TResourceDocument | null>;
+  getAll: () => Promise<TResourceDocument[]>;
 };
 
 (DraftResource as any).getUncategorized = () => {

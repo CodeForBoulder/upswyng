@@ -1,13 +1,16 @@
-import Subcategory from "./Subcategory";
-import Resource, {
-  resourceToSchema,
-  schemaToResource,
-  TResourceFields,
-  DraftResource,
-} from "./Resource";
-import { ObjectId } from "bson";
+import { ObjectId } from "mongodb";
 import { TResource, TSubcategory, TNewResource } from "../../../src/types";
 import dr from "../utility/diffResources";
+import Resource, {
+  resourceToSchema,
+  resourceDocumentToResource,
+  TResourceDocument,
+  DraftResource,
+} from "./Resource";
+import Subcategory, {
+  subcategoryDocumentToSubcategory,
+  TSubcategoryDocument,
+} from "./Subcategory";
 
 export const diffResources = dr;
 
@@ -21,11 +24,11 @@ export async function createDraftResource(
     }).populate("subcategories");
     if (!existingResource) {
       throw new Error(
-        `This draft has an \`id\`, ${(resource as TResource).id.toHexString()} and is therefore supposed to update an existing resource; however, a resource with the draft's \`id\` doesn't exist`
+        `This draft has an \`id\`, ${resource as TResource} and is therefore supposed to update an existing resource; however, a resource with the draft's \`id\` doesn't exist`
       );
     }
     const updateObject = diffResources(
-      schemaToResource(existingResource as TResourceFields & {
+      resourceDocumentToResource(existingResource as TResourceDocument & {
         subcategories: TSubcategory[];
       }),
       resource as TResource
@@ -42,7 +45,7 @@ export async function createDraftResource(
   let { _id: newResourceId } = await new DraftResource(
     resourceToSchema({
       ...resource,
-      id: (resource as TResource).id || new ObjectId(),
+      id: (resource as TResource).id || new ObjectId().toHexString(),
       createdAt: (resource as TResource).createdAt || new Date(),
       lastModifiedAt: new Date(),
       kudos: (resource as TResource).kudos || 0,
@@ -53,7 +56,7 @@ export async function createDraftResource(
   if (!newDraft) {
     throw new Error("Could not find the new draft just created.");
   }
-  return newDraft;
+  return resourceDocumentToResource(newDraft);
 }
 /**
  * Takes the Record ID (_id) of a draft and either creates a new Resource, or updates a Resource
@@ -61,16 +64,14 @@ export async function createDraftResource(
  */
 export async function createOrUpdateResourceFromDraft(
   draftResource: TResource | TNewResource
-): Promise<TResource> {
+): Promise<void> {
   const existingResource = await Resource.findOne({
     id: (draftResource as TResource).id,
   }).populate("subcategories");
   if (existingResource) {
     // update an existing resource
     const updateObject = diffResources(
-      schemaToResource(existingResource as TResourceFields & {
-        subcategories: TSubcategory[];
-      }),
+      resourceDocumentToResource(existingResource),
       draftResource as TResource
     );
     // go over each subcategory the old resource was in.. if it's not in the new resource, remove it
@@ -78,13 +79,13 @@ export async function createOrUpdateResourceFromDraft(
       updateObject.right.subcategories &&
       updateObject.left.subcategories.forEach(async subcategory => {
         if (
-          !updateObject.right.subcategories
-            .map(s => s._id.toHexString())
-            .includes(subcategory._id.toHexString())
+          !updateObject.right.subcategories.map(s =>
+            s._id.includes(subcategory._id)
+          )
         ) {
           await removeResourceFromSubcategory(
             existingResource._id,
-            subcategory._id
+            ObjectId.createFromHexString(subcategory._id)
           );
         }
       });
@@ -94,10 +95,13 @@ export async function createOrUpdateResourceFromDraft(
       updateObject.right.subcategories.forEach(async subcategory => {
         if (
           !updateObject.left.subcategories
-            .map(s => s._id.toHexString())
-            .includes(subcategory._id.toHexString())
+            .map(s => s._id)
+            .includes(subcategory._id)
         ) {
-          await addResourceToSubcategory(existingResource._id, subcategory._id);
+          await addResourceToSubcategory(
+            existingResource._id,
+            ObjectId.createFromHexString(subcategory._id)
+          );
         }
       });
 
@@ -107,11 +111,6 @@ export async function createOrUpdateResourceFromDraft(
       lastModifiedAt: new Date(),
     });
     await existingResource.save();
-    return await Resource.findOne({
-      id: (draftResource as TResource).id,
-    })
-      .populate("subcategories")
-      .then(schemaToResource);
   } else {
     const subcategories = draftResource.subcategories;
     const newResource = await new Resource({
@@ -119,11 +118,13 @@ export async function createOrUpdateResourceFromDraft(
       subcategories: [],
     }).save();
     await Promise.all(
-      subcategories.map(s => addResourceToSubcategory(newResource._id, s._id))
+      subcategories.map(s =>
+        addResourceToSubcategory(
+          newResource._id,
+          ObjectId.createFromHexString(s._id)
+        )
+      )
     );
-    return await Resource.findOne({ _id: newResource._id })
-      .populate("subcategories")
-      .then(schemaToResource);
   }
 }
 
@@ -137,20 +138,20 @@ export async function getSubcategoryByStub(
     return Promise.resolve(null);
   }
   try {
-    return subcategory.toObject();
+    return subcategoryDocumentToSubcategory(subcategory);
   } catch (e) {
     throw new Error(e);
   }
 }
 
 export async function addResourceToSubcategory(
-  resourceId: ObjectId /* Resource ObjectId */,
-  subcategoryId: ObjectId /* Subcategory ObjectId */
+  resourceId: ObjectId,
+  subcategoryId: ObjectId
 ) {
-  let resource;
-  let subcategory;
+  let resource: TResourceDocument;
+  let subcategory: TSubcategoryDocument;
   try {
-    resource = await Resource.findById(resourceId);
+    resource = await Resource.findById(resourceId).populate("subcategoires");
   } catch (e) {
     console.error("Error w resource:\t", e.message);
     throw e;
@@ -158,7 +159,9 @@ export async function addResourceToSubcategory(
   if (!resource)
     throw new Error(`Could not find Resource with ID ${resourceId}`);
   try {
-    subcategory = await Subcategory.findById(subcategoryId);
+    subcategory = await Subcategory.findById(subcategoryId).populate(
+      "parentCategory"
+    );
   } catch (e) {
     console.error("Error w resource:\t", e.message);
     throw e;
@@ -168,11 +171,14 @@ export async function addResourceToSubcategory(
 
   if (
     !resource.subcategories
-      .map((s: ObjectId) => s.toHexString())
+      .map(s => s._id.toHexString())
       .includes(subcategoryId.toHexString())
   ) {
     try {
-      resource.subcategories = [...resource.subcategories, subcategoryId];
+      (resource as any).subcategories = [
+        ...resource.subcategories.map(s => s._id),
+        subcategoryId,
+      ];
       await resource.save();
     } catch (e) {
       console.error("Error updating Resource:\n", e.message);
@@ -180,12 +186,15 @@ export async function addResourceToSubcategory(
     }
   }
   if (
-    !subcategory.resources
+    !(subcategory.resources as ObjectId[])
       .map(s => s.toHexString())
       .includes(resourceId.toHexString())
   ) {
     try {
-      subcategory.resources = [...subcategory.resources, resourceId];
+      subcategory.resources = [
+        ...(subcategory.resources as ObjectId[]),
+        resourceId,
+      ];
       await subcategory.save();
     } catch (e) {
       console.error("Error updating Subcategory:\n", e.message);
@@ -195,8 +204,8 @@ export async function addResourceToSubcategory(
 }
 
 export async function removeResourceFromSubcategory(
-  resourceId: ObjectId /* Resource ObjectId */,
-  subcategoryId: ObjectId /* Subcategory ObjectId */
+  resourceId: ObjectId,
+  subcategoryId: ObjectId
 ) {
   const resource = await Resource.findById(resourceId);
   if (!resource)
@@ -208,20 +217,20 @@ export async function removeResourceFromSubcategory(
 
   if (
     resource.subcategories
-      .map((s: ObjectId) => s.toHexString())
+      .map(s => s._id.toHexString())
       .includes(subcategoryId.toHexString())
   ) {
     resource.subcategories = resource.subcategories.filter(
-      s => s.toHexString() !== subcategoryId.toHexString()
+      s => s._id.toHexString() !== subcategoryId.toHexString()
     );
     await resource.save();
   }
   if (
-    subcategory.resources
+    (subcategory.resources as ObjectId[])
       .map(s => s.toHexString())
       .includes(resourceId.toHexString())
   ) {
-    subcategory.resources = subcategory.resources.filter(
+    subcategory.resources = (subcategory.resources as ObjectId[]).filter(
       r => r.toHexString() !== resourceId.toHexString()
     );
     await subcategory.save();

@@ -1,24 +1,26 @@
-import Category from "../../../models/Category";
+import Category, { categoryDocumentToCategory } from "../../../models/Category";
 
-export async function get(req, res, next) {
+export async function get(req, res, _next) {
   const { stub } = req.params;
 
-  const category = await Category.getByStub(stub);
+  const categoryDocument = await Category.getByStub(stub);
 
-  if (category) {
+  if (categoryDocument) {
     res.writeHead(200, {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     });
 
-    res.end(JSON.stringify({ category }));
+    res.end(
+      JSON.stringify({ category: categoryDocumentToCategory(categoryDocument) })
+    );
   } else {
     res.writeHead(404, {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     });
 
     res.end(
       JSON.stringify({
-        message: `Category not found`
+        message: `Category not found`,
       })
     );
   }

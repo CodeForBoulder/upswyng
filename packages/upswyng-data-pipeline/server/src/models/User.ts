@@ -1,8 +1,9 @@
-import mongoose, { Document, Schema } from "mongoose";
-import { ObjectId } from "bson";
+import { ObjectId } from "mongodb";
 import { TUser } from "../../../src/types";
+import mongoose, { Document, Schema } from "mongoose";
+import removeUndefinedFields from "../utility/removeUndefinedFields";
 
-export interface TUserFields extends Document {
+export interface TUserDocument extends Document {
   _id: ObjectId;
   facebook?: {
     id: string;
@@ -17,12 +18,12 @@ export interface TUserFields extends Document {
   isSuperAdmin: boolean;
 }
 
-export function schemaToUser(u: TUserFields): TUser {
+export function userDocumentToUser(u: TUserDocument): TUser {
   const result: Partial<TUser> = {
     id: u.id,
     providers: [],
     isAdmin: u.isAdmin || false,
-    isSuperAdmin: u.isSuperAdmin || false
+    isSuperAdmin: u.isSuperAdmin || false,
   };
   if (u.facebook) {
     result.providers.push("facebook");
@@ -33,6 +34,7 @@ export function schemaToUser(u: TUserFields): TUser {
     result.providers.push("google");
     result.email = u.google.email;
   }
+  removeUndefinedFields(result);
   return result as TUser;
 }
 
@@ -41,18 +43,18 @@ const UserSchema = new Schema(
     facebook: {
       id: { type: String, index: true },
       name: { type: String },
-      email: { type: String, index: true }
+      email: { type: String, index: true },
     },
     google: {
       // The google ID; doesn't ever change.
       // See https://developers.google.com/identity/protocols/OpenIDConnect?hl=en#obtainuserinfo
       sub: { type: String, index: true },
-      email: { type: String, index: true }
+      email: { type: String, index: true },
     },
     // can approve new resources, etc
     isAdmin: { type: Boolean, default: false },
     // can execute operations on users
-    isSuperAdmin: { type: Boolean, default: false }
+    isSuperAdmin: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
@@ -61,7 +63,7 @@ UserSchema.statics.findOrCreateFacebookUser = async function(
   id: string,
   name?: string,
   email?: string
-): Promise<TUserFields> {
+): Promise<TUserDocument> {
   const self = this;
   const user = await this.findOne({ "facebook.id": id });
   if (!user && !email) {
@@ -90,13 +92,13 @@ UserSchema.statics.findOrCreateFacebookUser = async function(
     const updatedUser = await user.save();
     return updatedUser.toObject();
   }
-  return user.toObject();
+  return user;
 };
 
 UserSchema.statics.findOrCreateGoogleUser = async function(
   sub: string,
   email?: string
-): Promise<TUserFields> {
+): Promise<TUserDocument> {
   const self = this;
   const user = await this.findOne({ "google.sub": sub });
   if (!user && !email) {
@@ -107,7 +109,7 @@ UserSchema.statics.findOrCreateGoogleUser = async function(
     try {
       const newUser = new self({ google: { sub, email } });
       const result = await newUser.save();
-      return result.toObject();
+      return result;
     } catch (e) {
       console.error(`Error creating new user:\t${e}`);
       throw e;
@@ -119,19 +121,18 @@ UserSchema.statics.findOrCreateGoogleUser = async function(
     if (email) {
       user.google.email = email;
     }
-    const updatedUser = await user.save();
-    return updatedUser.toObject();
+    return await user.save();
   }
-  return user.toObject();
+  return user;
 };
 
-const User = mongoose.model<TUserFields>("User", UserSchema);
+const User = mongoose.model<TUserDocument>("User", UserSchema);
 
 export default User as typeof User & {
   findOrCreateFacebookUser: (
     id: string,
     name?: string,
     email?: string
-  ) => Promise<TUserFields>;
-  findOrCreateGoogleUser: (sub: string, email?: string) => TUserFields;
+  ) => Promise<TUserDocument>;
+  findOrCreateGoogleUser: (sub: string, email?: string) => TUserDocument;
 };

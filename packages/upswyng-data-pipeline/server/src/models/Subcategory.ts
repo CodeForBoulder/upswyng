@@ -1,14 +1,31 @@
-import { TSubcategory } from "../../../src/types";
+import { ObjectId } from "mongodb";
+import { TSubcategory, TCategory, TResource } from "../../../src/types";
 import mongoose, { Schema, Document } from "mongoose";
-import { ObjectId } from "bson";
+import { TCategoryDocument, categoryDocumentToCategory } from "./Category";
+import { TResourceDocument } from "./Resource";
+import removeUndefinedFields from "../utility/removeUndefinedFields";
 
-export interface TSubcategoryFields extends Document {
+export interface TSubcategoryDocument extends Document {
+  _id: ObjectId;
   createdAt: Date;
   lastModifiedAt: Date;
   name: string;
-  parentCategory: ObjectId;
-  resources: ObjectId[];
+  parentCategory: TCategoryDocument; // we always call `populate` on parent category
+  resources: ObjectId[] | TResourceDocument[];
   stub: string;
+}
+
+export function subcategoryDocumentToSubcategory(
+  d: TSubcategoryDocument
+): TSubcategory {
+  const s = d.toObject();
+  const result = {
+    ...s,
+    _id: s._id.toHexString(),
+    parentCategory: categoryDocumentToCategory(s.parentCategory),
+  };
+  removeUndefinedFields(result);
+  return result;
 }
 
 const SubcategorySchema = new Schema({
@@ -35,39 +52,39 @@ const SubcategorySchema = new Schema({
 SubcategorySchema.statics.findOrCreate = async function(
   name: string,
   stub: string,
-  parentCategory: Schema.Types.ObjectId
+  parentCategoryId: Schema.Types.ObjectId
 ) {
-  const result = await this.findOne({ name, stub, parentCategory });
-  if (result) {
-    return result;
-  } else {
-    return new this({ name, stub, parentCategory });
-  }
+  const result = await this.findOne({ name, stub, parentCategoryId }).populate(
+    "parentCategory"
+  );
+  return result || new this({ name, stub, parentCategoryId });
 };
 
 SubcategorySchema.statics.getSubcategoryList = async function(
-  includeResources = false
+  includeResources: boolean = false
 ) {
-  const records = await this.find().populate("parentCategory");
   if (includeResources) {
-    throw new Error("Unimplemented");
-  } else {
-    return records.map(r => {
+    return await this.find()
+      .populate("parentCategory")
+      .populate("resources");
+  }
+  return await this.find()
+    .populate("parentCategory")
+    .map(r => {
       delete r.resources;
       return r;
     });
-  }
 };
 
 SubcategorySchema.statics.getByStub = async function(
   stub: string
-): Promise<TSubcategoryFields | null> {
+): Promise<TSubcategoryDocument | null> {
   return await this.find({ stub })
     .populate("parentCategory")
     .populate("resources");
 };
 
-const Subcategory = mongoose.model<TSubcategoryFields>(
+const Subcategory = mongoose.model<TSubcategoryDocument>(
   "Subcategory",
   SubcategorySchema
 );
@@ -76,10 +93,10 @@ export default Subcategory as typeof Subcategory & {
   findOrCreate: (
     name: string,
     stub: string,
-    parentCategory: Schema.Types.ObjectId
-  ) => Promise<Schema<TSubcategoryFields>>;
-  getByStub: (stub: string) => Promise<TSubcategoryFields | null>;
+    parentCategoryId: ObjectId
+  ) => Promise<TSubcategoryDocument>;
+  getByStub: (stub: string) => Promise<TSubcategoryDocument | null>;
   getSubcategoryList: (
     includeResources?: boolean
-  ) => Promise<TSubcategoryFields[]>;
+  ) => Promise<TSubcategoryDocument[]>;
 };

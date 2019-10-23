@@ -3,7 +3,7 @@
  */
 
 import axios from "axios";
-import User, { schemaToUser } from "../models/User";
+import User, { userDocumentToUser } from "../models/User";
 import { TUser } from "../../../src/types";
 
 interface TGrantGoogle {
@@ -43,7 +43,7 @@ async function googleGrantToUser(grant: TGrantGoogle): Promise<TUser> {
       grant.response.id_token.payload.sub,
       grant.response.id_token.payload.email
     );
-    return schemaToUser(user);
+    return userDocumentToUser(user);
   } catch (e) {
     console.error(e);
     throw new Error(
@@ -64,13 +64,13 @@ async function facebookGrantToUser(grant: TGrantFacebook): Promise<TUser> {
   }
   try {
     const {
-      data: { id, email, name }
+      data: { id, email, name },
     } = await axios.get(
       ` https://graph.facebook.com/v4.0/me?fields=id%2Cname%2Cemail&access_token=${accessToken}`
     );
     try {
       const user = await User.findOrCreateFacebookUser(id, name, email);
-      return schemaToUser(user);
+      return userDocumentToUser(user);
     } catch (e) {
       throw new Error(`Error creating or finding new user with id ${id}`);
     }
@@ -114,12 +114,12 @@ export default async function(req, res, next): Promise<void> {
     // error on every reload
     req.session.grant = null;
     res.writeHead(500, {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     });
 
     res.end(
       JSON.stringify({
-        message: `There was an error logging in: ${e.message}`
+        message: `There was an error logging in: ${e.message}`,
       })
     );
   }
