@@ -33,9 +33,9 @@
     height: 0.75rem;
     border-radius: 100%;
   }
-  
+
   .field {
-      margin-bottom: 2rem;
+    margin-bottom: 2rem;
   }
 
   .values {
@@ -85,7 +85,7 @@
                 </li>
               {/each}
             </ul>
-          {:else}{diff.left[k]}{/if}
+          {:else}{JSON.stringify(diff.left[k], null, 2)}{/if}
         </div>
         <div class="right">
           <h3>New</h3>
@@ -114,7 +114,7 @@
                 </li>
               {/each}
             </ul>
-          {:else}{diff.right[k]}{/if}
+          {:else}{JSON.stringify(diff.right[k], null, 2)}{/if}
         </div>
       </div>
     </div>
