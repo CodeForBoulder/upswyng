@@ -8,7 +8,7 @@ import {
 } from '../types';
 
 const useResourcesBySubcategory = (
-  subcategory: TSubcategoryStub
+  subcategory: TSubcategoryStub | null
 ): undefined | null | TResourceNew[] => {
   const [resourcesBySubcategory, setResourcesBySubcategory] = useState<
     undefined | null | TResourceNew[]
@@ -31,7 +31,7 @@ const useResourcesBySubcategory = (
           const {
             subcategory: { resources }
           } = data;
-          if (!resources.length) {
+          if (!resources || !resources.length) {
             throw new Error('no resources found in subcategory response');
           }
 
