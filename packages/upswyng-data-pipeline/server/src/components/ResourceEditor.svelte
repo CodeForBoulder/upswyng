@@ -50,7 +50,7 @@
       value: resource.longitude || -105.27,
       validators: ["between:-180:180"]
     },
-    name: { value: resource.name || "", validators: ["required", "min:6"] },
+    name: { value: resource.name || "", validators: ["required", "min:3"] },
     phone: { value: resource.phone || "", validators: ["required", "min:3"] }, // ex: 911
     schedule: { value: resource.schedule || [] },
     services: { value: resource.services || [], validators: [] },
@@ -128,7 +128,7 @@
       {/if}
 
       {#if $resourceForm.name.errors.includes('min')}
-        <p class="help is-danger">The name should be at least 6 characters</p>
+        <p class="help is-danger">The name should be at least 3 characters</p>
       {/if}
     </div>
 
