@@ -37,8 +37,9 @@ const useResourcesBySubcategory = (
 
           setResourcesBySubcategory(resources);
         } catch (err) {
-          console.log(err);
+          setResourcesBySubcategory(null);
           // TODO: log this error
+          console.log(err);
         }
       };
 
