@@ -5,8 +5,9 @@
     "lib": ["dom", "esnext"],
     "moduleResolution": "node",
     "noEmit": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
-    "resolveJsonModule": true
+    "types": ["@pyoner/svelte-types"]
   },
   "include": ["src/**/*", "server/src/**/*"]
 }

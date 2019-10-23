@@ -63,6 +63,7 @@
     "@babel/preset-env": "^7.0.0",
     "@babel/runtime": "^7.0.0",
     "@pyoner/svelte-ts-preprocess": "^1.2.1",
+    "@pyoner/svelte-types": "^3.4.4-2",
     "@types/algoliasearch": "^3.34.3",
     "@types/cli-progress": "^1.8.1",
     "@types/connect-mongo": "0.0.43",
