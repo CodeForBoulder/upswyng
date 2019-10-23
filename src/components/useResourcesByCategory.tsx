@@ -15,7 +15,9 @@ type TCategoryStub =
   | 'wifi';
 
 // TODO: use specific category types
-const useCategory = (category: TCategoryStub): null | TResourceNew[] => {
+const useCategory = (
+  category: TCategoryStub
+): undefined | null | TResourceNew[] => {
   const [resourcesByCategory, setResourcesByCategory] = useState<
     undefined | null | TResourceNew[]
   >();
@@ -27,6 +29,7 @@ const useCategory = (category: TCategoryStub): null | TResourceNew[] => {
           const { data } = await axios.get<TResourcesByCategoryPayload>(
             `https://upswyng-server.herokuapp.com/api/category/${category}`
           );
+
           if (!data.category) {
             throw new Error(
               'no category found in resources by category response'
