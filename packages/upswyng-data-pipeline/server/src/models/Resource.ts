@@ -26,6 +26,7 @@ export interface TResourceFields extends Document {
   id: ObjectId;
   kudos: number;
   lastModifiedAt: Date;
+  lastModifiedBy: ObjectId | undefined;
   legacyId: string | null | undefined;
   location: { type: string; coordinates: number[] };
   name: string;
@@ -66,6 +67,7 @@ export const ResourceSchema = new Schema({
   },
   kudos: { type: Number, default: 0 },
   lastModifiedAt: { type: Date, default: Date.now, required: true },
+  lastModifiedBy: { type: Schema.Types.ObjectId, ref: "User", required: false },
   legacyId: { type: String, required: false, index: true },
   location: {
     // GeoJSON Point https://tools.ietf.org/html/rfc7946#section-3.1.2
@@ -229,6 +231,9 @@ export const schemaToResource = (
     id: r.id,
     kudos: r.kudos,
     lastModifiedAt: r.lastModifiedAt,
+    lastModifiedBy: r.lastModifiedBy
+      ? schemaToUser((r.lastModifiedBy as unknown) as TUserFields)
+      : undefined,
     latitude: r.location ? r.location.coordinates[1] : null,
     legacyId: r.legacyId,
     longitude: r.location ? r.location.coordinates[0] : null,
