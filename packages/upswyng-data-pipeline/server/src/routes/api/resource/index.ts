@@ -14,11 +14,11 @@ export async function post(req, res, next) {
     user = requireLoggedIn(req);
   } catch (_e) {
     res.writeHead(401, {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     });
     res.end(
       JSON.stringify({
-        message: `You must be logged in to create a new resource.`
+        message: `You must be logged in to create a new resource.`,
       })
     );
     next();
@@ -42,7 +42,7 @@ export async function post(req, res, next) {
         res.writeHead(422, { "Content-Type": "application/json" });
         return res.end(
           JSON.stringify({
-            message: "The new resource is the same as an existing resource."
+            message: "The new resource is the same as an existing resource.",
           })
         );
       } else {
@@ -52,12 +52,12 @@ export async function post(req, res, next) {
   } catch (e) {
     console.error(e);
     res.writeHead(500, {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     });
 
     return res.end(
       JSON.stringify({
-        message: `Error creating resource: ${e.message}`
+        message: `Error creating resource: ${e.message}`,
       })
     );
   }
