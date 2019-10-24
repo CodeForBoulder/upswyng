@@ -12,14 +12,14 @@ const StyledLogo = styled(Logo)`
 
 const About = () => (
   <Container>
-    <PageBanner color={colors.orangeDark} text={'About Upswyng'} />
+    <PageBanner color={colors.orangeDark} text={'About UpSwyng'} />
     <p>
       UpSwyng is a mobile-ready, digital directory of resources to assist the
       unhoused and at-risk communities.
     </p>
     <StyledLogo />
     <p>
-      Upswyng is maintained by{' '}
+      UpSwyng is maintained by{' '}
       <a
         href="http://www.codeforboulder.org"
         target="_blank"
@@ -38,7 +38,7 @@ const About = () => (
       Brigade network.
     </p>
     <p>
-      For questions related to Upswyng, please contact{' '}
+      For questions related to UpSwyng, please contact{' '}
       <a href="mailto:info@upswyng.org">info@upswyng.org</a>.
     </p>
   </Container>

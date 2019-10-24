@@ -11,7 +11,7 @@ const Logo = (props: StyledComponentProps) => (
     height="108.22"
     {...props}
   >
-    <title>Upswyng</title>
+    <title>UpSwyng</title>
     <path
       transform="translate(-4.76991 -3.98222)"
       fill={colors.white}
