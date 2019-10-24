@@ -1,5 +1,5 @@
 import React from 'react';
-import { TResourceCategory } from '../types';
+import { TResourceCategory, TResourceSubcategory } from '../types';
 import { colors, Container } from '../App.styles';
 import {
   BananaIcon,
@@ -18,7 +18,7 @@ interface TCategory {
   color: keyof typeof colors;
   placeholder: React.ReactElement;
   mainCategory: TResourceCategory;
-  subCategories: TResourceCategory[];
+  subCategories: TResourceSubcategory[];
 }
 
 type TCategoryName =
@@ -38,16 +38,16 @@ const categories: Record<TCategoryName, TCategory> = {
     placeholder: BananaIcon,
     mainCategory: {
       text: 'Food',
-      query: 'CATEGORY-food'
+      stub: 'food'
     },
     subCategories: [
       {
         text: 'Meals',
-        query: 'SUBCATEGORY-food-meal'
+        stub: 'meals'
       },
       {
         text: 'Food Pantries',
-        query: 'SUBCATEGORY-food-pantry'
+        stub: 'food_pantries'
       }
     ]
   },
@@ -56,36 +56,36 @@ const categories: Record<TCategoryName, TCategory> = {
     placeholder: LocalHospitalIcon,
     mainCategory: {
       text: 'Health',
-      query: 'CATEGORY-health'
+      stub: 'health'
     },
     subCategories: [
       {
         text: 'Hospital',
-        query: 'SUBCATEGORY-health-hospital'
+        stub: 'hospital'
       },
       {
         text: 'Clinics',
-        query: 'SUBCATEGORY-health-clinic'
+        stub: 'clinics'
       },
       {
         text: 'Mental',
-        query: 'SUBCATEGORY-health-mental'
+        stub: 'mental'
       },
       {
         text: 'Dental',
-        query: 'SUBCATEGORY-health-dental'
+        stub: 'dental'
       },
       {
         text: 'Pharmacies',
-        query: 'SUBCATEGORY-health-pharmacy'
+        stub: 'pharmacies'
       },
       {
         text: 'Vision',
-        query: 'SUBCATEGORY-health-vision'
+        stub: 'vision'
       },
       {
         text: 'Addiction',
-        query: 'SUBCATEGORY-health-addictionRecoveryServices'
+        stub: 'addiction_recovery_services'
       }
     ]
   },
@@ -94,24 +94,24 @@ const categories: Record<TCategoryName, TCategory> = {
     placeholder: HygieneIcon,
     mainCategory: {
       text: 'Hygiene',
-      query: 'CATEGORY-hygiene'
+      stub: 'hygiene'
     },
     subCategories: [
       {
         text: 'Restrooms',
-        query: 'SUBCATEGORY-hygiene-bathroom'
+        stub: 'restrooms'
       },
       {
         text: 'Showers',
-        query: 'SUBCATEGORY-hygiene-shower'
+        stub: 'showers'
       },
       {
         text: 'Water Fountains',
-        query: 'SUBCATEGORY-hygiene-water'
+        stub: 'water_fountains'
       },
       {
         text: 'Feminine Products',
-        query: 'SUBCATEGORY-hygiene-feminine'
+        stub: 'feminine_products'
       }
     ]
   },
@@ -120,28 +120,28 @@ const categories: Record<TCategoryName, TCategory> = {
     placeholder: BusinessCenterIcon,
     mainCategory: {
       text: 'Job Training',
-      query: 'CATEGORY-jobTraining'
+      stub: 'job_training'
     },
     subCategories: [
       {
         text: 'Ready to Work',
-        query: 'SUBCATEGORY-jobTraining-readyToWork'
+        stub: 'ready_to_work'
       },
       {
         text: 'Craigs List',
-        query: 'SUBCATEGORY-jobTraining-craigsList'
+        stub: 'craigslist'
       },
       {
         text: 'Temp Agency',
-        query: 'SUBCATEGORY-jobTraining-tempAgency'
+        stub: 'temp_agency'
       },
       {
         text: 'Day Labor',
-        query: 'SUBCATEGORY-jobTraining-dayLabor'
+        stub: 'day_labor'
       },
       {
         text: 'Career Counseling',
-        query: 'SUBCATEGORY-jobTraining-careerCounseling'
+        stub: 'career_counseling'
       }
     ]
   },
@@ -150,40 +150,40 @@ const categories: Record<TCategoryName, TCategory> = {
     placeholder: SocksIcon,
     mainCategory: {
       text: 'Resources',
-      query: 'CATEGORY-resources'
+      stub: 'resources'
     },
     subCategories: [
       {
         text: 'Outdoor Gear',
-        query: 'SUBCATEGORY-resources-outdoorGear'
+        stub: 'outdoor_gear'
       },
       {
         text: 'Clothing',
-        query: 'SUBCATEGORY-resources-clothing'
+        stub: 'clothing'
       },
       {
         text: 'Shoes',
-        query: 'SUBCATEGORY-resources-shoes'
+        stub: 'shoes'
       },
       {
         text: 'Legal Help',
-        query: 'SUBCATEGORY-resources-legalHelp'
+        stub: 'legal_help'
       },
       {
         text: 'Pets',
-        query: 'SUBCATEGORY-resources-pets'
+        stub: 'pets'
       },
       {
         text: 'Laundry',
-        query: 'SUBCATEGORY-resources-laundry'
+        stub: 'laundry'
       },
       {
         text: 'Hair Care',
-        query: 'SUBCATEGORY-resources-hairCare'
+        stub: 'hair_care'
       },
       {
         text: 'Home Goods',
-        query: 'SUBCATEGORY-resources-homeGoods'
+        stub: 'home_goods'
       }
     ]
   },
@@ -192,36 +192,36 @@ const categories: Record<TCategoryName, TCategory> = {
     placeholder: HomeIcon,
     mainCategory: {
       text: 'Shelter',
-      query: 'CATEGORY-shelter'
+      stub: 'shelters'
     },
     subCategories: [
       {
         text: 'Emergency',
-        query: 'SUBCATEGORY-shelter-emergency'
+        stub: 'emergency'
       },
       {
         text: 'Family',
-        query: 'SUBCATEGORY-shelter-family'
+        stub: 'family'
       },
       {
         text: 'Youth',
-        query: 'SUBCATEGORY-shelter-youth'
+        stub: 'youth'
       },
       {
         text: 'Abused',
-        query: 'SUBCATEGORY-shelter-abused'
+        stub: 'abused'
       },
       {
         text: 'Pregnant',
-        query: 'SUBCATEGORY-shelter-pregnant'
+        stub: 'pregnant'
       },
       {
         text: 'Temporary',
-        query: 'SUBCATEGORY-shelter-temporary'
+        stub: 'temporary'
       },
       {
         text: 'Transitional',
-        query: 'SUBCATEGORY-shelter-transitional'
+        stub: 'transitional'
       }
     ]
   },
@@ -230,20 +230,20 @@ const categories: Record<TCategoryName, TCategory> = {
     placeholder: PeopleIcon,
     mainCategory: {
       text: 'Social Services',
-      query: 'CATEGORY-socialServices'
+      stub: 'social_services'
     },
     subCategories: [
       {
         text: 'Health and Human Services',
-        query: 'SUBCATEGORY-socialServices-healthAndHumanServices'
+        stub: 'health_and_human_services'
       },
       {
         text: 'Food Stamps',
-        query: 'SUBCATEGORY-socialServices-foodStamps'
+        stub: 'food_stamps'
       },
       {
         text: 'Social Security',
-        query: 'SUBCATEGORY-socialServices-socialSecurity'
+        stub: 'social_security'
       }
     ]
   },
@@ -252,20 +252,20 @@ const categories: Record<TCategoryName, TCategory> = {
     placeholder: BusIcon,
     mainCategory: {
       text: 'Transit',
-      query: 'CATEGORY-transit'
+      stub: 'transit'
     },
     subCategories: [
       {
         text: 'Bus',
-        query: 'SUBCATEGORY-transit-bus'
+        stub: 'bus'
       },
       {
         text: 'Bicycle',
-        query: 'SUBCATEGORY-transit-bicycle'
+        stub: 'bicycle'
       },
       {
         text: 'Lite Rail',
-        query: 'SUBCATEGORY-transit-liteRail'
+        stub: 'lite_rail'
       }
     ]
   },
@@ -274,20 +274,20 @@ const categories: Record<TCategoryName, TCategory> = {
     placeholder: WifiIcon,
     mainCategory: {
       text: 'Wifi',
-      query: 'CATEGORY-wifi'
+      stub: 'wifi'
     },
     subCategories: [
       {
         text: 'Free Wifi',
-        query: 'SUBCATEGORY-wifi-freeWifi'
+        stub: 'free_wifi'
       },
       {
         text: 'Public Computer',
-        query: 'SUBCATEGORY-wifi-publicComputer'
+        stub: 'public_computer'
       },
       {
         text: 'Charging',
-        query: 'SUBCATEGORY-wifi-charging'
+        stub: 'charging'
       }
     ]
   }

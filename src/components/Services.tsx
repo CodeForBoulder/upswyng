@@ -34,9 +34,9 @@ const ServicesChip = styled(Chip)`
 
 const Services = ({ resource }: Props) => {
   if (resource) {
-    const { servicetype: serviceType } = resource;
-    if (serviceType) {
-      const serviceItems = serviceType.split(',').map(service => (
+    const { services } = resource;
+    if (services) {
+      const serviceItems = services.map(service => (
         <ServicesItem key={service.trim()}>
           <ServicesChip component={'span'} label={service.trim()} role={''} />
         </ServicesItem>

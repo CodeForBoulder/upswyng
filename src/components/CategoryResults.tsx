@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
-import { TResourceCategory } from '../types';
-import useSearchResults from './useSearchResults';
+import {
+  TCategoryStub,
+  TSubcategoryStub,
+  TResourceCategory,
+  TResourceSubcategory
+} from '../types';
 import PageBanner from './PageBanner';
 import SubCategories from './SubCategories';
-import SearchResults from './SearchResults';
+import ResourceList from './ResourceList';
+import useResourcesByCategory from './useResourcesByCategory';
+import useResourcesBySubcategory from './useResourcesBySubcategory';
 
 interface Props {
   category: TResourceCategory;
   color: string;
   placeholder?: React.ReactElement;
-  subCategories: TResourceCategory[];
+  subCategories: TResourceSubcategory[];
 }
 
 const CategoryResults = ({
@@ -18,11 +24,29 @@ const CategoryResults = ({
   placeholder,
   subCategories
 }: Props) => {
-  const { text: categoryText, query: categoryQuery } = category;
-  const [searchQuery, updateSearchQuery] = useState(categoryQuery);
-  const searchResults = useSearchResults(searchQuery);
+  const { text: categoryText, stub: categoryStub } = category;
 
-  const handleSubCategoryClick = (query: string) => updateSearchQuery(query);
+  const [
+    currentSubcategory,
+    setCurrentSubcategory
+  ] = useState<TSubcategoryStub | null>(null);
+
+  const categoryResources = useResourcesByCategory(categoryStub);
+  const subCategoryResources = useResourcesBySubcategory(currentSubcategory);
+
+  const resources = currentSubcategory
+    ? subCategoryResources
+    : categoryResources;
+
+  const handleSubCategoryClick = (
+    newStub: TCategoryStub | TSubcategoryStub
+  ) => {
+    if (newStub !== currentSubcategory) {
+      setCurrentSubcategory(
+        newStub !== categoryStub ? (newStub as TSubcategoryStub) : null
+      );
+    }
+  };
 
   return (
     <>
@@ -33,7 +57,7 @@ const CategoryResults = ({
         subCategories={subCategories}
         handleSubCategoryClick={handleSubCategoryClick}
       />
-      <SearchResults placeholder={placeholder} results={searchResults} />
+      <ResourceList placeholder={placeholder} resources={resources} />
     </>
   );
 };

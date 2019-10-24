@@ -1,97 +1,148 @@
 import { TResource } from './types';
 
 export const blankResource: TResource = {
-  address1: '',
-  address2: '',
-  approved: 0,
-  category: '',
-  charityname: '',
-  city: '',
-  closeschedule: [],
+  _id: '',
+  address: {
+    address1: '',
+    address2: '',
+    city: '',
+    state: '',
+    zip: ''
+  },
+  createdBy: {
+    id: '',
+    name: '',
+    email: '',
+    providers: ['facebook', 'google'],
+    isAdmin: false,
+    isSuperAdmin: false
+  },
+  closeSchedule: [],
+  createdAt: new Date(),
+  deleted: false,
   description: '',
+  id: '',
   kudos: 0,
-  lat: 0,
-  lng: 0,
+  lastModifiedAt: new Date(),
+  latitude: 0,
+  legacyId: '',
+  longitude: 0,
+  name: '',
   phone: '',
   schedule: [],
-  selectedAll: false,
-  service: '',
-  servicetype: '',
-  showflag: false,
-  state: '',
-  updateshelter: '',
-  useremail: '',
-  userid: '',
-  website: '',
-  zip: 0
+  services: [''],
+  subcategories: [],
+  website: ''
 };
 
 export const foodResource: TResource = {
-  address1: '1100 E 18th Ave',
-  address2: '',
-  approved: 1,
-  category: 'Men,Women,Kids,Seniors,Families,Veterans,LGBT+,All',
-  charityname: 'Metro Caring',
-  city: 'Denver',
-  closeschedule: [
-    {
-      day: 'Wednesday',
-      period: 'First',
-      type: 'Monthly'
-    }
-  ],
+  address: {
+    address1: '220 Collyer St',
+    city: 'Longmont',
+    state: 'CO',
+    zip: '80501'
+  },
+  deleted: false,
+  kudos: 0,
+  services: ['Breakfast\\Lunch'],
+  _id: '5d9431ab521d2e1c354bd23d',
+  closeSchedule: [],
   description:
-    '"Metro Caring\'s largest program, Healthful Foods Access, ensures that hungry families and individuals have nutritious food to meet their immediate need and avoid hunger in the short term while they work toward self-reliance. Instead of receiving a pre-packed or standard bag of groceries, families and individuals shop for free at the Metro Caring Fresh-Foods Market. A "choice" model gives participants control over their food selection, allows for cultural and dietary preferences, and reduces waste. Volunteer Market Assistants offer samples of different nutritious foods that people may be unfamiliar with, and provide personal assistance when needed."',
-  kudos: 1,
-  lat: 39.7445915,
-  lng: -104.97300459999997,
-  phone: '(303) 860-7200',
+    'Our Hospitality Care services can all be found inside our facility. New members must become a participant first by meeting with a trained Resource Navigator and  once a plan is agree upon these services may be offered to assist with basic need expenses. Warm, nutritious meals are created 364 days a year with our assistance of our in-house cook and volunteer staff. Weekend meals are provided by Café Outreach Team’s which are families, schools, businesses, and faith-based groups from our community. Community Cafe Lunch 7 days a week 11:30am-1pm. Breakfast M-F 8:30am-9:30am.',
+  id: '5d9431ab521d2e1c354bd23c',
+  legacyId: '-KZomZhy4WBsvTu6tcXC',
+  name: 'OUR Center Community Cafe',
+  phone: '(303) 772-5529',
   schedule: [
     {
+      _id: '5d9431ab521d2e1c354bd249',
       day: 'Monday',
-      fromstring: '9:30 AM',
-      tostring: '3:00 PM',
-      type: 'Weekly'
+      from: '8:00 AM',
+      to: '9:30 AM',
+      scheduleType: 'Weekly'
     },
     {
+      _id: '5d9431ab521d2e1c354bd248',
+      day: 'Monday',
+      from: '12:00 PM',
+      to: '1:00 PM',
+      scheduleType: 'Weekly'
+    },
+    {
+      _id: '5d9431ab521d2e1c354bd247',
       day: 'Tuesday',
-      fromstring: '9:30 AM',
-      tostring: '3:00 PM',
-      type: 'Weekly'
+      from: '8:00 AM',
+      to: '9:30 AM',
+      scheduleType: 'Weekly'
     },
     {
+      _id: '5d9431ab521d2e1c354bd246',
       day: 'Tuesday',
-      fromstring: '6:00 PM',
-      tostring: '8:00 PM',
-      type: 'Weekly'
+      from: '12:00 PM',
+      to: '1:00 PM',
+      scheduleType: 'Weekly'
     },
     {
+      _id: '5d9431ab521d2e1c354bd245',
       day: 'Wednesday',
-      fromstring: '9:30 AM',
-      tostring: '3:00 PM',
-      type: 'Weekly'
+      from: '8:00 AM',
+      to: '9:30 AM',
+      scheduleType: 'Weekly'
     },
     {
+      _id: '5d9431ab521d2e1c354bd244',
+      day: 'Wednesday',
+      from: '12:00 PM',
+      to: '1:00 PM',
+      scheduleType: 'Weekly'
+    },
+    {
+      _id: '5d9431ab521d2e1c354bd243',
       day: 'Thursday',
-      fromstring: '9:30 AM',
-      tostring: '3:00 PM',
-      type: 'Weekly'
+      from: '8:00 AM',
+      to: '9:30 AM',
+      scheduleType: 'Weekly'
     },
     {
+      _id: '5d9431ab521d2e1c354bd242',
+      day: 'Thursday',
+      from: '12:00 PM',
+      to: '1:00 PM',
+      scheduleType: 'Weekly'
+    },
+    {
+      _id: '5d9431ab521d2e1c354bd241',
       day: 'Friday',
-      fromstring: '9:30 AM',
-      tostring: '3:00 PM',
-      type: 'Weekly'
+      from: '8:00 AM',
+      to: '9:30 AM',
+      scheduleType: 'Weekly'
+    },
+    {
+      _id: '5d9431ab521d2e1c354bd240',
+      day: 'Friday',
+      from: '12:00 PM',
+      to: '1:00 PM',
+      scheduleType: 'Weekly'
+    },
+    {
+      _id: '5d9431ab521d2e1c354bd23f',
+      day: 'Saturday',
+      from: '12:00 PM',
+      to: '1:00 PM',
+      scheduleType: 'Weekly'
+    },
+    {
+      _id: '5d9431ab521d2e1c354bd23e',
+      day: 'Sunday',
+      from: '12:00 PM',
+      to: '1:00 PM',
+      scheduleType: 'Weekly'
     }
   ],
-  selectedAll: true,
-  service: 'Food',
-  servicetype: 'Food Pantry',
-  showflag: true,
-  state: 'CO',
-  updateshelter: '09/19/2016 10:25 PM',
-  useremail: 'patrudu36@gmail.com',
-  userid: '70b8446e-61ca-41c9-93f9-9f3fb4996e6c',
-  website: 'http://www.metrocaring.org',
-  zip: 80203
+  website: 'https://www.ourcenter.org/hospitality-care/',
+  createdAt: new Date(),
+  lastModifiedAt: new Date(),
+  latitude: 1234,
+  longitude: 5678,
+  subcategories: []
 };

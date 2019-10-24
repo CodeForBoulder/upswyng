@@ -41,9 +41,7 @@ describe('<Resource/>', () => {
   const wrapper = shallow(<Resource />);
 
   it('renders the charityname property of the resource prop object', () => {
-    expect(wrapper.find('PageBanner').prop('text')).toBe(
-      foodResource.charityname
-    );
+    expect(wrapper.find('PageBanner').prop('text')).toBe(foodResource.name);
   });
 
   it('renders a map component', () => {
@@ -51,7 +49,7 @@ describe('<Resource/>', () => {
   });
 
   it('renders a loading spinner when a resource is not loaded', () => {
-    mockedUseResource.mockImplementation(() => null) as typeof jest.mock;
+    mockedUseResource.mockImplementation(() => undefined) as typeof jest.mock;
     const wrapper = shallow(<Resource />);
 
     expect(wrapper.find('LoadingSpinner').length).toBe(1);

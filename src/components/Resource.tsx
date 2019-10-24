@@ -2,7 +2,7 @@ import React from 'react';
 import { TResource } from '../types';
 import useResource from './useResource';
 import { getSearchParamVal } from '../utils/searchParams';
-import { SEARCH_PARAM_RESOURCE, FIREBASE_RESOURCE_BRANCH } from '../constants';
+import { SEARCH_PARAM_RESOURCE } from '../constants';
 
 import LoadingSpinner from './LoadingSpinner';
 import PageBanner from './PageBanner';
@@ -18,10 +18,14 @@ interface Props {
 }
 
 const renderAddressContent = (resource: TResource) => {
-  const { address1, address2, city, state, zip } = resource;
+  const {
+    address: { address1, address2, city, state, zip }
+  } = resource;
+
   if (!address1 || !city || !state || !zip) {
     return <></>;
   }
+
   return (
     <>
       <DetailHeading>Address</DetailHeading>
@@ -69,6 +73,10 @@ const renderWebsiteContent = (resource: TResource) => {
   );
 };
 
+const renderErrorMessage = () => (
+  <p>We&apos;re sorry, this service was not found.</p>
+);
+
 export const Resource = () => {
   const resourceId = getSearchParamVal(SEARCH_PARAM_RESOURCE);
 
@@ -76,18 +84,21 @@ export const Resource = () => {
     return <p>We&apos;re sorry, this service was not found.</p>;
   }
 
-  const resourceDataRef = `${FIREBASE_RESOURCE_BRANCH}/${resourceId}`;
-  const resource = useResource(resourceDataRef);
+  const resource = useResource(resourceId);
 
-  if (!resource) {
+  if (resource === undefined) {
     return <LoadingSpinner />;
   }
 
-  const { charityname, schedule } = resource;
+  if (resource === null) {
+    return renderErrorMessage();
+  }
+
+  const { name, schedule } = resource;
 
   return (
     <Container>
-      <PageBanner text={charityname} />
+      <PageBanner text={name} />
       <Details>
         {renderAddressContent(resource)}
         {renderPhoneContent(resource)}

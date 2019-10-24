@@ -4,29 +4,36 @@ import { TEnvVariables } from '../types';
 
 declare const process: TEnvVariables;
 
-function useSearchResults(query: string): algoliaSearch.Response | null {
-  const [
-    searchResults,
-    setSearchResults
-  ] = useState<algoliaSearch.Response | null>(null);
+function useSearchResults(
+  query: string
+): undefined | null | algoliaSearch.Response {
+  const algoliaClient = algoliaSearch(
+    process.env.REACT_APP_ALGOLIA_APP_ID,
+    process.env.REACT_APP_ALGOLIA_SEARCH_API_KEY
+  );
+
+  const searchIndex = algoliaClient.initIndex(
+    process.env.REACT_APP_ALGOLIA_INDEX_NAME
+  );
+
+  const [searchResults, setSearchResults] = useState<
+    undefined | null | algoliaSearch.Response
+  >(undefined);
 
   useEffect(() => {
     if (query) {
-      const algoliaClient = algoliaSearch(
-        process.env.REACT_APP_ALGOLIA_APP_ID,
-        process.env.REACT_APP_ALGOLIA_SEARCH_API_KEY
-      );
+      const getSearchResults = async (query: string): Promise<void> => {
+        try {
+          const searchResults = await searchIndex.search(query);
 
-      const searchIndex = algoliaClient.initIndex(
-        process.env.REACT_APP_ALGOLIA_INDEX_NAME
-      );
-
-      searchIndex.search(query, (err, res) => {
-        if (err) {
-          throw new Error(err.message);
+          setSearchResults(searchResults);
+        } catch (err) {
+          // TODO: log this error
+          setSearchResults(null);
         }
-        setSearchResults(res);
-      });
+      };
+
+      getSearchResults(query);
     }
   }, [query]);
 

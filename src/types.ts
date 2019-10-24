@@ -6,12 +6,6 @@ export interface TEnvVariables {
     REACT_APP_ALGOLIA_APP_ID: string;
     REACT_APP_ALGOLIA_SEARCH_API_KEY: string;
     REACT_APP_ALGOLIA_INDEX_NAME: string;
-    REACT_APP_FIREBASE_API_KEY: string;
-    REACT_APP_FIREBASE_AUTH_DOMAIN: string;
-    REACT_APP_FIREBASE_DATABASE_URL: string;
-    REACT_APP_FIREBASE_PROJECT_ID: string;
-    REACT_APP_FIREBASE_STORAGE_BUCKET: string;
-    REACT_APP_FIREBASE_MESSAGE_SENDER_ID: string;
     REACT_APP_GOOGLE_MAPS_API_KEY: string;
     REACT_APP_OPEN_WEATHER_API_KEY: string;
   };
@@ -26,54 +20,170 @@ export type TDay =
   | 'Saturday'
   | 'Sunday';
 
-export interface TResource {
+export interface TAddress {
   address1: string;
-  address2: string;
-  approved: 0 | 1;
-  category: string;
-  charityname: string;
+  address2?: string;
   city: string;
-  closeschedule: TCloseSchedule[];
+  state: string;
+  zip: string;
+}
+export interface TUser {
+  id: string;
+  name?: string;
+  email: string;
+  providers: ('facebook' | 'google')[];
+  isAdmin: boolean;
+  isSuperAdmin: boolean;
+}
+export interface TResource {
+  _id?: string;
+  address: TAddress;
+  createdBy?: TUser;
+  closeSchedule: TCloseSchedule[];
+  createdAt: Date;
+  deleted: boolean;
   description: string;
+  id: string;
   kudos: number;
-  lat: number;
-  lng: number;
+  lastModifiedAt: Date;
+  latitude: number;
+  legacyId?: string;
+  longitude: number;
+  name: string;
   phone: string;
   schedule: TSchedule[];
-  selectedAll: boolean;
-  service: string;
-  servicetype: string;
-  showflag: boolean;
-  state: string;
-  updateshelter: string;
-  useremail: string;
-  userid: string;
+  services: string[];
+  subcategories: TSubcategory[];
   website: string;
-  zip: number;
-  [key: string]: TCloseSchedule[] | TSchedule[] | boolean | string | number;
 }
 
-export interface TCloseSchedule {
-  day: TDay;
-  period: string;
-  type: string;
+interface TPayloadBase {
+  message?: string;
 }
 
-export interface TSchedule {
-  day: TDay;
-  period?: TSchedulePeriod;
-  fromstring: string;
-  tostring: string;
-  type: TScheduleType;
+export interface TResourcePayload extends TPayloadBase {
+  resource?: TResource;
 }
 
-export type TSchedulePeriod = 'First' | 'Second' | 'Third' | 'Fourth';
+export interface TResourcesByCategoryPayload extends TPayloadBase {
+  category?: TCategory;
+}
+
+export interface TResourcesBySubcategoryPayload extends TPayloadBase {
+  subcategory?: TSubcategory;
+}
+
+export type TCategoryStub =
+  | 'food'
+  | 'health'
+  | 'hygiene'
+  | 'job_training'
+  | 'resources'
+  | 'shelters'
+  | 'social_services'
+  | 'transit'
+  | 'wifi';
+
+export type TSubcategoryStub =
+  | 'meals'
+  | 'food_pantries'
+  | 'emergency'
+  | 'family'
+  | 'youth'
+  | 'abused'
+  | 'pregnant'
+  | 'temporary'
+  | 'transitional'
+  | 'restrooms'
+  | 'showers'
+  | 'water_fountains'
+  | 'feminine_products'
+  | 'bus'
+  | 'bicycle'
+  | 'lite_rail'
+  | 'outdoor_gear'
+  | 'clothing'
+  | 'shoes'
+  | 'legal_help'
+  | 'pets'
+  | 'laundry'
+  | 'hair_care'
+  | 'home_goods'
+  | 'hospital'
+  | 'clinics'
+  | 'mental'
+  | 'dental'
+  | 'pharmacies'
+  | 'vision'
+  | 'addiction_recovery_services'
+  | 'free_wifi'
+  | 'public_computer'
+  | 'charging'
+  | 'ready_to_work'
+  | 'craigslist'
+  | 'temp_agency'
+  | 'day_labor'
+  | 'career_counseling'
+  | 'health_and_human_services'
+  | 'food_stamps'
+  | 'social_security';
+
+export interface TCategory {
+  _id: string;
+  color: string;
+  createdAt: Date;
+  lastModifiedAt: Date;
+  name: string;
+  stub: string;
+  subcategories: TSubcategory[];
+}
+
+export interface TSubcategory {
+  _id: string;
+  createdAt: Date;
+  lastModifiedAt: Date;
+  name: string;
+  parentCategory: TCategory;
+  resources?: TResource[];
+  stub: string;
+}
+
+export type TSchedulePeriod =
+  | 'Last'
+  | 'First'
+  | 'Second'
+  | 'Third'
+  | 'Fourth'
+  | 'Fifth';
 
 export type TScheduleType = 'Weekly' | 'Monthly' | 'Open 24/7' | 'Date Range';
 
+interface TScheduleBase {
+  _id?: string;
+  day: TDay;
+  date?: string;
+  period?: TSchedulePeriod;
+  from: string;
+  to: string;
+}
+
+export interface TSchedule extends TScheduleBase {
+  scheduleType: TScheduleType;
+}
+
+export type TCloseScheduleType = TScheduleType | 'Permanently Closed';
+
+export interface TCloseSchedule extends TScheduleBase {
+  scheduleType: TCloseScheduleType;
+}
 export interface TResourceCategory {
   text: string;
-  query: string;
+  stub: TCategoryStub;
+}
+
+export interface TResourceSubcategory {
+  text: string;
+  stub: TSubcategoryStub;
 }
 
 interface THomeButtonBase {

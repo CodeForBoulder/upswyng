@@ -130,29 +130,25 @@ const Map = ({ resource }: Props) => {
 
   const addMapMarker = () => {
     const {
-      charityname,
-      lat,
-      lng,
-      address1,
-      address2,
-      city,
-      state,
-      zip
+      name,
+      latitude,
+      longitude,
+      address: { address1, address2, city, state, zip }
     } = resource;
 
     const resourceMarker = new googleMaps.Marker({
       map: googleMap,
-      title: charityname,
+      title: name,
       position: {
-        lat,
-        lng
+        lat: latitude,
+        lng: longitude
       }
     });
 
     const resourceMarkerInfoWindow = new googleMaps.InfoWindow({
       content: `
           <div class="google-map__info-window">
-            <span class="google-map__charity-name">${charityname}</span>
+            <span class="google-map__charity-name">${name}</span>
             <span class="google-map__address-line">${address1}</span>
             <span class="google-map__address-line">${address2 || ''}</span>
             <span class="google-map__address-line">${city}, ${state} ${zip}</span>
@@ -232,8 +228,8 @@ const Map = ({ resource }: Props) => {
             avoidTolls: true,
             origin: userLatLng,
             destination: {
-              lat: resource.lat,
-              lng: resource.lng
+              lat: resource.latitude,
+              lng: resource.longitude
             },
             travelMode
           },
@@ -296,10 +292,9 @@ const Map = ({ resource }: Props) => {
       newTravelMode !== prevTravelMode ? newTravelMode : null
     );
 
-  const { lat: resourceLat, lng: resourceLng } = resource;
   const resourceLatLng = {
-    lat: resourceLat,
-    lng: resourceLng
+    lat: resource.latitude,
+    lng: resource.longitude
   };
 
   useEffect(() => {
