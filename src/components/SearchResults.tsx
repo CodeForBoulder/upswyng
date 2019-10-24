@@ -18,9 +18,13 @@ const mapResultsToResources = (results: Response | null | undefined) => {
     return null;
   }
 
-  const resources = hits.map(({ charityname, objectID }) => ({
+  {
+    name: 'Some Charity';
+  }
+
+  const resources = hits.map(({ name, objectID }) => ({
     id: objectID,
-    name: charityname
+    name
   }));
   return resources;
 };
