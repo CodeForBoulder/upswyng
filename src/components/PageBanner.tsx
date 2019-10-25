@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { colors, font } from '../App.styles';
 import BackButton from './BackButton';
+import BannerColorContext from './BannerColorContext';
 
 interface Props {
   color?: string;
@@ -26,11 +27,16 @@ const PageBannerHeading = styled.h1`
   margin: ${font.helpers.convertPixelsToRems(-2)} 0 0;
 `;
 
-const PageBanner = ({ color, text }: Props) => (
-  <PageBannerContainer color={color}>
-    <BackButton />
-    <PageBannerHeading>{text}</PageBannerHeading>
-  </PageBannerContainer>
-);
+const PageBanner = ({ color, text }: Props) => {
+  const { bannerColor, setBannerColor } = React.useContext(BannerColorContext);
+  setBannerColor((s: string) => color || s);
+
+  return (
+    <PageBannerContainer color={bannerColor}>
+      <BackButton />
+      <PageBannerHeading>{text}</PageBannerHeading>
+    </PageBannerContainer>
+  );
+};
 
 export default PageBanner;
