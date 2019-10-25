@@ -28,11 +28,13 @@ const PageBannerHeading = styled.h1`
 `;
 
 const PageBanner = ({ color, text }: Props) => {
-  const { bannerColor, setBannerColor } = React.useContext(BannerColorContext);
-  setBannerColor((s: string) => color || s);
+  const { currentBannerColor, updateCurrentBannerColor } = React.useContext(
+    BannerColorContext
+  );
+  updateCurrentBannerColor(color);
 
   return (
-    <PageBannerContainer color={bannerColor}>
+    <PageBannerContainer color={currentBannerColor}>
       <BackButton />
       <PageBannerHeading>{text}</PageBannerHeading>
     </PageBannerContainer>

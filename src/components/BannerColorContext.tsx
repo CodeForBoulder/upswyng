@@ -3,13 +3,13 @@ import React from 'react';
 import { colors } from '../App.styles';
 
 interface ContextShape {
-  bannerColor: string;
-  setBannerColor: Function;
+  currentBannerColor: string;
+  updateCurrentBannerColor: Function;
 }
 
 const Context = React.createContext<ContextShape>({
-  bannerColor: '',
-  setBannerColor: () => {}
+  currentBannerColor: '',
+  updateCurrentBannerColor: () => {}
 });
 
 interface Props {
@@ -17,12 +17,20 @@ interface Props {
 }
 
 export const BannerColorContextProvider = ({ children }: Props) => {
-  const [bannerColor, setBannerColor] = React.useState<string>(
+  const [currentBannerColor, setCurrentBannerColor] = React.useState<string>(
     colors.orangeDark
   );
+  const defaultBannerColor = colors.black;
+  const updateCurrentBannerColor = (color?: string) =>
+    setCurrentBannerColor(color || defaultBannerColor);
 
   return (
-    <Context.Provider value={{ bannerColor, setBannerColor }}>
+    <Context.Provider
+      value={{
+        currentBannerColor,
+        updateCurrentBannerColor
+      }}
+    >
       {children}
     </Context.Provider>
   );
