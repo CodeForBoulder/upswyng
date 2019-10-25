@@ -4,6 +4,7 @@ import useResource from './useResource';
 import { getSearchParamVal } from '../utils/searchParams';
 import { SEARCH_PARAM_RESOURCE } from '../constants';
 
+import BannerColorContext from './BannerColorContext';
 import LoadingSpinner from './LoadingSpinner';
 import PageBanner from './PageBanner';
 import { Container } from '../App.styles';
@@ -56,6 +57,7 @@ const renderPhoneContent = (resource: TResource) => {
 
 const renderWebsiteContent = (resource: TResource) => {
   const { website } = resource;
+
   if (!website) {
     return <></>;
   }
@@ -80,6 +82,8 @@ const renderErrorMessage = () => (
 export const Resource = () => {
   const resourceId = getSearchParamVal(SEARCH_PARAM_RESOURCE);
 
+  const { currentBannerColor } = React.useContext(BannerColorContext);
+
   if (!resourceId) {
     return <p>We&apos;re sorry, this service was not found.</p>;
   }
@@ -94,11 +98,18 @@ export const Resource = () => {
     return renderErrorMessage();
   }
 
-  const { name, schedule } = resource;
+  const { name, schedule, subcategories } = resource;
+
+  const resourceCategoryColor = subcategories.length
+    ? subcategories[0].parentCategory.color
+    : '';
 
   return (
     <Container>
-      <PageBanner text={name} />
+      <PageBanner
+        color={currentBannerColor || resourceCategoryColor}
+        text={name}
+      />
       <Details>
         {renderAddressContent(resource)}
         {renderPhoneContent(resource)}

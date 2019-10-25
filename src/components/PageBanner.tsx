@@ -31,10 +31,13 @@ const PageBanner = ({ color, text }: Props) => {
   const { currentBannerColor, updateCurrentBannerColor } = React.useContext(
     BannerColorContext
   );
-  updateCurrentBannerColor(color);
+
+  React.useEffect(() => {
+    updateCurrentBannerColor(color);
+  }, [color, updateCurrentBannerColor]);
 
   return (
-    <PageBannerContainer color={currentBannerColor}>
+    <PageBannerContainer color={currentBannerColor || colors.black}>
       <BackButton />
       <PageBannerHeading>{text}</PageBannerHeading>
     </PageBannerContainer>

@@ -18,11 +18,10 @@ interface Props {
 
 export const BannerColorContextProvider = ({ children }: Props) => {
   const [currentBannerColor, setCurrentBannerColor] = React.useState<string>(
-    colors.orangeDark
+    ''
   );
-  const defaultBannerColor = colors.black;
   const updateCurrentBannerColor = (color?: string) =>
-    setCurrentBannerColor(color || defaultBannerColor);
+    setCurrentBannerColor(color || '');
 
   return (
     <Context.Provider
