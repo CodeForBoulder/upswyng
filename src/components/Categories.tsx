@@ -14,7 +14,7 @@ import {
 } from './Icons';
 import CategoryResults from './CategoryResults';
 
-interface TCategory {
+export interface TCategoryDefinition {
   color: keyof typeof colors;
   placeholder: React.ReactElement;
   mainCategory: TResourceCategory;
@@ -32,7 +32,7 @@ type TCategoryName =
   | 'Transit'
   | 'Wifi';
 
-const categories: Record<TCategoryName, TCategory> = {
+export const categories: Record<TCategoryName, TCategoryDefinition> = {
   Food: {
     color: 'gold',
     placeholder: BananaIcon,
