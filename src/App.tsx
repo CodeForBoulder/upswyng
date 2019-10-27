@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import GlobalStyle from './App.styles';
 import About from './components/About';
+import { BannerColorContextProvider } from './components/BannerColorContext';
 import Categories from './components/Categories';
 import Header from './components/Header';
 import Home from './components/Home';
@@ -29,7 +30,7 @@ class App extends Component {
       <>
         <GlobalStyle />
         <Router>
-          <div>
+          <BannerColorContextProvider>
             <Header />
             <Route exact path="/" component={Home} />
             <Route exact path="/about" component={About} />
@@ -47,7 +48,7 @@ class App extends Component {
             <Route exact path="/search" component={Search} />
             <Route exact path="/terms-of-use" component={TermsOfUse} />
             <Route exact path="/wifi" component={Wifi} />
-          </div>
+          </BannerColorContextProvider>
         </Router>
       </>
     );

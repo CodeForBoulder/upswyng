@@ -134,7 +134,7 @@ export interface TCategory {
   createdAt: Date;
   lastModifiedAt: Date;
   name: string;
-  stub: string;
+  stub: TCategoryStub;
   subcategories: TSubcategory[];
 }
 
@@ -145,7 +145,7 @@ export interface TSubcategory {
   name: string;
   parentCategory: TCategory;
   resources?: TResource[];
-  stub: string;
+  stub: TSubcategoryStub;
 }
 
 export type TSchedulePeriod =

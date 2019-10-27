@@ -1,7 +1,10 @@
 import styled, { createGlobalStyle, css } from 'styled-components';
 import { Grid } from '@material-ui/core';
 
-export const colors = {
+interface TColors {
+  [key: string]: string;
+}
+export const colors: TColors = {
   black: '#000',
   blue: '#2C4198',
   brown: '#AA6A03',

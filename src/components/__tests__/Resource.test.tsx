@@ -4,14 +4,16 @@ import { foodResource } from '../../DataMocks';
 import { Resource } from '../Resource';
 import useResource from '../useResource';
 
+jest.mock('../Categories', () => ({
+  categories: {}
+}));
 jest.mock('../../utils/searchParams');
 jest.mock('../../constants');
 jest.mock('../LoadingSpinner.tsx', () => 'LoadingSpinner');
-jest.mock('../useResource.tsx');
-const mockedUseResource = useResource as jest.Mock;
 jest.mock('../../App.styles', () => ({
   Container: 'Container',
   colors: {
+    charcoal: '',
     greyLight: ''
   },
   font: {
@@ -35,6 +37,8 @@ jest.mock('../Details', () => ({
 }));
 jest.mock('../Schedule', () => 'Schedule');
 jest.mock('../Map', () => 'Map');
+jest.mock('../useResource.tsx');
+const mockedUseResource = useResource as jest.Mock;
 
 describe('<Resource/>', () => {
   mockedUseResource.mockImplementation(() => foodResource) as typeof jest.mock;
@@ -42,10 +46,6 @@ describe('<Resource/>', () => {
 
   it('renders the charityname property of the resource prop object', () => {
     expect(wrapper.find('PageBanner').prop('text')).toBe(foodResource.name);
-  });
-
-  it('renders a map component', () => {
-    expect(wrapper.find('Map').length).toBe(1);
   });
 
   it('renders a loading spinner when a resource is not loaded', () => {
