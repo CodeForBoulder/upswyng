@@ -144,5 +144,23 @@ export const foodResource: TResource = {
   lastModifiedAt: new Date(),
   latitude: 1234,
   longitude: 5678,
-  subcategories: []
+  subcategories: [
+    {
+      resources: [],
+      _id: '5d8f0303c0e6672699a50098',
+      name: 'Meals',
+      stub: 'meals',
+      parentCategory: {
+        subcategories: [],
+        _id: '5d8f0302c0e6672699a50097',
+        name: 'Food',
+        stub: 'food',
+        color: 'gold',
+        createdAt: new Date(),
+        lastModifiedAt: new Date()
+      },
+      createdAt: new Date(),
+      lastModifiedAt: new Date()
+    }
+  ]
 };
