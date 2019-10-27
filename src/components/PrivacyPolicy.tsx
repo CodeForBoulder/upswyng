@@ -13,7 +13,7 @@ const PrivacyPolicy = () => (
   <Container>
     <PageBanner color={colors.orangeDark} text={'Privacy Policy'} />
     <p>
-      Upswyng has created this Privacy Policy to explain why we collect
+      UpSwyng has created this Privacy Policy to explain why we collect
       particular information and how we will protect your personal privacy
       within our Web site. This Privacy Policy discloses our information
       gathering and dissemination practices for the Web site located at the URL{' '}
@@ -43,13 +43,13 @@ const PrivacyPolicy = () => (
       <li>How you can correct any inaccuracies in your information.</li>
     </ol>
     <p>
-      Questions regarding this statement should be directed to the Upswyng.org
+      Questions regarding this statement should be directed to the UpSwyng.org
       by sending an email <a href="mailto:info@upswyng.org">info@upswyng.org</a>
       . Please reference this Privacy Policy in your subject line.
     </p>
     <h2>What Information We Collect and How We Use That Information</h2>
     <p>
-      When you download, register with, or use upswyng.org or its mobile
+      When you download, register with, or use UpSwyng.org or its mobile
       application version we may ask you to provide information:
     </p>
     <ol>
@@ -83,7 +83,7 @@ const PrivacyPolicy = () => (
       emailing a photograph to the Site, you confirm that:
     </p>
     <ol>
-      <li>You are authorized to provide the photograph to Upswyng.org;</li>
+      <li>You are authorized to provide the photograph to UpSwyng.org;</li>
       <li>
         Any/all people appearing in the photograph have provided you with
         explicit approval to be photographed and for the photograph to be
@@ -94,12 +94,12 @@ const PrivacyPolicy = () => (
         <LowerAlphaList>
           <li>Having the photograph appear on the Site;</li>
           <li>
-            Allowing the photograph to be used by Upswyng.org for informational
+            Allowing the photograph to be used by UpSwyng.org for informational
             or educational purposes which may include appearing in mass media,
             video, presentations, printed material or emails on our Site;
           </li>
           <li>
-            The use of the photograph by Upswyng.org for informational,
+            The use of the photograph by UpSwyng.org for informational,
             educational or promotional purposes does not entitle you or anyone
             else to any prior notice, compensation or other remedies; and
           </li>
@@ -111,10 +111,10 @@ const PrivacyPolicy = () => (
       </li>
     </ol>
     <p>
-      Upswyng.org will not publish or otherwise distribute your name or other
+      UpSwyng.org will not publish or otherwise distribute your name or other
       personally identifying information (or that of others appearing in the
       textual, image or video) without your prior explicit consent. Instead,
-      Upswyng.org may elect to use your initials and city/state if needed. We do
+      UpSwyng.org may elect to use your initials and city/state if needed. We do
       not collect or store sensitive information such as credit card or social
       security numbers.
     </p>
@@ -133,11 +133,11 @@ const PrivacyPolicy = () => (
       action regarding illegal activities, suspected fraud, situations involving
       potential threats to the physical safety of any person, violations of our
       Terms of Use, or as otherwise required by law. Agents and contractors of
-      Upswyng.org who have access to personally identifiable information are
+      UpSwyng.org who have access to personally identifiable information are
       required to protect this information in a manner that is consistent with
       this Privacy Policy by, for example, not using the information for any
       purpose other than to carry out the services they are performing for
-      Upswyng.org. Although we take appropriate measures to safeguard against
+      UpSwyng.org. Although we take appropriate measures to safeguard against
       unauthorized disclosures of information, we cannot assure you that
       personally identifiable information that we collect will never be
       disclosed in a manner that is inconsistent with this Privacy Policy.
@@ -159,7 +159,7 @@ const PrivacyPolicy = () => (
     </p>
     <h2>Children’s Online Privacy Protection</h2>
     <p>
-      Upswyng.org is not intended for children under 13 years of age. No one
+      UpSwyng.org is not intended for children under 13 years of age. No one
       under the age 13 may provide any personal information to the Website or
       application. We do not knowingly collect personal information from
       children under 13. If you are under 13, do not use or provide any

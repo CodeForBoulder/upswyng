@@ -3,7 +3,7 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/d594885b-4ffa-496d-8e1b-78d23f55e6c2/deploy-status)](https://app.netlify.com/sites/upswyng/deploys)
 [![Build Status](https://travis-ci.org/CodeForBoulder/upswyng.svg?branch=master)](https://travis-ci.org/CodeForBoulder/upswyng)
 
-Upswyng is a digital directory that contains information on local services and providers who serve the homeless community in the Boulder area.
+UpSwyng is a digital directory that contains information on local services and providers who serve the homeless community in the Boulder area.
 
 ## Setup
 
@@ -26,7 +26,7 @@ Get started here: [https://cloud.google.com/maps-platform/](https://cloud.google
 
 Click `Get Started`, select `Maps` and `Routes` and proceed with the setup.
 
-You will be presented with your key, which you will then need to save to your Upswyng directory's `.env.local` as `REACT_APP_GOOGLE_MAPS_API_KEY=yourUniqueGoogleAPIKeyHere`
+You will be presented with your key, which you will then need to save to your UpSwyng directory's `.env.local` as `REACT_APP_GOOGLE_MAPS_API_KEY=yourUniqueGoogleAPIKeyHere`
 
 Once you've copied the file, you'll need to start/restart the application (see commands section below).
 
