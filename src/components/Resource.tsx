@@ -1,13 +1,14 @@
 import React from 'react';
-import { TResource } from '../types';
+import { TCategoryStub, TResource } from '../types';
 import useResource from './useResource';
 import { getSearchParamVal } from '../utils/searchParams';
 import { SEARCH_PARAM_RESOURCE } from '../constants';
 
+import { categories, TCategoryDefinition } from './Categories';
 import BannerColorContext from './BannerColorContext';
 import LoadingSpinner from './LoadingSpinner';
 import PageBanner from './PageBanner';
-import { Container } from '../App.styles';
+import { colors, Container } from '../App.styles';
 import Details, { DetailBody, DetailHeading } from './Details';
 import Schedule from './Schedule';
 import Services from './Services';
@@ -79,6 +80,25 @@ const renderErrorMessage = () => (
   <p>We&apos;re sorry, this service was not found.</p>
 );
 
+const getMainCategory = (
+  categoryStub: TCategoryStub
+): TCategoryDefinition | null => {
+  if (!categoryStub) {
+    return null;
+  }
+
+  const [_, resourceMainCategoryInfo] = Object.entries(categories).find(
+    ([_, categoryInfo]) => {
+      const {
+        mainCategory: { stub: mainCategoryStub }
+      } = categoryInfo;
+      return mainCategoryStub === categoryStub;
+    }
+  ) || [undefined, null];
+
+  return resourceMainCategoryInfo;
+};
+
 export const Resource = () => {
   const resourceId = getSearchParamVal(SEARCH_PARAM_RESOURCE);
 
@@ -100,14 +120,20 @@ export const Resource = () => {
 
   const { name, schedule, subcategories } = resource;
 
-  const resourceCategoryColor = subcategories.length
-    ? subcategories[0].parentCategory.color
+  const defaultCategoryStub = subcategories.length
+    ? subcategories[0].parentCategory.stub
     : '';
+  const mainCategoryDefinition = defaultCategoryStub
+    ? getMainCategory(defaultCategoryStub)
+    : null;
+  const resourceCategoryColorName = mainCategoryDefinition
+    ? mainCategoryDefinition.color
+    : 'black';
 
   return (
     <Container>
       <PageBanner
-        color={currentBannerColor || resourceCategoryColor}
+        color={currentBannerColor || colors[resourceCategoryColorName]}
         text={name}
       />
       <Details>
