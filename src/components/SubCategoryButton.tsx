@@ -1,6 +1,7 @@
 import React from 'react';
 import Button, { ButtonProps } from '@material-ui/core/Button';
 import { darken } from 'polished';
+
 import styled, { css } from 'styled-components';
 import { colors, font } from '../App.styles';
 
@@ -44,9 +45,11 @@ const SubCategoryButton = ({
   ` as typeof Button;
 
   return isSelected ? (
-    <SelectedSubCategoryButton {...rest}>{children}</SelectedSubCategoryButton>
+    <SelectedSubCategoryButton component="span" {...rest}>
+      {children}
+    </SelectedSubCategoryButton>
   ) : (
-    <UnSelectedSubCategoryButton {...rest}>
+    <UnSelectedSubCategoryButton component="span" {...rest}>
       {children}
     </UnSelectedSubCategoryButton>
   );

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+
 import { TResourceCategory, TResourceSubcategory } from '../types';
 import styled from 'styled-components';
 import { font } from '../App.styles';
@@ -8,7 +10,6 @@ interface Props {
   category: TResourceCategory;
   color: string;
   subCategories: TResourceSubcategory[];
-  handleSubCategoryClick: Function;
 }
 
 const subCategoryHorizontalSpacing = 5;
@@ -30,47 +31,37 @@ const SubCategoryItem = styled.li`
   margin: 0 ${font.helpers.convertPixelsToRems(subCategoryHorizontalSpacing)};
 `;
 
-const SubCategories = ({
-  category,
-  color,
-  handleSubCategoryClick,
-  subCategories
-}: Props) => {
-  const { stub: categoryStub } = category;
-  const [selectedSubCategory, updateSelectedSubCategory] = useState<
-    TResourceCategory | TResourceSubcategory
-  >(category);
+const SubCategories = ({ category, color, subCategories }: Props) => {
+  const params = useParams<{ subcategory?: string }>();
 
-  const handleClick = (
-    subCategory: TResourceCategory | TResourceSubcategory
-  ) => {
-    const { stub } = subCategory;
-    updateSelectedSubCategory(subCategory);
-    handleSubCategoryClick(stub);
-  };
+  const { stub: categoryStub } = category;
+
+  const currentSubCategoryStub = params.subcategory ? params.subcategory : null;
 
   return (
     <SubCategoriesList>
-      <SubCategoryItem key={categoryStub}>
-        <SubCategoryButton
-          buttonColor={color}
-          isSelected={selectedSubCategory.stub === categoryStub}
-          onClick={() => handleClick(category)}
-        >
-          All
-        </SubCategoryButton>
+      <SubCategoryItem>
+        <Link to={`/${categoryStub}`}>
+          <SubCategoryButton
+            buttonColor={color}
+            isSelected={!currentSubCategoryStub}
+          >
+            All
+          </SubCategoryButton>
+        </Link>
       </SubCategoryItem>
       {subCategories.map(subCategory => {
-        const { text, stub } = subCategory;
+        const { text, stub: subcategoryStub } = subCategory;
         return (
-          <SubCategoryItem key={stub}>
-            <SubCategoryButton
-              buttonColor={color}
-              isSelected={selectedSubCategory.stub === stub}
-              onClick={() => handleClick(subCategory)}
-            >
-              {text}
-            </SubCategoryButton>
+          <SubCategoryItem key={subcategoryStub}>
+            <Link to={`/${categoryStub}/${subcategoryStub}`}>
+              <SubCategoryButton
+                buttonColor={color}
+                isSelected={currentSubCategoryStub === subcategoryStub}
+              >
+                {text}
+              </SubCategoryButton>
+            </Link>
           </SubCategoryItem>
         );
       })}

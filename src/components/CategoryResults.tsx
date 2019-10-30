@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useParams } from 'react-router-dom';
+
 import {
-  TCategoryStub,
   TSubcategoryStub,
   TResourceCategory,
-  TResourceSubcategory
+  TResourceSubcategory,
+  TSubcategory
 } from '../types';
 import PageBanner from './PageBanner';
 import SubCategories from './SubCategories';
@@ -24,29 +26,13 @@ const CategoryResults = ({
   placeholder,
   subCategories
 }: Props) => {
+  const params = useParams<{ subcategory?: string }>();
+
   const { text: categoryText, stub: categoryStub } = category;
-
-  const [
-    currentSubcategory,
-    setCurrentSubcategory
-  ] = useState<TSubcategoryStub | null>(null);
-
   const categoryResources = useResourcesByCategory(categoryStub);
-  const subCategoryResources = useResourcesBySubcategory(currentSubcategory);
 
-  const resources = currentSubcategory
-    ? subCategoryResources
-    : categoryResources;
-
-  const handleSubCategoryClick = (
-    newStub: TCategoryStub | TSubcategoryStub
-  ) => {
-    if (newStub !== currentSubcategory) {
-      setCurrentSubcategory(
-        newStub !== categoryStub ? (newStub as TSubcategoryStub) : null
-      );
-    }
-  };
+  const subcategoryStub = params.subcategory ? params.subcategory : null;
+  const subcategoryResources = useResourcesBySubcategory(subcategoryStub);
 
   return (
     <>
@@ -55,9 +41,11 @@ const CategoryResults = ({
         category={category}
         color={categoryColor}
         subCategories={subCategories}
-        handleSubCategoryClick={handleSubCategoryClick}
       />
-      <ResourceList placeholder={placeholder} resources={resources} />
+      <ResourceList
+        placeholder={placeholder}
+        resources={subcategoryStub ? subcategoryResources : categoryResources}
+      />
     </>
   );
 };
