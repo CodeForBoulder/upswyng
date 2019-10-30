@@ -1,4 +1,6 @@
 import React from 'react';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
+
 import { TResourceCategory, TResourceSubcategory } from '../types';
 import { colors, Container } from '../App.styles';
 import {
@@ -296,16 +298,35 @@ export const categories: Record<TCategoryName, TCategoryDefinition> = {
 export default Object.entries(categories).reduce(
   (result, [categoryName, categoryValue]) => ({
     ...result,
-    [categoryName]: () => (
-      <Container>
-        <CategoryResults
-          category={categoryValue.mainCategory}
-          color={colors[categoryValue.color]}
-          placeholder={categoryValue.placeholder}
-          subCategories={categoryValue.subCategories}
-        />
-      </Container>
-    )
+    [categoryName]: () => {
+      const routeMatch = useRouteMatch();
+      const path = routeMatch ? routeMatch.path : '';
+
+      return (
+        <Switch>
+          <Route exact path={`${path}`}>
+            <Container>
+              <CategoryResults
+                category={categoryValue.mainCategory}
+                color={colors[categoryValue.color]}
+                placeholder={categoryValue.placeholder}
+                subCategories={categoryValue.subCategories}
+              />
+            </Container>
+          </Route>
+          <Route path={`${path}/:subcategory`}>
+            <Container>
+              <CategoryResults
+                category={categoryValue.mainCategory}
+                color={colors[categoryValue.color]}
+                placeholder={categoryValue.placeholder}
+                subCategories={categoryValue.subCategories}
+              />
+            </Container>
+          </Route>
+        </Switch>
+      );
+    }
   }),
   // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
   {} as Record<TCategoryName, React.FunctionComponent<{}>>

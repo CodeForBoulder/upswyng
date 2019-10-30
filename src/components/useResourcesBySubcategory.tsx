@@ -8,7 +8,7 @@ import {
 } from '../types';
 
 const useResourcesBySubcategory = (
-  subcategory: TSubcategoryStub | null
+  subcategory: TSubcategoryStub | string | null
 ): undefined | null | TResource[] => {
   const [resourcesBySubcategory, setResourcesBySubcategory] = useState<
     undefined | null | TResource[]
