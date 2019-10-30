@@ -31,6 +31,15 @@ const SubCategoryItem = styled.li`
   margin: 0 ${font.helpers.convertPixelsToRems(subCategoryHorizontalSpacing)};
 `;
 
+const SubCategoryLink = styled(Link)`
+  &:link,
+  &:visited,
+  &:hover,
+  &:active {
+    text-decoration: none;
+  }
+`;
+
 const SubCategories = ({ category, color, subCategories }: Props) => {
   const params = useParams<{ subcategory?: string }>();
 
@@ -41,27 +50,27 @@ const SubCategories = ({ category, color, subCategories }: Props) => {
   return (
     <SubCategoriesList>
       <SubCategoryItem>
-        <Link to={`/${categoryStub}`}>
+        <SubCategoryLink to={`/${categoryStub}`}>
           <SubCategoryButton
             buttonColor={color}
             isSelected={!currentSubCategoryStub}
           >
             All
           </SubCategoryButton>
-        </Link>
+        </SubCategoryLink>
       </SubCategoryItem>
       {subCategories.map(subCategory => {
         const { text, stub: subcategoryStub } = subCategory;
         return (
           <SubCategoryItem key={subcategoryStub}>
-            <Link to={`/${categoryStub}/${subcategoryStub}`}>
+            <SubCategoryLink to={`/${categoryStub}/${subcategoryStub}`}>
               <SubCategoryButton
                 buttonColor={color}
                 isSelected={currentSubCategoryStub === subcategoryStub}
               >
                 {text}
               </SubCategoryButton>
-            </Link>
+            </SubCategoryLink>
           </SubCategoryItem>
         );
       })}
