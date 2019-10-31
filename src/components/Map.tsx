@@ -283,6 +283,7 @@ const Map = ({ resource }: Props) => {
     try {
       await placeDirections();
     } catch (err) {
+      console.log(err);
       // TODO: log this error
     }
   };
