@@ -15,7 +15,8 @@
     "server-start": "node __sapper__/build",
     "server-cy:run": "cypress run",
     "server-cy:open": "cypress open",
-    "server-test": "run-p --race server-dev server-cy:run"
+    "server-test": "run-p --race server-dev server-cy:run",
+    "unit": "jest"
   },
   "dependencies": {
     "@polka/redirect": "^1.0.0-next.0",
@@ -54,6 +55,7 @@
     "react-native-vector-icons": "^4.6.0",
     "react-native-web": "^0.11.4",
     "react-router-native": "^5.0.1",
+    "rrule": "^2.6.2",
     "sirv": "^0.4.0"
   },
   "devDependencies": {
@@ -68,7 +70,7 @@
     "@types/cli-progress": "^1.8.1",
     "@types/connect-mongo": "0.0.43",
     "@types/debounce": "^1.2.0",
-    "@types/jest": "^24.0.18",
+    "@types/jest": "^24.0.20",
     "@types/mongodb": "^3.3.1",
     "@types/mongoose": "^5.5.17",
     "@types/react": "^16.9.2",
@@ -92,6 +94,7 @@
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-native": "^3.7.0",
     "eslint-plugin-svelte3": "^2.7.3",
+    "jest": "^24.9.0",
     "node-sass": "^4.12.0",
     "npm-run-all": "^4.1.5",
     "postcss": "^7.0.18",
@@ -112,6 +115,7 @@
     "svelte-forms": "github:rhinodavid/svelte-forms#url-validator-fix",
     "svelte-preprocess": "^3.1.2",
     "svelte-select": "github:rob-balfre/svelte-select#7973bb712c2cadb7abf0bc701ccd46785c48fd07",
+    "ts-jest": "^24.1.0",
     "typescript": "^3.4.5"
   },
   "engines": {

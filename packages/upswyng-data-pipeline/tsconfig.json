@@ -7,7 +7,7 @@
     "noEmit": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "types": ["@pyoner/svelte-types"]
+    "types": ["@pyoner/svelte-types", "jest"]
   },
   "include": ["src/**/*", "server/src/**/*"]
 }
