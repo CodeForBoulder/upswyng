@@ -1,0 +1,24 @@
+.env
+node_modules/**/*
+.expo/*
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+web-report/
+config.ts
+
+# Sapper Server
+.DS_Store
+server/node_modules/
+src/node_modules/
+server/src/node_modules/@sapper/
+yarn-error.log
+/cypress/screenshots/
+/__sapper__/
+
+/__build__/
