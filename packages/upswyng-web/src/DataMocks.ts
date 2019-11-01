@@ -1,4 +1,4 @@
-import { TResource } from './types';
+import { TResource } from '@upswyng/upswyng-types';
 
 export const blankResource: TResource = {
   _id: '',

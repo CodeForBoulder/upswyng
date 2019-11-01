@@ -1,4 +1,4 @@
-import { TLegacyResource } from "./types";
+import { TLegacyResource } from "@upswyng/upswyng-types";
 import { useState, useEffect } from "react";
 import firebase from "./firebase";
 

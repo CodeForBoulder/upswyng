@@ -27,7 +27,8 @@ const SubCategoryButton = ({
     <Touchable
       accessibilityLabel="Go back"
       testID={`test_back_button`}
-      onPress={onSubcategoryClick}>
+      onPress={onSubcategoryClick}
+    >
       <View
         style={{
           backgroundColor: buttonColor,
@@ -36,7 +37,8 @@ const SubCategoryButton = ({
           paddingHorizontal: 24,
           flexDirection: "row",
           alignItems: "center",
-        }}>
+        }}
+      >
         <RegularText fontSize={14} style={{ color: colors.white }}>
           {text}
         </RegularText>

@@ -1,16 +1,17 @@
-import React from 'react';
 import { Response } from 'algoliasearch';
-
+import React from 'react';
 import ResourceList from './ResourceList';
 
 interface Props {
   placeholder?: React.ReactElement;
-  results: Response | null | undefined;
+  results?: Response;
 }
 
-const mapResultsToResources = (results: Response | null | undefined) => {
+const mapResultsToResources = (
+  results?: Response
+): null | { id: string; name: string }[] => {
   if (!results) {
-    return results;
+    return null;
   }
 
   const { hits } = results;
@@ -18,15 +19,11 @@ const mapResultsToResources = (results: Response | null | undefined) => {
     return null;
   }
 
-  {
-    name: 'Some Charity';
-  }
-
   const resources = hits.map(({ name, objectID }) => ({
     id: objectID,
     name
   }));
-  return resources;
+  return resources as { id: string; name: string }[];
 };
 
 const SearchResults = ({ placeholder, results }: Props) => (

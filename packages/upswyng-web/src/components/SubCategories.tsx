@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-import { TResourceCategory, TResourceSubcategory } from '../types';
+import { TResourceCategory, TResourceSubcategory } from '../webTypes';
 import styled from 'styled-components';
 import { font } from '../App.styles';
 import SubCategoryButton from './SubCategoryButton';

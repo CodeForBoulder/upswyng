@@ -1,5 +1,5 @@
+import { TIconProps } from "../nativeTypes";
 import React from "react";
-import { TIconProps } from "../types";
 import Svg, { Path } from "react-native-svg";
 
 export default class DirectionsBus extends React.Component<TIconProps> {
@@ -9,7 +9,8 @@ export default class DirectionsBus extends React.Component<TIconProps> {
         preserveAspectRatio="xMaxYMax"
         width="100%"
         height="100%"
-        viewBox="2 2 20 20">
+        viewBox="2 2 20 20"
+      >
         <Path d="M0 0h24v24H0z" fill="none" />
         <Path
           fill={this.props.color}

@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "jsx": "react-native",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "noImplicitAny": false,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "target": "es5",
+    "types": ["@pyoner/svelte-types", "jest"]
+  },
+  "include": [
+    "packages/upswyng-server/jest.config.js",
+    "packages/*/src/**/*",
+    "**/*.rollup.config.js"
+  ],
+  "exclude": ["node_modules"]
+}

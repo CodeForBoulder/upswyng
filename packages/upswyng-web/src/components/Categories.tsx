@@ -1,8 +1,3 @@
-import React from 'react';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
-
-import { TResourceCategory, TResourceSubcategory } from '../types';
-import { colors, Container } from '../App.styles';
 import {
   BananaIcon,
   BusIcon,
@@ -14,7 +9,11 @@ import {
   SocksIcon,
   WifiIcon
 } from './Icons';
+import { colors, Container } from '../App.styles';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import React from 'react';
 import CategoryResults from './CategoryResults';
+import { TResourceSubcategory, TResourceCategory } from '../webTypes';
 
 export interface TCategoryDefinition {
   color: keyof typeof colors;
@@ -34,6 +33,7 @@ type TCategoryName =
   | 'Transit'
   | 'Wifi';
 
+// TODO: Fetch this from the server
 export const categories: Record<TCategoryName, TCategoryDefinition> = {
   Food: {
     color: 'gold',
@@ -328,6 +328,6 @@ export default Object.entries(categories).reduce(
       );
     }
   }),
-  // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
+  // eslint-disable-next-line
   {} as Record<TCategoryName, React.FunctionComponent<{}>>
 );

@@ -1,5 +1,5 @@
+import { TDay, TSchedule, TSchedulePeriod } from '@upswyng/upswyng-types';
 import moment from 'moment';
-import { TDay, TSchedule, TSchedulePeriod } from '../types';
 
 const orderedPeriods: TSchedulePeriod[] = [
   'First',

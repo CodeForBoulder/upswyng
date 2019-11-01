@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import algoliaSearch from 'algoliasearch';
-import { TEnvVariables } from '../types';
+import { TEnvVariables } from '../webTypes';
 
 declare const process: TEnvVariables;
 

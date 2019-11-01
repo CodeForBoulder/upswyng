@@ -9,7 +9,7 @@ import {
   Linking,
 } from "react-native";
 import { BoldText } from "./UpText";
-import { TIconProps } from "../types";
+import { TIconProps } from "../nativeTypes";
 import { withRouter, RouteComponentProps } from "react-router-native";
 
 interface HomeButtonProps extends RouteComponentProps {
@@ -19,6 +19,16 @@ interface HomeButtonProps extends RouteComponentProps {
   linkState?: string; // 'href' will override `linkState`
   text: string;
 }
+
+const createStyles = (color: string) =>
+  StyleSheet.create({
+    item: {
+      backgroundColor: `${color}`,
+      padding: 12,
+      flex: 1,
+      justifyContent: "space-between",
+    },
+  });
 
 const Touchable = (Platform.OS === "android"
   ? TouchableNativeFeedback
@@ -38,7 +48,8 @@ const HomeButton = (props: HomeButtonProps) => {
     <Touchable
       accessibilityLabel={props.text}
       testID={`button_test_${props.text}`}
-      onPress={onPress}>
+      onPress={onPress}
+    >
       <View style={styles.item}>
         <BoldText
           fontSize={20}
@@ -48,7 +59,8 @@ const HomeButton = (props: HomeButtonProps) => {
             marginBottom: -12,
             position: "relative",
             top: 0,
-          }}>
+          }}
+        >
           {props.text}
         </BoldText>
         <View
@@ -57,22 +69,13 @@ const HomeButton = (props: HomeButtonProps) => {
             height: 36,
             position: "relative",
             width: 36,
-          }}>
+          }}
+        >
           <Icon color="#fff" />
         </View>
       </View>
     </Touchable>
   );
 };
-
-const createStyles = (color: string) =>
-  StyleSheet.create({
-    item: {
-      backgroundColor: `${color}`,
-      padding: 12,
-      flex: 1,
-      justifyContent: "space-between",
-    },
-  });
 
 export default withRouter(HomeButton);

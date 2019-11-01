@@ -1,6 +1,6 @@
 import Svg, { Path } from "react-native-svg";
 import React from "react";
-import { TIconProps } from "../types";
+import { TIconProps } from "../nativeTypes";
 
 export default class Add extends React.Component<TIconProps> {
   render() {

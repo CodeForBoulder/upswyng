@@ -1,25 +1,21 @@
+import { TResourcesBySubcategoryPayload } from '../webTypes';
 import { useEffect, useState } from 'react';
 import apiClient from '../utils/apiClient';
-
-import {
-  TSubcategoryStub,
-  TResource,
-  TResourcesBySubcategoryPayload
-} from '../types';
+import { TResource } from '@upswyng/upswyng-types';
 
 const useResourcesBySubcategory = (
-  subcategory: TSubcategoryStub | string | null
+  subcategoryStub: string | null
 ): undefined | null | TResource[] => {
   const [resourcesBySubcategory, setResourcesBySubcategory] = useState<
     undefined | null | TResource[]
   >();
 
   useEffect(() => {
-    if (subcategory) {
+    if (subcategoryStub) {
       const getResourceBySubcategory = async (): Promise<void> => {
         try {
           const { data } = await apiClient.get<TResourcesBySubcategoryPayload>(
-            `/subcategory/${subcategory}`
+            `/subcategory/${subcategoryStub}`
           );
 
           if (!data.subcategory) {
@@ -45,7 +41,7 @@ const useResourcesBySubcategory = (
 
       getResourceBySubcategory();
     }
-  }, [subcategory]);
+  }, [subcategoryStub]);
 
   return resourcesBySubcategory;
 };

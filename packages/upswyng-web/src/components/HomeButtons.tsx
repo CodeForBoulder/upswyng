@@ -14,7 +14,7 @@ import {
   WifiIcon
 } from './Icons';
 import styled from 'styled-components';
-import { THomeButtonAnchor, THomeButtonRouterLink } from '../types';
+import { THomeButtonAnchor, THomeButtonRouterLink } from '../webTypes';
 import { HomeRouterLink, HomeAnchorLink } from './HomeLink';
 import HomeButton from './HomeButton';
 import { colors } from '../App.styles';

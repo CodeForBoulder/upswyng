@@ -1,8 +1,8 @@
-import React from 'react';
 import { Chip } from '@material-ui/core';
-import styled from 'styled-components';
-import { TResource } from '../types';
 import { colors, font } from '../App.styles';
+import { TResource } from '@upswyng/upswyng-types';
+import React from 'react';
+import styled from 'styled-components';
 
 interface Props {
   resource: TResource;

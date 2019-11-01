@@ -1,18 +1,17 @@
-import React from 'react';
-import { TCategoryStub, TResource } from '../types';
-import useResource from './useResource';
+import { categories, TCategoryDefinition } from './Categories';
+import { colors, Container } from '../App.styles';
 import { getSearchParamVal } from '../utils/searchParams';
 import { SEARCH_PARAM_RESOURCE } from '../constants';
-
-import { categories, TCategoryDefinition } from './Categories';
+import { TResource } from '@upswyng/upswyng-types';
 import BannerColorContext from './BannerColorContext';
-import LoadingSpinner from './LoadingSpinner';
-import PageBanner from './PageBanner';
-import { colors, Container } from '../App.styles';
 import Details, { DetailBody, DetailHeading } from './Details';
+import LoadingSpinner from './LoadingSpinner';
+import Map from './Map';
+import PageBanner from './PageBanner';
+import React from 'react';
 import Schedule from './Schedule';
 import Services from './Services';
-import Map from './Map';
+import useResource from './useResource';
 
 interface Props {
   id: string;
@@ -80,9 +79,7 @@ const renderErrorMessage = () => (
   <p>We&apos;re sorry, this service was not found.</p>
 );
 
-const getMainCategory = (
-  categoryStub: TCategoryStub
-): TCategoryDefinition | null => {
+const getMainCategory = (categoryStub: string): TCategoryDefinition | null => {
   if (!categoryStub) {
     return null;
   }

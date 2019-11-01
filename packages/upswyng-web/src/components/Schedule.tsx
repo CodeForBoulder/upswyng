@@ -1,7 +1,7 @@
-import React from 'react';
-import { TDay, TSchedule } from '../types';
-import { orderSchedule } from '../utils/schedule';
 import { font } from '../App.styles';
+import { orderSchedule } from '../utils/schedule';
+import { TDay, TSchedule } from '@upswyng/upswyng-types';
+import React from 'react';
 import styled from 'styled-components';
 
 interface ScheduleProps {

@@ -26,7 +26,8 @@ function TwoColumnLayout<T extends JSX.Element>(props: { items: T[] }) {
                   flexDirection: "row",
                   flex: 1,
                   marginBottom: 8,
-                }}>
+                }}
+              >
                 <View style={{ flex: 1 }}>{leftItem}</View>
                 <View style={{ width: 8 }} />
                 <View style={{ flex: 1 }}>{rightItem}</View>

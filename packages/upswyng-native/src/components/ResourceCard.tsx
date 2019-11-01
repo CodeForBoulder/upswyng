@@ -15,15 +15,18 @@ const ResourceCard = ({ resourceId, resourceName }: Props) => (
     style={{ flex: 1 }}
     to={{
       pathname: `/resource/${resourceId}`,
-    }}>
+    }}
+  >
     <View
-      style={{ flex: 1, backgroundColor: colors.greyLight, borderRadius: 8 }}>
+      style={{ flex: 1, backgroundColor: colors.greyLight, borderRadius: 8 }}
+    >
       <View
         style={{
           flex: 1,
           justifyContent: "flex-end",
           alignItems: "flex-start",
-        }}>
+        }}
+      >
         <BoldText
           fontSize={11}
           style={{
@@ -33,7 +36,8 @@ const ResourceCard = ({ resourceId, resourceName }: Props) => (
             textShadowColor: "#0005",
             textShadowRadius: 5,
             padding: 4,
-          }}>
+          }}
+        >
           {resourceName}
         </BoldText>
       </View>
@@ -46,7 +50,8 @@ const ResourceCard = ({ resourceId, resourceName }: Props) => (
             flex: 1,
             flexDirection: "row",
             paddingLeft: 4,
-          }}>
+          }}
+        >
           <RegularText fontSize={10} style={{ color: colors.white }}>
             {"schedule placeholder"}
           </RegularText>
@@ -58,7 +63,8 @@ const ResourceCard = ({ resourceId, resourceName }: Props) => (
             justifyContent: "center",
             alignItems: "center",
             borderBottomRightRadius: 8,
-          }}>
+          }}
+        >
           <View style={{ height: 12, width: 12 }}>
             <AddIcon color={colors.white} />
           </View>

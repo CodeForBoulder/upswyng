@@ -13,13 +13,15 @@ const Header = () => {
         flexDirection: "row",
         justifyContent: "space-between",
         width: "100%",
-      }}>
+      }}
+    >
       <View />
       <View
         style={{
           width: 128,
           height: 46,
-        }}>
+        }}
+      >
         <UpswyngLogo />
       </View>
     </View>

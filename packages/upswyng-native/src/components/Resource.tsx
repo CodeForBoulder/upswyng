@@ -1,13 +1,13 @@
-import React from "react";
-import { TLegacyResource, TLegacySchedule } from "../types";
-import useResource from "../useResource";
-import { FIREBASE_RESOURCE_BRANCH } from "../constants";
-import Map from "./Map";
-import { orderSchedule } from "../utility/schedule";
-import { withRouter, RouteComponentProps } from "react-router-native";
-import { colors } from "../App.styles";
-import { View, ActivityIndicator, ScrollView } from "react-native";
 import { BoldText, RegularText } from "./UpText";
+import { colors } from "../App.styles";
+import { FIREBASE_RESOURCE_BRANCH } from "../constants";
+import { orderSchedule } from "../utility/schedule";
+import { TLegacyResource, TLegacySchedule } from "@upswyng/upswyng-types";
+import { View, ActivityIndicator, ScrollView } from "react-native";
+import { withRouter, RouteComponentProps } from "react-router-native";
+import Map from "./Map";
+import React from "react";
+import useResource from "../useResource";
 
 interface Props extends RouteComponentProps<{ id: string }> {
   id: string;
@@ -56,7 +56,8 @@ export const Resource = (props: Props) => {
       </BoldText>
       <ScrollView
         showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={true}>
+        showsVerticalScrollIndicator={true}
+      >
         <Heading>Address</Heading>
         <Body>
           <>
@@ -165,7 +166,8 @@ const Services = (props: TServicesProps) => {
               paddingLeft: 12,
               paddingRight: 14,
               paddingTop: 4,
-            }}>
+            }}
+          >
             {x}
           </BoldText>
         );

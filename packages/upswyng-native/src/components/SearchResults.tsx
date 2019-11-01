@@ -15,7 +15,8 @@ const ResourceGrid = (props: { resources: TSearchHit[] }) => {
             key={objectId}
             style={{
               height: 128,
-            }}>
+            }}
+          >
             <ResourceCard resourceId={objectId} resourceName={resourceName} />
           </View>
         );
@@ -28,7 +29,8 @@ const ResourceGrid = (props: { resources: TSearchHit[] }) => {
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={true}
       pinchGestureEnabled={false}
-      style={{ flex: 1 }}>
+      style={{ flex: 1 }}
+    >
       <TwoColumnLayout items={items} />
     </ScrollView>
   ) : (
@@ -52,7 +54,8 @@ const SearchResults = ({ searchHits }: Props) => {
         flex: 1,
         justifyContent: "flex-start",
         alignItems: "center",
-      }}>
+      }}
+    >
       <ActivityIndicator size="large" color={colors.orangePrimary} />
     </View>
   );

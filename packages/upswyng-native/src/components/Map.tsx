@@ -1,10 +1,9 @@
-import { TLegacyResource } from "../types";
-import React from "react";
-import MapView, { Marker, Callout } from "react-native-maps";
-import { View } from "react-native";
-import { Resource } from "./Resource";
 import { colors } from "../App.styles";
 import { RegularText, BoldText } from "./UpText";
+import { TLegacyResource } from "@upswyng/upswyng-types";
+import { View } from "react-native";
+import MapView, { Marker, Callout } from "react-native-maps";
+import React from "react";
 
 class Map extends React.Component<{ resource: TLegacyResource }> {
   render() {
@@ -31,7 +30,8 @@ class Map extends React.Component<{ resource: TLegacyResource }> {
           }}
           loadingIndicatorColor={colors.orangePrimary}
           loadingEnabled={true}
-          loadingBackgroundColor={colors.greyLight}>
+          loadingBackgroundColor={colors.greyLight}
+        >
           <Marker
             coordinate={{
               latitude,
@@ -40,7 +40,8 @@ class Map extends React.Component<{ resource: TLegacyResource }> {
             description={`${address1}\n${
               address2 ? address2 + "\n" : ""
             }${city}, ${state}\n${zip}`}
-            title={name}>
+            title={name}
+          >
             <Callout>
               <View>
                 <BoldText fontSize={12}>{name}</BoldText>

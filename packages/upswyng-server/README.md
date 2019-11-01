@@ -1,134 +1,88 @@
-# Upswyng (native)
+# sapper-template
 
-Upswyng is a digital directory that contains information on local services and providers who serve the homeless community in the Boulder area.
+The default [Sapper](https://github.com/sveltejs/sapper) template, with branches for Rollup and webpack. To clone it and get started:
 
-This is the React Native version. Check out the web version [here](https://github.com/CodeForBoulder/upswyng/).
-
-<img src='readme_android.png' height=600 alt="Upswyng mockup running on a Pixel phone" />
-
-## Setup
-
-The initial project structure was generated using the [Create React Native App](https://facebook.github.io/react-native/blog/2017/03/13/introducing-create-react-native-app) and is powered by [Expo](https://expo.io/).
-
-### Create `config.ts` file
-
-To use the local development database, you'll only need to create a copy of `config.example.ts` and name that copy `config.ts`.
-
-You can do this via your system's file explorer or via the following terminal command while in the repo:
-
-```
-cp config.example.ts config.ts
+```bash
+# for Rollup
+npx degit "sveltejs/sapper-template#rollup" my-app
+# for webpack
+npx degit "sveltejs/sapper-template#webpack" my-app
+cd my-app
+npm install # or yarn!
+npm run dev
 ```
 
-### Google API Key Configuration
+Open up [localhost:3000](http://localhost:3000) and start clicking around.
 
-You will need an API key for Google Maps JavaScript API/Directions API.
-Get started here: [https://cloud.google.com/maps-platform/](https://cloud.google.com/maps-platform/)
+Consult [sapper.svelte.dev](https://sapper.svelte.dev) for help getting started.
 
-Click `Get Started`, select `Maps` and `Routes` and proceed with the setup.
 
-You will be presented with your key, which you will then need to save to your Upswyng directory's `config.ts` as `REACT_APP_GOOGLE_MAPS_API_KEY: yourUniqueGoogleAPIKeyHere`
+## Structure
 
-### Firebase DB Setup (Optional)
+Sapper expects to find two directories in the root of your project —  `src` and `static`.
 
-If you want to work with your own copy of the database, you'll need to setup your own Firebase project. Below are the steps for setting one up.
 
-**NOTE: THESE ARE OPTIONAL STEPS.**
+### src
 
-#### Create a Firebase Project
+The [src](src) directory contains the entry points for your app — `client.js`, `server.js` and (optionally) a `service-worker.js` — along with a `template.html` file and a `routes` directory.
 
-1. If you don't have one already, create a [Google Account](https://account.google.com/)
-2. Navigate to the [Firebase Console](https://console.firebase.google.com/)
-3. Click the **"New Project"** button
-4. Provide a name for your project, such as (but not required to be) `upswyng-local`
-5. Read and agree to the terms of service, and click the **"Create Project"** button
 
-#### Initialize Database
+#### src/routes
 
-1. Navigate to your newly made project (see above) in the [Firebase Console](https://console.firebase.google.com/).
-2. In the left, main navigation find and click **Database** in the "Develop" section.
-3. Click on the **"Create Database"** button.
-4. In the new modal, select **Start in test mode**
-5. Click the **"Enable"** button
+This is the heart of your Sapper app. There are two kinds of routes — *pages*, and *server routes*.
 
-#### Upload Data to Database
+**Pages** are Svelte components written in `.svelte` files. When a user first visits the application, they will be served a server-rendered version of the route in question, plus some JavaScript that 'hydrates' the page and initialises a client-side router. From that point forward, navigating to other pages is handled entirely on the client for a fast, app-like feel. (Sapper will preload and cache the code for these subsequent pages, so that navigation is instantaneous.)
 
-1. Navigate to your newly initialized database (see above).
-2. In the dropdown located next to the "Database" header, select **"Realtime Database"**
-3. In your terminal while in the repo, run `npm run datapipe`. This should create a new file called `data_pipeline/all.json`.
-4. In top, right of the main panel displaying your data, find and open the kebab menu icon (3 stacked dots). In that menu, select **"Import JSON"**.
-5. Upload the `data_pipeline/all.json` found in this repo.
-6. Click the **"Import"** button.
+**Server routes** are modules written in `.js` files, that export functions corresponding to HTTP methods. Each function receives Express `request` and `response` objects as arguments, plus a `next` function. This is useful for creating a JSON API, for example.
 
-🎉 You should now see your database populated! 🎉
+There are three simple rules for naming the files that define your routes:
 
-#### Add an App to Your Firebase Project
+* A file called `src/routes/about.svelte` corresponds to the `/about` route. A file called `src/routes/blog/[slug].svelte` corresponds to the `/blog/:slug` route, in which case `params.slug` is available to the route
+* The file `src/routes/index.svelte` (or `src/routes/index.js`) corresponds to the root of your app. `src/routes/about/index.svelte` is treated the same as `src/routes/about.svelte`.
+* Files and directories with a leading underscore do *not* create routes. This allows you to colocate helper modules and components with the routes that depend on them — for example you could have a file called `src/routes/_helpers/datetime.js` and it would *not* create a `/_helpers/datetime` route
 
-1. Return to the **"Project Overview"** page in your Firebase project in your [Firebase Console](https://console.firebase.google.com/)
-2. In the "Get started by adding Firebase to your app" section of the page, find and select the **"Web"** button, which looks like a self-closed HTML element **</>**.
-3. Give your app a nickname, such as (but not required to be) `upswyng-local`
-4. Click **"Register App"** button
 
-A new screen should display scripts to be added to a project. Go ahead keep this page open, ignore the instructions given in Firebase, and move on to the next section of this README.
+### static
 
-#### Update config.ts Variables
+The [static](static) directory contains any static assets that should be available. These are served using [sirv](https://github.com/lukeed/sirv).
 
-After completely setting up your Firebase project and registering your app (above), you'll need to setup some local environment variables to ensure the source compiles correctly.
+In your [service-worker.js](src/service-worker.js) file, you can import these as `files` from the generated manifest...
 
-1. Create a copy of the `config.example.ts` in this repo named `config.ts`
-2. In your newly created `config.ts` you'll want to update the value of each of the placeholder variables. Each variable corresponds with your Firebase configuration (see previous section). Below details which variable values match your Firebase configuration property.
-
-| `config.ts` variable name            | Firebase Config Property |
-| ------------------------------------ | ------------------------ |
-| REACT_APP_FIREBASE_API_KEY           | apiKey                   |
-| REACT_APP_FIREBASE_AUTH_DOMAIN       | authDomain               |
-| REACT_APP_FIREBASE_DATABASE_URL      | databaseURL              |
-| REACT_APP_FIREBASE_PROJECT_ID        | projectId                |
-| REACT_APP_FIREBASE_STORAGE_BUCKET    | storageBucket            |
-| REACT_APP_FIREBASE_MESSAGE_SENDER_ID | messagingSenderId        |
-
-So if the value of the `projectId` in your Firebase Config is `upswyng-local`, set your `REACT_APP_FIREBASE_PROJECT_ID` in your `config.ts` like below.
-
-```
-{
-    ...
-    REACT_APP_FIREBASE_PROJECT_ID: upswyng-local
-    ...
-}
+```js
+import { files } from '@sapper/service-worker';
 ```
 
-3. Once you've updated all variables, you'll need to download an iOS emulator or Android emulator. See the [React Native Getting Started Guide](https://facebook.github.io/react-native/docs/getting-started.html) for more information. Then continue below.
+...so that you can cache them (though you can choose not to, for example if you don't want to cache very large files).
 
-## Commands
 
-### `npm i`
+## Bundler config
 
-Installs project dependencies.
+Sapper uses Rollup or webpack to provide code-splitting and dynamic imports, as well as compiling your Svelte components. With webpack, it also provides hot module reloading. As long as you don't do anything daft, you can edit the configuration files to add whatever plugins you'd like.
 
-### `npm start`
 
-Starts Expo and will allow your virtual device to run Upswyng.
+## Production mode and deployment
 
-## Contributing
+To start a production version of your app, run `npm run build && npm start`. This will disable live reloading, and activate the appropriate bundler plugins.
 
-### 1. Find an Issue Pending Development, Needing Help, or Asking a Question
+You can deploy your application to any environment that supports Node 8 or above. As an example, to deploy to [Now](https://zeit.co/now), run these commands:
 
-Want to develop? All issues that have been approved for development, but have not been started will be labelled as **Status: Pending**.
+```bash
+npm install -g now
+now
+```
 
-We'd love your input on possible new features. Some issues aren't ready for development and won't have a status label. These issues may need more input before being approved and instead be labelled **Type: Help Wanted**.
 
-Maybe you have the answer to someone's question. Look through any issues labelled with **Type: Help Wanted** and comment with your answer.
+## Using external components
 
-### 2. Work on an Issue
+When using Svelte components installed from npm, such as [@sveltejs/svelte-virtual-list](https://github.com/sveltejs/svelte-virtual-list), Svelte needs the original component source (rather than any precompiled JavaScript that ships with the component). This allows the component to be rendered server-side, and also keeps your client-side app smaller.
 
-Once you have have found an issue you feel comfortable working on, request to work on the issue and we'll label the issue as **Status: In Progress** to make sure others don't work on it as well.
+Because of that, it's essential that the bundler doesn't treat the package as an *external dependency*. You can either modify the `external` option under `server` in [rollup.config.js](rollup.config.js) or the `externals` option in [webpack.config.js](webpack.config.js), or simply install the package to `devDependencies` rather than `dependencies`, which will cause it to get bundled (and therefore compiled) with your app:
 
-Then, create a new branch off the current `master`.
+```bash
+npm install -D @sveltejs/svelte-virtual-list
+```
 
-### 3. Create a Pull Request (PR)
 
-Once you believe your feature is ready for production, create a PR and reference what issue this addresses in the PR's description.
+## Bugs and feedback
 
-If there any updates requested, please make those updates on your local branch and re-push that branch to the repository.
-
-If approved, project managers will handle merging and deploying.
+Sapper is in early development, and may have the odd rough edge here and there. Please be vocal over on the [Sapper issue tracker](https://github.com/sveltejs/sapper/issues).

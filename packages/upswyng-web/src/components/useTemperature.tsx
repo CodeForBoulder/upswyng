@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import { TEnvVariables, TWeatherCurrentResponse } from '../types';
+import { TEnvVariables, TWeatherCurrentResponse } from '../webTypes';
 
 declare const process: TEnvVariables;
 

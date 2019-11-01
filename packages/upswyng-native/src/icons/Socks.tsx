@@ -1,5 +1,5 @@
+import { TIconProps } from "../nativeTypes";
 import React from "react";
-import { TIconProps } from "../types";
 import Svg, { Path, G } from "react-native-svg";
 
 export default class Socks extends React.Component<TIconProps> {
@@ -9,7 +9,8 @@ export default class Socks extends React.Component<TIconProps> {
         preserveAspectRatio="xMaxYMax"
         width="100%"
         height="100%"
-        viewBox="0 0 38.33 38.325">
+        viewBox="0 0 38.33 38.325"
+      >
         <G transform="translate(0 -0.082)">
           <Path
             fill={this.props.color}

@@ -1,6 +1,6 @@
-import Svg, { Path, G } from "react-native-svg";
+import { TIconProps } from "../nativeTypes";
 import React from "react";
-import { TIconProps } from "../types";
+import Svg, { Path, G } from "react-native-svg";
 
 export default class Door extends React.Component<TIconProps> {
   render() {
@@ -9,7 +9,8 @@ export default class Door extends React.Component<TIconProps> {
         width="100%"
         height="100%"
         preserveAspectRatio="xMaxYMax"
-        viewBox="0 0 26.084 38.563">
+        viewBox="0 0 26.084 38.563"
+      >
         <G transform="translate(-534.44 -448.249)">
           <Path
             fill={this.props.color}

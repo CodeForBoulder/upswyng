@@ -1,6 +1,6 @@
-import Svg, { Path } from "react-native-svg";
+import { TIconProps } from "../nativeTypes";
 import React from "react";
-import { TIconProps } from "../types";
+import Svg, { Path } from "react-native-svg";
 
 export default class Door extends React.Component<TIconProps> {
   render() {

@@ -1,25 +1,21 @@
+import { TResource } from '@upswyng/upswyng-types';
+import { TResourcesByCategoryPayload } from '../webTypes';
 import { useEffect, useState } from 'react';
 import apiClient from '../utils/apiClient';
 
-import {
-  TCategoryStub,
-  TResource,
-  TResourcesByCategoryPayload
-} from '../types';
-
 const useResourcesByCategory = (
-  category: TCategoryStub
+  categoryStub: string
 ): undefined | null | TResource[] => {
   const [resourcesByCategory, setResourcesByCategory] = useState<
     undefined | null | TResource[]
   >();
 
   useEffect(() => {
-    if (category) {
+    if (categoryStub) {
       const getResourceByCategory = async (): Promise<void> => {
         try {
           const { data } = await apiClient.get<TResourcesByCategoryPayload>(
-            `/category/${category}`
+            `/category/${categoryStub}`
           );
 
           if (!data.category) {
@@ -68,7 +64,7 @@ const useResourcesByCategory = (
 
       getResourceByCategory();
     }
-  }, [category]);
+  }, [categoryStub]);
 
   return resourcesByCategory;
 };

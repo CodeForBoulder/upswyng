@@ -1,8 +1,7 @@
-import React from "react";
-import { TResourceCategory } from "../types";
 import { colors } from "../App.styles";
+import { TResourceCategory } from "../nativeTypes";
 import CategoryResults from "./CategoryResults";
-import { View } from "react-native";
+import React from "react";
 
 interface TCategory {
   mainCategory: TResourceCategory;
@@ -21,7 +20,7 @@ type TCategoryName =
   | "Transit"
   | "Wifi";
 
-const categories: Record<TCategoryName, TCategory> = {
+const categories: Record<TCategoryName, any> = {
   Food: {
     color: "gold",
     mainCategory: {
@@ -284,6 +283,6 @@ export default Object.entries(categories).reduce(
       />
     ),
   }),
-  // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
+  // eslint-disable-next-line
   {} as Record<TCategoryName, React.FunctionComponent<{}>>
 );

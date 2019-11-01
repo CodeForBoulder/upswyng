@@ -1,17 +1,11 @@
-import React from 'react';
 import { useParams } from 'react-router-dom';
-
-import {
-  TSubcategoryStub,
-  TResourceCategory,
-  TResourceSubcategory,
-  TSubcategory
-} from '../types';
 import PageBanner from './PageBanner';
-import SubCategories from './SubCategories';
+import React from 'react';
 import ResourceList from './ResourceList';
+import SubCategories from './SubCategories';
 import useResourcesByCategory from './useResourcesByCategory';
 import useResourcesBySubcategory from './useResourcesBySubcategory';
+import { TResourceCategory, TResourceSubcategory } from '../webTypes';
 
 interface Props {
   category: TResourceCategory;

@@ -7,7 +7,8 @@ const Logo = () => (
     viewBox="0 0 320 80"
     width="100%"
     height="100%"
-    preserveAspectRatio="xMinYMin">
+    preserveAspectRatio="xMinYMin"
+  >
     <Path
       transform="translate(-4.76991 -3.98222)"
       fill={colors.white}

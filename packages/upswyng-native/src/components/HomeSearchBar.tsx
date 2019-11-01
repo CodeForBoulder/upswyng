@@ -28,7 +28,8 @@ const HomeSearch = (props: THomeSearchProps) => (
       paddingLeft: 8,
       paddingRight: 8,
       alignItems: "center",
-    }}>
+    }}
+  >
     <View style={{ height: 18, width: 18 }}>
       <SearchIcon color={colors.black} />
     </View>
@@ -48,7 +49,8 @@ const HomeSearch = (props: THomeSearchProps) => (
     />
     <Touchable
       accessibilityLabel="Clear search"
-      onPress={() => props.onChange("")}>
+      onPress={() => props.onChange("")}
+    >
       <View style={{ height: 18, width: 18 }}>
         {!!props.value && <CloseIcon color={colors.black} />}
       </View>

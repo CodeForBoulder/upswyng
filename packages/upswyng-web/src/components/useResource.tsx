@@ -1,7 +1,7 @@
+import { TResource } from '@upswyng/upswyng-types';
+import { TResourcePayload } from '../webTypes';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
-import { TResourcePayload, TResource } from '../types';
 
 const useResource = (resourceId: string): undefined | null | TResource => {
   const [resource, setResource] = useState<undefined | null | TResource>();

@@ -1,5 +1,5 @@
 import React from "react";
-import { colors, font } from "../App.styles";
+import { colors } from "../App.styles";
 import ArrowBackIcon from "../icons/ArrowBack";
 import { RegularText } from "./UpText";
 import { RouteComponentProps, withRouter } from "react-router-native";
@@ -62,7 +62,8 @@ const CategoryBanner = ({ color, text, history }: Props) => (
   <Touchable
     accessibilityLabel="Go back"
     testID={`test_back_button`}
-    onPress={() => history.push("/")}>
+    onPress={() => history.push("/")}
+  >
     <View
       style={{
         height: 48,
@@ -70,13 +71,15 @@ const CategoryBanner = ({ color, text, history }: Props) => (
         padding: 8,
         flexDirection: "row",
         alignItems: "center",
-      }}>
+      }}
+    >
       <View
         style={{
           height: 24,
           width: 24,
           marginRight: 8,
-        }}>
+        }}
+      >
         <ArrowBackIcon color={colors.white} />
       </View>
       <RegularText fontSize={24} style={{ color: colors.white, marginLeft: 8 }}>

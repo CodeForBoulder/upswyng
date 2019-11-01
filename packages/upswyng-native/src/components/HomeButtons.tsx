@@ -1,19 +1,17 @@
-import React from "react";
-import { THomeButtonAnchor, THomeButtonRouterLink } from "../types";
-import HomeButton from "./HomeButton";
 import { colors } from "../App.styles";
 import { StyleSheet, View } from "react-native";
-
+import { THomeButtonAnchor, THomeButtonRouterLink } from "../nativeTypes";
 import BananaIcon from "../icons/Banana";
 import BusinessCenterIcon from "../icons/BusinessCenter";
 import CallIcon from "../icons/Call";
 import DirectionsBusIcon from "../icons/DirectionsBus";
 import DoorIcon from "../icons/Door";
+import HomeButton from "./HomeButton";
 import HomeIcon from "../icons/Home";
 import HygieneIcon from "../icons/Hygiene";
 import LocalHospitalIcon from "../icons/LocalHospital";
 import PeopleIcon from "../icons/People";
-import PetsIcon from "../icons/Pets";
+import React from "react";
 import SocksIcon from "../icons/Socks";
 import WifiIcon from "../icons/Wifi";
 
@@ -118,7 +116,8 @@ const HomeButtons = function() {
                   flexDirection: "row",
                   flex: 1,
                   marginBottom: 8,
-                }}>
+                }}
+              >
                 <HomeButton
                   buttonColor={leftButton.color}
                   linkState={leftButton.linkState}

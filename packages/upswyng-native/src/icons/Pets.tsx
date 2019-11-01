@@ -1,6 +1,6 @@
+import { TIconProps } from "../nativeTypes";
 import React from "react";
 import Svg, { Path, Circle } from "react-native-svg";
-import { TIconProps } from "../types";
 
 export default class Pets extends React.Component<TIconProps> {
   render() {
@@ -9,7 +9,8 @@ export default class Pets extends React.Component<TIconProps> {
         preserveAspectRatio="xMaxYMax"
         width="100%"
         height="100%"
-        viewBox="0 4 24 20">
+        viewBox="0 4 24 20"
+      >
         <Circle cx="4.5" cy="9.5" r="2.5" />
         <Circle cx="9" cy="5.5" r="2.5" />
         <Circle cx="15" cy="5.5" r="2.5" />

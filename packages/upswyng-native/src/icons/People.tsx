@@ -1,6 +1,6 @@
-import Svg, { Path } from "react-native-svg";
+import { TIconProps } from "../nativeTypes";
 import React from "react";
-import { TIconProps } from "../types";
+import Svg, { Path } from "react-native-svg";
 
 export default class People extends React.Component<TIconProps> {
   render() {
@@ -9,7 +9,8 @@ export default class People extends React.Component<TIconProps> {
         preserveAspectRatio="xMaxYMax"
         width="100%"
         height="100%"
-        viewBox="1 2 22 20">
+        viewBox="1 2 22 20"
+      >
         <Path d="M0 0h24v24H0z" fill="none" />
         <Path
           fill={this.props.color}

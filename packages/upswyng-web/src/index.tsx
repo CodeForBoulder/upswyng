@@ -5,7 +5,7 @@ import TagManager from 'react-gtm-module';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { TEnvVariables } from './types';
+import { TEnvVariables } from './webTypes';
 
 declare const process: TEnvVariables;
 

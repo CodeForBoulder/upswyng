@@ -20,7 +20,8 @@ export function BoldText<T>(props: TUpTextProps<T>) {
           fontFamily: "open-sans-bold",
         },
         props.style || {},
-      ]}>
+      ]}
+    >
       {props.children}
     </Text>
   );
@@ -34,7 +35,8 @@ export function RegularText<T>(props: TUpTextProps<T>) {
           fontFamily: "open-sans",
         },
         props.style || {},
-      ]}>
+      ]}
+    >
       {props.children}
     </Text>
   );

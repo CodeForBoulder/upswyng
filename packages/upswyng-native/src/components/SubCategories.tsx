@@ -1,8 +1,7 @@
+import { ScrollView, View } from "react-native";
+import { TResourceCategory } from "../nativeTypes";
 import React, { useState } from "react";
-import { TResourceCategory } from "../types";
-import { font } from "../App.styles";
 import SubCategoryButton from "./SubCategoryButton";
-import { ScrollView, View, Text } from "react-native";
 
 interface Props {
   category: TResourceCategory;
@@ -52,7 +51,8 @@ const SubCategories = ({
       horizontal={true}
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}
-      pinchGestureEnabled={false}>
+      pinchGestureEnabled={false}
+    >
       <View style={{ marginLeft: 8, marginRight: 8 }}>
         <SubCategoryButton
           text="All"

@@ -20,6 +20,17 @@ interface THomeState {
   searchResults: TSearchHit[] | null;
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginBottom: 8,
+  },
+});
+
 class Home extends React.Component<{}, THomeState> {
   state = {
     searchBarValue: "",
@@ -87,16 +98,5 @@ class Home extends React.Component<{}, THomeState> {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  footer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginBottom: 8,
-  },
-});
 
 export default Home;

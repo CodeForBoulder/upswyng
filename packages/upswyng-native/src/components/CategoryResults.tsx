@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { TResourceCategory } from "../types";
+import React, { useState } from "react";
+import { TResourceCategory } from "../nativeTypes";
 import useSearchResults from "../useSearchResults";
-import { View, BackHandler } from "react-native";
+import { View } from "react-native";
 import CategoryBanner from "./CategoryBanner";
 import SubCategories from "./SubCategories";
-// import SubCategories from "./SubCategories";
 import SearchResults from "./SearchResults";
 
 interface Props {
@@ -28,7 +27,8 @@ const CategoryResults = ({
       style={{
         flex: 1,
         alignItems: "stretch",
-      }}>
+      }}
+    >
       <View style={{ marginBottom: 8 }}>
         <CategoryBanner text={categoryText} color={categoryColor} />
       </View>
