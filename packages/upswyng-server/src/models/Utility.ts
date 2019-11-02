@@ -1,4 +1,4 @@
-import { ObjectId } from "mongodb";
+import { ObjectId } from "bson";
 import { TResource, TSubcategory, TNewResource } from "@upswyng/upswyng-types";
 import dr from "../utility/diffResources";
 import Resource, {

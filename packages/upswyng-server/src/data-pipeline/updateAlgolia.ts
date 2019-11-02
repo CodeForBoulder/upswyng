@@ -1,4 +1,3 @@
-import "@upswyng/upswyng-server";
 import * as dotenv from "dotenv";
 import algoliaSearch from "algoliasearch";
 import mongoose from "mongoose";

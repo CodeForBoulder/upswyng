@@ -1,4 +1,4 @@
-import { ObjectId } from "mongodb";
+import { ObjectId } from "bson";
 import { TCategory } from "@upswyng/upswyng-types";
 import mongoose, { Schema, Document } from "mongoose";
 import removeUndefinedFields from "../utility/removeUndefinedFields";

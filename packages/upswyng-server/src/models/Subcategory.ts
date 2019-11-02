@@ -1,4 +1,4 @@
-import { ObjectId } from "mongodb";
+import { ObjectId } from "bson";
 import { TCategoryDocument, categoryDocumentToCategory } from "./Category";
 import { TResourceDocument } from "./Resource";
 import { TSubcategory } from "@upswyng/upswyng-types";

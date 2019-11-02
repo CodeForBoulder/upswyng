@@ -22,6 +22,6 @@
     "packages/upswyng-native/config.example.ts",
     "packages/upswyng-server/jest.config.js",
     "packages/*/src/**/*",
-    "**/*rollup.config.js"
+    "**/rollup*config.js"
   ]
 }

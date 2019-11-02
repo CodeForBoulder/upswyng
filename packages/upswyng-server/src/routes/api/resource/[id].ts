@@ -1,5 +1,5 @@
 import Resource from "../../../models/Resource";
-import { ObjectId } from "mongodb";
+import { ObjectId } from "bson";
 import { isAdmin } from "../../../utility/authHelpers";
 
 export async function get(req, res, _next) {

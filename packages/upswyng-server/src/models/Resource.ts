@@ -18,7 +18,7 @@ import {
 } from "./Subcategory";
 import mongoose, { Document, Schema } from "mongoose";
 import removeUndefinedFields from "../utility/removeUndefinedFields";
-import { ObjectId } from "mongodb";
+import { ObjectId } from "bson";
 
 export interface TResourceDocument extends Document {
   _id: ObjectId; // this is the mongodb id of the record

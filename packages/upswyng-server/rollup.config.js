@@ -27,7 +27,6 @@ const tsOpts = {
   env,
   compilerOptions: {
     ...compilerOptions,
-    moduleResolution: "node",
     allowNonTsExtensions: true,
   },
 };
@@ -148,7 +147,6 @@ export default {
       commonjs({
         include: /node_modules/,
         namedExports: {
-          "node_modules/mongodb/index.js": ["ObjectId"],
           "node_modules/bson/index.js": ["ObjectId"],
           "node_modules/fast-equals/dist/fast-equals.js": ["deepEqual"],
         },
@@ -156,11 +154,12 @@ export default {
       typescript(),
       json(),
     ],
-    external: Object.keys(pkg.dependencies || {}).concat(
-      require("module").builtinModules ||
-        Object.keys(process.binding("natives"))
-    ),
-
+    external: Object.keys(pkg.dependencies || {})
+      .filter(i => !i.match(/@upswyng/)) // https://github.com/sveltejs/sapper-template/blob/master/README.md#using-external-components
+      .concat(
+        require("module").builtinModules ||
+          Object.keys(process.binding("natives"))
+      ),
     onwarn,
   },
 
@@ -168,7 +167,7 @@ export default {
     input: config.serviceworker.input(),
     output: config.serviceworker.output(),
     plugins: [
-      resolve(),
+      resolve({ dedupe }),
       replace({
         "process.browser": true,
         "process.env.ALGOLIA_APP_ID": JSON.stringify(ALGOLIA_APP_ID),
@@ -179,7 +178,7 @@ export default {
         "process.env.NODE_ENV": JSON.stringify(mode),
       }),
       commonjs({
-        include: /node_modules/,
+        // include: /node_modules/,
         namedExports: {
           "node_modules/bson/index.js": ["ObjectId"],
           "node_modules/fast-equals/dist/fast-equals.js": ["deepEqual"],
@@ -188,7 +187,6 @@ export default {
       typescript(),
       !dev && terser(),
     ],
-
     onwarn,
   },
 };
