@@ -34,8 +34,6 @@
     "grant": "^4.6.2",
     "grant-express": "^4.6.2",
     "grant-oidc": "0.0.3",
-    "hapi": "^18.1.0",
-    "koa": "^2.8.1",
     "moment": "^2.24.0",
     "mongoose": "^5.6.13",
     "polka": "next",

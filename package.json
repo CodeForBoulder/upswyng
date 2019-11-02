@@ -4,7 +4,6 @@
   "private": true,
   "license": "MIT",
   "dependencies": {
-    "@upswyng/upswyng-data-pipeline": "file:packages/upswyng-data-pipeline",
     "@upswyng/upswyng-native": "file:packages/upswyng-native",
     "@upswyng/upswyng-server": "file:packages/upswyng-server",
     "@upswyng/upswyng-types": "file:packages/upswyng-types",
