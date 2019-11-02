@@ -4,8 +4,8 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "ci-lint": "prettier --check --loglevel error '{{.github,.vscode}/**/*,packages/*/src/**/*}.{js,jsx,ts,tsx,svelte,json,css,scss,md}' && tsc --noEmit && eslint 'packages/upswyng-*/src/**/*.{js,jsx,ts,tsx}' --quiet",
-    "lint": "prettier --write --loglevel warn '{{.github,.vscode}/**/*,packages/*/src/**/*}.{js,jsx,ts,tsx,svelte,json,css,scss,md}' && tsc --noEmit && eslint 'packages/upswyng-*/src/**/*.{js,jsx,ts,tsx}' --quiet",
+    "ci-lint": "prettier --check --loglevel error '{{.github,.vscode}/**/*,packages/*/src/**/*}.{js,jsx,ts,tsx,json,css,scss,md}' && tsc --noEmit && eslint 'packages/upswyng-*/src/**/*.{js,jsx,ts,tsx}' --quiet",
+    "lint": "prettier --write --loglevel warn '{{.github,.vscode}/**/*,packages/*/src/**/*}.{js,jsx,ts,tsx,json,css,scss,md}' && tsc --noEmit && eslint 'packages/upswyng-*/src/**/*.{js,jsx,ts,tsx}' --quiet",
     "test": "CI=true SKIP_PREFLIGHT_CHECK=true lerna run test"
   },
   "browserslist": [
@@ -81,6 +81,7 @@
     "postcss": "^7.0.18",
     "prettier": "^1.17.1",
     "prettier-plugin-svelte": "^0.7.0",
+    "svelte": "^3.0.0",
     "ts-jest": "^24.1.0",
     "typescript": "^3.4.5"
   }

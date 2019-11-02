@@ -21,15 +21,18 @@ const orderedDays: TDay[] = [
 const convert12HourTo24Hour = (time: string): number =>
   parseInt(moment(time, 'h:mm A').format('H'));
 
-const compareTimes = (time1: string, time2: string): number => {
+const compareTimes = (time1?: string, time2?: string): number => {
+  if (!time1 || !time2) return 0;
   const twentyFourHourTime1 = convert12HourTo24Hour(time1);
   const twentyFourHourTime2 = convert12HourTo24Hour(time2);
 
   return twentyFourHourTime1 - twentyFourHourTime2;
 };
 
-const compareDays = (day1: TDay, day2: TDay): number =>
-  orderedDays.indexOf(day1) - orderedDays.indexOf(day2);
+const compareDays = (day1?: TDay, day2?: TDay): number => {
+  if (!day1 || !day2) return 0;
+  return orderedDays.indexOf(day1) - orderedDays.indexOf(day2);
+};
 
 const comparePeriods = (
   period1: TSchedulePeriod,

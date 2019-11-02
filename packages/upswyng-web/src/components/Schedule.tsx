@@ -59,7 +59,7 @@ const renderDaySchedule = (schedule: TSchedule[]) => {
 };
 
 const renderWeeklySchedule = (schedule: TSchedule[]) => {
-  const renderedDays: TDay[] = [];
+  const renderedDays: (TDay | undefined)[] = [];
 
   return schedule.map(({ day: currentDay }) => {
     if (!renderedDays.includes(currentDay)) {

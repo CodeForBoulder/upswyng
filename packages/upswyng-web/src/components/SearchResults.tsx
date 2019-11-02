@@ -4,11 +4,11 @@ import ResourceList from './ResourceList';
 
 interface Props {
   placeholder?: React.ReactElement;
-  results?: Response;
+  results?: Response | null;
 }
 
 const mapResultsToResources = (
-  results?: Response
+  results?: Response | null
 ): null | { id: string; name: string }[] => {
   if (!results) {
     return null;

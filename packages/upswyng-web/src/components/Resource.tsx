@@ -146,7 +146,14 @@ export const Resource = () => {
           <Services resource={resource} />
         </DetailBody>
       </Details>
-      <Map resource={resource} />
+      {resource.latitude && resource.longitude && (
+        <Map
+          address={resource.address}
+          name={resource.name}
+          latitude={resource.latitude}
+          longitude={resource.longitude}
+        />
+      )}
     </Container>
   );
 };

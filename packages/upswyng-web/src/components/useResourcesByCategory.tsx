@@ -27,13 +27,13 @@ const useResourcesByCategory = (
           const {
             category: { subcategories }
           } = data;
-          if (!subcategories.length) {
+          if (!(subcategories || []).length) {
             throw new Error(
               'no sub-categories found in resources by category response'
             );
           }
 
-          const uniqueResources = subcategories.reduce<TResource[]>(
+          const uniqueResources = (subcategories || []).reduce<TResource[]>(
             (categoryResources, subcategory) => {
               const { resources: subcategoryResources } = subcategory;
               if (!subcategoryResources || !subcategoryResources.length) {

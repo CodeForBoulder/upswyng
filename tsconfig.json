@@ -23,5 +23,6 @@
     "packages/upswyng-server/jest.config.js",
     "packages/*/src/**/*",
     "**/rollup*config.js"
-  ]
+  ],
+  "exclude": ["node_modules"]
 }

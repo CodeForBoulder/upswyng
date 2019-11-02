@@ -18,8 +18,12 @@ const boulderCoordinates = {
   lng: -105.2792069
 };
 
+// TODO: Only pass down the props that are needed
 interface Props {
-  resource: TResource;
+  address: TResource['address'];
+  name: TResource['name'];
+  latitude: NonNullable<TResource['latitude']>;
+  longitude: NonNullable<TResource['longitude']>;
 }
 
 const TravelButtonsContainer = styled(ButtonGroup)`
@@ -37,7 +41,7 @@ interface TTravelButtonProps extends IconButtonProps {
 }
 
 const TravelButton: FunctionComponent<TTravelButtonProps> = ({
-  selected,
+  selected: _,
   ...rest
 }: TTravelButtonProps) => <IconButton {...rest} />;
 
@@ -109,7 +113,7 @@ const SnackbarCloseButton = styled(IconButton)`
   }
 ` as typeof IconButton;
 
-const Map = ({ resource }: Props) => {
+const Map = ({ address, name, latitude, longitude }: Props) => {
   const [googleMap, setGoogleMap] = useState<any | null>(null);
   const [googleMaps, setGoogleMaps] = useState<any | null>(null);
   const [isFetchingGoogleMaps, setIsFetchingGoogleMaps] = useState<boolean>(
@@ -128,12 +132,7 @@ const Map = ({ resource }: Props) => {
   const [directionsError, setDirectionsError] = useState<string | null>(null);
 
   const addMapMarker = () => {
-    const {
-      name,
-      latitude,
-      longitude,
-      address: { address1, address2, city, state, zip }
-    } = resource;
+    const { address1, address2, city, state, zip } = address;
 
     const resourceMarker = new googleMaps.Marker({
       map: googleMap,
@@ -227,8 +226,8 @@ const Map = ({ resource }: Props) => {
             avoidTolls: true,
             origin: userLatLng,
             destination: {
-              lat: resource.latitude,
-              lng: resource.longitude
+              lat: latitude,
+              lng: longitude
             },
             travelMode
           },
@@ -283,7 +282,6 @@ const Map = ({ resource }: Props) => {
       await placeDirections();
     } catch (err) {
       console.log(err);
-      // TODO: log this error
     }
   };
 
@@ -291,11 +289,6 @@ const Map = ({ resource }: Props) => {
     setTravelMode(prevTravelMode =>
       newTravelMode !== prevTravelMode ? newTravelMode : null
     );
-
-  const resourceLatLng = {
-    lat: resource.latitude,
-    lng: resource.longitude
-  };
 
   useEffect(() => {
     if (googleMaps) {
@@ -358,7 +351,7 @@ const Map = ({ resource }: Props) => {
             }}
             defaultCenter={boulderCoordinates}
             defaultZoom={13}
-            center={resourceLatLng}
+            center={{ lat: latitude, lng: longitude }}
             yesIWantToUseGoogleMapApiInternals={true}
             onGoogleApiLoaded={handleGoogleMapApiLoaded}
           />
