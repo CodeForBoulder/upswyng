@@ -1,8 +1,8 @@
 import Resource from "../../../models/Resource";
-import { ObjectId } from "bson";
+import { ObjectId } from "mongodb";
 import { isAdmin } from "../../../utility/authHelpers";
 
-export async function get(req, res, next) {
+export async function get(req, res, _next) {
   const { id } = req.params;
   let resource = null;
   try {

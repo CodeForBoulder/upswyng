@@ -3,8 +3,9 @@
  *
  * Rename it `config.tsx` and insert your values below.
  */
-import { TEnvVariables } from "./src/types";
+import { TEnvVariables } from "./src/nativeTypes";
 
+// eslint-disable-next-line @typescript-eslint/camelcase
 const config_PUT_YOUR_DATA_HERE: TEnvVariables = {
   REACT_APP_ALGOLIA_ADMIN_API_KEY: "<EXAMPLE VALUE>",
   REACT_APP_ALGOLIA_APP_ID: "8ABD2RTEFV",
@@ -23,6 +24,7 @@ const config_PUT_YOUR_DATA_HERE: TEnvVariables = {
 /*        DO NOT MODIFY BELOW HERE             */
 /***********************************************/
 
+// eslint-disable-next-line @typescript-eslint/camelcase
 const c = config_PUT_YOUR_DATA_HERE;
 
 export const firebaseConfig = {
@@ -34,4 +36,5 @@ export const firebaseConfig = {
   messagingSenderId: c.REACT_APP_FIREBASE_MESSAGE_SENDER_ID,
 };
 
+// eslint-disable-next-line @typescript-eslint/camelcase
 export default config_PUT_YOUR_DATA_HERE;

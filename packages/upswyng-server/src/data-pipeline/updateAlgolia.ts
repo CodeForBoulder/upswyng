@@ -1,10 +1,8 @@
+import "@upswyng/upswyng-server";
 import * as dotenv from "dotenv";
 import algoliaSearch from "algoliasearch";
 import mongoose from "mongoose";
-import { Models } from "@upswyng/upswyng-server";
-import "@upswyng/upswyng-server";
-
-const { Resource } = Models;
+import Resource from "../models/Resource";
 
 dotenv.config();
 

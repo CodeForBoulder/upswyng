@@ -1,12 +1,10 @@
-import { Models } from "@upswyng/upswyng-server";
 import { TLegacyResource } from "@upswyng/upswyng-types";
 import * as cliProgress from "cli-progress";
 import * as dotenv from "dotenv";
 import axios from "axios";
 import devalue from "devalue";
 import mongoose from "mongoose";
-
-const { Resource } = Models;
+import Resource from "../models/Resource";
 
 dotenv.config();
 

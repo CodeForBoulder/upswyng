@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
-import { Models } from "@upswyng/upswyng-server";
-
-const { Category } = Models;
+import Category from "../models/Category";
 
 dotenv.config();
 

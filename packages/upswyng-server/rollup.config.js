@@ -1,8 +1,8 @@
 import { terser } from "rollup-plugin-terser";
-import builtins from "rollup-plugin-node-builtins";
 import * as dotenv from "dotenv";
 import autoPreprocess from "svelte-preprocess";
 import babel from "rollup-plugin-babel";
+import builtins from "rollup-plugin-node-builtins";
 import commonjs from "rollup-plugin-commonjs";
 import config from "sapper/config/rollup.js";
 import json from "rollup-plugin-json";
@@ -22,17 +22,18 @@ import {
 } from "@pyoner/svelte-ts-preprocess";
 import typescript from "rollup-plugin-typescript2";
 const env = createEnv();
-const compilerOptions = readConfigFile(env);
+const compilerOptions = readConfigFile(env, "../../tsconfig.json");
 const tsOpts = {
   env,
   compilerOptions: {
     ...compilerOptions,
+    moduleResolution: "node",
     allowNonTsExtensions: true,
   },
 };
 const styleOpts = {
   scss: {
-    includePaths: ["node_modules", "server/src"],
+    includePaths: ["node_modules", "src"],
   },
   postcss: {
     plugins: [require("autoprefixer")],
@@ -147,6 +148,7 @@ export default {
       commonjs({
         include: /node_modules/,
         namedExports: {
+          "node_modules/mongodb/index.js": ["ObjectId"],
           "node_modules/bson/index.js": ["ObjectId"],
           "node_modules/fast-equals/dist/fast-equals.js": ["deepEqual"],
         },
