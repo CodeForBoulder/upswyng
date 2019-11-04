@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1589 1141" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g id="Artboard1" transform="matrix(1,0,0,1,-62.2624,-34.0804)">
+        <rect x="62.262" y="34.08" width="1588.53" height="1140.6" style="fill:none;"/>
+        <clipPath id="_clip1">
+            <rect x="62.262" y="34.08" width="1588.53" height="1140.6"/>
+        </clipPath>
+        <g clip-path="url(#_clip1)">
+            <g transform="matrix(1,0,0,1,0.262441,0.0804288)">
+                <g transform="matrix(1,0,0,1,-158.403,-605.332)">
+                    <text x="325.58px" y="717.113px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;">packages</text>
+                </g>
+                <g transform="matrix(0.0854227,0,0,0.0854227,61.4082,49.2923)">
+                    <path d="M989.5,864.9L989.5,251.3C989.5,176.8 921.7,183.7 921.7,183.7C921.7,183.7 516.5,184.2 537.9,183.7C514.6,184.2 503.2,171.5 503.2,171.5C503.2,171.5 487.1,143.8 458.1,99.9C427.7,53.9 392.5,61.4 392.5,61.4L93.7,61.4C10.9,61.4 10,141 10,141L10,860.7C10,949.5 77.1,938.5 77.1,938.5L927.9,938.5C999.6,938.6 989.5,864.9 989.5,864.9ZM928.6,828.5C928.6,855.9 906.4,878.1 879,878.1L120.6,878.1C93.2,878.1 71,855.9 71,828.5L71,314.9C71,287.5 93.2,265.3 120.6,265.3L879,265.3C906.4,265.3 928.6,287.5 928.6,314.9L928.6,828.5Z" style="fill-rule:nonzero;"/>
+                </g>
+            </g>
+            <g transform="matrix(1,0,0,1,0.262441,101.793)">
+                <g transform="matrix(1,0,0,1,-43.1601,-350.473)">
+                    <text x="325.58px" y="717.113px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;">upswyng-native</text>
+                </g>
+                <g transform="matrix(0.0854227,0,0,0.0854227,176.651,304.151)">
+                    <path d="M989.5,864.9L989.5,251.3C989.5,176.8 921.7,183.7 921.7,183.7C921.7,183.7 516.5,184.2 537.9,183.7C514.6,184.2 503.2,171.5 503.2,171.5C503.2,171.5 487.1,143.8 458.1,99.9C427.7,53.9 392.5,61.4 392.5,61.4L93.7,61.4C10.9,61.4 10,141 10,141L10,860.7C10,949.5 77.1,938.5 77.1,938.5L927.9,938.5C999.6,938.6 989.5,864.9 989.5,864.9ZM928.6,828.5C928.6,855.9 906.4,878.1 879,878.1L120.6,878.1C93.2,878.1 71,855.9 71,828.5L71,314.9C71,287.5 93.2,265.3 120.6,265.3L879,265.3C906.4,265.3 928.6,287.5 928.6,314.9L928.6,828.5Z" style="fill-rule:nonzero;"/>
+                </g>
+            </g>
+            <g transform="matrix(1,0,0,1,0.262441,42.512)">
+                <g transform="matrix(1,0,0,1,-43.1601,-494.478)">
+                    <text x="325.58px" y="717.113px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;">upswyng-core</text>
+                </g>
+                <g transform="matrix(0.0854227,0,0,0.0854227,176.651,160.146)">
+                    <path d="M989.5,864.9L989.5,251.3C989.5,176.8 921.7,183.7 921.7,183.7C921.7,183.7 516.5,184.2 537.9,183.7C514.6,184.2 503.2,171.5 503.2,171.5C503.2,171.5 487.1,143.8 458.1,99.9C427.7,53.9 392.5,61.4 392.5,61.4L93.7,61.4C10.9,61.4 10,141 10,141L10,860.7C10,949.5 77.1,938.5 77.1,938.5L927.9,938.5C999.6,938.6 989.5,864.9 989.5,864.9ZM928.6,828.5C928.6,855.9 906.4,878.1 879,878.1L120.6,878.1C93.2,878.1 71,855.9 71,828.5L71,314.9C71,287.5 93.2,265.3 120.6,265.3L879,265.3C906.4,265.3 928.6,287.5 928.6,314.9L928.6,828.5Z" style="fill-rule:nonzero;"/>
+                </g>
+            </g>
+            <g transform="matrix(1,0,0,1,0.262441,138.342)">
+                <g transform="matrix(1,0,0,1,-43.1601,-183.737)">
+                    <text x="325.58px" y="717.113px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;">upswyng-server</text>
+                </g>
+                <g transform="matrix(0.0854227,0,0,0.0854227,176.651,470.887)">
+                    <path d="M989.5,864.9L989.5,251.3C989.5,176.8 921.7,183.7 921.7,183.7C921.7,183.7 516.5,184.2 537.9,183.7C514.6,184.2 503.2,171.5 503.2,171.5C503.2,171.5 487.1,143.8 458.1,99.9C427.7,53.9 392.5,61.4 392.5,61.4L93.7,61.4C10.9,61.4 10,141 10,141L10,860.7C10,949.5 77.1,938.5 77.1,938.5L927.9,938.5C999.6,938.6 989.5,864.9 989.5,864.9ZM928.6,828.5C928.6,855.9 906.4,878.1 879,878.1L120.6,878.1C93.2,878.1 71,855.9 71,828.5L71,314.9C71,287.5 93.2,265.3 120.6,265.3L879,265.3C906.4,265.3 928.6,287.5 928.6,314.9L928.6,828.5Z" style="fill-rule:nonzero;"/>
+                </g>
+            </g>
+            <g transform="matrix(1,0,0,1,0.262441,167.227)">
+                <g transform="matrix(1,0,0,1,-43.1601,-9.33653)">
+                    <text x="325.58px" y="717.113px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;">upswyng-types</text>
+                </g>
+                <g transform="matrix(0.0854227,0,0,0.0854227,176.651,645.288)">
+                    <path d="M989.5,864.9L989.5,251.3C989.5,176.8 921.7,183.7 921.7,183.7C921.7,183.7 516.5,184.2 537.9,183.7C514.6,184.2 503.2,171.5 503.2,171.5C503.2,171.5 487.1,143.8 458.1,99.9C427.7,53.9 392.5,61.4 392.5,61.4L93.7,61.4C10.9,61.4 10,141 10,141L10,860.7C10,949.5 77.1,938.5 77.1,938.5L927.9,938.5C999.6,938.6 989.5,864.9 989.5,864.9ZM928.6,828.5C928.6,855.9 906.4,878.1 879,878.1L120.6,878.1C93.2,878.1 71,855.9 71,828.5L71,314.9C71,287.5 93.2,265.3 120.6,265.3L879,265.3C906.4,265.3 928.6,287.5 928.6,314.9L928.6,828.5Z" style="fill-rule:nonzero;"/>
+                </g>
+            </g>
+            <g transform="matrix(1,0,0,1,0.262441,200.08)">
+                <g transform="matrix(1,0,0,1,-43.1601,161.096)">
+                    <text x="325.58px" y="717.113px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;">upswyng-web</text>
+                </g>
+                <g transform="matrix(0.0854227,0,0,0.0854227,176.651,815.72)">
+                    <path d="M989.5,864.9L989.5,251.3C989.5,176.8 921.7,183.7 921.7,183.7C921.7,183.7 516.5,184.2 537.9,183.7C514.6,184.2 503.2,171.5 503.2,171.5C503.2,171.5 487.1,143.8 458.1,99.9C427.7,53.9 392.5,61.4 392.5,61.4L93.7,61.4C10.9,61.4 10,141 10,141L10,860.7C10,949.5 77.1,938.5 77.1,938.5L927.9,938.5C999.6,938.6 989.5,864.9 989.5,864.9ZM928.6,828.5C928.6,855.9 906.4,878.1 879,878.1L120.6,878.1C93.2,878.1 71,855.9 71,828.5L71,314.9C71,287.5 93.2,265.3 120.6,265.3L879,265.3C906.4,265.3 928.6,287.5 928.6,314.9L928.6,828.5Z" style="fill-rule:nonzero;"/>
+                </g>
+            </g>
+            <g transform="matrix(1,0,0,1,-109.738,0.0804288)">
+                <g id="phone_android-24px" transform="matrix(12.5,0,0,12.5,1105.55,187.838)">
+                    <g transform="matrix(1,0,0,1,-12,-12)">
+                        <path d="M16,1L8,1C6.34,1 5,2.34 5,4L5,20C5,21.66 6.34,23 8,23L16,23C17.66,23 19,21.66 19,20L19,4C19,2.34 17.66,1 16,1ZM14,21L10,21L10,20L14,20L14,21ZM17.25,18L6.75,18L6.75,4L17.25,4L17.25,18Z" style="fill-rule:nonzero;"/>
+                        <rect x="0" y="0" width="24" height="24" style="fill:none;fill-rule:nonzero;"/>
+                    </g>
+                </g>
+                <g transform="matrix(1,0,0,1,-113.987,-28.9587)">
+                    <text x="1354.28px" y="208.922px" style="font-family:'HelveticaNeue-Medium', 'Helvetica Neue', sans-serif;font-weight:500;font-size:50px;">React Native iOS and</text>
+                    <text x="1354.28px" y="260.372px" style="font-family:'HelveticaNeue-Medium', 'Helvetica Neue', sans-serif;font-weight:500;font-size:50px;">Andr<tspan x="1463.58px 1493.23px " y="260.372px 260.372px ">oi</tspan>d Clients</text>
+                </g>
+                <g transform="matrix(0.892711,0,0,0.664103,220.905,-230.025)">
+                    <path d="M1723.79,421.842C1723.79,409.376 1716.26,399.255 1706.99,399.255L893.875,399.255C884.602,399.255 877.073,409.376 877.073,421.842L877.073,848.645C877.073,861.111 884.602,871.232 893.875,871.232L1706.99,871.232C1716.26,871.232 1723.79,861.111 1723.79,848.645L1723.79,421.842Z" style="fill:none;stroke:black;stroke-width:2.65px;"/>
+                </g>
+            </g>
+            <g transform="matrix(1,0,0,1,-1.80604,0.0804288)">
+                <g id="web-24px" transform="matrix(12.5,0,0,12.5,1205.55,1049.34)">
+                    <g transform="matrix(1,0,0,1,-11.0313,-8.86533)">
+                        <clipPath id="_clip2">
+                            <rect x="0" y="0" width="22.063" height="17.731"/>
+                        </clipPath>
+                        <g clip-path="url(#_clip2)">
+                            <g id="Artboard11" serif:id="Artboard1" transform="matrix(1,0,0,1,-1.63869,-3.66357)">
+                                <rect x="1.639" y="3.664" width="22.063" height="17.731" style="fill:none;"/>
+                                <clipPath id="_clip3">
+                                    <rect x="1.639" y="3.664" width="22.063" height="17.731"/>
+                                </clipPath>
+                                <g clip-path="url(#_clip3)">
+                                    <g transform="matrix(1,0,0,1,0.638687,0.663572)">
+                                        <path d="M20,4L4,4C2.9,4 2.01,4.9 2.01,6L2,18C2,19.1 2.9,20 4,20L20,20C21.1,20 22,19.1 22,18L22,6C22,4.9 21.1,4 20,4ZM15,18L4,18L4,14L15,14L15,18ZM15,13L4,13L4,9L15,9L15,13ZM20,18L16,18L16,9L20,9L20,18Z" style="fill-rule:nonzero;"/>
+                                    </g>
+                                    <g transform="matrix(1,0,0,1,0.638687,0.663572)">
+                                        <rect x="0" y="0" width="24" height="24" style="fill:none;fill-rule:nonzero;"/>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+                <g transform="matrix(1,0,0,1,21.1434,858.268)">
+                    <text x="1354.28px" y="208.922px" style="font-family:'HelveticaNeue-Medium', 'Helvetica Neue', sans-serif;font-weight:500;font-size:50px;">W<tspan x="1400.58px 1428.38px " y="208.922px 208.922px ">eb</tspan> Client</text>
+                </g>
+                <g transform="matrix(0.701451,0,0,0.507631,442.664,731.374)">
+                    <path d="M1723.79,428.804C1723.79,412.496 1714.21,399.255 1702.41,399.255L898.457,399.255C886.655,399.255 877.073,412.496 877.073,428.804L877.073,841.683C877.073,857.992 886.655,871.232 898.457,871.232L1702.41,871.232C1714.21,871.232 1723.79,857.992 1723.79,841.683L1723.79,428.804Z" style="fill:none;stroke:black;stroke-width:3.4px;"/>
+                </g>
+            </g>
+            <g transform="matrix(1,0,0,1,-73.7774,0.0804288)">
+                <g id="web-24px1" serif:id="web-24px" transform="matrix(12.5,0,0,12.5,1032.55,743.839)">
+                    <g transform="matrix(1,0,0,1,-11.0313,-8.86533)">
+                        <clipPath id="_clip4">
+                            <rect x="0" y="0" width="22.063" height="17.731"/>
+                        </clipPath>
+                        <g clip-path="url(#_clip4)">
+                            <g id="Artboard12" serif:id="Artboard1" transform="matrix(1,0,0,1,-1.63869,-3.66357)">
+                                <rect x="1.639" y="3.664" width="22.063" height="17.731" style="fill:none;"/>
+                                <clipPath id="_clip5">
+                                    <rect x="1.639" y="3.664" width="22.063" height="17.731"/>
+                                </clipPath>
+                                <g clip-path="url(#_clip5)">
+                                    <g transform="matrix(1,0,0,1,0.638687,0.663572)">
+                                        <path d="M20,4L4,4C2.9,4 2.01,4.9 2.01,6L2,18C2,19.1 2.9,20 4,20L20,20C21.1,20 22,19.1 22,18L22,6C22,4.9 21.1,4 20,4ZM15,18L4,18L4,14L15,14L15,18ZM15,13L4,13L4,9L15,9L15,13ZM20,18L16,18L16,9L20,9L20,18Z" style="fill-rule:nonzero;"/>
+                                    </g>
+                                    <g transform="matrix(1,0,0,1,0.638687,0.663572)">
+                                        <rect x="0" y="0" width="24" height="24" style="fill:none;fill-rule:nonzero;"/>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+                <g transform="matrix(1,0,0,1,-517.892,-708.216)">
+                    <g transform="matrix(1,0,0,1.09786,302.734,-368.453)">
+                        <path d="M1505.92,1395.79C1505.92,1376.88 1489.07,1361.53 1468.31,1361.53L1148.32,1361.53C1127.56,1361.53 1110.7,1376.88 1110.7,1395.79L1110.7,1464.32C1110.7,1483.24 1127.56,1498.59 1148.32,1498.59L1468.31,1498.59C1489.07,1498.59 1505.92,1483.24 1505.92,1464.32L1505.92,1395.79Z"/>
+                    </g>
+                    <g transform="matrix(1,0,0,1,0,6.31976)">
+                        <g transform="matrix(0.673752,0,0,0.673752,474.53,367.721)">
+                            <circle cx="1477.46" cy="1194.52" r="22.263" style="fill:white;"/>
+                        </g>
+                        <g transform="matrix(0.673752,0,0,0.673752,474.53,413.125)">
+                            <circle cx="1477.46" cy="1194.52" r="22.263" style="fill:white;"/>
+                        </g>
+                    </g>
+                    <g transform="matrix(1,0,0,1,-11.6034,3.70768)">
+                        <path d="M1779.8,1190.93C1779.8,1187.12 1776.7,1184.02 1772.88,1184.02L1617.74,1184.02C1613.92,1184.02 1610.82,1187.12 1610.82,1190.93L1610.82,1204.76C1610.82,1208.58 1613.92,1211.68 1617.74,1211.68L1772.88,1211.68C1776.7,1211.68 1779.8,1208.58 1779.8,1204.76L1779.8,1190.93Z" style="fill:white;"/>
+                    </g>
+                </g>
+                <g transform="matrix(1,0,0,1,-20.3663,302.267)">
+                    <text x="1354.28px" y="208.922px" style="font-family:'HelveticaNeue-Medium', 'Helvetica Neue', sans-serif;font-weight:500;font-size:50px;">API Server</text>
+                </g>
+                <g transform="matrix(1,0,0,1,-159.716,552.418)">
+                    <text x="1354.28px" y="208.922px" style="font-family:'HelveticaNeue-Medium', 'Helvetica Neue', sans-serif;font-weight:500;font-size:50px;">Admin W<tspan x="1562.63px 1590.43px " y="208.922px 208.922px ">eb</tspan> Interface</text>
+                </g>
+                <path d="M1723.79,414.255C1723.79,405.977 1717.07,399.255 1708.79,399.255L892.073,399.255C883.794,399.255 877.073,405.977 877.073,414.255L877.073,856.232C877.073,864.511 883.794,871.232 892.073,871.232L1708.79,871.232C1717.07,871.232 1723.79,864.511 1723.79,856.232L1723.79,414.255Z" style="fill:none;stroke:black;stroke-width:2.08px;"/>
+            </g>
+            <g transform="matrix(1,0,0,1,0.262441,9.08043)">
+                <path d="M631.334,1058.2L1055.36,1058.2" style="fill:none;stroke:black;stroke-width:2.08px;"/>
+            </g>
+            <g transform="matrix(1,0,0,1,105.424,-21.0073)">
+                <text x="179.85px" y="337.748px" style="font-family:'HelveticaNeue-Bold', 'Helvetica Neue';font-weight:700;font-size:37.5px;fill:rgb(115,115,115);">Common libraries used</text>
+                <text x="179.85px" y="376.335px" style="font-family:'HelveticaNeue-Bold', 'Helvetica Neue';font-weight:700;font-size:37.5px;fill:rgb(115,115,115);">acr<tspan x="236.812px 259.725px " y="376.335px 376.335px ">os</tspan>s packages</text>
+            </g>
+            <g transform="matrix(1,0,0,1,105.424,183.63)">
+                <text x="179.85px" y="337.748px" style="font-family:'HelveticaNeue-Bold', 'Helvetica Neue';font-weight:700;font-size:37.5px;fill:rgb(115,115,115);">React Native iOS</text>
+                <text x="179.85px" y="376.335px" style="font-family:'HelveticaNeue-Bold', 'Helvetica Neue';font-weight:700;font-size:37.5px;fill:rgb(115,115,115);">and Andr<tspan x="341.7px 364.612px " y="376.335px 376.335px ">oi</tspan>d clients</text>
+            </g>
+            <g transform="matrix(1,0,0,1,105.424,386.15)">
+                <text x="179.85px" y="337.748px" style="font-family:'HelveticaNeue-Bold', 'Helvetica Neue';font-weight:700;font-size:37.5px;fill:rgb(115,115,115);">API server and Sapper</text>
+                <text x="179.85px" y="376.335px" style="font-family:'HelveticaNeue-Bold', 'Helvetica Neue';font-weight:700;font-size:37.5px;fill:rgb(115,115,115);">admin web interface</text>
+            </g>
+            <g transform="matrix(1,0,0,1,105.424,589.292)">
+                <text x="179.85px" y="337.748px" style="font-family:'HelveticaNeue-Bold', 'Helvetica Neue';font-weight:700;font-size:37.5px;fill:rgb(115,115,115);">T<tspan x="198.6px 218.062px " y="337.748px 337.748px ">yp</tspan>eScript types used</text>
+                <text x="179.85px" y="376.335px" style="font-family:'HelveticaNeue-Bold', 'Helvetica Neue';font-weight:700;font-size:37.5px;fill:rgb(115,115,115);">acr<tspan x="236.812px 259.725px " y="376.335px 376.335px ">os</tspan>s packages</text>
+            </g>
+            <g transform="matrix(1,0,0,1,105.424,793.346)">
+                <text x="179.85px" y="337.748px" style="font-family:'HelveticaNeue-Bold', 'Helvetica Neue';font-weight:700;font-size:37.5px;fill:rgb(115,115,115);">React web client</text>
+            </g>
+            <g transform="matrix(1,0,0,1,0.262441,0.0804288)">
+                <path d="M662.593,450.305L891.328,171.547" style="fill:none;stroke:black;stroke-width:2.08px;"/>
+            </g>
+            <g transform="matrix(1,0,0,1,-4.73756,0.0804288)">
+                <path d="M665.301,656.51L808.775,656.51" style="fill:none;stroke:black;stroke-width:2.08px;"/>
+            </g>
+        </g>
+    </g>
+</svg>
