@@ -18,11 +18,12 @@
     "types": ["@pyoner/svelte-types", "jest"]
   },
   "include": [
-    "packages/upswyng-server/config.ts",
-    "packages/upswyng-native/config.example.ts",
-    "packages/upswyng-server/jest.config.js",
+    "**/rollup*config.js",
     "packages/*/src/**/*",
-    "**/rollup*config.js"
+    "packages/upswyng-*/src/index.ts",
+    "packages/upswyng-*/src/jest.config.js",
+    "packages/upswyng-native/config.example.ts",
+    "packages/upswyng-native/config.ts"
   ],
   "exclude": ["node_modules"]
 }
