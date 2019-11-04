@@ -13,7 +13,7 @@
     "heroku-postbuild": "sapper build --legacy",
     "start": "node __sapper__/build",
     "test": "run-p --race dev unit",
-    "unit": "jest"
+    "unit": "jest --passWithNoTests"
   },
   "dependencies": {
     "@upswyng/upswyng-types": "0.1.0",
