@@ -11,10 +11,8 @@ UpSwyng is a [Code For Boulder](https://www.codeforboulder.org) project.
 UpSwyng is a monorepo managed with Yarn Workspaces. It consists of five packages all in the `packages` directory: `upswyng-core` contains common libraries and utilities used across the other packages. `upswyng-types` holds the TypeScript definitions used across the project. `upswyng-server` is a [Sapper](https://sapper.svelte.dev/) application with two parts: an API server which provides data to the UpSwyng clients, and an admin web interface which uses the [Svelte](https://svelte.dev/) framework to create and modify data for the project. `upswyng-web` contains the [React](https://reactjs.org/) web client, and `upswyng-native` contains a work-in-progress [React Native](https://facebook.github.io/react-native/) cleint.
 
 ## Getting Started
-The easiest way to work on UpSwyng is to install Lerna by running
-```
-npm i -g lerna
-```
+Install the Yarn package manager by following the instructions at [https://yarnpkg.com/lang/en/docs/install](https://yarnpkg.com/lang/en/docs/install)
+
 Next, clone the repo:
 ```
 git clone https://github.com/CodeForBoulder/upswyng.git
@@ -23,14 +21,13 @@ git clone https://github.com/CodeForBoulder/upswyng.git
 ```
 cd upswyng
 ```
-and [bootstrap the project](https://github.com/lerna/lerna/tree/master/commands/bootstrap) by running
+and install the project dependencies by running
 ```
-lerna bootstrap
+yarn
 ```
-This will install project top-level dependencies, will run `npm install` on each package, and will symlink packages which are dependend on each other.
 
 ### Next Steps
-`cd` into the package you're interested in working on and run the appropriate script. Visit each package's `README` for more information about environment setup, `npm` scripts, and more.
+`cd` into the package you're interested in working on and run the appropriate script. Visit each package's `README` for more information about environment setup, scripts, and more.
 
 ## Contributing
 
