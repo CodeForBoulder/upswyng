@@ -1,6 +1,10 @@
 language: node_js
+cache:
+  directories:
+    - "node_modules"
 node_js:
   - "11"
 script:
+  - npm run bootstrap
   - npm run ci-lint
   - lerna run test
