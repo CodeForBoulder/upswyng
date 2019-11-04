@@ -16,7 +16,7 @@
     "unit": "jest --passWithNoTests"
   },
   "dependencies": {
-    "@upswyng/upswyng-types": "0.1.0",
+    "@upswyng/upswyng-types": "file:../upswyng-types",
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
     "bulma-ribbon": "^0.1.1",
@@ -40,6 +40,7 @@
     "mongoose": "^5.6.13",
     "polka": "next",
     "rrule": "^2.6.2",
+    "sapper": "^0.27.0",
     "sirv": "^0.4.0"
   },
   "devDependencies": {
@@ -71,7 +72,6 @@
     "rollup-plugin-svelte": "^5.0.1",
     "rollup-plugin-terser": "^4.0.4",
     "rollup-plugin-typescript2": "^0.24.0",
-    "sapper": "^0.27.0",
     "svelte": "^3.0.0",
     "svelte-preprocess": "^3.1.2",
     "svelte-forms": "github:rhinodavid/svelte-forms#url-validator-fix",

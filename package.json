@@ -26,6 +26,13 @@
       "git add"
     ]
   },
+  "dependencies": {
+    "@upswyng/upswyng-core": "file:packages/upswyng-core",
+    "@upswyng/upswyng-native": "file:packages/upswyng-native",
+    "@upswyng/upswyng-server": "file:packages/upswyng-server",
+    "@upswyng/upswyng-types": "file:packages/upswyng-types",
+    "@upswyng/upswyng-web": "file:packages/upswyng-web"
+  },
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",

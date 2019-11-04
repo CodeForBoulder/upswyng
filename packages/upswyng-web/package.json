@@ -7,7 +7,7 @@
     "@material-ui/core": "^4.4.3",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.27",
-    "@upswyng/upswyng-types": "0.1.0",
+    "@upswyng/upswyng-types": "file:../upswyng-types",
     "algoliasearch": "^3.33.0",
     "axios": "^0.19.0",
     "google-map-react": "^1.1.4",
@@ -27,7 +27,6 @@
   },
   "scripts": {
     "build": "SKIP_PREFLIGHT_CHECK=true react-scripts build",
-    "ci-build": "lerna bootstrap && npm run build",
     "eject": "SKIP_PREFLIGHT_CHECK=true react-scripts eject",
     "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
     "test": "SKIP_PREFLIGHT_CHECK=true react-scripts test"
