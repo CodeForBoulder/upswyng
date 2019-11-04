@@ -1,10 +1,10 @@
-import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React from "react";
+import { Link, useParams } from "react-router-dom";
 
-import { TResourceCategory, TResourceSubcategory } from '../webTypes';
-import styled from 'styled-components';
-import { font } from '../App.styles';
-import SubCategoryButton from './SubCategoryButton';
+import { TResourceCategory, TResourceSubcategory } from "../webTypes";
+import styled from "styled-components";
+import { font } from "../App.styles";
+import SubCategoryButton from "./SubCategoryButton";
 
 interface Props {
   category: TResourceCategory;

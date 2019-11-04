@@ -1,58 +1,58 @@
-import enzyme, { shallow } from 'enzyme';
-import React from 'react';
-import SearchInput from '../SearchInput';
+import enzyme, { shallow } from "enzyme";
+import React from "react";
+import SearchInput from "../SearchInput";
 
-jest.mock('react-router/Redirect', () => 'Redirect');
-jest.mock('@material-ui/core/TextField', () => 'TextField');
+jest.mock("react-router/Redirect", () => "Redirect");
+jest.mock("@material-ui/core/TextField", () => "TextField");
 
-describe('<SearchInput />', () => {
+describe("<SearchInput />", () => {
   let wrapper: enzyme.ShallowWrapper;
 
   beforeEach(() => {
     wrapper = shallow(<SearchInput />);
   });
 
-  it('renders a Styled TextField', () => {
-    expect(wrapper.find('Styled(TextField)').length).toBe(1);
+  it("renders a Styled TextField", () => {
+    expect(wrapper.find("Styled(TextField)").length).toBe(1);
   });
 
-  describe('when the <TextField/> changes', () => {
-    it('has a value prop equal to the changed value', () => {
+  describe("when the <TextField/> changes", () => {
+    it("has a value prop equal to the changed value", () => {
       const getRenderedTextField = (): enzyme.ShallowWrapper =>
-        wrapper.find('Styled(TextField)');
-      const mockInputValue = 'a submitted search';
+        wrapper.find("Styled(TextField)");
+      const mockInputValue = "a submitted search";
 
-      getRenderedTextField().simulate('change', {
+      getRenderedTextField().simulate("change", {
         target: {
-          value: mockInputValue
-        }
+          value: mockInputValue,
+        },
       });
       wrapper.update();
 
-      expect(getRenderedTextField().prop('value')).toBe(mockInputValue);
+      expect(getRenderedTextField().prop("value")).toBe(mockInputValue);
     });
   });
 
-  describe('when the form is submitted', () => {
-    it('prevents the default event action', () => {
+  describe("when the form is submitted", () => {
+    it("prevents the default event action", () => {
       const mockPreventDefault = jest.fn();
 
-      wrapper.find('form').simulate('submit', {
-        preventDefault: mockPreventDefault
+      wrapper.find("form").simulate("submit", {
+        preventDefault: mockPreventDefault,
       });
 
       expect(mockPreventDefault).toBeCalled();
     });
 
-    describe('<Redirect/>', () => {
+    describe("<Redirect/>", () => {
       const getRenderedRedirect = (): enzyme.ShallowWrapper =>
-        wrapper.find('Redirect');
+        wrapper.find("Redirect");
 
-      it('renders', () => {
+      it("renders", () => {
         expect(getRenderedRedirect().length).toBe(0);
 
-        wrapper.find('form').simulate('submit', {
-          preventDefault: jest.fn()
+        wrapper.find("form").simulate("submit", {
+          preventDefault: jest.fn(),
         });
         wrapper.update();
 
@@ -60,22 +60,22 @@ describe('<SearchInput />', () => {
       });
 
       it('has a "to.search" prop containing its <TextField/>s value', () => {
-        const mockInputValue = 'a submitted search';
+        const mockInputValue = "a submitted search";
 
-        wrapper.find('Styled(TextField)').simulate('change', {
+        wrapper.find("Styled(TextField)").simulate("change", {
           target: {
-            value: mockInputValue
-          }
+            value: mockInputValue,
+          },
         });
-        wrapper.find('form').simulate('submit', {
-          preventDefault: jest.fn()
+        wrapper.find("form").simulate("submit", {
+          preventDefault: jest.fn(),
         });
         wrapper.update();
 
         interface RedirectTo {
           search: string;
         }
-        const redirectTo: RedirectTo = getRenderedRedirect().prop('to');
+        const redirectTo: RedirectTo = getRenderedRedirect().prop("to");
 
         expect(redirectTo.search).toContain(mockInputValue);
       });

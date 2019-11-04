@@ -1,16 +1,16 @@
-import React from 'react';
+import React from "react";
 
-import Drawer, { DrawerProps } from '@material-ui/core/Drawer';
-import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import { Link, NavLinkProps } from 'react-router-dom';
-import styled from 'styled-components';
+import Drawer, { DrawerProps } from "@material-ui/core/Drawer";
+import IconButton from "@material-ui/core/IconButton";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import { Link, NavLinkProps } from "react-router-dom";
+import styled from "styled-components";
 
-import Logo from './Logo';
-import { CloseIcon, InfoIcon, PolicyIcon, TermsOfServiceIcon } from './Icons';
-import { colors, font } from '../App.styles';
+import Logo from "./Logo";
+import { CloseIcon, InfoIcon, PolicyIcon, TermsOfServiceIcon } from "./Icons";
+import { colors, font } from "../App.styles";
 
 const StyledDrawer = styled(Drawer)`
   && {

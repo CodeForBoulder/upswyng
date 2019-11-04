@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useEffect } from 'react';
-import algoliaSearch from 'algoliasearch';
-import { TEnvVariables } from '../webTypes';
+import { useState, useEffect } from "react";
+import algoliaSearch from "algoliasearch";
+import { TEnvVariables } from "../webTypes";
 
 declare const process: TEnvVariables;
 
 function useSimilarSearchResults(query: string): algoliaSearch.Response | null {
   const [
     searchResults,
-    setSearchResults
+    setSearchResults,
   ] = useState<algoliaSearch.Response | null>(null);
 
   useEffect(() => {
@@ -24,8 +24,8 @@ function useSimilarSearchResults(query: string): algoliaSearch.Response | null {
 
       searchIndex
         .search({
-          query: '',
-          similarQuery: query
+          query: "",
+          similarQuery: query,
         } as any)
         .then(setSearchResults);
     }

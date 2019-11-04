@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import { Tooltip, Typography } from '@material-ui/core';
-import { ErrorOutline as ErrorOutlineIcon } from '@material-ui/icons';
-import { Skeleton } from '@material-ui/lab';
-import styled from 'styled-components';
+import { Tooltip, Typography } from "@material-ui/core";
+import { ErrorOutline as ErrorOutlineIcon } from "@material-ui/icons";
+import { Skeleton } from "@material-ui/lab";
+import styled from "styled-components";
 
-import { colors, font } from '../App.styles';
-import useTemperature from './useTemperature';
+import { colors, font } from "../App.styles";
+import useTemperature from "./useTemperature";
 
 const StyledContainer = styled.aside`
   color: ${colors.white};
@@ -39,7 +39,7 @@ const StyledLocation = styled.span`
 
 const StyledTooltip = styled(props => (
   <Tooltip
-    classes={{ popper: props.className, tooltip: 'tooltip' }}
+    classes={{ popper: props.className, tooltip: "tooltip" }}
     {...props}
   />
 ))`

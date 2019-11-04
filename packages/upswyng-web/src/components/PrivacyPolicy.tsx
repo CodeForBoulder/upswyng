@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-import { Container, colors } from '../App.styles';
-import PageBanner from './PageBanner';
+import { Container, colors } from "../App.styles";
+import PageBanner from "./PageBanner";
 
 const LowerAlphaList = styled.ol`
   list-style-type: lower-alpha;
@@ -11,12 +11,12 @@ const LowerAlphaList = styled.ol`
 
 const PrivacyPolicy = () => (
   <Container>
-    <PageBanner color={colors.orangeDark} text={'Privacy Policy'} />
+    <PageBanner color={colors.orangeDark} text={"Privacy Policy"} />
     <p>
       UpSwyng has created this Privacy Policy to explain why we collect
       particular information and how we will protect your personal privacy
       within our Web site. This Privacy Policy discloses our information
-      gathering and dissemination practices for the Web site located at the URL{' '}
+      gathering and dissemination practices for the Web site located at the URL{" "}
       <Link to="/">https://upswyng.org</Link> (the “Site”).
     </p>
     <p>
@@ -167,7 +167,7 @@ const PrivacyPolicy = () => (
       or received personal information from a child under 13 without
       verification of parental consent, we will delete that information. If you
       believe we might have any information from or about a child under 13,
-      please contact us at{' '}
+      please contact us at{" "}
       <a href="mailto:info@upswyng.org">info@upswyng.org</a>.
     </p>
     <h2>Consent; Changes to Privacy Policy</h2>
@@ -183,7 +183,7 @@ const PrivacyPolicy = () => (
     <h2>Contacting the Web Site:</h2>
     <p>
       If you have any questions about this Privacy Policy, the practices of this
-      Site, or your dealings with this Site, you can contact:{' '}
+      Site, or your dealings with this Site, you can contact:{" "}
       <a href="mailto:info@upswyng.org">info@upswyng.org</a>.
     </p>
   </Container>

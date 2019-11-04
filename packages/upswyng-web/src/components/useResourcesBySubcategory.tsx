@@ -1,7 +1,7 @@
-import { TResourcesBySubcategoryPayload } from '../webTypes';
-import { useEffect, useState } from 'react';
-import apiClient from '../utils/apiClient';
-import { TResource } from '@upswyng/upswyng-types';
+import { TResourcesBySubcategoryPayload } from "../webTypes";
+import { useEffect, useState } from "react";
+import apiClient from "../utils/apiClient";
+import { TResource } from "@upswyng/upswyng-types";
 
 const useResourcesBySubcategory = (
   subcategoryStub: string | null
@@ -20,15 +20,15 @@ const useResourcesBySubcategory = (
 
           if (!data.subcategory) {
             throw new Error(
-              'no subcategory found in resources by subcategory response'
+              "no subcategory found in resources by subcategory response"
             );
           }
 
           const {
-            subcategory: { resources }
+            subcategory: { resources },
           } = data;
           if (!resources || !resources.length) {
-            throw new Error('no resources found in subcategory response');
+            throw new Error("no resources found in subcategory response");
           }
 
           setResourcesBySubcategory(resources);

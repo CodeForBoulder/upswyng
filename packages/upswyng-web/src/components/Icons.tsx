@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Close,
   BusinessCenter,
@@ -14,13 +14,13 @@ import {
   People,
   Pets,
   Policy,
-  Wifi
-} from '@material-ui/icons';
-import { SvgIconProps } from '@material-ui/core/SvgIcon';
-import { default as Banana } from './BananaIcon';
-import { default as Door } from './DoorIcon';
-import { default as Hygiene } from './HygieneIcon';
-import { default as Socks } from './SocksIcon';
+  Wifi,
+} from "@material-ui/icons";
+import { SvgIconProps } from "@material-ui/core/SvgIcon";
+import { default as Banana } from "./BananaIcon";
+import { default as Door } from "./DoorIcon";
+import { default as Hygiene } from "./HygieneIcon";
+import { default as Socks } from "./SocksIcon";
 
 export const BananaIcon: React.ReactElement<SvgIconProps> = <Banana />;
 export const BikeIcon: React.ReactElement<SvgIconProps> = <DirectionsBike />;

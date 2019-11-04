@@ -1,6 +1,6 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
-import { colors, font } from '../App.styles';
+import React from "react";
+import styled, { css } from "styled-components";
+import { colors, font } from "../App.styles";
 
 interface DetailsProps {
   children: React.ReactChild | React.ReactChild[];

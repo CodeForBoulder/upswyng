@@ -1,5 +1,5 @@
-import React from 'react';
-import { Grid } from '@material-ui/core';
+import React from "react";
+import { Grid } from "@material-ui/core";
 import {
   BananaIcon,
   BusIcon,
@@ -11,104 +11,104 @@ import {
   LocalHospitalIcon,
   PeopleIcon,
   SocksIcon,
-  WifiIcon
-} from './Icons';
-import styled from 'styled-components';
-import { THomeButtonAnchor, THomeButtonRouterLink } from '../webTypes';
-import { HomeRouterLink, HomeAnchorLink } from './HomeLink';
-import HomeButton from './HomeButton';
-import { colors } from '../App.styles';
+  WifiIcon,
+} from "./Icons";
+import styled from "styled-components";
+import { THomeButtonAnchor, THomeButtonRouterLink } from "../webTypes";
+import { HomeRouterLink, HomeAnchorLink } from "./HomeLink";
+import HomeButton from "./HomeButton";
+import { colors } from "../App.styles";
 
 const routerLinkButtons: THomeButtonRouterLink[] = [
   {
-    text: 'Food',
+    text: "Food",
     icon: BananaIcon,
     linkProps: {
-      to: '/food'
+      to: "/food",
     },
-    color: colors.gold
+    color: colors.gold,
   },
   {
-    text: 'Shelter',
+    text: "Shelter",
     icon: HomeIcon,
     linkProps: {
-      to: '/shelters'
+      to: "/shelters",
     },
-    color: colors.orangeDark
+    color: colors.orangeDark,
   },
   {
-    text: 'Hygiene',
+    text: "Hygiene",
     icon: HygieneIcon,
     linkProps: {
-      to: '/hygiene'
+      to: "/hygiene",
     },
-    color: colors.teal
+    color: colors.teal,
   },
   {
-    text: 'Transit',
+    text: "Transit",
     icon: BusIcon,
     linkProps: {
-      to: '/transit'
+      to: "/transit",
     },
-    color: colors.green
+    color: colors.green,
   },
   {
-    text: 'Resources',
+    text: "Resources",
     icon: SocksIcon,
     linkProps: {
-      to: '/resources'
+      to: "/resources",
     },
-    color: colors.purple
+    color: colors.purple,
   },
   {
-    text: 'Hotlines',
+    text: "Hotlines",
     icon: CallIcon,
     linkProps: {
-      to: '/hotlines'
+      to: "/hotlines",
     },
-    color: colors.pink
+    color: colors.pink,
   },
   {
-    text: 'Health',
+    text: "Health",
     icon: LocalHospitalIcon,
     linkProps: {
-      to: '/health'
+      to: "/health",
     },
-    color: colors.red
+    color: colors.red,
   },
   {
-    text: 'Wifi',
+    text: "Wifi",
     icon: WifiIcon,
     linkProps: {
-      to: '/wifi'
+      to: "/wifi",
     },
-    color: colors.blue
+    color: colors.blue,
   },
   {
-    text: 'Job Training',
+    text: "Job Training",
     icon: BusinessCenterIcon,
     linkProps: {
-      to: '/job_training'
+      to: "/job_training",
     },
-    color: colors.lavendar
+    color: colors.lavendar,
   },
   {
-    text: 'Social Services',
+    text: "Social Services",
     icon: PeopleIcon,
     linkProps: {
-      to: '/social_services'
+      to: "/social_services",
     },
-    color: colors.brown
-  }
+    color: colors.brown,
+  },
 ];
 
 const coordinatedEntryButton: THomeButtonAnchor = {
-  text: 'Coordinated Entry',
-  href: 'https://www.bouldercounty.org/homeless/',
+  text: "Coordinated Entry",
+  href: "https://www.bouldercounty.org/homeless/",
   icon: DoorIcon,
   color: colors.rosewood,
-  target: '_blank',
-  rel: 'noopener noreferrer'
+  target: "_blank",
+  rel: "noopener noreferrer",
 };
 
 const HomeButtonContainer = styled(Grid)`
@@ -129,7 +129,7 @@ const HomeButtons = () => (
           </HomeRouterLink>
         </HomeButtonContainer>
       );
-    })}{' '}
+    })}{" "}
     <Grid item xs={12}>
       <HomeAnchorLink
         {...coordinatedEntryButton}

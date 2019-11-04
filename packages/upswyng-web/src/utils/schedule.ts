@@ -1,25 +1,25 @@
-import { TDay, TSchedule, TSchedulePeriod } from '@upswyng/upswyng-types';
-import moment from 'moment';
+import { TDay, TSchedule, TSchedulePeriod } from "@upswyng/upswyng-types";
+import moment from "moment";
 
 const orderedPeriods: TSchedulePeriod[] = [
-  'First',
-  'Second',
-  'Third',
-  'Fourth'
+  "First",
+  "Second",
+  "Third",
+  "Fourth",
 ];
 
 const orderedDays: TDay[] = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday'
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
 ];
 
 const convert12HourTo24Hour = (time: string): number =>
-  parseInt(moment(time, 'h:mm A').format('H'));
+  parseInt(moment(time, "h:mm A").format("H"));
 
 const compareTimes = (time1?: string, time2?: string): number => {
   if (!time1 || !time2) return 0;
@@ -62,10 +62,10 @@ export const orderSchedule = (schedule: TSchedule[]) => {
     const { scheduleType } = schedule[0];
 
     switch (scheduleType) {
-      case 'Open 24/7':
+      case "Open 24/7":
         return schedule;
-      case 'Weekly':
-      case 'Monthly':
+      case "Weekly":
+      case "Monthly":
       default:
         return sortSchedule(schedule);
     }

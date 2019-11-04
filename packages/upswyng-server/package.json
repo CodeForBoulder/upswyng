@@ -2,6 +2,7 @@
   "name": "@upswyng/upswyng-server",
   "main": "src/index.ts",
   "private": true,
+  "version": "0.1.0",
   "scripts": {
     "build": "sapper build --output src/node_modules/@sapper --legacy",
     "cy:open": "cypress open",
@@ -9,14 +10,14 @@
     "data-setup-categories": "rollup --config data-pipeline.rollup.config.js && node __build__/setupCategories.js",
     "data-sync-strappd": "rollup --config data-pipeline.rollup.config.js && node __build__/syncStrappd.js",
     "data-update-algolia": "rollup --config data-pipeline.rollup.config.js && node __build__/updateAlgolia.js",
-    "dev": "sapper dev --output server/src/node_modules/@sapper",
+    "dev": "sapper dev",
     "heroku-postbuild": "sapper build --legacy",
     "start": "node __sapper__/build",
     "test": "run-p --race dev unit",
     "unit": "jest --passWithNoTests"
   },
   "dependencies": {
-    "@upswyng/upswyng-types": "file:../upswyng-types",
+    "@upswyng/upswyng-types": "0.1.0",
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
     "bulma-ribbon": "^0.1.1",
@@ -40,8 +41,8 @@
     "mongoose": "^5.6.13",
     "polka": "next",
     "rrule": "^2.6.2",
-    "sapper": "^0.27.0",
-    "sirv": "^0.4.0"
+    "sirv": "^0.4.0",
+    "tslib": "^1.10.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -72,9 +73,10 @@
     "rollup-plugin-svelte": "^5.0.1",
     "rollup-plugin-terser": "^4.0.4",
     "rollup-plugin-typescript2": "^0.24.0",
+    "sapper": "^0.27.9",
     "svelte": "^3.0.0",
-    "svelte-preprocess": "^3.1.2",
     "svelte-forms": "github:rhinodavid/svelte-forms#url-validator-fix",
+    "svelte-preprocess": "^3.1.2",
     "svelte-select": "github:rob-balfre/svelte-select#7973bb712c2cadb7abf0bc701ccd46785c48fd07",
     "ts-jest": "^24.1.0",
     "typescript": "^3.4.5"

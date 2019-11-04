@@ -1,8 +1,8 @@
-import React from 'react';
-import { Button } from '@material-ui/core';
-import { ButtonProps } from '@material-ui/core/Button';
-import styled from 'styled-components';
-import { colors, font } from '../App.styles';
+import React from "react";
+import { Button } from "@material-ui/core";
+import { ButtonProps } from "@material-ui/core/Button";
+import styled from "styled-components";
+import { colors, font } from "../App.styles";
 
 interface HomeLinkPropsBase {
   children: React.ReactElement | React.ReactElement[];

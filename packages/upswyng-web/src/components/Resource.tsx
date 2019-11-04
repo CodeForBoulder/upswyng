@@ -1,17 +1,17 @@
-import { categories, TCategoryDefinition } from './Categories';
-import { colors, Container } from '../App.styles';
-import { getSearchParamVal } from '../utils/searchParams';
-import { SEARCH_PARAM_RESOURCE } from '../constants';
-import { TResource } from '@upswyng/upswyng-types';
-import BannerColorContext from './BannerColorContext';
-import Details, { DetailBody, DetailHeading } from './Details';
-import LoadingSpinner from './LoadingSpinner';
-import Map from './Map';
-import PageBanner from './PageBanner';
-import React from 'react';
-import Schedule from './Schedule';
-import Services from './Services';
-import useResource from './useResource';
+import { categories, TCategoryDefinition } from "./Categories";
+import { colors, Container } from "../App.styles";
+import { getSearchParamVal } from "../utils/searchParams";
+import { SEARCH_PARAM_RESOURCE } from "../constants";
+import { TResource } from "@upswyng/upswyng-types";
+import BannerColorContext from "./BannerColorContext";
+import Details, { DetailBody, DetailHeading } from "./Details";
+import LoadingSpinner from "./LoadingSpinner";
+import Map from "./Map";
+import PageBanner from "./PageBanner";
+import React from "react";
+import Schedule from "./Schedule";
+import Services from "./Services";
+import useResource from "./useResource";
 
 interface Props {
   id: string;
@@ -20,7 +20,7 @@ interface Props {
 
 const renderAddressContent = (resource: TResource) => {
   const {
-    address: { address1, address2, city, state, zip }
+    address: { address1, address2, city, state, zip },
   } = resource;
 
   if (!address1 || !city || !state || !zip) {
@@ -32,8 +32,8 @@ const renderAddressContent = (resource: TResource) => {
       <DetailHeading>Address</DetailHeading>
       <DetailBody>
         <p>
-          {' '}
-          {address1}, {address2 ? `${address2},` : ''} {city}, {state} {zip}
+          {" "}
+          {address1}, {address2 ? `${address2},` : ""} {city}, {state} {zip}
         </p>
       </DetailBody>
     </>
@@ -87,7 +87,7 @@ const getMainCategory = (categoryStub: string): TCategoryDefinition | null => {
   const [_, resourceMainCategoryInfo] = Object.entries(categories).find(
     ([_, categoryInfo]) => {
       const {
-        mainCategory: { stub: mainCategoryStub }
+        mainCategory: { stub: mainCategoryStub },
       } = categoryInfo;
       return mainCategoryStub === categoryStub;
     }
@@ -119,13 +119,13 @@ export const Resource = () => {
 
   const defaultCategoryStub = subcategories.length
     ? subcategories[0].parentCategory.stub
-    : '';
+    : "";
   const mainCategoryDefinition = defaultCategoryStub
     ? getMainCategory(defaultCategoryStub)
     : null;
   const resourceCategoryColorName = mainCategoryDefinition
     ? mainCategoryDefinition.color
-    : 'black';
+    : "black";
 
   return (
     <Container>

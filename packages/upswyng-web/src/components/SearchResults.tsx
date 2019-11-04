@@ -1,6 +1,6 @@
-import { Response } from 'algoliasearch';
-import React from 'react';
-import ResourceList from './ResourceList';
+import { Response } from "algoliasearch";
+import React from "react";
+import ResourceList from "./ResourceList";
 
 interface Props {
   placeholder?: React.ReactElement;
@@ -21,7 +21,7 @@ const mapResultsToResources = (
 
   const resources = hits.map(({ name, objectID }) => ({
     id: objectID,
-    name
+    name,
   }));
   return resources as { id: string; name: string }[];
 };

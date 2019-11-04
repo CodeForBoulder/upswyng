@@ -24,7 +24,9 @@ export default class ResourceSchedule {
       x = JSON.parse(s);
     } catch (e) {
       throw new Error(
-        `Error parsing serialized resource schedule JSON:\n${e.message}\nSerialized ResourceSchedule:\t${s}`
+        `Error parsing serialized resource schedule JSON:\n${
+          e.message
+        }\nSerialized ResourceSchedule:\t${s}`
       );
     }
     if (!Array.isArray(x)) {

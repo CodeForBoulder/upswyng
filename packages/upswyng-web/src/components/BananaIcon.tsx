@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import { colors } from '../App.styles';
+import { colors } from "../App.styles";
 
 interface Props {
   color?: string;

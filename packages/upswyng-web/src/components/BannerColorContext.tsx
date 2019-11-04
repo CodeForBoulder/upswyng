@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import { colors } from '../App.styles';
+import { colors } from "../App.styles";
 
 interface ContextShape {
   currentBannerColor: string;
@@ -8,8 +8,8 @@ interface ContextShape {
 }
 
 const Context = React.createContext<ContextShape>({
-  currentBannerColor: '',
-  updateCurrentBannerColor: () => {}
+  currentBannerColor: "",
+  updateCurrentBannerColor: () => {},
 });
 
 interface Props {
@@ -18,16 +18,16 @@ interface Props {
 
 export const BannerColorContextProvider = ({ children }: Props) => {
   const [currentBannerColor, setCurrentBannerColor] = React.useState<string>(
-    ''
+    ""
   );
   const updateCurrentBannerColor = (color?: string) =>
-    setCurrentBannerColor(color || '');
+    setCurrentBannerColor(color || "");
 
   return (
     <Context.Provider
       value={{
         currentBannerColor,
-        updateCurrentBannerColor
+        updateCurrentBannerColor,
       }}
     >
       {children}

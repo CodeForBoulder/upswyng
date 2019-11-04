@@ -1,8 +1,8 @@
-import { Chip } from '@material-ui/core';
-import { colors, font } from '../App.styles';
-import { TResource } from '@upswyng/upswyng-types';
-import React from 'react';
-import styled from 'styled-components';
+import { Chip } from "@material-ui/core";
+import { colors, font } from "../App.styles";
+import { TResource } from "@upswyng/upswyng-types";
+import React from "react";
+import styled from "styled-components";
 
 interface Props {
   resource: TResource;
@@ -38,7 +38,7 @@ const Services = ({ resource }: Props) => {
     if (services) {
       const serviceItems = services.map(service => (
         <ServicesItem key={service.trim()}>
-          <ServicesChip component={'span'} label={service.trim()} role={''} />
+          <ServicesChip component={"span"} label={service.trim()} role={""} />
         </ServicesItem>
       ));
 

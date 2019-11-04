@@ -1,8 +1,8 @@
-import { font } from '../App.styles';
-import LoadingSpinner from './LoadingSpinner';
-import React from 'react';
-import ResourceCard from './ResourceCard';
-import styled from 'styled-components';
+import { font } from "../App.styles";
+import LoadingSpinner from "./LoadingSpinner";
+import React from "react";
+import ResourceCard from "./ResourceCard";
+import styled from "styled-components";
 
 interface Resource {
   id: string;

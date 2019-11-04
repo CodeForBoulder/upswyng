@@ -32,7 +32,7 @@ const tsOpts = {
 };
 const styleOpts = {
   scss: {
-    includePaths: ["node_modules", "src"],
+    includePaths: ["node_modules", "src", "../../node_modules"],
   },
   postcss: {
     plugins: [require("autoprefixer")],

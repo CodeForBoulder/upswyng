@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { InputAdornment, TextField } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
-import { Redirect } from 'react-router';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import { InputAdornment, TextField } from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
+import { Redirect } from "react-router";
+import styled from "styled-components";
 
-import { SEARCH_PARAM_QUERY } from '../constants';
-import { colors, font, ScreenReaderOnly } from '../App.styles';
+import { SEARCH_PARAM_QUERY } from "../constants";
+import { colors, font, ScreenReaderOnly } from "../App.styles";
 
 const SearchInput = styled(TextField)`
   && {
@@ -50,24 +50,24 @@ interface State {
 
 class Search extends Component {
   state: State = {
-    query: '',
-    submitted: false
+    query: "",
+    submitted: false,
   };
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
-      target: { value }
+      target: { value },
     } = e;
 
     this.setState({
-      query: value
+      query: value,
     });
   };
 
   handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     this.setState({
-      submitted: true
+      submitted: true,
     });
   };
 
@@ -87,7 +87,7 @@ class Search extends Component {
                 <SearchAdornment position="start">
                   <SearchIcon />
                 </SearchAdornment>
-              )
+              ),
             }}
             onChange={this.handleChange}
             value={query}
@@ -96,8 +96,8 @@ class Search extends Component {
         {submitted ? (
           <Redirect
             to={{
-              pathname: '/search',
-              search: `?${SEARCH_PARAM_QUERY}=${query}`
+              pathname: "/search",
+              search: `?${SEARCH_PARAM_QUERY}=${query}`,
             }}
           />
         ) : null}

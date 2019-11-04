@@ -5,7 +5,7 @@ cache:
 node_js:
   - "11"
 script:
-  - npm run bootstrap
+  - yarn
   - mv packages/upswyng-native/config.example.ts packages/upswyng-native/config.ts
-  - npm run ci-lint
-  - lerna run test
+  - yarn run ci-lint
+  - yarn run test

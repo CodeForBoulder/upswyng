@@ -1,29 +1,29 @@
-import { BikeIcon, BusIcon, CarIcon, CloseIcon, WalkIcon } from './Icons';
-import { colors, font } from '../App.styles';
-import { TResource } from '@upswyng/upswyng-types';
+import { BikeIcon, BusIcon, CarIcon, CloseIcon, WalkIcon } from "./Icons";
+import { colors, font } from "../App.styles";
+import { TResource } from "@upswyng/upswyng-types";
 import {
   TGoogleMapTravelMode,
-  TGoogleMapDirectionsStatusCode
-} from '../webTypes';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import GoogleMapReact from 'google-map-react';
-import IconButton, { IconButtonProps } from '@material-ui/core/IconButton';
-import LoadingSpinner from './LoadingSpinner';
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import Snackbar from '@material-ui/core/Snackbar';
-import styled from 'styled-components';
+  TGoogleMapDirectionsStatusCode,
+} from "../webTypes";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import GoogleMapReact from "google-map-react";
+import IconButton, { IconButtonProps } from "@material-ui/core/IconButton";
+import LoadingSpinner from "./LoadingSpinner";
+import React, { FunctionComponent, useEffect, useState } from "react";
+import Snackbar from "@material-ui/core/Snackbar";
+import styled from "styled-components";
 
 const boulderCoordinates = {
   lat: 40.0156852,
-  lng: -105.2792069
+  lng: -105.2792069,
 };
 
 // TODO: Only pass down the props that are needed
 interface Props {
-  address: TResource['address'];
-  name: TResource['name'];
-  latitude: NonNullable<TResource['latitude']>;
-  longitude: NonNullable<TResource['longitude']>;
+  address: TResource["address"];
+  name: TResource["name"];
+  latitude: NonNullable<TResource["latitude"]>;
+  longitude: NonNullable<TResource["longitude"]>;
 }
 
 const TravelButtonsContainer = styled(ButtonGroup)`
@@ -48,7 +48,7 @@ const TravelButton: FunctionComponent<TTravelButtonProps> = ({
 const StyledTravelButton = styled(TravelButton)`
   && {
     background: ${(props: TTravelButtonProps) =>
-      props.selected ? 'rgba(250,250,250,0.1)' : 'none'};
+      props.selected ? "rgba(250,250,250,0.1)" : "none"};
     border-radius: 0;
     color: ${(props: TTravelButtonProps) =>
       props.selected ? colors.orangePrimary : colors.white};
@@ -61,7 +61,7 @@ const MapOuterContainer = styled.div`
   position: relative;
   width: 100%;
   &::before {
-    content: '';
+    content: "";
     display: block;
     padding-bottom: 55%;
     width: 100%;
@@ -139,8 +139,8 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
       title: name,
       position: {
         lat: latitude,
-        lng: longitude
-      }
+        lng: longitude,
+      },
     });
 
     const resourceMarkerInfoWindow = new googleMaps.InfoWindow({
@@ -148,22 +148,22 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
           <div class="google-map__info-window">
             <span class="google-map__charity-name">${name}</span>
             <span class="google-map__address-line">${address1}</span>
-            <span class="google-map__address-line">${address2 || ''}</span>
+            <span class="google-map__address-line">${address2 || ""}</span>
             <span class="google-map__address-line">${city}, ${state} ${zip}</span>
           </div>
-        `
+        `,
     });
 
-    resourceMarker.addListener('mouseover', () => {
+    resourceMarker.addListener("mouseover", () => {
       resourceMarkerInfoWindow.open(googleMap, resourceMarker);
     });
-    resourceMarker.addListener('focus', () => {
+    resourceMarker.addListener("focus", () => {
       resourceMarkerInfoWindow.open(googleMap, resourceMarker);
     });
-    resourceMarker.addListener('mouseout', () => {
+    resourceMarker.addListener("mouseout", () => {
       resourceMarkerInfoWindow.close();
     });
-    resourceMarker.addListener('blur', () => {
+    resourceMarker.addListener("blur", () => {
       resourceMarkerInfoWindow.close();
     });
   };
@@ -191,10 +191,10 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
   const handleDirectionsError = (status: TGoogleMapDirectionsStatusCode) => {
     setIsFetchingDirections(false);
     switch (status) {
-      case 'ZERO_RESULTS':
+      case "ZERO_RESULTS":
         const directionTypeText: string = travelMode
           ? ` by ${travelMode.toLowerCase()}`
-          : '';
+          : "";
         setDirectionsError(
           `It looks like we couldn't get directions${directionTypeText}. Please try a different type of travel.`
         );
@@ -227,12 +227,12 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
             origin: userLatLng,
             destination: {
               lat: latitude,
-              lng: longitude
+              lng: longitude,
             },
-            travelMode
+            travelMode,
           },
           (response: any, status: TGoogleMapDirectionsStatusCode) => {
-            if (status === 'OK') {
+            if (status === "OK") {
               directionsRenderer.setDirections(response);
               resolve(true);
             } else {
@@ -242,7 +242,7 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
           }
         );
       } catch (err) {
-        handleDirectionsError('UNKNOWN_ERROR');
+        handleDirectionsError("UNKNOWN_ERROR");
         reject(err);
       }
     });
@@ -319,26 +319,26 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
     <>
       <TravelButtonsContainer variant="contained">
         <StyledTravelButton
-          onClick={() => handleDirectionButtonClick('TRANSIT')}
-          selected={travelMode === 'TRANSIT'}
+          onClick={() => handleDirectionButtonClick("TRANSIT")}
+          selected={travelMode === "TRANSIT"}
         >
           {BusIcon}
         </StyledTravelButton>
         <StyledTravelButton
-          onClick={() => handleDirectionButtonClick('BICYCLING')}
-          selected={travelMode === 'BICYCLING'}
+          onClick={() => handleDirectionButtonClick("BICYCLING")}
+          selected={travelMode === "BICYCLING"}
         >
           {BikeIcon}
         </StyledTravelButton>
         <StyledTravelButton
-          onClick={() => handleDirectionButtonClick('DRIVING')}
-          selected={travelMode === 'DRIVING'}
+          onClick={() => handleDirectionButtonClick("DRIVING")}
+          selected={travelMode === "DRIVING"}
         >
           {CarIcon}
         </StyledTravelButton>
         <StyledTravelButton
-          onClick={() => handleDirectionButtonClick('WALKING')}
-          selected={travelMode === 'WALKING'}
+          onClick={() => handleDirectionButtonClick("WALKING")}
+          selected={travelMode === "WALKING"}
         >
           {WalkIcon}
         </StyledTravelButton>
@@ -347,7 +347,7 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
         <MapInnerContainer>
           <GoogleMapReact
             bootstrapURLKeys={{
-              key: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
+              key: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
             }}
             defaultCenter={boulderCoordinates}
             defaultZoom={13}
@@ -370,7 +370,7 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
             onClick={handleErrorSnackbarClose}
           >
             {CloseIcon}
-          </SnackbarCloseButton>
+          </SnackbarCloseButton>,
         ]}
       />
     </>

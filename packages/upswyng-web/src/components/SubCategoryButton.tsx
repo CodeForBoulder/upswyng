@@ -1,9 +1,9 @@
-import React from 'react';
-import Button, { ButtonProps } from '@material-ui/core/Button';
-import { darken } from 'polished';
+import React from "react";
+import Button, { ButtonProps } from "@material-ui/core/Button";
+import { darken } from "polished";
 
-import styled, { css } from 'styled-components';
-import { colors, font } from '../App.styles';
+import styled, { css } from "styled-components";
+import { colors, font } from "../App.styles";
 
 const baseButtonStyles = css`
   color: ${colors.white};

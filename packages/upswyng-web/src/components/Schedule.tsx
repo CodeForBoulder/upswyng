@@ -1,8 +1,8 @@
-import { font } from '../App.styles';
-import { orderSchedule } from '../utils/schedule';
-import { TDay, TSchedule } from '@upswyng/upswyng-types';
-import React from 'react';
-import styled from 'styled-components';
+import { font } from "../App.styles";
+import { orderSchedule } from "../utils/schedule";
+import { TDay, TSchedule } from "@upswyng/upswyng-types";
+import React from "react";
+import styled from "styled-components";
 
 interface ScheduleProps {
   schedule: TSchedule[];
@@ -19,7 +19,7 @@ const WeeklyDay = styled.h3`
     font-weight: 400;
     margin: 0;
     &::after {
-      content: ':';
+      content: ":";
     }
   }
 `;
@@ -91,11 +91,11 @@ const Schedule = ({ schedule }: ScheduleProps) => {
     const orderedSchedule = orderSchedule(schedule);
 
     switch (scheduleType) {
-      case 'Weekly':
+      case "Weekly":
         return <>{renderWeeklySchedule(orderedSchedule)}</>;
-      case 'Monthly':
+      case "Monthly":
         return <>{renderMonthlySchedule(orderedSchedule)}</>;
-      case 'Open 24/7':
+      case "Open 24/7":
         return <p>{scheduleType}</p>;
     }
   }

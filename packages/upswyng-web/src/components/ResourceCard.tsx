@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { SEARCH_PARAM_RESOURCE } from '../constants';
-import { colors, font } from '../App.styles';
+import React from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { SEARCH_PARAM_RESOURCE } from "../constants";
+import { colors, font } from "../App.styles";
 
 interface Props {
   index?: number;
@@ -35,7 +35,7 @@ const ResourceCardImageContainer = styled.div`
   position: relative;
   flex: 1 1 auto;
   &::before {
-    content: '';
+    content: "";
     display: block;
     padding-bottom: ${(96 / 146) * 100}%;
     width: 100%;
@@ -105,28 +105,28 @@ interface TCardColor {
 const cardColors: TCardColor[] = [
   {
     iconColor: colors.greyMedium,
-    placeholderBackgroundColor: colors.greyLight
+    placeholderBackgroundColor: colors.greyLight,
   },
   {
     iconColor: colors.greyLight,
-    placeholderBackgroundColor: colors.greyMedium
-  }
+    placeholderBackgroundColor: colors.greyMedium,
+  },
 ];
 
 const ResourceCard = ({
   index = 1,
   placeholder,
   resourceId,
-  resourceName
+  resourceName,
 }: Props) => {
   const cardColor =
-    typeof index === 'number' && !(index % 2) ? cardColors[0] : cardColors[1];
+    typeof index === "number" && !(index % 2) ? cardColors[0] : cardColors[1];
 
   return (
     <ResourceCardContainer
       to={{
-        pathname: '/resource',
-        search: `?${SEARCH_PARAM_RESOURCE}=${resourceId}`
+        pathname: "/resource",
+        search: `?${SEARCH_PARAM_RESOURCE}=${resourceId}`,
       }}
     >
       <ResourceCardImageContainer>
@@ -135,7 +135,7 @@ const ResourceCard = ({
         >
           {placeholder &&
             React.cloneElement(placeholder, {
-              color: cardColor.iconColor
+              color: cardColor.iconColor,
             })}
         </ResourceCardImagePlaceholderContainer>
         <ResourceCardResourceName>{resourceName}</ResourceCardResourceName>

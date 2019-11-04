@@ -1,6 +1,6 @@
-import { SvgIconProps } from '@material-ui/core/SvgIcon';
-import { LinkProps } from 'react-router-dom';
-import { TCategory, TResource, TSubcategory } from '@upswyng/upswyng-types';
+import { SvgIconProps } from "@material-ui/core/SvgIcon";
+import { LinkProps } from "react-router-dom";
+import { TCategory, TResource, TSubcategory } from "@upswyng/upswyng-types";
 
 export interface TEnvVariables {
   env: {
@@ -91,18 +91,18 @@ export interface TWeatherCurrentResponse {
 }
 
 export type TGoogleMapTravelMode =
-  | 'TRANSIT'
-  | 'DRIVING'
-  | 'WALKING'
-  | 'BICYCLING';
+  | "TRANSIT"
+  | "DRIVING"
+  | "WALKING"
+  | "BICYCLING";
 
 export type TGoogleMapDirectionsStatusCode =
-  | 'OK'
-  | 'ZERO_RESULTS'
-  | 'MAX_WAYPOINTS_EXCEEDED'
-  | 'MAX_ROUTE_LENGTH_EXCEEDED'
-  | 'INVALID_REQUEST'
-  | 'OVER_DAILY_LIMIT'
-  | 'OVER_QUERY_LIMIT'
-  | 'REQUEST_DENIED'
-  | 'UNKNOWN_ERROR';
+  | "OK"
+  | "ZERO_RESULTS"
+  | "MAX_WAYPOINTS_EXCEEDED"
+  | "MAX_ROUTE_LENGTH_EXCEEDED"
+  | "INVALID_REQUEST"
+  | "OVER_DAILY_LIMIT"
+  | "OVER_QUERY_LIMIT"
+  | "REQUEST_DENIED"
+  | "UNKNOWN_ERROR";

@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import { Container, colors, font } from '../App.styles';
-import Logo from './Logo';
-import PageBanner from './PageBanner';
+import { Container, colors, font } from "../App.styles";
+import Logo from "./Logo";
+import PageBanner from "./PageBanner";
 
 const StyledLogo = styled(Logo)`
   display: block;
@@ -12,14 +12,14 @@ const StyledLogo = styled(Logo)`
 
 const About = () => (
   <Container>
-    <PageBanner color={colors.orangeDark} text={'About UpSwyng'} />
+    <PageBanner color={colors.orangeDark} text={"About UpSwyng"} />
     <p>
       UpSwyng is a mobile-ready, digital directory of resources to assist the
       unhoused and at-risk communities.
     </p>
     <StyledLogo />
     <p>
-      UpSwyng is maintained by{' '}
+      UpSwyng is maintained by{" "}
       <a
         href="http://www.codeforboulder.org"
         target="_blank"
@@ -27,18 +27,18 @@ const About = () => (
       >
         Code for Boulder
       </a>
-      , part of{' '}
+      , part of{" "}
       <a
         href="https://www.codeforamerica.org/"
         target="_blank"
         rel="noopener noreferrer"
       >
         Code for America&apos;s
-      </a>{' '}
+      </a>{" "}
       Brigade network.
     </p>
     <p>
-      For questions related to UpSwyng, please contact{' '}
+      For questions related to UpSwyng, please contact{" "}
       <a href="mailto:info@upswyng.org">info@upswyng.org</a>.
     </p>
   </Container>

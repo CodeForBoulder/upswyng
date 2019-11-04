@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Checkbox, FormControlLabel } from '@material-ui/core';
-import { colors, font } from '../App.styles';
+import React from "react";
+import styled from "styled-components";
+import { Checkbox, FormControlLabel } from "@material-ui/core";
+import { colors, font } from "../App.styles";
 
 interface CheckboxInputProps {
   checked: boolean;
@@ -13,7 +13,7 @@ interface CheckboxInputProps {
 
 const StyledFormControlLabel = styled(FormControlLabel)`
   && {
-    opacity: ${props => (props.disabled ? '0.25' : '1')};
+    opacity: ${props => (props.disabled ? "0.25" : "1")};
     transition: opacity 300ms ease-in;
   }
   && span {

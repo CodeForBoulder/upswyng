@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import GlobalStyle from './App.styles';
-import About from './components/About';
-import { BannerColorContextProvider } from './components/BannerColorContext';
-import Categories from './components/Categories';
-import Header from './components/Header';
-import Home from './components/Home';
-import Hotlines from './components/Hotlines';
-import PrivacyPolicy from './components/PrivacyPolicy';
-import Resource from './components/Resource';
-import Search from './components/Search';
-import TermsOfUse from './components/TermsOfUse';
+import GlobalStyle from "./App.styles";
+import About from "./components/About";
+import { BannerColorContextProvider } from "./components/BannerColorContext";
+import Categories from "./components/Categories";
+import Header from "./components/Header";
+import Home from "./components/Home";
+import Hotlines from "./components/Hotlines";
+import PrivacyPolicy from "./components/PrivacyPolicy";
+import Resource from "./components/Resource";
+import Search from "./components/Search";
+import TermsOfUse from "./components/TermsOfUse";
 
 const {
   Food,
@@ -22,7 +22,7 @@ const {
   Shelters,
   SocialServices,
   Transit,
-  Wifi
+  Wifi,
 } = Categories;
 
 class App extends Component {

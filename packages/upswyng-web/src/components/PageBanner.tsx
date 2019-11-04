@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import { colors, font } from '../App.styles';
-import BackButton from './BackButton';
-import BannerColorContext from './BannerColorContext';
+import { colors, font } from "../App.styles";
+import BackButton from "./BackButton";
+import BannerColorContext from "./BannerColorContext";
 
 interface Props {
   color?: string;

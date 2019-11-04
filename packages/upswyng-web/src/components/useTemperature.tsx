@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-import { TEnvVariables, TWeatherCurrentResponse } from '../webTypes';
+import { TEnvVariables, TWeatherCurrentResponse } from "../webTypes";
 
 declare const process: TEnvVariables;
 
@@ -15,20 +15,20 @@ const useTemperature = (): undefined | null | number => {
 
   const boulderCoords = {
     lat: 40.015,
-    lon: -105.2705
+    lon: -105.2705,
   };
 
   useEffect(() => {
     const getCurrentTemp = async (): Promise<void> => {
       try {
         const { data } = await axios.get<TWeatherCurrentResponse>(
-          'https://api.openweathermap.org/data/2.5/weather?units=imperial',
+          "https://api.openweathermap.org/data/2.5/weather?units=imperial",
           {
             params: {
               lat: boulderCoords.lat,
               lon: boulderCoords.lon,
-              APPID: process.env.REACT_APP_OPEN_WEATHER_API_KEY
-            }
+              APPID: process.env.REACT_APP_OPEN_WEATHER_API_KEY,
+            },
           }
         );
         const currentTemp: number = data.main.temp;

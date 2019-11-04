@@ -1,11 +1,11 @@
-import { useParams } from 'react-router-dom';
-import PageBanner from './PageBanner';
-import React from 'react';
-import ResourceList from './ResourceList';
-import SubCategories from './SubCategories';
-import useResourcesByCategory from './useResourcesByCategory';
-import useResourcesBySubcategory from './useResourcesBySubcategory';
-import { TResourceCategory, TResourceSubcategory } from '../webTypes';
+import { useParams } from "react-router-dom";
+import PageBanner from "./PageBanner";
+import React from "react";
+import ResourceList from "./ResourceList";
+import SubCategories from "./SubCategories";
+import useResourcesByCategory from "./useResourcesByCategory";
+import useResourcesBySubcategory from "./useResourcesBySubcategory";
+import { TResourceCategory, TResourceSubcategory } from "../webTypes";
 
 interface Props {
   category: TResourceCategory;
@@ -18,7 +18,7 @@ const CategoryResults = ({
   category,
   color: categoryColor,
   placeholder,
-  subCategories
+  subCategories,
 }: Props) => {
   const params = useParams<{ subcategory?: string }>();
 
