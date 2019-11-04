@@ -1,0 +1,59 @@
+{
+  "name": "@upswyng/upswyng-native",
+  "private": true,
+  "license": "MIT",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject"
+  },
+  "dependencies": {
+    "@upswyng/upswyng-types": "0.1.0",
+    "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
+    "bulma-ribbon": "^0.1.1",
+    "bulma-switch": "^2.0.0",
+    "bulma-tagsinput": "^2.0.0",
+    "canonical-instance": "^2.0.0",
+    "compression": "^1.7.1",
+    "connect-mongo": "^3.0.0",
+    "cors": "^2.8.5",
+    "debounce": "^1.2.0",
+    "devalue": "^2.0.0",
+    "expo": "^34.0.1",
+    "expo-font": "^6.0.1",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "fast-deep-equal": "^2.0.1",
+    "fast-equals": "^2.0.0",
+    "firebase": "^5.8.4",
+    "grant": "^4.6.2",
+    "grant-express": "^4.6.2",
+    "grant-oidc": "0.0.3",
+    "moment": "^2.24.0",
+    "mongoose": "^5.6.13",
+    "polka": "next",
+    "react": "16.8.3",
+    "react-dom": "^16.8.6",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
+    "react-native-maps": "^0.25.0",
+    "react-native-material-ui": "^1.30.1",
+    "react-native-svg": "^9.7.0",
+    "react-native-vector-icons": "^4.6.0",
+    "react-native-web": "^0.11.4",
+    "react-router-native": "^5.0.1",
+    "rrule": "^2.6.2",
+    "sirv": "^0.4.0"
+  },
+  "devDependencies": {
+    "babel-preset-expo": "^6.0.0"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts"
+    ]
+  }
+}

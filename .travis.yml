@@ -1,7 +1,6 @@
 language: node_js
 node_js:
-  - '11'
+  - "11"
 script:
   - npm run ci-lint
-  - npm run build
-  - npm test
+  - lerna run test

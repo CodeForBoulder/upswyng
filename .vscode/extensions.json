@@ -1,5 +1,6 @@
 {
   "recommendations": [
+    "ardenivanov.svelte-intellisense",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "msjsdiag.debugger-for-chrome",
