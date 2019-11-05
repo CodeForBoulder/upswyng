@@ -4,14 +4,13 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "build": "sapper build --output src/node_modules/@sapper --legacy",
+    "build": "sapper build --legacy",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "data-setup-categories": "rollup --config data-pipeline.rollup.config.js && node __build__/setupCategories.js",
     "data-sync-strappd": "rollup --config data-pipeline.rollup.config.js && node __build__/syncStrappd.js",
     "data-update-algolia": "rollup --config data-pipeline.rollup.config.js && node __build__/updateAlgolia.js",
     "dev": "sapper dev",
-    "heroku-postbuild": "sapper build --legacy",
     "start": "node __sapper__/build",
     "test": "run-p --race dev unit",
     "unit": "jest --passWithNoTests"
