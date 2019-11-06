@@ -11,27 +11,36 @@ export interface TSubcategoryDocument extends Document {
   lastModifiedAt: Date;
   name: string;
   parentCategory: TCategoryDocument; // we always call `populate` on parent category
-  resources: ObjectId[] | TResourceDocument[];
+  resources?: ObjectId[] | TResourceDocument[];
   stub: string;
 }
 
 export function subcategoryDocumentToSubcategory(
   d: TSubcategoryDocument
-): TSubcategory {
+): TSubcategory | null {
   let s = d;
-  if (d.toObject()) {
+  if (d.toObject) {
     s = d.toObject();
   } else {
     console.warn(
-      `\`subcategoryDocumentToSubcategory\` recieved subcategory which does not appear to be a Mongoose Document:\n${JSON.stringify(
-        d,
-        null,
-        2
-      )})`
+      `\`subcategoryDocumentToSubcategory\` received subcategory which does not appear to be a Mongoose Document [${Object.keys(
+        d
+      )}]:\n${JSON.stringify(d, null, 2)}`
     );
+    if (d.hasOwnProperty("_bsontype")) {
+      console.warn("This appears to be an ObjectId");
+      console.trace();
+      return null;
+    }
+    if (Array.isArray(d)) {
+      console.warn("This appears to be an Array");
+      console.trace(d);
+      return null;
+    }
   }
+
   let result: TSubcategory;
-  if (!s.resources.length) {
+  if (!s.resources || !s.resources.length) {
     // we have don't care what type of resources we have
     result = {
       ...s,
@@ -39,25 +48,25 @@ export function subcategoryDocumentToSubcategory(
       parentCategory: categoryDocumentToCategory(s.parentCategory),
       resources: [],
     };
-  } else if (s.resources[0].hasOwnProperty("_id")) {
-    // we have TResourceDocuments for Resources
-    result = {
-      ...s,
-      _id: s._id.toHexString(),
-      parentCategory: categoryDocumentToCategory(s.parentCategory),
-      resources: (s.resources as TResourceDocument[]).map(
-        resourceDocumentToResource
-      ),
-    };
-  } else {
+  } else if (s.resources[0].hasOwnProperty("_bsontype")) {
     // we have ObjectIds for Resources
+    console.log(s.resources[0]);
     result = {
       ...s,
       _id: s._id.toHexString(),
       parentCategory: categoryDocumentToCategory(s.parentCategory),
       resources: undefined,
     };
-    delete result.resources;
+  } else {
+    // we have TResourceDocuments for Resources
+    result = {
+      ...s,
+      _id: s._id.toHexString(),
+      parentCategory: categoryDocumentToCategory(s.parentCategory),
+      resources: (s.resources as any)
+        .map(resourceDocumentToResource)
+        .filter(Boolean),
+    };
   }
 
   removeUndefinedFields(result);
@@ -115,7 +124,7 @@ SubcategorySchema.statics.getSubcategoryList = async function(
 SubcategorySchema.statics.getByStub = async function(
   stub: string
 ): Promise<TSubcategoryDocument | null> {
-  return await this.find({ stub })
+  return await this.findOne({ stub })
     .populate("parentCategory")
     .populate("resources");
 };

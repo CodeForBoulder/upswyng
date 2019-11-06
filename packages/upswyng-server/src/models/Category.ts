@@ -1,5 +1,5 @@
 import { ObjectId } from "bson";
-import { TCategory } from "@upswyng/upswyng-types";
+import { TCategory, TSubcategory } from "@upswyng/upswyng-types";
 import mongoose, { Schema, Document } from "mongoose";
 import removeUndefinedFields from "../utility/removeUndefinedFields";
 import Subcategory, {
@@ -14,16 +14,34 @@ export interface TCategoryDocument extends Document {
   lastModifiedAt: Date;
   name: string;
   stub: string;
-  subcategories: TSubcategoryDocument[]; // we always populate this ref
+  subcategories: ObjectId[] | TSubcategoryDocument[];
 }
 
-export function categoryDocumentToCategory(d: TCategoryDocument): TCategory {
-  const c = d.toObject();
+export function categoryDocumentToCategory(
+  d: TCategoryDocument
+): TCategory | null {
+  let c = d;
+  if (d.toObject) {
+    c = d.toObject();
+  } else {
+    console.warn(
+      `\`categoryToDocumentCategory\` received category which does not appear to be a Mongoose Document [${Object.keys(
+        d
+      )}]:\n${JSON.stringify(d, null, 2)}`
+    );
+    if (d.hasOwnProperty("_bsontype")) {
+      console.warn("This appears to be an ObjectId");
+      console.trace();
+      return null;
+    }
+  }
 
   const result = {
     ...c,
     _id: c._id.toHexString(),
-    subcategories: c.subcategories.map(subcategoryDocumentToSubcategory),
+    subcategories: ((c.subcategories || []) as any)
+      .map(subcategoryDocumentToSubcategory)
+      .filter(Boolean) as TSubcategory[],
   };
   removeUndefinedFields(result);
   return result;
