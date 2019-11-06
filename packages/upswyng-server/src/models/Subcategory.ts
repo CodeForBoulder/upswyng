@@ -1,6 +1,6 @@
 import { ObjectId } from "bson";
 import { TCategoryDocument, categoryDocumentToCategory } from "./Category";
-import { TResourceDocument } from "./Resource";
+import { TResourceDocument, resourceDocumentToResource } from "./Resource";
 import { TSubcategory } from "@upswyng/upswyng-types";
 import mongoose, { Schema, Document } from "mongoose";
 import removeUndefinedFields from "../utility/removeUndefinedFields";
@@ -18,12 +18,48 @@ export interface TSubcategoryDocument extends Document {
 export function subcategoryDocumentToSubcategory(
   d: TSubcategoryDocument
 ): TSubcategory {
-  const s = d.toObject();
-  const result = {
-    ...s,
-    _id: s._id.toHexString(),
-    parentCategory: categoryDocumentToCategory(s.parentCategory),
-  };
+  let s = d;
+  if (d.toObject()) {
+    s = d.toObject();
+  } else {
+    console.warn(
+      `\`subcategoryDocumentToSubcategory\` recieved subcategory which does not appear to be a Mongoose Document:\n${JSON.stringify(
+        d,
+        null,
+        2
+      )})`
+    );
+  }
+  let result: TSubcategory;
+  if (!s.resources.length) {
+    // we have don't care what type of resources we have
+    result = {
+      ...s,
+      _id: s._id.toHexString(),
+      parentCategory: categoryDocumentToCategory(s.parentCategory),
+      resources: [],
+    };
+  } else if (s.resources[0].hasOwnProperty("_id")) {
+    // we have TResourceDocuments for Resources
+    result = {
+      ...s,
+      _id: s._id.toHexString(),
+      parentCategory: categoryDocumentToCategory(s.parentCategory),
+      resources: (s.resources as TResourceDocument[]).map(
+        resourceDocumentToResource
+      ),
+    };
+  } else {
+    // we have ObjectIds for Resources
+    result = {
+      ...s,
+      _id: s._id.toHexString(),
+      parentCategory: categoryDocumentToCategory(s.parentCategory),
+      resources: undefined,
+    };
+    delete result.resources;
+  }
+
   removeUndefinedFields(result);
   return result;
 }
