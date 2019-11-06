@@ -7,10 +7,7 @@ import Resource, {
   TResourceDocument,
   DraftResource,
 } from "./Resource";
-import Subcategory, {
-  subcategoryDocumentToSubcategory,
-  TSubcategoryDocument,
-} from "./Subcategory";
+import Subcategory, { TSubcategoryDocument } from "./Subcategory";
 
 export const diffResources = dr;
 
@@ -85,13 +82,13 @@ export async function addResourceToSubcategory(
     throw new Error(`Could not find Subcategory with ID ${subcategoryId}`);
 
   if (
-    !resource.subcategories
+    !(resource.subcategories as any)
       .map(s => s._id.toHexString())
       .includes(subcategoryId.toHexString())
   ) {
     try {
       (resource as any).subcategories = [
-        ...resource.subcategories.map(s => s._id),
+        ...(resource.subcategories as any).map(s => s._id),
         subcategoryId,
       ];
       await resource.save();
@@ -131,11 +128,11 @@ export async function removeResourceFromSubcategory(
     throw new Error(`Could not find Subcategory with ID ${subcategoryId}`);
 
   if (
-    resource.subcategories
+    (resource.subcategories as any)
       .map(s => s._id.toHexString())
       .includes(subcategoryId.toHexString())
   ) {
-    resource.subcategories = resource.subcategories.filter(
+    resource.subcategories = (resource.subcategories as any).filter(
       s => s._id.toHexString() !== subcategoryId.toHexString()
     );
     await resource.save();
@@ -219,21 +216,5 @@ export async function createOrUpdateResourceFromDraft(
         )
       )
     );
-  }
-}
-
-export async function getSubcategoryByStub(
-  stub: string
-): Promise<TSubcategory | null> {
-  const subcategory = await Subcategory.findOne({ stub })
-    .populate("resources")
-    .populate("parentCategory");
-  if (!subcategory) {
-    return Promise.resolve(null);
-  }
-  try {
-    return subcategoryDocumentToSubcategory(subcategory);
-  } catch (e) {
-    throw new Error(e);
   }
 }

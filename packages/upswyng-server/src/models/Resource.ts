@@ -10,6 +10,7 @@ import {
   TAddress,
   TCloseSchedule,
   TSchedule,
+  TSubcategory,
 } from "@upswyng/upswyng-types";
 import { userDocumentToUser, TUserDocument } from "./User";
 import {
@@ -38,7 +39,7 @@ export interface TResourceDocument extends Document {
   phone: string;
   schedule: TSchedule[];
   services: string[];
-  subcategories: TSubcategoryDocument[]; // always populate
+  subcategories: ObjectId[] | TSubcategoryDocument[];
   website: string;
 }
 
@@ -46,8 +47,18 @@ export interface TResourceDocument extends Document {
  * Convert a resource document from the database into our `TResource` type.
  * Explicity enumerate keys so we make TypeScript happy.
  */
-export const resourceDocumentToResource = (r: TResourceDocument): TResource => {
-  r = r.toObject(); // convert from Mongoose Document to JS Object
+export const resourceDocumentToResource = (
+  r: TResourceDocument
+): TResource | null => {
+  if (r.toObject) {
+    r = r.toObject();
+  } else {
+    console.warn(
+      `\`resourceDocumentToResource\` received resource which does not appear to be a Mongoose Document [${Object.keys(
+        r
+      )}]:\n${JSON.stringify(r, null, 2)}`
+    );
+  }
   const result = {
     _id: r._id.toHexString(),
     address: {
@@ -75,7 +86,9 @@ export const resourceDocumentToResource = (r: TResourceDocument): TResource => {
     phone: r.phone,
     schedule: r.schedule,
     services: r.services,
-    subcategories: r.subcategories.map(subcategoryDocumentToSubcategory),
+    subcategories: (r.subcategories as any)
+      .map(subcategoryDocumentToSubcategory)
+      .filter(Boolean) as TSubcategory[],
     website: r.website,
   };
 
