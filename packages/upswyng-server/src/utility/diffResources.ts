@@ -1,5 +1,5 @@
-import { deepEqual } from "fast-equals";
 import { TResource } from "@upswyng/upswyng-types";
+import deepEqual from "nano-equal";
 
 /**
  * Takes two resources and removes the fields that are the same on each.

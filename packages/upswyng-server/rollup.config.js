@@ -87,7 +87,6 @@ export default {
         include: /node_modules/,
         namedExports: {
           "node_modules/bson/index.js": ["ObjectId"],
-          "node_modules/fast-equals/dist/fast-equals.js": ["deepEqual"],
         },
       }),
       typescript(),
@@ -148,7 +147,6 @@ export default {
         include: /node_modules/,
         namedExports: {
           "node_modules/bson/index.js": ["ObjectId"],
-          "node_modules/fast-equals/dist/fast-equals.js": ["deepEqual"],
         },
       }),
       typescript(),
@@ -177,13 +175,7 @@ export default {
         ),
         "process.env.NODE_ENV": JSON.stringify(mode),
       }),
-      commonjs({
-        // include: /node_modules/,
-        namedExports: {
-          "node_modules/bson/index.js": ["ObjectId"],
-          "node_modules/fast-equals/dist/fast-equals.js": ["deepEqual"],
-        },
-      }),
+      commonjs(),
       typescript(),
       !dev && terser(),
     ],
