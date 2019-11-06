@@ -47,8 +47,12 @@ const onwarn = (warning, onwarn) =>
   (warning.code === "CIRCULAR_DEPENDENCY" &&
     /[/\\]@sapper[/\\]/.test(warning.message)) ||
   onwarn(warning);
-const dedupe = importee =>
-  importee === "svelte" || importee.startsWith("svelte/");
+
+// When converting this to a monorepo, something weird happened where the `dedupe` function
+// was stopping svelte from being imported at all. Turn it off until it causes problems:
+// const dedupe = importee =>
+//   importee === "svelte" || importee.startsWith("svelte/");
+const dedupe = _importee => false;
 
 dotenv.config();
 const {
