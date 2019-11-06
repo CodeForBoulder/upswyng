@@ -32,7 +32,7 @@
     "moment": "^2.24.0",
     "mongoose": "^5.6.13",
     "react": "16.8.3",
-    "react-dom": "^16.8.6",
+    "react-dom": "16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
     "react-native-maps": "^0.25.0",
     "react-native-material-ui": "^1.30.1",
