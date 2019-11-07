@@ -251,9 +251,15 @@ const legacyResourceToResource = (
 export const resourceToSchema = (r: Partial<TResource>) => {
   const result = {
     ...r,
-    id: ObjectId.createFromHexString(r.id),
-    _id: ObjectId.createFromHexString(r._id),
+    id: r.id ? ObjectId.createFromHexString(r.id) : undefined,
+    _id: r._id ? ObjectId.createFromHexString(r._id) : undefined,
   };
+  if (!r.id) {
+    delete result.id;
+  }
+  if (!r._id) {
+    delete result._id;
+  }
   delete result.latitude;
   delete result.longitude;
   return r.longitude && r.latitude
@@ -293,7 +299,7 @@ ResourceSchema.statics.addOrUpdateLegacyResource = async function(
     existingRecord.set(
       resourceToSchema(legacyResourceToResource(resource, new Date(), id))
     );
-    await existingRecord.save().then(resourceDocumentToResource);
+    await existingRecord.save();
   }
 };
 
@@ -378,11 +384,11 @@ export default Resource as typeof Resource & {
   addOrUpdateLegacyResource: (
     id: string,
     resource: TLegacyResource
-  ) => Promise<TResource>;
-  getAll: () => Promise<TResource[]>;
-  getById: (id: ObjectId) => Promise<TResource | null>;
-  getByRecordId: (id: ObjectId) => Promise<TResource | null>;
-  getUncategorized: () => Promise<TResource[]>;
+  ) => Promise<void>;
+  getAll: () => Promise<TResourceDocument[]>;
+  getById: (id: ObjectId) => Promise<TResourceDocument | null>;
+  getByRecordId: (id: ObjectId) => Promise<TResourceDocument | null>;
+  getUncategorized: () => Promise<TResourceDocument[]>;
 };
 
 const DraftResource = mongoose.model<TResourceDocument>(

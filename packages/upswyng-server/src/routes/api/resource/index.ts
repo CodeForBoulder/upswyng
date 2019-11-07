@@ -1,17 +1,6 @@
 import { createDraftResource } from "../../../models/Utility";
-import { ObjectId } from "bson";
 import { requireLoggedIn } from "../../../utility/authHelpers";
 import { TUser } from "@upswyng/upswyng-types";
-
-function createObjectIds(resource) {
-  Object.entries(resource).forEach(([k, v]) => {
-    if (k === "id" || k === "_id") {
-      resource[k] = ObjectId.createFromHexString(v as string);
-    } else if (typeof v === "object") {
-      createObjectIds(v);
-    }
-  });
-}
 
 /**
  * Creates a new draft resource. Resources and updates to resources
@@ -37,7 +26,7 @@ export async function post(req, res, next) {
   try {
     const { draftResource } = req.body;
     draftResource.createdBy = (user as TUser).id;
-    createObjectIds(draftResource);
+
     try {
       const newResource = await createDraftResource(draftResource);
       res.writeHead(201, { "Content-Type": "application/json" });
