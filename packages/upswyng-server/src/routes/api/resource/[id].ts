@@ -1,12 +1,20 @@
-import Resource from "../../../models/Resource";
+import Resource, {
+  resourceDocumentToResource,
+  TResourceDocument,
+} from "../../../models/Resource";
 import { ObjectId } from "bson";
 import { isAdmin } from "../../../utility/authHelpers";
+import { TResource } from "@upswyng/upswyng-types";
 
 export async function get(req, res, _next) {
   const { id } = req.params;
-  let resource = null;
+  let resourceDocument: TResourceDocument;
+  let resource: TResource;
   try {
-    resource = await Resource.getById(ObjectId.createFromHexString(id));
+    resourceDocument = await Resource.getById(ObjectId.createFromHexString(id));
+    if (resourceDocument) {
+      resource = resourceDocumentToResource(resourceDocument);
+    }
   } catch (e) {
     res.writeHead(500, {
       "Content-Type": "application/json",

@@ -91,7 +91,7 @@
         on:dispatchSaveResource={e => handleSaveClick(e.detail)} />
     {:else}
       <ResourceDisplay {resource} />
-      <p>Log in to make changes to this resource</p>
+      <div class="notification">Log in to make changes to this resource</div>
     {/if}
   </div>
 </section>

@@ -77,6 +77,8 @@
   }
 
   function approveUpdate(id) {
+    isApproving = true;
+
     fetch(`/api/resource/draft/approve/${id}`, { method: "POST" })
       .then(_res => {
         if (_res.status >= 400) {
@@ -90,7 +92,7 @@
         goto("/resource");
       })
       .catch(e => (approveError = e))
-      .finally(() => (isDeleting = false));
+      .finally(() => (isApproving = false));
   }
 </script>
 

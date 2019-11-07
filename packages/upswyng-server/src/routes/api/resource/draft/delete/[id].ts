@@ -1,5 +1,9 @@
-import { DraftResource } from "../../../../../models/Resource";
+import {
+  DraftResource,
+  TResourceDocument,
+} from "../../../../../models/Resource";
 import { requireAdmin } from "../../../../../utility/authHelpers";
+import { ObjectId } from "bson";
 
 export async function post(req, res, next) {
   try {
@@ -18,9 +22,11 @@ export async function post(req, res, next) {
   }
 
   const { id } = req.params;
-  let deletedResource = null;
+  let deletedResource: TResourceDocument | null = null;
   try {
-    deletedResource = await DraftResource.deleteByRecordId(id);
+    deletedResource = await DraftResource.deleteByRecordId(
+      ObjectId.createFromHexString(id)
+    );
   } catch (e) {
     res.writeHead(500, {
       "Content-Type": "application/json",
