@@ -1,14 +1,23 @@
-import { DraftResource } from "../../../../models/Resource";
+import {
+  DraftResource,
+  TResourceDocument,
+  resourceDocumentToResource,
+} from "../../../../models/Resource";
 import { ObjectId } from "bson";
 import { isAdmin } from "../../../../utility/authHelpers";
+import { TResource } from "@upswyng/upswyng-types";
 
 export async function get(req, res, _next) {
   const { id } = req.params;
-  let draftResource = null;
+  let draftResourceDocument: TResourceDocument;
+  let draftResource: TResource;
   try {
-    draftResource = await DraftResource.getByRecordId(
+    draftResourceDocument = await DraftResource.getByRecordId(
       ObjectId.createFromHexString(id)
     );
+    if (draftResourceDocument) {
+      draftResource = resourceDocumentToResource(draftResourceDocument);
+    }
   } catch (e) {
     res.writeHead(500, {
       "Content-Type": "application/json",

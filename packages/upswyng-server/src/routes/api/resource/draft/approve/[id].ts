@@ -1,13 +1,14 @@
+import { createOrUpdateResourceFromDraft } from "../../../../../models/Utility";
 import {
   DraftResource,
   TResourceDocument,
   resourceDocumentToResource,
 } from "../../../../../models/Resource";
-import { createOrUpdateResourceFromDraft } from "../../../../../models/Utility";
+import { ObjectId } from "bson";
 import { requireAdmin } from "../../../../../utility/authHelpers";
 
 export async function post(req, res, next) {
-  const { id: resourceId } = req.params; // _id of resource to be approved
+  const { id: recordId }: { id: string } = req.params; // _id of resource to be approved
   try {
     requireAdmin(req);
   } catch (_e) {
@@ -25,7 +26,9 @@ export async function post(req, res, next) {
 
   let draftToApprove: TResourceDocument | null = null;
   try {
-    draftToApprove = await DraftResource.getByRecordId(resourceId);
+    draftToApprove = await DraftResource.getByRecordId(
+      ObjectId.createFromHexString(recordId)
+    );
 
     if (!draftToApprove) {
       res.writeHead(404, {
@@ -61,6 +64,7 @@ export async function post(req, res, next) {
 
     return res.end(JSON.stringify({ resource: updateResource }));
   } catch (e) {
+    console.error(e);
     res.writeHead(500, {
       "Content-Type": "application/json",
     });
