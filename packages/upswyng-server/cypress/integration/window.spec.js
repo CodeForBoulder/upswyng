@@ -12,4 +12,14 @@ describe("upswyng-server-pages", () => {
       cy.get(".navbar > .navbar-brand").should("exist");
     });
   });
+
+  context("resource", () => {
+    beforeEach(() => {
+      cy.visit("/resource");
+    });
+
+    it("loads without crashing", () => {
+      cy.url().should("eq", Cypress.config().baseUrl + "/resource");
+    });
+  });
 });
