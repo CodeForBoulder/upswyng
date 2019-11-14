@@ -153,6 +153,7 @@
       {@html displayScheduleEntry(scheduleEntry)}
       <button
         type="button"
+        data-ci="scheduleRemove"
         preventDefault
         on:click={createRemoveScheduleEntry(index)}>
         Remove
@@ -162,7 +163,7 @@
 </ul>
 <fieldset>
   <h2>Add Schedule Entry</h2>
-  <p>
+  <p data-cy="scheduleType">
     <label for="schedule_type">Schedule Type</label>
     <Select
       bind:selectedValue={scheduleType}
@@ -171,7 +172,7 @@
       items={scheduleTypeOptions} />
   </p>
   {#if fieldRequiredMask.day}
-    <p>
+    <p data-cy="scheduleDay">
       <label for="day">Day</label>
       <Select
         bind:selectedValue={day}
@@ -180,7 +181,7 @@
     </p>
   {/if}
   {#if fieldRequiredMask.date}
-    <p>
+    <p data-cy="scheduleDate">
       <label for="date">Date</label>
       <input
         name="date"
@@ -190,7 +191,7 @@
     </p>
   {/if}
   {#if fieldRequiredMask.period}
-    <p>
+    <p data-cy="schedulePeriod">
       <label for="period">Period</label>
       <Select
         bind:selectedValue={period}
@@ -199,13 +200,13 @@
     </p>
   {/if}
   {#if fieldRequiredMask.from}
-    <p>
+    <p data-cy="scheduleFrom">
       <label for="from">From Time</label>
       <input name="from" placeholder="10:00 AM" type="text" bind:value={from} />
     </p>
   {/if}
   {#if fieldRequiredMask.to}
-    <p>
+    <p data-cy="scheduleTo">
       <label for="to">To Time</label>
       <input name="to" placeholder="12:00 PM" type="text" bind:value={to} />
     </p>
@@ -213,6 +214,7 @@
   <button
     disabled={!formValid}
     type="button"
+    data-cy="scheduleSubmit"
     preventDefault
     on:click={addScheduleItem}>
     Add Item
