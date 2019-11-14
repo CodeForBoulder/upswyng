@@ -167,6 +167,19 @@ export interface THomeButtonRouterLink extends THomeButtonBase {
   linkState: string;
 }
 
+export interface THotline {
+  _id: string;
+  // TODO: Add Schedule
+  chatWebsite: string;
+  createdAt: Date;
+  description: string;
+  lastModifiedAt: Date;
+  name: string;
+  phone: string;
+  text: string; // ex: "Text to 838255",
+  website: string;
+}
+
 export interface TUser {
   id: string; // database ObjectId converted to hex string
   name?: string;
