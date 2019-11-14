@@ -51,28 +51,11 @@ describe("upswyng-server-actions", () => {
       });
     });
 
-    it("add schedule entry", () => {
-      cy.get("[data-cy=scheduleType]")
-        .as("scheduleType")
-        .click()
-        .type("Weekly");
-      cy.get("[data-cy=scheduleDay]")
-        .as("scheduleDay")
-        .click();
-      cy.get("div")
-        .contains("Monday")
-        .click();
-      cy.get("[name=from]")
-        .first()
-        .as("scheduleFrom")
-        .click()
-        .type("10:00 AM");
-      cy.get("[name=to]")
-        .first()
-        .as("scheduleTo")
-        .click()
-        .type("11:00 AM");
-      cy.get("[data-cy=scheduleSubmit]").click();
+    it("add schedule entries", () => {
+      cy.addScheduleEvent("Weekly", "Monday", "10:00 AM", "12:00 PM");
+      cy.addScheduleEvent("Monthly", "Tuesday", "10:00 AM", "1:00 PM");
     });
+
+    it("save draft", () => {});
   });
 });
