@@ -108,7 +108,6 @@ export default {
         namedExports: {
           "node_modules/bson/index.js": ["ObjectId"],
           rrule: ["RRule", "RRuleSet"],
-          "@upswyng/upswyng-core": ["Time"],
         },
       }),
       typescript(tsOpts),

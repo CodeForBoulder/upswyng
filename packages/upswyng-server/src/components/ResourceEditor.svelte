@@ -6,6 +6,7 @@
   import ScheduleSelector from "./ScheduleSelector.svelte";
   import ServicesInput from "./ServicesInput.svelte";
   import SubcategoryInput from "./SubcategoryInput.svelte";
+  import { format } from "json-string-formatter";
 
   export let errorText = ""; // an error message to show, for instance, if the save operation has failed
   export let isSaving = false;
@@ -27,6 +28,12 @@
   const dispatchSaveResource /* ("saveResource", resource: TResource) => void */ = createEventDispatcher();
   // note: these could just use the same created dispatcher but some day I would like to type them
   const dispatchClearErrorText /* ("clearErrorText") => void */ = createEventDispatcher();
+
+  if (typeof resource.schedule === "string") {
+    throw new Error(
+      `\`ResourceEditor\` received a non-parsed resource schedule. Call \`ResourceSchedule.parse\` with the string ${resource.schedule} as an argument.`
+    );
+  }
 
   const resourceForm = svelteForm(() => ({
     // address

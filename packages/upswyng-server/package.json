@@ -44,6 +44,8 @@
     "nano-equal": "^2.0.2",
     "num-words": "^1.0.1",
     "polka": "next",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-globals": "^1.4.0",
     "rrule": "^2.6.2",
     "sirv": "^0.4.0",
     "svelte3-autocomplete": "^1.0.1"
