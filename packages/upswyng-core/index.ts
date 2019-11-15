@@ -1,3 +1,5 @@
-import ResourceSchedule from "./src/ResourceSchedule";
+import ResourceSchedule_ from "./src/ResourceSchedule";
+import Time_ from "./src/Time";
 
-export default { ResourceSchedule };
+export const ResourceSchedule = ResourceSchedule_;
+export const Time = Time_;

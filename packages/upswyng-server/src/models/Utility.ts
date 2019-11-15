@@ -1,5 +1,5 @@
 import { ObjectId } from "bson";
-import { TResource, TSubcategory, TNewResource } from "@upswyng/upswyng-types";
+import { TSubcategory, TNewResource, TResource } from "@upswyng/upswyng-types";
 import dr from "../utility/diffResources";
 import Resource, {
   resourceToSchema,
@@ -21,13 +21,17 @@ export async function createDraftResource(
     }).populate("subcategories");
     if (!existingResource) {
       throw new Error(
-        `This draft has an \`id\`, ${resource as TResource} and is therefore supposed to update an existing resource; however, a resource with the draft's \`id\` doesn't exist`
+        `This draft has an \`id\`, ${JSON.stringify(
+          resource
+        )} and is therefore supposed to update an existing resource; however, a resource with the draft's \`id\` doesn't exist`
       );
     }
     const updateObject = diffResources(
-      resourceDocumentToResource(existingResource as TResourceDocument & {
-        subcategories: TSubcategory[];
-      }),
+      resourceDocumentToResource(
+        existingResource as TResourceDocument & {
+          subcategories: TSubcategory[];
+        }
+      ),
       resource as TResource
     );
 

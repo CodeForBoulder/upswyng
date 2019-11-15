@@ -16,6 +16,7 @@
     "unit": "jest --passWithNoTests"
   },
   "dependencies": {
+    "@upswyng/upswyng-core": "0.1.0",
     "@upswyng/upswyng-types": "0.1.0",
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
@@ -36,13 +37,17 @@
     "grant": "^4.6.2",
     "grant-express": "^4.6.2",
     "grant-oidc": "0.0.3",
+    "json-string-formatter": "^1.0.1",
     "moment": "^2.24.0",
     "mongoose": "^5.6.13",
     "nano-equal": "^2.0.2",
+    "num-words": "^1.0.1",
     "polka": "next",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-globals": "^1.4.0",
     "rrule": "^2.6.2",
     "sirv": "^0.4.0",
-    "tslib": "^1.10.0"
+    "svelte3-autocomplete": "^1.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -79,6 +84,7 @@
     "svelte-preprocess": "^3.1.2",
     "svelte-select": "github:rob-balfre/svelte-select#7973bb712c2cadb7abf0bc701ccd46785c48fd07",
     "ts-jest": "^24.1.0",
+    "tslib": "^1.10.0",
     "typescript": "^3.4.5"
   },
   "engines": {

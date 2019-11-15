@@ -1,20 +1,14 @@
 <script>
+  import { format } from "json-string-formatter";
+  import { ResourceSchedule } from "@upswyng/upswyng-core";
+  import ResourceScheduleDisplay from "./ResourceScheduleDisplay.svelte";
+
   export let resource; // TResource
 
-  function displayScheduleEntry(scheduleEntry /*: TSchedule */) /*: string */ {
-    const { day, date, period, from, to, scheduleType } = scheduleEntry;
-    switch (scheduleType) {
-      case "Weekly":
-        return `<span>${day} ${from} - ${to}<span>Weekly</span></span>`;
-      case "Monthly":
-        return `<span>${day} ${from} - ${to} ${period}<span>Monthly</span></span>`;
-      case "Open 24/7":
-        return `<span>Open 24/7</span>`;
-      case "Date Range":
-        return `<span>${date} ${from} - ${to}<span>Date Range</span></span>`;
-      default:
-        throw new Error(`Unexpected schedule type: ${scheduleType}`);
-    }
+  if (typeof resource.schedule === "string") {
+    throw new Error(
+      `\`ResourceDisplay\` received a non-parsed resource schedule. Call \`ResourceSchedule.parse\` with the string ${resource.schedule} as an argument.`
+    );
   }
 </script>
 
@@ -37,6 +31,18 @@
   {#if resource.legacyId}
     <h2>Legacy ID</h2>
     <p>{resource.legacyId}</p>
+  {/if}
+  {#if resource.legacyClosesSchedule}
+    <p>
+      <span class="label">Legacy Closes Schedule</span>
+      <span class="is-family-code">{resource.legacyClosesSchedule}</span>
+    </p>
+  {/if}
+  {#if resource.legacySchedule}
+    <p>
+      <span class="label">Legacy Schedule</span>
+      <span class="is-family-code">{format(resource.legacySchedule)}</span>
+    </p>
   {/if}
   <h2>Kudos</h2>
   <p>{resource.kudos}</p>
@@ -70,21 +76,7 @@
     {/each}
   </ul>
   <h2>Schedule</h2>
-  <ul>
-    {#each resource.schedule as scheduleEntry}
-      <li>
-        {@html displayScheduleEntry(scheduleEntry)}
-      </li>
-    {/each}
-  </ul>
-  <h2>Close Schedule</h2>
-  <ul>
-    {#each resource.closeSchedule as closeScheduleEntry}
-      <li>
-        {@html displayScheduleEntry(closeScheduleEntry)}
-      </li>
-    {/each}
-  </ul>
+  <ResourceScheduleDisplay schedule={resource.schedule} />
   <h2>Latitude</h2>
   <p>{resource.latitude}</p>
   <h2>Longitude</h2>

@@ -12,7 +12,6 @@ export default function diffResources(
   const rightResult: Partial<TResource> = {};
   const fieldsToCompare: (keyof TResource)[] = [
     "address",
-    "closeSchedule",
     "deleted",
     "description",
     "kudos",

@@ -13,6 +13,7 @@
 <script>
   import { addFlashMessage } from "../../utility/flashMessage.ts";
   import { goto, stores } from "@sapper/app";
+  import { ResourceSchedule } from "@upswyng/upswyng-core";
   import ResourceEditor from "../../components/ResourceEditor.svelte";
 
   const { session } = stores();
@@ -30,7 +31,7 @@
     longitude: -105.27,
     name: "",
     phone: "",
-    schedule: [],
+    schedule: new ResourceSchedule(),
     services: [],
     website: "",
   };

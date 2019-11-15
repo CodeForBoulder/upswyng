@@ -1,4 +1,6 @@
 <script context="module">
+  import { ResourceSchedule } from "@upswyng/upswyng-core";
+
   export async function preload({ params, query }, { user }) {
     if (!user || !user.isAdmin) {
       this.error(401, "You must be an admin to access this page.");
@@ -7,6 +9,7 @@
     const resourceResponse = await this.fetch(
       `/api/resource/draft/${params.id}`
     );
+
     const resourceData = await resourceResponse.json();
 
     if (resourceResponse.status !== 200) {
@@ -18,7 +21,12 @@
       );
       if (existingResourceResponse.status === 404) {
         return {
-          draftResource: resourceData.draftResource,
+          draftResource: {
+            ...resourceData.draftResource,
+            schedule: ResourceSchedule.parse(
+              resourceData.draftResource.schedule
+            ),
+          },
           existingResource: null,
         };
       }
@@ -30,8 +38,18 @@
         );
       } else {
         return {
-          draftResource: resourceData.draftResource,
-          existingResource: existingResourceData.resource,
+          draftResource: {
+            ...resourceData.draftResource,
+            schedule: ResourceSchedule.parse(
+              resourceData.draftResource.schedule
+            ),
+          },
+          existingResource: {
+            ...existingResourceData.resource,
+            schedule: ResourceSchedule.parse(
+              existingResourceData.resource.schedule
+            ),
+          },
         };
       }
     }
