@@ -18,5 +18,5 @@
 </style>
 
 <a {href}>
-  <img alt="Sign in with Google" src="/google_signin_dark_normal.png" />
+  <img alt="Sign in with Google" src="/google_signin_dark_normal.png" data-cy="googleLogin" />
 </a>

@@ -1,4 +1,15 @@
 describe("upswyng-server-actions", () => {
+  context("log in", () => {
+    before(() => {
+      cy.visit("/login");
+      // cy.server();
+    });
+    it("logs in", () => {
+      cy.get("[data-cy=googleLogin]")
+      
+    })
+  });
+
   context("resource creation", () => {
     before(() => {
       cy.visit("/resource/create");
@@ -55,7 +66,5 @@ describe("upswyng-server-actions", () => {
       cy.addScheduleEvent("Weekly", "Monday", "10:00 AM", "12:00 PM");
       cy.addScheduleEvent("Monthly", "Tuesday", "10:00 AM", "1:00 PM");
     });
-
-    it("save draft", () => {});
   });
 });

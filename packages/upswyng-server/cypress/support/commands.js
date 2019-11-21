@@ -14,6 +14,10 @@ import { createPartiallyEmittedExpression } from "typescript";
 // -- This is a parent command --
 // Cypress.Commands.add("login", (email, password) => { ... })
 
+Cypress.Commands.add("log in", () => {
+  
+})
+
 Cypress.Commands.add("addScheduleEvent", (type, day, from, to) => {
   cy.get("[data-cy=scheduleType]")
     .click()
