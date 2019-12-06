@@ -30,41 +30,71 @@
     width: 0.75em;
     height: 0.75em;
     border-radius: 100%;
+    margin-right: 1em;
+  }
+
+  .subcategories {
+    list-style: none;
+  }
+
+  .subcategories > li > div {
+    display: flex;
+    align-items: center;
+  }
+
+  .subcategory-name {
+    margin-right: 1em;
   }
 </style>
 
-<h1>Categories</h1>
-<ul>
-  {#each value as subcategory}
+<h1 class="title is-2">Categories</h1>
+<ul class="subcategories">
+  {#each value as subcategory (subcategory._id)}
     <li>
-      <div
-        class="bullet"
-        style={`background-color: ${subcategory.parentCategory.color || 'gray'}`} />
-      {subcategory.parentCategory.name} | {subcategory.name}
-      <button
-        type="button"
-        preventDefault
-        on:click={() => removeSubcategory(subcategory)}>
-        Remove
-      </button>
+      <div>
+        <div
+          class="bullet"
+          style={`background-color: ${subcategory.parentCategory.color || 'gray'}`} />
+        <div class="is-size-6 has-text-weight-semibold subcategory-name">
+          {subcategory.parentCategory.name} | {subcategory.name}
+        </div>
+        <button
+          class="button is-danger is-rounded is-small"
+          type="button"
+          preventDefault
+          on:click={() => removeSubcategory(subcategory)}>
+          <span class="icon is-small">
+            <i class="fas fa-trash" aria-hidden="true" />
+          </span>
+          <span>Remove</span>
+        </button>
+      </div>
     </li>
   {/each}
 </ul>
 <fieldset>
-  <h2>Add Category</h2>
-  <ul>
-    {#each unselectedSubcategories as subcategory}
+  <h2 class="subtitle is-3">Add Resource to Category</h2>
+  <ul class="subcategories">
+    {#each unselectedSubcategories as subcategory (subcategory._id)}
       <li>
-        <div
-          class="bullet"
-          style={`background-color: ${subcategory.parentCategory.color || 'gray'}`} />
-        {subcategory.parentCategory.name} | {subcategory.name}
-        <button
-          type="button"
-          preventDefault
-          on:click={() => addSubcategory(subcategory)}>
-          Add
-        </button>
+        <div>
+          <div
+            class="bullet"
+            style={`background-color: ${subcategory.parentCategory.color || 'gray'}`} />
+          <div class="is-size-6 has-text-weight-semibold subcategory-name">
+            {subcategory.parentCategory.name} | {subcategory.name}
+          </div>
+          <button
+            class="button is-success is-rounded is-small"
+            type="button"
+            preventDefault
+            on:click={() => addSubcategory(subcategory)}>
+            <span class="icon is-small">
+              <i class="fas fa-plus" />
+            </span>
+            <span>Add</span>
+          </button>
+        </div>
       </li>
     {/each}
   </ul>
