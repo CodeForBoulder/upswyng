@@ -356,47 +356,85 @@
       <CloseScheduleInput bind:value={resource.closeSchedule} />
     </p>
 
-    <p>
-      <label for="latitude">Latitude</label>
-      <input name="latitude" type="latitude" bind:value={resource.latitude} />
-      {#if $resourceForm.latitude.errors.length}
-        <p>Invalid Latitude.</p>
-      {/if}
-      <label for="longitude">Longitude</label>
-      <input
-        name="longitude"
-        type="longitude"
-        bind:value={resource.longitude} />
-      {#if $resourceForm.longitude.errors.length}
-        <p>Invalid Longitude.</p>
-      {/if}
-    </p>
-    <p>
-      <SubcategoryInput bind:value={resource.subcategories} {subcategories} />
-    </p>
-    <div class="buttons is-right">
-      <button
-        type="button"
-        class="button is-success"
-        class:is-loading={isSaving}
-        preventDefault
-        on:click={() => dispatchSaveResource('dispatchSaveResource', resource)}
-        disabled={!$resourceForm.valid}>
-        <span class="icon is-small">
-          <i class="fas fa-check" />
-        </span>
-        <span>{saveButtonLabel}</span>
-      </button>
-    </div>
-    {#if errorText}
-      <div class="content">
-        <div class="notification is-danger">
-          <button
-            class="delete"
-            on:click={() => dispatchClearErrorText('clearErrorText')} />
-          {errorText}
+    <div class="field">
+      <label class="label">Location</label>
+      <div class="field is-horizontal">
+        <div class="field-label is-small">
+          <label class="label" for="latitude">Latitude</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control has-icons-right">
+              <input
+                class="input"
+                class:is-danger={$resourceForm.latitude.errors.length}
+                name="latitude"
+                type="latitude"
+                bind:value={resource.latitude} />
+              {#if $resourceForm.latitude.errors.length}
+                <span class="icon is-small is-right">
+                  <i class="fas fa-exclamation-triangle" />
+                </span>
+              {/if}
+            </div>
+            {#if $resourceForm.latitude.errors.length}
+              <p class="help is-danger">Invalid Latitude</p>
+            {/if}
+          </div>
         </div>
       </div>
-    {/if}
+      <div class="field is-horizontal">
+        <div class="field-label is-small">
+          <label class="label" for="longitude">Longitude</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control has-icons-right">
+              <input
+                class="input"
+                class:is-danger={$resourceForm.longitude.errors.length}
+                name="longitude"
+                type="longitude"
+                bind:value={resource.longitude} />
+              {#if $resourceForm.longitude.errors.length}
+                <span class="icon is-small is-right">
+                  <i class="fas fa-exclamation-triangle" />
+                </span>
+              {/if}
+            </div>
+            {#if $resourceForm.longitude.errors.length}
+              <p class="help is-danger">Invalid Longitude</p>
+            {/if}
+          </div>
+        </div>
+      </div>
+      <p>
+        <SubcategoryInput bind:value={resource.subcategories} {subcategories} />
+      </p>
+      <div class="buttons is-right">
+        <button
+          type="button"
+          class="button is-success"
+          class:is-loading={isSaving}
+          preventDefault
+          on:click={() => dispatchSaveResource('dispatchSaveResource', resource)}
+          disabled={!$resourceForm.valid}>
+          <span class="icon">
+            <i class="fas fa-check is-small" />
+          </span>
+          <span>{saveButtonLabel}</span>
+        </button>
+      </div>
+      {#if errorText}
+        <div class="content">
+          <div class="notification is-danger">
+            <button
+              class="delete"
+              on:click={() => dispatchClearErrorText('clearErrorText')} />
+            {errorText}
+          </div>
+        </div>
+      {/if}
+    </div>
   </form>
 </div>
