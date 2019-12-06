@@ -3,4 +3,5 @@ module.exports = {
   transform: {
     "^.+\\.tsx?$": "ts-jest",
   },
+  modulePathIgnorePatterns: ["node_modules"],
 };
