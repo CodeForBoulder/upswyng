@@ -4,12 +4,6 @@
   import ResourceScheduleDisplay from "./ResourceScheduleDisplay.svelte";
 
   export let resource; // TResource
-
-  if (typeof resource.schedule === "string") {
-    throw new Error(
-      `\`ResourceDisplay\` received a non-parsed resource schedule. Call \`ResourceSchedule.parse\` with the string ${resource.schedule} as an argument.`
-    );
-  }
 </script>
 
 <style>

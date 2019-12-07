@@ -6,7 +6,7 @@ import typescript from "rollup-plugin-typescript2";
 import { createEnv, readConfigFile } from "@pyoner/svelte-ts-preprocess";
 
 const env = createEnv();
-const compilerOptions = readConfigFile(env, "../../tsconfig.json");
+const compilerOptions = readConfigFile(env, "./tsconfig.json");
 const tsOpts = {
   env,
   compilerOptions: {
@@ -14,8 +14,7 @@ const tsOpts = {
     allowNonTsExtensions: true,
     verbosity: 3,
   },
-  tsconfig: "../../tsconfig.json",
-  include: ["*.ts+(|x)", "../../**/*.ts+(|x)"],
+  include: ["*.ts+(|x)", "./**/*.ts+(|x)"],
 };
 
 const targets = ["syncStrappd", "updateAlgolia", "setupCategories"];

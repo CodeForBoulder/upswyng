@@ -4,6 +4,8 @@
  * `Resource` should only be interacting with `TResource` and `TLegacyResource`;
  * the internal schema is abstracted away by the logic in this module.
  */
+import { ObjectId } from "bson";
+import { ResourceSchedule } from "@upswyng/upswyng-core";
 import {
   TLegacyResource,
   TAddress,
@@ -17,12 +19,10 @@ import {
   TSubcategoryDocument,
   subcategoryDocumentToSubcategory,
 } from "./Subcategory";
+import { TTimezoneName } from "@upswyng/upswyng-types/src/TTimezoneName";
+import convertLegacyScheduleToResourceSchedule from "../utility/convertLegacyScheduleToResourceSchedule";
 import mongoose, { Document, Schema } from "mongoose";
 import removeUndefinedFields from "../utility/removeUndefinedFields";
-import { ObjectId } from "bson";
-import { ResourceSchedule } from "@upswyng/upswyng-core";
-import convertLegacyScheduleToResourceSchedule from "../utility/convertLegacyScheduleToResourceSchedule";
-import { TTimezoneName } from "@upswyng/upswyng-types/src/TTimezoneName";
 
 export interface TResourceDocument extends Document {
   _id: ObjectId; // this is the mongodb id of the record
@@ -155,7 +155,7 @@ export const ResourceSchema = new Schema({
   name: { type: String, required: true, index: true },
   phone: String,
   schedule: {
-    type: Object, // TResourceSchedule
+    type: Object, // TResourceScheduleData
     required: true,
     index: false,
   },
@@ -198,14 +198,6 @@ const legacyResourceToResource = (
       state: r.state,
       zip: (r.zip || "").toString(),
     },
-    closeSchedule: (r.closeschedule || []).map(i => ({
-      day: i.day,
-      date: i.date,
-      period: i.period,
-      from: i.fromstring,
-      to: i.tostring,
-      scheduleType: i.type,
-    })),
     createdAt,
     deleted: (r.closeschedule || [])
       .map(item => item.type.toLowerCase())

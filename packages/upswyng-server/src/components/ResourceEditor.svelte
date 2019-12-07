@@ -1,17 +1,17 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import { form as svelteForm } from "svelte-forms";
+  import { format } from "json-string-formatter";
   import { ResourceSchedule } from "@upswyng/upswyng-core";
   import ScheduleSelector from "./ScheduleSelector.svelte";
   import ServicesInput from "./ServicesInput.svelte";
   import SubcategoryInput from "./SubcategoryInput.svelte";
-  import { format } from "json-string-formatter";
 
-  export let resource; // TResource | TNewResource
-  export let subcategories; // TSubcategory[], all subcategories in the app
-  export let saveButtonLabel = "Save Draft";
-  export let isSaving = false;
   export let errorText = ""; // an error message to show, for instance, if the save operation has failed
+  export let isSaving = false;
+  export let resource; // TResource | TNewResource
+  export let saveButtonLabel = "Save Draft";
+  export let subcategories; // TSubcategory[], all subcategories in the app
 
   let saveError /* Error? */ = null;
 
@@ -27,12 +27,6 @@
   const dispatchSaveResource /* ("saveResource", resource: TResource) => void */ = createEventDispatcher();
   // note: these could just use the same created dispatcher but some day I would like to type them
   const dispatchClearErrorText /* ("clearErrorText") => void */ = createEventDispatcher();
-
-  if (typeof resource.schedule === "string") {
-    throw new Error(
-      `\`ResourceEditor\` received a non-parsed resource schedule. Call \`ResourceSchedule.parse\` with the string ${resource.schedule} as an argument.`
-    );
-  }
 
   const resourceForm = svelteForm(() => ({
     // address
@@ -96,16 +90,16 @@
         {resource.legacyId}
       </p>
     {/if}
-    {#if resource.legacyClosesSchedule}
-      <p>
-        <span class="label">Legacy Closes Schedule</span>
-        <span class="is-family-code">{resource.legacyClosesSchedule}</span>
-      </p>
-    {/if}
     {#if resource.legacySchedule}
       <p>
         <span class="label">Legacy Schedule</span>
         <span class="is-family-code">{format(resource.legacySchedule)}</span>
+      </p>
+    {/if}
+    {#if resource.legacyClosesSchedule}
+      <p>
+        <span class="label">Legacy Closes Schedule</span>
+        <span class="is-family-code">{resource.legacyClosesSchedule}</span>
       </p>
     {/if}
     {#if resource.kudos}
@@ -448,7 +442,7 @@
             on:click={() => dispatchClearErrorText('clearErrorText')} />
           {errorText}
         </div>
-        </div>
+      </div>
     {/if}
   </form>
 </div>

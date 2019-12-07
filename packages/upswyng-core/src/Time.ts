@@ -1,18 +1,19 @@
 import numWords from "num-words";
 
-export interface TTime {
-  value: string;
-  label: string;
+interface TTime {
   isNextDay?: boolean;
+  label: string;
+  value: string;
 }
+
 /**
  * Represents a time a resource opens or closes. Uses a 15 minute step and includes the option
  * of a time on the following day.
  */
-export default class Time implements TTime {
-  value: string;
-  label: string;
+export default class Time {
   isNextDay?: boolean;
+  label: string;
+  value: string;
 
   constructor(value: string, label: string, isNextDay?: boolean) {
     const t = Time.options.find(o => o.value === value);

@@ -3,8 +3,5 @@
   "main": "src/index.ts",
   "version": "0.1.0",
   "description": "",
-  "license": "MIT",
-  "dependencies": {
-    "@upswyng/upswyng-core": "0.1.0"
-  }
+  "license": "MIT"
 }

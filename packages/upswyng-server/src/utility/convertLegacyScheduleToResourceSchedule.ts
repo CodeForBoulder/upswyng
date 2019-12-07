@@ -16,7 +16,6 @@ const dayToCode = {
 /**
  * Attempts to convert a legacy schedule from strappd into a `ResourceSchedule`.
  * Currently handles always open and weekly schedule items.
- * @param legacySchedule
  */
 export default function convertLegacyScheduleToResourceScheduleJson(
   legacySchedule: TLegacySchedule[],

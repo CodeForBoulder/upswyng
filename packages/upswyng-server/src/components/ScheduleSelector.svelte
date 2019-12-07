@@ -8,13 +8,7 @@
 
   const { tz } = moment;
 
-  export let value = new ResourceSchedule(); // ResourceSchedule
-
-  if (typeof value === "string") {
-    throw new Error(
-      `\`ScheduleRecurrenceSelector\` received a non-parsed resource schedule. Call \`ResourceSchedule.parse\` with the string ${resource.schedule} as an argument.`
-    );
-  }
+  export let value; // TResourceSchedule
 
   // Run once mounted so this logic is executed on the user's machine
   // instead of on our server.
@@ -39,7 +33,7 @@
       saturday: "SA",
     };
 
-    if (!weeklyRepeatState.from || !weeklyRepeatState.to) {
+    if (!weeklyRepeatState.fromTime || !weeklyRepeatState.toTime) {
       throw new Error("Please enter a 'from' and 'to' time");
     }
     if (Object.keys(dayToCode).every(d => !weeklyRepeatState[d])) {
@@ -47,10 +41,10 @@
     }
     const fromIndex = Time.options
       .map(o => o.label)
-      .indexOf(weeklyRepeatState.from.label);
+      .indexOf(weeklyRepeatState.fromTime.label);
     const toIndex = Time.options
       .map(o => o.label)
-      .indexOf(weeklyRepeatState.to.label);
+      .indexOf(weeklyRepeatState.toTime.label);
     if (fromIndex < 0) {
       throw new Error("The 'from' time is not valid");
     }
@@ -59,7 +53,7 @@
     }
     if (fromIndex >= toIndex) {
       throw new Error(
-        `The 'from' time (${weeklyRepeatState.from.label}) must come before the 'to' time (${weeklyRepeatState.to.label})`
+        `The 'from' time (${weeklyRepeatState.fromTime.label}) must come before the 'to' time (${weeklyRepeatState.toTime.label})`
       );
     }
 
@@ -92,8 +86,8 @@
     thursday: true,
     friday: true,
     saturday: false,
-    from: null,
-    to: null,
+    fromTime: null,
+    toTime: null,
   };
 
   let weeklyRepeatState = Object.assign({}, weeklyRepeatStateDefault);
@@ -172,7 +166,7 @@
         aria-label="Clear Schedule"
         class="button"
         on:click|preventDefault={() => {
-          weeklyRepeatState = { ...weeklyRepeatStateDefault, from: weeklyRepeatState.from, to: weeklyRepeatState.to, comment: weeklyRepeatState.comment, monday: false, tuesday: false, wednesday: false, thursday: false, friday: false };
+          weeklyRepeatState = { ...weeklyRepeatStateDefault, fromTime: weeklyRepeatState.fromTime, toTime: weeklyRepeatState.toTime, comment: weeklyRepeatState.comment, monday: false, tuesday: false, wednesday: false, thursday: false, friday: false };
         }}
         title="Clear all days">
         <span class="icon">
@@ -184,18 +178,18 @@
       <div class="column">
         <label class="label" for="from-time">From</label>
         <Select
-          bind:selectedValue={weeklyRepeatState.from}
+          bind:selectedValue={weeklyRepeatState.fromTime}
           items={Time.options.filter(o => !o.isNextDay)} />
       </div>
       <div class="column">
         <label class="label" for="to-time">To</label>
         <Select
-          bind:selectedValue={weeklyRepeatState.to}
+          bind:selectedValue={weeklyRepeatState.toTime}
           items={Time.options} />
       </div>
     </div>
     <div class="content">
-      {#if weeklyRepeatState.from && weeklyRepeatState.to && parseInt(weeklyRepeatState.from.value, 10) >= parseInt(weeklyRepeatState.to.value, 10)}
+      {#if weeklyRepeatState.fromTime && weeklyRepeatState.toTime && parseInt(weeklyRepeatState.fromTime.value, 10) >= parseInt(weeklyRepeatState.toTime.value, 10)}
         <p class="notification is-warning">
           The 'From' time must be before the 'To' time.
         </p>
@@ -213,7 +207,7 @@
     <div class="content">
       <button
         class="button is-primary"
-        disabled={!weeklyRepeatState.from || !weeklyRepeatState.to || parseInt(weeklyRepeatState.from.value, 10) >= parseInt(weeklyRepeatState.to.value, 10)}
+        disabled={!weeklyRepeatState.fromTime || !weeklyRepeatState.toTime || parseInt(weeklyRepeatState.fromTime.value, 10) >= parseInt(weeklyRepeatState.toTime.value, 10)}
         type="button"
         preventDefault
         on:click={() => {

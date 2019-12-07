@@ -1,4 +1,3 @@
-import ResourceSchedule from "@upswyng/upswyng-core/src/ResourceSchedule";
 import { TTimezoneName as TTimezoneName_ } from "./TTimezoneName";
 
 export type TDay =
@@ -67,15 +66,15 @@ export interface TSubcategory {
 /**
  * The data needed to hydrate a `ResourceSchedule` instance.
  * ex:
- * const s: TResourceScheduleData = (fetch data);
+ * const s: TResourceScheduleData = await fetchData(.....);
  * const rs: ResourceSchedule = ResourceSchedule.parse(s);
  */
 export interface TResourceScheduleData {
   _items: {
-    recurrenceRule: string;
-    fromTime: string;
-    toTime: string;
     comment: string;
+    fromTime: string;
+    recurrenceRule: string;
+    toTime: string;
   }[];
   alwaysOpen: boolean;
   timezone: TTimezoneName;
@@ -84,7 +83,6 @@ export interface TResourceScheduleData {
 export interface TResource {
   _id: string; // DO NOT normally reference this, use `id`
   address: TAddress;
-  closeSchedule: TCloseSchedule[];
   createdAt: Date;
   createdBy?: TUser; // id of the user who created this
   deleted: boolean; // We leave entries in the DB so they don't get resynced from Strapped, but for all intents & purposes this resource doesn't exist.

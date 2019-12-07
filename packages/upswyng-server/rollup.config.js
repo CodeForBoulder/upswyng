@@ -30,7 +30,7 @@ const tsOpts = {
     allowNonTsExtensions: true,
     verbosity: 3,
   },
-  include: ["*.ts+(|x)", "../../**/*.ts+(|x)"],
+  include: ["*.ts+(|x)", "./**/*.ts+(|x)"],
 };
 const styleOpts = {
   scss: {
@@ -173,12 +173,10 @@ export default {
       typescript(tsOpts),
       json(),
     ],
-    external: Object.keys(pkg.dependencies || {})
-      // .filter(i => !i.match(/@upswyng/)) // https://github.com/sveltejs/sapper-template/blob/master/README.md#using-external-components
-      .concat(
-        require("module").builtinModules ||
-          Object.keys(process.binding("natives"))
-      ),
+    external: Object.keys(pkg.dependencies || {}).concat(
+      require("module").builtinModules ||
+        Object.keys(process.binding("natives"))
+    ),
     onwarn,
   },
 

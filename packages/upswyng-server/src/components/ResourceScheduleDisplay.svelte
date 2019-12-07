@@ -2,13 +2,7 @@
   import ScheduleSelectorScheduleItem from "./ScheduleSelectorScheduleItem.svelte";
   import { ResourceSchedule } from "@upswyng/upswyng-core";
 
-  export let schedule; /* ResourceSchedule */
-
-  if (typeof schedule === "string") {
-    throw new Error(
-      `\`ResourceScheduleDisplay\` received a non-parsed resource schedule. Call \`ResourceSchedule.parse\` with the string ${schedule} as an argument.`
-    );
-  }
+  export let schedule; /* TResourceScheduleData */
 </script>
 
 <div class="content">

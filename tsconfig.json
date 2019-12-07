@@ -16,16 +16,5 @@
     "strict": false,
     "target": "es5",
     "types": ["@pyoner/svelte-types", "jest"]
-  },
-  "files": ["node_modules/@upswyng/upswyng-core/dist/bundle.js"],
-  "include": [
-    "**/rollup*config.js",
-    "packages/*/src/**/*",
-    "packages/upswyng-*/index.ts",
-    "packages/upswyng-*/bundle.ts",
-    "packages/upswyng-*/src/jest.config.js",
-    "packages/upswyng-native/config.example.ts",
-    "packages/upswyng-native/config.ts"
-  ],
-  "exclude": ["node_modules"]
+  }
 }

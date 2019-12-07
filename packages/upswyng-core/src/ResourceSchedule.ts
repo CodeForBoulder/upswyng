@@ -6,10 +6,10 @@ import momentTimezone from "moment-timezone";
 const { tz } = momentTimezone;
 
 export interface TScheduleItem {
-  recurrenceRule: RRule;
-  fromTime: Time;
-  toTime: Time;
   comment: string;
+  fromTime: Time;
+  recurrenceRule: RRule;
+  toTime: Time;
 }
 
 function validateScheduleItem(item: TScheduleItem) {
