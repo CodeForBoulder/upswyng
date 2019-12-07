@@ -21,11 +21,11 @@ export async function post(req, res, next) {
     return;
   }
 
-  const { id } = req.params;
+  const { _id } = req.params;
   let deletedResource: TResourceDocument | null = null;
   try {
     deletedResource = await DraftResource.deleteByRecordId(
-      ObjectId.createFromHexString(id)
+      ObjectId.createFromHexString(_id)
     );
   } catch (e) {
     res.writeHead(500, {

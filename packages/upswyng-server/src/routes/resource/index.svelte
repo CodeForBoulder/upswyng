@@ -107,8 +107,8 @@
       <p class="subtitle">Search for a Resource</p>
       <ResourceSearch
         action="view"
-        on:resourceClick={({ detail: id }) => {
-          goto(`/resource/${id}`);
+        on:resourceClick={({ detail: resourceId }) => {
+          goto(`/resource/${resourceId}`);
         }} />
     </div>
 
@@ -118,7 +118,7 @@
         <ul class="content">
           {#each uncategorizedResources as resource}
             <li>
-              <a href={`/resource/${resource.id}`}>{resource.name}</a>
+              <a href={`/resource/${resource.resourceId}`}>{resource.name}</a>
             </li>
           {/each}
         </ul>

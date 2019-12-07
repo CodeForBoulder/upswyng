@@ -2,7 +2,7 @@
   import { ResourceSchedule } from "@upswyng/upswyng-core";
 
   export async function preload({ params, query }, { user }) {
-    const resourceResponse = await this.fetch(`/api/resource/${params.id}`);
+    const resourceResponse = await this.fetch(`/api/resource/${params.resourceId}`);
     const { resource } = await resourceResponse.json();
     resource.schedule = ResourceSchedule.parse(resource.schedule);
 

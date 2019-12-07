@@ -5,7 +5,7 @@ import ResourceCard from "./ResourceCard";
 import styled from "styled-components";
 
 interface Resource {
-  id: string;
+  resourceId: string;
   name: string;
 }
 
@@ -38,14 +38,14 @@ const ResourceList = ({ placeholder, resources }: Props) => {
   }
 
   if (resources && resources.length) {
-    const listItems = resources.map(({ name, id }, index) => {
-      if (name && id) {
+    const listItems = resources.map(({ name, resourceId }, index) => {
+      if (name && resourceId) {
         return (
-          <SearchResultsItem key={id}>
+          <SearchResultsItem key={resourceId}>
             <ResourceCard
               index={index}
               placeholder={placeholder}
-              resourceId={id}
+              resourceId={resourceId}
               resourceName={name}
             />
           </SearchResultsItem>

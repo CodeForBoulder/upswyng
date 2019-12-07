@@ -8,7 +8,7 @@ import { ObjectId } from "bson";
 import { requireAdmin } from "../../../../../utility/authHelpers";
 
 export async function post(req, res, next) {
-  const { id: recordId }: { id: string } = req.params; // _id of resource to be approved
+  const { _id } = req.params; // _id of resource to be approved
   try {
     requireAdmin(req);
   } catch (_e) {
@@ -27,7 +27,7 @@ export async function post(req, res, next) {
   let draftToApprove: TResourceDocument | null = null;
   try {
     draftToApprove = await DraftResource.getByRecordId(
-      ObjectId.createFromHexString(recordId)
+      ObjectId.createFromHexString(_id)
     );
 
     if (!draftToApprove) {

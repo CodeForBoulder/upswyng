@@ -44,7 +44,8 @@ const useResourcesByCategory = (
                 ? subcategoryResources.filter(
                     resource =>
                       !categoryResources.find(
-                        categoryResource => categoryResource.id === resource.id
+                        categoryResource =>
+                          categoryResource.resourceId === resource.resourceId
                       )
                   )
                 : subcategoryResources;
