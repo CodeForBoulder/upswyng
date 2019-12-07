@@ -2,7 +2,7 @@ import { font } from "../App.styles";
 import { TDay, TSchedule, TResourceScheduleData } from "@upswyng/upswyng-types";
 import React from "react";
 import styled from "styled-components";
-import { ResourceSchedule, TScheduleItem } from "../../../upswyng-core/index";
+import { ResourceSchedule, TScheduleItem } from "@upswyng/upswyng-core";
 import { RRule } from "rrule";
 
 interface ScheduleProps {
@@ -103,7 +103,9 @@ const WeeklySchedule = ({ items }: { items: TScheduleItem[] }) => {
       items: items.filter(
         item =>
           item.recurrenceRule.options.freq === RRule.WEEKLY &&
-          item.recurrenceRule.options.byweekday.includes(dayToCode[day])
+          item.recurrenceRule.options.byweekday.includes(
+            (RRule as any)[dayToCode[day as keyof typeof dayToCode]] as number
+          )
       ),
     };
   });
@@ -134,9 +136,12 @@ const Schedule = ({ schedule }: ScheduleProps) => {
     // group together schedule items that have the same comments
     const commentMap = resourceSchedule.getItems().reduce((result, item) => {
       const comment = item.comment || "_no_comment_";
-      result[comment] = [...(result[comment] || []), item];
+      result[comment as keyof typeof dayToCode] = [
+        ...(result[comment as keyof typeof dayToCode] || []),
+        item,
+      ];
       return result;
-    }, {});
+    }, {} as Record<keyof typeof dayToCode, TScheduleItem[]>);
 
     return (
       <div>

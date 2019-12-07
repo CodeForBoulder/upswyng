@@ -13,7 +13,7 @@ const StyledContainer = styled.aside`
   font-family: ${font.families.openSans};
 `;
 
-const StyledTemp = styled.p`
+const StyledTemp = styled.div`
   align-items: flex-end;
   border-right: solid 2px ${colors.white};
   display: flex;

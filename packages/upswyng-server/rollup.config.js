@@ -22,7 +22,7 @@ import {
 } from "@pyoner/svelte-ts-preprocess";
 import typescript from "rollup-plugin-typescript2";
 const env = createEnv();
-const compilerOptions = readConfigFile(env, "../../tsconfig.json");
+const compilerOptions = readConfigFile(env, "./tsconfig.json");
 const tsOpts = {
   env,
   compilerOptions: {
@@ -30,7 +30,6 @@ const tsOpts = {
     allowNonTsExtensions: true,
     verbosity: 3,
   },
-  tsconfig: "../../tsconfig.json",
   include: ["*.ts+(|x)", "../../**/*.ts+(|x)"],
 };
 const styleOpts = {
@@ -108,6 +107,7 @@ export default {
         namedExports: {
           "node_modules/bson/index.js": ["ObjectId"],
           rrule: ["RRule", "RRuleSet"],
+          "@upswyng/upswyng-core": ["Time"],
         },
       }),
       typescript(tsOpts),
@@ -174,7 +174,7 @@ export default {
       json(),
     ],
     external: Object.keys(pkg.dependencies || {})
-      .filter(i => !i.match(/@upswyng/)) // https://github.com/sveltejs/sapper-template/blob/master/README.md#using-external-components
+      // .filter(i => !i.match(/@upswyng/)) // https://github.com/sveltejs/sapper-template/blob/master/README.md#using-external-components
       .concat(
         require("module").builtinModules ||
           Object.keys(process.binding("natives"))

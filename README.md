@@ -1,32 +1,48 @@
 ![UpSwyng Logo](./upswyng.svg)
+
 # UpSwyng
->UpSwyng is a mobile-ready, digital directory of
->resources to assist the unhoused and at-risk communities.
->Coming soon to Boulder, CO.
+
+> UpSwyng is a mobile-ready, digital directory of
+> resources to assist the unhoused and at-risk communities.
+> Coming soon to Boulder, CO.
 
 UpSwyng is a [Code For Boulder](https://www.codeforboulder.org) project.
 
 ## Project Organization
+
 ![Project Organization Diagram](./upswyng-project-layout.svg)
 UpSwyng is a monorepo managed with Yarn Workspaces. It consists of five packages all in the `packages` directory: `upswyng-core` contains common libraries and utilities used across the other packages. `upswyng-types` holds the TypeScript definitions used across the project. `upswyng-server` is a [Sapper](https://sapper.svelte.dev/) application with two parts: an API server which provides data to the UpSwyng clients, and an admin web interface which uses the [Svelte](https://svelte.dev/) framework to create and modify data for the project. `upswyng-web` contains the [React](https://reactjs.org/) web client, and `upswyng-native` contains a work-in-progress [React Native](https://facebook.github.io/react-native/) cleint.
 
 ## Getting Started
+
 Install the Yarn package manager by following the instructions at [https://yarnpkg.com/lang/en/docs/install](https://yarnpkg.com/lang/en/docs/install)
 
 Next, clone the repo:
+
 ```
 git clone https://github.com/CodeForBoulder/upswyng.git
 ```
+
 `cd` into the repo:
+
 ```
 cd upswyng
 ```
+
 and install the project dependencies by running
+
 ```
 yarn
 ```
 
+### Development Ports
+
+| server     | 3000 |
+| ---------- | ---: |
+| web client | 3001 |
+
 ### Next Steps
+
 `cd` into the package you're interested in working on and run the appropriate script. Visit each package's `README` for more information about environment setup, scripts, and more.
 
 ## Contributing
@@ -67,4 +83,3 @@ Once you believe your feature is ready for production, create a PR and reference
 If there any updates requested, please make those updates on your local branch and re-push that branch to the repository.
 
 If approved, project managers will handle merging and deploying.
-

@@ -2,9 +2,15 @@
   "name": "@upswyng/upswyng-core",
   "version": "0.1.0",
   "description": "Core libraries and utilities used across the project",
-  "main": "index.ts",
+  "module": "dist/index.es.js",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "rollup --config"
   },
   "author": "",
   "license": "MIT",
@@ -15,7 +21,13 @@
   "devDependencies": {
     "@types/moment-timezone": "^0.5.12",
     "jest": "^24.9.0",
+    "rollup": "^1.27.8",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-typescript2": "^0.25.3",
     "ts-jest": "^24.1.0",
-    "tslib": "^1.10.0"
+    "tslib": "^1.10.0",
+    "typescript": "^3.7.3"
   }
 }

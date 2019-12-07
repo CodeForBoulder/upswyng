@@ -2,30 +2,23 @@
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "declarationDir": "./dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "react-native",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "module": "esnext",
+    "module": "es6",
     "moduleResolution": "node",
-    "noEmit": true,
     "noImplicitAny": false,
+    "outDir": "./dist",
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": false,
     "target": "es5",
-    "types": ["@pyoner/svelte-types", "jest"]
+    "types": ["jest"]
   },
-  "files": ["node_modules/@upswyng/upswyng-core/dist/bundle.js"],
-  "include": [
-    "**/rollup*config.js",
-    "packages/*/src/**/*",
-    "packages/upswyng-*/index.ts",
-    "packages/upswyng-*/bundle.ts",
-    "packages/upswyng-*/src/jest.config.js",
-    "packages/upswyng-native/config.example.ts",
-    "packages/upswyng-native/config.ts"
-  ],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }

@@ -104,7 +104,6 @@ export const Resource = () => {
   if (!resourceId) {
     return <p>We&apos;re sorry, this service was not found.</p>;
   }
-
   const resource = useResource(resourceId);
 
   if (resource === undefined) {

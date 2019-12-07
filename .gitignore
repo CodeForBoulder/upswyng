@@ -13,6 +13,7 @@ node_modules
 packages/upswyng-web/build
 __sapper__
 __build__
+dist
 
 # configuration
 .env
