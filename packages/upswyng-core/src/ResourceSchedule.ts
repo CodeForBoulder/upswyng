@@ -5,7 +5,7 @@ import momentTimezone from "moment-timezone";
 
 const { tz } = momentTimezone;
 
-interface TScheduleItem {
+export interface TScheduleItem {
   recurrenceRule: RRule;
   fromTime: Time;
   toTime: Time;
