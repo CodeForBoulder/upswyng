@@ -66,7 +66,7 @@ export interface TSubcategory {
 /**
  * The data needed to hydrate a `ResourceSchedule` instance.
  * ex:
- * const s: TResourceScheduleData = (fetch data);
+ * const s: TResourceScheduleData = await fetchData(.....);
  * const rs: ResourceSchedule = ResourceSchedule.parse(s);
  */
 export interface TResourceScheduleData {
