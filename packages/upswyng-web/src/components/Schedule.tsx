@@ -2,7 +2,7 @@ import { font } from "../App.styles";
 import { TDay, TSchedule, TResourceScheduleData } from "@upswyng/upswyng-types";
 import React from "react";
 import styled from "styled-components";
-import { ResourceSchedule, TScheduleItem } from "../../../upswyng-core/index";
+import { ResourceSchedule, TScheduleItem } from "@upswyng/upswyng-core";
 import { RRule } from "rrule";
 
 interface ScheduleProps {
