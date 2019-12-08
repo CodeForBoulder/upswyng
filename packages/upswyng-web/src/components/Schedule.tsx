@@ -1,9 +1,9 @@
 import { font } from "../App.styles";
+import { ResourceSchedule, TScheduleItem } from "@upswyng/upswyng-core";
+import { RRule } from "rrule";
 import { TDay, TSchedule, TResourceScheduleData } from "@upswyng/upswyng-types";
 import React from "react";
 import styled from "styled-components";
-import { ResourceSchedule, TScheduleItem } from "@upswyng/upswyng-core";
-import { RRule } from "rrule";
 
 interface ScheduleProps {
   schedule: TResourceScheduleData;
