@@ -70,10 +70,6 @@
   "workspaces": [
     "packages/*"
   ],
-  "dependencies": {
-    "@upswyng/upswyng-core": "0.1.0",
-    "concurrently": "^5.0.0"
-  },
   "engines": {
     "node": ">=10.17.0 <=12.*"
   }
