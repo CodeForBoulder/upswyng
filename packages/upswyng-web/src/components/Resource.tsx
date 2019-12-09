@@ -101,10 +101,11 @@ export const Resource = () => {
 
   const { currentBannerColor } = React.useContext(BannerColorContext);
 
+  const resource = useResource(resourceId || "");
+
   if (!resourceId) {
-    return <p>We&apos;re sorry, this service was not found.</p>;
+    return <p>We&apos;re sorry, this resource was not found.</p>;
   }
-  const resource = useResource(resourceId);
 
   if (resource === undefined) {
     return <LoadingSpinner />;

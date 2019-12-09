@@ -31,9 +31,10 @@
     "react-router": "^5.1.2",
     "react-router-config": "^5.1.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "2.1.5",
+    "react-scripts": "^3.3.0",
     "styled-components": "^4.3.2",
-    "typescript": "^3.3.4000"
+    "tslib": "^1.10.0",
+    "typescript": "^3.4.5"
   },
   "devDependencies": {
     "@testing-library/react-hooks": "^1.0.4",
