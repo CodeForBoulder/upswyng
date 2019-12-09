@@ -9,8 +9,8 @@ node_js:
 script:
   - yarn install
   - yarn --version
-  - ls -la node_modules/@upswyng/
-  - ls -la node_modules/@upswyng/upswyng-core/dist
+  - ls -la packages/upswyng-core/
+  - ls -la packages/upswyng-core/dist/
   - mv packages/upswyng-native/config.example.ts packages/upswyng-native/config.ts
   - yarn run ci-lint
   - yarn run test
