@@ -46,9 +46,7 @@ async function googleGrantToUser(grant: TGrantGoogle): Promise<TUser> {
   } catch (e) {
     console.error(e);
     throw new Error(
-      `Error creating or finding new user with sub ${
-        grant.response.id_token.payload.sub
-      }`
+      `Error creating or finding new user with sub ${grant.response.id_token.payload.sub}`
     );
   }
 }

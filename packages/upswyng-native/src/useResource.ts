@@ -31,10 +31,13 @@ function useResource(dataPath: string): TLegacyResource | null {
     return () => {
       firebaseCallback &&
         firebaseRef &&
-        firebaseRef.off("value", firebaseCallback as (
-          a: firebase.database.DataSnapshot,
-          b?: string | null
-        ) => unknown);
+        firebaseRef.off(
+          "value",
+          firebaseCallback as (
+            a: firebase.database.DataSnapshot,
+            b?: string | null
+          ) => unknown
+        );
     };
   }, [dataPath]);
 
