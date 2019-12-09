@@ -4,7 +4,6 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "module": "commonjs"
+    "module": "commonjs" // https://github.com/TypeStrong/ts-node/issues/182
   }
 }

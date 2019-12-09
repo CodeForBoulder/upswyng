@@ -28,7 +28,7 @@ module.exports = {
       only: [/^(?!.*rrule).*$/],
       browser: true,
     }),
-    typescript(),
+    typescript({ tsconfig: "./tsconfig.build.json" }),
     commonjs({
       include: /node_modules/,
       exclude: [/^.+\.tsx?$/],

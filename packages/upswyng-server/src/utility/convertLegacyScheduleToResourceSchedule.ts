@@ -1,7 +1,7 @@
 import { TLegacySchedule, TDay } from "@upswyng/upswyng-types";
 import { ResourceSchedule, Time } from "@upswyng/upswyng-core";
 import RRule from "rrule";
-import { TTimezoneName } from "@upswyng/upswyng-types/src/TTimezoneName";
+import { TTimezoneName } from "@upswyng/upswyng-types";
 
 const dayToCode = {
   sunday: "SU",

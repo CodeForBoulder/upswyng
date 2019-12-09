@@ -37,6 +37,7 @@ const Touchable = (Platform.OS === "android"
 const HomeButton = (props: HomeButtonProps) => {
   const Icon = props.icon;
   const styles = createStyles(props.buttonColor || colors.greyDark);
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   let onPress = () => {};
   if (props.linkState) {
     onPress = () => props.history.push(props.linkState);

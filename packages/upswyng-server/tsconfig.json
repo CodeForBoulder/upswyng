@@ -1,22 +1,10 @@
+// Dev build
+// See https://github.com/Izhaki/mono.ts
+
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "jsx": "react-native",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "module": "esnext",
-    "moduleResolution": "node",
-    "noEmit": true,
-    "noImplicitAny": false,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "strict": false,
-    "target": "es5",
+    "module": "ES2015",
     "types": ["@pyoner/svelte-types", "jest"]
-  },
-  "include": ["./rollup*config.js", ".*/src/**/*", "./jest.config.js"],
-  "exclude": ["node_modules"]
+  }
 }

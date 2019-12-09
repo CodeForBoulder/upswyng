@@ -173,19 +173,6 @@ export type TSchedulePeriod =
   | "Fourth"
   | "Fifth";
 
-interface THomeButtonBase {
-  color: string;
-  icon: React.ComponentType<TIconProps>;
-  text: string;
-}
-export interface THomeButtonAnchor extends THomeButtonBase {
-  href: string;
-}
-
-export interface THomeButtonRouterLink extends THomeButtonBase {
-  linkState: string;
-}
-
 export interface THotline {
   _id: string;
   // TODO: Add Schedule

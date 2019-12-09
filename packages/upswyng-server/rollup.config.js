@@ -31,6 +31,7 @@ const tsOpts = {
     verbosity: 3,
   },
   include: ["*.ts+(|x)", "./**/*.ts+(|x)"],
+  tsconfig: "./tsconfig.build.json",
 };
 const styleOpts = {
   scss: {

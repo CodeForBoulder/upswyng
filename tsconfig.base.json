@@ -1,0 +1,13 @@
+// See https://github.com/Izhaki/mono.ts for setup
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "lib": ["dom", "dom.iterable", "esnext", "es6"],
+    "moduleResolution": "node",
+    "noUnusedLocals": false,
+    "resolveJsonModule": true,
+    "types": ["jest"]
+  }
+}

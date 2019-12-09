@@ -72,5 +72,8 @@
   ],
   "engines": {
     "node": ">=10.17.0 <=12.*"
+  },
+  "dependencies": {
+    "@upswyng/upswyng-core": "0.1.0"
   }
 }
