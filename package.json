@@ -7,7 +7,7 @@
     "build-web": "yarn workspace @upswyng/upswyng-web run build",
     "ci-lint": "prettier --check --loglevel error '{{.github,.vscode}/**/*,packages/*/src/**/*}.{js,jsx,ts,tsx,json,css,scss,md}' && tsc --noEmit && eslint 'packages/upswyng-*/src/**/*.{js,jsx,ts,tsx}' --quiet",
     "lint": "prettier --write --loglevel warn '{{.github,.vscode}/**/*,packages/*/src/**/*}.{js,jsx,ts,tsx,json,css,scss,md}' && tsc --noEmit && eslint 'packages/upswyng-*/src/**/*.{js,jsx,ts,tsx}' --quiet",
-    "test": "CI=true SKIP_PREFLIGHT_CHECK=true concurrently --kill-others-on-fail \"yarn workspace @upswyng/upswyng-core run test\" \"yarn workspace @upswyng/upswyng-server run test\" && yarn workspace @upswyng/upswyng-web run test"
+    "test": "CI=true SKIP_PREFLIGHT_CHECK=true concurrently --kill-others-on-fail \"yarn workspace @upswyng/upswyng-core run test\" && yarn workspace @upswyng/upswyng-web run test"
   },
   "browserslist": [
     ">0.2%",

@@ -1,8 +1,7 @@
 import { TLegacySchedule } from "@upswyng/upswyng-types";
 import convertLegacyScheduleToResourceSchedule from "../convertLegacyScheduleToResourceSchedule";
 
-// TODO (rhinodavid): Reenable once we get Travis fixed
-xdescribe("convertLegacyScheduleToResourceSchedule", () => {
+describe("convertLegacyScheduleToResourceSchedule", () => {
   it("converts an always open schedule", () => {
     const legacySchedule: TLegacySchedule[] = [
       {
