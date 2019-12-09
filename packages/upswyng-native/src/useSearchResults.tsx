@@ -26,11 +26,13 @@ function useSearchResults(query: string): TSearchHit[] | null {
           throw new Error(err.message);
         }
         if (res && res.hits) {
-          setSearchResults(res.hits.map(h => ({
-            ...h,
-            objectId: h.objectID,
-            resourceName: h.charityname,
-          })) as TSearchHit[]);
+          setSearchResults(
+            res.hits.map(h => ({
+              ...h,
+              objectId: h.objectID,
+              resourceName: h.charityname,
+            })) as TSearchHit[]
+          );
         }
         return null;
       });

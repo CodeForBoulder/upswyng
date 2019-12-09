@@ -1,5 +1,7 @@
 <script>
   import diffResources from "../utility/diffResources.ts";
+  import ResourceScheduleDisplay from "./ResourceScheduleDisplay.svelte";
+
   export let leftResource;
   export let rightResource;
 
@@ -60,14 +62,8 @@
       <div class="values">
         <div class="left">
           <h3>Old</h3>
-          {#if k === 'schedule' || k === 'closesSchedule'}
-            <ul>
-              {#each diff.left[k] as scheduleEntry}
-                <li>
-                  {@html displayScheduleEntry(scheduleEntry)}
-                </li>
-              {/each}
-            </ul>
+          {#if k === 'schedule'}
+            <ResourceScheduleDisplay schedule={diff.left.schedule} />
           {:else if k === 'services'}
             <ul>
               {#each diff.left[k] as service}
@@ -89,14 +85,8 @@
         </div>
         <div class="right">
           <h3>New</h3>
-          {#if k === 'schedule' || k === 'closesSchedule'}
-            <ul>
-              {#each diff.right[k] as scheduleEntry}
-                <li>
-                  {@html displayScheduleEntry(scheduleEntry)}
-                </li>
-              {/each}
-            </ul>
+          {#if k === 'schedule'}
+            <ResourceScheduleDisplay schedule={diff.right.schedule} />
           {:else if k === 'services'}
             <ul>
               {#each diff.left[k] as service}

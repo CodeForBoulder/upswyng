@@ -1,7 +1,10 @@
 {
   "name": "@upswyng/upswyng-types",
-  "main": "src/index.ts",
   "version": "0.1.0",
   "description": "",
-  "license": "MIT"
+  "license": "MIT",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --build tsconfig.build.json"
+  }
 }

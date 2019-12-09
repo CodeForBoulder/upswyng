@@ -1,12 +1,23 @@
 import { font } from "../App.styles";
-import { orderSchedule } from "../utils/schedule";
-import { TDay, TSchedule } from "@upswyng/upswyng-types";
+import { ResourceSchedule, TScheduleItem } from "@upswyng/upswyng-core";
+import { RRule } from "rrule";
+import { TDay, TSchedule, TResourceScheduleData } from "@upswyng/upswyng-types";
 import React from "react";
 import styled from "styled-components";
 
 interface ScheduleProps {
-  schedule: TSchedule[];
+  schedule: TResourceScheduleData;
 }
+
+const dayToCode = {
+  sunday: "SU",
+  monday: "MO",
+  tuesday: "TU",
+  wednesday: "WE",
+  thursday: "TH",
+  friday: "FR",
+  saturday: "SA",
+};
 
 const WeeklyContainer = styled.div`
   display: flex;
@@ -85,21 +96,66 @@ const renderMonthlySchedule = (schedule: TSchedule[]) =>
     return null;
   });
 
-const Schedule = ({ schedule }: ScheduleProps) => {
-  if (schedule && schedule.length) {
-    const { scheduleType } = schedule[0];
-    const orderedSchedule = orderSchedule(schedule);
+const WeeklySchedule = ({ items }: { items: TScheduleItem[] }) => {
+  const dayItemsMap = Object.keys(dayToCode).map(day => {
+    return {
+      day,
+      items: items.filter(
+        item =>
+          item.recurrenceRule.options.freq === RRule.WEEKLY &&
+          item.recurrenceRule.options.byweekday.includes(
+            (RRule as any)[dayToCode[day as keyof typeof dayToCode]] as number
+          )
+      ),
+    };
+  });
+  return (
+    <div>
+      {dayItemsMap
+        .filter(x => x.items.length)
+        .map(x => (
+          <div key={x.day}>
+            <div>{x.day}</div>
+            <div>
+              {x.items.map(i => (
+                <div key={`${i.fromTime.value}${i.toTime.value}`}>
+                  {i.fromTime.label} - {i.toTime.label}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+    </div>
+  );
+};
 
-    switch (scheduleType) {
-      case "Weekly":
-        return <>{renderWeeklySchedule(orderedSchedule)}</>;
-      case "Monthly":
-        return <>{renderMonthlySchedule(orderedSchedule)}</>;
-      case "Open 24/7":
-        return <p>{scheduleType}</p>;
-    }
+const Schedule = ({ schedule }: ScheduleProps) => {
+  try {
+    const resourceSchedule = ResourceSchedule.parse(schedule);
+
+    // group together schedule items that have the same comments
+    const commentMap = resourceSchedule.getItems().reduce((result, item) => {
+      const comment = item.comment || "_no_comment_";
+      result[comment as keyof typeof dayToCode] = [
+        ...(result[comment as keyof typeof dayToCode] || []),
+        item,
+      ];
+      return result;
+    }, {} as Record<keyof typeof dayToCode, TScheduleItem[]>);
+
+    return (
+      <div>
+        {Object.entries(commentMap).map(([comment, items]) => (
+          <div key={comment}>
+            {comment !== "_no_comment_" && <div>{comment}</div>}
+            <WeeklySchedule items={items as TScheduleItem[]} />
+          </div>
+        ))}
+      </div>
+    );
+  } catch {
+    return <p>not available</p>;
   }
-  return <p>not available</p>;
 };
 
 export default Schedule;

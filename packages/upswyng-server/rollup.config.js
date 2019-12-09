@@ -22,13 +22,16 @@ import {
 } from "@pyoner/svelte-ts-preprocess";
 import typescript from "rollup-plugin-typescript2";
 const env = createEnv();
-const compilerOptions = readConfigFile(env, "../../tsconfig.json");
+const compilerOptions = readConfigFile(env, "./tsconfig.build.json");
 const tsOpts = {
   env,
   compilerOptions: {
     ...compilerOptions,
     allowNonTsExtensions: true,
+    verbosity: 3,
   },
+  include: ["*.ts+(|x)", "./**/*.ts+(|x)"],
+  tsconfig: "./tsconfig.build.json",
 };
 const styleOpts = {
   scss: {
@@ -76,25 +79,40 @@ export default {
         "process.env.RESET_APP_DATA_TIMER": 60 * 2 * 1000, // two minutes; used inside the algoliasearch source
         "process.env.NODE_ENV": JSON.stringify(mode),
       }),
-      builtins(),
       svelte({
         dev,
         hydratable: true,
         emitCss: true,
         preprocess: [tsPreprocess(tsOpts), autoPreprocess(styleOpts)],
       }),
+      // The 'rrule' 'module' entrypoint has mixed `import` and `require` statements.
+      // This is VERY BAD because the `import` statements cause the `commonjs` plugin to ignore the files,
+      // but the `require` statement makes it an invalid ES6 module. The 'main' entrypoint doesn't have this
+      // problem, so resolve 'rrule' with the 'main' entrypoint.
       resolve({
+        only: ["rrule"],
+        mainFields: ["main"],
         browser: true,
         dedupe,
       }),
+      // All the other modules besides 'rrule' should be resolved with the default entrypoint priority. (Defaults
+      // to ['module', 'main'].) See: https://github.com/rollup/rollup-plugin-node-resolve#usage
+      resolve({
+        only: [/^(?!.*rrule).*$/],
+        browser: true,
+        dedupe,
+      }),
+      builtins(),
       commonjs({
         include: /node_modules/,
         namedExports: {
           "node_modules/bson/index.js": ["ObjectId"],
+          rrule: ["RRule", "RRuleSet"],
+          "@upswyng/upswyng-core": ["Time"],
         },
       }),
-      typescript(),
-
+      typescript(tsOpts),
+      json(),
       legacy &&
         babel({
           extensions: [".js", ".mjs", ".html", ".svelte"],
@@ -153,15 +171,13 @@ export default {
           "node_modules/bson/index.js": ["ObjectId"],
         },
       }),
-      typescript(),
+      typescript(tsOpts),
       json(),
     ],
-    external: Object.keys(pkg.dependencies || {})
-      .filter(i => !i.match(/@upswyng/)) // https://github.com/sveltejs/sapper-template/blob/master/README.md#using-external-components
-      .concat(
-        require("module").builtinModules ||
-          Object.keys(process.binding("natives"))
-      ),
+    external: Object.keys(pkg.dependencies || {}).concat(
+      require("module").builtinModules ||
+        Object.keys(process.binding("natives"))
+    ),
     onwarn,
   },
 
@@ -180,7 +196,7 @@ export default {
         "process.env.NODE_ENV": JSON.stringify(mode),
       }),
       commonjs(),
-      typescript(),
+      typescript(tsOpts),
       !dev && terser(),
     ],
     onwarn,

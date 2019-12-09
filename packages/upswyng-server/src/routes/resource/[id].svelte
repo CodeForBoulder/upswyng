@@ -1,15 +1,18 @@
 <script context="module">
+  import { ResourceSchedule } from "@upswyng/upswyng-core";
+
   export async function preload({ params, query }, { user }) {
     const resourceResponse = await this.fetch(`/api/resource/${params.id}`);
     const { resource } = await resourceResponse.json();
+    resource.schedule = ResourceSchedule.parse(resource.schedule);
 
     const subcategoryResponse = await this.fetch(`/api/subcategories`);
     const { subcategories } = await subcategoryResponse.json();
 
     if (resourceResponse.status !== 200) {
-      this.error(resourceResponse.status, resourceData.message);
+      this.error(resourceResponse.status, resource.message);
     } else if (subcategoryResponse.status !== 200) {
-      this.error(subcategoryResponse.status, subcategoryData.message);
+      this.error(subcategoryResponse.status, subcategories.message);
     } else {
       return { resource, subcategories, isLoggedIn: !!user };
     }
@@ -17,8 +20,8 @@
 </script>
 
 <script>
-  import { goto, stores } from "@sapper/app";
   import { addFlashMessage } from "../../utility/flashMessage.ts";
+  import { goto, stores } from "@sapper/app";
   import ResourceDisplay from "../../components/ResourceDisplay.svelte";
   import ResourceEditor from "../../components/ResourceEditor.svelte";
 

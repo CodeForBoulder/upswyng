@@ -78,7 +78,12 @@ mongoose
           try {
             if (locationInBoulder(legacyResource.lat, legacyResource.lng)) {
               addedResourceCount++;
-              await Resource.addOrUpdateLegacyResource(id, legacyResource);
+              // TODO (rhinodavid): Remove timezone once we're not just importing Boulder resources
+              await Resource.addOrUpdateLegacyResource(
+                id,
+                legacyResource,
+                "America/Denver"
+              );
             } else {
               locationFilteredResourceCount++;
             }

@@ -1,17 +1,17 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import { form as svelteForm } from "svelte-forms";
-  import CloseScheduleInput from "./CloseScheduleInput.svelte";
-  import ScheduleInput from "./ScheduleInput.svelte";
+  import { format } from "json-string-formatter";
+  import { ResourceSchedule } from "@upswyng/upswyng-core";
+  import ScheduleSelector from "./ScheduleSelector.svelte";
   import ServicesInput from "./ServicesInput.svelte";
   import SubcategoryInput from "./SubcategoryInput.svelte";
 
-  export let resource; // TResource | TNewResource
-  export let subcategories; // TSubcategory[], all subcategories in the app
-  export let saveButtonLabel = "Save Draft";
-  export let disableSave = false; // disables the save button
-  export let isSaving = false;
   export let errorText = ""; // an error message to show, for instance, if the save operation has failed
+  export let isSaving = false;
+  export let resource; // TResource | TNewResource
+  export let saveButtonLabel = "Save Draft";
+  export let subcategories; // TSubcategory[], all subcategories in the app
 
   let saveError /* Error? */ = null;
 
@@ -40,7 +40,6 @@
     zip: { value: resource.address.zip || "", validators: ["required"] },
     //
     deleted: { value: resource.deleted || false, validators: [] },
-    closeSchedule: { value: resource.closeSchedule || [], validators: [] },
     description: { value: resource.description || "", validators: ["min:12"] },
     latitude: {
       value: resource.latitude || 40.01,
@@ -52,7 +51,10 @@
     },
     name: { value: resource.name || "", validators: ["required", "min:3"] },
     phone: { value: resource.phone || "", validators: ["required", "min:3"] }, // ex: 911
-    schedule: { value: resource.schedule || [] },
+    schedule: {
+      value: resource.schedule,
+      validators: ["required"],
+    },
     services: { value: resource.services || [], validators: [] },
     website: { value: resource.website || "", validators: ["url"] },
   }));
@@ -86,6 +88,18 @@
       <p>
         <span class="label">Legacy ID</span>
         {resource.legacyId}
+      </p>
+    {/if}
+    {#if resource.legacySchedule}
+      <p>
+        <span class="label">Legacy Schedule</span>
+        <span class="is-family-code">{format(resource.legacySchedule)}</span>
+      </p>
+    {/if}
+    {#if resource.legacyClosesSchedule}
+      <p>
+        <span class="label">Legacy Closes Schedule</span>
+        <span class="is-family-code">{resource.legacyClosesSchedule}</span>
       </p>
     {/if}
     {#if resource.kudos}
@@ -349,12 +363,7 @@
       {/if}
     </div>
 
-    <p>
-      <ScheduleInput bind:value={resource.schedule} />
-    </p>
-    <p>
-      <CloseScheduleInput bind:value={resource.closeSchedule} />
-    </p>
+    <ScheduleSelector bind:value={resource.schedule} />
 
     <div class="field">
       <label class="label">Location</label>
@@ -408,33 +417,32 @@
           </div>
         </div>
       </div>
-      <p>
-        <SubcategoryInput bind:value={resource.subcategories} {subcategories} />
-      </p>
-      <div class="buttons is-right">
-        <button
-          type="button"
-          class="button is-success"
-          class:is-loading={isSaving}
-          preventDefault
-          on:click={() => dispatchSaveResource('dispatchSaveResource', resource)}
-          disabled={!$resourceForm.valid}>
-          <span class="icon">
-            <i class="fas fa-check is-small" />
-          </span>
-          <span>{saveButtonLabel}</span>
-        </button>
-      </div>
-      {#if errorText}
-        <div class="content">
-          <div class="notification is-danger">
-            <button
-              class="delete"
-              on:click={() => dispatchClearErrorText('clearErrorText')} />
-            {errorText}
-          </div>
-        </div>
-      {/if}
     </div>
+    <SubcategoryInput bind:value={resource.subcategories} {subcategories} />
+
+    <div class="buttons is-right">
+      <button
+        type="button"
+        class="button is-success"
+        class:is-loading={isSaving}
+        preventDefault
+        on:click={() => dispatchSaveResource('dispatchSaveResource', resource)}
+        disabled={!$resourceForm.valid}>
+        <span class="icon">
+          <i class="fas fa-check is-small" />
+        </span>
+        <span>{saveButtonLabel}</span>
+      </button>
+    </div>
+    {#if errorText}
+      <div class="content">
+        <div class="notification is-danger">
+          <button
+            class="delete"
+            on:click={() => dispatchClearErrorText('clearErrorText')} />
+          {errorText}
+        </div>
+      </div>
+    {/if}
   </form>
 </div>
