@@ -10,7 +10,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
-    "build": "rollup --config"
+    "build": "yarn workspace @upswyng/upswyng-types run build && rollup --config"
   },
   "author": "",
   "license": "MIT",
