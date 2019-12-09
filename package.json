@@ -21,7 +21,7 @@
     }
   },
   "lint-staged": {
-    "packages/**src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+    "packages/*/src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --write",
       "git add"
     ]
@@ -51,6 +51,7 @@
     "@types/simple-oauth2": "^2.2.1",
     "@typescript-eslint/eslint-plugin": "^2.6.0",
     "@typescript-eslint/parser": "^2.6.0",
+    "concurrently": "^5.0.0",
     "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-prettier": "^3.1.1",
