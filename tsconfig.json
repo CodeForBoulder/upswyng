@@ -16,5 +16,7 @@
     "strict": false,
     "target": "es5",
     "types": ["@pyoner/svelte-types", "jest"]
-  }
+  },
+  "include": ["./packages/*/src/**/*"],
+  "exclude": ["node_modules", "./packages/*/node_modules"]
 }
