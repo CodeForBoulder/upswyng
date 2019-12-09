@@ -4,7 +4,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "module": "ES2015",
+    "module": "CommonJS",
     "types": ["@pyoner/svelte-types", "jest"]
   }
 }
