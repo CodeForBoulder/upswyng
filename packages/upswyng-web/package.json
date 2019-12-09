@@ -34,7 +34,7 @@
     "react-scripts": "^3.3.0",
     "styled-components": "^4.3.2",
     "tslib": "^1.10.0",
-    "typescript": "3.6.3"
+    "typescript": "^3.7.3"
   },
   "devDependencies": {
     "@testing-library/react-hooks": "^1.0.4",
