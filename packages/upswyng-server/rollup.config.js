@@ -22,7 +22,7 @@ import {
 } from "@pyoner/svelte-ts-preprocess";
 import typescript from "rollup-plugin-typescript2";
 const env = createEnv();
-const compilerOptions = readConfigFile(env, "./tsconfig.json");
+const compilerOptions = readConfigFile(env, "./tsconfig.build.json");
 const tsOpts = {
   env,
   compilerOptions: {
