@@ -1,2 +1,0 @@
-[build]
-  command = "npm i yarn@1.19.2 && yarn && yarn run build"
