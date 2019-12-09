@@ -8,6 +8,7 @@ node_js:
   - "11"
 script:
   - yarn install
+  - yarn workspace @upswyng/upswyng-types build
   - yarn workspace @upswyng/upswyng-core build
   - mv packages/upswyng-native/config.example.ts packages/upswyng-native/config.ts
   - yarn run ci-lint
