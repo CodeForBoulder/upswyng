@@ -7,7 +7,7 @@ cache:
 node_js:
   - "11"
 script:
-  - yarn
+  - yarn install
   - yarn --version
   - mv packages/upswyng-native/config.example.ts packages/upswyng-native/config.ts
   - yarn run ci-lint
