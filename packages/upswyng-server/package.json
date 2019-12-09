@@ -83,9 +83,9 @@
     "svelte-forms": "github:rhinodavid/svelte-forms#url-validator-fix",
     "svelte-preprocess": "^3.1.2",
     "svelte-select": "github:rob-balfre/svelte-select#7973bb712c2cadb7abf0bc701ccd46785c48fd07",
-    "ts-jest": "^24.1.0",
+    "ts-jest": "^24.2.0",
     "tslib": "^1.10.0",
-    "typescript": "^3.4.5"
+    "typescript": "3.6.3"
   },
   "engines": {
     "node": ">=10.17.0 <12.0.0"

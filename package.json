@@ -65,7 +65,7 @@
     "prettier-plugin-svelte": "^0.7.0",
     "svelte": "^3.12.1",
     "ts-jest": "^24.2.0",
-    "typescript": "^3.7.3"
+    "typescript": "3.6.3"
   },
   "workspaces": [
     "packages/*"
