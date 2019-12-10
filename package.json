@@ -4,10 +4,13 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build-web": "yarn workspace @upswyng/upswyng-types run build && yarn workspace @upswyng/upswyng-core run build && yarn workspace @upswyng/upswyng-web run build",
+    "build-local-packages": "yarn workspace @upswyng/upswyng-types run build && yarn workspace @upswyng/upswyng-core run build",
+    "build-server": "yarn run build-local-packages && yarn workspace @upswyng/upswyng-server run build",
+    "build-web": "yarn run build-local-packages && yarn workspace @upswyng/upswyng-web run build",
     "ci-lint": "prettier --check --loglevel error '{{.github,.vscode}/**/*,packages/*/src/**/*}.{js,jsx,ts,tsx,json,css,scss,md}' && tsc --noEmit && eslint 'packages/upswyng-*/src/**/*.{js,jsx,ts,tsx}' --quiet",
+    "clean": "node clean.js",
     "lint": "prettier --write --loglevel warn '{{.github,.vscode}/**/*,packages/*/src/**/*}.{js,jsx,ts,tsx,json,css,scss,md}' && tsc --noEmit && eslint 'packages/upswyng-*/src/**/*.{js,jsx,ts,tsx}' --quiet",
-    "test": "CI=true SKIP_PREFLIGHT_CHECK=true concurrently --kill-others-on-fail \"yarn workspace @upswyng/upswyng-core run test\" \"yarn workspace @upswyng/upswyng-server run test\" \"yarn workspace @upswyng/upswyng-web run test\""
+    "test": "CI=true SKIP_PREFLIGHT_CHECK=true concurrently --kill-others-on-fail \"yarn workspace @upswyng/upswyng-core run test\" \"yarn workspace @upswyng/upswyng-server run test\" && yarn workspace @upswyng/upswyng-web run test"
   },
   "browserslist": [
     ">0.2%",
@@ -58,6 +61,7 @@
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-native": "^3.8.1",
     "eslint-plugin-svelte3": "^2.7.3",
+    "glob": "^7.1.6",
     "husky": "^1.3.1",
     "jest": "^24.9.0",
     "lint-staged": "^8.1.4",
