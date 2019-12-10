@@ -170,7 +170,7 @@
         on:clearErrorText={() => (saveError = null)}
         on:dispatchSaveResource={e => handleSaveClick(e.detail)} />
       {#if isAdmin && issues}
-        <h2 id="issues" class="subtitle">Issues</h2>
+        <h1 id="issues" class="title">Issues</h1>
         {#each issues as issue (issue._id)}
           <ResourceIssueNotification resourceIssue={issue} />
         {/each}
