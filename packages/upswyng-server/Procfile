@@ -1,1 +1,1 @@
-web: yarn workspace @upswyng/upswyng-server run start
+web: yarn workspace @upswyng/upswyng-server run build && yarn workspace @upswyng/upswyng-server run start
