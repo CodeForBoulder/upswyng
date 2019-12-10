@@ -4389,7 +4389,7 @@ copy-descriptor@^0.1.0:
   resolved "https://registry.yarnpkg.com/copy-descriptor/-/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
   integrity sha1-Z29us8OZl8LuGsOpJP1hJHSPV40=
 
-core-js-compat@^3.4.7:
+core-js-compat@^3.1.1, core-js-compat@^3.4.7:
   version "3.4.8"
   resolved "https://registry.yarnpkg.com/core-js-compat/-/core-js-compat-3.4.8.tgz#f72e6a4ed76437ea710928f44615f926a81607d5"
   integrity sha512-l3WTmnXHV2Sfu5VuD7EHE2w7y+K68+kULKt5RJg8ZJk3YhHF1qLD4O8v8AmNq+8vbOwnPFFDvds25/AoEvMqlQ==
@@ -14748,9 +14748,10 @@ supports-color@^6.1.0:
   dependencies:
     has-flag "^3.0.0"
 
-"svelte-forms@github:rhinodavid/svelte-forms#url-validator-fix":
-  version "1.0.1"
-  resolved "https://codeload.github.com/rhinodavid/svelte-forms/tar.gz/e8a176ac60091ae17f58253fef73054b7acab8a9"
+svelte-forms@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/svelte-forms/-/svelte-forms-1.2.0.tgz#cf71c91d8a25772dd7a6f52700f4cc4f23f77d6b"
+  integrity sha512-nhnI/1hROqqaLX8IZBM12mdUHs5S8zxpayrm5amUjDq8y6RO3HgJwfVtOF7yxEX7XAp5sGJFA1MaPuhh7Qc82w==
 
 svelte-preprocess@^3.1.2:
   version "3.2.6"
@@ -14762,14 +14763,27 @@ svelte-preprocess@^3.1.2:
     detect-indent "^6.0.0"
     strip-indent "^2.0.0"
 
-"svelte-select@github:rob-balfre/svelte-select#7973bb712c2cadb7abf0bc701ccd46785c48fd07":
-  version "3.0.0"
-  resolved "https://codeload.github.com/rob-balfre/svelte-select/tar.gz/7973bb712c2cadb7abf0bc701ccd46785c48fd07"
+svelte-scrollto@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/svelte-scrollto/-/svelte-scrollto-0.1.1.tgz#0208ab8d5033d6d9cd9d8bd83649a09428421d0a"
+  integrity sha512-MR3DC3eqODQdoK27SCJrl2UamiaGhAZabeDy5JUToJPWYzkXLy00gxrhgu9mcCySQo9ejpE9uNq1AYjZJnotNg==
+  dependencies:
+    svelte "3.x"
+
+svelte-select@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/svelte-select/-/svelte-select-3.1.2.tgz#fe628d5b676e430b41af898c2c9e8a132ac17f4e"
+  integrity sha512-UYpEc9usDMAIXvx0hrrDiCVs5Zmz5BmPFGCwuIXDO5zWzMYJIEd8PVfEW/u0GK3Jofc/KuuHKjRVEDuh6HYy3A==
 
 svelte3-autocomplete@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/svelte3-autocomplete/-/svelte3-autocomplete-1.0.1.tgz#a6dbc7f2bcf120ff75a9deb2b15a6ce2583fcb48"
   integrity sha512-ZT8wd7nT+jf7pLwC/l+wA8Ql9UsHA5rg73satcWb/jr52CgTnd8Utn7AqwL6SWcG1+QDt+1/+wXqy+CdvBlmKA==
+
+svelte@3.x:
+  version "3.16.1"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.16.1.tgz#bc81664abe93118d6a2ca3adc1cb0f502ab72678"
+  integrity sha512-OqpE0519ZmaMa94ttCSTmpIrrZEGuUPc6TCXw4+DzeJbZOpru18i0gX4z9sv70k9hvHXLrwSdKKCmIFbrferIg==
 
 svelte@^3.0.0, svelte@^3.12.1:
   version "3.16.0"
@@ -15201,11 +15215,6 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
-
-typescript@^3.7.3:
-  version "3.7.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.3.tgz#b36840668a16458a7025b9eabfad11b66ab85c69"
-  integrity sha512-Mcr/Qk7hXqFBXMN7p7Lusj1ktCBydylfQM/FZCk5glCNQJrCUKPkMHdo9R0MTFWsC/4kPFvDS0fDPvukfCkFsw==
 
 typescript@^3.7.3:
   version "3.7.3"

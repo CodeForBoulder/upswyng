@@ -7,12 +7,12 @@
       "/api/resources/uncategorized"
     ).then(r => r.json());
     // TODO: Remove displaying all resources once they get too big
-    const { resources: allResources } = await this.fetch("/api/resources").then(
-      r => r.json()
-    );
-    const { draftResources } = await this.fetch("/api/resources/drafts").then(
-      r => r.json()
-    );
+    const { resources: allResources } = await this.fetch(
+      "/api/resources"
+    ).then(r => r.json());
+    const { draftResources } = await this.fetch(
+      "/api/resources/drafts"
+    ).then(r => r.json());
     return {
       allResources,
       categories,

@@ -1,4 +1,17 @@
 import { TTimezoneName as TTimezoneName_ } from "./TTimezoneName";
+import {
+  TResourceIssue as TResourceIssue_,
+  TResourceIssueDetail as TResourceIssueDetail_,
+  TResourceIssueKind as TResourceIssueKind_,
+  ResourceIssueKind as ResourceIssueKind_,
+  TLegacyScheduleParsingErrorDetails as TLegacyScheduleParsingErrorDetails_,
+} from "./TResourceIssue";
+
+export const ResourceIssueKind = ResourceIssueKind_;
+export type TLegacyScheduleParsingErrorDetails = TLegacyScheduleParsingErrorDetails_;
+export type TResourceIssue = TResourceIssue_;
+export type TResourceIssueDetail = TResourceIssueDetail_;
+export type TResourceIssueKind = TResourceIssueKind_;
 
 export type TDay =
   | "Monday"
@@ -81,20 +94,17 @@ export interface TResourceScheduleData {
 }
 
 export interface TResource {
-  _id: string; // DO NOT normally reference this, use `id`
+  _id: string; // DO NOT normally reference this, use `resourceId`
   address: TAddress;
   createdAt: Date;
   createdBy?: TUser; // id of the user who created this
   deleted: boolean; // We leave entries in the DB so they don't get resynced from Strapped, but for all intents & purposes this resource doesn't exist.
   description: string;
-  errorParsingLegacyJson: boolean; // true if we could not parse the legacy JSON and we have not manually fixed it
   kudos: number;
   lastModifiedAt: Date;
   lastModifiedBy?: TUser;
   latitude: number | null;
-  legacyClosesSchedule?: string; // stringified representation of the `closesschedule` from strappd
   legacyId?: string; // ID from strappd
-  legacySchedule?: string; // stringified representation of the `schedule` from strappd
   longitude: number | null;
   name: string;
   phone: string;

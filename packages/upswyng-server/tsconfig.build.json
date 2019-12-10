@@ -11,6 +11,9 @@
   "include": ["src"],
   "references": [
     {
+      "path": "../upswyng-types/tsconfig.build.json"
+    },
+    {
       "path": "../upswyng-core/tsconfig.build.json"
     }
   ]

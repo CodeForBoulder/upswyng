@@ -1,7 +1,6 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import { form as svelteForm } from "svelte-forms";
-  import { format } from "json-string-formatter";
   import { ResourceSchedule } from "@upswyng/upswyng-core";
   import ScheduleSelector from "./ScheduleSelector.svelte";
   import ServicesInput from "./ServicesInput.svelte";
@@ -98,18 +97,6 @@
       <p>
         <span class="label">Legacy ID</span>
         <span class="is-family-code">{resource.legacyId}</span>
-      </p>
-    {/if}
-    {#if resource.legacySchedule}
-      <p>
-        <span class="label">Legacy Schedule</span>
-        <span class="is-family-code">{format(resource.legacySchedule)}</span>
-      </p>
-    {/if}
-    {#if resource.legacyClosesSchedule}
-      <p>
-        <span class="label">Legacy Closes Schedule</span>
-        <span class="is-family-code">{resource.legacyClosesSchedule}</span>
       </p>
     {/if}
     {#if resource.kudos}

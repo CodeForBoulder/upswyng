@@ -3,7 +3,12 @@
 
 {
   "extends": "../../tsconfig.build.json",
-  "compilerOptions": { "baseUrl": ".", "rootDir": "src", "outDir": "dist" },
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "src",
+    "outDir": "dist",
+    "target": "es5"
+  },
   "include": ["src"],
   "exclude": ["node_modules"],
   "references": []
