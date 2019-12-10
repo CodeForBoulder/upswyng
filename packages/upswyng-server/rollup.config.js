@@ -108,7 +108,6 @@ export default {
         namedExports: {
           "node_modules/bson/index.js": ["ObjectId"],
           rrule: ["RRule", "RRuleSet"],
-          "@upswyng/upswyng-core": ["Time"],
         },
       }),
       typescript(tsOpts),
@@ -165,19 +164,21 @@ export default {
       resolve({
         dedupe,
       }),
+      typescript(tsOpts),
       commonjs({
         include: /node_modules/,
         namedExports: {
           "node_modules/bson/index.js": ["ObjectId"],
         },
       }),
-      typescript(tsOpts),
       json(),
     ],
-    external: Object.keys(pkg.dependencies || {}).concat(
-      require("module").builtinModules ||
-        Object.keys(process.binding("natives"))
-    ),
+    external: Object.keys(pkg.dependencies || {})
+      .filter(i => !i.match(/@upswyng/))
+      .concat(
+        require("module").builtinModules ||
+          Object.keys(process.binding("natives"))
+      ),
     onwarn,
   },
 

@@ -50,7 +50,7 @@ export async function post(req, res, next) {
   }
 
   try {
-    const resource = await Resource.getById(
+    const resource = await Resource.getByResourceId(
       ObjectId.createFromHexString(resourceId)
     );
     if (!resource) {

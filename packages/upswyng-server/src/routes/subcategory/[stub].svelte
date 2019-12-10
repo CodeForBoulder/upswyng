@@ -20,7 +20,7 @@
   let successMessage = "";
   let isSaving = false;
 
-  async function addResourceToSubcategory(resourceId /* string */) {
+  async function addResourceToSubcategory(resourceIdd /* string */) {
     isSaving = true;
     errorMessage = "";
     successMessage = "";
@@ -69,7 +69,7 @@
       <ul class="content">
         {#each subcategory.resources as resource}
           <li>
-            <a rel="prefetch" href={`resource/${resource.id}`}>
+            <a rel="prefetch" href={`resource/${resource.resourceId}`}>
               {resource.name}
             </a>
           </li>
@@ -94,8 +94,8 @@
         {/if}
         <ResourceSearch
           action="addToSubcategory"
-          on:resourceClick={async ({ detail: id }) => {
-            await addResourceToSubcategory(id);
+          on:resourceClick={async ({ detail: resourceId }) => {
+            await addResourceToSubcategory(resourceId);
           }} />
       </div>
     {/if}

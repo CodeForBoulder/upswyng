@@ -26,18 +26,6 @@
     <h2>Legacy ID</h2>
     <p>{resource.legacyId}</p>
   {/if}
-  {#if resource.legacyClosesSchedule}
-    <p>
-      <span class="label">Legacy Closes Schedule</span>
-      <span class="is-family-code">{resource.legacyClosesSchedule}</span>
-    </p>
-  {/if}
-  {#if resource.legacySchedule}
-    <p>
-      <span class="label">Legacy Schedule</span>
-      <span class="is-family-code">{format(resource.legacySchedule)}</span>
-    </p>
-  {/if}
   <h2>Kudos</h2>
   <p>{resource.kudos}</p>
   {#if resource.createdBy}

@@ -1,7 +1,6 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import { form as svelteForm } from "svelte-forms";
-  import { format } from "json-string-formatter";
   import { ResourceSchedule } from "@upswyng/upswyng-core";
   import ScheduleSelector from "./ScheduleSelector.svelte";
   import ServicesInput from "./ServicesInput.svelte";
@@ -78,28 +77,26 @@
     {#if resource.deleted}
       <div class="ribbon is-danger">Trashed</div>
     {/if}
-    {#if resource.id}
+    {#if resource.resourceId}
       <p>
-        <span class="label">ID</span>
-        {resource.id}
+        <span class="label">Resource ID</span>
+        <span class="is-family-code">{resource.resourceId}</span>
+      </p>
+    {/if}
+    {#if resource._id}
+      <p>
+        <span class="label">
+          Record ID (
+          <span class="is-family-code">_id</span>
+          )
+        </span>
+        <span class="is-family-code">{resource._id}</span>
       </p>
     {/if}
     {#if resource.legacyId}
       <p>
         <span class="label">Legacy ID</span>
-        {resource.legacyId}
-      </p>
-    {/if}
-    {#if resource.legacySchedule}
-      <p>
-        <span class="label">Legacy Schedule</span>
-        <span class="is-family-code">{format(resource.legacySchedule)}</span>
-      </p>
-    {/if}
-    {#if resource.legacyClosesSchedule}
-      <p>
-        <span class="label">Legacy Closes Schedule</span>
-        <span class="is-family-code">{resource.legacyClosesSchedule}</span>
+        <span class="is-family-code">{resource.legacyId}</span>
       </p>
     {/if}
     {#if resource.kudos}

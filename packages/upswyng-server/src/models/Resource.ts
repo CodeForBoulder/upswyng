@@ -9,7 +9,6 @@ import { ResourceSchedule } from "@upswyng/upswyng-core";
 import {
   TLegacyResource,
   TAddress,
-  TCloseSchedule,
   TSubcategory,
   TResource,
   TResourceScheduleData,
@@ -19,27 +18,24 @@ import {
   TSubcategoryDocument,
   subcategoryDocumentToSubcategory,
 } from "./Subcategory";
-import { TTimezoneName } from "@upswyng/upswyng-types/src/TTimezoneName";
+import { TTimezoneName } from "@upswyng/upswyng-types";
 import convertLegacyScheduleToResourceSchedule from "../utility/convertLegacyScheduleToResourceSchedule";
 import mongoose, { Document, Schema } from "mongoose";
 import removeUndefinedFields from "../utility/removeUndefinedFields";
+import ResourceIssue, { TResourceIssueDocument } from "./ResourceIssue";
 
 export interface TResourceDocument extends Document {
   _id: ObjectId; // this is the mongodb id of the record
   address: TAddress;
-  closeSchedule: TCloseSchedule[];
   createdAt: Date;
   createdBy: TUserDocument | undefined; // always populate
   deleted: boolean;
   description: string;
-  errorParsingLegacyJson: boolean;
-  id: ObjectId; // this is canonical upswyng ID
+  resourceId: ObjectId; // this is canonical upswyng ID
   kudos: number;
   lastModifiedAt: Date;
   lastModifiedBy: TUserDocument | undefined; // always populate
-  legacyClosesSchedule: string | null | undefined;
   legacyId: string | null | undefined;
-  legacySchedule: string | null | undefined;
   location: { type: string; coordinates: number[] };
   name: string;
   phone: string;
@@ -74,22 +70,18 @@ export const resourceDocumentToResource = (
       state: r.address.state,
       zip: r.address.zip,
     },
-    closeSchedule: r.closeSchedule,
     createdAt: r.createdAt,
     createdBy: r.createdBy ? userDocumentToUser(r.createdBy) : undefined,
     deleted: r.deleted,
     description: r.description,
-    errorParsingLegacyJson: r.errorParsingLegacyJson,
-    id: r.id.toHexString(),
+    resourceId: r.resourceId.toHexString(),
     kudos: r.kudos,
     lastModifiedAt: r.lastModifiedAt,
     lastModifiedBy: r.lastModifiedBy
       ? userDocumentToUser((r.lastModifiedBy as unknown) as TUserDocument)
       : undefined,
     latitude: r.location ? r.location.coordinates[1] : null,
-    legacyClosesSchedule: r.legacyClosesSchedule,
     legacyId: r.legacyId,
-    legacySchedule: r.legacySchedule,
     longitude: r.location ? r.location.coordinates[0] : null,
     name: r.name,
     phone: r.phone,
@@ -123,23 +115,10 @@ export const ResourceSchema = new Schema({
     type: String,
     required: false, // TODO: Make this required
   },
-  errorParsingLegacyJson: { type: Boolean, default: false },
-  id: {
-    // This is the canonical ID for the resource and should be referenced in
-    // other database entries, URLs, etc.
-    type: Schema.Types.ObjectId,
-    required: true,
-    index: true,
-    // unique in the `Resource` collection, but may not be unique
-    // in the `DraftResource` collection
-    unique: false,
-  },
   kudos: { type: Number, default: 0 },
   lastModifiedAt: { type: Date, default: Date.now, required: true },
   lastModifiedBy: { type: Schema.Types.ObjectId, ref: "User", required: false },
-  legacyClosesSchedule: { type: String, required: false, index: false },
   legacyId: { type: String, required: false, index: true },
-  legacySchedule: { type: String, required: false, index: false },
   location: {
     // GeoJSON Point https://tools.ietf.org/html/rfc7946#section-3.1.2
     type: {
@@ -154,6 +133,16 @@ export const ResourceSchema = new Schema({
   },
   name: { type: String, required: true, index: true },
   phone: String,
+  resourceId: {
+    // This is the canonical ID for the resource and should be referenced in
+    // other database entries, URLs, etc.
+    type: Schema.Types.ObjectId,
+    required: true,
+    index: true,
+    // unique in the `Resource` collection, but may not be unique
+    // in the `DraftResource` collection
+    unique: false,
+  },
   schedule: {
     type: Object, // TResourceScheduleData
     required: true,
@@ -181,57 +170,63 @@ const legacyResourceToResource = (
   createdAt: Date = new Date(),
   id?: string,
   timezone?: TTimezoneName
-): Omit<TResource, "_id"> => {
+): [Omit<TResource, "_id">, TResourceIssueDocument?] => {
   let schedule = new ResourceSchedule();
-
-  let errorParsingLegacyJson = false;
+  let issue: TResourceIssueDocument;
   try {
     schedule = convertLegacyScheduleToResourceSchedule(r.schedule, timezone);
-  } catch {
-    errorParsingLegacyJson = true;
+  } catch (e) {
+    issue = ResourceIssue.newWithoutResourceId(
+      {
+        kind: "legacy_schedule_parsing_error",
+        legacyClosesSchedule: JSON.stringify(r.closeschedule || ""),
+        legacySchedule: JSON.stringify(r.schedule),
+      },
+      /* severity =*/ "medium"
+    );
   }
-  return {
-    address: {
-      address1: r.address1,
-      address2: r.address2,
-      city: r.city,
-      state: r.state,
-      zip: (r.zip || "").toString(),
+  return [
+    {
+      address: {
+        address1: r.address1,
+        address2: r.address2,
+        city: r.city,
+        state: r.state,
+        zip: (r.zip || "").toString(),
+      },
+      createdAt,
+      deleted: (r.closeschedule || [])
+        .map(item => item.type.toLowerCase())
+        .includes("permanently closed"),
+      description: trimQuotes(r.description),
+      kudos: r.kudos,
+      lastModifiedAt:
+        new Date(r.updateshelter) instanceof Date &&
+        !isNaN(new Date(r.updateshelter).valueOf())
+          ? new Date(r.updateshelter)
+          : new Date(),
+      latitude: r.lat,
+      legacyId: id,
+      longitude: r.lng,
+      name: r.charityname,
+      phone: r.phone,
+      resourceId: new ObjectId().toHexString(),
+      subcategories: [],
+      schedule: schedule.toData(),
+      services: r.servicetype.split(","),
+      website: r.website,
     },
-    createdAt,
-    deleted: (r.closeschedule || [])
-      .map(item => item.type.toLowerCase())
-      .includes("permanently closed"),
-    description: trimQuotes(r.description),
-    errorParsingLegacyJson,
-    id: new ObjectId().toHexString(),
-    kudos: r.kudos,
-    lastModifiedAt:
-      new Date(r.updateshelter) instanceof Date &&
-      !isNaN(new Date(r.updateshelter).valueOf())
-        ? new Date(r.updateshelter)
-        : new Date(),
-    latitude: r.lat,
-    legacyClosesSchedule: JSON.stringify(r.closeschedule),
-    legacyId: id,
-    legacySchedule: JSON.stringify(r.schedule),
-    longitude: r.lng,
-    name: r.charityname,
-    phone: r.phone,
-    subcategories: [],
-    schedule: schedule.toData(),
-    services: r.servicetype.split(","),
-    website: r.website,
-  };
+    issue,
+  ];
 };
 
 export const resourceToSchema = (r: Partial<TResource>) => {
   const result = {
     ...r,
-    id: r.id ? ObjectId.createFromHexString(r.id) : undefined,
+    id: r.resourceId ? ObjectId.createFromHexString(r.resourceId) : undefined,
     _id: r._id ? ObjectId.createFromHexString(r._id) : undefined,
   };
-  if (!r.id) {
+  if (!r.resourceId) {
     delete result.id;
   }
   if (!r._id) {
@@ -254,19 +249,33 @@ export const resourceToSchema = (r: Partial<TResource>) => {
  * of our record.
  */
 ResourceSchema.statics.addOrUpdateLegacyResource = async function(
-  id: string,
+  legacyId: string,
   resource: TLegacyResource,
   timezone?: TTimezoneName
 ): Promise<void> {
-  const existingRecord = await this.findOne({ legacyId: id })
+  const existingRecord = await this.findOne({ legacyId: legacyId })
     .populate("createdBy")
     .populate("lastmodifiedBy");
   const self = this; // eslint-disable-line @typescript-eslint/no-this-alias
   if (!existingRecord) {
-    const newRecord = new self(
-      resourceToSchema(legacyResourceToResource(resource, new Date(), id))
+    const [convertedResource, issue] = await legacyResourceToResource(
+      resource,
+      new Date(),
+      legacyId
     );
+    const newRecord = new self(resourceToSchema(convertedResource));
     await newRecord.save();
+
+    if (issue) {
+      try {
+        // ensure we have a Resource with this Issue ID
+        issue.resourceId = newRecord.resourceId;
+        await issue.save();
+      } catch (e) {
+        console.error(e.message);
+      }
+    }
+
     return;
   }
   const newDate = resource.updateshelter
@@ -278,7 +287,7 @@ ResourceSchema.statics.addOrUpdateLegacyResource = async function(
     // update the record and return the updated record
     existingRecord.set(
       resourceToSchema(
-        legacyResourceToResource(resource, new Date(), id, timezone)
+        legacyResourceToResource(resource, new Date(), legacyId, timezone)[0]
       )
     );
     await existingRecord.save();
@@ -286,12 +295,12 @@ ResourceSchema.statics.addOrUpdateLegacyResource = async function(
 };
 
 /**
- * Retrieve a resource by its ID. `null` if there is no matching Resource.
+ * Retrieve a resource by its `resourceId`. `null` if there is no matching Resource.
  */
-ResourceSchema.statics.getById = async function(
-  id: ObjectId
+ResourceSchema.statics.getByResourceId = async function(
+  resourceId: ObjectId
 ): Promise<TResourceDocument | null> {
-  return await this.findOne({ id })
+  return await this.findOne({ resourceId })
     .populate({ path: "subcategories", populate: { path: "parentCategory" } })
     .populate("createdBy")
     .populate("lastModifiedBy");
@@ -339,9 +348,9 @@ ResourceSchema.statics.getUncategorized = async function(): Promise<
  * @return {TResourceDocument} The deleted resource
  */
 ResourceSchema.statics.deleteByRecordId = async function(
-  id: ObjectId
+  _id: ObjectId
 ): Promise<TResourceDocument> {
-  return this.findByIdAndDelete(id)
+  return this.findByIdAndDelete(_id)
     .populate({ path: "subcategories", populate: { path: "parentCategory" } })
     .populate("createdBy")
     .populate("lastModifiedBy");
@@ -364,13 +373,13 @@ const Resource = mongoose.model<TResourceDocument>("Resource", ResourceSchema);
 
 export default Resource as typeof Resource & {
   addOrUpdateLegacyResource: (
-    id: string,
+    legacyId: string,
     resource: TLegacyResource,
     timezone?: TTimezoneName
   ) => Promise<void>;
   getAll: () => Promise<TResourceDocument[]>;
-  getById: (id: ObjectId) => Promise<TResourceDocument | null>;
-  getByRecordId: (id: ObjectId) => Promise<TResourceDocument | null>;
+  getByRecordId: (_id: ObjectId) => Promise<TResourceDocument | null>;
+  getByResourceId: (resourceId: ObjectId) => Promise<TResourceDocument | null>;
   getUncategorized: () => Promise<TResourceDocument[]>;
 };
 
@@ -379,14 +388,14 @@ const DraftResource = mongoose.model<TResourceDocument>(
   ResourceSchema
 ) as typeof Resource & {
   addOrUpdateLegacyResource: (
-    id: string,
+    legacyId: string,
     resource: TLegacyResource,
     timezone?: TTimezoneName
   ) => Promise<void>;
-  deleteByRecordId: (id: ObjectId) => Promise<TResourceDocument>;
-  getById: (id: ObjectId) => Promise<TResourceDocument | null>;
-  getByRecordId: (id: ObjectId) => Promise<TResourceDocument | null>;
+  deleteByRecordId: (_id: ObjectId) => Promise<TResourceDocument>;
   getAll: () => Promise<TResourceDocument[]>;
+  getByRecordId: (_id: ObjectId) => Promise<TResourceDocument | null>;
+  getByResourceId: (resourceId: ObjectId) => Promise<TResourceDocument | null>;
 };
 
 (DraftResource as any).getUncategorized = () => {

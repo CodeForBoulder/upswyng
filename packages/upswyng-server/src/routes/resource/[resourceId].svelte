@@ -2,7 +2,9 @@
   import { ResourceSchedule } from "@upswyng/upswyng-core";
 
   export async function preload({ params, query }, { user }) {
-    const resourceResponse = await this.fetch(`/api/resource/${params.id}`);
+    const resourceResponse = await this.fetch(
+      `/api/resource/${params.resourceId}`
+    );
     const { resource } = await resourceResponse.json();
     resource.schedule = ResourceSchedule.parse(resource.schedule);
 
@@ -14,7 +16,12 @@
     } else if (subcategoryResponse.status !== 200) {
       this.error(subcategoryResponse.status, subcategories.message);
     } else {
-      return { resource, subcategories, isLoggedIn: !!user };
+      return {
+        resource,
+        subcategories,
+        isLoggedIn: !!user,
+        isAdmin: !!user.isAdmin,
+      };
     }
   }
 </script>
@@ -24,15 +31,28 @@
   import { goto, stores } from "@sapper/app";
   import ResourceDisplay from "../../components/ResourceDisplay.svelte";
   import ResourceEditor from "../../components/ResourceEditor.svelte";
+  import { onMount } from "svelte";
+  import * as animateScroll from "svelte-scrollto";
+  import ResourceIssueNotification from "../../components/ResourceIssueNotification.svelte";
 
   const { session } = stores();
 
   export let resource; // TResource
   export let subcategories; // TSubcategory[], all subcategories in the app
-  export let isLoggedIn; // booleans
+  export let isLoggedIn; // boolean
+  export let isAdmin; // boolean
 
+  let issues /* TResourceIssue[] | null */ = null;
+  let isLoadingIssues = false;
   let isSaving = false;
   let saveError = null; // Error | null
+
+  function scrollToIssues() {
+    animateScroll.scrollTo({
+      element: "#issues",
+      duration: 1000,
+    });
+  }
 
   function handleSaveClick(resource) {
     saveError = null;
@@ -76,7 +96,36 @@
       .catch(e => (saveError = e))
       .finally(() => (isSaving = false));
   }
+
+  function loadIssues() {
+    isLoadingIssues = true;
+    fetch(`/api/resource/issues/${resource.resourceId}`)
+      .then(async response => {
+        const { resourceIssues } = await response.json();
+        if (response.status !== 200 || !resourceIssues) {
+          // TODO (rhinodavid): surface this somehow
+          console.error(response.status);
+        } else {
+          issues = resourceIssues;
+        }
+      })
+      .finally(() => (isLoadingIssues = false));
+  }
+
+  onMount(() => resource.resourceId && isAdmin && loadIssues());
 </script>
+
+<style>
+  .found-issues {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .notification-text {
+    flex: 1;
+  }
+</style>
 
 <svelte:head>
   <title>Upswyng: {resource.name}</title>
@@ -85,6 +134,34 @@
 <section class="section">
   <div class="container">
     {#if isLoggedIn}
+      {#if isLoadingIssues}
+        <div class="notification">
+          <div class="content">
+            <span class="has-text-weight-medium">
+              Checking for issues with {resource.name}
+            </span>
+          </div>
+          <progress class="progress is-small" max="100" />
+        </div>
+      {:else if issues && issues.length}
+        <div class="notification is-warning found-issues">
+          <div class="notification-text">
+            <span class="has-text-weight-medium">
+              Found issues with Resource
+            </span>
+          </div>
+          <div>
+            <button
+              class="button"
+              on:click|preventDefault={() => scrollToIssues()}>
+              <span>View</span>
+              <span class="icon">
+                <i class="fas fa-arrow-circle-down" />
+              </span>
+            </button>
+          </div>
+        </div>
+      {/if}
       <ResourceEditor
         {resource}
         {subcategories}
@@ -92,6 +169,12 @@
         errorText={saveError ? saveError.message : ''}
         on:clearErrorText={() => (saveError = null)}
         on:dispatchSaveResource={e => handleSaveClick(e.detail)} />
+      {#if isAdmin && issues}
+        <h2 id="issues" class="subtitle">Issues</h2>
+        {#each issues as issue (issue._id)}
+          <ResourceIssueNotification resourceIssue={issue} />
+        {/each}
+      {/if}
     {:else}
       <ResourceDisplay {resource} />
       <div class="notification">Log in to make changes to this resource</div>

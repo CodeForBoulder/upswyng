@@ -1,22 +1,21 @@
-import {
-  DraftResource,
-  TResourceDocument,
+import Resource, {
   resourceDocumentToResource,
-} from "../../../../models/Resource";
+  TResourceDocument,
+} from "../../../models/Resource";
 import { ObjectId } from "bson";
-import { isAdmin } from "../../../../utility/authHelpers";
+import { isAdmin } from "../../../utility/authHelpers";
 import { TResource } from "@upswyng/upswyng-types";
 
 export async function get(req, res, _next) {
-  const { id } = req.params;
-  let draftResourceDocument: TResourceDocument;
-  let draftResource: TResource;
+  const { resourceId } = req.params;
+  let resourceDocument: TResourceDocument;
+  let resource: TResource;
   try {
-    draftResourceDocument = await DraftResource.getByRecordId(
-      ObjectId.createFromHexString(id)
+    resourceDocument = await Resource.getByResourceId(
+      ObjectId.createFromHexString(resourceId)
     );
-    if (draftResourceDocument) {
-      draftResource = resourceDocumentToResource(draftResourceDocument);
+    if (resourceDocument) {
+      resource = resourceDocumentToResource(resourceDocument);
     }
   } catch (e) {
     res.writeHead(500, {
@@ -30,15 +29,16 @@ export async function get(req, res, _next) {
     );
   }
 
-  if (draftResource) {
+  if (resource) {
     if (!isAdmin(req)) {
-      // don't allow non-admins to see who created a resource
-      delete draftResource.createdBy;
+      // don't let non-admins see the resource creator
+      delete resource.createdBy;
     }
     res.writeHead(200, {
       "Content-Type": "application/json",
     });
-    res.end(JSON.stringify({ draftResource }));
+
+    res.end(JSON.stringify({ resource }));
   } else {
     res.writeHead(404, {
       "Content-Type": "application/json",

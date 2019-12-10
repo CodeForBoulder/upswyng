@@ -42,8 +42,8 @@ mongoose
   .then(resourceDocuments => resourceDocuments.map(resourceDocumentToResource))
   .then(resources => {
     const updatedAlgoliaIndex = resources.map(
-      ({ id, name, description, subcategories }) => ({
-        objectID: id,
+      ({ resourceId, name, description, subcategories }) => ({
+        objectID: resourceId,
         name,
         description,
         subcategories: subcategories.map(s => s.name).join(","),

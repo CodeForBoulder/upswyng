@@ -21,8 +21,6 @@ export const blankResource: TResource = {
   createdAt: new Date(),
   deleted: false,
   description: "",
-  errorParsingLegacyJson: false,
-  id: "",
   kudos: 0,
   lastModifiedAt: new Date(),
   latitude: 0,
@@ -30,6 +28,7 @@ export const blankResource: TResource = {
   longitude: 0,
   name: "",
   phone: "",
+  resourceId: "",
   schedule: new ResourceSchedule().toData(),
   services: [""],
   subcategories: [],
@@ -39,7 +38,7 @@ export const blankResource: TResource = {
 export const foodResource: TResource = {
   address: {
     address1: "220 Collyer St",
-    city: "Longmont",
+    city: "South Park",
     state: "CO",
     zip: "80501",
   },
@@ -49,11 +48,10 @@ export const foodResource: TResource = {
   _id: "5d9431ab521d2e1c354bd23d",
   description:
     "Our Hospitality Care services can all be found inside our facility. New members must become a participant first by meeting with a trained Resource Navigator and  once a plan is agree upon these services may be offered to assist with basic need expenses. Warm, nutritious meals are created 364 days a year with our assistance of our in-house cook and volunteer staff. Weekend meals are provided by Café Outreach Team’s which are families, schools, businesses, and faith-based groups from our community. Community Cafe Lunch 7 days a week 11:30am-1pm. Breakfast M-F 8:30am-9:30am.",
-  errorParsingLegacyJson: true,
-  id: "5d9431ab521d2e1c354bd23c",
   legacyId: "-KZomZhy4WBsvTu6tcXC",
   name: "OUR Center Community Cafe",
   phone: "(303) 772-5529",
+  resourceId: "5d9431ab521d2e1c354bd23c",
   schedule: {
     alwaysOpen: false,
     timezone: "America/Denver",
