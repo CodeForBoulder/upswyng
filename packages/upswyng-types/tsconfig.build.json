@@ -3,7 +3,7 @@
 
 {
   "extends": "../../tsconfig.build.json",
-  "compilerOptions": { "baseUrl": ".", "outDir": "dist" },
+  "compilerOptions": { "baseUrl": ".", "rootDir": "src", "outDir": "dist" },
   "include": ["src"],
   "exclude": ["node_modules"],
   "references": []
