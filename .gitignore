@@ -11,6 +11,7 @@ node_modules
 
 # production
 packages/upswyng-web/build
+packages/upswyng-web/coverage
 __sapper__
 __build__
 dist
