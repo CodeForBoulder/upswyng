@@ -1,1 +1,2 @@
-web: yarn workspace @upswyng/upswyng-server run build && yarn workspace @upswyng/upswyng-server run start
+# https://github.com/heroku/heroku-buildpack-multi-procfile
+web: yarn workspace @upswyng/upswyng-server run start
