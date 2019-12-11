@@ -97,7 +97,10 @@
   $: offset = (paginationStep - 1) * limit;
   $: {
     totalPaginationSteps = Math.ceil(count / limit);
-    paginationStep = Math.min(paginationStep, totalPaginationSteps);
+    paginationStep = Math.max(
+      Math.min(paginationStep, totalPaginationSteps),
+      1
+    );
   }
   $: {
     if (totalPaginationSteps <= 5) {
