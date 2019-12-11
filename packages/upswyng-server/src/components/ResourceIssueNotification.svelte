@@ -1,13 +1,56 @@
 <script>
   import { format } from "json-string-formatter";
   export let resourceIssue; // TResourceIssue
+
+  let isResolvingIssue = false;
+  let resolveError = "";
+
+  function changeIssue(resolved) {
+    resolveError = "";
+    isResolvingIssue = true;
+
+    fetch(
+      `/api/resource/issues/${resolved ? "resolve" : "unresolve"}/${
+        resourceIssue._id
+      }`,
+      {
+        method: "POST",
+      }
+    )
+      .then(async res => {
+        if (res.status >= 400) {
+          const { message } = await res.json();
+          throw new Error(
+            message ||
+              `There was an error ${
+                resolved ? "resolving" : "reopening"
+              } the issue (${res.status}).`
+          );
+        }
+        resourceIssue.resolved = resolved;
+      })
+      .catch(e => (resolveError = e.message))
+      .finally(() => (isResolvingIssue = false));
+  }
+
+  function resolveIssue() {
+    changeIssue(true);
+  }
+
+  function reopenIssue() {
+    changeIssue(false);
+  }
 </script>
 
 <div class="box">
   <article class="media">
     <div class="media-left">
       <div class="is-48x48">
-        {#if resourceIssue.severity === 'low'}
+        {#if resourceIssue.resolved}
+          <span class="icon has-text-success">
+            <i class="fas fa-2x fa-check" />
+          </span>
+        {:else if resourceIssue.severity === 'low'}
           <span class="icon has-text-info">
             <i class="fas fa-2x fa-info-circle" />
           </span>
@@ -24,8 +67,13 @@
     </div>
     <div class="media-content">
       <div class="content">
-        <p class="is-capitalized">
+        <p
+          class="is-capitalized is-size-5"
+          class:has-text-success={resourceIssue.resolved}>
           <strong>{resourceIssue.kind.replace(/_/g, ' ')}</strong>
+          {#if resourceIssue.resolved}
+            <span>(resolved)</span>
+          {/if}
         </p>
       </div>
       <div class="content">
@@ -51,10 +99,34 @@
             </p>
           {/if}
         {/if}
+        {#if resolveError}
+          <div class="notification is-danger">{resolveError}</div>
+        {/if}
       </div>
       <nav class="level is-mobile">
+        <div class="level-left" />
         <div class="level-right">
-          <div class="level-item" />
+          <div class="level-item">
+            <div class="field has-addons">
+              <p class="control">
+                {#if !resourceIssue.resolved}
+                  <button
+                    class="button"
+                    class:is-loading={isResolvingIssue}
+                    on:click|preventDefault={() => resolveIssue()}>
+                    Resolve Issue
+                  </button>
+                {:else}
+                  <button
+                    class="button"
+                    class:is-loading={isResolvingIssue}
+                    on:click|preventDefault={() => reopenIssue()}>
+                    Reopen Issue
+                  </button>
+                {/if}
+              </p>
+            </div>
+          </div>
         </div>
       </nav>
     </div>
