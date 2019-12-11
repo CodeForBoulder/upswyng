@@ -97,7 +97,10 @@
   $: offset = (paginationStep - 1) * limit;
   $: {
     totalPaginationSteps = Math.ceil(count / limit);
-    paginationStep = Math.min(paginationStep, totalPaginationSteps);
+    paginationStep = Math.max(
+      Math.min(paginationStep, totalPaginationSteps),
+      1
+    );
   }
   $: {
     if (totalPaginationSteps <= 5) {
@@ -224,7 +227,7 @@
 
 <section class="section">
   <div class="container">
-    <h1 class="title">Resource Issues</h1>
+    <h1 class="title">Resource Issues{paginationStep}</h1>
     {#if errorMessage}
       <div class="notification is-danger">
         <button
