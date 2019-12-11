@@ -115,7 +115,7 @@ ResourceIssueSchema.statics.getForResource = async function(
   return await ResourceIssue.find({
     resourceId,
     resolved: { $in: [false, includeResolved] },
-  }).sort({ lastModifiedAt: -1 });
+  }).sort({ createdAt: -1 });
 };
 
 const ResourceIssue = mongoose.model<TResourceIssueDocument>(

@@ -11,7 +11,7 @@ export async function get(req, res, _next) {
   try {
     requireAdmin(req);
   } catch {
-    res.writeHead(403, {
+    res.writeHead(401, {
       "Content-Type": "application/json",
     });
 
