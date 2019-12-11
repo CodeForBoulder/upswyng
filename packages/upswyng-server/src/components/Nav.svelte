@@ -52,6 +52,15 @@
         <a class="navbar-link">More</a>
 
         <div class="navbar-dropdown">
+          {#if user && user.isAdmin}
+            <a
+              class="navbar-item"
+              href="resource/issues"
+              rel="prefetch">
+              Issues
+            </a>
+            <hr class="navbar-divider" />
+          {/if}
           <!-- svelte-ignore a11y-missing-attribute -->
           <a class="navbar-item">About</a>
           <!-- svelte-ignore a11y-missing-attribute -->

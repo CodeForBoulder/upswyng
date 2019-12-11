@@ -85,7 +85,7 @@ const SubcategorySchema = new Schema({
   parentCategory: { type: Schema.Types.ObjectId, ref: "Category" },
   resources: [
     {
-      // corresponds to the `Resource.id` (note: NOT `Resource._id`)
+      // corresponds to the `Resource._id`
       type: Schema.Types.ObjectId,
       ref: "Resource",
     },

@@ -1,5 +1,5 @@
 import { ObjectId } from "bson";
-import { TResource, TSubcategory, TNewResource } from "@upswyng/upswyng-types";
+import { TSubcategory, TNewResource, TResource } from "@upswyng/upswyng-types";
 import dr from "../utility/diffResources";
 import Resource, {
   resourceToSchema,
@@ -14,14 +14,16 @@ export const diffResources = dr;
 export async function createDraftResource(
   resource: TResource | TNewResource
 ): Promise<TResource> {
-  if (resource.hasOwnProperty("id")) {
+  if (resource.hasOwnProperty("resourceId")) {
     // This resource exists already; make sure the draft isn't the same
     const existingResource = await Resource.findOne({
-      id: (resource as TResource).id,
+      resourceId: (resource as TResource).resourceId,
     }).populate("subcategories");
     if (!existingResource) {
       throw new Error(
-        `This draft has an \`id\`, ${resource as TResource} and is therefore supposed to update an existing resource; however, a resource with the draft's \`id\` doesn't exist`
+        `This draft has an \`resourceId\`, ${JSON.stringify(
+          resource
+        )} and is therefore supposed to update an existing resource; however, a resource with the draft's \`resourceId\` doesn't exist`
       );
     }
     const updateObject = diffResources(
@@ -42,7 +44,8 @@ export async function createDraftResource(
   const { _id: newResourceId } = await new DraftResource(
     resourceToSchema({
       ...resource,
-      id: (resource as TResource).id || new ObjectId().toHexString(),
+      resourceId:
+        (resource as TResource).resourceId || new ObjectId().toHexString(),
       createdAt: (resource as TResource).createdAt || new Date(),
       lastModifiedAt: new Date(),
       kudos: (resource as TResource).kudos || 0,
@@ -57,19 +60,18 @@ export async function createDraftResource(
 }
 
 export async function addResourceToSubcategory(
-  resourceId: ObjectId,
+  _id: ObjectId, // record id of the resource
   subcategoryId: ObjectId
 ) {
   let resource: TResourceDocument;
   let subcategory: TSubcategoryDocument;
   try {
-    resource = await Resource.findById(resourceId).populate("subcategoires");
+    resource = await Resource.findById(_id).populate("subcategoires");
   } catch (e) {
     console.error("Error w resource:\t", e.message);
     throw e;
   }
-  if (!resource)
-    throw new Error(`Could not find Resource with ID ${resourceId}`);
+  if (!resource) throw new Error(`Could not find Resource with ID ${_id}`);
   try {
     subcategory = await Subcategory.findById(subcategoryId).populate(
       "parentCategory"
@@ -100,13 +102,10 @@ export async function addResourceToSubcategory(
   if (
     !(subcategory.resources as ObjectId[])
       .map(s => s.toHexString())
-      .includes(resourceId.toHexString())
+      .includes(_id.toHexString())
   ) {
     try {
-      subcategory.resources = [
-        ...(subcategory.resources as ObjectId[]),
-        resourceId,
-      ];
+      subcategory.resources = [...(subcategory.resources as ObjectId[]), _id];
       await subcategory.save();
     } catch (e) {
       console.error("Error updating Subcategory:\n", e.message);
@@ -150,14 +149,14 @@ export async function removeResourceFromSubcategory(
 }
 
 /**
- * Takes the Record ID (_id) of a draft and either creates a new Resource, or updates a Resource
+ * Takes a draft resource and either creates a new Resource, or updates a Resource
  * if there already exists a Record with the same ID (id) as the draft.
  */
 export async function createOrUpdateResourceFromDraft(
   draftResource: TResource | TNewResource
 ): Promise<void> {
   const existingResource = await Resource.findOne({
-    id: (draftResource as TResource).id,
+    resourceId: (draftResource as TResource).resourceId,
   }).populate("subcategories");
   if (existingResource) {
     // update an existing resource
@@ -165,14 +164,15 @@ export async function createOrUpdateResourceFromDraft(
       resourceDocumentToResource(existingResource),
       draftResource as TResource
     );
+    console.log(updateObject);
     // go over each subcategory the old resource was in.. if it's not in the new resource, remove it
     updateObject.left.subcategories &&
       updateObject.right.subcategories &&
       updateObject.left.subcategories.forEach(async subcategory => {
         if (
-          !updateObject.right.subcategories.map(s =>
-            s._id.includes(subcategory._id)
-          )
+          !updateObject.right.subcategories
+            .map(s => s._id)
+            .includes(subcategory._id)
         ) {
           await removeResourceFromSubcategory(
             existingResource._id,

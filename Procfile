@@ -1,1 +1,0 @@
-web: yarn workspace @upswyng/upswyng-server run start

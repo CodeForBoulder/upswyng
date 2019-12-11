@@ -1,11 +1,16 @@
 language: node_js
+before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.19.2
+  - export PATH="$HOME/.yarn/bin:$PATH"
 cache:
-  directories:
-    - "node_modules"
+  yarn: true
 node_js:
   - "11"
 script:
-  - yarn
+  - yarn install
   - mv packages/upswyng-native/config.example.ts packages/upswyng-native/config.ts
+  - yarn run build-local-packages
   - yarn run ci-lint
   - yarn run test
+  - yarn workspace @upswyng/upswyng-server build
+  - CI=false yarn workspace @upswyng/upswyng-web build

@@ -50,14 +50,14 @@ export async function post(req, res, next) {
   }
 
   try {
-    const resource = await Resource.getById(
+    const resource = await Resource.getByResourceId(
       ObjectId.createFromHexString(resourceId)
     );
     if (!resource) {
       throw new Error(`Could not find resource with IDDD ${resourceId}`);
     }
     await addResourceToSubcategory(
-      ObjectId.createFromHexString(resource._id),
+      resource._id,
       ObjectId.createFromHexString(subcategoryId)
     );
     res.writeHead(200, {

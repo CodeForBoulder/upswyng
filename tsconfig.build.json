@@ -1,0 +1,37 @@
+// Production build settings
+// See https://github.com/Izhaki/mono.ts
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "target": "es6",
+    "module": "es6",
+    "moduleResolution": "node",
+    "jsx": "preserve",
+    "noUnusedLocals": false
+  },
+  "paths": {
+    "@upswyng/upswyng-core": ["./packages/upswyng-core/src/index.ts"],
+    "@upswyng/upswyng-types": ["./packages/upswyng-types/src/index.ts"]
+  },
+  "files": [],
+  "include": [],
+  "exclude": ["node_modules"],
+  "references": [
+    {
+      "path": "packages/upswyng-core/tsconfig.build.json"
+    },
+    {
+      "path": "packages/upswyng-types/tsconfig.build.json"
+    },
+    {
+      "path": "packages/upswyng-web/tsconfig.build.json"
+    },
+    {
+      "path": "packages/upswyng-server/tsconfig.build.json"
+    }
+  ]
+}

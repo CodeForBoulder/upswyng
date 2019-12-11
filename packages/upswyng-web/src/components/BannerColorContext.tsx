@@ -1,7 +1,5 @@
 import React from "react";
 
-import { colors } from "../App.styles";
-
 interface ContextShape {
   currentBannerColor: string;
   updateCurrentBannerColor: Function;
@@ -9,6 +7,7 @@ interface ContextShape {
 
 const Context = React.createContext<ContextShape>({
   currentBannerColor: "",
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   updateCurrentBannerColor: () => {},
 });
 

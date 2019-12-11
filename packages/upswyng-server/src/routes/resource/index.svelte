@@ -7,12 +7,12 @@
       "/api/resources/uncategorized"
     ).then(r => r.json());
     // TODO: Remove displaying all resources once they get too big
-    const { resources: allResources } = await this.fetch("/api/resources").then(
-      r => r.json()
-    );
-    const { draftResources } = await this.fetch("/api/resources/drafts").then(
-      r => r.json()
-    );
+    const { resources: allResources } = await this.fetch(
+      "/api/resources"
+    ).then(r => r.json());
+    const { draftResources } = await this.fetch(
+      "/api/resources/drafts"
+    ).then(r => r.json());
     return {
       allResources,
       categories,
@@ -107,8 +107,8 @@
       <p class="subtitle">Search for a Resource</p>
       <ResourceSearch
         action="view"
-        on:resourceClick={({ detail: id }) => {
-          goto(`/resource/${id}`);
+        on:resourceClick={({ detail: resourceId }) => {
+          goto(`/resource/${resourceId}`);
         }} />
     </div>
 
@@ -118,7 +118,7 @@
         <ul class="content">
           {#each uncategorizedResources as resource}
             <li>
-              <a href={`/resource/${resource.id}`}>{resource.name}</a>
+              <a href={`/resource/${resource.resourceId}`}>{resource.name}</a>
             </li>
           {/each}
         </ul>

@@ -1,17 +1,16 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import { form as svelteForm } from "svelte-forms";
-  import CloseScheduleInput from "./CloseScheduleInput.svelte";
-  import ScheduleInput from "./ScheduleInput.svelte";
+  import { ResourceSchedule } from "@upswyng/upswyng-core";
+  import ScheduleSelector from "./ScheduleSelector.svelte";
   import ServicesInput from "./ServicesInput.svelte";
   import SubcategoryInput from "./SubcategoryInput.svelte";
 
-  export let resource; // TResource | TNewResource
-  export let subcategories; // TSubcategory[], all subcategories in the app
-  export let saveButtonLabel = "Save Draft";
-  export let disableSave = false; // disables the save button
-  export let isSaving = false;
   export let errorText = ""; // an error message to show, for instance, if the save operation has failed
+  export let isSaving = false;
+  export let resource; // TResource | TNewResource
+  export let saveButtonLabel = "Save Draft";
+  export let subcategories; // TSubcategory[], all subcategories in the app
 
   let saveError /* Error? */ = null;
 
@@ -40,7 +39,6 @@
     zip: { value: resource.address.zip || "", validators: ["required"] },
     //
     deleted: { value: resource.deleted || false, validators: [] },
-    closeSchedule: { value: resource.closeSchedule || [], validators: [] },
     description: { value: resource.description || "", validators: ["min:12"] },
     latitude: {
       value: resource.latitude || 40.01,
@@ -52,7 +50,10 @@
     },
     name: { value: resource.name || "", validators: ["required", "min:3"] },
     phone: { value: resource.phone || "", validators: ["required", "min:3"] }, // ex: 911
-    schedule: { value: resource.schedule || [] },
+    schedule: {
+      value: resource.schedule,
+      validators: ["required"],
+    },
     services: { value: resource.services || [], validators: [] },
     website: { value: resource.website || "", validators: ["url"] },
   }));
@@ -76,16 +77,26 @@
     {#if resource.deleted}
       <div class="ribbon is-danger">Trashed</div>
     {/if}
-    {#if resource.id}
+    {#if resource.resourceId}
       <p>
-        <span class="label">ID</span>
-        {resource.id}
+        <span class="label">Resource ID</span>
+        <span class="is-family-code">{resource.resourceId}</span>
+      </p>
+    {/if}
+    {#if resource._id}
+      <p>
+        <span class="label">
+          Record ID (
+          <span class="is-family-code">_id</span>
+          )
+        </span>
+        <span class="is-family-code">{resource._id}</span>
       </p>
     {/if}
     {#if resource.legacyId}
       <p>
         <span class="label">Legacy ID</span>
-        {resource.legacyId}
+        <span class="is-family-code">{resource.legacyId}</span>
       </p>
     {/if}
     {#if resource.kudos}
@@ -359,16 +370,70 @@
       {/if}
     </div>
 
-    <p>
-      <ScheduleInput bind:value={resource.schedule} />
-    </p>
-    <p>
-      <CloseScheduleInput bind:value={resource.closeSchedule} />
-    </p>
+    <ScheduleSelector bind:value={resource.schedule} />
+
+    <div class="field">
+      <label class="label">Location</label>
+      <div class="field is-horizontal">
+        <div class="field-label is-small">
+          <label class="label" for="latitude">Latitude</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control has-icons-right">
+              <input
+                class="input"
+                class:is-danger={$resourceForm.latitude.errors.length}
+                name="latitude"
+                type="latitude"
+                bind:value={resource.latitude} />
+              {#if $resourceForm.latitude.errors.length}
+                <span class="icon is-small is-right">
+                  <i class="fas fa-exclamation-triangle" />
+                </span>
+              {/if}
+            </div>
+            {#if $resourceForm.latitude.errors.length}
+              <p class="help is-danger">Invalid Latitude</p>
+            {/if}
+          </div>
+        </div>
+      </div>
+      <div class="field is-horizontal">
+        <div class="field-label is-small">
+          <label class="label" for="longitude">Longitude</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control has-icons-right">
+              <input
+                class="input"
+                class:is-danger={$resourceForm.longitude.errors.length}
+                name="longitude"
+                type="longitude"
+                bind:value={resource.longitude} />
+              {#if $resourceForm.longitude.errors.length}
+                <span class="icon is-small is-right">
+                  <i class="fas fa-exclamation-triangle" />
+                </span>
+              {/if}
+            </div>
+            {#if $resourceForm.longitude.errors.length}
+              <p class="help is-danger">Invalid Longitude</p>
+            {/if}
+          </div>
+        </div>
+      </div>
+    </div>
+    <SubcategoryInput bind:value={resource.subcategories} {subcategories} />
 
     <p>
       <label for="latitude">Latitude</label>
-      <input name="latitude" type="latitude" bind:value={resource.latitude} data-cy="latitude" />
+      <input
+        name="latitude"
+        type="latitude"
+        bind:value={resource.latitude}
+        data-cy="latitude" />
       {#if $resourceForm.latitude.errors.length}
         <p>Invalid Latitude.</p>
       {/if}
@@ -394,8 +459,8 @@
         preventDefault
         on:click={() => dispatchSaveResource('dispatchSaveResource', resource)}
         disabled={!$resourceForm.valid}>
-        <span class="icon is-small">
-          <i class="fas fa-check" />
+        <span class="icon">
+          <i class="fas fa-check is-small" />
         </span>
         <span>{saveButtonLabel}</span>
       </button>

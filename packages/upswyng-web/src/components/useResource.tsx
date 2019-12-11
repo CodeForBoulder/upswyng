@@ -3,6 +3,11 @@ import { TResourcePayload } from "../webTypes";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+let serverUri = process.env.REACT_APP_SERVER_URI || "http://localhost:3000";
+if (serverUri.charAt(serverUri.length - 1) === "/") {
+  serverUri = serverUri.slice(0, -1);
+}
+
 const useResource = (resourceId: string): undefined | null | TResource => {
   const [resource, setResource] = useState<undefined | null | TResource>();
 
@@ -10,8 +15,9 @@ const useResource = (resourceId: string): undefined | null | TResource => {
     const getResource = async (): Promise<void> => {
       try {
         const { data } = await axios.get<TResourcePayload>(
-          `https://upswyng-server.herokuapp.com/api/resource/${resourceId}`
+          `${serverUri}/api/resource/${resourceId}`
         );
+
         const resource: TResource | undefined = data.resource;
         if (!resource) {
           const errorMessage: string =

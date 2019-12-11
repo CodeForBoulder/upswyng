@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 import algoliaSearch from "algoliasearch";
 import mongoose from "mongoose";
-import Resource from "../models/Resource";
+import Resource, { resourceDocumentToResource } from "../models/Resource";
 
 dotenv.config();
 
@@ -39,10 +39,11 @@ mongoose
       )
   )
   .then(() => Resource.getAll())
+  .then(resourceDocuments => resourceDocuments.map(resourceDocumentToResource))
   .then(resources => {
     const updatedAlgoliaIndex = resources.map(
-      ({ id, name, description, subcategories }) => ({
-        objectID: id,
+      ({ resourceId, name, description, subcategories }) => ({
+        objectID: resourceId,
         name,
         description,
         subcategories: subcategories.map(s => s.name).join(","),

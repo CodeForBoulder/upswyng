@@ -1,21 +1,9 @@
 <script>
-  export let resource; // TResource
+  import { format } from "json-string-formatter";
+  import { ResourceSchedule } from "@upswyng/upswyng-core";
+  import ResourceScheduleDisplay from "./ResourceScheduleDisplay.svelte";
 
-  function displayScheduleEntry(scheduleEntry /*: TSchedule */) /*: string */ {
-    const { day, date, period, from, to, scheduleType } = scheduleEntry;
-    switch (scheduleType) {
-      case "Weekly":
-        return `<span>${day} ${from} - ${to}<span>Weekly</span></span>`;
-      case "Monthly":
-        return `<span>${day} ${from} - ${to} ${period}<span>Monthly</span></span>`;
-      case "Open 24/7":
-        return `<span>Open 24/7</span>`;
-      case "Date Range":
-        return `<span>${date} ${from} - ${to}<span>Date Range</span></span>`;
-      default:
-        throw new Error(`Unexpected schedule type: ${scheduleType}`);
-    }
-  }
+  export let resource; // TResource
 </script>
 
 <style>
@@ -70,21 +58,7 @@
     {/each}
   </ul>
   <h2>Schedule</h2>
-  <ul>
-    {#each resource.schedule as scheduleEntry}
-      <li>
-        {@html displayScheduleEntry(scheduleEntry)}
-      </li>
-    {/each}
-  </ul>
-  <h2>Close Schedule</h2>
-  <ul>
-    {#each resource.closeSchedule as closeScheduleEntry}
-      <li>
-        {@html displayScheduleEntry(closeScheduleEntry)}
-      </li>
-    {/each}
-  </ul>
+  <ResourceScheduleDisplay schedule={resource.schedule} />
   <h2>Latitude</h2>
   <p>{resource.latitude}</p>
   <h2>Longitude</h2>

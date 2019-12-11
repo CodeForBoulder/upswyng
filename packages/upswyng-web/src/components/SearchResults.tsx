@@ -9,7 +9,7 @@ interface Props {
 
 const mapResultsToResources = (
   results?: Response | null
-): null | { id: string; name: string }[] => {
+): null | { resourceId: string; name: string }[] => {
   if (!results) {
     return null;
   }
@@ -19,11 +19,10 @@ const mapResultsToResources = (
     return null;
   }
 
-  const resources = hits.map(({ name, objectID }) => ({
-    id: objectID,
+  return hits.map(({ name, objectID }) => ({
+    resourceId: objectID,
     name,
   }));
-  return resources as { id: string; name: string }[];
 };
 
 const SearchResults = ({ placeholder, results }: Props) => (

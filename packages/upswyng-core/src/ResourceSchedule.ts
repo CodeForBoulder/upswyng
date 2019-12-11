@@ -1,8 +1,49 @@
 import { RRule, RRuleSet } from "rrule";
+import Time from "./Time";
+import { TTimezoneName, TResourceScheduleData } from "@upswyng/upswyng-types";
+import momentTimezone from "moment-timezone";
 
-interface TUpRRule {
-  rule: RRule;
+const { tz } = momentTimezone;
+
+export interface TScheduleItem {
   comment: string;
+  fromTime: Time;
+  recurrenceRule: RRule;
+  toTime: Time;
+}
+
+function validateScheduleItem(item: TScheduleItem) {
+  if (item.fromTime.value === item.toTime.value) {
+    throw new Error(
+      `Encountered an invalid schedule item; the item's 'from' and 'to' times are the same.\nItem: ${JSON.stringify(
+        item,
+        null,
+        2
+      )}`
+    );
+  }
+  try {
+    Time.duration(item.fromTime, item.toTime);
+  } catch (_e) {
+    throw new Error(
+      `Encountered an invalid schedule item; the item's 'from' time is later than the item's 'to' time.\nItem: ${JSON.stringify(
+        item,
+        null,
+        2
+      )}`
+    );
+  }
+}
+
+function validateTimezone(timezone: string): TTimezoneName {
+  if (timezone && !tz.zone(timezone)) {
+    throw new Error(
+      `Error setting timezone: ${timezone} is not a valid timezone.
+      The timezone must be a valid TZ database name 
+      (see: \`https://en.wikipedia.org/wiki/List_of_tz_database_time_zones\`). ex: "America/Denver"`
+    );
+  }
+  return timezone as TTimezoneName;
 }
 
 /**
@@ -12,34 +53,95 @@ interface TUpRRule {
  * comments for schedule rules (ex: Mon 8am-12pm for residents, 1pm-4pm for non-residents)
  */
 export default class ResourceSchedule {
-  rules: TUpRRule[] = [];
-
+  private _items: TScheduleItem[];
   /**
-   * Parse a serialized ResourceSchedule into a ResouceSchedule instance
-   * @param s The serialized ResourceSchedule
+   * Whether the Resource is always open.
    */
-  static parse(s: string): ResourceSchedule {
-    let x;
-    try {
-      x = JSON.parse(s);
-    } catch (e) {
+  alwaysOpen: boolean;
+  /**
+   * The TZ database name for the resource's location, ex: "America/Detroit"
+   */
+  private _timezone?: TTimezoneName;
+
+  constructor(
+    items: TScheduleItem[] = [],
+    timezone?: TTimezoneName,
+    alwaysOpen = false
+  ) {
+    this._items = items;
+    this.alwaysOpen = alwaysOpen;
+    this.timezone = timezone ? validateTimezone(timezone) : null;
+  }
+
+  getItems(): TScheduleItem[] {
+    return this._items;
+  }
+
+  set timezone(timezone: TTimezoneName | null | undefined) {
+    this._timezone = timezone ? validateTimezone(timezone) : null;
+  }
+
+  get timezone(): TTimezoneName | null {
+    return this._timezone || null;
+  }
+
+  addItem(item: TScheduleItem, ...items: TScheduleItem[]) {
+    [item, ...items].forEach(item => {
+      validateScheduleItem(item);
+      this._items.push(item);
+    });
+  }
+
+  removeItemAtIndex(i: number): TScheduleItem {
+    if (i < 0 || i >= this._items.length) {
       throw new Error(
-        `Error parsing serialized resource schedule JSON:\n${
-          e.message
-        }\nSerialized ResourceSchedule:\t${s}`
+        `Error removing schedule item: index ${i} does not exist in the resource's items array`
       );
     }
-    if (!Array.isArray(x)) {
+    return this._items.splice(i, 1)[0];
+  }
+
+  removeItem(item: TScheduleItem): TScheduleItem {
+    const i = this._items.findIndex(
+      x =>
+        item.comment === x.comment &&
+        item.recurrenceRule.toString() === x.recurrenceRule.toString() &&
+        item.fromTime.value === x.fromTime.value &&
+        item.toTime.value === x.toTime.value
+    );
+    if (i < 0) {
       throw new Error(
-        `Error parsing serialized resource schedule:\n${s}\n\nParsed JSON is not an array.`
+        `Error removing schedule item: item ${JSON.stringify(
+          item,
+          null,
+          2
+        )} does not exist in the resource's items array`
+      );
+    }
+    return this.removeItemAtIndex(i);
+  }
+
+  /**
+   * Converts data in the form of `TResourceScheduleJson` (the format a resource schedule is sent over
+   * the wire and stored in the database) into a full-fledged `ResourceSchedule` instance.
+   *
+   * @param s The serialized ResourceSchedule
+   */
+  static parse(s: TResourceScheduleData): ResourceSchedule {
+    if (!Array.isArray(s._items)) {
+      throw new Error(
+        `Error parsing serialized resource schedule:\n${s}\n\nParsed items is not an array.`
       );
     }
     if (
-      !x.every(r => {
-        if (!r.rule) {
+      !s._items.every(r => {
+        if (!r.recurrenceRule || typeof r.recurrenceRule !== "string") {
           return false;
         }
-        if (typeof r.rule !== "string") {
+        if (!r.fromTime || typeof r.fromTime !== "string") {
+          return false;
+        }
+        if (!r.toTime || typeof r.toTime !== "string") {
           return false;
         }
         if (r.comment && typeof r.comment !== "string") {
@@ -49,26 +151,47 @@ export default class ResourceSchedule {
       })
     ) {
       throw new Error(
-        `Error parsing serialized resource schedule:\n${s}\n\nEvery object in the serialized schedule must have a \`rule\` and \`comment\` field.`
+        `Error parsing serialized resource schedule:\n
+        ${s}\n\nEvery object in the serialized schedule items must have a \`rule\` and \`comment\` field.`
       );
     }
-    const result = new ResourceSchedule();
-    x.forEach(r => {
-      result.rules.push({
-        rule: RRule.fromString(r.rule),
+    return new ResourceSchedule(
+      s._items.map(r => ({
         comment: r.comment || "",
-      });
-    });
-    return result;
+        fromTime: Time.fromValue(r.fromTime),
+        recurrenceRule: RRule.fromString(r.recurrenceRule),
+        toTime: Time.fromValue(r.toTime),
+      })),
+      s.timezone ? validateTimezone(s.timezone) : null,
+      s.alwaysOpen
+    );
   }
 
   /**
-   * Serialize this schedule to a string to store in a database
+   * Used with `JSON.stringify` to serialize this schedule to send over the wire or
+   * to store in a database. See:
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#toJSON_behavior
+   * for more information.
+   *
+   * ex:
+   * const schedule = new ResourceSchedule().addItem(....);
+   * const serializedSchedule = JSON.stringify(schedule);
    */
-  serialize(): string {
-    return JSON.stringify(
-      this.rules.map(r => ({ rule: r.rule.toString(), comment: r.comment }))
-    );
+  toJSON(): TResourceScheduleData {
+    return {
+      alwaysOpen: this.alwaysOpen,
+      timezone: this._timezone,
+      _items: this._items.map(r => ({
+        ...r,
+        fromTime: r.fromTime.value,
+        recurrenceRule: r.recurrenceRule.toString(),
+        toTime: r.toTime.value,
+      })),
+    };
+  }
+
+  toData(): TResourceScheduleData {
+    return this.toJSON();
   }
 
   /**
@@ -76,7 +199,7 @@ export default class ResourceSchedule {
    */
   toRuleSet(): RRuleSet {
     const result = new RRuleSet();
-    this.rules.forEach(r => result.rrule(r.rule));
+    this._items.forEach(r => result.rrule(r.recurrenceRule));
     return result;
   }
 }
