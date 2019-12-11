@@ -54,7 +54,6 @@
         <div class="navbar-dropdown">
           {#if user && user.isAdmin}
             <a
-              class:has-text-weight-bold={segment === 'resource/issues'}
               class="navbar-item"
               href="resource/issues"
               rel="prefetch">
