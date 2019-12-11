@@ -227,7 +227,7 @@
 
 <section class="section">
   <div class="container">
-    <h1 class="title">Resource Issues{paginationStep}</h1>
+    <h1 class="title">Resource Issues</h1>
     {#if errorMessage}
       <div class="notification is-danger">
         <button
