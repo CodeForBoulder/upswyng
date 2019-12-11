@@ -1,5 +1,5 @@
 describe('upswyng web app E2E', () => {
-    before(() => {
+    beforeEach(() => {
         cy.goHome();
     });
     context('searchbar', () => {
@@ -11,31 +11,155 @@ describe('upswyng web app E2E', () => {
             })
         });
         it('performs an acurate request', () => {
-            // lookup
+            // TODO
         });
     });
     context('navbar', () => {
-        it('displays accurate info', () => {
-
-        });
         it('routes to home', () => {
-            // cy.get('span').first().click();
             cy.get('title').first().click({force: true});
             cy.url().should("eq", Cypress.config().baseUrl + "/");
         });
         it('opens menu', () => {
             cy.get('span').first().click();
+        });
+        it("displays accurate info", () => {
+            cy.get("a")
+            .contains("About")
+            .should("exist");
+        });
+        it("exits", () => {
+            cy.get('.MuiBackdrop-root').first().click();
+        })
+    });
+    context('Food', () => {
+        it("Opens successfully", () => {
+            cy.get('a').contains("Food").click();
+            cy.get('ul').should('exist');
+        });
+        it("Exits", () => {
+            cy.get('span').contains('go back to pervious page').click();
+        })
+    });
+    context('Shelter', () => {
+        it("Opens successfully", () => {
+            cy.get("a")
+            .contains("Shelter")
+            .click();
+            cy.get("ul").should("exist");
+        });
+        it("Exits", () => {
+            cy.get("span")
+            .contains("go back to pervious page")
+            .click();
+        });
+    });
+    context('Hygiene', () => {
+        it("Opens successfully", () => {
+            cy.get("a")
+            .contains("Hygiene")
+            .click();
+            cy.get("ul").should("exist");
+        });
+        it("Exits", () => {
+            cy.get("span")
+            .contains("go back to pervious page")
+            .click();
+        });
+    });
+    context('Transit', () => {
+        it("Opens successfully", () => {
+            cy.get("a")
+            .contains("Transit")
+            .click();
+            cy.get("ul").should("exist");
+        });
+        it("Exits", () => {
+            cy.get("span")
+            .contains("go back to pervious page")
+            .click();
+        });
+    });
+    context('Resources', () => {
+        it("Opens successfully", () => {
+            cy.get("a")
+            .contains("Resources")
+            .click();
+            cy.get("ul").should("exist");
+        });
+        it("Exits", () => {
+            cy.get("span")
+            .contains("go back to pervious page")
+            .click();
+        });
+    })
+    context('Hotlines', () => {
+        it("Opens successfully", () => {
+            cy.get("a")
+            .contains("Hotlines")
+            .click();
+            cy.get("ul").should("exist");
+        });
+        it("Exits", () => {
+            cy.get("span")
+            .contains("go back to pervious page")
+            .click();
+        });
+    })
+    context('Health', () => {
+        it("Opens successfully", () => {
+            cy.get("a")
+            .contains("Health")
+            .click();
+            cy.get("ul").should("exist");
+        });
+        it("Exits", () => {
+            cy.get("span")
+            .contains("go back to pervious page")
+            .click();
+        });
+    })
+    context('Wifi', () => {
+        it("Opens successfully", () => {
+            cy.get("a")
+            .contains("Wifi")
+            .click();
+            cy.get("ul").should("exist");
+        });
+        it("Exits", () => {
+            cy.get("span")
+            .contains("go back to pervious page")
+            .click();
+        });
+    })
+    context('Job Training', () => {
+        it("Opens successfully", () => {
+            cy.get("a")
+            .contains("Job Training")
+            .click();
+            cy.get("ul").should("exist");
+        });
+        it("Exits", () => {
+            cy.get("span")
+            .contains("go back to pervious page")
+            .click();
+        });
+    })
+    context('Social Services', () => {
+        it("Opens successfully", () => {
+            cy.get("a")
+            .contains("Social Services")
+            .click();
+            cy.get("ul").should("exist");
+        });
+        it("Exits", () => {
+            cy.get("span")
+            .contains("go back to pervious page")
+            .click();
+        });
+    })
+    context('Coordinated Entry', () => {
+        it("Exists", () => {
+            cy.get('span').contains('Coordinated Entry').should('exist');
         })
     })
-    context('Food', () => {})
-    context('Shelter', () => {})
-    context('Hygiene', () => {})
-    context('Transit', () => {})
-    context('Resources', () => {})
-    context('Hotlines', () => {})
-    context('Health', () => {})
-    context('Wifi', () => {})
-    context('Job Training', () => {})
-    context('Social Services', () => {})
-    context('Coordinated Entry', () => {})
 });
