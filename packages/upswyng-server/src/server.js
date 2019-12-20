@@ -1,17 +1,9 @@
 import * as dotenv from "dotenv";
 import * as sapper from "@sapper/server";
-import bodyParser from "body-parser";
-import compression from "compression";
-import connectMongo from "connect-mongo";
-import cors from "cors";
+import app from "./app.ts";
 import getUserFromRawUsers from "./utility/getUserFromRawUsers.ts";
-import grant from "grant-express";
+
 import mongoose from "mongoose";
-import oidc from "grant-oidc";
-import polka from "polka";
-import session from "express-session";
-import sirv from "sirv";
-import userMiddleware from "./utility/userMiddleware.ts";
 
 dotenv.config();
 
@@ -81,8 +73,6 @@ const grantConfig = {
   },
 };
 
-const MongoStore = connectMongo(session);
-
 if (!process.env.DATABASE_SESSION_SECRET) {
   console.warn(
     "Starting session storage with default secret. \
@@ -90,25 +80,12 @@ if (!process.env.DATABASE_SESSION_SECRET) {
   );
 }
 
-polka()
-  .use(
-    compression({ threshold: 0 }),
-    cors(), // TODO: Lock this down to non-admin routes
-    sirv("static", { dev }),
-    bodyParser.urlencoded({ extended: true }),
-    bodyParser.json(),
-    session({
-      store: new MongoStore({ mongooseConnection: mongoose.connection }),
-      secret: process.env.DATABASE_SESSION_SECRET || "default_secret",
-      saveUninitialized: true,
-      resave: true,
-    }),
-    grant(grantConfig),
-    userMiddleware
-  )
-  .get("/callback", oidc(grantConfig), (_req, res) => {
-    res.redirect("/");
-  })
+app({
+  dev,
+  grantConfig,
+  mongooseConnection: mongoose.connection,
+  sessionSecret: process.env.DATABASE_SESSION_SECRET || "default_secret",
+})
   .use(
     sapper.middleware({
       session: (req, _res) => {
