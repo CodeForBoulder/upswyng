@@ -68,8 +68,8 @@
     value.addItem({
       recurrenceRule: rrule,
       comment: weeklyRepeatState.comment || "",
-      fromTime: weeklyRepeatState.from,
-      toTime: weeklyRepeatState.to,
+      fromTime: weeklyRepeatState.fromTime,
+      toTime: weeklyRepeatState.toTime,
     });
     weeklyRepeatState = Object.assign({}, weeklyRepeatStateDefault);
     value = value; // make svelte update itself
