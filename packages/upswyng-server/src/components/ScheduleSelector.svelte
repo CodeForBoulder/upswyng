@@ -270,8 +270,7 @@
           <!-- svelte-ignore a11y-missing-attribute -->
           <a
             on:click|preventDefault={() => toggleExpanded()}
-            class="has-text-grey-light is-uppercase is-size-6
-            has-text-weight-bold">
+            class="has-text-grey is-uppercase is-size-6 has-text-weight-bold">
             <span>Fewer Options</span>
             <!-- svelte-ignore a11y-missing-attribute -->
             <span class="icon is-small">
@@ -284,8 +283,7 @@
           <!-- svelte-ignore a11y-missing-attribute -->
           <a
             on:click|preventDefault={() => toggleExpanded()}
-            class="has-text-grey-light is-uppercase is-size-6
-            has-text-weight-bold">
+            class="has-text-grey is-uppercase is-size-6 has-text-weight-bold">
             <span>More Options</span>
             <!-- svelte-ignore a11y-missing-attribute -->
             <span class="icon is-small">
