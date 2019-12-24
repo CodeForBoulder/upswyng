@@ -2,12 +2,15 @@ import {
   DraftResource,
   TResourceDocument,
 } from "../../../../../models/Resource";
-import { requireAdmin } from "../../../../../utility/authHelpers";
 import { ObjectId } from "bson";
+import { requireAdmin } from "../../../../../utility/authHelpers";
+import { TUser } from "@upswyng/upswyng-types";
+import EventLog from "../../../../../models/EventLog";
 
 export async function post(req, res, next) {
+  let user: TUser;
   try {
-    requireAdmin(req);
+    user = requireAdmin(req);
   } catch (_e) {
     res.writeHead(401, {
       "Content-Type": "application/json",
@@ -40,6 +43,19 @@ export async function post(req, res, next) {
   }
 
   if (deletedResource) {
+    try {
+      await new EventLog({
+        actor: user.id,
+        detail: {
+          kind: "draft_deleted",
+          resourceId: deletedResource.resourceId.toHexString(),
+          resourceName: deletedResource.name,
+        },
+        kind: "draft_deleted",
+      }).save();
+    } catch (e) {
+      console.error(`Error saving event log when deleting draft ${_id}`);
+    }
     res.writeHead(204, {
       "Content-Type": "application/json",
     });

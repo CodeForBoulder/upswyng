@@ -1,5 +1,12 @@
 import { TTimezoneName as TTimezoneName_ } from "./TTimezoneName";
 import {
+  EventLogKind as EventLogKind_,
+  TEventLog as TEventLog_,
+  TEventLogKind as TEventLogKind_,
+  TEventLogData as TEventLogData_,
+  TEventLogDetail as TEventLogDetail_,
+} from "./TEventLog";
+import {
   TResourceIssue as TResourceIssue_,
   TResourceIssueDetail as TResourceIssueDetail_,
   TResourceIssueKind as TResourceIssueKind_,
@@ -206,3 +213,11 @@ export interface TUser {
 }
 
 export type TTimezoneName = TTimezoneName_;
+
+export const EventLogKind = EventLogKind_;
+export type TEventLogKind = TEventLogKind_;
+export type TEventLog<TData extends { kind: TEventLogKind }> = TEventLog_<
+  TData
+>;
+export type TEventLogData = TEventLogData_;
+export type TEventLogDetail = TEventLogDetail_;
