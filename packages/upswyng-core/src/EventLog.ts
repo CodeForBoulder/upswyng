@@ -25,11 +25,11 @@ class EventLog<T extends TEventLogDetail> {
   toSummary(): string {
     switch (this.detail.kind) {
       case "draft_deleted":
-        return `Draft for ${this.detail.resourceName} [${
-          this.detail.resourceId
-        }] was deleted by ${
+        return `${
           this.actor.name ? this.actor.name : this.actor.email
-        }`;
+        } deleted a draft for ${this.detail.resourceName} [Resource ID: ${
+          this.detail.resourceId
+        }]`;
       default:
         assertUnreachable(this.detail.kind);
     }

@@ -56,6 +56,9 @@
             <a class="navbar-item" href="resource/issues" rel="prefetch">
               Issues
             </a>
+            <a class="navbar-item" href="eventlogs" rel="prefetch">
+              Event Logs
+            </a>
             <hr class="navbar-divider" />
           {/if}
           <!-- svelte-ignore a11y-missing-attribute -->

@@ -7,6 +7,7 @@
 </script>
 
 <script>
+  import { EventLog } from "@upswyng/upswyng-core";
   import EventLogItem from "../components/EventLogItem.svelte";
 
   let limit = 20;
@@ -39,7 +40,7 @@
       if (response.status !== 200) {
         throw new Error(message || "Error getting Resource Issues");
       }
-      eventLogs = newEventLogs;
+      eventLogs = await Promise.all(newEventLogs.map(EventLog.parse));
       count = newCount;
     } catch (e) {
       errorMessage = e.message;
@@ -61,6 +62,10 @@
     <div class="timeline">
       {#each eventLogs as eventLog}
         <EventLogItem {eventLog} />
+      {:else}
+        <div class="has-text-grey is-italic has-text-weight-semibold is-size-6">
+          No events to show
+        </div>
       {/each}
     </div>
   </div>
