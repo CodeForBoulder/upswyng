@@ -22,7 +22,9 @@
 
 <div class="timeline-item">
   {#if eventLog.kind === 'draft_deleted'}
-    <div class="timeline-marker" />
+    <div class="timeline-marker is-icon">
+      <i class="fa fa-trash-alt" />
+    </div>
     <div class="timeline-content">
       <p class="heading">
         {#if timeAgo}{timeAgo.format(new Date(eventLog.createdAt))}{/if}
