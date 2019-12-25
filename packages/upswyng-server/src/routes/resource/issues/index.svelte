@@ -345,7 +345,9 @@
               {/if}
             </td>
             <td>
-              <span class="is-capitalized">{i.kind.replace(/_/g, ' ')}</span>
+              <a href={`/resource/issue/${i._id}`}>
+                <span class="is-capitalized">{i.kind.replace(/_/g, ' ')}</span>
+              </a>
             </td>
             <td>{timeAgo.format(new Date(i.createdAt))}</td>
           </tr>

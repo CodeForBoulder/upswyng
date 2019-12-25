@@ -35,6 +35,7 @@ config.ts
 *.orig.*
 *.p12
 *.p8
+report.*.json
 npm-debug.*
 npm-debug.log*
 web-build/
