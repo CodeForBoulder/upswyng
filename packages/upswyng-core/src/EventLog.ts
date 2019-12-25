@@ -30,6 +30,12 @@ class EventLog<T extends TEventLogDetail> {
         } deleted a draft for ${this.detail.resourceName} [Resource ID: ${
           this.detail.resourceId
         }]`;
+      case "draft_approved":
+        return `${
+          this.actor.name ? this.actor.name : this.actor.email
+        } approved a draft for ${this.detail.resourceName} [Resource ID: ${
+          this.detail.resourceId
+        }]`;
       default:
         assertUnreachable(this.detail.kind);
     }

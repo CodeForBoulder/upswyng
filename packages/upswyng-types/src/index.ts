@@ -1,26 +1,4 @@
 import { TTimezoneName as TTimezoneName_ } from "./TTimezoneName";
-import {
-  EventLogKind as EventLogKind_,
-  TEventLog as TEventLog_,
-  TEventLogKind as TEventLogKind_,
-  TEventLogData as TEventLogData_,
-  TEventLogDetail as TEventLogDetail_,
-} from "./TEventLog";
-import {
-  TResourceIssue as TResourceIssue_,
-  TResourceIssueDetail as TResourceIssueDetail_,
-  TResourceIssueKind as TResourceIssueKind_,
-  ResourceIssueKind as ResourceIssueKind_,
-  TLegacyScheduleParsingErrorDetails as TLegacyScheduleParsingErrorDetails_,
-} from "./TResourceIssue";
-import { TUser as TUser_ } from "./TUser";
-
-export const ResourceIssueKind = ResourceIssueKind_;
-export type TLegacyScheduleParsingErrorDetails = TLegacyScheduleParsingErrorDetails_;
-export type TResourceIssue = TResourceIssue_;
-export type TResourceIssueDetail = TResourceIssueDetail_;
-export type TResourceIssueKind = TResourceIssueKind_;
-export type TUser = TUser_;
 
 export type TDay =
   | "Monday"
@@ -30,6 +8,48 @@ export type TDay =
   | "Friday"
   | "Saturday"
   | "Sunday";
+
+export interface TCategory {
+  _id: string;
+  color: string;
+  createdAt: Date;
+  lastModifiedAt: Date;
+  name: string;
+  stub: string;
+  subcategories?: TSubcategory[];
+}
+
+export interface TSubcategory {
+  _id: string;
+  createdAt: Date;
+  lastModifiedAt: Date;
+  name: string;
+  parentCategory: TCategory;
+  resources?: TResource[]; // not returned unless specifically asked for
+  stub: string;
+}
+
+export interface TResource {
+  _id: string; // DO NOT normally reference this, use `resourceId`
+  address: TAddress;
+  createdAt: Date;
+  createdBy?: TUser; // id of the user who created this
+  deleted: boolean; // We leave entries in the DB so they don't get resynced from Strapped, but for all intents & purposes this resource doesn't exist.
+  description: string;
+  kudos: number;
+  lastModifiedAt: Date;
+  lastModifiedBy?: TUser;
+  latitude: number | null;
+  legacyId?: string; // ID from strappd
+  longitude: number | null;
+  name: string;
+  phone: string;
+  resourceId: string; // the canonical upswyng id for the resource; this is probably the one you want
+  schedule: TResourceScheduleData; // sent over the wire as a string; call `ResourceSchedule.parse(<TResourceScheduleJson>)` to get the `ResourceSchedule` instance
+  services: string[]; // maps from servicetype
+  subcategories: TSubcategory[];
+  website: string;
+}
 
 export interface TLegacyResource {
   address1: string;
@@ -65,26 +85,6 @@ export interface TAddress {
   zip: string;
 }
 
-export interface TCategory {
-  _id: string;
-  color: string;
-  createdAt: Date;
-  lastModifiedAt: Date;
-  name: string;
-  stub: string;
-  subcategories?: TSubcategory[];
-}
-
-export interface TSubcategory {
-  _id: string;
-  createdAt: Date;
-  lastModifiedAt: Date;
-  name: string;
-  parentCategory: TCategory;
-  resources?: TResource[]; // not returned unless specifically asked for
-  stub: string;
-}
-
 /**
  * The data needed to hydrate a `ResourceSchedule` instance.
  * ex:
@@ -100,28 +100,6 @@ export interface TResourceScheduleData {
   }[];
   alwaysOpen: boolean;
   timezone: TTimezoneName;
-}
-
-export interface TResource {
-  _id: string; // DO NOT normally reference this, use `resourceId`
-  address: TAddress;
-  createdAt: Date;
-  createdBy?: TUser; // id of the user who created this
-  deleted: boolean; // We leave entries in the DB so they don't get resynced from Strapped, but for all intents & purposes this resource doesn't exist.
-  description: string;
-  kudos: number;
-  lastModifiedAt: Date;
-  lastModifiedBy?: TUser;
-  latitude: number | null;
-  legacyId?: string; // ID from strappd
-  longitude: number | null;
-  name: string;
-  phone: string;
-  resourceId: string; // the canonical upswyng id for the resource; this is probably the one you want
-  schedule: TResourceScheduleData; // sent over the wire as a string; call `ResourceSchedule.parse(<TResourceScheduleJson>)` to get the `ResourceSchedule` instance
-  services: string[]; // maps from servicetype
-  subcategories: TSubcategory[];
-  website: string;
 }
 
 // Data needed to create a new resource; these fields will be automatically
@@ -205,12 +183,94 @@ export interface THotline {
   website: string;
 }
 
-export type TTimezoneName = TTimezoneName_;
+export interface TUser {
+  id: string; // database ObjectId converted to hex string
+  name?: string;
+  email: string;
+  providers: ("facebook" | "google")[];
+  isAdmin: boolean;
+  isSuperAdmin: boolean;
+}
 
-export const EventLogKind = EventLogKind_;
-export type TEventLogKind = TEventLogKind_;
-export type TEventLog<TData extends { kind: TEventLogKind }> = TEventLog_<
-  TData
->;
-export type TEventLogData = TEventLogData_;
-export type TEventLogDetail = TEventLogDetail_;
+/** Event Logs */
+export const EventLogKind = {
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  draft_deleted: null, // a draft resource was deleted
+};
+export type TEventLogKind = keyof typeof EventLogKind;
+
+// TODO (rhinodavid): Add other types of events (Draft Created, User Events)
+interface TEventLogDraftApprovedDetail {
+  kind: "draft_approved";
+  resourceId: string;
+  resourceName: string;
+  // The diff of the resource before and after the draft was approved.
+  diff: { left: Partial<TResource>; right: Partial<TResource> };
+}
+
+interface TEventLogDraftDeletedDetail {
+  kind: "draft_deleted";
+  resourceId: string;
+  resourceName: string;
+}
+
+export type TEventLogDetail =
+  | TEventLogDraftApprovedDetail
+  | TEventLogDraftDeletedDetail;
+
+/**
+ * Represents an event in the Upswyng logs. These are product-level
+ * events such as a user creating a resource, an admin triggering a
+ * sync with algolia, or an admin creating an alert.
+ */
+export interface TEventLog<TDetail extends { kind: TEventLogKind }> {
+  _id: string;
+  actor: TUser;
+  createdAt: Date;
+  detail: TDetail;
+  /** serialize the event summary */
+  toSummary: () => string;
+  /** serialize the event's detail for storage */
+  serializeDetail: () => string;
+}
+
+/**
+ * Shape of data sent over the wire.
+ * Call `EventLog.parse(<TEventLogData>)` to get an `EventLog` instance.
+ */
+export interface TEventLogData {
+  _id: string;
+  actor: TUser;
+  createdAt: Date;
+  detail: TEventLogDetail;
+  kind: TEventLogKind;
+}
+
+/** Resource Issue */
+export const ResourceIssueKind = {
+  legacy_schedule_parsing_error: null, // eslint-disable-line @typescript-eslint/camelcase
+};
+
+export type TResourceIssueKind = keyof typeof ResourceIssueKind;
+
+export interface TLegacyScheduleParsingErrorDetails {
+  kind: "legacy_schedule_parsing_error";
+  legacySchedule: string; // stringified legacy schedule
+  legacyClosesSchedule: string; // stringified legacy closes schedule
+}
+
+export type TResourceIssueDetail = TLegacyScheduleParsingErrorDetails;
+
+export interface TResourceIssue {
+  _id: string;
+  createdAt: Date;
+  detail: TResourceIssueDetail;
+  kind: TResourceIssueKind; // needs to match the "kind" in "detail"
+  lastModifiedAt: Date;
+  resolved: boolean; // initally `false`, then set to `true` once the issue is fixed
+  resourceId: string;
+  severity: "low" | "medium" | "high";
+}
+
+// Exports
+export type TTimezoneName = TTimezoneName_;

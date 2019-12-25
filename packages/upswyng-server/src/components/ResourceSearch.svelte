@@ -1,7 +1,7 @@
 <script>
+  import { createEventDispatcher } from "svelte";
   import algoliaSearch from "algoliasearch";
   import ResourceSearchResult from "./ResourceSearchResult.svelte";
-  import { createEventDispatcher } from "svelte";
 
   export let maxResults = 5;
   export let action; // string "view | addToSubcategory"

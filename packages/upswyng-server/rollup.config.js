@@ -3,7 +3,7 @@ import * as dotenv from "dotenv";
 import autoPreprocess from "svelte-preprocess";
 import babel from "rollup-plugin-babel";
 import builtins from "rollup-plugin-node-builtins";
-import commonjs from "rollup-plugin-commonjs";
+import commonjs from "@rollup/plugin-commonjs";
 import config from "sapper/config/rollup.js";
 import globals from "rollup-plugin-node-globals";
 import json from "rollup-plugin-json";
