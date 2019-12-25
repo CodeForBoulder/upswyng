@@ -60,6 +60,7 @@
     "algoliasearch": "^3.35.1",
     "autoprefixer": "^9.6.4",
     "bulma": "^0.7.5",
+    "bulma-timeline": "^3.0.4",
     "cli-progress": "^3.1.0",
     "cypress": "^3.4.1",
     "dotenv": "^8.1.0",
