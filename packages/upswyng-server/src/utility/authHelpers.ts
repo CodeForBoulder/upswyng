@@ -6,9 +6,10 @@ export function isAdmin(req): boolean {
   return user ? !!user.isAdmin : false;
 }
 
-export function requireAdmin(req) {
+export function requireAdmin(req): TUser {
   if (!isAdmin(req))
     throw new Error("You must be an admin to perform this action.");
+  return getUserFromRawUsers(req);
 }
 
 export function requireLoggedIn(req): TUser {

@@ -122,7 +122,7 @@ export default class ResourceSchedule {
   }
 
   /**
-   * Converts data in the form of `TResourceScheduleJson` (the format a resource schedule is sent over
+   * Converts data in the form of `TResourceScheduleData` (the format a resource schedule is sent over
    * the wire and stored in the database) into a full-fledged `ResourceSchedule` instance.
    *
    * @param s The serialized ResourceSchedule
