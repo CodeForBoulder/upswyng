@@ -5,6 +5,7 @@ import babel from "rollup-plugin-babel";
 import builtins from "rollup-plugin-node-builtins";
 import commonjs from "rollup-plugin-commonjs";
 import config from "sapper/config/rollup.js";
+import globals from "rollup-plugin-node-globals";
 import json from "rollup-plugin-json";
 import pkg from "./package.json";
 import replace from "rollup-plugin-replace";
@@ -103,10 +104,12 @@ export default {
         dedupe,
       }),
       builtins(),
+      globals(),
       commonjs({
         include: /node_modules/,
         namedExports: {
           "node_modules/bson/index.js": ["ObjectId"],
+          "node_modules/es6-promise/dist/es6-promise.js": ["__moduleExports"],
           rrule: ["RRule", "RRuleSet"],
         },
       }),

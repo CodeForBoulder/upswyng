@@ -13,12 +13,14 @@ import {
   ResourceIssueKind as ResourceIssueKind_,
   TLegacyScheduleParsingErrorDetails as TLegacyScheduleParsingErrorDetails_,
 } from "./TResourceIssue";
+import { TUser as TUser_ } from "./TUser";
 
 export const ResourceIssueKind = ResourceIssueKind_;
 export type TLegacyScheduleParsingErrorDetails = TLegacyScheduleParsingErrorDetails_;
 export type TResourceIssue = TResourceIssue_;
 export type TResourceIssueDetail = TResourceIssueDetail_;
 export type TResourceIssueKind = TResourceIssueKind_;
+export type TUser = TUser_;
 
 export type TDay =
   | "Monday"
@@ -201,15 +203,6 @@ export interface THotline {
   phone: string;
   text: string; // ex: "Text to 838255",
   website: string;
-}
-
-export interface TUser {
-  id: string; // database ObjectId converted to hex string
-  name?: string;
-  email: string;
-  providers: ("facebook" | "google")[];
-  isAdmin: boolean;
-  isSuperAdmin: boolean;
 }
 
 export type TTimezoneName = TTimezoneName_;

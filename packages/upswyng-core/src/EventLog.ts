@@ -1,8 +1,5 @@
-import { TUser, TEventLogDetail, TEventLogData } from "@upswyng/upswyng-types";
-
 import { ObjectId } from "bson";
-
-throw new Error("fuxx");
+import { TUser, TEventLogDetail, TEventLogData } from "@upswyng/upswyng-types";
 
 function assertUnreachable(_x: never): never {
   throw new Error("Didn't expect to get here");
@@ -28,7 +25,7 @@ class EventLog<T extends TEventLogDetail> {
   toSummary(): string {
     switch (this.detail.kind) {
       case "draft_deleted":
-        return `Draft for ${this.detail.resourceName}[${
+        return `Draft for ${this.detail.resourceName} [${
           this.detail.resourceId
         }] was deleted by ${
           this.actor.name ? this.actor.name : this.actor.email

@@ -1,30 +1,39 @@
 <script>
-  //   import { onMount } from "svelte";
-  //   import { EventLog } from "@upswyng/upswyng-core";
+  import { onMount } from "svelte";
+  import { EventLog } from "@upswyng/upswyng-core";
 
-  //   let timeAgo;
+  let timeAgo;
 
   export let eventLog; // EventLog
 
-  //   onMount(async () => {
-  //     const javascriptTimeAgoModule = await import("javascript-time-ago");
-  //     const { default: en } = await import("javascript-time-ago/locale/en");
-  //     const TimeAgo = javascriptTimeAgoModule.default;
-  //     TimeAgo.addLocale(en);
-  //     timeAgo = new TimeAgo("en-US");
-  //   });
+  onMount(async () => {
+    const javascriptTimeAgoModule = await import("javascript-time-ago");
+    const { default: en } = await import("javascript-time-ago/locale/en");
+    const TimeAgo = javascriptTimeAgoModule.default;
+    TimeAgo.addLocale(en);
+    timeAgo = new TimeAgo("en-US");
+  });
 
   let parsedEventLog;
-  //   $: parsedEventLog = EventLog.parse(eventLog);
+
+  $: parsedEventLogSummary = eventLog && EventLog.parse(eventLog);
+  $: console.log(parsedEventLogSummary);
 </script>
 
 <div class="timeline-item">
-  {JSON.stringify(eventLog)}
-  <!-- {#if eventLog.kind === 'draft_deleted'}
+  {#if eventLog.kind === 'draft_deleted'}
     <div class="timeline-marker" />
     <div class="timeline-content">
-      <p class="heading">{timeAgo.format(new Date(eventLog.createdAt))}</p>
-      <p>Timeline content - Can include any HTML element</p>
+      <p class="heading">
+        {#if timeAgo}{timeAgo.format(new Date(eventLog.createdAt))}{/if}
+      </p>
+      <p>
+        {#await parsedEventLogSummary}
+          waiting
+        {:then parsedEventLog}
+          {parsedEventLog.toSummary()}
+        {/await}
+      </p>
     </div>
-  {/if} -->
+  {/if}
 </div>

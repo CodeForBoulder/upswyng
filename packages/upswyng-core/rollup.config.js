@@ -20,24 +20,23 @@ module.exports = {
     resolve({
       only: ["rrule"],
       mainFields: ["main"],
-      browser: true,
     }),
     // All the other modules besides 'rrule' should be resolved with the default entrypoint priority. (Defaults
     // to ['module', 'main'].) See: https://github.com/rollup/rollup-plugin-node-resolve#usage
     resolve({
       only: [/^(?!.*rrule).*$/],
-      browser: true,
+      preferBuiltins: false,
     }),
     typescript({ tsconfig: "./tsconfig.build.json" }),
     commonjs({
       include: /node_modules/,
       exclude: [/^.+\.tsx?$/],
-      namedExports: { rrule: ["RRule", "RRuleSet"] },
+      namedExports: { rrule: ["RRule", "RRuleSet"], bson: ["ObjectId"] },
     }),
     json(),
   ],
-  external: [
-    ...Object.keys(pkg.dependencies || {}),
-    ...Object.keys(pkg.peerDependencies || {}),
-  ],
+  // external: [
+  //   ...Object.keys(pkg.dependencies || {}),
+  //   ...Object.keys(pkg.peerDependencies || {}),
+  // ],
 };

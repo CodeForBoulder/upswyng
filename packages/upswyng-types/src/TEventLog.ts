@@ -1,4 +1,4 @@
-import { TUser } from ".";
+import { TUser } from "./TUser";
 
 export const EventLogKind = {
   // eslint-disable-next-line @typescript-eslint/camelcase

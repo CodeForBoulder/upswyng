@@ -39,7 +39,6 @@
       if (response.status !== 200) {
         throw new Error(message || "Error getting Resource Issues");
       }
-      console.log(newEventLogs);
       eventLogs = newEventLogs;
       count = newCount;
     } catch (e) {
@@ -49,7 +48,7 @@
     }
   }
 
-  //   fetchEventLogs(limit, offset);
+  fetchEventLogs(limit, offset);
 </script>
 
 <svelte:head>
@@ -59,6 +58,10 @@
 <section class="section">
   <div class="container">
     <h1 class="title">Event Logs</h1>
-    <div class="timeline" />
+    <div class="timeline">
+      {#each eventLogs as eventLog}
+        <EventLogItem {eventLog} />
+      {/each}
+    </div>
   </div>
 </section>

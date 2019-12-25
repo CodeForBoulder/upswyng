@@ -53,10 +53,7 @@
 
         <div class="navbar-dropdown">
           {#if user && user.isAdmin}
-            <a
-              class="navbar-item"
-              href="resource/issues"
-              rel="prefetch">
+            <a class="navbar-item" href="resource/issues" rel="prefetch">
               Issues
             </a>
             <hr class="navbar-divider" />
