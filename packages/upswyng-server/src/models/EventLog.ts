@@ -1,6 +1,6 @@
 import {
   EventLogKind,
-  TEventLogData,
+  TEventLog,
   TEventLogDetail,
   TEventLogKind,
 } from "@upswyng/upswyng-types";
@@ -18,10 +18,8 @@ export interface TEventLogDocument extends Document {
   kind: TEventLogKind;
 }
 
-export function eventLogDocumentToEventLogData(
-  d: TEventLogDocument
-): TEventLogData {
-  const result: TEventLogData = {
+export function eventLogDocumentToEventLog(d: TEventLogDocument): TEventLog {
+  const result: TEventLog = {
     ...d.toObject(),
     _id: d._id.toHexString(),
     actor: userDocumentToUser(d.actor),

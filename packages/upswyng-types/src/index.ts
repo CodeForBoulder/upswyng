@@ -194,10 +194,11 @@ export interface TUser {
 
 /** Event Logs */
 export const EventLogKind = {
-  // eslint-disable-next-line @typescript-eslint/camelcase
+  /* eslint-disable @typescript-eslint/camelcase */
   draft_approved: null, // a draft resource was approved
-  // eslint-disable-next-line @typescript-eslint/camelcase
   draft_deleted: null, // a draft resource was deleted
+  resource_issue_reopened: null,
+  resource_issue_resolved: null,
 };
 export type TEventLogKind = keyof typeof EventLogKind;
 
@@ -218,31 +219,34 @@ interface TEventLogDraftDeletedDetail {
   resourceName: string;
 }
 
-export type TEventLogDetail =
-  | TEventLogDraftApprovedDetail
-  | TEventLogDraftDeletedDetail;
-
-/**
- * Represents an event in the Upswyng logs. These are product-level
- * events such as a user creating a resource, an admin triggering a
- * sync with algolia, or an admin creating an alert.
- */
-export interface TEventLog<TDetail extends { kind: TEventLogKind }> {
-  _id: string;
-  actor: TUser;
-  createdAt: Date;
-  detail: TDetail;
-  /** serialize the event summary */
-  toSummary: () => string;
-  /** serialize the event's detail for storage */
-  serializeDetail: () => string;
+interface TEventLogResourceIssueReopenedDetail {
+  kind: "resource_issue_reopened";
+  resourceId: string;
+  resourceName: string;
+  resourceIssueKind: TResourceIssueKind;
+  resourceIssueId: string;
+  resourceIssueSeverity: "low" | "medium" | "high";
 }
 
+interface TEventLogResourceIssueResolvedDetail {
+  kind: "resource_issue_resolved";
+  resourceId: string;
+  resourceName: string;
+  resourceIssueKind: TResourceIssueKind;
+  resourceIssueId: string;
+  resourceIssueSeverity: "low" | "medium" | "high";
+}
+
+export type TEventLogDetail =
+  | TEventLogDraftApprovedDetail
+  | TEventLogDraftDeletedDetail
+  | TEventLogResourceIssueReopenedDetail
+  | TEventLogResourceIssueResolvedDetail;
+
 /**
- * Shape of data sent over the wire.
- * Call `EventLog.parse(<TEventLogData>)` to get an `EventLog` instance.
+ * A record we keep when something happens.
  */
-export interface TEventLogData {
+export interface TEventLog {
   _id: string;
   actor: TUser;
   createdAt: Date;

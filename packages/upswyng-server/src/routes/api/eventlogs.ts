@@ -1,6 +1,4 @@
-import EventLog, {
-  eventLogDocumentToEventLogData,
-} from "../../models/EventLog";
+import EventLog, { eventLogDocumentToEventLog } from "../../models/EventLog";
 
 import { requireAdmin } from "../../utility/authHelpers";
 
@@ -14,7 +12,7 @@ import { requireAdmin } from "../../utility/authHelpers";
  * The response has the shape of:
  * {
  *   estimatedTotal: number, // An estimate of the total number of Event Logs (ignores entire query)
- *   eventLogs: TEventLogData[], // Event Logs which match the query
+ *   eventLogs: TEventLog[], // Event Logs which match the query
  * }
  */
 export async function post(req, res, _next) {
@@ -50,7 +48,7 @@ export async function post(req, res, _next) {
     return res.end(
       JSON.stringify({
         estimatedTotal,
-        eventLogs: issues.map(eventLogDocumentToEventLogData),
+        eventLogs: issues.map(eventLogDocumentToEventLog),
       })
     );
   } catch (e) {

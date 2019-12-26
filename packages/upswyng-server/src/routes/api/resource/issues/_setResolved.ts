@@ -1,13 +1,17 @@
 import ResourceIssue, {
   TResourceIssueDocument,
 } from "../../../../models/ResourceIssue";
+import { TEventLogKind, TUser } from "@upswyng/upswyng-types";
 
+import EventLog from "../../../../models/EventLog";
 import { ObjectId } from "bson";
+import Resource from "../../../../models/Resource";
 import { requireAdmin } from "../../../../utility/authHelpers";
 
 export async function setResolved(resolved: boolean, req, res, next) {
+  let user: TUser;
   try {
-    requireAdmin(req);
+    user = requireAdmin(req);
   } catch {
     res.writeHead(401, {
       "Content-Type": "application/json",
@@ -53,6 +57,27 @@ export async function setResolved(resolved: boolean, req, res, next) {
     try {
       issue.resolved = resolved;
       await issue.save();
+      // Create Event Log
+      try {
+        const resource = await Resource.getByResourceId(issue.resourceId);
+        const kind: TEventLogKind = resolved
+          ? "resource_issue_resolved"
+          : "resource_issue_reopened";
+        await await new EventLog({
+          actor: user._id,
+          detail: {
+            kind,
+            resourceId: issue.resourceId.toHexString(),
+            resourceName: resource.name,
+            resourceIssueSeverity: issue.severity,
+            resourceIssueKind: issue.kind,
+            resourceIssueId: issue._id.toHexString(),
+          },
+          kind,
+        }).save();
+      } catch (e) {
+        console.error(e);
+      }
       res.writeHead(204);
       res.end();
     } catch (e) {

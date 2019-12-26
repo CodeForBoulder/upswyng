@@ -30,7 +30,6 @@
 
         if (resourceResponse.status === 200) {
           const data = await resourceResponse.json();
-          console.log("RESOURCE::::", data);
           resource = data.resource;
         }
       } catch (e) {
