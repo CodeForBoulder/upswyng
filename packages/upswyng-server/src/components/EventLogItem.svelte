@@ -1,5 +1,4 @@
 <script>
-  import { EventLog } from "@upswyng/upswyng-core";
   import { onMount } from "svelte";
   import ResourceDiff from "./ResourceDiff.svelte";
 

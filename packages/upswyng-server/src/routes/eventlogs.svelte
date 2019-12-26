@@ -7,11 +7,10 @@
 </script>
 
 <script>
-  import { EventLog } from "@upswyng/upswyng-core";
   import EventLogItem from "../components/EventLogItem.svelte";
 
   let estimatedTotal = Infinity;
-  let limit = 5;
+  let limit = 10;
   let offset = 0;
   let offsetStep = 5;
   let errorMessage = "";
@@ -41,10 +40,7 @@
       if (response.status !== 200) {
         throw new Error(message || "Error getting Resource Issues");
       }
-      eventLogs = [
-        ...eventLogs,
-        ...(await Promise.all(newEventLogs.map(EventLog.parse))),
-      ];
+      eventLogs = [...eventLogs, ...newEventLogs];
       estimatedTotal = newEstimatedTotal;
     } catch (e) {
       errorMessage = e.message;
