@@ -15,7 +15,7 @@
   let offsetStep = 5;
   let errorMessage = "";
   let eventLogs = [];
-  let isLoading = false;
+  let isLoading = true; // prevent drawing flicker at start
 
   async function fetchEventLogs(limit, offset) {
     errorMessage = "";
@@ -78,33 +78,40 @@
 <section class="section">
   <div class="container">
     <h1 class="title">Event Logs</h1>
-    <div class="timeline">
-      {#each eventLogs as eventLog}
-        <EventLogItem {eventLog} />
-      {:else}
-        <div class="has-text-grey is-italic has-text-weight-semibold is-size-6">
-          No events to show
-        </div>
-      {/each}
-      {#if eventLogs.length < estimatedTotal}
-        <div class="content has-text-centered">
-          {#if !isLoading}
-            <!-- svelte-ignore a11y-missing-attribute -->
-            <a
-              on:click|preventDefault={() => {
-                offset += offsetStep;
-                fetchEventLogs(limit, offset);
-              }}
-              class="is-uppercase is-size-7 has-text-weight-bold">
-              Load More
-            </a>
-          {:else}
-            <div class="is-loading has-text-primary">
-              <i class="fas fa-spinner spinner" />
-            </div>
-          {/if}
-        </div>
-      {/if}
-    </div>
+    {#if errorMessage}
+      <div class="notification is-danger">{errorMessage}</div>
+    {/if}
+    {#if !eventLogs.length && isLoading}
+      <progress class="progress is-small is-primary" max="100" />
+    {:else if !eventLogs.length && !isLoading}
+      <div class="has-text-grey is-italic has-text-weight-semibold is-size-6">
+        No events to show
+      </div>
+    {:else}
+      <div class="timeline">
+        {#each eventLogs as eventLog}
+          <EventLogItem {eventLog} />
+        {/each}
+        {#if eventLogs.length < estimatedTotal}
+          <div class="content has-text-centered">
+            {#if !isLoading}
+              <!-- svelte-ignore a11y-missing-attribute -->
+              <a
+                on:click|preventDefault={() => {
+                  offset += offsetStep;
+                  fetchEventLogs(limit, offset);
+                }}
+                class="is-uppercase is-size-7 has-text-weight-bold">
+                Load More
+              </a>
+            {:else}
+              <div class="is-loading has-text-primary">
+                <i class="fas fa-spinner spinner" />
+              </div>
+            {/if}
+          </div>
+        {/if}
+      </div>
+    {/if}
   </div>
 </section>
