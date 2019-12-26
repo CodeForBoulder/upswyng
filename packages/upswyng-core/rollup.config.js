@@ -25,6 +25,7 @@ module.exports = {
     // to ['module', 'main'].) See: https://github.com/rollup/rollup-plugin-node-resolve#usage
     resolve({
       only: [/^(?!.*rrule).*$/],
+      browser: true,
       preferBuiltins: false,
     }),
     typescript({ tsconfig: "./tsconfig.build.json" }),
@@ -35,8 +36,8 @@ module.exports = {
     }),
     json(),
   ],
-  // external: [
-  //   ...Object.keys(pkg.dependencies || {}),
-  //   ...Object.keys(pkg.peerDependencies || {}),
-  // ],
+  external: [
+    ...Object.keys(pkg.dependencies || {}),
+    ...Object.keys(pkg.peerDependencies || {}),
+  ],
 };

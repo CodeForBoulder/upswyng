@@ -20,8 +20,8 @@
   {#if resource.deleted}
     <div class="ribbon is-danger">Trashed</div>
   {/if}
-  <h2>ID</h2>
-  <p>{resource.id}</p>
+  <h2>Resource ID</h2>
+  <p>{resource.resourceId}</p>
   {#if resource.legacyId}
     <h2>Legacy ID</h2>
     <p>{resource.legacyId}</p>

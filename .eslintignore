@@ -1,2 +1,6 @@
-node_modules
 *.scss
+packages/**/__build__/**
+packages/**/__sapper__/**
+packages/**/coverage/**
+packages/**/dist/**
+packages/**/node_modules/**

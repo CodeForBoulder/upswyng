@@ -223,11 +223,16 @@ const legacyResourceToResource = (
 export const resourceToSchema = (r: Partial<TResource>) => {
   const result = {
     ...r,
-    id: r.resourceId ? ObjectId.createFromHexString(r.resourceId) : undefined,
+    resourceId: r.resourceId
+      ? ObjectId.createFromHexString(r.resourceId)
+      : undefined,
     _id: r._id ? ObjectId.createFromHexString(r._id) : undefined,
+    createdBy: r.createdBy
+      ? ObjectId.createFromHexString(r.createdBy._id)
+      : undefined,
   };
   if (!r.resourceId) {
-    delete result.id;
+    delete result.resourceId;
   }
   if (!r._id) {
     delete result._id;

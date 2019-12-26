@@ -42,7 +42,6 @@ export async function createDraftResource(
       throw new Error("The new resource is the same as the existing resource");
     }
   }
-
   const { _id: newResourceId } = await new DraftResource(
     resourceToSchema({
       ...resource,

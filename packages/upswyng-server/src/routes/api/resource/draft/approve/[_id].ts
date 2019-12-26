@@ -4,8 +4,8 @@ import {
   resourceDocumentToResource,
 } from "../../../../../models/Resource";
 import { ObjectId } from "bson";
-import { TUser } from "@upswyng/upswyng-types";
 import { createOrUpdateResourceFromDraft } from "../../../../../models/Utility";
+import { TUser } from "@upswyng/upswyng-types";
 import { requireAdmin } from "../../../../../utility/authHelpers";
 import EventLog from "../../../../../models/EventLog";
 import diffResources from "../../../../../utility/diffResources";
@@ -58,16 +58,15 @@ export async function post(req, res, next) {
     );
   }
   try {
-    const updatedResource = await createOrUpdateResourceFromDraft(
-      resourceDocumentToResource(draftToApprove)
-    );
+    const x = resourceDocumentToResource(draftToApprove);
+    const updatedResource = await createOrUpdateResourceFromDraft(x);
     await DraftResource.deleteByRecordId(draftToApprove._id);
 
     try {
       await new EventLog({
-        actor: user.id,
+        actor: user._id,
         detail: {
-          kind: "draft-approved",
+          kind: "draft_approved",
           resourceId: draftToApprove.resourceId.toHexString(),
           resourceName: draftToApprove.name,
           newResource: !updatedResource,
@@ -78,7 +77,7 @@ export async function post(req, res, next) {
               )
             : undefined,
         },
-        kind: "draft-approved",
+        kind: "draft_approved",
       }).save();
     } catch (e) {
       console.error(

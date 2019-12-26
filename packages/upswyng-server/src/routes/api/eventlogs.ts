@@ -25,7 +25,7 @@ export async function post(req, res, _next) {
     });
     return res.end(
       JSON.stringify({
-        message: `You are not authorized to view the list of Resource Issues`,
+        message: `You are not authorized to view the list of Event Logs`,
       })
     );
   }

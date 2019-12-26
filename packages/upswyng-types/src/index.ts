@@ -184,7 +184,7 @@ export interface THotline {
 }
 
 export interface TUser {
-  id: string; // database ObjectId converted to hex string
+  _id: string; // database ObjectId converted to hex string
   name?: string;
   email: string;
   providers: ("facebook" | "google")[];
@@ -195,17 +195,21 @@ export interface TUser {
 /** Event Logs */
 export const EventLogKind = {
   // eslint-disable-next-line @typescript-eslint/camelcase
+  draft_approved: null, // a draft resource was approved
+  // eslint-disable-next-line @typescript-eslint/camelcase
   draft_deleted: null, // a draft resource was deleted
 };
 export type TEventLogKind = keyof typeof EventLogKind;
 
 // TODO (rhinodavid): Add other types of events (Draft Created, User Events)
 interface TEventLogDraftApprovedDetail {
+  // The diff of the resource before and after the draft was approved.
+  // Won't be populated if `newResource` is true.
+  diff?: { left: Partial<TResource>; right: Partial<TResource> };
   kind: "draft_approved";
+  newResource: boolean; // no resource previously existed
   resourceId: string;
   resourceName: string;
-  // The diff of the resource before and after the draft was approved.
-  diff: { left: Partial<TResource>; right: Partial<TResource> };
 }
 
 interface TEventLogDraftDeletedDetail {

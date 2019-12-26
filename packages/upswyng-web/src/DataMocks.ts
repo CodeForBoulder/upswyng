@@ -11,7 +11,7 @@ export const blankResource: TResource = {
     zip: "",
   },
   createdBy: {
-    id: "",
+    _id: "",
     name: "",
     email: "",
     providers: ["facebook", "google"],

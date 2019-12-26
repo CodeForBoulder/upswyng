@@ -94,13 +94,17 @@
       .finally(() => (isDeleting = false));
   }
 
-  function approveUpdate(_id) {
+  async function approveUpdate(_id) {
     isApproving = true;
 
     fetch(`/api/resource/draft/approve/${_id}`, { method: "POST" })
-      .then(_res => {
-        if (_res.status >= 400) {
-          throw new Error(_res);
+      .then(async res => {
+        if (res.status >= 400) {
+          const { message } = await res.json();
+          if (message) {
+            throw new Error(message);
+          }
+          throw new Error(res);
         }
         addFlashMessage(
           session,
@@ -159,10 +163,14 @@
     </div>
     <div>
       {#if approveError}
-        <p>There was an error approving the resource: {approveError.message}</p>
+        <p class="notification is-danger">
+          There was an error approving the resource: {approveError.message}
+        </p>
       {/if}
       {#if deleteError}
-        <p>There was an error deleting the resource: {deleteError.message}</p>
+        <p class="notification is-danger">
+          There was an error deleting the resource: {deleteError.message}
+        </p>
       {/if}
     </div>
   </div>
