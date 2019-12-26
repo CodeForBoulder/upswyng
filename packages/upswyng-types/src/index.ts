@@ -244,8 +244,7 @@ export type TEventLogDetail =
   | TEventLogResourceIssueResolvedDetail;
 
 /**
- * Shape of data sent over the wire.
- * Call `EventLog.parse(<TEventLogData>)` to get an `EventLog` instance.
+ * A record we keep when something happens.
  */
 export interface TEventLog {
   _id: string;

@@ -4,7 +4,7 @@
 
   let timeAgo;
 
-  export let eventLog; // EventLog (already parsed from TEventLogData)
+  export let eventLog; // TEventLog
 
   let isExpanded = false;
 
@@ -51,14 +51,16 @@
         {#if timeAgo}{timeAgo.format(new Date(eventLog.createdAt))}{/if}
       </p>
       <p>
-        <strong>
+        <span class="has-text-weight-medium">
           {`${eventLog.actor.name ? eventLog.actor.name : eventLog.actor.email}`}
+        </span>
+        <span class="has-text-weight-semibold">approved a draft</span>
+        to {`${eventLog.detail.newResource ? 'create' : 'update'}`}
+        <strong>
+          <a href={`/resource/${eventLog.detail.resourceId}`} rel="prefetch">
+            {eventLog.detail.resourceName}
+          </a>
         </strong>
-        approved a draft to {`${eventLog.detail.newResource ? 'create' : 'update'}`}
-        <strong>{eventLog.detail.resourceName}</strong>
-        <a href={`/resource/${eventLog.detail.resourceId}`} rel="prefetch">
-          [{`${eventLog.detail.resourceId}`}]
-        </a>
       </p>
 
       {#if !eventLog.detail.newResource}
@@ -96,9 +98,7 @@
         {/if}
       {/if}
     </div>
-  {/if}
-
-  {#if eventLog.detail.kind === 'draft_deleted'}
+  {:else if eventLog.detail.kind === 'draft_deleted'}
     <div class="timeline-marker is-icon">
       <i class="fa fa-trash-alt" />
     </div>
@@ -107,15 +107,77 @@
         {#if timeAgo}{timeAgo.format(new Date(eventLog.createdAt))}{/if}
       </p>
       <p>
-        <strong>
+        <span class="has-text-weight-medium">
           {`${eventLog.actor.name ? eventLog.actor.name : eventLog.actor.email}`}
+        </span>
+        <span class="has-text-weight-semibold">deleted a draft</span>
+        of
+        <strong>
+          <a href={`/resource/${eventLog.detail.resourceId}`} rel="prefetch">
+            {eventLog.detail.resourceName}
+          </a>
         </strong>
-        deleted a draft of
-        <strong>{eventLog.detail.resourceName}</strong>
-        <a href={`/resource/${eventLog.detail.resourceId}`} rel="prefetch">
-          [{`${eventLog.detail.resourceId}`}]
-        </a>
       </p>
+    </div>
+  {:else if eventLog.detail.kind === 'resource_issue_reopened'}
+    <div class="timeline-marker is-icon">
+      <i class="far fa-frown-open" />
+    </div>
+    <div class="timeline-content">
+      <p class="heading">
+        {#if timeAgo}{timeAgo.format(new Date(eventLog.createdAt))}{/if}
+      </p>
+      <p>
+        <span class="has-text-weight-medium">
+          {`${eventLog.actor.name ? eventLog.actor.name : eventLog.actor.email}`}
+        </span>
+        <span class="has-text-weight-semibold">reopened</span>
+        a
+        <a
+          class="is-capitalized has-text-weight-bold"
+          href={`/resource/issue/${eventLog.detail.resourceIssueId}`}
+          rel="prefetch">
+          {eventLog.detail.resourceIssueKind.replace(/_/g, ' ')} issue
+        </a>
+        for
+        <strong>
+          <a href={`/resource/${eventLog.detail.resourceId}`} rel="prefetch">
+            {eventLog.detail.resourceName}
+          </a>
+        </strong>
+      </p>
+    </div>
+  {:else if eventLog.detail.kind === 'resource_issue_resolved'}
+    <div class="timeline-marker is-icon">
+      <i class="fa fa-clipboard-check" />
+    </div>
+    <div class="timeline-content">
+      <p class="heading">
+        {#if timeAgo}{timeAgo.format(new Date(eventLog.createdAt))}{/if}
+      </p>
+      <p>
+        <span class="has-text-weight-medium">
+          {`${eventLog.actor.name ? eventLog.actor.name : eventLog.actor.email}`}
+        </span>
+        <span class="has-text-weight-semibold">resolved</span>
+        a
+        <a
+          class="is-capitalized has-text-weight-bold"
+          href={`/resource/issue/${eventLog.detail.resourceIssueId}`}
+          rel="prefetch">
+          {eventLog.detail.resourceIssueKind.replace(/_/g, ' ')} issue
+        </a>
+        for
+        <strong>
+          <a href={`/resource/${eventLog.detail.resourceId}`} rel="prefetch">
+            {eventLog.detail.resourceName}
+          </a>
+        </strong>
+      </p>
+    </div>
+  {:else}
+    <div class="notification is-danger">
+      Can not render Event Log item ({eventLog.kind})
     </div>
   {/if}
 </div>

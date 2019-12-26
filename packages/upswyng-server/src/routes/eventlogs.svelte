@@ -10,7 +10,7 @@
   import EventLogItem from "../components/EventLogItem.svelte";
 
   let estimatedTotal = Infinity;
-  let limit = 10;
+  let limit = 7;
   let offset = 0;
   let offsetStep = 5;
   let errorMessage = "";
@@ -40,7 +40,7 @@
       if (response.status !== 200) {
         throw new Error(message || "Error getting Resource Issues");
       }
-      eventLogs = [...eventLogs, ...newEventLogs];
+      eventLogs = eventLogs.concat(newEventLogs);
       estimatedTotal = newEstimatedTotal;
     } catch (e) {
       errorMessage = e.message;
@@ -79,7 +79,7 @@
   <div class="container">
     <h1 class="title">Event Logs</h1>
     <div class="timeline">
-      {#each eventLogs as eventLog (eventLog._id)}
+      {#each eventLogs as eventLog}
         <EventLogItem {eventLog} />
       {:else}
         <div class="has-text-grey is-italic has-text-weight-semibold is-size-6">

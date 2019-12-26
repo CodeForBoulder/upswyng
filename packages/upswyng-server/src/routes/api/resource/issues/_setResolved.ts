@@ -1,11 +1,11 @@
 import ResourceIssue, {
   TResourceIssueDocument,
 } from "../../../../models/ResourceIssue";
-import { TUser, TEventLogKind } from "@upswyng/upswyng-types";
-import EventLog from "../../../../models/EventLog";
-import Resource from "../../../../models/Resource";
+import { TEventLogKind, TUser } from "@upswyng/upswyng-types";
 
+import EventLog from "../../../../models/EventLog";
 import { ObjectId } from "bson";
+import Resource from "../../../../models/Resource";
 import { requireAdmin } from "../../../../utility/authHelpers";
 
 export async function setResolved(resolved: boolean, req, res, next) {
