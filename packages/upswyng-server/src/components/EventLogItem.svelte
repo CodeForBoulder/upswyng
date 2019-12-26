@@ -27,6 +27,7 @@
     align-items: center;
     justify-content: flex-start;
     margin-top: 0.5em;
+    margin-bottom: 0.5em;
   }
 
   .more-less-selector a {

@@ -58,10 +58,16 @@
 <div class="diff">
   {#each Object.keys(diff.left) as k}
     <div class="field">
-      <h2>{k}</h2>
+      <label
+        class="has-text-weight-bold has-text-color-grey-dark is-uppercase
+        is-size-6">
+        {k}
+      </label>
       <div class="values">
         <div class="left">
-          <h3>Old</h3>
+          <label class="has-text-weight-medium has-text-color-grey is-size-6">
+            Old
+          </label>
           {#if k === 'schedule'}
             <ResourceScheduleDisplay schedule={diff.left.schedule} />
           {:else if k === 'services'}
@@ -79,12 +85,20 @@
                     style={`background-color: ${subcategory.parentCategory.color || 'gray'}`} />
                   {subcategory.parentCategory.name} | {subcategory.name}
                 </li>
+              {:else}
+                <p
+                  class="is-italic is-size-6 has-text-weight-semibold
+                  has-text-grey-light">
+                  None
+                </p>
               {/each}
             </ul>
           {:else}{JSON.stringify(diff.left[k], null, 2)}{/if}
         </div>
         <div class="right">
-          <h3>New</h3>
+          <label class="has-text-weight-medium has-text-color-grey is-size-6">
+            New
+          </label>
           {#if k === 'schedule'}
             <ResourceScheduleDisplay schedule={diff.right.schedule} />
           {:else if k === 'services'}
@@ -102,6 +116,12 @@
                     style={`background-color: ${subcategory.parentCategory.color || 'gray'}`} />
                   {subcategory.parentCategory.name} | {subcategory.name}
                 </li>
+              {:else}
+                <p
+                  class="is-italic is-size-6 has-text-weight-semibold
+                  has-text-grey-light">
+                  None
+                </p>
               {/each}
             </ul>
           {:else}{JSON.stringify(diff.right[k], null, 2)}{/if}
