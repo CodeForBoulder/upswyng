@@ -3,9 +3,10 @@
     "ardenivanov.svelte-intellisense",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
+    "jamesbirtles.svelte-vscode",
     "msjsdiag.debugger-for-chrome",
-    "orta.vscode-jest",
-    "jamesbirtles.svelte-vscode"
+    "nsoult.typescript-imports-sort",
+    "orta.vscode-jest"
   ],
   "unwantedRecommendations": []
 }
