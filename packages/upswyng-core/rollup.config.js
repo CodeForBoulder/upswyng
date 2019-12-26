@@ -32,7 +32,7 @@ module.exports = {
     commonjs({
       include: /node_modules/,
       exclude: [/^.+\.tsx?$/],
-      namedExports: { rrule: ["RRule", "RRuleSet"], bson: ["ObjectId"] },
+      namedExports: { rrule: ["RRule", "RRuleSet"] },
     }),
     json(),
   ],

@@ -15,10 +15,10 @@ class EventLog<T extends TEventLogDetail> {
   }
 
   constructor(_id: string, actor: TUser, detail: T, createdAt?: Date) {
-    this.actor = actor;
-    this.detail = detail;
-    this.createdAt = createdAt || new Date();
     this._id = _id;
+    this.actor = actor;
+    this.createdAt = createdAt || new Date();
+    this.detail = detail;
   }
 
   toSummary(): string {

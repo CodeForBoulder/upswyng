@@ -58,8 +58,9 @@ export async function post(req, res, next) {
     );
   }
   try {
-    const x = resourceDocumentToResource(draftToApprove);
-    const updatedResource = await createOrUpdateResourceFromDraft(x);
+    const updatedResource = await createOrUpdateResourceFromDraft(
+      resourceDocumentToResource(draftToApprove)
+    );
     await DraftResource.deleteByRecordId(draftToApprove._id);
 
     try {
