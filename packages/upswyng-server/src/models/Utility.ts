@@ -42,7 +42,6 @@ export async function createDraftResource(
       throw new Error("The new resource is the same as the existing resource");
     }
   }
-
   const { _id: newResourceId } = await new DraftResource(
     resourceToSchema({
       ...resource,
@@ -153,10 +152,11 @@ export async function removeResourceFromSubcategory(
 /**
  * Takes a draft resource and either creates a new Resource, or updates a Resource
  * if there already exists a Record with the same ID (id) as the draft.
+ * @return {TResourceDocument | null} The old resource which has been updated
  */
 export async function createOrUpdateResourceFromDraft(
   draftResource: TResource | TNewResource
-): Promise<void> {
+): Promise<TResourceDocument | null> {
   const existingResource = await Resource.findOne({
     resourceId: (draftResource as TResource).resourceId,
   }).populate("subcategories");
@@ -166,7 +166,6 @@ export async function createOrUpdateResourceFromDraft(
       resourceDocumentToResource(existingResource),
       draftResource as TResource
     );
-    console.log(updateObject);
     // go over each subcategory the old resource was in.. if it's not in the new resource, remove it
     updateObject.left.subcategories &&
       updateObject.right.subcategories &&
@@ -219,4 +218,5 @@ export async function createOrUpdateResourceFromDraft(
       )
     );
   }
+  return existingResource;
 }

@@ -24,6 +24,7 @@
     "bulma-ribbon": "^0.1.1",
     "bulma-switch": "^2.0.0",
     "bulma-tagsinput": "^2.0.0",
+    "bulma-timeline": "^3.0.4",
     "canonical-instance": "^2.0.0",
     "compression": "^1.7.1",
     "connect-mongo": "^3.0.0",
@@ -33,7 +34,6 @@
     "express": "^4.17.1",
     "express-session": "^1.16.2",
     "fast-deep-equal": "^2.0.1",
-    "firebase": "^5.8.4",
     "grant": "^4.6.2",
     "grant-express": "^4.6.2",
     "grant-oidc": "0.0.3",
@@ -89,6 +89,6 @@
     "typescript": "^3.7.3"
   },
   "engines": {
-    "node": "11.15.x"
+    "node": "12.14.x"
   }
 }

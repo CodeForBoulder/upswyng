@@ -1,5 +1,5 @@
-import { createDraftResource } from "../../../models/Utility";
-import { requireLoggedIn } from "../../../utility/authHelpers";
+import { createDraftResource } from "../../models/Utility";
+import { requireLoggedIn } from "../../utility/authHelpers";
 import { TUser } from "@upswyng/upswyng-types";
 
 /**
@@ -25,7 +25,7 @@ export async function post(req, res, next) {
   }
   try {
     const { draftResource } = req.body;
-    draftResource.createdBy = (user as TUser).id;
+    draftResource.createdBy = user as TUser;
 
     try {
       const newResource = await createDraftResource(draftResource);

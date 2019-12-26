@@ -238,7 +238,7 @@
             <div class="control">
               <input
                 class="input"
-                autocomplete="address-line1"
+                autocomplete="address-line2"
                 type="text"
                 placeholder="Address 2"
                 bind:value={resource.address.address2} />
@@ -257,7 +257,7 @@
               <input
                 class="input"
                 class:is-danger={$resourceForm.city.errors.length}
-                autocomplete="address-line1"
+                autocomplete="address-level2"
                 type="text"
                 placeholder="City"
                 bind:value={resource.address.city} />
@@ -284,7 +284,7 @@
               <input
                 class="input"
                 class:is-danger={$resourceForm.state.errors.length}
-                autocomplete="address-line1"
+                autocomplete="address-level1"
                 type="text"
                 placeholder="State"
                 bind:value={resource.address.state} />
@@ -311,9 +311,9 @@
               <input
                 class="input"
                 class:is-danger={$resourceForm.zip.errors.length}
-                autocomplete="address-line1"
+                autocomplete="postal-code"
                 type="text"
-                placeholder="Address 1"
+                placeholder="ZIP"
                 bind:value={resource.address.zip} />
               {#if $resourceForm.zip.errors.length}
                 <span class="icon is-small is-right">

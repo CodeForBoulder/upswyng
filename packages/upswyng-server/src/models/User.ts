@@ -20,7 +20,7 @@ export interface TUserDocument extends Document {
 
 export function userDocumentToUser(u: TUserDocument): TUser {
   const result: Partial<TUser> = {
-    id: u.id,
+    _id: u._id.toHexString(),
     providers: [],
     isAdmin: u.isAdmin || false,
     isSuperAdmin: u.isSuperAdmin || false,

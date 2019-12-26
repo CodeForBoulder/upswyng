@@ -45,7 +45,7 @@ export async function post(req, res, next) {
   if (deletedResource) {
     try {
       await new EventLog({
-        actor: user.id,
+        actor: user._id,
         detail: {
           kind: "draft_deleted",
           resourceId: deletedResource.resourceId.toHexString(),

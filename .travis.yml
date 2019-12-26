@@ -5,7 +5,7 @@ before_install:
 cache:
   yarn: true
 node_js:
-  - "11"
+  - "12"
 script:
   - yarn install
   - mv packages/upswyng-native/config.example.ts packages/upswyng-native/config.ts

@@ -180,7 +180,7 @@
         name="always-open"
         bind:checked={value.alwaysOpen}
         type="checkbox" />
-      <label for="always-open">Always Open</label>
+      <label class="label" for="always-open">Always Open</label>
     </div>
   </fieldset>
 </div>
@@ -245,8 +245,8 @@
           weeklyRepeatState = { ...weeklyRepeatStateDefault, fromTime: weeklyRepeatState.fromTime, toTime: weeklyRepeatState.toTime, comment: weeklyRepeatState.comment, monday: false, tuesday: false, wednesday: false, thursday: false, friday: false };
         }}
         title="Clear all days">
-        <span class="icon">
-          <i class="fas fa-times-circle" aria-hidden="true" />
+        <span class="icon is-small">
+          <i class="fas fa-times" aria-hidden="true" />
         </span>
       </button>
     </div>

@@ -7,10 +7,10 @@
     "build-local-packages": "yarn workspace @upswyng/upswyng-types run build && yarn workspace @upswyng/upswyng-core run build",
     "build-server": "yarn run build-local-packages && yarn workspace @upswyng/upswyng-server run build",
     "build-web": "yarn run build-local-packages && yarn workspace @upswyng/upswyng-web run build",
-    "ci-lint": "prettier --check --loglevel error '{{.github,.vscode}/**/*,packages/*/src/**/*}.{js,jsx,ts,tsx,json,css,scss,md}' && tsc --noEmit && eslint 'packages/upswyng-*/src/**/*.{js,jsx,ts,tsx}' --quiet",
+    "ci-lint": "prettier --check --loglevel error '{{.github,.vscode}/**/*,packages/*/src/**/*}.{js,jsx,ts,tsx,json,css,scss,svelte,md}' && tsc --noEmit && eslint 'packages/upswyng-*/src/**/*.{js,jsx,ts,tsx}' --quiet",
     "clean": "node clean.js",
     "heroku-postbuild": "yarn workspace @upswyng/upswyng-core build && yarn workspace @upswyng/upswyng-server run build",
-    "lint": "prettier --write --loglevel warn '{{.github,.vscode}/**/*,packages/*/src/**/*}.{js,jsx,ts,tsx,json,css,scss,md}' && tsc --noEmit && eslint 'packages/upswyng-*/src/**/*.{js,jsx,ts,tsx}' --quiet",
+    "lint": "prettier --write --loglevel warn '{{.github,.vscode}/**/*,packages/*/src/**/*}.{js,jsx,ts,tsx,json,css,scss,svelte,md}' && tsc --noEmit && eslint 'packages/upswyng-*/src/**/*.{js,jsx,ts,tsx}' --quiet",
     "test": "CI=true SKIP_PREFLIGHT_CHECK=true concurrently --kill-others-on-fail \"yarn workspace @upswyng/upswyng-core run test\" \"yarn workspace @upswyng/upswyng-server run test\" && yarn workspace @upswyng/upswyng-web run test"
   },
   "browserslist": [
@@ -79,7 +79,7 @@
     "concurrently": "^5.0.0"
   },
   "engines": {
-    "node": "11.15.x",
+    "node": "12.14.x",
     "yarn": "1.19.2"
   }
 }
