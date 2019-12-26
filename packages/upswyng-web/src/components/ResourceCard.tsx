@@ -1,8 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { SEARCH_PARAM_RESOURCE } from "../constants";
 import { colors, font } from "../App.styles";
+
+import { Link } from "react-router-dom";
+import React from "react";
+import { SEARCH_PARAM_RESOURCE } from "../constants";
+import styled from "styled-components";
 
 interface Props {
   index?: number;

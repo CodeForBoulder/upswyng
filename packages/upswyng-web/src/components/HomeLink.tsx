@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
 import { THomeButtonAnchor, THomeButtonRouterLink } from "../webTypes";
-import React from "react";
 import styled, { css } from "styled-components";
+
+import { Link } from "react-router-dom";
+import React from "react";
 
 interface HomeLinkPropsBase {
   children: React.ReactElement | React.ReactElement[];

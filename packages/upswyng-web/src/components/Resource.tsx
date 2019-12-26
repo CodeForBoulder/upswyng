@@ -1,16 +1,17 @@
-import { categories, TCategoryDefinition } from "./Categories";
-import { colors, Container } from "../App.styles";
-import { getSearchParamVal } from "../utils/searchParams";
-import { SEARCH_PARAM_RESOURCE } from "../constants";
-import { TResource } from "@upswyng/upswyng-types";
-import BannerColorContext from "./BannerColorContext";
+import { Container, colors } from "../App.styles";
 import Details, { DetailBody, DetailHeading } from "./Details";
+import { TCategoryDefinition, categories } from "./Categories";
+
+import BannerColorContext from "./BannerColorContext";
 import LoadingSpinner from "./LoadingSpinner";
 import Map from "./Map";
 import PageBanner from "./PageBanner";
 import React from "react";
+import { SEARCH_PARAM_RESOURCE } from "../constants";
 import Schedule from "./Schedule";
 import Services from "./Services";
+import { TResource } from "@upswyng/upswyng-types";
+import { getSearchParamVal } from "../utils/searchParams";
 import useResource from "./useResource";
 
 interface Props {
@@ -84,8 +85,8 @@ const getMainCategory = (categoryStub: string): TCategoryDefinition | null => {
     return null;
   }
 
-  const [_, resourceMainCategoryInfo] = Object.entries(categories).find(
-    ([_, categoryInfo]) => {
+  const [, resourceMainCategoryInfo] = Object.entries(categories).find(
+    ([, categoryInfo]) => {
       const {
         mainCategory: { stub: mainCategoryStub },
       } = categoryInfo;

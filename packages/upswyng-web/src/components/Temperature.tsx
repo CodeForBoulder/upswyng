@@ -1,11 +1,10 @@
-import React from "react";
-
 import { Tooltip, Typography } from "@material-ui/core";
+import { colors, font } from "../App.styles";
+
 import { ErrorOutline as ErrorOutlineIcon } from "@material-ui/icons";
+import React from "react";
 import { Skeleton } from "@material-ui/lab";
 import styled from "styled-components";
-
-import { colors, font } from "../App.styles";
 import useTemperature from "./useTemperature";
 
 const StyledContainer = styled.aside`

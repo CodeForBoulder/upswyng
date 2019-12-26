@@ -30,6 +30,7 @@ module.exports = {
       },
     ],
     "react/display-name": ["off", { ignoreTranspilerName: true }],
+    "sort-imports": "error",
   },
   settings: {
     react: {

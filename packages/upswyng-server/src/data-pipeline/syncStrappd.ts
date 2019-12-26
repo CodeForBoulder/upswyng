@@ -1,10 +1,11 @@
-import { TLegacyResource } from "@upswyng/upswyng-types";
 import * as cliProgress from "cli-progress";
 import * as dotenv from "dotenv";
+
+import Resource from "../models/Resource";
+import { TLegacyResource } from "@upswyng/upswyng-types";
 import axios from "axios";
 import devalue from "devalue";
 import mongoose from "mongoose";
-import Resource from "../models/Resource";
 
 dotenv.config();
 

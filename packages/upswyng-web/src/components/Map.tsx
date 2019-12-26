@@ -1,16 +1,17 @@
 import { BikeIcon, BusIcon, CarIcon, CloseIcon, WalkIcon } from "./Icons";
-import { colors, font } from "../App.styles";
-import { TResource } from "@upswyng/upswyng-types";
+import IconButton, { IconButtonProps } from "@material-ui/core/IconButton";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import {
-  TGoogleMapTravelMode,
   TGoogleMapDirectionsStatusCode,
+  TGoogleMapTravelMode,
 } from "../webTypes";
+import { colors, font } from "../App.styles";
+
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import GoogleMapReact from "google-map-react";
-import IconButton, { IconButtonProps } from "@material-ui/core/IconButton";
 import LoadingSpinner from "./LoadingSpinner";
-import React, { FunctionComponent, useEffect, useState } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
+import { TResource } from "@upswyng/upswyng-types";
 import styled from "styled-components";
 
 const boulderCoordinates = {

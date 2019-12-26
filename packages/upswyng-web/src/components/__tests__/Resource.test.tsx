@@ -1,7 +1,7 @@
-import { shallow } from "enzyme";
 import React from "react";
-import { foodResource } from "../../DataMocks";
 import { Resource } from "../Resource";
+import { foodResource } from "../../DataMocks";
+import { shallow } from "enzyme";
 import useResource from "../useResource";
 
 jest.mock("../Categories", () => ({

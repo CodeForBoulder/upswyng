@@ -1,14 +1,15 @@
 import {
-  TextInput,
   Platform,
+  TextInput,
   TouchableNativeFeedback,
   TouchableOpacity,
   View,
 } from "react-native";
+
+import CloseIcon from "../icons/Close";
+import React from "react";
 import SearchIcon from "../icons/Search";
 import { colors } from "../App.styles";
-import React from "react";
-import CloseIcon from "../icons/Close";
 
 const Touchable = (Platform.OS === "android"
   ? TouchableNativeFeedback

@@ -1,10 +1,11 @@
 import Resource, {
-  resourceDocumentToResource,
   TResourceDocument,
+  resourceDocumentToResource,
 } from "../../../models/Resource";
+
 import { ObjectId } from "bson";
-import { isAdmin } from "../../../utility/authHelpers";
 import { TResource } from "@upswyng/upswyng-types";
+import { isAdmin } from "../../../utility/authHelpers";
 
 export async function get(req, res, _next) {
   const { resourceId } = req.params;

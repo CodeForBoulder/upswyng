@@ -1,7 +1,8 @@
-import { requireAdmin } from "../../utility/authHelpers";
 import EventLog, {
   eventLogDocumentToEventLogData,
 } from "../../models/EventLog";
+
+import { requireAdmin } from "../../utility/authHelpers";
 
 /**
  * API endpoint to get a list of Event Logs. Ordered from newest to oldest.

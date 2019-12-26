@@ -1,13 +1,14 @@
-import React from "react";
-import { colors } from "../App.styles";
 import {
   Platform,
   TouchableNativeFeedback,
   TouchableOpacity,
   View,
 } from "react-native";
-import { RegularText } from "./UpText";
 import { RouteComponentProps, withRouter } from "react-router";
+
+import React from "react";
+import { RegularText } from "./UpText";
+import { colors } from "../App.styles";
 
 interface Props extends RouteComponentProps {
   buttonColor: string;

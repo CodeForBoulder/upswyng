@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Grid from "@material-ui/core/Grid";
-import MenuIcon from "@material-ui/icons/Menu";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-
-import Logo from "./Logo";
-import Temperature from "./Temperature";
-import MenuDrawer from "./MenuDrawer";
 import { Container, font } from "../App.styles";
+import React, { useState } from "react";
+
+import AppBar from "@material-ui/core/AppBar";
+import Grid from "@material-ui/core/Grid";
+import IconButton from "@material-ui/core/IconButton";
+import { Link } from "react-router-dom";
+import Logo from "./Logo";
+import MenuDrawer from "./MenuDrawer";
+import MenuIcon from "@material-ui/icons/Menu";
+import Temperature from "./Temperature";
+import Toolbar from "@material-ui/core/Toolbar";
+import styled from "styled-components";
 
 const StyledHeader = styled(AppBar)`
   && {

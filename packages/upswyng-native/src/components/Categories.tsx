@@ -1,7 +1,7 @@
-import { colors } from "../App.styles";
-import { TResourceCategory } from "../nativeTypes";
 import CategoryResults from "./CategoryResults";
 import React from "react";
+import { TResourceCategory } from "../nativeTypes";
+import { colors } from "../App.styles";
 
 interface TCategory {
   mainCategory: TResourceCategory;

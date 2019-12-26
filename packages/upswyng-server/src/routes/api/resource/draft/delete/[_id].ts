@@ -2,10 +2,11 @@ import {
   DraftResource,
   TResourceDocument,
 } from "../../../../../models/Resource";
-import { ObjectId } from "bson";
-import { requireAdmin } from "../../../../../utility/authHelpers";
-import { TUser } from "@upswyng/upswyng-types";
+
 import EventLog from "../../../../../models/EventLog";
+import { ObjectId } from "bson";
+import { TUser } from "@upswyng/upswyng-types";
+import { requireAdmin } from "../../../../../utility/authHelpers";
 
 export async function post(req, res, next) {
   let user: TUser;

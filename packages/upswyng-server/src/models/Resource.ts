@@ -1,3 +1,18 @@
+import ResourceIssue, { TResourceIssueDocument } from "./ResourceIssue";
+import {
+  TAddress,
+  TLegacyResource,
+  TResource,
+  TResourceScheduleData,
+  TSubcategory,
+} from "@upswyng/upswyng-types";
+import {
+  TSubcategoryDocument,
+  subcategoryDocumentToSubcategory,
+} from "./Subcategory";
+import { TUserDocument, userDocumentToUser } from "./User";
+import mongoose, { Document, Schema } from "mongoose";
+
 /**
  * Schema, accessor methods, and mutation methods for an entity which
  * represents a resource for a person experiencing homelessness. Users of
@@ -6,23 +21,9 @@
  */
 import { ObjectId } from "bson";
 import { ResourceSchedule } from "@upswyng/upswyng-core";
-import {
-  TLegacyResource,
-  TAddress,
-  TSubcategory,
-  TResource,
-  TResourceScheduleData,
-} from "@upswyng/upswyng-types";
-import { userDocumentToUser, TUserDocument } from "./User";
-import {
-  TSubcategoryDocument,
-  subcategoryDocumentToSubcategory,
-} from "./Subcategory";
 import { TTimezoneName } from "@upswyng/upswyng-types";
 import convertLegacyScheduleToResourceSchedule from "../utility/convertLegacyScheduleToResourceSchedule";
-import mongoose, { Document, Schema } from "mongoose";
 import removeUndefinedFields from "../utility/removeUndefinedFields";
-import ResourceIssue, { TResourceIssueDocument } from "./ResourceIssue";
 
 export interface TResourceDocument extends Document {
   _id: ObjectId; // this is the mongodb id of the record

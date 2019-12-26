@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { TResourceCategory } from "../nativeTypes";
-import useSearchResults from "../useSearchResults";
-import { View } from "react-native";
+
 import CategoryBanner from "./CategoryBanner";
-import SubCategories from "./SubCategories";
 import SearchResults from "./SearchResults";
+import SubCategories from "./SubCategories";
+import { TResourceCategory } from "../nativeTypes";
+import { View } from "react-native";
+import useSearchResults from "../useSearchResults";
 
 interface Props {
   category: TResourceCategory;

@@ -1,9 +1,8 @@
-import { font } from "../App.styles";
-import { TDay, TSchedule, TResourceScheduleData } from "@upswyng/upswyng-types";
-import React from "react";
-import styled from "styled-components";
 import { ResourceSchedule, TScheduleItem } from "@upswyng/upswyng-core";
+
 import { RRule } from "rrule";
+import React from "react";
+import { TResourceScheduleData } from "@upswyng/upswyng-types";
 
 interface ScheduleProps {
   schedule: TResourceScheduleData;
@@ -19,6 +18,8 @@ const dayToCode = {
   saturday: "SA",
 };
 
+// TODO (rhinodavid): Remove these render functions
+/*
 const WeeklyContainer = styled.div`
   display: flex;
 `;
@@ -95,6 +96,7 @@ const renderMonthlySchedule = (schedule: TSchedule[]) =>
     }
     return null;
   });
+  */
 
 const WeeklySchedule = ({ items }: { items: TScheduleItem[] }) => {
   const dayItemsMap = Object.keys(dayToCode).map(day => {

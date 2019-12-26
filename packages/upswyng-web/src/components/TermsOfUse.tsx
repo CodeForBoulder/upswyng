@@ -1,7 +1,7 @@
-import React from "react";
-
 import { Container, colors } from "../App.styles";
+
 import PageBanner from "./PageBanner";
+import React from "react";
 
 const TermsOfUse = () => (
   <Container>

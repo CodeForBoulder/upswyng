@@ -1,7 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useEffect } from "react";
-import algoliaSearch from "algoliasearch";
+import { useEffect, useState } from "react";
+
 import { TEnvVariables } from "../webTypes";
+import algoliaSearch from "algoliasearch";
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 declare const process: TEnvVariables;
 

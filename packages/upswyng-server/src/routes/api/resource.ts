@@ -1,6 +1,6 @@
+import { TUser } from "@upswyng/upswyng-types";
 import { createDraftResource } from "../../models/Utility";
 import { requireLoggedIn } from "../../utility/authHelpers";
-import { TUser } from "@upswyng/upswyng-types";
 
 /**
  * Creates a new draft resource. Resources and updates to resources

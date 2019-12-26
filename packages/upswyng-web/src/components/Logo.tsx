@@ -1,7 +1,6 @@
 import React from "react";
-
-import { colors } from "../App.styles";
 import { StyledComponentProps } from "@material-ui/core";
+import { colors } from "../App.styles";
 
 const Logo = (props: StyledComponentProps) => (
   <svg

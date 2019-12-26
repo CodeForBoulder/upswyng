@@ -1,6 +1,6 @@
 import { CircularProgress } from "@material-ui/core";
-import styled from "styled-components";
 import { colors } from "../App.styles";
+import styled from "styled-components";
 
 const LoadingSpinner = styled(CircularProgress)`
   && {

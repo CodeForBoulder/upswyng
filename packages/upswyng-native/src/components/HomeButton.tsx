@@ -1,16 +1,17 @@
-import React from "react";
-import { colors } from "../App.styles";
 import {
+  Linking,
   Platform,
+  StyleSheet,
   TouchableNativeFeedback,
   TouchableOpacity,
-  StyleSheet,
   View,
-  Linking,
 } from "react-native";
+import { RouteComponentProps, withRouter } from "react-router-native";
+
 import { BoldText } from "./UpText";
+import React from "react";
 import { TIconProps } from "../nativeTypes";
-import { withRouter, RouteComponentProps } from "react-router-native";
+import { colors } from "../App.styles";
 
 interface HomeButtonProps extends RouteComponentProps {
   buttonColor: string;

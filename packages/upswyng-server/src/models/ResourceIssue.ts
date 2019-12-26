@@ -1,13 +1,14 @@
+import {
+  TResourceIssueDetail,
+  TResourceIssueKind,
+} from "@upswyng/upswyng-types";
+import mongoose, { Document, Schema } from "mongoose";
+
 import { ObjectId } from "bson";
 import Resource from "./Resource";
-import { TResourceIssue } from "@upswyng/upswyng-types";
-import mongoose, { Schema, Document } from "mongoose";
-import removeUndefinedFields from "../utility/removeUndefinedFields";
-import {
-  TResourceIssueKind,
-  TResourceIssueDetail,
-} from "@upswyng/upswyng-types";
 import { ResourceIssueKind } from "@upswyng/upswyng-types";
+import { TResourceIssue } from "@upswyng/upswyng-types";
+import removeUndefinedFields from "../utility/removeUndefinedFields";
 
 export interface TResourceIssueDocument extends Document {
   _id: ObjectId;

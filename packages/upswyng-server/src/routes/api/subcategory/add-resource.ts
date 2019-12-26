@@ -1,7 +1,7 @@
-import { addResourceToSubcategory } from "../../../models/Utility";
 import { ObjectId } from "bson";
-import { requireAdmin } from "../../../utility/authHelpers";
 import Resource from "../../../models/Resource";
+import { addResourceToSubcategory } from "../../../models/Utility";
+import { requireAdmin } from "../../../utility/authHelpers";
 
 /**
  * Add a resource to a subcategory. The body of the post request should have the form of:

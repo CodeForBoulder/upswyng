@@ -1,14 +1,15 @@
-import React from "react";
-import { colors } from "../App.styles";
-import ArrowBackIcon from "../icons/ArrowBack";
-import { RegularText } from "./UpText";
-import { RouteComponentProps, withRouter } from "react-router-native";
 import {
   Platform,
   TouchableNativeFeedback,
   TouchableOpacity,
   View,
 } from "react-native";
+import { RouteComponentProps, withRouter } from "react-router-native";
+
+import ArrowBackIcon from "../icons/ArrowBack";
+import React from "react";
+import { RegularText } from "./UpText";
+import { colors } from "../App.styles";
 
 interface Props extends RouteComponentProps {
   color?: string;

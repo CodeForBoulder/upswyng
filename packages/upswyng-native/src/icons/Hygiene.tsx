@@ -1,6 +1,7 @@
-import { TIconProps } from "../nativeTypes";
-import React from "react";
 import Svg, { Path } from "react-native-svg";
+
+import React from "react";
+import { TIconProps } from "../nativeTypes";
 
 export default class Hygiene extends React.Component<TIconProps> {
   render() {

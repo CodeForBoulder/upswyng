@@ -1,9 +1,10 @@
+import { BoldText, RegularText } from "./UpText";
+
+import AddIcon from "../icons/Add";
+import { Link } from "react-router-native";
 import React from "react";
 import { View } from "react-native";
 import { colors } from "../App.styles";
-import { RegularText, BoldText } from "./UpText";
-import AddIcon from "../icons/Add";
-import { Link } from "react-router-native";
 
 interface Props {
   resourceId: string;

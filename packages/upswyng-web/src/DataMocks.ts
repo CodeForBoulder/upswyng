@@ -1,5 +1,5 @@
-import { TResource } from "@upswyng/upswyng-types";
 import { ResourceSchedule } from "@upswyng/upswyng-core";
+import { TResource } from "@upswyng/upswyng-types";
 
 export const blankResource: TResource = {
   _id: "",

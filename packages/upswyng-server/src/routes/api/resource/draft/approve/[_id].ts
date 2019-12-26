@@ -3,12 +3,13 @@ import {
   TResourceDocument,
   resourceDocumentToResource,
 } from "../../../../../models/Resource";
-import { ObjectId } from "bson";
-import { createOrUpdateResourceFromDraft } from "../../../../../models/Utility";
-import { TUser } from "@upswyng/upswyng-types";
-import { requireAdmin } from "../../../../../utility/authHelpers";
+
 import EventLog from "../../../../../models/EventLog";
+import { ObjectId } from "bson";
+import { TUser } from "@upswyng/upswyng-types";
+import { createOrUpdateResourceFromDraft } from "../../../../../models/Utility";
 import diffResources from "../../../../../utility/diffResources";
+import { requireAdmin } from "../../../../../utility/authHelpers";
 
 export async function post(req, res, next) {
   const { _id } = req.params; // _id of resource to be approved

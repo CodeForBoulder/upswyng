@@ -1,8 +1,9 @@
-import { requireAdmin } from "../../../../utility/authHelpers";
-import { ObjectId } from "bson";
 import ResourceIssue, {
   TResourceIssueDocument,
 } from "../../../../models/ResourceIssue";
+
+import { ObjectId } from "bson";
+import { requireAdmin } from "../../../../utility/authHelpers";
 
 export async function setResolved(resolved: boolean, req, res, next) {
   try {
