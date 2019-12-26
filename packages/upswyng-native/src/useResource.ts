@@ -1,8 +1,8 @@
 import { TLegacyResource } from "@upswyng/upswyng-types";
 import { useState, useEffect } from "react";
-import firebase from "./firebase";
 
 /**
+ * TODO (rhinodavid): I removed firebase so this won't work until we make it depend on the server
  * Hook which provides a Resource record from Firebase
  *
  * @example
@@ -18,28 +18,8 @@ import firebase from "./firebase";
  *   );
  * };
  */
-function useResource(dataPath: string): TLegacyResource | null {
-  const [resource, setResource] = useState(null);
-  useEffect(() => {
-    const firebaseRef = firebase.database().ref(dataPath);
-    const firebaseCallback = firebaseRef.on("value", snapshot => {
-      if (!snapshot) {
-        throw new Error("No data was provided by the backend");
-      }
-      setResource(snapshot.val());
-    });
-    return () => {
-      firebaseCallback &&
-        firebaseRef &&
-        firebaseRef.off(
-          "value",
-          firebaseCallback as (
-            a: firebase.database.DataSnapshot,
-            b?: string | null
-          ) => unknown
-        );
-    };
-  }, [dataPath]);
+function useResource(_dataPath: string): TLegacyResource | null {
+  const [resource, _setResource] = useState(null);
 
   return resource;
 }

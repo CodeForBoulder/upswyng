@@ -25,7 +25,6 @@
     "express-session": "^1.16.2",
     "fast-deep-equal": "^2.0.1",
     "fast-equals": "^2.0.0",
-    "firebase": "^5.8.4",
     "grant": "^4.6.2",
     "grant-express": "^4.6.2",
     "grant-oidc": "0.0.3",

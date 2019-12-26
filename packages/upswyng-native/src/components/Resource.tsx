@@ -1,6 +1,5 @@
 import { BoldText, RegularText } from "./UpText";
 import { colors } from "../App.styles";
-import { FIREBASE_RESOURCE_BRANCH } from "../constants";
 import { orderSchedule } from "../utility/schedule";
 import { TLegacyResource, TLegacySchedule } from "@upswyng/upswyng-types";
 import { View, ActivityIndicator, ScrollView } from "react-native";
@@ -27,7 +26,7 @@ const Body = (props: { children: React.ReactChild }) => (
 
 export const Resource = (props: Props) => {
   const id = props.match.params.id;
-  const resourceDataRef = `${FIREBASE_RESOURCE_BRANCH}/${id}`;
+  const resourceDataRef = `/${id}`; // TODO (rhinodavid): Fix this up (having removed firebase)
   const resource: TLegacyResource | null = useResource(resourceDataRef);
 
   if (!resource) {
