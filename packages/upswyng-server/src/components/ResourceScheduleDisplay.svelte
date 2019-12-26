@@ -2,7 +2,13 @@
   import ScheduleSelectorScheduleItem from "./ScheduleSelectorScheduleItem.svelte";
   import { ResourceSchedule } from "@upswyng/upswyng-core";
 
-  export let schedule; /* TResourceScheduleData */
+  export let schedule; /* TResourceScheduleData | ResourceSchedule */
+
+  $: {
+    if (!(schedule instanceof ResourceSchedule)) {
+      schedule = ResourceSchedule.parse(schedule);
+    }
+  }
 </script>
 
 <div class="content">

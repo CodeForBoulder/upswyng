@@ -161,6 +161,13 @@ export async function createOrUpdateResourceFromDraft(
   const existingResource = await Resource.findOne({
     resourceId: (draftResource as TResource).resourceId,
   }).populate("subcategories");
+  console.log("existing", existingResource);
+  const resourceBeforeEdits: TResourceDocument | null = existingResource
+    ? new Resource(
+        resourceToSchema(resourceDocumentToResource(existingResource))
+      )
+    : null;
+  console.log(resourceBeforeEdits);
   if (existingResource) {
     // update an existing resource
     const updateObject = diffResources(
@@ -219,5 +226,5 @@ export async function createOrUpdateResourceFromDraft(
       )
     );
   }
-  return existingResource;
+  return resourceBeforeEdits;
 }

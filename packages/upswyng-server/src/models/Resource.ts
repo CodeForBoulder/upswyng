@@ -56,11 +56,12 @@ export const resourceDocumentToResource = (
   if (r.toObject) {
     r = r.toObject();
   } else {
-    console.warn(
-      `\`resourceDocumentToResource\` received resource which does not appear to be a Mongoose Document [${Object.keys(
-        r
-      )}]:\n${JSON.stringify(r, null, 2)}`
-    );
+    // TODO (rhinodavid): Log formally or remove commented code
+    // console.warn(
+    //   `\`resourceDocumentToResource\` received resource which does not appear to be a Mongoose Document [${Object.keys(
+    //     r
+    //   )}]:\n${JSON.stringify(r, null, 2)}`
+    // );
   }
   const result = {
     _id: r._id.toHexString(),
