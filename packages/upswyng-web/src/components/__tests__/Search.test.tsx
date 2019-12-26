@@ -1,7 +1,7 @@
 import React from "react";
-import { shallow } from "enzyme";
 import Search from "../Search";
 import { getSearchParamVal } from "../../utils/searchParams";
+import { shallow } from "enzyme";
 
 const mockedGetSearchParamVal = getSearchParamVal as jest.Mock;
 jest.mock("../../utils/searchParams", () => ({

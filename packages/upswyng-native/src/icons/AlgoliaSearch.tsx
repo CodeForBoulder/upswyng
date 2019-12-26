@@ -1,6 +1,7 @@
+import Svg, { G, Path } from "react-native-svg";
+
 import React from "react";
 import { colors } from "../App.styles";
-import Svg, { Path, G } from "react-native-svg";
 
 const AlgoliaBadge = () => (
   <Svg width="168" height="24" aria-label="Search by Algolia">

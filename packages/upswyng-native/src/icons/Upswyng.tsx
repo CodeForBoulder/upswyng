@@ -1,5 +1,6 @@
-import React from "react";
 import Svg, { G, Path, Polygon } from "react-native-svg";
+
+import React from "react";
 import { colors } from "../App.styles";
 
 const Logo = () => (

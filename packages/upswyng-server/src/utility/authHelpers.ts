@@ -1,5 +1,5 @@
-import getUserFromRawUsers from "./getUserFromRawUsers";
 import { TUser } from "@upswyng/upswyng-types";
+import getUserFromRawUsers from "./getUserFromRawUsers";
 
 export function isAdmin(req): boolean {
   const user = getUserFromRawUsers(req);

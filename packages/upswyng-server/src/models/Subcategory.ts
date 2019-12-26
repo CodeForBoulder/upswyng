@@ -1,8 +1,9 @@
-import { ObjectId } from "bson";
 import { TCategoryDocument, categoryDocumentToCategory } from "./Category";
 import { TResourceDocument, resourceDocumentToResource } from "./Resource";
+import mongoose, { Document, Schema } from "mongoose";
+
+import { ObjectId } from "bson";
 import { TSubcategory } from "@upswyng/upswyng-types";
-import mongoose, { Schema, Document } from "mongoose";
 import removeUndefinedFields from "../utility/removeUndefinedFields";
 
 export interface TSubcategoryDocument extends Document {

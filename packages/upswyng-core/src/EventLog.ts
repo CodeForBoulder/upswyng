@@ -1,4 +1,4 @@
-import { TUser, TEventLogDetail, TEventLogData } from "@upswyng/upswyng-types";
+import { TEventLogData, TEventLogDetail, TUser } from "@upswyng/upswyng-types";
 
 function assertUnreachable(_x: never): never {
   throw new Error("Didn't expect to get here");

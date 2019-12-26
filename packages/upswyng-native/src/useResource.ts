@@ -1,5 +1,5 @@
 import { TLegacyResource } from "@upswyng/upswyng-types";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 /**
  * TODO (rhinodavid): I removed firebase so this won't work until we make it depend on the server
@@ -19,7 +19,7 @@ import { useState, useEffect } from "react";
  * };
  */
 function useResource(_dataPath: string): TLegacyResource | null {
-  const [resource, _setResource] = useState(null);
+  const [resource] = useState(null);
 
   return resource;
 }

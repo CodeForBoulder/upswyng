@@ -1,9 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-
 import { Container, colors, font } from "../App.styles";
+
 import Logo from "./Logo";
 import PageBanner from "./PageBanner";
+import React from "react";
+import styled from "styled-components";
 
 const StyledLogo = styled(Logo)`
   display: block;

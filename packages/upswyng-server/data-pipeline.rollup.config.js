@@ -1,9 +1,10 @@
+import { createEnv, readConfigFile } from "@pyoner/svelte-ts-preprocess";
+
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 import pkg from "./package.json";
-import typescript from "rollup-plugin-typescript2";
 import resolve from "@rollup/plugin-node-resolve";
-import { createEnv, readConfigFile } from "@pyoner/svelte-ts-preprocess";
+import typescript from "rollup-plugin-typescript2";
 
 const env = createEnv();
 const compilerOptions = readConfigFile(env, "./tsconfig.build.json");

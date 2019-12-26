@@ -1,6 +1,6 @@
-import { colors } from "../App.styles";
 import { StyleSheet, View } from "react-native";
 import { THomeButtonAnchor, THomeButtonRouterLink } from "../nativeTypes";
+
 import BananaIcon from "../icons/Banana";
 import BusinessCenterIcon from "../icons/BusinessCenter";
 import CallIcon from "../icons/Call";
@@ -14,6 +14,7 @@ import PeopleIcon from "../icons/People";
 import React from "react";
 import SocksIcon from "../icons/Socks";
 import WifiIcon from "../icons/Wifi";
+import { colors } from "../App.styles";
 
 const routerLinkButtons: THomeButtonRouterLink[] = [
   {

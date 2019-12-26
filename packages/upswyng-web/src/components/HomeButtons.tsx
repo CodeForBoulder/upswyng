@@ -1,5 +1,3 @@
-import React from "react";
-import { Grid } from "@material-ui/core";
 import {
   BananaIcon,
   BusIcon,
@@ -13,11 +11,14 @@ import {
   SocksIcon,
   WifiIcon,
 } from "./Icons";
-import styled from "styled-components";
+import { HomeAnchorLink, HomeRouterLink } from "./HomeLink";
 import { THomeButtonAnchor, THomeButtonRouterLink } from "../webTypes";
-import { HomeRouterLink, HomeAnchorLink } from "./HomeLink";
+
+import { Grid } from "@material-ui/core";
 import HomeButton from "./HomeButton";
+import React from "react";
 import { colors } from "../App.styles";
+import styled from "styled-components";
 
 const routerLinkButtons: THomeButtonRouterLink[] = [
   {

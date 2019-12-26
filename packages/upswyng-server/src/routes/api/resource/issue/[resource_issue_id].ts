@@ -1,9 +1,10 @@
-import { requireAdmin } from "../../../../utility/authHelpers";
 import ResourceIssue, {
   TResourceIssueDocument,
   resourceIssueDocumentToResourceIssue,
 } from "../../../../models/ResourceIssue";
+
 import { ObjectId } from "bson";
+import { requireAdmin } from "../../../../utility/authHelpers";
 
 export async function get(req, res, _next) {
   const { resource_issue_id: _id } = req.params;

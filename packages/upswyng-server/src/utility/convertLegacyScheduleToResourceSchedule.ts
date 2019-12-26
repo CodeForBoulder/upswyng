@@ -1,5 +1,6 @@
-import { TLegacySchedule, TDay, TTimezoneName } from "@upswyng/upswyng-types";
 import { ResourceSchedule, Time } from "@upswyng/upswyng-core";
+import { TDay, TLegacySchedule, TTimezoneName } from "@upswyng/upswyng-types";
+
 import RRule from "rrule";
 
 const dayToCode = {

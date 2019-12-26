@@ -1,13 +1,14 @@
-import { ObjectId } from "bson";
-import mongoose, { Schema, Document } from "mongoose";
-import removeUndefinedFields from "../utility/removeUndefinedFields";
 import {
   EventLogKind,
   TEventLogData,
-  TEventLogKind,
   TEventLogDetail,
+  TEventLogKind,
 } from "@upswyng/upswyng-types";
 import { TUserDocument, userDocumentToUser } from "./User";
+import mongoose, { Document, Schema } from "mongoose";
+
+import { ObjectId } from "bson";
+import removeUndefinedFields from "../utility/removeUndefinedFields";
 
 export interface TEventLogDocument extends Document {
   _id: ObjectId;

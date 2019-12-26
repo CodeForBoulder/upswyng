@@ -1,6 +1,6 @@
 import Subcategory, {
-  subcategoryDocumentToSubcategory,
   TSubcategoryDocument,
+  subcategoryDocumentToSubcategory,
 } from "../../../models/Subcategory";
 import { TSubcategory } from "@upswyng/upswyng-types";
 

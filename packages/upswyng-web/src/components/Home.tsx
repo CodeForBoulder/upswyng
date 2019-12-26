@@ -1,10 +1,11 @@
-import React from "react";
-import { Grid } from "@material-ui/core";
-import styled from "styled-components";
-import HomeButtons from "./HomeButtons";
 import { Container, font } from "../App.styles";
-import SearchInput from "./SearchInput";
+
 import AlgoliaBadge from "./AlgoliaBadge";
+import { Grid } from "@material-ui/core";
+import HomeButtons from "./HomeButtons";
+import React from "react";
+import SearchInput from "./SearchInput";
+import styled from "styled-components";
 
 const HomeButtonsContainer = styled(Grid)`
   && {

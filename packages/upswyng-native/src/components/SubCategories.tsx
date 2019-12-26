@@ -1,7 +1,8 @@
-import { ScrollView, View } from "react-native";
-import { TResourceCategory } from "../nativeTypes";
 import React, { useState } from "react";
+import { ScrollView, View } from "react-native";
+
 import SubCategoryButton from "./SubCategoryButton";
+import { TResourceCategory } from "../nativeTypes";
 
 interface Props {
   category: TResourceCategory;

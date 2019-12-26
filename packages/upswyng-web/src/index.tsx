@@ -1,11 +1,12 @@
+import "./index.css";
+
+import * as serviceWorker from "./serviceWorker";
+
+import App from "./App";
 import React from "react";
 import ReactDOM from "react-dom";
-import TagManager from "react-gtm-module";
-
-import "./index.css";
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
 import { TEnvVariables } from "./webTypes";
+import TagManager from "react-gtm-module";
 
 declare const process: TEnvVariables;
 

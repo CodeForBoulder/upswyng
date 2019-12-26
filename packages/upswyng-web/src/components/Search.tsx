@@ -1,11 +1,10 @@
+import BannerColorContext from "./BannerColorContext";
+import { Container } from "../App.styles";
 import React from "react";
-
-import useSearchResults from "./useSearchResults";
-import { getSearchParamVal } from "../utils/searchParams";
 import { SEARCH_PARAM_QUERY } from "../constants";
 import SearchResults from "./SearchResults";
-import { Container } from "../App.styles";
-import BannerColorContext from "./BannerColorContext";
+import { getSearchParamVal } from "../utils/searchParams";
+import useSearchResults from "./useSearchResults";
 
 const Search = () => {
   const searchQuery = getSearchParamVal(SEARCH_PARAM_QUERY);

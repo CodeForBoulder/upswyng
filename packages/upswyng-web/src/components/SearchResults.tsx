@@ -1,6 +1,6 @@
-import { Response } from "algoliasearch";
 import React from "react";
 import ResourceList from "./ResourceList";
+import { Response } from "algoliasearch";
 
 interface Props {
   placeholder?: React.ReactElement;

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Text } from "react-native";
-import * as Font from "expo-font";
+import React from "react";
 import { StyleSheet } from "react-native";
+import { Text } from "react-native";
 
 interface TUpTextProps<
   T extends StyleSheet.NamedStyles<T> | StyleSheet.NamedStyles<any>

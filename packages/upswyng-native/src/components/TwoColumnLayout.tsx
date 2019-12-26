@@ -1,11 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
-
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: "row",
-  },
-});
+import { View } from "react-native";
 
 function TwoColumnLayout<T extends JSX.Element>(props: { items: T[] }) {
   return (

@@ -1,13 +1,14 @@
-import { ObjectId } from "bson";
-import { TSubcategory, TNewResource, TResource } from "@upswyng/upswyng-types";
-import dr from "../utility/diffResources";
 import Resource, {
-  resourceToSchema,
-  resourceDocumentToResource,
-  TResourceDocument,
   DraftResource,
+  TResourceDocument,
+  resourceDocumentToResource,
+  resourceToSchema,
 } from "./Resource";
 import Subcategory, { TSubcategoryDocument } from "./Subcategory";
+import { TNewResource, TResource, TSubcategory } from "@upswyng/upswyng-types";
+
+import { ObjectId } from "bson";
+import dr from "../utility/diffResources";
 
 export const diffResources = dr;
 

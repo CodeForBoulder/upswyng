@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-
 import { TEnvVariables, TWeatherCurrentResponse } from "../webTypes";
+import { useEffect, useState } from "react";
+
+import axios from "axios";
 
 declare const process: TEnvVariables;
 
 const GET_TEMP_INTERVAL_MS = 600000;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const convertCelsiusToFarenheit = (cTemp: number): number =>
   cTemp * (9 / 5) + 32;
 

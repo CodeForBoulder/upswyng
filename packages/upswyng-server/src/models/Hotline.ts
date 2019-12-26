@@ -1,6 +1,7 @@
+import mongoose, { Document, Schema } from "mongoose";
+
 import { ObjectId } from "bson";
 import { THotline } from "@upswyng/upswyng-types";
-import mongoose, { Schema, Document } from "mongoose";
 import removeUndefinedFields from "../utility/removeUndefinedFields";
 
 export interface THotlineDocument extends Document {

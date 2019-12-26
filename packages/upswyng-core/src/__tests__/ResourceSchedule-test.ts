@@ -1,5 +1,6 @@
-import ResourceSchedule from "../ResourceSchedule";
 import RRule, { RRuleSet } from "rrule";
+
+import ResourceSchedule from "../ResourceSchedule";
 import Time from "../Time";
 
 describe("ResourceSchedule", () => {

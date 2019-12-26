@@ -1,9 +1,9 @@
+import { Container, colors } from "../App.styles";
+
+import { Link } from "react-router-dom";
+import PageBanner from "./PageBanner";
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-
-import { Container, colors } from "../App.styles";
-import PageBanner from "./PageBanner";
 
 const LowerAlphaList = styled.ol`
   list-style-type: lower-alpha;

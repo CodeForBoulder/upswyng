@@ -1,6 +1,6 @@
-import { shallow } from "enzyme";
-import React from "react";
 import Home from "../Home";
+import React from "react";
+import { shallow } from "enzyme";
 
 jest.mock("react-router-dom/Link");
 jest.mock("@material-ui/core/Button", () => "button-material-ui");

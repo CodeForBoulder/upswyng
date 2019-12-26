@@ -2,9 +2,10 @@
  * Takes grant information supplied by the grant middleware and converts it into User information
  */
 
-import axios from "axios";
 import User, { userDocumentToUser } from "../models/User";
+
 import { TUser } from "@upswyng/upswyng-types";
+import axios from "axios";
 interface TGrantGoogle {
   provider: "google";
   state: "string";

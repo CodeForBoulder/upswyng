@@ -1,7 +1,8 @@
-import React from "react";
-import styled from "styled-components";
 import { Checkbox, FormControlLabel } from "@material-ui/core";
 import { colors, font } from "../App.styles";
+
+import React from "react";
+import styled from "styled-components";
 
 interface CheckboxInputProps {
   checked: boolean;

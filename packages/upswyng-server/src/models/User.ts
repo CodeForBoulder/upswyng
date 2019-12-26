@@ -1,6 +1,7 @@
+import mongoose, { Document, Schema } from "mongoose";
+
 import { ObjectId } from "bson";
 import { TUser } from "@upswyng/upswyng-types";
-import mongoose, { Document, Schema } from "mongoose";
 import removeUndefinedFields from "../utility/removeUndefinedFields";
 
 export interface TUserDocument extends Document {

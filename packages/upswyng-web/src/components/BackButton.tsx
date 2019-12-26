@@ -1,10 +1,10 @@
-import React from "react";
 import { Icon, Typography } from "@material-ui/core";
-import { ArrowBack } from "@material-ui/icons";
-import { createBrowserHistory } from "history";
-import styled from "styled-components";
 
+import { ArrowBack } from "@material-ui/icons";
+import React from "react";
+import { createBrowserHistory } from "history";
 import { font } from "../App.styles";
+import styled from "styled-components";
 
 const CategoryBannerLink = styled.a`
   align-items: center;

@@ -1,6 +1,7 @@
+import { useEffect, useState } from "react";
+
 import { TResource } from "@upswyng/upswyng-types";
 import { TResourcesByCategoryPayload } from "../webTypes";
-import { useEffect, useState } from "react";
 import apiClient from "../utils/apiClient";
 
 const useResourcesByCategory = (

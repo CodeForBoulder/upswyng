@@ -1,10 +1,11 @@
-import { colors } from "../App.styles";
-import { TSearchHit } from "../useSearchResults";
-import { View, ScrollView, ActivityIndicator } from "react-native";
+import { ActivityIndicator, ScrollView, View } from "react-native";
+
+import { BoldText } from "./UpText";
 import React from "react";
 import ResourceCard from "./ResourceCard";
+import { TSearchHit } from "../useSearchResults";
 import TwoColumnLayout from "./TwoColumnLayout";
-import { BoldText } from "./UpText";
+import { colors } from "../App.styles";
 
 const ResourceGrid = (props: { resources: TSearchHit[] }) => {
   const items = props.resources

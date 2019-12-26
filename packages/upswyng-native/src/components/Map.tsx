@@ -1,9 +1,10 @@
-import { colors } from "../App.styles";
-import { RegularText, BoldText } from "./UpText";
+import { BoldText, RegularText } from "./UpText";
+import MapView, { Callout, Marker } from "react-native-maps";
+
+import React from "react";
 import { TLegacyResource } from "@upswyng/upswyng-types";
 import { View } from "react-native";
-import MapView, { Marker, Callout } from "react-native-maps";
-import React from "react";
+import { colors } from "../App.styles";
 
 class Map extends React.Component<{ resource: TLegacyResource }> {
   render() {

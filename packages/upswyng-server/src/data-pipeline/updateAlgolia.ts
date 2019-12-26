@@ -1,7 +1,9 @@
 import * as dotenv from "dotenv";
+
+import Resource, { resourceDocumentToResource } from "../models/Resource";
+
 import algoliaSearch from "algoliasearch";
 import mongoose from "mongoose";
-import Resource, { resourceDocumentToResource } from "../models/Resource";
 
 dotenv.config();
 

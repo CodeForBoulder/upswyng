@@ -1,6 +1,7 @@
 import { RRule, RRuleSet } from "rrule";
+import { TResourceScheduleData, TTimezoneName } from "@upswyng/upswyng-types";
+
 import Time from "./Time";
-import { TTimezoneName, TResourceScheduleData } from "@upswyng/upswyng-types";
 import momentTimezone from "moment-timezone";
 
 const { tz } = momentTimezone;

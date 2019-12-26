@@ -1,8 +1,7 @@
-import React from "react";
 import {
-  Close,
   BusinessCenter,
   Call,
+  Close,
   DirectionsBike,
   DirectionsBus,
   DirectionsCar,
@@ -16,11 +15,13 @@ import {
   Policy,
   Wifi,
 } from "@material-ui/icons";
-import { SvgIconProps } from "@material-ui/core/SvgIcon";
+
 import { default as Banana } from "./BananaIcon";
 import { default as Door } from "./DoorIcon";
 import { default as Hygiene } from "./HygieneIcon";
+import React from "react";
 import { default as Socks } from "./SocksIcon";
+import { SvgIconProps } from "@material-ui/core/SvgIcon";
 
 export const BananaIcon: React.ReactElement<SvgIconProps> = <Banana />;
 export const BikeIcon: React.ReactElement<SvgIconProps> = <DirectionsBike />;

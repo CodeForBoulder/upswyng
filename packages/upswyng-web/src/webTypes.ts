@@ -1,6 +1,7 @@
-import { SvgIconProps } from "@material-ui/core/SvgIcon";
-import { LinkProps } from "react-router-dom";
 import { TCategory, TResource, TSubcategory } from "@upswyng/upswyng-types";
+
+import { LinkProps } from "react-router-dom";
+import { SvgIconProps } from "@material-ui/core/SvgIcon";
 
 export interface TEnvVariables {
   env: {

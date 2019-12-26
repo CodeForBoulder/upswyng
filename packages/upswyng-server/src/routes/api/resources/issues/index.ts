@@ -1,7 +1,8 @@
-import { requireAdmin } from "../../../../utility/authHelpers";
 import ResourceIssue, {
   resourceIssueDocumentToResourceIssue,
 } from "../../../../models/ResourceIssue";
+
+import { requireAdmin } from "../../../../utility/authHelpers";
 
 /**
  * API endpoint to get a list of Resource Issues. Request body should have the following options:
@@ -19,7 +20,7 @@ import ResourceIssue, {
  *   resourceIssues: TResourceIssue[], // Resource Issues which match the query
  * }
  */
-export async function post(req, res, next) {
+export async function post(req, res, _next) {
   try {
     requireAdmin(req);
   } catch {

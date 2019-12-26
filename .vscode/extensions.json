@@ -1,11 +1,11 @@
 {
   "recommendations": [
+    "amatiasq.sort-imports",
     "ardenivanov.svelte-intellisense",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "jamesbirtles.svelte-vscode",
     "msjsdiag.debugger-for-chrome",
-    "nsoult.typescript-imports-sort",
     "orta.vscode-jest"
   ],
   "unwantedRecommendations": []

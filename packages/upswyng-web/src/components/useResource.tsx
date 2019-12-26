@@ -1,6 +1,7 @@
+import { useEffect, useState } from "react";
+
 import { TResource } from "@upswyng/upswyng-types";
 import { TResourcePayload } from "../webTypes";
-import { useEffect, useState } from "react";
 import axios from "axios";
 
 let serverUri = process.env.REACT_APP_SERVER_URI || "http://localhost:3000";

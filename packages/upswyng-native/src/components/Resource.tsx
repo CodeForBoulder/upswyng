@@ -1,11 +1,12 @@
+import { ActivityIndicator, ScrollView, View } from "react-native";
 import { BoldText, RegularText } from "./UpText";
-import { colors } from "../App.styles";
-import { orderSchedule } from "../utility/schedule";
+import { RouteComponentProps, withRouter } from "react-router-native";
 import { TLegacyResource, TLegacySchedule } from "@upswyng/upswyng-types";
-import { View, ActivityIndicator, ScrollView } from "react-native";
-import { withRouter, RouteComponentProps } from "react-router-native";
+
 import Map from "./Map";
 import React from "react";
+import { colors } from "../App.styles";
+import { orderSchedule } from "../utility/schedule";
 import useResource from "../useResource";
 
 interface Props extends RouteComponentProps<{ id: string }> {

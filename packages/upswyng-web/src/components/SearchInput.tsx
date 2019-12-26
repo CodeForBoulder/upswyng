@@ -1,11 +1,11 @@
-import React, { Component } from "react";
 import { InputAdornment, TextField } from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
-import { Redirect } from "react-router";
-import styled from "styled-components";
+import React, { Component } from "react";
+import { ScreenReaderOnly, colors, font } from "../App.styles";
 
+import { Redirect } from "react-router";
 import { SEARCH_PARAM_QUERY } from "../constants";
-import { colors, font, ScreenReaderOnly } from "../App.styles";
+import SearchIcon from "@material-ui/icons/Search";
+import styled from "styled-components";
 
 const SearchInput = styled(TextField)`
   && {

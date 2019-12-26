@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Route, BrowserRouter as Router } from "react-router-dom";
 
-import GlobalStyle from "./App.styles";
 import About from "./components/About";
 import { BannerColorContextProvider } from "./components/BannerColorContext";
 import Categories from "./components/Categories";
+import GlobalStyle from "./App.styles";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Hotlines from "./components/Hotlines";

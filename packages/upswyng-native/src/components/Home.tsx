@@ -1,14 +1,15 @@
-import React from "react";
+import { Linking, View } from "react-native";
+import { StyleSheet, TouchableWithoutFeedback } from "react-native";
+
+import AlgoliaSearchIcon from "../icons/AlgoliaSearch";
 import HomeButtons from "./HomeButtons";
 import HomeSearch from "./HomeSearchBar";
-import AlgoliaSearchIcon from "../icons/AlgoliaSearch";
-import debounce from "debounce";
+import React from "react";
+import SearchResults from "./SearchResults";
+import { TSearchHit } from "../useSearchResults";
 import algoliaSearch from "algoliasearch";
 import config from "../../config";
-import SearchResults from "./SearchResults";
-import { StyleSheet, TouchableWithoutFeedback } from "react-native";
-import { Linking, View } from "react-native";
-import { TSearchHit } from "../useSearchResults";
+import debounce from "debounce";
 
 const openAlgolia = () => {
   Linking.openURL("https://www.algolia.com");
