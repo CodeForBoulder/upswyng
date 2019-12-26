@@ -23,21 +23,22 @@ export function subcategoryDocumentToSubcategory(
   if (d.toObject) {
     s = d.toObject();
   } else {
-    console.warn(
-      `\`subcategoryDocumentToSubcategory\` received subcategory which does not appear to be a Mongoose Document [${Object.keys(
-        d
-      )}]:\n${JSON.stringify(d, null, 2)}`
-    );
-    if (d.hasOwnProperty("_bsontype")) {
-      console.warn("This appears to be an ObjectId");
-      console.trace();
-      return null;
-    }
-    if (Array.isArray(d)) {
-      console.warn("This appears to be an Array");
-      console.trace(d);
-      return null;
-    }
+    // Swallow for now
+    // console.warn(
+    //   `\`subcategoryDocumentToSubcategory\` received subcategory which does not appear to be a Mongoose Document [${Object.keys(
+    //     d
+    //   )}]:\n${JSON.stringify(d, null, 2)}`
+    // );
+    // if (d.hasOwnProperty("_bsontype")) {
+    //   console.warn("This appears to be an ObjectId");
+    //   console.trace();
+    //   return null;
+    // }
+    // if (Array.isArray(d)) {
+    //   console.warn("This appears to be an Array");
+    //   console.trace(d);
+    //   return null;
+    // }
   }
 
   let result: TSubcategory;
