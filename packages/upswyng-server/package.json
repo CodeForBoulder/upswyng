@@ -90,6 +90,6 @@
     "typescript": "^3.7.3"
   },
   "engines": {
-    "node": "11.15.x"
+    "node": "12.14.x"
   }
 }
