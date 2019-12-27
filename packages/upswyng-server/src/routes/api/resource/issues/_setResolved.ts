@@ -1,11 +1,14 @@
+import EventLog, {
+  eventLogDocumentToEventLog,
+} from "../../../../models/EventLog";
 import ResourceIssue, {
   TResourceIssueDocument,
 } from "../../../../models/ResourceIssue";
 import { TEventLogKind, TUser } from "@upswyng/upswyng-types";
 
-import EventLog from "../../../../models/EventLog";
 import { ObjectId } from "bson";
 import Resource from "../../../../models/Resource";
+import { postEventLogMessage } from "../../../../utility/slackbot";
 import { requireAdmin } from "../../../../utility/authHelpers";
 
 export async function setResolved(resolved: boolean, req, res, next) {
@@ -63,7 +66,7 @@ export async function setResolved(resolved: boolean, req, res, next) {
         const kind: TEventLogKind = resolved
           ? "resource_issue_resolved"
           : "resource_issue_reopened";
-        await await new EventLog({
+        const newDocument = await new EventLog({
           actor: user._id,
           detail: {
             kind,
@@ -75,6 +78,8 @@ export async function setResolved(resolved: boolean, req, res, next) {
           },
           kind,
         }).save();
+        await newDocument.populate("actor").execPopulate();
+        await postEventLogMessage(eventLogDocumentToEventLog(newDocument));
       } catch (e) {
         console.error(e);
       }

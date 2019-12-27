@@ -3,12 +3,15 @@ import {
   TResourceDocument,
   resourceDocumentToResource,
 } from "../../../../../models/Resource";
+import EventLog, {
+  eventLogDocumentToEventLog,
+} from "../../../../../models/EventLog";
 
-import EventLog from "../../../../../models/EventLog";
 import { ObjectId } from "bson";
 import { TUser } from "@upswyng/upswyng-types";
 import { createOrUpdateResourceFromDraft } from "../../../../../models/Utility";
 import diffResources from "../../../../../utility/diffResources";
+import { postEventLogMessage } from "../../../../../utility/slackbot";
 import { requireAdmin } from "../../../../../utility/authHelpers";
 
 export async function post(req, res, next) {
@@ -65,7 +68,7 @@ export async function post(req, res, next) {
     await DraftResource.deleteByRecordId(draftToApprove._id);
 
     try {
-      await new EventLog({
+      const newDocument = await new EventLog({
         actor: user._id,
         detail: {
           kind: "draft_approved",
@@ -81,6 +84,8 @@ export async function post(req, res, next) {
         },
         kind: "draft_approved",
       }).save();
+      await newDocument.populate("actor").execPopulate();
+      await postEventLogMessage(eventLogDocumentToEventLog(newDocument));
     } catch (e) {
       console.error(
         `Error creating Event Log for approval of draft ${_id}: ${e}`
