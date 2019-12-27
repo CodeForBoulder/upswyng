@@ -55,7 +55,10 @@ function createTextForEventLog(e: TEventLog): string {
         e.actor.name ? e.actor.name : e.actor.email
       } reopened a <${HOST}/resource/issue/${
         detail.resourceIssueId
-      }|resource issue> for <${HOST}/resource/${detail.resourceId}|${
+      }|${detail.resourceIssueKind.replace(
+        /_/g,
+        " "
+      )} issue> for <${HOST}/resource/${detail.resourceId}|${
         detail.resourceName
       }>`;
     case "resource_issue_resolved":
@@ -63,7 +66,10 @@ function createTextForEventLog(e: TEventLog): string {
         e.actor.name ? e.actor.name : e.actor.email
       } resolved a <${HOST}/resource/issue/${
         detail.resourceIssueId
-      }|resource issue> for <${HOST}/resource/${detail.resourceId}|${
+      }|${detail.resourceIssueKind.replace(
+        /_/g,
+        " "
+      )} issue> for <${HOST}/resource/${detail.resourceId}|${
         detail.resourceName
       }>`;
     default:
