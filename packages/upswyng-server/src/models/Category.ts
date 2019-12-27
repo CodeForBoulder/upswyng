@@ -25,14 +25,14 @@ export function categoryDocumentToCategory(
   if (d.toObject) {
     c = d.toObject();
   } else {
-    console.warn(
-      `\`categoryToDocumentCategory\` received category which does not appear to be a Mongoose Document [${Object.keys(
-        d
-      )}]:\n${JSON.stringify(d, null, 2)}`
-    );
+    // console.warn(
+    //   `\`categoryToDocumentCategory\` received category which does not appear to be a Mongoose Document [${Object.keys(
+    //     d
+    //   )}]:\n${JSON.stringify(d, null, 2)}`
+    // );
     if (d.hasOwnProperty("_bsontype")) {
-      console.warn("This appears to be an ObjectId");
-      console.trace();
+      // console.warn("This appears to be an ObjectId");
+      // console.trace();
       return null;
     }
   }

@@ -52,7 +52,6 @@ export function subcategoryDocumentToSubcategory(
     };
   } else if (s.resources[0].hasOwnProperty("_bsontype")) {
     // we have ObjectIds for Resources
-    console.log(s.resources[0]);
     result = {
       ...s,
       _id: s._id.toHexString(),

@@ -2,10 +2,13 @@ import {
   DraftResource,
   TResourceDocument,
 } from "../../../../../models/Resource";
+import EventLog, {
+  eventLogDocumentToEventLog,
+} from "../../../../../models/EventLog";
 
-import EventLog from "../../../../../models/EventLog";
 import { ObjectId } from "bson";
 import { TUser } from "@upswyng/upswyng-types";
+import { postEventLogMessage } from "../../../../../utility/slackbot";
 import { requireAdmin } from "../../../../../utility/authHelpers";
 
 export async function post(req, res, next) {
@@ -45,7 +48,7 @@ export async function post(req, res, next) {
 
   if (deletedResource) {
     try {
-      await new EventLog({
+      const newDocument = await new EventLog({
         actor: user._id,
         detail: {
           kind: "draft_deleted",
@@ -54,6 +57,8 @@ export async function post(req, res, next) {
         },
         kind: "draft_deleted",
       }).save();
+      await newDocument.populate("actor").execPopulate();
+      await postEventLogMessage(eventLogDocumentToEventLog(newDocument));
     } catch (e) {
       console.error(`Error saving event log when deleting draft ${_id}`);
     }

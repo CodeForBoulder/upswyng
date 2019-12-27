@@ -1,8 +1,10 @@
+import "./utility/slackbot.ts";
+
 import * as dotenv from "dotenv";
 import * as sapper from "@sapper/server";
+
 import app from "./app.ts";
 import getUserFromRawUsers from "./utility/getUserFromRawUsers.ts";
-
 import mongoose from "mongoose";
 
 dotenv.config();

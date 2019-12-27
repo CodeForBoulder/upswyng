@@ -59,8 +59,7 @@ const useResourcesByCategory = (
           setResourcesByCategory(uniqueResources);
         } catch (err) {
           setResourcesByCategory(null);
-          // TODO: log this error
-          console.log(err);
+          console.error(err);
         }
       };
 
