@@ -12,7 +12,7 @@ const CHANNEL = process.env.SLACK_BOT_CHANNEL || "proj-upswyng";
 
 let webClient: SlackWebApi.WebClient;
 try {
-  webClient = new WebClient(process.env.SLACK_BOT_OAUTH_ACCESS_TOKEN);
+  webClient = new WebClient(process.env.SLACK_OAUTH_ACCESS_TOKEN);
   webClient.auth.test().then(
     r => {
       console.info(`🤖   upswyngbot starting 🚀`);
@@ -82,6 +82,25 @@ export async function postEventLogMessage(e: TEventLog) {
       // Issue now is that if you use the SERVER_HOST slack can't access `localhost`
       icon_url: `https://codeforboulder-upswyng-server.herokuapp.com/upswyngbot.svg`,
       text: createTextForEventLog(e),
+      /* eslint-enable @typescript-eslint/camelcase */
+    });
+  } catch (e) {
+    console.error(e.message);
+  }
+}
+
+export async function postTestMessage() {
+  try {
+    // Use the `chat.postMessage` method to send a message from this app
+    await webClient.chat.postMessage({
+      /* eslint-disable @typescript-eslint/camelcase */
+      as_user: false,
+      // TODO (rhinodavid): Get Channel list and send to all (https://api.slack.com/methods/chat.postMessage#channels)
+      channel: CHANNEL,
+      // TODO (rhinodavid): Remove hardcoded URL
+      // Issue now is that if you use the SERVER_HOST slack can't access `localhost`
+      icon_url: `${HOST}/upswyngbot.svg`,
+      text: `🔔 DING. It's ${new Date().toLocaleString()}`,
       /* eslint-enable @typescript-eslint/camelcase */
     });
   } catch (e) {
