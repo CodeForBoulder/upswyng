@@ -1,9 +1,12 @@
+import * as SlackRtmApi from "@slack/rtm-api";
 import * as SlackWebApi from "@slack/web-api";
 import * as dotenv from "dotenv";
 
 import { TEventLog } from "@upswyng/upswyng-types";
+import { WebAPICallResult } from "@slack/web-api";
 
 const { WebClient } = SlackWebApi;
+const { RTMClient } = SlackRtmApi;
 
 dotenv.config();
 
@@ -14,14 +17,14 @@ let webClient: SlackWebApi.WebClient;
 try {
   webClient = new WebClient(process.env.SLACK_OAUTH_ACCESS_TOKEN);
   webClient.auth.test().then(
-    r => {
+    (r: SlackWebApi.WebAPICallResult) => {
       console.info(`🤖   upswyngbot starting 🚀`);
       console.info(`🤖   HOST: ${HOST}`);
       console.info(`🤖   CHANNEL: ${CHANNEL}`);
       console.info(
-        `🤖   slack auth successful:\n${JSON.stringify(r, null, 2)}`
+        `🤖   slack web auth successful:\n${JSON.stringify(r, null, 2)}`
       );
-      console.info(`🤖   upswyngbot started 😎\n\n`);
+      console.info(`🤖   upswyngbot connected to web api 😎\n\n`);
     },
     e => {
       console.error(`💩 Error getting slackbot auth info: ${e.message}`);
@@ -29,6 +32,38 @@ try {
   );
 } catch (e) {
   console.error(`Problem starting slack bot web client:\n${e.message}`);
+}
+
+let rtm: SlackRtmApi.RTMClient;
+try {
+  rtm = new RTMClient(process.env.SLACK_BOT_OAUTH_ACCESS_TOKEN);
+  rtm.on("connecting", () =>
+    console.info("🤖   Connecting to slack RTM API...")
+  );
+  rtm.on("disconnecting", () =>
+    console.info("🤖   Disconnecting from slack RTM API...")
+  );
+  rtm.on("disconnected", () =>
+    console.error("🤖   Disconnected from slacK RTM API")
+  );
+  rtm.on("reconnecting", () =>
+    console.info("🤖   Reconnecting to slack RTM API")
+  );
+  rtm.on("error", error => {
+    console.error(
+      `🤖   slack RTM API Error: ${JSON.stringify(error, null, 2)}`
+    );
+  });
+  rtm.start().then(
+    (r: WebAPICallResult) => {
+      console.info(`🤖   slack RTM started:\n${JSON.stringify(r, null, 2)}`);
+    },
+    e => {
+      throw e;
+    }
+  );
+} catch (e) {
+  console.error(`Problem starting slack bot rtm client:\n${e.message}`);
 }
 
 function assertUnreachable(_x: never): never {
