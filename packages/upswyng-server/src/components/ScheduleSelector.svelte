@@ -212,7 +212,7 @@
 <div class="content">
   <fieldset>
     <div class="field has-addons">
-      <p class="control">
+      <p class="control is-hidden-mobile">
         <button
           aria-label="Every Day"
           class="button"
