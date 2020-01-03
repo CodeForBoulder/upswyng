@@ -72,12 +72,11 @@ const WeeklySchedule = ({ items }: { items: TScheduleItem[] }) => {
   const dayItemsMap = days.map((day, dayIndex) => {
     return {
       day,
-      items: items.filter(item => {
-        return (
+      items: items.filter(
+        item =>
           item.recurrenceRule.options.freq === RRule.WEEKLY &&
           item.recurrenceRule.options.byweekday.includes(dayIndex)
-        );
-      }),
+      ),
     };
   });
 
