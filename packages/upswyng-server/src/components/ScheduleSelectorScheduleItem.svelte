@@ -9,20 +9,41 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<div class="card content">
-  <header class="card-header">
-    <div class="card-header-title">
+<style>
+  li {
+    margin-bottom: 0.75em;
+  }
+
+  .comment {
+    margin-left: 4em;
+  }
+
+  .schedule-header {
+    align-items: center;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+
+  .schedule-header button {
+    margin-right: 1em;
+  }
+</style>
+
+<li>
+  <header class="schedule-header">
+    <div class="has-text-weight-medium is-size-6">
       {item.recurrenceRule
         .toText()
         .charAt(0)
         .toUpperCase() + item.recurrenceRule.toText().slice(1)} from {item.fromTime.label}
       to {item.toTime.label}
     </div>
-    {#if showDeleteAction}
-      <div class="card-header-icon">
+    <div>
+      {#if showDeleteAction}
         <button
           aria-label="delete"
-          class="button is-danger"
+          class="button is-danger is-small"
           class:is-outlined={!isAttemptingDelete}
           on:click|preventDefault={() => {
             if (!isAttemptingDelete) {
@@ -38,14 +59,10 @@
             <span>Confirm Delete</span>
           {/if}
         </button>
-      </div>
-    {/if}
+      {/if}
+    </div>
   </header>
-  <div class="card-content">
-    {#if item.comment}
-      {item.comment}
-    {:else}
-      <span class="is-italic has-text-grey is-size-6">&lt;No Comment&gt;</span>
-    {/if}
+  <div class="comment is-size-6 has-text-grey">
+    {#if item.comment}{item.comment}{/if}
   </div>
-</div>
+</li>

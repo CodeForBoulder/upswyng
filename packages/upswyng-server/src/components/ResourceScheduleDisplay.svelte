@@ -13,17 +13,22 @@
 
 <div class="content">
   <div>
-    <span>Always Open:</span>
+    <span class="has-text-weight-bold">Always Open:</span>
     <span>{schedule.alwaysOpen ? 'Yes' : 'No'}</span>
   </div>
-  {#if schedule.timezone}
-    <div>
-      <span>Timezone:</span>
-      <span>{schedule.timezone}</span>
-    </div>
-  {:else}
-    <div>No Timezone</div>
-  {/if}
+  <div class="content">
+    {#if schedule.timezone}
+      <div>
+        <span class="has-text-weight-bold">Timezone:</span>
+        <span>{schedule.timezone}</span>
+      </div>
+    {:else}
+      <div>No Timezone</div>
+    {/if}
+  </div>
+  <div>
+    <span class="has-text-weight-bold">Schedule Entrires</span>
+  </div>
   <ul>
     {#each schedule.getItems() as item}
       <ScheduleSelectorScheduleItem {item} />
