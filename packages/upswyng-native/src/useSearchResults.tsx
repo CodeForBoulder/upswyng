@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 
 import algoliaSearch from "algoliasearch";
-import config from "../config";
+
+// TODO (rhinodavid): Renable this later
+// import config from "../config";
 
 export interface TSearchHit {
   objectId: string | null;
@@ -13,14 +15,19 @@ function useSearchResults(query: string): TSearchHit[] | null {
 
   useEffect(() => {
     if (query) {
-      const algoliaClient = algoliaSearch(
-        config.REACT_APP_ALGOLIA_APP_ID,
-        config.REACT_APP_ALGOLIA_SEARCH_API_KEY
-      );
+      // TODO (rhinodavid): Renable this later
+      // const algoliaClient = algoliaSearch(
+      //   config.REACT_APP_ALGOLIA_APP_ID,
+      //   config.REACT_APP_ALGOLIA_SEARCH_API_KEY
+      // );
 
-      const searchIndex = algoliaClient.initIndex(
-        config.REACT_APP_ALGOLIA_INDEX_NAME
-      );
+      // const searchIndex = algoliaClient.initIndex(
+      //   config.REACT_APP_ALGOLIA_INDEX_NAME
+      // );
+
+      const algoliaClient = algoliaSearch("APP ID", "SEARCH KEY");
+
+      const searchIndex = algoliaClient.initIndex("INDEX NAME");
 
       searchIndex.search(query, (err, res) => {
         if (err) {

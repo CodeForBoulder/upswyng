@@ -8,7 +8,8 @@ import React from "react";
 import SearchResults from "./SearchResults";
 import { TSearchHit } from "../useSearchResults";
 import algoliaSearch from "algoliasearch";
-import config from "../../config";
+// TODO (rhinodavid): Renable this later
+// import config from "../../config";
 import debounce from "debounce";
 
 const openAlgolia = () => {
@@ -39,10 +40,12 @@ class Home extends React.Component<{}, THomeState> {
     searchResults: null, // null when no search or in progress; empty array for no search hits
   };
 
-  searchIndex = algoliaSearch(
-    config.REACT_APP_ALGOLIA_APP_ID,
-    config.REACT_APP_ALGOLIA_SEARCH_API_KEY
-  ).initIndex(config.REACT_APP_ALGOLIA_INDEX_NAME);
+  // TODO (rhinodavid): Renable this later
+  // searchIndex = algoliaSearch(
+  //   config.REACT_APP_ALGOLIA_APP_ID,
+  //   config.REACT_APP_ALGOLIA_SEARCH_API_KEY
+  // ).initIndex(config.REACT_APP_ALGOLIA_INDEX_NAME);
+  searchIndex = algoliaSearch("APPID", "KEY").initIndex("INDEX NAME");
 
   searchFor = debounce((query: string) => {
     if (!query) {
