@@ -196,18 +196,28 @@ export interface TUser {
 export const EventLogKind = {
   /* eslint-disable @typescript-eslint/camelcase */
   draft_approved: null, // a draft resource was approved
+  draft_created: null,
   draft_deleted: null, // a draft resource was deleted
   resource_issue_reopened: null,
   resource_issue_resolved: null,
+  /* eslint-enable @typescript-eslint/camelcase */
 };
 export type TEventLogKind = keyof typeof EventLogKind;
 
-// TODO (rhinodavid): Add other types of events (Draft Created, User Events)
+// TODO (rhinodavid): Add other types of events (User Events)
 interface TEventLogDraftApprovedDetail {
   // The diff of the resource before and after the draft was approved.
   // Won't be populated if `newResource` is true.
   diff?: { left: Partial<TResource>; right: Partial<TResource> };
   kind: "draft_approved";
+  newResource: boolean; // no resource previously existed
+  resourceId: string;
+  resourceName: string;
+}
+
+interface TEventLogDraftCreatedDetail {
+  draftId: string; // `_id` of the draft
+  kind: "draft_created";
   newResource: boolean; // no resource previously existed
   resourceId: string;
   resourceName: string;
@@ -239,6 +249,7 @@ interface TEventLogResourceIssueResolvedDetail {
 
 export type TEventLogDetail =
   | TEventLogDraftApprovedDetail
+  | TEventLogDraftCreatedDetail
   | TEventLogDraftDeletedDetail
   | TEventLogResourceIssueReopenedDetail
   | TEventLogResourceIssueResolvedDetail;

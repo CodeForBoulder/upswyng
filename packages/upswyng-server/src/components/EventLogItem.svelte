@@ -99,6 +99,28 @@
         {/if}
       {/if}
     </div>
+  {:else if eventLog.detail.kind === 'draft_created'}
+    <div class="timeline-marker is-icon">
+      <i class="fas fa-asterisk" />
+    </div>
+    <div class="timeline-content">
+      <p class="heading">
+        {#if timeAgo}{timeAgo.format(new Date(eventLog.createdAt))}{/if}
+      </p>
+      <p>
+        <span class="has-text-weight-medium">
+          {`${eventLog.actor.name ? eventLog.actor.name : eventLog.actor.email}`}
+        </span>
+        <span class="has-text-weight-semibold">
+          wrote a
+          <a href={`/resource/draft/${eventLog.detail.draftId}`} rel="prefetch">
+            draft
+          </a>
+        </span>
+        to {`${eventLog.detail.newResource ? 'create' : 'update'}`}
+        <strong>{eventLog.detail.resourceName}</strong>
+      </p>
+    </div>
   {:else if eventLog.detail.kind === 'draft_deleted'}
     <div class="timeline-marker is-icon">
       <i class="fa fa-trash-alt" />
