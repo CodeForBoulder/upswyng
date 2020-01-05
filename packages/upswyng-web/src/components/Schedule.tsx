@@ -10,15 +10,19 @@ interface ScheduleProps {
   schedule: TResourceScheduleData;
 }
 
-const days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
+const days = {
+  sunday: "SU",
+  monday: "MO",
+  tuesday: "TU",
+  wednesday: "WE",
+  thursday: "TH",
+  friday: "FR",
+  saturday: "SA",
+};
+
+function capitalize(x: string): string {
+  return x.charAt(0).toUpperCase() + x.slice(1);
+}
 
 const WeeklyContainer = styled.div`
   display: flex;
@@ -69,13 +73,15 @@ const WeeklyTime = styled.span`
 //   });
 
 const WeeklySchedule = ({ items }: { items: TScheduleItem[] }) => {
-  const dayItemsMap = days.map((day, dayIndex) => {
+  const dayItemsMap = Object.entries(days).map(([label, key]) => {
     return {
-      day,
+      day: label,
       items: items.filter(
         item =>
           item.recurrenceRule.options.freq === RRule.WEEKLY &&
-          item.recurrenceRule.options.byweekday.includes(dayIndex)
+          item.recurrenceRule.options.byweekday.includes(
+            (RRule as any)[key]["weekday"]
+          )
       ),
     };
   });
@@ -86,7 +92,7 @@ const WeeklySchedule = ({ items }: { items: TScheduleItem[] }) => {
         .filter(x => x.items.length)
         .map(x => (
           <WeeklyContainer key={x.day}>
-            <WeeklyDay>{x.day}</WeeklyDay>
+            <WeeklyDay>{capitalize(x.day)}</WeeklyDay>
             <WeeklyTimes>
               {x.items.map(i => (
                 <WeeklyTime key={`${i.fromTime.value}${i.toTime.value}`}>
@@ -118,8 +124,8 @@ const Schedule = ({ schedule }: ScheduleProps) => {
       <div>
         {Object.entries(commentMap).map(([comment, items]) => (
           <div key={comment}>
-            {comment !== "_no_comment_" && <div>{comment}</div>}
             <WeeklySchedule items={items as TScheduleItem[]} />
+            {comment !== "_no_comment_" && <div>{comment}</div>}
           </div>
         ))}
       </div>
