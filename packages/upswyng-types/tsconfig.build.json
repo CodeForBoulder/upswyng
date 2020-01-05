@@ -5,8 +5,8 @@
   "extends": "../../tsconfig.build.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "rootDir": "src",
     "outDir": "dist",
+    "rootDir": "src",
     "target": "es5"
   },
   "include": ["src"],
