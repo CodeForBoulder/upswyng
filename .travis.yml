@@ -13,4 +13,5 @@ script:
   - yarn run ci-lint
   - yarn run test
   - yarn workspace @upswyng/upswyng-server build
+  - yarn workspace @upswyng/upswyng-server rollup --config data-pipeline.rollup.config.js
   - CI=false yarn workspace @upswyng/upswyng-web build
