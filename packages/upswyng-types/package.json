@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "description": "",
   "license": "MIT",
+  "module": "dist/index.es.js",
+  "files": [
+    "dist"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc --build \"./tsconfig.build.json\""
+    "build": "rollup --config"
   }
 }
