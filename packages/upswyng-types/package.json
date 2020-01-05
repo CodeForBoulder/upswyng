@@ -3,9 +3,18 @@
   "version": "0.1.0",
   "description": "",
   "license": "MIT",
+  "module": "dist/index.es.js",
+  "files": [
+    "dist"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc --build \"./tsconfig.build.json\""
+    "build": "rollup --config"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^6.1.0",
+    "rollup": "^1.28.0",
+    "rollup-plugin-typescript2": "^0.25.3"
   }
 }
