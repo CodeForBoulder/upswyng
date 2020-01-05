@@ -1,5 +1,10 @@
+import EventLog, { eventLogDocumentToEventLog } from "../../models/EventLog";
+
+import { ObjectId } from "bson";
+import Resource from "../../models/Resource";
 import { TUser } from "@upswyng/upswyng-types";
 import { createDraftResource } from "../../models/Utility";
+import { postEventLogMessage } from "../../utility/slackbot";
 import { requireLoggedIn } from "../../utility/authHelpers";
 
 /**
@@ -29,6 +34,28 @@ export async function post(req, res, next) {
 
     try {
       const newResource = await createDraftResource(draftResource);
+      const existingResource = await Resource.getByResourceId(
+        ObjectId.createFromHexString(newResource.resourceId)
+      );
+      try {
+        const eventLog = await new EventLog({
+          actor: user._id,
+          detail: {
+            draftId: newResource._id,
+            kind: "draft_created",
+            newResource: !existingResource,
+            resourceId: newResource.resourceId,
+            resourceName: newResource.name,
+          },
+          kind: "draft_created",
+        }).save();
+        await eventLog.populate("actor").execPopulate();
+        await postEventLogMessage(eventLogDocumentToEventLog(eventLog));
+      } catch (e) {
+        console.error(
+          `Error creating Event Log for new draft of ${newResource.name} (${newResource.resourceId}): ${e}`
+        );
+      }
       res.writeHead(201, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ draftResource: newResource }));
     } catch (e) {

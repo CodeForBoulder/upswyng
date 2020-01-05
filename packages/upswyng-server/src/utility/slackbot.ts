@@ -79,6 +79,12 @@ function createTextForEventLog(e: TEventLog): string {
       } approved a draft to ${
         detail.newResource ? "create" : "update"
       } <${HOST}/resource/${detail.resourceId}|${detail.resourceName}>`;
+    case "draft_created":
+      return `:eight_spoked_asterisk: ${
+        e.actor.name ? e.actor.name : e.actor.email
+      } wrote <${HOST}/resource/draft/${detail.draftId}|a draft> to ${
+        detail.newResource ? "create" : "update"
+      } ${detail.resourceName}`;
     case "draft_deleted":
       return `:put_litter_in_its_place: ${
         e.actor.name ? e.actor.name : e.actor.email
