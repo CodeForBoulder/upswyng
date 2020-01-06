@@ -17,7 +17,9 @@ const palette = {
     primary: "#fff",
     secondary: "#CECECE",
     disabled: "#fff",
-    hint: "#919191",
+  },
+  action: {
+    active: "#fff",
   },
 };
 
