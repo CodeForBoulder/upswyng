@@ -27,12 +27,6 @@ const StyledToolbar = styled(Toolbar)`
   }
 ` as typeof Toolbar;
 
-const StyledMenuButton = styled(IconButton)`
-  && {
-    margin-left: ${font.helpers.convertPixelsToRems(-12)};
-  }
-` as typeof IconButton;
-
 const StyledLogo = styled(Logo)`
   && {
     height: 40px;
@@ -48,13 +42,14 @@ const Header = () => {
       <StyledToolbar>
         <Container container justify="space-between" alignItems="center">
           <Grid item>
-            <StyledMenuButton
-              color="inherit"
+            <IconButton
               aria-label="Menu"
+              color="default"
+              edge="start"
               onClick={() => setIsMenuOpen(true)}
             >
               <MenuIcon />
-            </StyledMenuButton>
+            </IconButton>
           </Grid>
           <Grid item>
             <Grid container alignItems="center" justify="space-between">
