@@ -1,47 +1,15 @@
 import { InputAdornment, TextField } from "@material-ui/core";
 import React, { Component } from "react";
-import { ScreenReaderOnly, colors, font } from "../App.styles";
-
 import { Redirect } from "react-router";
 import { SEARCH_PARAM_QUERY } from "../constants";
 import SearchIcon from "@material-ui/icons/Search";
-import styled from "styled-components";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 
-const SearchInput = styled(TextField)`
-  && {
-    background: ${colors.white};
-    color: ${colors.black};
-    width: 100%;
-  }
-  && > div {
-    margin-top: 0;
-  }
-  label {
-    ${ScreenReaderOnly}
-  }
-  input {
-    font-family: ${font.families.openSans};
-    font-size: 1em;
-    padding: ${font.helpers.convertPixelsToRems(7)}
-      ${font.helpers.convertPixelsToRems(7)}
-      ${font.helpers.convertPixelsToRems(7)} 0;
-  }
-  input::placeholder {
-    color: ${colors.black};
-    opacity: 1;
-  }
-` as typeof TextField;
-
-const SearchAdornment = styled(InputAdornment)`
-  && {
-    margin-left: ${font.helpers.convertPixelsToRems(7)};
-    margin-right: ${font.helpers.convertPixelsToRems(7)};
-  }
-  svg {
-    width: ${font.helpers.convertPixelsToRems(18)};
-    height: ${font.helpers.convertPixelsToRems(18)};
-  }
-` as typeof InputAdornment;
+const useInputStyles = makeStyles(theme => ({
+  input: {
+    background: theme.palette.common.white,
+  },
+}));
 
 interface State {
   query: string;
@@ -49,6 +17,8 @@ interface State {
 }
 
 class Search extends Component {
+  inputClasses = useInputStyles();
+
   state: State = {
     query: "",
     submitted: false,
@@ -76,21 +46,22 @@ class Search extends Component {
     return (
       <>
         <form onSubmit={this.handleSubmit} className="search">
-          <SearchInput
-            id="search"
-            label="Search"
+          <TextField
+            aria-label="search"
+            fullWidth
             placeholder="Search - What are your needs today?"
-            type="text"
+            id="search"
             InputProps={{
-              disableUnderline: true,
               startAdornment: (
-                <SearchAdornment position="start">
+                <InputAdornment position="start">
                   <SearchIcon />
-                </SearchAdornment>
+                </InputAdornment>
               ),
             }}
+            name="search"
             onChange={this.handleChange}
             value={query}
+            variant="filled"
           />
         </form>
         {submitted ? (
