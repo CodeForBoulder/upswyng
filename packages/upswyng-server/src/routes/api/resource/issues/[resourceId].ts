@@ -1,11 +1,13 @@
 import ResourceIssue, {
   resourceIssueDocumentToResourceIssue,
 } from "../../../../models/ResourceIssue";
+
 import { ObjectId } from "bson";
 import { requireAdmin } from "../../../../utility/authHelpers";
 
 /**
- *  Fetch all the Issues for the resource specified by the Resource ID.
+ *  Fetch all the Issues for the resource specified by the Resource ID. Set the
+ * `include_resolved` query param to `true` to fetch both resolved and unresolved issues.
  */
 export async function get(req, res, _next) {
   try {
@@ -25,8 +27,10 @@ export async function get(req, res, _next) {
   const { resourceId } = req.params;
 
   try {
+    const includeResolved = Boolean(req.query.include_resolved);
     const resourceIssueDocuments = await ResourceIssue.getForResource(
-      ObjectId.createFromHexString(resourceId)
+      ObjectId.createFromHexString(resourceId),
+      includeResolved
     );
 
     res.writeHead(200, {
