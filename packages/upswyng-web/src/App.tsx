@@ -12,6 +12,8 @@ import PrivacyPolicy from "./components/PrivacyPolicy";
 import Resource from "./components/Resource";
 import Search from "./components/Search";
 import TermsOfUse from "./components/TermsOfUse";
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "./theme";
 
 const {
   Food,
@@ -28,7 +30,7 @@ const {
 class App extends Component {
   render() {
     return (
-      <>
+      <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Router>
           <BannerColorContextProvider>
@@ -51,7 +53,7 @@ class App extends Component {
             <Route path="/wifi" component={Wifi} />
           </BannerColorContextProvider>
         </Router>
-      </>
+      </ThemeProvider>
     );
   }
 }
