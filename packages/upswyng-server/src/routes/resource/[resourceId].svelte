@@ -99,7 +99,7 @@
 
   function loadIssues() {
     isLoadingIssues = true;
-    fetch(`/api/resource/issues/${resource.resourceId}`)
+    fetch(`/api/resource/issues/${resource.resourceId}?include_resolved=true`)
       .then(async response => {
         const { resourceIssues } = await response.json();
         if (response.status !== 200 || !resourceIssues) {
@@ -143,7 +143,7 @@
           </div>
           <progress class="progress is-small" max="100" />
         </div>
-      {:else if issues && issues.length}
+      {:else if issues && issues.filter(i => !i.resolved).length}
         <div class="notification is-warning found-issues">
           <div class="notification-text">
             <span class="has-text-weight-medium">
@@ -169,7 +169,7 @@
         errorText={saveError ? saveError.message : ''}
         on:clearErrorText={() => (saveError = null)}
         on:dispatchSaveResource={e => handleSaveClick(e.detail)} />
-      {#if isAdmin && issues}
+      {#if isAdmin && issues && issues.length}
         <h1 id="issues" class="title">Issues</h1>
         {#each issues as issue (issue._id)}
           <ResourceIssueNotification resourceIssue={issue} />
