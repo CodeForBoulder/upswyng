@@ -127,12 +127,12 @@
 
   const certainWeekRepeatStateDefault = {
     everyWeek: true,
-    1: true, // first <sunday, monday, ... saturday> of month
-    2: true, // second of month
-    3: true,
-    4: true,
-    [-2]: true, // second to last of month
-    [-1]: true, // last of month,
+    1: false, // first <sunday, monday, ... saturday> of month
+    2: false, // second of month
+    3: false,
+    4: false,
+    [-2]: false, // second to last of month
+    [-1]: false, // last of month,
   };
 
   let weeklyRepeatState = Object.assign({}, weeklyRepeatStateDefault);
@@ -319,7 +319,9 @@
                   certainWeekRepeatState = { ...certainWeekRepeatStateDefault };
                 }}
                 title="Select all occurances of the day">
-                <span>All</span>
+                <span>
+                  <strong>All</strong>
+                </span>
               </button>
             </p>
             {#each [{ name: 'First', value: 1 }, { name: 'Second', value: 2 }, { name: 'Third', value: 3 }, { name: 'Fourth', value: 4 }, { name: 'Last', value: -1 }, { name: 'Second-to-last', value: -2 }] as entry}
