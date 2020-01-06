@@ -3,12 +3,14 @@ import { ResourceSchedule, TScheduleItem } from "@upswyng/upswyng-core";
 import { RRule } from "rrule";
 import React from "react";
 import { TResourceScheduleData } from "@upswyng/upswyng-types";
+import { font } from "../App.styles";
+import styled from "styled-components";
 
 interface ScheduleProps {
   schedule: TResourceScheduleData;
 }
 
-const dayToCode = {
+const days = {
   sunday: "SU",
   monday: "MO",
   tuesday: "TU",
@@ -18,8 +20,10 @@ const dayToCode = {
   saturday: "SA",
 };
 
-// TODO (rhinodavid): Remove these render functions
-/*
+function capitalize(x: string): string {
+  return x.charAt(0).toUpperCase() + x.slice(1);
+}
+
 const WeeklyContainer = styled.div`
   display: flex;
 `;
@@ -54,78 +58,49 @@ const WeeklyTime = styled.span`
   }
 `;
 
-const renderDaySchedule = (schedule: TSchedule[]) => {
-  const { day } = schedule[0];
-  return (
-    <WeeklyContainer key={day}>
-      <WeeklyDay>{day}</WeeklyDay>
-      <WeeklyTimes>
-        {schedule.map(({ day, from, to }) => (
-          <WeeklyTime key={`${day}-${from}`}>
-            {from} - {to}
-          </WeeklyTime>
-        ))}
-      </WeeklyTimes>
-    </WeeklyContainer>
-  );
-};
+// TODO (rhinodavid): Remove these render functions
 
-const renderWeeklySchedule = (schedule: TSchedule[]) => {
-  const renderedDays: (TDay | undefined)[] = [];
-
-  return schedule.map(({ day: currentDay }) => {
-    if (!renderedDays.includes(currentDay)) {
-      renderedDays.push(currentDay);
-      const currentDaySchedule = schedule.filter(
-        ({ day }) => day === currentDay
-      );
-      return renderDaySchedule(currentDaySchedule);
-    }
-    return null;
-  });
-};
-
-const renderMonthlySchedule = (schedule: TSchedule[]) =>
-  schedule.map(({ day, from, period, to }) => {
-    if (period) {
-      return (
-        <p key={`${period}-${day}-${from}`}>
-          every {period.toLowerCase()} {day} from {from} - {to}
-        </p>
-      );
-    }
-    return null;
-  });
-  */
+// const renderMonthlySchedule = (schedule: TSchedule[]) =>
+//   schedule.map(({ day, from, period, to }) => {
+//     if (period) {
+//       return (
+//         <p key={`${period}-${day}-${from}`}>
+//           every {period.toLowerCase()} {day} from {from} - {to}
+//         </p>
+//       );
+//     }
+//     return null;
+//   });
 
 const WeeklySchedule = ({ items }: { items: TScheduleItem[] }) => {
-  const dayItemsMap = Object.keys(dayToCode).map(day => {
+  const dayItemsMap = Object.entries(days).map(([label, key]) => {
     return {
-      day,
+      day: label,
       items: items.filter(
         item =>
           item.recurrenceRule.options.freq === RRule.WEEKLY &&
           item.recurrenceRule.options.byweekday.includes(
-            (RRule as any)[dayToCode[day as keyof typeof dayToCode]] as number
+            (RRule as any)[key]["weekday"]
           )
       ),
     };
   });
+
   return (
     <div>
       {dayItemsMap
         .filter(x => x.items.length)
         .map(x => (
-          <div key={x.day}>
-            <div>{x.day}</div>
-            <div>
+          <WeeklyContainer key={x.day}>
+            <WeeklyDay>{capitalize(x.day)}</WeeklyDay>
+            <WeeklyTimes>
               {x.items.map(i => (
-                <div key={`${i.fromTime.value}${i.toTime.value}`}>
+                <WeeklyTime key={`${i.fromTime.value}${i.toTime.value}`}>
                   {i.fromTime.label} - {i.toTime.label}
-                </div>
+                </WeeklyTime>
               ))}
-            </div>
-          </div>
+            </WeeklyTimes>
+          </WeeklyContainer>
         ))}
     </div>
   );
@@ -138,19 +113,19 @@ const Schedule = ({ schedule }: ScheduleProps) => {
     // group together schedule items that have the same comments
     const commentMap = resourceSchedule.getItems().reduce((result, item) => {
       const comment = item.comment || "_no_comment_";
-      result[comment as keyof typeof dayToCode] = [
-        ...(result[comment as keyof typeof dayToCode] || []),
+      result[comment as keyof typeof days] = [
+        ...(result[comment as keyof typeof days] || []),
         item,
       ];
       return result;
-    }, {} as Record<keyof typeof dayToCode, TScheduleItem[]>);
+    }, {} as Record<keyof typeof days, TScheduleItem[]>);
 
     return (
       <div>
         {Object.entries(commentMap).map(([comment, items]) => (
           <div key={comment}>
-            {comment !== "_no_comment_" && <div>{comment}</div>}
             <WeeklySchedule items={items as TScheduleItem[]} />
+            {comment !== "_no_comment_" && <div>{comment}</div>}
           </div>
         ))}
       </div>
