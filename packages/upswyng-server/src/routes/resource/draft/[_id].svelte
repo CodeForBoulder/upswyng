@@ -126,7 +126,12 @@
   <div class="container">
     {#if existingResource}
       <h1 class="title">Update Resource: {existingResource.name}</h1>
-      <p class="subtitle">Resource ID: {existingResource.resourceId}</p>
+      <p class="subtitle">
+        Resource ID:
+        <a href={`/resource/${existingResource.resourceId}`}>
+          {existingResource.resourceId}
+        </a>
+      </p>
       <ResourceDiff
         leftResource={existingResource}
         rightResource={draftResource} />
