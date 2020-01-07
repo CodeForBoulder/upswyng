@@ -14,6 +14,16 @@
 
   let saveError /* Error? */ = null;
 
+  function formatDate(d /* Date */) /* string */ {
+    return d.toLocaleString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+    });
+  }
+
   function extractErrors(form) {
     return Object.entries(form).reduce((result, [k, v]) => {
       if (typeof v === "object" && Object.keys(v).includes("errors")) {
@@ -123,13 +133,13 @@
     {#if resource.createdAt}
       <p>
         <span class="label">Created At</span>
-        {resource.createdAt}
+        {formatDate(new Date(resource.createdAt))}
       </p>
     {/if}
     {#if resource.lastModifiedAt}
       <p>
         <span class="label">Last Modified At</span>
-        {resource.lastModifiedAt.toLocaleString('en-US')}
+        {formatDate(new Date(resource.lastModifiedAt))}
       </p>
     {/if}
   </div>
