@@ -1,109 +1,71 @@
-import { InputAdornment, TextField } from "@material-ui/core";
-import React, { Component } from "react";
-import { ScreenReaderOnly, colors, font } from "../App.styles";
-
+import { Input, InputAdornment } from "@material-ui/core";
+import FormControl from "@material-ui/core/FormControl";
+import React from "react";
 import { Redirect } from "react-router";
 import { SEARCH_PARAM_QUERY } from "../constants";
 import SearchIcon from "@material-ui/icons/Search";
-import styled from "styled-components";
+import { Theme } from "@material-ui/core/styles/createMuiTheme";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 
-const SearchInput = styled(TextField)`
-  && {
-    background: ${colors.white};
-    color: ${colors.black};
-    width: 100%;
-  }
-  && > div {
-    margin-top: 0;
-  }
-  label {
-    ${ScreenReaderOnly}
-  }
-  input {
-    font-family: ${font.families.openSans};
-    font-size: 1em;
-    padding: ${font.helpers.convertPixelsToRems(7)}
-      ${font.helpers.convertPixelsToRems(7)}
-      ${font.helpers.convertPixelsToRems(7)} 0;
-  }
-  input::placeholder {
-    color: ${colors.black};
-    opacity: 1;
-  }
-` as typeof TextField;
+const useInputStyles = makeStyles((theme: Theme) => ({
+  root: {
+    background: theme.palette.common.white,
+    color: theme.palette.common.black,
+    "&:hover": {
+      background: theme.palette.common.white,
+    },
+  },
+}));
 
-const SearchAdornment = styled(InputAdornment)`
-  && {
-    margin-left: ${font.helpers.convertPixelsToRems(7)};
-    margin-right: ${font.helpers.convertPixelsToRems(7)};
-  }
-  svg {
-    width: ${font.helpers.convertPixelsToRems(18)};
-    height: ${font.helpers.convertPixelsToRems(18)};
-  }
-` as typeof InputAdornment;
+const Search = () => {
+  const inputClasses = useInputStyles({});
+  const [query, setQuery] = React.useState<string>("");
+  const [submitted, setSubmitted] = React.useState<boolean>(false);
 
-interface State {
-  query: string;
-  submitted: boolean;
-}
-
-class Search extends Component {
-  state: State = {
-    query: "",
-    submitted: false,
-  };
-
-  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
     } = e;
 
-    this.setState({
-      query: value,
-    });
+    setQuery(value);
   };
 
-  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    this.setState({
-      submitted: true,
-    });
+    setSubmitted(true);
   };
 
-  render() {
-    const { submitted, query } = this.state;
-    return (
-      <>
-        <form onSubmit={this.handleSubmit} className="search">
-          <SearchInput
-            id="search"
-            label="Search"
+  return (
+    <>
+      <form onSubmit={handleSubmit} className="search">
+        <FormControl fullWidth hiddenLabel>
+          <Input
+            aria-label="search"
+            fullWidth
             placeholder="Search - What are your needs today?"
-            type="text"
-            InputProps={{
-              disableUnderline: true,
-              startAdornment: (
-                <SearchAdornment position="start">
-                  <SearchIcon />
-                </SearchAdornment>
-              ),
-            }}
-            onChange={this.handleChange}
+            id="search"
+            classes={inputClasses}
+            startAdornment={
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            }
+            name="search"
+            onChange={handleChange}
             value={query}
           />
-        </form>
-        {submitted ? (
-          <Redirect
-            to={{
-              pathname: "/search",
-              search: `?${SEARCH_PARAM_QUERY}=${query}`,
-            }}
-          />
-        ) : null}
-      </>
-    );
-  }
-}
+        </FormControl>
+      </form>
+      {submitted && (
+        <Redirect
+          to={{
+            pathname: "/search",
+            search: `?${SEARCH_PARAM_QUERY}=${query}`,
+          }}
+        />
+      )}
+    </>
+  );
+};
 
 export default Search;
