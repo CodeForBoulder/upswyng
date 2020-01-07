@@ -13,7 +13,7 @@ import PrivacyPolicy from "./components/PrivacyPolicy";
 import Resource from "./components/Resource";
 import Search from "./components/Search";
 import TermsOfUse from "./components/TermsOfUse";
-import { ThemeProvider } from "@material-ui/core/styles";
+import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import theme from "./theme";
 
 const {
