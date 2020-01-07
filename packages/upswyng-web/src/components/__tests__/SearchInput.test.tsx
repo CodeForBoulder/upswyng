@@ -3,34 +3,14 @@ import React from "react";
 import SearchInput from "../SearchInput";
 
 jest.mock("react-router/Redirect", () => "Redirect");
-jest.mock("@material-ui/core/TextField", () => "TextField");
+jest.mock("@material-ui/core/Input", () => "Input");
+jest.mock("@material-ui/styles/makeStyles", () => () => () => ({}));
 
 describe("<SearchInput />", () => {
   let wrapper: enzyme.ShallowWrapper;
 
   beforeEach(() => {
     wrapper = shallow(<SearchInput />);
-  });
-
-  it("renders a Styled TextField", () => {
-    expect(wrapper.find("Styled(TextField)").length).toBe(1);
-  });
-
-  describe("when the <TextField/> changes", () => {
-    it("has a value prop equal to the changed value", () => {
-      const getRenderedTextField = (): enzyme.ShallowWrapper =>
-        wrapper.find("Styled(TextField)");
-      const mockInputValue = "a submitted search";
-
-      getRenderedTextField().simulate("change", {
-        target: {
-          value: mockInputValue,
-        },
-      });
-      wrapper.update();
-
-      expect(getRenderedTextField().prop("value")).toBe(mockInputValue);
-    });
   });
 
   describe("when the form is submitted", () => {
@@ -59,10 +39,10 @@ describe("<SearchInput />", () => {
         expect(getRenderedRedirect().length).toBe(1);
       });
 
-      it('has a "to.search" prop containing its <TextField/>s value', () => {
+      it('has a "to.search" prop containing its <Input/>s value', () => {
         const mockInputValue = "a submitted search";
 
-        wrapper.find("Styled(TextField)").simulate("change", {
+        wrapper.find("Input").simulate("change", {
           target: {
             value: mockInputValue,
           },
