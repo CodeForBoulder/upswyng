@@ -31,6 +31,7 @@ export async function post(req, res, next) {
   try {
     const { draftResource } = req.body;
     draftResource.createdBy = user as TUser;
+    delete draftResource._id;
 
     try {
       const newResource = await createDraftResource(draftResource);
