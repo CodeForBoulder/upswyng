@@ -174,7 +174,7 @@
   }
 </style>
 
-<h1>Schedule</h1>
+<h1 class="subtitle is-size-4">Schedule</h1>
 
 <div class="content">
   <fieldset>
