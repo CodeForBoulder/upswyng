@@ -56,14 +56,14 @@ const Search = () => {
           />
         </FormControl>
       </form>
-      {submitted ? (
+      {submitted && (
         <Redirect
           to={{
             pathname: "/search",
             search: `?${SEARCH_PARAM_QUERY}=${query}`,
           }}
         />
-      ) : null}
+      )}
     </>
   );
 };
