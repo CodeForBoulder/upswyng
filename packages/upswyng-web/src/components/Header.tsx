@@ -44,7 +44,6 @@ const Header = () => {
           <Grid item>
             <IconButton
               aria-label="Menu"
-              color="default"
               edge="start"
               onClick={() => setIsMenuOpen(true)}
             >

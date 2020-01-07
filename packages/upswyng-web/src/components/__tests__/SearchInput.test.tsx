@@ -4,7 +4,7 @@ import SearchInput from "../SearchInput";
 
 jest.mock("react-router/Redirect", () => "Redirect");
 jest.mock("@material-ui/core/Input", () => "Input");
-jest.mock("@material-ui/styles/makeStyles", () => () => () => ({}));
+jest.mock("@material-ui/core/styles/makeStyles", () => () => () => ({}));
 
 describe("<SearchInput />", () => {
   let wrapper: enzyme.ShallowWrapper;

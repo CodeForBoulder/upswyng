@@ -5,7 +5,7 @@ import { Redirect } from "react-router";
 import { SEARCH_PARAM_QUERY } from "../constants";
 import SearchIcon from "@material-ui/icons/Search";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
-import makeStyles from "@material-ui/styles/makeStyles";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 
 const useInputStyles = makeStyles((theme: Theme) => ({
   root: {
