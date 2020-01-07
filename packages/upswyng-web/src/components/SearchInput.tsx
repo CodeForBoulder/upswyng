@@ -4,9 +4,10 @@ import React from "react";
 import { Redirect } from "react-router";
 import { SEARCH_PARAM_QUERY } from "../constants";
 import SearchIcon from "@material-ui/icons/Search";
-import makeStyles from "@material-ui/core/styles/makeStyles";
+import { Theme } from "@material-ui/core/styles/createMuiTheme";
+import makeStyles from "@material-ui/styles/makeStyles";
 
-const useInputStyles = makeStyles(theme => ({
+const useInputStyles = makeStyles((theme: Theme) => ({
   root: {
     background: theme.palette.common.white,
     color: theme.palette.common.black,
@@ -17,9 +18,9 @@ const useInputStyles = makeStyles(theme => ({
 }));
 
 const Search = () => {
-  const inputClasses = useInputStyles();
-  const [query, setQuery] = React.useState("");
-  const [submitted, setSubmitted] = React.useState(false);
+  const inputClasses = useInputStyles({});
+  const [query, setQuery] = React.useState<string>("");
+  const [submitted, setSubmitted] = React.useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
