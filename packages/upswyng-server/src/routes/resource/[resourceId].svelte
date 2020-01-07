@@ -109,7 +109,10 @@
           issues = resourceIssues;
         }
       })
-      .finally(() => (isLoadingIssues = false));
+      .finally(() => {
+        isLoadingIssues = false;
+        issues = issues;
+      });
   }
 
   onMount(() => resource.resourceId && isAdmin && loadIssues());
@@ -143,7 +146,7 @@
           </div>
           <progress class="progress is-small" max="100" />
         </div>
-      {:else if issues && issues.filter(i => !i.resolved).length}
+      {:else if issues && issues.some(i => !i.resolved)}
         <div class="notification is-warning found-issues">
           <div class="notification-text">
             <span class="has-text-weight-medium">

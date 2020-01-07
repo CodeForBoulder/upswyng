@@ -59,21 +59,36 @@
   }));
 </script>
 
+<style>
+  nav:not(:last-of-type) {
+    margin-bottom: 0;
+  }
+</style>
+
 <h1 class="title">
   {#if resource.name}{resource.name}{:else}Create A Resource{/if}
 </h1>
+
 {#each resource.subcategories || [] as subcategory}
-  <section>
-    <a href={`/category/${subcategory.parentCategory.stub}`}>
-      {subcategory.parentCategory.name}
-    </a>
-    >
-    <a href={`/subcategory/${subcategory.stub}`}>{subcategory.name}</a>
-    > {resource.name}
-  </section>
+  <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
+    <ul>
+      <li>
+        <a href={`/category/${subcategory.parentCategory.stub}`}>
+          {subcategory.parentCategory.name}
+        </a>
+      </li>
+      <li>
+        <a href={`/subcategory/${subcategory.stub}`}>{subcategory.name}</a>
+      </li>
+      <li class="is-active">
+        <!-- svelte-ignore a11y-invalid-attribute -->
+        <a href="#" aria-current="page">{resource.name}</a>
+      </li>
+    </ul>
+  </nav>
 {/each}
 <div class="content">
-  <div class:box={resource.deleted} class:has-ribbon={resource.deleted}>
+  <div class="box" class:has-ribbon={resource.deleted}>
     {#if resource.deleted}
       <div class="ribbon is-danger">Trashed</div>
     {/if}
@@ -120,6 +135,22 @@
   </div>
   <form>
     <div class="field">
+      <div class="control">
+        <input
+          id="trash"
+          type="checkbox"
+          name="trash"
+          class="switch is-danger"
+          bind:checked={resource.deleted} />
+        <label class="label" for="trash">Trash Resource</label>
+      </div>
+      <p class="has-text-weight-light">
+        Trashed resources won't show up anywhere in the app, but will remain
+        available in the admin control and can be restored later.
+      </p>
+    </div>
+
+    <div class="field">
       <label class="label" for="name">Resource Name</label>
       <div class="control has-icons-right">
         <input
@@ -141,22 +172,6 @@
       {#if $resourceForm.name.errors.includes('min')}
         <p class="help is-danger">The name should be at least 3 characters</p>
       {/if}
-    </div>
-
-    <div class="field">
-      <div class="control">
-        <input
-          id="trash"
-          type="checkbox"
-          name="trash"
-          class="switch is-danger"
-          bind:checked={resource.deleted} />
-        <label class="label" for="trash">Trash Resource</label>
-      </div>
-      <p class="has-text-weight-light">
-        Trashed resources won't show up anywhere in the app, but will remain
-        available in the admin control and can be restored later.
-      </p>
     </div>
 
     <div class="field">
@@ -330,13 +345,6 @@
     </div>
 
     <div class="field">
-      <label class="label" for="services">Services</label>
-      <div class="control">
-        <ServicesInput bind:value={resource.services} />
-      </div>
-    </div>
-
-    <div class="field">
       <label class="label" for="website">Website</label>
       <div class="control has-icons-left has-icons-right">
         <input
@@ -358,6 +366,13 @@
       {#if $resourceForm.website.errors.includes('url')}
         <p class="help is-danger">Please enter a valid web address</p>
       {/if}
+    </div>
+
+    <div class="field">
+      <label class="label" for="services">Services</label>
+      <div class="control">
+        <ServicesInput bind:value={resource.services} />
+      </div>
     </div>
 
     <ScheduleSelector bind:value={resource.schedule} />
