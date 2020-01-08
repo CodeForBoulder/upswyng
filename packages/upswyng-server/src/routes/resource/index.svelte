@@ -6,15 +6,10 @@
     const { uncategorizedResources } = await this.fetch(
       "/api/resources/uncategorized"
     ).then(r => r.json());
-    // TODO: Remove displaying all resources once they get too big
-    const { resources: allResources } = await this.fetch(
-      "/api/resources"
-    ).then(r => r.json());
-    const { draftResources } = await this.fetch(
-      "/api/resources/drafts"
-    ).then(r => r.json());
+    const { draftResources } = await this.fetch("/api/resources/drafts").then(
+      r => r.json()
+    );
     return {
-      allResources,
       categories,
       draftResources,
       uncategorizedResources,
@@ -34,7 +29,6 @@
   export let categories = null;
   export let draftResources = null;
   export let uncategorizedResources = null;
-  export let allResources = null;
   export let user = null;
 </script>
 
@@ -71,7 +65,7 @@
 
     <div class="content">
       {#if categories.length}
-        <p class="subtitle">Resource Categories</p>
+        <h2 class="subtitle">Categories</h2>
         <ul class="content">
           {#each categories as category}
             <li>
@@ -86,7 +80,10 @@
 
     {#if user && user.isAdmin}
       <div class="content">
-        <p class="subtitle">Draft Resources</p>
+        <h2 class="subtitle">
+          Draft Resources
+          <span class="tag is-dark">Admin</span>
+        </h2>
         {#if draftResources.length}
           <ul class="content">
             {#each draftResources as draftResource}
@@ -104,7 +101,7 @@
     {/if}
 
     <div class="content">
-      <p class="subtitle">Search for a Resource</p>
+      <h2 class="subtitle">Search for a Resource</h2>
       <ResourceSearch
         action="view"
         on:resourceClick={({ detail: resourceId }) => {
@@ -114,7 +111,10 @@
 
     {#if uncategorizedResources.length && user && user.isAdmin}
       <div class="content">
-        <p class="subtitle">Uncategorized Resources</p>
+        <h2 class="subtitle">
+          Uncategorized Resources
+          <span class="tag is-dark">Admin</span>
+        </h2>
         <ul class="content">
           {#each uncategorizedResources as resource}
             <li>

@@ -125,7 +125,10 @@
 <section class="section">
   <div class="container">
     {#if existingResource}
-      <h1 class="title">Update Resource: {existingResource.name}</h1>
+      <h1 class="title">
+        Update Resource: {existingResource.name}
+        <span class="tag is-dark">Admin</span>
+      </h1>
       <p class="subtitle">
         Resource ID:
         <a href={`/resource/${existingResource.resourceId}`}>
@@ -136,7 +139,10 @@
         leftResource={existingResource}
         rightResource={draftResource} />
     {:else}
-      <h1 class="title">Create New Resource</h1>
+      <h1 class="title">
+        Create New Resource
+        <span class="tag is-dark">Admin</span>
+      </h1>
       <ResourceDisplay resource={draftResource} />
     {/if}
 

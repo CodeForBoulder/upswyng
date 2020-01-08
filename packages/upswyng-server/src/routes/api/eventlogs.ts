@@ -7,6 +7,7 @@ import { requireAdmin } from "../../utility/authHelpers";
  * {
  *   limit: number, // default 20
  *   offset: number, // default 0
+ *   resourceId?: string, // if provided, returns events with the given resource ID in the detail
  * }
  *
  * The response has the shape of:
@@ -33,7 +34,12 @@ export async function post(req, res, _next) {
   const offset = req.body.offset || 0;
 
   try {
-    const issues = await EventLog.find({})
+    const query = req.body.resourceId
+      ? {
+          "detail.resourceId": req.body.resourceId,
+        }
+      : {};
+    const issues = await EventLog.find(query)
       .populate("actor")
       .skip(offset)
       .limit(limit)
