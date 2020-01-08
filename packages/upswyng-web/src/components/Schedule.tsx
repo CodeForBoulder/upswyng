@@ -59,7 +59,7 @@ const WeeklySchedule = ({ items }: { items: TScheduleItem[] }) => {
         .map(x => (
           <Grid container key={x.day}>
             <Grid item xs={4}>
-              <Typography component="h3" variant="subtitle1">
+              <Typography component="h3" variant="subtitle2">
                 {capitalize(x.day)}:
               </Typography>
             </Grid>
