@@ -54,10 +54,12 @@
         <div class="navbar-dropdown">
           {#if user && user.isAdmin}
             <a class="navbar-item" href="resource/issues" rel="prefetch">
-              Issues
+              <span>Issues &nbsp;</span>
+              <span class="tag is-dark">Admin</span>
             </a>
             <a class="navbar-item" href="eventlogs" rel="prefetch">
-              Event Logs
+              <span>Event Logs &nbsp;</span>
+              <span class="tag is-dark">Admin</span>
             </a>
             <hr class="navbar-divider" />
           {/if}
@@ -79,14 +81,16 @@
         <div class="navbar-item">
           <span class="has-text-weight-semibold">{user.name}</span>
           {#if user && user.isAdmin}
-            <span class="has-text-weight-light">&nbsp;[admin]</span>
+            &nbsp;&nbsp;&nbsp;
+            <span class="tag is-black">Admin</span>
           {/if}
         </div>
       {:else if user && user.email}
         <div class="navbar-item">
           <span class="has-text-weight-semibold">{user.email}</span>
           {#if user && user.isAdmin}
-            <span class="has-text-weight-light">&nbsp;[admin]</span>
+            &nbsp;&nbsp;&nbsp;
+            <span class="tag is-black">Admin</span>
           {/if}
         </div>
       {/if}

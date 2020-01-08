@@ -29,10 +29,11 @@
 <script>
   import { addFlashMessage } from "../../utility/flashMessage.ts";
   import { goto, stores } from "@sapper/app";
-  import ResourceDisplay from "../../components/ResourceDisplay.svelte";
-  import ResourceEditor from "../../components/ResourceEditor.svelte";
   import { onMount } from "svelte";
   import * as animateScroll from "svelte-scrollto";
+  import EventLogs from "../../components/EventLogs.svelte";
+  import ResourceDisplay from "../../components/ResourceDisplay.svelte";
+  import ResourceEditor from "../../components/ResourceEditor.svelte";
   import ResourceIssueNotification from "../../components/ResourceIssueNotification.svelte";
 
   const { session } = stores();
@@ -173,7 +174,10 @@
         on:clearErrorText={() => (saveError = null)}
         on:dispatchSaveResource={e => handleSaveClick(e.detail)} />
       {#if isAdmin && issues && issues.length}
-        <h1 id="issues" class="title">Issues</h1>
+        <h1 id="issues" class="title">
+          Issues
+          <span class="tag is-dark">Admin</span>
+        </h1>
         {#each issues as issue (issue._id)}
           <ResourceIssueNotification resourceIssue={issue} />
         {/each}
@@ -182,5 +186,14 @@
       <ResourceDisplay {resource} />
       <div class="notification">Log in to make changes to this resource</div>
     {/if}
+
+    {#if isAdmin}
+      <h1 class="title">
+        Event Logs
+        <span class="tag is-dark">Admin</span>
+      </h1>
+      <EventLogs resourceId={resource.resourceId} />
+    {/if}
+
   </div>
 </section>

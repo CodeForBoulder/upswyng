@@ -2,6 +2,10 @@
   import { ResourceSchedule } from "@upswyng/upswyng-core";
 
   export async function preload({ params, query }, { user }) {
+    if (!user || !user.isAdmin) {
+      this.error(401, "You must be an admin to access this page.");
+    }
+
     const resourceIdToNameMap = new Map();
     let resourceIssuesResponse;
     try {
@@ -227,7 +231,10 @@
 
 <section class="section">
   <div class="container">
-    <h1 class="title">Resource Issues</h1>
+    <h1 class="title">
+      Resource Issues
+      <span class="tag is-dark">Admin</span>
+    </h1>
     {#if errorMessage}
       <div class="notification is-danger">
         <button

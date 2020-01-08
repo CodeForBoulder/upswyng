@@ -63,7 +63,10 @@
 
 <section class="section">
   {#if resource}
-    <h1 class="title">{resource.name}</h1>
+    <h1 class="title">
+      {resource.name}
+      <span class="tag is-dark">Admin</span>
+    </h1>
     <p class="content has-text-weight-semibold">
       <a href={`/resource/${resource.resourceId}`} rel="prefetch">
         {resource.resourceId}
