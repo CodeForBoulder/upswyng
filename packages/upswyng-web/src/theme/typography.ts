@@ -16,6 +16,11 @@ const typography = {
   body1: {
     fontWeight: 300,
   },
+  subtitle1: {
+    fontSize: "1rem",
+    fontWeight: 400,
+    margin: 0,
+  },
 };
 
 export default typography;
