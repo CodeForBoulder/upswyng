@@ -6,9 +6,9 @@
     const { uncategorizedResources } = await this.fetch(
       "/api/resources/uncategorized"
     ).then(r => r.json());
-    const { draftResources } = await this.fetch("/api/resources/drafts").then(
-      r => r.json()
-    );
+    const { draftResources } = await this.fetch(
+      "/api/resources/drafts"
+    ).then(r => r.json());
     return {
       categories,
       draftResources,
