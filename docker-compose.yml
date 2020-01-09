@@ -1,0 +1,7 @@
+version: "3.7"
+services:
+  webapp:
+    build:
+      context: .
+  # db:
+  #   image: mongo
