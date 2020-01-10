@@ -61,6 +61,10 @@
               <span>Event Logs &nbsp;</span>
               <span class="tag is-dark">Admin</span>
             </a>
+            <a class="navbar-item" href="users" rel="prefetch">
+              <span>Users &nbsp;</span>
+              <span class="tag is-dark">Admin</span>
+            </a>
             <hr class="navbar-divider" />
           {/if}
           <!-- svelte-ignore a11y-missing-attribute -->
