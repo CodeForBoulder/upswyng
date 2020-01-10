@@ -1,8 +1,8 @@
 FROM node:12.14.0-alpine
 
-LABEL Description="Upswyng container boiiii"
+LABEL Description="Upswyng-server dev"
 
-WORKDIR /usr/src/upswyng
+WORKDIR /usr/src/upswyngWeb
 
 COPY . .
 
@@ -12,5 +12,5 @@ EXPOSE 3000
 
 RUN ["yarn", "run", "build-local-packages"]
 
-CMD ["yarn", "workspace", "@upswyng/upswyng-web", "run", "start"]
+CMD ["yarn", "workspace", "@upswyng/upswyng-server", "run", "start"]
 

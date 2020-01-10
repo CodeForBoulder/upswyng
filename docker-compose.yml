@@ -1,7 +1,22 @@
 version: "3.7"
 services:
-  webapp:
-    build:
-      context: .
-  # db:
-  #   image: mongo
+  # webapp:
+  #   container_name: upswyngServer
+  #   build:
+  #     context: .
+  #   links:
+  #     - mongo
+  #   ports:
+  #     - 3000:3000
+  #   depends_on:
+  #     - mongo
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    ports:
+      - 27017-27019:27017-27019
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
