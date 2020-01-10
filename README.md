@@ -35,6 +35,8 @@ and install the project dependencies by running
 yarn
 ```
 
+Note: the above command may fail if your `node` version is not 12.14.x. [nvm](https://itnext.io/nvm-the-easiest-way-to-switch-node-js-environments-on-your-machine-in-a-flash-17babb7d5f1b#d594) is one solution (among others) to manage `node` versions precisely.
+
 ### Development Ports
 
 | server     | 3000 |
