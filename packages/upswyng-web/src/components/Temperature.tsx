@@ -57,7 +57,7 @@ const Temperature = () => {
         Current Temperature
       </Typography>
       <StyledTemp>
-        {temp === undefined && (
+        {/* {temp === undefined && (
           <Skeleton variant="rect" height={19} width={40} />
         )}
         {temp === null && (
@@ -67,7 +67,7 @@ const Temperature = () => {
           >
             <ErrorOutlineIcon fontSize="small" tabIndex={0} />
           </StyledTooltip>
-        )}
+        )} */}
         {temp && <StyledDegrees>{temp}&deg;</StyledDegrees>}
         <Typography variant="srOnly">in</Typography>
         <StyledLocation>Boulder, CO</StyledLocation>
