@@ -36,20 +36,22 @@ const StyledLocation = styled.span`
 
 const Temperature = () => {
   const temp: undefined | null | number = useTemperature();
-  return (
-    <StyledContainer>
-      <Typography variant="srOnly" component="h2">
-        Current Temperature
-      </Typography>
-      {temp && (
+  if (!temp) {
+    return null;
+  } else {
+    return (
+      <StyledContainer>
+        <Typography variant="srOnly" component="h2">
+          Current Temperature
+        </Typography>
         <StyledTemp>
           <StyledDegrees>{temp}&deg;</StyledDegrees>
           <Typography variant="srOnly">in</Typography>
           <StyledLocation>Boulder, CO</StyledLocation>
         </StyledTemp>
-      )}
-    </StyledContainer>
-  );
+      </StyledContainer>
+    );
+  }
 };
 
 export default Temperature;
