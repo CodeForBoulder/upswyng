@@ -34,16 +34,18 @@ export default function(options: TAppOptions) {
       cors(), // TODO: Lock this down to non-admin routes
       sirv("static", { dev }),
       bodyParser.urlencoded({ extended: true }),
-      bodyParser.json(),
+      bodyParser.json()
+    )
+    .use(
       session({
         store: new MongoStore({ mongooseConnection }),
         secret: sessionSecret,
-        saveUninitialized: false,
-        resave: false,
-      }),
-      grant(grantConfig),
-      userMiddleware
+        saveUninitialized: true,
+        resave: true,
+      })
     )
+    .use(grant(grantConfig))
+    .use(userMiddleware)
     .get("/callback", oidc(grantConfig), (_req, res) => {
       res.redirect("/");
     });
