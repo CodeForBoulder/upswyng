@@ -38,8 +38,8 @@ export default function(options: TAppOptions) {
       session({
         store: new MongoStore({ mongooseConnection }),
         secret: sessionSecret,
-        saveUninitialized: true,
-        resave: true,
+        saveUninitialized: false,
+        resave: false,
       }),
       grant(grantConfig),
       userMiddleware
