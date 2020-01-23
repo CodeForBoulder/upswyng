@@ -6,6 +6,7 @@ import User, { userDocumentToUser } from "../models/User";
 
 import { TUser } from "@upswyng/upswyng-types";
 import axios from "axios";
+
 interface TGrantGoogle {
   provider: "google";
   state: "string";
@@ -39,6 +40,15 @@ async function googleGrantToUser(grant: TGrantGoogle): Promise<TUser> {
     );
   }
   try {
+    if (!grant.response.id_token) {
+      throw new Error(
+        `No id_token included with response. Grant:\n${JSON.stringify(
+          grant,
+          null,
+          2
+        )}`
+      );
+    }
     const user = await User.findOrCreateGoogleUser(
       grant.response.id_token.payload.sub,
       grant.response.id_token.payload.email
@@ -47,7 +57,7 @@ async function googleGrantToUser(grant: TGrantGoogle): Promise<TUser> {
   } catch (e) {
     console.error(e);
     throw new Error(
-      `Error creating or finding new user with sub ${grant.response.id_token.payload.sub}`
+      `Error creating or finding new user with sub ${grant.response.id_token.payload.sub}:\n${e}`
     );
   }
 }
