@@ -1,6 +1,15 @@
 <script context="module">
   import { ResourceSchedule } from "@upswyng/upswyng-core";
 
+  function usersToActions(users) {
+    return users.reduce((result, user) => {
+      result[user._id] = {
+        isRunningAction: false,
+        isDropdownExpanded: false,
+      };
+      return result;
+    }, {});
+  }
   export async function preload({ params, query }, { user }) {
     if (!user || !user.isAdmin) {
       this.error(401, "You must be an admin to access this page.");
@@ -27,22 +36,30 @@
       const { message } = await usersResponse.json();
       this.error(usersResponse.status, message || "Unknown Error");
     } else {
-      const { users, estimatedTotal } = await usersResponse.json();
-      return { users, estimatedTotal };
+      const { estimatedTotal, users } = await usersResponse.json();
+      return {
+        actions: usersToActions(users),
+        estimatedTotal,
+        currentUser: user,
+        users,
+      };
     }
   }
 </script>
 
 <script>
-  export let users; // TUser[]
+  export let actions = {}; // Record<string (user _id), { isRunningAction: boolean, isDropdownExpanded: boolean}>
+  export let currentUser; // TUser; the logged in user viewing the page
   export let estimatedTotal; // number (estimated total number of users)
+  export let users; // TUser[]
 
+  let errorMessage = "";
+  let isLoading = false;
+  let isSuperAdmin = !!currentUser.isSuperAdmin; // boolean (is the logged in user viewing the page a super admin)
   let limit = 20; // change limit in `preload` function if changing this
   let paginationStep = 1; // the pagination step the user is on
-  let totalPaginationSteps = 1;
-  let isLoading = false;
-  let errorMessage = "";
   let paginationStepsToShow = { left: [], middle: [], right: [] };
+  let totalPaginationSteps = 1;
 
   $: offset = (paginationStep - 1) * limit;
   $: {
@@ -87,6 +104,115 @@
     }
   }
 
+  function setUserToRunningAction(userId) {
+    actions = {
+      ...actions,
+      [userId]: { ...actions[userId], isRunningAction: true },
+    };
+  }
+
+  function setUserToNotRunningAction(userId) {
+    actions = {
+      ...actions,
+      [userId]: { ...actions[userId], isRunningAction: false },
+    };
+  }
+
+  function makeToggleDropdownForUserFunction(userId) {
+    return () => {
+      const allClosedActions = Object.entries(actions).reduce(
+        (result, [k, v]) => {
+          result[k] = { ...v, isDropdownExpanded: false };
+          return result;
+        },
+        {}
+      );
+      actions = {
+        ...allClosedActions,
+        [userId]: {
+          ...allClosedActions[userId],
+          isDropdownExpanded: !actions[userId]["isDropdownExpanded"],
+        },
+      };
+    };
+  }
+
+  async function makeAdmin(userId) {
+    await modifyUser(
+      userId,
+      JSON.stringify({
+        isAdmin: true,
+        isSuperAdmin: false,
+      }),
+      "Error adding admin to user"
+    );
+  }
+
+  async function removeAdmin(userId) {
+    await modifyUser(
+      userId,
+      JSON.stringify({
+        isAdmin: false,
+        isSuperAdmin: false,
+      }),
+      "Error removing admin from user"
+    );
+  }
+
+  async function removeSuperAdmin(userId) {
+    await modifyUser(
+      userId,
+      JSON.stringify({
+        isAdmin: true,
+        isSuperAdmin: false,
+      }),
+      "Error removing super admin from user"
+    );
+  }
+
+  async function makeSuperAdmin(userId) {
+    await modifyUser(
+      userId,
+      JSON.stringify({
+        isAdmin: true,
+        isSuperAdmin: true,
+      }),
+      "Error adding super admin to user"
+    );
+  }
+
+  async function modifyUser(userId, body, errorMessage) {
+    setUserToRunningAction(userId);
+    actions = {
+      ...actions,
+      [userId]: { ...actions[userId], isDropdownExpanded: false },
+    };
+    try {
+      const response = await fetch(`/api/users/${userId}`, {
+        method: "POST",
+        body,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const { user, message } = await response.json();
+      if (response.status !== 200) {
+        throw new Error(message || errorMessage);
+      }
+      // swap the `user` in `users` for the updated user
+      const i = users.findIndex(u => u._id === user._id);
+      if (i < 0) {
+        throw new Error(`Could not find user`);
+      }
+      users.splice(i, 1, user);
+      users = users;
+    } catch (e) {
+      errorMessage = e.message;
+    } finally {
+      setUserToNotRunningAction(userId);
+    }
+  }
+
   async function fetchUsers(limit, offset) {
     errorMessage = "";
     isLoading = true;
@@ -107,6 +233,7 @@
         throw new Error(message || "Error getting Users");
       }
       users = newUsers;
+      actions = { ...actions, ...usersToActions(newUsers) };
     } catch (e) {
       errorMessage = e.message;
     } finally {
@@ -159,6 +286,9 @@
           <th>
             <!-- admin/superadmin-->
           </th>
+          <th>
+            <!-- actions -->
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -184,6 +314,62 @@
               {/if}
               {#if user.isSuperAdmin}
                 <span class="tag is-primary">Super Admin</span>
+              {/if}
+            </td>
+            <td>
+              {#if isSuperAdmin && currentUser._id !== user._id}
+                <div
+                  class="dropdown is-right"
+                  class:is-active={actions[user._id]['isDropdownExpanded']}>
+                  <div class="dropdown-trigger">
+                    <button
+                      class="button"
+                      class:is-loading={actions[user._id]['isRunningAction']}
+                      aria-haspopup="true"
+                      aria-controls="dropdown-menu"
+                      on:click={makeToggleDropdownForUserFunction(user._id)}>
+                      <span class="icon is-small">
+                        <i class="fas fa-angle-down" aria-hidden="true" />
+                      </span>
+                    </button>
+                  </div>
+                  <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                    <div class="dropdown-content">
+                      {#if user.isAdmin}
+                        <!-- svelte-ignore a11y-missing-attribute -->
+                        <a
+                          class="dropdown-item"
+                          on:click|preventDefault={async () => removeAdmin(user._id)}>
+                          Remove admin
+                        </a>
+                      {/if}
+                      {#if !user.isAdmin}
+                        <!-- svelte-ignore a11y-missing-attribute -->
+                        <a
+                          class="dropdown-item"
+                          on:click|preventDefault={async () => makeAdmin(user._id)}>
+                          Make admin
+                        </a>
+                      {/if}
+                      {#if !user.isSuperAdmin}
+                        <!-- svelte-ignore a11y-missing-attribute -->
+                        <a
+                          class="dropdown-item"
+                          on:click|preventDefault={async () => makeSuperAdmin(user._id)}>
+                          Make superadmin
+                        </a>
+                      {/if}
+                      {#if user.isSuperAdmin}
+                        <!-- svelte-ignore a11y-missing-attribute -->
+                        <a
+                          class="dropdown-item"
+                          on:click|preventDefault={async () => removeSuperAdmin(user._id)}>
+                          Remove superadmin
+                        </a>
+                      {/if}
+                    </div>
+                  </div>
+                </div>
               {/if}
             </td>
           </tr>
