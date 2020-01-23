@@ -47,6 +47,10 @@ self.addEventListener("fetch", event => {
   )
     return;
 
+  // ignore authentication (login/logout)
+  if (url.pathname.includes("/logout") || url.pathname.includes("/connect"))
+    return;
+
   // always serve static files and bundler-generated assets from cache
   if (url.host === self.location.host && cached.has(url.pathname)) {
     event.respondWith(caches.match(event.request));
