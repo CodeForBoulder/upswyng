@@ -34,7 +34,7 @@ const useResource = (resourceId: string): undefined | null | TResource => {
     };
 
     getResource();
-  }, [setResource]);
+  }, [resourceId, setResource]);
 
   return resource;
 };
