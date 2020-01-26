@@ -7112,6 +7112,14 @@ grant-express@^4.6.2:
   dependencies:
     grant "4.6.5"
 
+"grant-express@git://github.com/rhinodavid/grant.git", "grant@git://github.com/rhinodavid/grant.git":
+  version "4.6.6"
+  resolved "git://github.com/rhinodavid/grant.git#88d00ff4c5af389324ec949cdbf73ba38741e297"
+  dependencies:
+    qs "^6.9.1"
+    request-compose "^1.2.1"
+    request-oauth "0.0.3"
+
 grant-oidc@0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/grant-oidc/-/grant-oidc-0.0.3.tgz#085ea66f44817194eba26ebd2090f396d19a22b3"
