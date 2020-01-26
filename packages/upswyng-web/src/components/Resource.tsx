@@ -3,6 +3,7 @@ import { TCategoryDefinition, categories } from "./Categories";
 
 import BannerColorContext from "./BannerColorContext";
 import Grid from "@material-ui/core/Grid";
+import Link from "@material-ui/core/Link";
 import LoadingSpinner from "./LoadingSpinner";
 import Map from "./Map";
 import PageBanner from "./PageBanner";
@@ -102,13 +103,13 @@ export const Resource = () => {
             <Grid item>
               <Typography variant="h2">Website</Typography>
               <Typography>
-                <a
+                <Link
                   href={resource.website}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   {resource.website}
-                </a>
+                </Link>
               </Typography>
             </Grid>
           )}
