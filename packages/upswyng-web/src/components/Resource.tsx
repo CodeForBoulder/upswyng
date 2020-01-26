@@ -85,87 +85,83 @@ export const Resource = () => {
   const resourceColor = currentBannerColor || colors[resourceCategoryColorName];
 
   return (
-    <>
-      <Container>
-        <PageBanner color={resourceColor} text={resource.name} />
-        <List component="div">
-          {resource.address && (
-            <ListItem component="div">
-              <ListItemIcon classes={listIconClasses}>
-                <LocationOnIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <Typography component="h2" variant="srOnly">
-                  Address
-                </Typography>
-                {resource.address.address1},{" "}
-                {resource.address.address2 && (
-                  <>{resource.address.address2}, </>
-                )}
-                {resource.address.city}, {resource.address.state},{" "}
-                {resource.address.zip}
-              </ListItemText>
-            </ListItem>
-          )}
-          {resource.phone && (
-            <ListItem component="div">
-              <ListItemIcon classes={listIconClasses}>
-                <PhoneIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <Typography component="h2" variant="srOnly">
-                  Phone
-                </Typography>
-                {resource.phone}
-              </ListItemText>
-            </ListItem>
-          )}
-          {resource.website && (
-            <ListItem component="div">
-              <ListItemIcon classes={listIconClasses}>
-                <PublicIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <Typography component="h2" variant="srOnly">
-                  Website
-                </Typography>
-                <Link
-                  href={resource.website}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  underline="always"
-                >
-                  {resource.website}
-                </Link>
-              </ListItemText>
-            </ListItem>
-          )}
+    <Container>
+      <PageBanner color={resourceColor} text={resource.name} />
+      <List component="div">
+        {resource.address && (
           <ListItem component="div">
             <ListItemIcon classes={listIconClasses}>
-              <ScheduleIcon />
+              <LocationOnIcon />
             </ListItemIcon>
             <ListItemText>
               <Typography component="h2" variant="srOnly">
-                Schedule
+                Address
               </Typography>
-              <Schedule schedule={resource.schedule} />
+              {resource.address.address1},{" "}
+              {resource.address.address2 && <>{resource.address.address2}, </>}
+              {resource.address.city}, {resource.address.state},{" "}
+              {resource.address.zip}
             </ListItemText>
           </ListItem>
-          <ListItem component="div">
-            <Typography variant="srOnly">Services</Typography>
-            <Services resource={resource} />
-          </ListItem>
-        </List>
-        {resource.latitude && resource.longitude && (
-          <Map
-            address={resource.address}
-            name={resource.name}
-            latitude={resource.latitude}
-            longitude={resource.longitude}
-          />
         )}
-      </Container>
-    </>
+        {resource.phone && (
+          <ListItem component="div">
+            <ListItemIcon classes={listIconClasses}>
+              <PhoneIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <Typography component="h2" variant="srOnly">
+                Phone
+              </Typography>
+              {resource.phone}
+            </ListItemText>
+          </ListItem>
+        )}
+        {resource.website && (
+          <ListItem component="div">
+            <ListItemIcon classes={listIconClasses}>
+              <PublicIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <Typography component="h2" variant="srOnly">
+                Website
+              </Typography>
+              <Link
+                href={resource.website}
+                rel="noopener noreferrer"
+                target="_blank"
+                underline="always"
+              >
+                {resource.website}
+              </Link>
+            </ListItemText>
+          </ListItem>
+        )}
+        <ListItem component="div">
+          <ListItemIcon classes={listIconClasses}>
+            <ScheduleIcon />
+          </ListItemIcon>
+          <ListItemText>
+            <Typography component="h2" variant="srOnly">
+              Schedule
+            </Typography>
+            <Schedule schedule={resource.schedule} />
+          </ListItemText>
+        </ListItem>
+        <ListItem component="div">
+          <Typography variant="srOnly">Services</Typography>
+          <Services resource={resource} />
+        </ListItem>
+      </List>
+      {resource.latitude && resource.longitude && (
+        <Map
+          address={resource.address}
+          name={resource.name}
+          latitude={resource.latitude}
+          longitude={resource.longitude}
+        />
+      )}
+    </Container>
   );
 };
 
