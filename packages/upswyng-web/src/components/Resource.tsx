@@ -86,11 +86,14 @@ export const Resource = () => {
           {resource.address && (
             <Grid item>
               <Typography variant="h2">Address</Typography>
+              <Typography>{resource.address.address1}</Typography>
+              {resource.address.address2 && (
+                <Typography>{resource.address.address2}</Typography>
+              )}
               <Typography>
-                {resource.address.address1}, {resource.address.address2}{" "}
-                {resource.address.city}, {resource.address.state}{" "}
-                {resource.address.zip}
+                {resource.address.city}, {resource.address.state}
               </Typography>
+              <Typography>{resource.address.zip}</Typography>
             </Grid>
           )}
           {resource.phone && (
