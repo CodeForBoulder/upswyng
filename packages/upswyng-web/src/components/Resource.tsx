@@ -2,14 +2,21 @@ import { Container, colors } from "../App.styles";
 import { TCategoryDefinition, categories } from "./Categories";
 
 import BannerColorContext from "./BannerColorContext";
-import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
 import LoadingSpinner from "./LoadingSpinner";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
 import Map from "./Map";
 import PageBanner from "./PageBanner";
+import PhoneIcon from "@material-ui/icons/Phone";
+import PublicIcon from "@material-ui/icons/Public";
 import React from "react";
 import { SEARCH_PARAM_RESOURCE } from "../constants";
 import Schedule from "./Schedule";
+import ScheduleIcon from "@material-ui/icons/Schedule";
 import Services from "./Services";
 import { TResource } from "@upswyng/upswyng-types";
 import Typography from "@material-ui/core/Typography";
@@ -82,30 +89,47 @@ export const Resource = () => {
         />
       </Container>
       <Container>
-        <Grid container direction="column" spacing={2}>
+        <List component="div">
           {resource.address && (
-            <Grid item>
-              <Typography variant="h2">Address</Typography>
-              <Typography>{resource.address.address1}</Typography>
-              {resource.address.address2 && (
-                <Typography>{resource.address.address2}</Typography>
-              )}
-              <Typography>
-                {resource.address.city}, {resource.address.state}
-              </Typography>
-              <Typography>{resource.address.zip}</Typography>
-            </Grid>
+            <ListItem component="div">
+              <ListItemIcon>
+                <LocationOnIcon />
+              </ListItemIcon>
+              <ListItemText>
+                <Typography component="h2" variant="srOnly">
+                  Address
+                </Typography>
+                {resource.address.address1},{" "}
+                {resource.address.address2 && (
+                  <>{resource.address.address2}, </>
+                )}
+                {resource.address.city}, {resource.address.state},{" "}
+                {resource.address.zip}
+              </ListItemText>
+            </ListItem>
           )}
           {resource.phone && (
-            <Grid item>
-              <Typography variant="h2">Phone</Typography>
-              <Typography>{resource.phone}</Typography>
-            </Grid>
+            <ListItem component="div">
+              <ListItemIcon>
+                <PhoneIcon />
+              </ListItemIcon>
+              <ListItemText>
+                <Typography component="h2" variant="srOnly">
+                  Phone
+                </Typography>
+                {resource.phone}
+              </ListItemText>
+            </ListItem>
           )}
           {resource.website && (
-            <Grid item>
-              <Typography variant="h2">Website</Typography>
-              <Typography>
+            <ListItem component="div">
+              <ListItemIcon>
+                <PublicIcon />
+              </ListItemIcon>
+              <ListItemText>
+                <Typography component="h2" variant="srOnly">
+                  Website
+                </Typography>
                 <Link
                   href={resource.website}
                   target="_blank"
@@ -113,18 +137,25 @@ export const Resource = () => {
                 >
                   {resource.website}
                 </Link>
-              </Typography>
-            </Grid>
+              </ListItemText>
+            </ListItem>
           )}
-          <Grid item>
-            <Typography variant="h2">Schedule</Typography>
-            <Schedule schedule={schedule} />
-          </Grid>
-          <Grid item>
-            <Typography variant="h2">Services</Typography>
+          <ListItem component="div">
+            <ListItemIcon>
+              <ScheduleIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <Typography component="h2" variant="srOnly">
+                Schedule
+              </Typography>
+              <Schedule schedule={schedule} />
+            </ListItemText>
+          </ListItem>
+          <ListItem component="div">
+            <Typography variant="srOnly">Services</Typography>
             <Services resource={resource} />
-          </Grid>
-        </Grid>
+          </ListItem>
+        </List>
         {resource.latitude && resource.longitude && (
           <Map
             address={resource.address}
