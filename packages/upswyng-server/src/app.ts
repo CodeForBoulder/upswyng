@@ -24,9 +24,9 @@ interface TAppOptions {
 }
 
 export default function(options: TAppOptions) {
-  const { dev, grantConfig, /* mongooseConnection,*/ sessionSecret } = options;
-  // TODO: Reenable database session once debugging is complete
-  // const MongoStore = connectMongo(session);
+  const { dev, grantConfig, mongooseConnection, sessionSecret } = options;
+
+  const MongoStore = connectMongo(session);
 
   return polka()
     .use(
@@ -38,8 +38,7 @@ export default function(options: TAppOptions) {
     )
     .use(
       session({
-        // TODO: Reenable database session once debugging is complete
-        // store: new MongoStore({ mongooseConnection }),
+        store: new MongoStore({ mongooseConnection }),
         secret: sessionSecret,
         saveUninitialized: false,
         resave: true,

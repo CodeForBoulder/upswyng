@@ -35,21 +35,6 @@ if (dev && /prod/.test(ALGOLIA_INDEX_NAME)) {
   );
 }
 
-mongoose
-  .connect(DATABASE_URL, {
-    useNewUrlParser: true,
-    dbName: DATABASE_NAME,
-    user: DATABASE_USER,
-    pass: DATABASE_PASSWORD,
-  })
-  .then(
-    () => console.log(`Connected to MongoDB instance at ${DATABASE_URL}`),
-    e =>
-      console.error(
-        `There was an error connecting to the MongoDB instance at ${DATABASE_URL}:\n${e}`
-      )
-  );
-
 const grantConfig = {
   defaults: {
     protocol: process.env.SERVER_PROTOCOL || "http",
@@ -75,26 +60,43 @@ const grantConfig = {
   },
 };
 
-if (!process.env.DATABASE_SESSION_SECRET) {
-  console.warn(
-    "Starting session storage with default secret. \
-    Please set a secret at `DATABASE_SESSION_SECRET` ENV variable."
-  );
-}
+mongoose
+  .connect(DATABASE_URL, {
+    useNewUrlParser: true,
+    dbName: DATABASE_NAME,
+    user: DATABASE_USER,
+    pass: DATABASE_PASSWORD,
+  })
+  .then(
+    () => {
+      console.log(`Connected to MongoDB instance at ${DATABASE_URL}`);
 
-app({
-  dev,
-  grantConfig,
-  mongooseConnection: mongoose.connection,
-  sessionSecret: process.env.DATABASE_SESSION_SECRET || "default_secret",
-})
-  .use(
-    sapper.middleware({
-      session: (req, _res) => {
-        return { user: getUserFromRawUsers(req) };
-      },
-    })
-  )
-  .listen(PORT, err => {
-    if (err) console.error("Error starting polka server:", err);
-  });
+      if (!process.env.DATABASE_SESSION_SECRET) {
+        console.warn(
+          "Starting session storage with default secret. \
+    Please set a secret at `DATABASE_SESSION_SECRET` ENV variable."
+        );
+      }
+
+      app({
+        dev,
+        grantConfig,
+        mongooseConnection: mongoose.connection,
+        sessionSecret: process.env.DATABASE_SESSION_SECRET || "default_secret",
+      })
+        .use(
+          sapper.middleware({
+            session: (req, _res) => {
+              return { user: getUserFromRawUsers(req) };
+            },
+          })
+        )
+        .listen(PORT, err => {
+          if (err) console.error("Error starting polka server:", err);
+        });
+    },
+    e =>
+      console.error(
+        `There was an error connecting to the MongoDB instance at ${DATABASE_URL}:\n${e}`
+      )
+  );
