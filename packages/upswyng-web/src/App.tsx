@@ -40,7 +40,7 @@ class App extends Component {
             <Route exact path="/about" component={About} />
             <Route path="/coordinated-entry" component={CoordinatedEntry} />
             <Route path="/shelters" component={Shelters} />
-            <Route path="/job_training" component={JobTraining} />
+            <Route path="/job-training" component={JobTraining} />
             <Route path="/health" component={Health} />
             <Route path="/hygiene" component={Hygiene} />
             <Route exact path="/hotlines" component={Hotlines} />
