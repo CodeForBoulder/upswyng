@@ -29,12 +29,6 @@ jest.mock("../../utils/searchParams", () => ({
   getSearchParamVal: () => "some resource ID",
 }));
 jest.mock("../PageBanner", () => "PageBanner");
-jest.mock("../Details", () => ({
-  __esModule: true,
-  default: "Details",
-  DetailBody: "DetailBody",
-  DetailHeading: "DetailHeading",
-}));
 jest.mock("../Schedule", () => "Schedule");
 jest.mock("../Map", () => "Map");
 jest.mock("../useResource.tsx");
