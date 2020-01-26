@@ -4,6 +4,7 @@ import { Route, BrowserRouter as Router } from "react-router-dom";
 import About from "./components/About";
 import { BannerColorContextProvider } from "./components/BannerColorContext";
 import Categories from "./components/Categories";
+import CoordinatedEntry from "./components/CoordinatedEntry";
 import GlobalStyle from "./App.styles";
 import Header from "./components/Header";
 import Home from "./components/Home";
@@ -37,6 +38,7 @@ class App extends Component {
             <Header />
             <Route exact path="/" component={Home} />
             <Route exact path="/about" component={About} />
+            <Route path="/coordinated-entry" component={CoordinatedEntry} />
             <Route path="/shelters" component={Shelters} />
             <Route path="/job_training" component={JobTraining} />
             <Route path="/health" component={Health} />
