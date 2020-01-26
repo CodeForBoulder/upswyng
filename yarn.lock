@@ -7112,13 +7112,12 @@ grant-express@^4.6.2:
   dependencies:
     grant "4.6.5"
 
-"grant-express@git://github.com/rhinodavid/grant.git", "grant@git://github.com/rhinodavid/grant.git":
+grant-express@^4.6.6:
   version "4.6.6"
-  resolved "git://github.com/rhinodavid/grant.git#88d00ff4c5af389324ec949cdbf73ba38741e297"
+  resolved "https://registry.yarnpkg.com/grant-express/-/grant-express-4.6.6.tgz#135c52f33ed1534225daedb9a5fffc3f3bd55abf"
+  integrity sha512-WnWzsYpgeqD9YpxL6P6eXO9wa9l2vutA/IxCoAoPGlfcyMD2VRaQnjOItTzVkcUbiAPHcBqDzrU04CYUGwHsRw==
   dependencies:
-    qs "^6.9.1"
-    request-compose "^1.2.1"
-    request-oauth "0.0.3"
+    grant "4.6.6"
 
 grant-oidc@0.0.3:
   version "0.0.3"
@@ -7133,6 +7132,23 @@ grant@4.6.5, grant@^4.6.2:
   version "4.6.5"
   resolved "https://registry.yarnpkg.com/grant/-/grant-4.6.5.tgz#ffd05122df830a1ae7ff2eebbbfc85c5e1c100e8"
   integrity sha512-gxMaIw6MRI/HaPxuV04NTOCZTFtPRCjpZIAQH3NqCnOHUHXenor+IOTYqjmeSQzcH0KJ0rv3PQp9Q3Cj18n8jw==
+  dependencies:
+    qs "^6.9.1"
+    request-compose "^1.2.1"
+    request-oauth "0.0.3"
+
+grant@4.6.6:
+  version "4.6.6"
+  resolved "https://registry.yarnpkg.com/grant/-/grant-4.6.6.tgz#da58aa4d99c0515cfd7466d4a1f1e3ac37cad09a"
+  integrity sha512-YpylEOxM0ElPm+HCNEFLvqSA0xL8zo1dOllU0xutAAYbpYxMM4ZDgujYTmWEIIf1z9xn2zWavBgHRpYBtFa+Pw==
+  dependencies:
+    qs "^6.9.1"
+    request-compose "^1.2.1"
+    request-oauth "0.0.3"
+
+"grant@git://github.com/rhinodavid/grant.git#semver:^4.6.6":
+  version "4.6.6"
+  resolved "git://github.com/rhinodavid/grant.git#8b6f7ca937096f6d3ab6cd8ccd4f1891b46efd3e"
   dependencies:
     qs "^6.9.1"
     request-compose "^1.2.1"
