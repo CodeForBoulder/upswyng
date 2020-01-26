@@ -58,10 +58,6 @@ export const Resource = () => {
   const resource = useResource(resourceId || "");
   const listIconClasses = useListIconStyles({});
 
-  if (!resourceId) {
-    return <p>We&apos;re sorry, this resource was not found.</p>;
-  }
-
   if (resource === undefined) {
     return <LoadingSpinner />;
   }
