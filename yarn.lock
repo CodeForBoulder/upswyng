@@ -7105,19 +7105,12 @@ graceful-fs@^4.1.10, graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.
   resolved "https://registry.yarnpkg.com/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
   integrity sha1-TK+tdrxi8C+gObL5Tpo906ORpyU=
 
-grant-express@^4.6.2:
+grant-express@4.6.5, grant-express@^4.6.2:
   version "4.6.5"
   resolved "https://registry.yarnpkg.com/grant-express/-/grant-express-4.6.5.tgz#1cadfd9ee08c5f740eade00220c2242b03b49452"
   integrity sha512-oHWXlKkidPQUHMY2wOzL8xQ6/OQKaib1G1jrWfKXXxIcNGYl8IRZk8SqYy6qT8rjEFQ4hcTd8NrTuNIemSxUXQ==
   dependencies:
     grant "4.6.5"
-
-grant-express@^4.6.6:
-  version "4.6.6"
-  resolved "https://registry.yarnpkg.com/grant-express/-/grant-express-4.6.6.tgz#135c52f33ed1534225daedb9a5fffc3f3bd55abf"
-  integrity sha512-WnWzsYpgeqD9YpxL6P6eXO9wa9l2vutA/IxCoAoPGlfcyMD2VRaQnjOItTzVkcUbiAPHcBqDzrU04CYUGwHsRw==
-  dependencies:
-    grant "4.6.6"
 
 grant-oidc@0.0.3:
   version "0.0.3"
@@ -7137,18 +7130,9 @@ grant@4.6.5, grant@^4.6.2:
     request-compose "^1.2.1"
     request-oauth "0.0.3"
 
-grant@4.6.6:
-  version "4.6.6"
-  resolved "https://registry.yarnpkg.com/grant/-/grant-4.6.6.tgz#da58aa4d99c0515cfd7466d4a1f1e3ac37cad09a"
-  integrity sha512-YpylEOxM0ElPm+HCNEFLvqSA0xL8zo1dOllU0xutAAYbpYxMM4ZDgujYTmWEIIf1z9xn2zWavBgHRpYBtFa+Pw==
-  dependencies:
-    qs "^6.9.1"
-    request-compose "^1.2.1"
-    request-oauth "0.0.3"
-
-"grant@git://github.com/rhinodavid/grant.git#semver:^4.6.6":
-  version "4.6.6"
-  resolved "git://github.com/rhinodavid/grant.git#8b6f7ca937096f6d3ab6cd8ccd4f1891b46efd3e"
+"grant@git://github.com/rhinodavid/grant.git":
+  version "4.6.5"
+  resolved "git://github.com/rhinodavid/grant.git#9bd8bcd56b136e283d92e164b74e612a2dd2329a"
   dependencies:
     qs "^6.9.1"
     request-compose "^1.2.1"
