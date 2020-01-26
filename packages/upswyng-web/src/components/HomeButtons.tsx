@@ -103,13 +103,13 @@ const routerLinkButtons: THomeButtonRouterLink[] = [
   },
 ];
 
-const coordinatedEntryButton: THomeButtonAnchor = {
+const coordinatedEntryButton: THomeButtonRouterLink = {
   text: "Coordinated Entry",
-  href: "https://www.bouldercounty.org/homeless/",
   icon: DoorIcon,
+  linkProps: {
+    to: "/coordinated-entry",
+  },
   color: colors.rosewood,
-  target: "_blank",
-  rel: "noopener noreferrer",
 };
 
 const HomeButtonContainer = styled(Grid)`
@@ -132,7 +132,7 @@ const HomeButtons = () => (
       );
     })}{" "}
     <Grid item xs={12}>
-      <HomeAnchorLink
+      <HomeRouterLink
         {...coordinatedEntryButton}
         key={coordinatedEntryButton.text}
       >
@@ -140,7 +140,7 @@ const HomeButtons = () => (
           {coordinatedEntryButton.text}
           {coordinatedEntryButton.icon}
         </HomeButton>
-      </HomeAnchorLink>
+      </HomeRouterLink>
     </Grid>
   </>
 );
