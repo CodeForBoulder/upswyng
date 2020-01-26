@@ -11,12 +11,11 @@ import {
   SocksIcon,
   WifiIcon,
 } from "./Icons";
-import { HomeAnchorLink, HomeRouterLink } from "./HomeLink";
-import { THomeButtonAnchor, THomeButtonRouterLink } from "../webTypes";
-
 import { Grid } from "@material-ui/core";
 import HomeButton from "./HomeButton";
+import { HomeRouterLink } from "./HomeLink";
 import React from "react";
+import { THomeButtonRouterLink } from "../webTypes";
 import { colors } from "../App.styles";
 import styled from "styled-components";
 
