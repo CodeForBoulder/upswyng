@@ -14,12 +14,12 @@ const convertCelsiusToFarenheit = (cTemp: number): number =>
 const useTemperature = (): undefined | null | number => {
   const [temperature, setTemperature] = useState<undefined | null | number>();
 
-  const boulderCoords = {
-    lat: 40.015,
-    lon: -105.2705,
-  };
-
   useEffect(() => {
+    const boulderCoords = {
+      lat: 40.015,
+      lon: -105.2705,
+    };
+
     const getCurrentTemp = async (): Promise<void> => {
       try {
         const { data } = await axios.get<TWeatherCurrentResponse>(
