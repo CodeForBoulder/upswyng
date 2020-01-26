@@ -69,7 +69,7 @@ export const Resource = () => {
 
   if (resource === null) {
     return (
-      <Typography>We&apos;re sorry, this service was not found.</Typography>
+      <Typography>We&apos;re sorry, this resource was not found.</Typography>
     );
   }
 
