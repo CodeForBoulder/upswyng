@@ -36,7 +36,7 @@ function useSearchResults(
 
       getSearchResults(query);
     }
-  }, [query]);
+  }, [query, searchIndex]);
 
   return searchResults;
 }
