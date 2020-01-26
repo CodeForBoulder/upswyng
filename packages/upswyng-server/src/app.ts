@@ -28,6 +28,9 @@ export default function(options: TAppOptions) {
 
   const MongoStore = connectMongo(session);
 
+  // TODO: Remove once debugging complete
+  console.log("App options: ", options);
+
   return polka()
     .use(
       compression({ threshold: 0 }),
