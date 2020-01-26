@@ -19,9 +19,18 @@ import Schedule from "./Schedule";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import Services from "./Services";
 import { TResource } from "@upswyng/upswyng-types";
+import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import Typography from "@material-ui/core/Typography";
 import { getSearchParamVal } from "../utils/searchParams";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 import useResource from "./useResource";
+
+const useListIconStyles = makeStyles((theme: Theme) => ({
+  root: {
+    alignSelf: "flex-start",
+    marginTop: theme.spacing(0.5),
+  },
+}));
 
 interface Props {
   id: string;
@@ -51,10 +60,9 @@ const getMainCategory = (categoryStub: string): TCategoryDefinition | null => {
 
 export const Resource = () => {
   const resourceId = getSearchParamVal(SEARCH_PARAM_RESOURCE);
-
-  const { currentBannerColor } = React.useContext(BannerColorContext);
-
   const resource = useResource(resourceId || "");
+  const { currentBannerColor } = React.useContext(BannerColorContext);
+  const listIconClasses = useListIconStyles({});
 
   if (!resourceId) {
     return <p>We&apos;re sorry, this resource was not found.</p>;
@@ -68,10 +76,8 @@ export const Resource = () => {
     return renderErrorMessage();
   }
 
-  const { name, schedule, subcategories } = resource;
-
-  const defaultCategoryStub = subcategories.length
-    ? subcategories[0].parentCategory.stub
+  const defaultCategoryStub = resource.subcategories.length
+    ? resource.subcategories[0].parentCategory.stub
     : "";
   const mainCategoryDefinition = defaultCategoryStub
     ? getMainCategory(defaultCategoryStub)
@@ -79,20 +85,18 @@ export const Resource = () => {
   const resourceCategoryColorName = mainCategoryDefinition
     ? mainCategoryDefinition.color
     : "black";
+  const resourceColor = currentBannerColor || colors[resourceCategoryColorName];
 
   return (
     <>
       <Container>
-        <PageBanner
-          color={currentBannerColor || colors[resourceCategoryColorName]}
-          text={name}
-        />
+        <PageBanner color={resourceColor} text={resource.name} />
       </Container>
       <Container>
         <List component="div">
           {resource.address && (
             <ListItem component="div">
-              <ListItemIcon>
+              <ListItemIcon classes={listIconClasses}>
                 <LocationOnIcon />
               </ListItemIcon>
               <ListItemText>
@@ -110,7 +114,7 @@ export const Resource = () => {
           )}
           {resource.phone && (
             <ListItem component="div">
-              <ListItemIcon>
+              <ListItemIcon classes={listIconClasses}>
                 <PhoneIcon />
               </ListItemIcon>
               <ListItemText>
@@ -123,7 +127,7 @@ export const Resource = () => {
           )}
           {resource.website && (
             <ListItem component="div">
-              <ListItemIcon>
+              <ListItemIcon classes={listIconClasses}>
                 <PublicIcon />
               </ListItemIcon>
               <ListItemText>
@@ -132,8 +136,9 @@ export const Resource = () => {
                 </Typography>
                 <Link
                   href={resource.website}
-                  target="_blank"
                   rel="noopener noreferrer"
+                  target="_blank"
+                  underline="always"
                 >
                   {resource.website}
                 </Link>
@@ -141,14 +146,14 @@ export const Resource = () => {
             </ListItem>
           )}
           <ListItem component="div">
-            <ListItemIcon>
+            <ListItemIcon classes={listIconClasses}>
               <ScheduleIcon />
             </ListItemIcon>
             <ListItemText>
               <Typography component="h2" variant="srOnly">
                 Schedule
               </Typography>
-              <Schedule schedule={schedule} />
+              <Schedule schedule={resource.schedule} />
             </ListItemText>
           </ListItem>
           <ListItem component="div">
