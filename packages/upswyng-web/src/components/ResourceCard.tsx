@@ -2,7 +2,6 @@ import { colors, font } from "../App.styles";
 
 import { Link } from "react-router-dom";
 import React from "react";
-import { SEARCH_PARAM_RESOURCE } from "../constants";
 import styled from "styled-components";
 
 interface Props {
@@ -126,8 +125,7 @@ const ResourceCard = ({
   return (
     <ResourceCardContainer
       to={{
-        pathname: "/resource",
-        search: `?${SEARCH_PARAM_RESOURCE}=${resourceId}`,
+        pathname: `/resource/${resourceId}`,
       }}
     >
       <ResourceCardImageContainer>

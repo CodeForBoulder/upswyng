@@ -25,8 +25,8 @@ jest.mock("../../App.styles", () => ({
     },
   },
 }));
-jest.mock("../../utils/searchParams", () => ({
-  getSearchParamVal: () => "some resource ID",
+jest.mock("react-router-dom", () => ({
+  useParams: () => ({ resourceId: "some resource ID" }),
 }));
 jest.mock("../PageBanner", () => "PageBanner");
 jest.mock("../Schedule", () => "Schedule");
