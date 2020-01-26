@@ -36,13 +36,16 @@ const CoordinatedEntry = () => {
         <List>
           <ListItem>
             <ListItemIcon>
-              <WarningIcon color="primary" fontSize="large" />
+              <WarningIcon color="secondary" fontSize="large" />
             </ListItemIcon>
             <ListItemText>
-              <Typography>
+              <Typography paragraph>
                 Note you must have been in Boulder County for 6 months before
-                applying. If you apply before 6 months, you will be barred from
-                any services.
+                applying.
+              </Typography>
+              <Typography color="secondary">
+                If you apply before 6 months, you will be barred from any
+                services.
               </Typography>
             </ListItemText>
           </ListItem>
