@@ -1,6 +1,5 @@
 import { Container, colors } from "../App.styles";
 import { TCategoryDefinition, categories } from "./Categories";
-
 import BannerColorContext from "./BannerColorContext";
 import Link from "@material-ui/core/Link";
 import List from "@material-ui/core/List";
@@ -37,10 +36,6 @@ interface Props {
   resource: TResource;
 }
 
-const renderErrorMessage = () => (
-  <p>We&apos;re sorry, this service was not found.</p>
-);
-
 const getMainCategory = (categoryStub: string): TCategoryDefinition | null => {
   if (!categoryStub) {
     return null;
@@ -73,7 +68,9 @@ export const Resource = () => {
   }
 
   if (resource === null) {
-    return renderErrorMessage();
+    return (
+      <Typography>We&apos;re sorry, this service was not found.</Typography>
+    );
   }
 
   const defaultCategoryStub = resource.subcategories.length
@@ -91,8 +88,6 @@ export const Resource = () => {
     <>
       <Container>
         <PageBanner color={resourceColor} text={resource.name} />
-      </Container>
-      <Container>
         <List component="div">
           {resource.address && (
             <ListItem component="div">
