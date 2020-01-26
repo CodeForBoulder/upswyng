@@ -14,6 +14,7 @@ const typography = {
     fontWeight: 300,
   },
   body1: {
+    fontSize: "1rem",
     fontWeight: 300,
   },
   subtitle2: {
