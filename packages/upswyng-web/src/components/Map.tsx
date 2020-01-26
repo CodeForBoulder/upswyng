@@ -132,20 +132,21 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
   );
   const [directionsError, setDirectionsError] = useState<string | null>(null);
 
-  const addMapMarker = () => {
-    const { address1, address2, city, state, zip } = address;
+  useEffect(() => {
+    const addMapMarker = () => {
+      const { address1, address2, city, state, zip } = address;
 
-    const resourceMarker = new googleMaps.Marker({
-      map: googleMap,
-      title: name,
-      position: {
-        lat: latitude,
-        lng: longitude,
-      },
-    });
+      const resourceMarker = new googleMaps.Marker({
+        map: googleMap,
+        title: name,
+        position: {
+          lat: latitude,
+          lng: longitude,
+        },
+      });
 
-    const resourceMarkerInfoWindow = new googleMaps.InfoWindow({
-      content: `
+      const resourceMarkerInfoWindow = new googleMaps.InfoWindow({
+        content: `
           <div class="google-map__info-window">
             <span class="google-map__charity-name">${name}</span>
             <span class="google-map__address-line">${address1}</span>
@@ -153,21 +154,26 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
             <span class="google-map__address-line">${city}, ${state} ${zip}</span>
           </div>
         `,
-    });
+      });
 
-    resourceMarker.addListener("mouseover", () => {
-      resourceMarkerInfoWindow.open(googleMap, resourceMarker);
-    });
-    resourceMarker.addListener("focus", () => {
-      resourceMarkerInfoWindow.open(googleMap, resourceMarker);
-    });
-    resourceMarker.addListener("mouseout", () => {
-      resourceMarkerInfoWindow.close();
-    });
-    resourceMarker.addListener("blur", () => {
-      resourceMarkerInfoWindow.close();
-    });
-  };
+      resourceMarker.addListener("mouseover", () => {
+        resourceMarkerInfoWindow.open(googleMap, resourceMarker);
+      });
+      resourceMarker.addListener("focus", () => {
+        resourceMarkerInfoWindow.open(googleMap, resourceMarker);
+      });
+      resourceMarker.addListener("mouseout", () => {
+        resourceMarkerInfoWindow.close();
+      });
+      resourceMarker.addListener("blur", () => {
+        resourceMarkerInfoWindow.close();
+      });
+    };
+
+    if (googleMaps) {
+      addMapMarker();
+    }
+  }, [address, googleMap, googleMaps, latitude, longitude, name]);
 
   const getUserPosition = (): Promise<Position> =>
     new Promise((resolve, reject) => {
@@ -290,12 +296,6 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
     setTravelMode(prevTravelMode =>
       newTravelMode !== prevTravelMode ? newTravelMode : null
     );
-
-  useEffect(() => {
-    if (googleMaps) {
-      addMapMarker();
-    }
-  }, [googleMaps]);
 
   useEffect(() => {
     if (travelMode) {
