@@ -1,5 +1,15 @@
-import { terser } from "rollup-plugin-terser";
 import * as dotenv from "dotenv";
+
+/**
+ * Typescript setup:
+ * https://github.com/sveltejs/sapper/issues/760#issuecomment-514967952
+ */
+import {
+  createEnv,
+  readConfigFile,
+  preprocess as tsPreprocess,
+} from "@pyoner/svelte-ts-preprocess";
+
 import autoPreprocess from "svelte-preprocess";
 import babel from "rollup-plugin-babel";
 import builtins from "rollup-plugin-node-builtins";
@@ -10,17 +20,9 @@ import pkg from "./package.json";
 import replace from "@rollup/plugin-replace";
 import resolve from "@rollup/plugin-node-resolve";
 import svelte from "rollup-plugin-svelte";
-
-/**
- * Typescript setup:
- * https://github.com/sveltejs/sapper/issues/760#issuecomment-514967952
- */
-import {
-  createEnv,
-  preprocess as tsPreprocess,
-  readConfigFile,
-} from "@pyoner/svelte-ts-preprocess";
+import { terser } from "rollup-plugin-terser";
 import typescript from "rollup-plugin-typescript2";
+
 const env = createEnv();
 const compilerOptions = readConfigFile(env, "./tsconfig.build.json");
 const tsOpts = {
