@@ -4,11 +4,12 @@
  * endpoints.
  */
 
+import { Connection } from "mongoose";
 import bodyParser from "body-parser";
 import compression from "compression";
+import connectMongo from "connect-mongo";
 import cors from "cors";
 import grant from "grant-express";
-import memorystore from "memorystore";
 import oidc from "grant-oidc";
 import polka from "polka";
 import session from "express-session";
@@ -16,15 +17,16 @@ import sirv from "sirv";
 import userMiddleware from "./utility/userMiddleware";
 
 interface TAppOptions {
+  mongooseConnection: Connection;
   dev: boolean; // start server in development mode
   grantConfig: Record<string, any>; // see https://github.com/simov/grant#configuration
   sessionSecret: string;
 }
 
 export default function(options: TAppOptions) {
-  const { dev, grantConfig, sessionSecret } = options;
+  const { dev, grantConfig, mongooseConnection, sessionSecret } = options;
 
-  const MemoryStore = memorystore(session);
+  const MongoStore = connectMongo(session);
 
   return polka()
     .use(
@@ -36,7 +38,7 @@ export default function(options: TAppOptions) {
     )
     .use(
       session({
-        store: new MemoryStore({ checkPeriod: 86400000 }), // prune expired entries every 24h
+        store: new MongoStore({ mongooseConnection }),
         secret: sessionSecret,
         saveUninitialized: false,
         resave: true,
