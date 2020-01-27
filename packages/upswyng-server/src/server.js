@@ -60,14 +60,8 @@ const grantConfig = {
   },
 };
 
-let dbUrl = DATABASE_URL;
-if (!dev) {
-  // the prod database doesn't support retry writes; turn them off
-  dbUrl = dbUrl.concat("?retryWrites=false");
-}
-
 mongoose
-  .connect(dbUrl, {
+  .connect(DATABASE_URL, {
     useNewUrlParser: true,
     dbName: DATABASE_NAME,
     user: DATABASE_USER,
@@ -75,7 +69,7 @@ mongoose
   })
   .then(
     () => {
-      console.log(`Connected to MongoDB instance at ${dbUrl}`);
+      console.log(`Connected to MongoDB instance at ${DATABASE_URL}`);
 
       if (!process.env.DATABASE_SESSION_SECRET) {
         console.warn(
