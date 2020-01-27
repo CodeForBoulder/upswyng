@@ -13,15 +13,14 @@ import PageBanner from "./PageBanner";
 import PhoneIcon from "@material-ui/icons/Phone";
 import PublicIcon from "@material-ui/icons/Public";
 import React from "react";
-import { SEARCH_PARAM_RESOURCE } from "../constants";
 import Schedule from "./Schedule";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import Services from "./Services";
 import { TResource } from "@upswyng/upswyng-types";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import Typography from "@material-ui/core/Typography";
-import { getSearchParamVal } from "../utils/searchParams";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import { useParams } from "react-router-dom";
 import useResource from "./useResource";
 
 const useListIconStyles = makeStyles((theme: Theme) => ({
@@ -54,14 +53,10 @@ const getMainCategory = (categoryStub: string): TCategoryDefinition | null => {
 };
 
 export const Resource = () => {
-  const resourceId = getSearchParamVal(SEARCH_PARAM_RESOURCE);
-  const resource = useResource(resourceId || "");
+  const { resourceId } = useParams();
   const { currentBannerColor } = React.useContext(BannerColorContext);
+  const resource = useResource(resourceId || "");
   const listIconClasses = useListIconStyles({});
-
-  if (!resourceId) {
-    return <p>We&apos;re sorry, this resource was not found.</p>;
-  }
 
   if (resource === undefined) {
     return <LoadingSpinner />;
