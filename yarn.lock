@@ -7298,14 +7298,7 @@ graceful-fs@^4.1.10, graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.
   resolved "https://registry.yarnpkg.com/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
   integrity sha1-TK+tdrxi8C+gObL5Tpo906ORpyU=
 
-grant-express@4.6.5:
-  version "4.6.5"
-  resolved "https://registry.yarnpkg.com/grant-express/-/grant-express-4.6.5.tgz#1cadfd9ee08c5f740eade00220c2242b03b49452"
-  integrity sha512-oHWXlKkidPQUHMY2wOzL8xQ6/OQKaib1G1jrWfKXXxIcNGYl8IRZk8SqYy6qT8rjEFQ4hcTd8NrTuNIemSxUXQ==
-  dependencies:
-    grant "4.6.5"
-
-grant-express@^4.6.2:
+grant-express@^4.6.2, grant-express@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/grant-express/-/grant-express-4.7.0.tgz#5d435bd2f24e6a42b27aee148b94b3d6f12dbee1"
   integrity sha512-feRNJLKDcn7xz/KGp/rSAXErp+sP6MALbCfZodKNFz7to+dMo+PbcgMZVPSdasPI/YqHNwnHPE0NRQDUsVciHQ==
@@ -7321,27 +7314,10 @@ grant-oidc@0.0.3:
     jws "^3.1.4"
     request-compose "^1.0.0"
 
-grant@4.6.5:
-  version "4.6.5"
-  resolved "https://registry.yarnpkg.com/grant/-/grant-4.6.5.tgz#ffd05122df830a1ae7ff2eebbbfc85c5e1c100e8"
-  integrity sha512-gxMaIw6MRI/HaPxuV04NTOCZTFtPRCjpZIAQH3NqCnOHUHXenor+IOTYqjmeSQzcH0KJ0rv3PQp9Q3Cj18n8jw==
-  dependencies:
-    qs "^6.9.1"
-    request-compose "^1.2.1"
-    request-oauth "0.0.3"
-
-grant@4.7.0, grant@^4.6.2:
+grant@4.7.0, grant@^4.6.2, grant@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/grant/-/grant-4.7.0.tgz#ab879a38ced7860df668db6c66012aa02402f49b"
   integrity sha512-QGPjCYDrBnb/OIiTRxbK3TnNOE6Ycgfc/GcgPzI4vyNIr+b7yisEexYp7VM74zj6bxr+mDTzfGONRLzzsVPJIA==
-  dependencies:
-    qs "^6.9.1"
-    request-compose "^1.2.1"
-    request-oauth "0.0.3"
-
-"grant@git://github.com/rhinodavid/grant.git":
-  version "4.6.5"
-  resolved "git://github.com/rhinodavid/grant.git#1cb657d7e413c615158e71877319a08e4de470af"
   dependencies:
     qs "^6.9.1"
     request-compose "^1.2.1"
