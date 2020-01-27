@@ -249,6 +249,10 @@
     height: 1.5em;
     margin-top: -1em;
   }
+
+  .user-explaination p:not(:last-child) {
+    margin-bottom: 1.25em;
+  }
 </style>
 
 <svelte:head>
@@ -274,6 +278,19 @@
       {#if isLoading}
         <progress class="progress is-small is-primary" max="100" />
       {/if}
+    </div>
+
+    <div class="user-explaination is-size-6 box">
+      <p>
+        Users who have
+        <span class="tag is-dark">Admin</span>
+        permissions can approve changes to resources and create alerts.
+      </p>
+      <p>
+        Users who have
+        <span class="tag is-primary">Super Admin</span>
+        permissions can manage other users by modifying their permissions.
+      </p>
     </div>
 
     <table class="table is-fullwidth is-striped">
@@ -340,7 +357,7 @@
                         <a
                           class="dropdown-item"
                           on:click|preventDefault={async () => removeAdmin(user._id)}>
-                          Remove admin
+                          Remove Admin
                         </a>
                       {/if}
                       {#if !user.isAdmin}
@@ -348,7 +365,7 @@
                         <a
                           class="dropdown-item"
                           on:click|preventDefault={async () => makeAdmin(user._id)}>
-                          Make admin
+                          Make Admin
                         </a>
                       {/if}
                       {#if !user.isSuperAdmin}
@@ -356,7 +373,7 @@
                         <a
                           class="dropdown-item"
                           on:click|preventDefault={async () => makeSuperAdmin(user._id)}>
-                          Make superadmin
+                          Make Super Admin
                         </a>
                       {/if}
                       {#if user.isSuperAdmin}
@@ -364,7 +381,7 @@
                         <a
                           class="dropdown-item"
                           on:click|preventDefault={async () => removeSuperAdmin(user._id)}>
-                          Remove superadmin
+                          Remove Super Admin
                         </a>
                       {/if}
                     </div>
