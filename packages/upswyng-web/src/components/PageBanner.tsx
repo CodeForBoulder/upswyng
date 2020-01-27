@@ -15,6 +15,7 @@ const PageBannerContainer = styled.div`
   background: ${props => (props.color ? props.color : colors.greyMedium)};
   display: flex;
   flex-direction: row;
+  margin: 0 0 ${font.helpers.convertPixelsToRems(12)};
   padding: ${font.helpers.convertPixelsToRems(14)} 0;
   wrap: no-wrap;
 `;
