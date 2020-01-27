@@ -1,84 +1,40 @@
 import { Container, colors } from "../App.styles";
-import Details, { DetailBody, DetailHeading } from "./Details";
 import { TCategoryDefinition, categories } from "./Categories";
-
 import BannerColorContext from "./BannerColorContext";
+import Link from "@material-ui/core/Link";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
 import LoadingSpinner from "./LoadingSpinner";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
 import Map from "./Map";
 import PageBanner from "./PageBanner";
+import PhoneIcon from "@material-ui/icons/Phone";
+import PublicIcon from "@material-ui/icons/Public";
 import React from "react";
 import { SEARCH_PARAM_RESOURCE } from "../constants";
 import Schedule from "./Schedule";
+import ScheduleIcon from "@material-ui/icons/Schedule";
 import Services from "./Services";
 import { TResource } from "@upswyng/upswyng-types";
+import { Theme } from "@material-ui/core/styles/createMuiTheme";
+import Typography from "@material-ui/core/Typography";
 import { getSearchParamVal } from "../utils/searchParams";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 import useResource from "./useResource";
+
+const useListIconStyles = makeStyles((theme: Theme) => ({
+  root: {
+    alignSelf: "flex-start",
+    marginTop: theme.spacing(0.5),
+  },
+}));
 
 interface Props {
   id: string;
   resource: TResource;
 }
-
-const renderAddressContent = (resource: TResource) => {
-  const {
-    address: { address1, address2, city, state, zip },
-  } = resource;
-
-  if (!address1 || !city || !state || !zip) {
-    return <></>;
-  }
-
-  return (
-    <>
-      <DetailHeading>Address</DetailHeading>
-      <DetailBody>
-        <p>
-          {" "}
-          {address1}, {address2 ? `${address2},` : ""} {city}, {state} {zip}
-        </p>
-      </DetailBody>
-    </>
-  );
-};
-
-const renderPhoneContent = (resource: TResource) => {
-  const { phone } = resource;
-  if (!phone) {
-    return <></>;
-  }
-  return (
-    <>
-      <DetailHeading>Phone</DetailHeading>
-      <DetailBody>
-        <p>{phone}</p>
-      </DetailBody>
-    </>
-  );
-};
-
-const renderWebsiteContent = (resource: TResource) => {
-  const { website } = resource;
-
-  if (!website) {
-    return <></>;
-  }
-  return (
-    <>
-      <DetailHeading>Website</DetailHeading>
-      <DetailBody>
-        <p>
-          <a href={website} target="_blank" rel="noopener noreferrer">
-            {website}
-          </a>
-        </p>
-      </DetailBody>
-    </>
-  );
-};
-
-const renderErrorMessage = () => (
-  <p>We&apos;re sorry, this service was not found.</p>
-);
 
 const getMainCategory = (categoryStub: string): TCategoryDefinition | null => {
   if (!categoryStub) {
@@ -99,10 +55,9 @@ const getMainCategory = (categoryStub: string): TCategoryDefinition | null => {
 
 export const Resource = () => {
   const resourceId = getSearchParamVal(SEARCH_PARAM_RESOURCE);
-
-  const { currentBannerColor } = React.useContext(BannerColorContext);
-
   const resource = useResource(resourceId || "");
+  const { currentBannerColor } = React.useContext(BannerColorContext);
+  const listIconClasses = useListIconStyles({});
 
   if (!resourceId) {
     return <p>We&apos;re sorry, this resource was not found.</p>;
@@ -113,13 +68,13 @@ export const Resource = () => {
   }
 
   if (resource === null) {
-    return renderErrorMessage();
+    return (
+      <Typography>We&apos;re sorry, this resource was not found.</Typography>
+    );
   }
 
-  const { name, schedule, subcategories } = resource;
-
-  const defaultCategoryStub = subcategories.length
-    ? subcategories[0].parentCategory.stub
+  const defaultCategoryStub = resource.subcategories.length
+    ? resource.subcategories[0].parentCategory.stub
     : "";
   const mainCategoryDefinition = defaultCategoryStub
     ? getMainCategory(defaultCategoryStub)
@@ -127,26 +82,77 @@ export const Resource = () => {
   const resourceCategoryColorName = mainCategoryDefinition
     ? mainCategoryDefinition.color
     : "black";
+  const resourceColor = currentBannerColor || colors[resourceCategoryColorName];
 
   return (
     <Container>
-      <PageBanner
-        color={currentBannerColor || colors[resourceCategoryColorName]}
-        text={name}
-      />
-      <Details>
-        {renderAddressContent(resource)}
-        {renderPhoneContent(resource)}
-        {renderWebsiteContent(resource)}
-        <DetailHeading>Schedule</DetailHeading>
-        <DetailBody>
-          <Schedule schedule={schedule} />
-        </DetailBody>
-        <DetailHeading>Services</DetailHeading>
-        <DetailBody>
+      <PageBanner color={resourceColor} text={resource.name} />
+      <List component="div">
+        {resource.address && (
+          <ListItem component="div">
+            <ListItemIcon classes={listIconClasses}>
+              <LocationOnIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <Typography component="h2" variant="srOnly">
+                Address
+              </Typography>
+              {resource.address.address1},{" "}
+              {resource.address.address2 && <>{resource.address.address2}, </>}
+              {resource.address.city}, {resource.address.state},{" "}
+              {resource.address.zip}
+            </ListItemText>
+          </ListItem>
+        )}
+        {resource.phone && (
+          <ListItem component="div">
+            <ListItemIcon classes={listIconClasses}>
+              <PhoneIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <Typography component="h2" variant="srOnly">
+                Phone
+              </Typography>
+              {resource.phone}
+            </ListItemText>
+          </ListItem>
+        )}
+        {resource.website && (
+          <ListItem component="div">
+            <ListItemIcon classes={listIconClasses}>
+              <PublicIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <Typography component="h2" variant="srOnly">
+                Website
+              </Typography>
+              <Link
+                href={resource.website}
+                rel="noopener noreferrer"
+                target="_blank"
+                underline="always"
+              >
+                {resource.website}
+              </Link>
+            </ListItemText>
+          </ListItem>
+        )}
+        <ListItem component="div">
+          <ListItemIcon classes={listIconClasses}>
+            <ScheduleIcon />
+          </ListItemIcon>
+          <ListItemText>
+            <Typography component="h2" variant="srOnly">
+              Schedule
+            </Typography>
+            <Schedule schedule={resource.schedule} />
+          </ListItemText>
+        </ListItem>
+        <ListItem component="div">
+          <Typography variant="srOnly">Services</Typography>
           <Services resource={resource} />
-        </DetailBody>
-      </Details>
+        </ListItem>
+      </List>
       {resource.latitude && resource.longitude && (
         <Map
           address={resource.address}

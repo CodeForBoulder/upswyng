@@ -1,10 +1,10 @@
 import { ResourceSchedule, TScheduleItem } from "@upswyng/upswyng-core";
 
+import Grid from "@material-ui/core/Grid";
 import { RRule } from "rrule";
 import React from "react";
 import { TResourceScheduleData } from "@upswyng/upswyng-types";
-import { font } from "../App.styles";
-import styled from "styled-components";
+import Typography from "@material-ui/core/Typography";
 
 interface ScheduleProps {
   schedule: TResourceScheduleData;
@@ -23,40 +23,6 @@ const days = {
 function capitalize(x: string): string {
   return x.charAt(0).toUpperCase() + x.slice(1);
 }
-
-const WeeklyContainer = styled.div`
-  display: flex;
-`;
-
-const WeeklyDay = styled.h3`
-  && {
-    flex: 0 1 30%;
-    font-size: inherit;
-    font-weight: 400;
-    margin: 0;
-    &::after {
-      content: ":";
-    }
-  }
-`;
-
-const WeeklyTimes = styled.p`
-  && {
-    display: flex;
-    flex: 1 1 70%;
-    flex-direction: column;
-    margin: 0;
-  }
-`;
-
-const WeeklyTime = styled.span`
-  && {
-    margin: 0;
-    && + && {
-      margin-top: ${font.helpers.convertPixelsToRems(4)};
-    }
-  }
-`;
 
 // TODO (rhinodavid): Remove these render functions
 
@@ -91,16 +57,20 @@ const WeeklySchedule = ({ items }: { items: TScheduleItem[] }) => {
       {dayItemsMap
         .filter(x => x.items.length)
         .map(x => (
-          <WeeklyContainer key={x.day}>
-            <WeeklyDay>{capitalize(x.day)}</WeeklyDay>
-            <WeeklyTimes>
+          <Grid container key={x.day}>
+            <Grid item xs={4}>
+              <Typography component="h3" variant="subtitle2">
+                {capitalize(x.day)}:
+              </Typography>
+            </Grid>
+            <Grid item xs={8}>
               {x.items.map(i => (
-                <WeeklyTime key={`${i.fromTime.value}${i.toTime.value}`}>
+                <Typography key={`${i.fromTime.value}${i.toTime.value}`}>
                   {i.fromTime.label} - {i.toTime.label}
-                </WeeklyTime>
+                </Typography>
               ))}
-            </WeeklyTimes>
-          </WeeklyContainer>
+            </Grid>
+          </Grid>
         ))}
     </div>
   );
