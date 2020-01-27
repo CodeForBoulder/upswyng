@@ -84,7 +84,10 @@
       {#if user && user.name}
         <div class="navbar-item">
           <span class="has-text-weight-semibold">{user.name}</span>
-          {#if user && user.isAdmin}
+          {#if user && user.isSuperAdmin}
+            &nbsp;&nbsp;&nbsp;
+            <span class="tag is-primary">Super Admin</span>
+          {:else if user && user.isAdmin}
             &nbsp;&nbsp;&nbsp;
             <span class="tag is-black">Admin</span>
           {/if}
@@ -92,7 +95,10 @@
       {:else if user && user.email}
         <div class="navbar-item">
           <span class="has-text-weight-semibold">{user.email}</span>
-          {#if user && user.isAdmin}
+          {#if user && user.isSuperAdmin}
+            &nbsp;&nbsp;&nbsp;
+            <span class="tag is-primary">Super Admin</span>
+          {:else if user && user.isAdmin}
             &nbsp;&nbsp;&nbsp;
             <span class="tag is-black">Admin</span>
           {/if}
