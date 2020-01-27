@@ -16,22 +16,20 @@ export async function get(req, res, _next) {
     draftResourceDocument = await DraftResource.getByRecordId(
       ObjectId.createFromHexString(_id)
     );
-    if (draftResourceDocument) {
-      draftResource = resourceDocumentToResource(draftResourceDocument);
+    if (!draftResourceDocument) {
+      res.writeHead(404, {
+        "Content-Type": "application/json",
+      });
+
+      return res.end(
+        JSON.stringify({
+          message: `Draft with ID ${_id} not found`,
+        })
+      );
     }
-  } catch (e) {
-    res.writeHead(500, {
-      "Content-Type": "application/json",
-    });
 
-    return res.end(
-      JSON.stringify({
-        message: e.message,
-      })
-    );
-  }
+    draftResource = resourceDocumentToResource(draftResourceDocument);
 
-  if (draftResource) {
     if (!isAdmin(req)) {
       // don't allow non-admins to see who created a resource
       delete draftResource.createdBy;
@@ -40,14 +38,14 @@ export async function get(req, res, _next) {
       "Content-Type": "application/json",
     });
     res.end(JSON.stringify({ draftResource }));
-  } else {
-    res.writeHead(404, {
+  } catch (e) {
+    res.writeHead(500, {
       "Content-Type": "application/json",
     });
 
-    res.end(
+    return res.end(
       JSON.stringify({
-        message: `Resource not found`,
+        message: e.message,
       })
     );
   }
