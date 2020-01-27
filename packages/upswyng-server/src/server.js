@@ -81,7 +81,6 @@ mongoose
       app({
         dev,
         grantConfig,
-        mongooseConnection: mongoose.connection,
         sessionSecret: process.env.DATABASE_SESSION_SECRET || "default_secret",
       })
         .use(
