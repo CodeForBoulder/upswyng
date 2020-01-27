@@ -2,6 +2,9 @@ import * as SlackRtmApi from "@slack/rtm-api";
 import * as SlackWebApi from "@slack/web-api";
 import * as dotenv from "dotenv";
 
+import User, { userDocumentToUser } from "../models/User";
+
+import { ObjectId } from "bson";
 import { TEventLog } from "@upswyng/upswyng-types";
 import { WebAPICallResult } from "@slack/web-api";
 
@@ -17,13 +20,10 @@ let webClient: SlackWebApi.WebClient;
 try {
   webClient = new WebClient(process.env.SLACK_OAUTH_ACCESS_TOKEN);
   webClient.auth.test().then(
-    (r: SlackWebApi.WebAPICallResult) => {
+    (_r: SlackWebApi.WebAPICallResult) => {
       console.info(`🤖   upswyngbot starting 🚀`);
       console.info(`🤖   HOST: ${HOST}`);
       console.info(`🤖   CHANNEL: ${CHANNEL}`);
-      console.info(
-        `🤖   slack web auth successful:\n${JSON.stringify(r, null, 2)}`
-      );
       console.info(`🤖   upswyngbot connected to web api 😎\n\n`);
     },
     e => {
@@ -70,7 +70,7 @@ function assertUnreachable(_x: never): never {
   throw new Error("unreachable");
 }
 
-function createTextForEventLog(e: TEventLog): string {
+async function createTextForEventLog(e: TEventLog): Promise<string> {
   const { detail } = e;
   switch (detail.kind) {
     case "draft_approved":
@@ -113,12 +113,42 @@ function createTextForEventLog(e: TEventLog): string {
       )} issue> for <${HOST}/resource/${detail.resourceId}|${
         detail.resourceName
       }>`;
+    case "user_permission_changed":
+      const modifiedUserDocument = await User.findById(
+        ObjectId.createFromHexString((e.detail as any).modifiedUserId)
+      );
+      const modifiedUser = userDocumentToUser(modifiedUserDocument);
+
+      const {
+        isAdminOld,
+        isAdminNew,
+        isSuperAdminOld,
+        isSuperAdminNew,
+      } = e.detail as any;
+      let message = "";
+      if (isAdminOld && !isSuperAdminOld && isAdminNew) {
+        message = "added Admin to";
+      } else if (!isSuperAdminOld && isSuperAdminNew) {
+        message = "added Super Admin to";
+      } else if (isSuperAdminOld && !isSuperAdminNew && isAdminNew) {
+        message = "removed Super Admin from";
+      } else if (isSuperAdminOld && !isAdminNew) {
+        message = "removed Admin and Super Admin from";
+      } else if (isAdminOld && !isAdminNew) {
+        message = "removed Admin from";
+      }
+      return `:lock: ${
+        e.actor.name ? e.actor.name : e.actor.email
+      } ${message} ${
+        modifiedUser.name ? modifiedUser.name : modifiedUser.email
+      }`;
     default:
       assertUnreachable(detail);
   }
 }
 export async function postEventLogMessage(e: TEventLog) {
   try {
+    const text = await createTextForEventLog(e);
     // Use the `chat.postMessage` method to send a message from this app
     await webClient.chat.postMessage({
       /* eslint-disable @typescript-eslint/camelcase */
@@ -128,7 +158,7 @@ export async function postEventLogMessage(e: TEventLog) {
       // TODO (rhinodavid): Remove hardcoded URL
       // Issue now is that if you use the SERVER_HOST slack can't access `localhost`
       icon_url: `https://codeforboulder-upswyng-server.herokuapp.com/upswyngbot.svg`,
-      text: createTextForEventLog(e),
+      text,
       /* eslint-enable @typescript-eslint/camelcase */
     });
   } catch (e) {

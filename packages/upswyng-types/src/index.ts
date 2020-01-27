@@ -200,11 +200,20 @@ export const EventLogKind = {
   draft_deleted: null, // a draft resource was deleted
   resource_issue_reopened: null,
   resource_issue_resolved: null,
+  user_permission_changed: null,
   /* eslint-enable @typescript-eslint/camelcase */
 };
 export type TEventLogKind = keyof typeof EventLogKind;
 
-// TODO (rhinodavid): Add other types of events (User Events)
+interface TEventLogUserPermissionChangedDetail {
+  isAdminNew: boolean;
+  isAdminOld: boolean;
+  isSuperAdminNew: boolean;
+  isSuperAdminOld: boolean;
+  kind: "user_permission_changed";
+  modifiedUserId: string; // the ID of the user whose permissions are changing
+}
+
 interface TEventLogDraftApprovedDetail {
   // The diff of the resource before and after the draft was approved.
   // Won't be populated if `newResource` is true.
@@ -252,7 +261,8 @@ export type TEventLogDetail =
   | TEventLogDraftCreatedDetail
   | TEventLogDraftDeletedDetail
   | TEventLogResourceIssueReopenedDetail
-  | TEventLogResourceIssueResolvedDetail;
+  | TEventLogResourceIssueResolvedDetail
+  | TEventLogUserPermissionChangedDetail;
 
 /**
  * A record we keep when something happens.

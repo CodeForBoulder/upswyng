@@ -12,6 +12,46 @@
     isExpanded = !isExpanded;
   }
 
+  async function getDescriptionForUserPermissionChanged(
+    e /* :TEventLog */
+  ) /* : Promise<string> */ {
+    if (e.kind !== "user_permission_changed") {
+      throw new Error(
+        `\`getDescriptionForUserPermissionChanged\` was called on an event with kind ${e.kind}. The function only operates on events with kind \`user_permission_changed\`.`
+      );
+    }
+    const res = await fetch(`api/users/${e.detail.modifiedUserId}`);
+    const data = await res.json();
+    if (res.status !== 200 || !data.user) {
+      throw new Error(
+        `Error fetching user with ID: ${e.detail.modifiedUserId}. ${data.message}`
+      );
+    }
+    const { user /* TUser */ } = data;
+
+    const {
+      isAdminOld,
+      isAdminNew,
+      isSuperAdminOld,
+      isSuperAdminNew,
+    } = e.detail;
+    let message = "";
+    if (isAdminOld && !isSuperAdminOld && isAdminNew) {
+      message = "added Admin to";
+    } else if (!isSuperAdminOld && isSuperAdminNew) {
+      message = "added Super Admin to";
+    } else if (isSuperAdminOld && !isSuperAdminNew && isAdminNew) {
+      message = "removed Super Admin from";
+    } else if (isSuperAdminOld && !isAdminNew) {
+      message = "removed Admin and Super Admin from";
+    } else if (isAdminOld && !isAdminNew) {
+      message = "removed Admin from";
+    }
+    return `<span class="has-text-weight-semibold">${message}</span> <span class="has-text-weight-bold">${
+      user.name ? user.name : user.email
+    }</span>`;
+  }
+
   onMount(async () => {
     const javascriptTimeAgoModule = await import("javascript-time-ago");
     const { default: en } = await import("javascript-time-ago/locale/en");
@@ -197,6 +237,26 @@
           </a>
         </strong>
       </p>
+    </div>
+  {:else if eventLog.detail.kind === 'user_permission_changed'}
+    <div class="timeline-marker is-icon">
+      <i class="fa fa-lock" />
+    </div>
+    <div class="timeline-content">
+      <p class="heading">
+        {#if timeAgo}{timeAgo.format(new Date(eventLog.createdAt))}{/if}
+      </p>
+      {#await getDescriptionForUserPermissionChanged(eventLog)}
+        <!-- promise is pending -->
+        <p>loading...</p>
+      {:then text}
+        {`${eventLog.actor.name ? eventLog.actor.name : eventLog.actor.email}`}
+        {@html text}
+      {:catch error}
+        <!-- promise was rejected -->
+        <p>Something went wrong: {error.message}</p>
+      {/await}
+
     </div>
   {:else}
     <div class="notification is-danger">
