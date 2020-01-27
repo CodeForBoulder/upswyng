@@ -56,7 +56,7 @@ try {
   });
   rtm.start().then(
     (r: WebAPICallResult) => {
-      console.info(`🤖   slack RTM started:\n${JSON.stringify(r, null, 2)}`);
+      console.info(`🤖   slack RTM started`);
     },
     e => {
       throw e;

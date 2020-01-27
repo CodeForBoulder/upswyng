@@ -5,15 +5,17 @@
     const resourceResponse = await this.fetch(
       `/api/resource/${params.resourceId}`
     );
-    const { resource } = await resourceResponse.json();
+    const { resource, message } = await resourceResponse.json();
+    if (resourceResponse.status !== 200) {
+      this.error(resourceResponse.status, message);
+      return;
+    }
     resource.schedule = ResourceSchedule.parse(resource.schedule);
 
     const subcategoryResponse = await this.fetch(`/api/subcategories`);
     const { subcategories } = await subcategoryResponse.json();
 
-    if (resourceResponse.status !== 200) {
-      this.error(resourceResponse.status, resource.message);
-    } else if (subcategoryResponse.status !== 200) {
+    if (subcategoryResponse.status !== 200) {
       this.error(subcategoryResponse.status, subcategories.message);
     } else {
       return {

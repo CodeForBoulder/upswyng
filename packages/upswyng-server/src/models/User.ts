@@ -27,12 +27,12 @@ export function userDocumentToUser(u: TUserDocument): TUser {
     isSuperAdmin: u.isSuperAdmin || false,
   };
 
-  if (u.facebook.email) {
+  if (u.facebook && u.facebook.email) {
     result.providers.push("facebook");
     result.name = u.facebook.name;
     result.email = u.facebook.email;
   }
-  if (u.google.email) {
+  if (u.google && u.google.email) {
     result.providers.push("google");
     result.email = u.google.email;
   }
