@@ -126,8 +126,15 @@ async function createTextForEventLog(e: TEventLog): Promise<string> {
         isSuperAdminNew,
       } = e.detail as any;
       let message = "";
-      if (isAdminOld && !isSuperAdminOld && isAdminNew) {
+      if (!isAdminOld && !isSuperAdminOld && isAdminNew && !isSuperAdminNew) {
         message = "added Admin to";
+      } else if (
+        !isAdminOld &&
+        !isSuperAdminOld &&
+        isAdminNew &&
+        isSuperAdminNew
+      ) {
+        message = "added Admin and Super Admin to";
       } else if (!isSuperAdminOld && isSuperAdminNew) {
         message = "added Super Admin to";
       } else if (isSuperAdminOld && !isSuperAdminNew && isAdminNew) {
