@@ -51,6 +51,13 @@ self.addEventListener("fetch", event => {
   if (url.pathname.includes("/logout") || url.pathname.includes("/connect"))
     return;
 
+  // reload page if we've just logged in or logged out
+  if (
+    url.searchParams.get("loggedin") === "true" ||
+    url.searchParams.get("loggedout") === "true"
+  )
+    return;
+
   // always serve static files and bundler-generated assets from cache
   if (url.host === self.location.host && cached.has(url.pathname)) {
     event.respondWith(caches.match(event.request));
