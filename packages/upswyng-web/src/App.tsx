@@ -47,7 +47,7 @@ class App extends Component {
             <Route path="/food" component={Food} />
             <Route exact path="/privacy-policy" component={PrivacyPolicy} />
             <Route path="/transit" component={Transit} />
-            <Route exact path="/resource" component={Resource} />
+            <Route exact path="/resource/:resourceId" component={Resource} />
             <Route path="/resources" component={Resources} />
             <Route path="/social_services" component={SocialServices} />
             <Route exact path="/search" component={Search} />

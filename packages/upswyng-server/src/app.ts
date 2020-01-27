@@ -47,6 +47,6 @@ export default function(options: TAppOptions) {
     .use(grant(grantConfig))
     .use(userMiddleware)
     .get("/callback", oidc(grantConfig), (_req, res) => {
-      res.redirect("/");
+      res.redirect("/?loggedin=true");
     });
 }
