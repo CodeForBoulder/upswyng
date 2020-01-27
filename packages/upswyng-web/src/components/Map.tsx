@@ -1,6 +1,11 @@
 import { BikeIcon, BusIcon, CarIcon, CloseIcon, WalkIcon } from "./Icons";
 import IconButton, { IconButtonProps } from "@material-ui/core/IconButton";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, {
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import {
   TGoogleMapDirectionsStatusCode,
   TGoogleMapTravelMode,
@@ -132,7 +137,7 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
   );
   const [directionsError, setDirectionsError] = useState<string | null>(null);
 
-  const addMapMarker = () => {
+  const addMapMarker = useCallback(() => {
     const { address1, address2, city, state, zip } = address;
 
     const resourceMarker = new googleMaps.Marker({
@@ -167,7 +172,13 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
     resourceMarker.addListener("blur", () => {
       resourceMarkerInfoWindow.close();
     });
-  };
+  }, [address, googleMap, googleMaps, latitude, longitude, name]);
+
+  useEffect(() => {
+    if (googleMaps) {
+      addMapMarker();
+    }
+  }, [addMapMarker, googleMaps]);
 
   const getUserPosition = (): Promise<Position> =>
     new Promise((resolve, reject) => {
@@ -290,12 +301,6 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
     setTravelMode(prevTravelMode =>
       newTravelMode !== prevTravelMode ? newTravelMode : null
     );
-
-  useEffect(() => {
-    if (googleMaps) {
-      addMapMarker();
-    }
-  }, [googleMaps]);
 
   useEffect(() => {
     if (travelMode) {

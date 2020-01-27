@@ -39,18 +39,19 @@ const ResourceList = ({ placeholder, resources }: Props) => {
 
   if (resources && resources.length) {
     const listItems = resources.map(({ name, resourceId }, index) => {
-      if (name && resourceId) {
-        return (
-          <SearchResultsItem key={resourceId}>
-            <ResourceCard
-              index={index}
-              placeholder={placeholder}
-              resourceId={resourceId}
-              resourceName={name}
-            />
-          </SearchResultsItem>
-        );
+      if (!name || !resourceId) {
+        return null;
       }
+      return (
+        <SearchResultsItem key={resourceId}>
+          <ResourceCard
+            index={index}
+            placeholder={placeholder}
+            resourceId={resourceId}
+            resourceName={name}
+          />
+        </SearchResultsItem>
+      );
     });
     return <SearchResultsList>{listItems}</SearchResultsList>;
   }
