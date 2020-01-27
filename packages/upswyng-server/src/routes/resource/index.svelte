@@ -6,12 +6,19 @@
     const { uncategorizedResources } = await this.fetch(
       "/api/resources/uncategorized"
     ).then(r => r.json());
-    const { draftResources } = await this.fetch(
-      "/api/resources/drafts"
+    const { draftResources } = await this.fetch("/api/resources/drafts").then(
+      r => r.json()
+    );
+    const { draftResources: draftsForUser } = await this.fetch(
+      "/api/resources/drafts/mine",
+      {
+        credentials: "same-origin",
+      }
     ).then(r => r.json());
     return {
       categories,
       draftResources,
+      draftsForUser,
       uncategorizedResources,
       user,
     };
@@ -28,6 +35,7 @@
 
   export let categories = null;
   export let draftResources = null;
+  export let draftsForUser = []; // The pending drafts created by a user
   export let uncategorizedResources = null;
   export let user = null;
 </script>
@@ -97,6 +105,19 @@
         {:else}
           <div class="notification">No drafts at this time.</div>
         {/if}
+      </div>
+    {/if}
+
+    {#if draftsForUser.length}
+      <div class="content">
+        <h2 class="subtitle">Your Drafts</h2>
+        <ul class="content">
+          {#each draftsForUser as draft}
+            <li>
+              <a href={`/resource/draft/${draft._id}`}>{draft.name}</a>
+            </li>
+          {/each}
+        </ul>
       </div>
     {/if}
 
