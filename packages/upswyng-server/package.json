@@ -4,16 +4,19 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "build": "yarn workspace @upswyng/upswyng-core build && sapper build --legacy",
+    "build": "yarn workspace @upswyng/upswyng-core build && sapper build --legacy && rollup --config worker.rollup.config.js",
     "cy:open": "yarn workspace @upswyng/upswyng-core build && cypress open",
     "cy:run": "yarn workspace @upswyng/upswyng-core build && cypress run",
     "data-setup-categories": "yarn workspace @upswyng/upswyng-core build && rollup --config data-pipeline.rollup.config.js && node __build__/setupCategories.js",
     "data-sync-strappd": "yarn workspace @upswyng/upswyng-core build && rollup --config data-pipeline.rollup.config.js && node __build__/syncStrappd.js",
     "data-update-algolia": "yarn workspace @upswyng/upswyng-core build && rollup --config data-pipeline.rollup.config.js && node __build__/updateAlgolia.js",
     "dev": "node showBuildNotification.js && sapper dev",
+    "server-build": "sapper build --legacy",
     "start": "node __sapper__/build",
     "test": "yarn workspace @upswyng/upswyng-core build && run-p --race dev unit",
-    "unit": "yarn workspace @upswyng/upswyng-core build && jest --passWithNoTests"
+    "unit": "yarn workspace @upswyng/upswyng-core build && jest --passWithNoTests",
+    "worker-build": "rollup --config worker.rollup.config.js",
+    "worker-start": "node __build__/worker.js"
   },
   "dependencies": {
     "@slack/rtm-api": "^5.0.3",
@@ -23,6 +26,7 @@
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
     "bson": "^4.0.2",
+    "bullmq": "^1.6.7",
     "bulma-ribbon": "^0.1.1",
     "bulma-switch": "^2.0.0",
     "bulma-tagsinput": "^2.0.0",
@@ -39,6 +43,7 @@
     "grant": "^4.7.0",
     "grant-express": "^4.7.0",
     "grant-oidc": "0.0.3",
+    "ioredis": "^4.14.1",
     "javascript-time-ago": "^2.0.4",
     "json-string-formatter": "^1.0.1",
     "moment": "^2.24.0",
@@ -48,7 +53,8 @@
     "polka": "next",
     "rrule": "^2.6.2",
     "sirv": "^0.4.0",
-    "svelte3-autocomplete": "^1.0.1"
+    "svelte3-autocomplete": "^1.0.1",
+    "throng": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -61,6 +67,7 @@
     "@rollup/plugin-node-resolve": "^6.0.0",
     "@rollup/plugin-replace": "^2.3.0",
     "@rollup/plugin-typescript": "^2.0.1",
+    "@types/ioredis": "^4.14.5",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "@typescript-eslint/parser": "^2.0.0",
     "algoliasearch": "^3.35.1",
