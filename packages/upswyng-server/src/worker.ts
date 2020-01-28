@@ -7,7 +7,7 @@ import * as dotenv from "dotenv";
 import { Job, Queue, Worker } from "bullmq";
 import { TJobData, TJobResult } from "@upswyng/upswyng-types";
 
-import IORedis from "IORedis";
+import IORedis from "ioredis";
 import throng from "throng";
 
 dotenv.config();
