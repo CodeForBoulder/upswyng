@@ -1,7 +1,7 @@
 {
   "background_color": "#ffffff",
   "theme_color": "#f15b29",
-  "name": "UpSwyng Provider's Portal",
+  "name": "UpSwyng Providers' Portal",
   "short_name": "UpSwyng",
   "display": "minimal-ui",
   "start_url": "/",
