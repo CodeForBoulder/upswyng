@@ -12,7 +12,7 @@
     "data-update-algolia": "yarn workspace @upswyng/upswyng-core build && rollup --config data-pipeline.rollup.config.js && node __build__/updateAlgolia.js",
     "dev": "node showBuildNotification.js && sapper dev",
     "server-build": "sapper build --legacy",
-    "start": "node __sapper__/build",
+    "server-start": "node __sapper__/build",
     "test": "yarn workspace @upswyng/upswyng-core build && run-p --race dev unit",
     "unit": "yarn workspace @upswyng/upswyng-core build && jest --passWithNoTests",
     "worker-build": "rollup --config worker.rollup.config.js",
