@@ -2,11 +2,7 @@ import {
   DraftResource,
   resourceDocumentToResource,
 } from "../../../../models/Resource";
-import {
-  isAdmin,
-  requireAdmin,
-  requireLoggedIn,
-} from "../../../../utility/authHelpers";
+import { isAdmin, requireLoggedIn } from "../../../../utility/authHelpers";
 
 import { ObjectId } from "bson";
 import { TUser } from "@upswyng/upswyng-types";

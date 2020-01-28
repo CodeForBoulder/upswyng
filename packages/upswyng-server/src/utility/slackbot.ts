@@ -55,7 +55,7 @@ try {
     );
   });
   rtm.start().then(
-    (r: WebAPICallResult) => {
+    (_r: WebAPICallResult) => {
       console.info(`🤖   slack RTM started`);
     },
     e => {
