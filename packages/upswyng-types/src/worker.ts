@@ -1,9 +1,6 @@
-export const JobKind = {
-  /* eslint-disable @typescript-eslint/camelcase */
-  update_algolia: null, // sync the algolia search index with our database
-  /* eslint-enable @typescript-eslint/camelcase */
-};
-export type TJobKind = keyof typeof JobKind;
+/**
+ * Type definitions for server worker jobs.
+ */
 
 /**
  * Update Alolia
@@ -12,9 +9,10 @@ export interface TJobUpdateAlgoliaData {
   kind: "update_algolia";
 }
 export interface TJobUpdateAlgoliaResult {
-  taskID: number;
   createdAt: string;
+  kind: "update_algolia";
   objectID?: string;
+  taskID: number;
 }
 
 export type TJobData = TJobUpdateAlgoliaData /* | TJobNexJobData */;
