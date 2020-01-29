@@ -85,17 +85,6 @@ const MonthlySchedule = ({ items }: { items: TScheduleItem[] }) => {
       })}
     </Grid>
   );
-
-  // return (
-  //   <>
-  //     {Object.entries(monthItemsMap).map(([rRuleText, items]) => (
-  //       <div key={rRuleText}>
-  //         <div>{rRuleText}</div>
-  //         {items.map(item => `${item.fromTime.label} - ${item.toTime.label}`)}
-  //       </div>
-  //     ))}
-  //   </>
-  // );
 };
 
 const WeeklySchedule = ({ items }: { items: TScheduleItem[] }) => {
@@ -158,7 +147,7 @@ const Schedule = ({ schedule }: ScheduleProps) => {
       <>
         {Object.entries(commentMap).map(([comment, items]) => (
           <div key={comment}>
-            {/* <WeeklySchedule items={items as TScheduleItem[]} />*/}
+            <WeeklySchedule items={items as TScheduleItem[]} />
             <MonthlySchedule items={items as TScheduleItem[]} />
             {comment !== "_no_comment_" && <div>{comment}</div>}
           </div>
