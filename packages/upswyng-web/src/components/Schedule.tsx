@@ -1,5 +1,4 @@
 import { ResourceSchedule, TScheduleItem } from "@upswyng/upswyng-core";
-
 import Grid from "@material-ui/core/Grid";
 import { RRule } from "rrule";
 import React from "react";
@@ -24,19 +23,80 @@ function capitalize(x: string): string {
   return x.charAt(0).toUpperCase() + x.slice(1);
 }
 
-// TODO (rhinodavid): Remove these render functions
+const groupByRRuleText = (items: TScheduleItem[]) =>
+  items.reduce(
+    (groupedItems: { [key: string]: TScheduleItem[] }, item: TScheduleItem) => {
+      const currentKey = item.recurrenceRule.toText();
+      const currentGroup = groupedItems[currentKey] || [];
+      return {
+        ...groupedItems,
+        [currentKey]: [...currentGroup, item],
+      };
+    },
+    {}
+  );
 
-// const renderMonthlySchedule = (schedule: TSchedule[]) =>
-//   schedule.map(({ day, from, period, to }) => {
-//     if (period) {
-//       return (
-//         <p key={`${period}-${day}-${from}`}>
-//           every {period.toLowerCase()} {day} from {from} - {to}
-//         </p>
-//       );
-//     }
-//     return null;
-//   });
+const MonthlySchedule = ({ items }: { items: TScheduleItem[] }) => {
+  const monthlyItems = items.filter(
+    (item: TScheduleItem) => item.recurrenceRule.options.freq === RRule.MONTHLY
+  );
+
+  if (!monthlyItems.length) {
+    return null;
+  }
+
+  const compareNextOpenDate = (item1: TScheduleItem, item2: TScheduleItem) =>
+    item1.recurrenceRule.all()[0].getTime() -
+    item2.recurrenceRule.all()[0].getTime();
+  const compareFromTime = (item1: TScheduleItem, item2: TScheduleItem) =>
+    parseInt(item1.fromTime.value) - parseInt(item2.fromTime.value);
+  const sortedMonthlyItems = items.sort(
+    (item1, item2) =>
+      compareNextOpenDate(item1, item2) || compareFromTime(item1, item2)
+  );
+
+  const groupedMonthlyItems = groupByRRuleText(sortedMonthlyItems);
+
+  return (
+    <Grid container justify="space-between" spacing={5}>
+      {Object.entries(groupedMonthlyItems).map(([rRuleText, items]) => {
+        if (!items.length) {
+          return null;
+        }
+
+        const nextOccurenceDate = items[0].recurrenceRule
+          .all()[0]
+          .toLocaleString(undefined, { month: "short", day: "numeric" });
+        return (
+          <React.Fragment key={rRuleText}>
+            <Grid item xs={5}>
+              <Typography component="h3">{nextOccurenceDate}</Typography>
+              <Typography variant="caption">repeats {rRuleText}</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              {items.map(item => (
+                <Typography key={`${item.fromTime.value}${item.toTime.value}`}>
+                  {item.fromTime.label} - {item.toTime.label}
+                </Typography>
+              ))}
+            </Grid>
+          </React.Fragment>
+        );
+      })}
+    </Grid>
+  );
+
+  // return (
+  //   <>
+  //     {Object.entries(monthItemsMap).map(([rRuleText, items]) => (
+  //       <div key={rRuleText}>
+  //         <div>{rRuleText}</div>
+  //         {items.map(item => `${item.fromTime.label} - ${item.toTime.label}`)}
+  //       </div>
+  //     ))}
+  //   </>
+  // );
+};
 
 const WeeklySchedule = ({ items }: { items: TScheduleItem[] }) => {
   const dayItemsMap = Object.entries(days).map(([label, key]) => {
@@ -78,10 +138,14 @@ const WeeklySchedule = ({ items }: { items: TScheduleItem[] }) => {
 
 const Schedule = ({ schedule }: ScheduleProps) => {
   try {
-    const resourceSchedule = ResourceSchedule.parse(schedule);
+    const scheduleItems = ResourceSchedule.parse(schedule).getItems();
+
+    if (!scheduleItems.length) {
+      return null;
+    }
 
     // group together schedule items that have the same comments
-    const commentMap = resourceSchedule.getItems().reduce((result, item) => {
+    const commentMap = scheduleItems.reduce((result, item) => {
       const comment = item.comment || "_no_comment_";
       result[comment as keyof typeof days] = [
         ...(result[comment as keyof typeof days] || []),
@@ -91,17 +155,18 @@ const Schedule = ({ schedule }: ScheduleProps) => {
     }, {} as Record<keyof typeof days, TScheduleItem[]>);
 
     return (
-      <div>
+      <>
         {Object.entries(commentMap).map(([comment, items]) => (
           <div key={comment}>
-            <WeeklySchedule items={items as TScheduleItem[]} />
+            {/* <WeeklySchedule items={items as TScheduleItem[]} />*/}
+            <MonthlySchedule items={items as TScheduleItem[]} />
             {comment !== "_no_comment_" && <div>{comment}</div>}
           </div>
         ))}
-      </div>
+      </>
     );
   } catch {
-    return <p>not available</p>;
+    return null;
   }
 };
 
