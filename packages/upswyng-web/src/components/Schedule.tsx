@@ -1,4 +1,5 @@
 import { ResourceSchedule, TScheduleItem } from "@upswyng/upswyng-core";
+import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import { RRule } from "rrule";
 import React from "react";
@@ -58,7 +59,7 @@ const MonthlySchedule = ({ items }: { items: TScheduleItem[] }) => {
   const groupedMonthlyItems = groupByRRuleText(sortedMonthlyItems);
 
   return (
-    <Grid container justify="space-between" spacing={5}>
+    <Grid container spacing={3}>
       {Object.entries(groupedMonthlyItems).map(([rRuleText, items]) => {
         if (!items.length) {
           return null;
@@ -68,19 +69,23 @@ const MonthlySchedule = ({ items }: { items: TScheduleItem[] }) => {
           .all()[0]
           .toLocaleString(undefined, { month: "short", day: "numeric" });
         return (
-          <React.Fragment key={rRuleText}>
-            <Grid item xs={5}>
-              <Typography component="h3">{nextOccurenceDate}</Typography>
-              <Typography variant="caption">repeats {rRuleText}</Typography>
+          <Grid item xs={12} key={rRuleText}>
+            <Grid container spacing={6}>
+              <Grid item xs={6}>
+                <Typography component="h3">{nextOccurenceDate}</Typography>
+                <Typography variant="caption">repeats {rRuleText}</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                {items.map(item => (
+                  <Typography
+                    key={`${item.fromTime.value}${item.toTime.value}`}
+                  >
+                    {item.fromTime.label} - {item.toTime.label}
+                  </Typography>
+                ))}
+              </Grid>
             </Grid>
-            <Grid item xs={6}>
-              {items.map(item => (
-                <Typography key={`${item.fromTime.value}${item.toTime.value}`}>
-                  {item.fromTime.label} - {item.toTime.label}
-                </Typography>
-              ))}
-            </Grid>
-          </React.Fragment>
+          </Grid>
         );
       })}
     </Grid>
@@ -102,24 +107,26 @@ const WeeklySchedule = ({ items }: { items: TScheduleItem[] }) => {
   });
 
   return (
-    <Grid container>
+    <Grid container spacing={1}>
       {dayItemsMap
         .filter(x => x.items.length)
         .map(x => (
-          <React.Fragment key={x.day}>
-            <Grid item xs={4}>
-              <Typography component="h3" variant="subtitle2">
-                {capitalize(x.day)}:
-              </Typography>
-            </Grid>
-            <Grid item xs={8}>
-              {x.items.map(i => (
-                <Typography key={`${i.fromTime.value}${i.toTime.value}`}>
-                  {i.fromTime.label} - {i.toTime.label}
+          <Grid item xs={12} key={x.day}>
+            <Grid container spacing={6}>
+              <Grid item xs={6}>
+                <Typography component="h3" variant="subtitle2">
+                  {capitalize(x.day)}:
                 </Typography>
-              ))}
+              </Grid>
+              <Grid item xs={6}>
+                {x.items.map(i => (
+                  <Typography key={`${i.fromTime.value}${i.toTime.value}`}>
+                    {i.fromTime.label} - {i.toTime.label}
+                  </Typography>
+                ))}
+              </Grid>
             </Grid>
-          </React.Fragment>
+          </Grid>
         ))}
     </Grid>
   );
@@ -144,15 +151,22 @@ const Schedule = ({ schedule }: ScheduleProps) => {
     }, {} as Record<keyof typeof days, TScheduleItem[]>);
 
     return (
-      <>
+      <Grid container direction="column" spacing={5} wrap="nowrap">
         {Object.entries(commentMap).map(([comment, items]) => (
           <React.Fragment key={comment}>
-            <WeeklySchedule items={items as TScheduleItem[]} />
-            <MonthlySchedule items={items as TScheduleItem[]} />
+            <Grid item>
+              <WeeklySchedule items={items as TScheduleItem[]} />
+            </Grid>
+            <Grid item>
+              <Divider />
+            </Grid>
+            <Grid item>
+              <MonthlySchedule items={items as TScheduleItem[]} />
+            </Grid>
             {comment !== "_no_comment_" && <div>{comment}</div>}
           </React.Fragment>
         ))}
-      </>
+      </Grid>
     );
   } catch {
     return null;
