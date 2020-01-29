@@ -25,6 +25,7 @@ const palette = {
   action: {
     active: "#fff",
   },
+  divider: "#fff",
 };
 
 const typography = {
