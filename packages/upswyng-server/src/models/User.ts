@@ -15,6 +15,12 @@ export interface TUserDocument extends Document {
     sub: string;
     email: string;
   };
+  slack?: {
+    userId: string; // primary identifier
+    name: string;
+    email: string;
+    teamId: string;
+  };
   isAdmin: boolean;
   isSuperAdmin: boolean;
 }
@@ -36,6 +42,14 @@ export function userDocumentToUser(u: TUserDocument): TUser {
     result.providers.push("google");
     result.email = u.google.email;
   }
+  if (u.slack && u.slack.email) {
+    result.providers.push("slack");
+    result.email = u.slack.email;
+    if (!result.name && u.slack.name) {
+      // don't overwrite the name if it came from Facebook since that one is more likely accurate/complete
+      result.name = u.slack.name;
+    }
+  }
   removeUndefinedFields(result);
   return result as TUser;
 }
@@ -52,6 +66,12 @@ const UserSchema = new Schema(
       // See https://developers.google.com/identity/protocols/OpenIDConnect?hl=en#obtainuserinfo
       sub: { type: String, index: true },
       email: { type: String, index: true },
+    },
+    slack: {
+      email: { index: true, type: String },
+      name: { type: String },
+      teamId: { type: String },
+      userId: { index: true, type: String },
     },
     // can approve new resources, etc
     isAdmin: { type: Boolean, default: false },
@@ -128,6 +148,47 @@ UserSchema.statics.findOrCreateGoogleUser = async function(
   return user;
 };
 
+UserSchema.statics.findOrCreateSlackUser = async function(
+  slackUserId: string,
+  email: string,
+  name: string,
+  teamId: string
+): Promise<TUserDocument> {
+  const self = this; // eslint-disable-line @typescript-eslint/no-this-alias
+  const user = (await this.findOne({
+    "slack.userId": slackUserId,
+  })) as TUserDocument | null;
+  if (!user && !email) {
+    throw new Error(
+      `User with slack ID ${slackUserId} not found and no email included to create the user.`
+    );
+  } else if (!user) {
+    try {
+      const newUser = new self({
+        slack: { email, name, userId: slackUserId, teamId },
+      });
+      const result = await newUser.save();
+      return result;
+    } catch (e) {
+      console.error(`Error creating new user:\t${e}`);
+      throw e;
+    }
+  }
+  if (
+    user.slack.email !== email ||
+    user.slack.name !== name ||
+    user.slack.teamId !== teamId
+  ) {
+    // if the user has updated these fields,
+    // update it in our records
+    user.slack.email = email;
+    user.slack.teamId = teamId;
+    user.slack.name = name;
+    return await user.save();
+  }
+  return user;
+};
+
 const User = mongoose.model<TUserDocument>("User", UserSchema);
 
 export default User as typeof User & {
@@ -137,4 +198,10 @@ export default User as typeof User & {
     email?: string
   ) => Promise<TUserDocument>;
   findOrCreateGoogleUser: (sub: string, email?: string) => TUserDocument;
+  findOrCreateSlackUser: (
+    slackUserId: string,
+    email: string,
+    name: string,
+    teamId: string
+  ) => Promise<TUserDocument>;
 };

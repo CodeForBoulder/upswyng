@@ -27,10 +27,60 @@ interface TGrantFacebook {
   response: { access_token: string };
 }
 
-type TGrant = TGrantFacebook | TGrantGoogle;
+interface TGrantSlack {
+  provider: "slack";
+  state: "string";
+  nonce: "string";
+  response: {
+    access_token: string;
+    raw: {
+      ok: boolean;
+      access_token: string;
+      scope: "identity.basic,identiy.email";
+      user_id: string; // UXXXXXXXX
+      team_id: string; // TXXXXXXXX
+      enterprise_id: string | null;
+      user: {
+        name: string;
+        id: string;
+        email: string;
+      };
+      team: { id: string };
+    };
+  };
+}
+
+type TGrant = TGrantFacebook | TGrantGoogle | TGrantSlack;
 
 function grantToKey(grant: TGrant) {
   return `${grant.provider}_${grant.state}_${grant.nonce}`;
+}
+
+async function facebookGrantToUser(grant: TGrantFacebook): Promise<TUser> {
+  if (!grant.provider || grant.provider !== "facebook") {
+    throw new Error(
+      "Attempted to convert a non-facebook grant to user with facebook logic"
+    );
+  }
+  const accessToken = grant.response.access_token;
+  if (!accessToken) {
+    throw new Error("Could not find an access token in facebook grant");
+  }
+  try {
+    const {
+      data: { id, email, name },
+    } = await axios.get(
+      ` https://graph.facebook.com/v4.0/me?fields=id%2Cname%2Cemail&access_token=${accessToken}`
+    );
+    try {
+      const user = await User.findOrCreateFacebookUser(id, name, email);
+      return userDocumentToUser(user);
+    } catch (e) {
+      throw new Error(`Error creating or finding new user with id ${id}`);
+    }
+  } catch (e) {
+    console.error("Error querying the Facebook API:\t", e.message);
+  }
 }
 
 async function googleGrantToUser(grant: TGrantGoogle): Promise<TUser> {
@@ -62,30 +112,35 @@ async function googleGrantToUser(grant: TGrantGoogle): Promise<TUser> {
   }
 }
 
-async function facebookGrantToUser(grant: TGrantFacebook): Promise<TUser> {
-  if (!grant.provider || grant.provider !== "facebook") {
+async function slackGrantToUser(grant: TGrantSlack): Promise<TUser> {
+  if (!grant.provider || grant.provider !== "slack") {
     throw new Error(
-      "Attempted to convert a non-facebook grant to user with facebook logic"
+      "Attempted to convert a non-slack grant to user with slack logic"
     );
   }
-  const accessToken = grant.response.access_token;
-  if (!accessToken) {
-    throw new Error("Could not find an access token in facebook grant");
-  }
+
   try {
-    const {
-      data: { id, email, name },
-    } = await axios.get(
-      ` https://graph.facebook.com/v4.0/me?fields=id%2Cname%2Cemail&access_token=${accessToken}`
-    );
-    try {
-      const user = await User.findOrCreateFacebookUser(id, name, email);
-      return userDocumentToUser(user);
-    } catch (e) {
-      throw new Error(`Error creating or finding new user with id ${id}`);
+    if (!grant.response.access_token) {
+      throw new Error(
+        `No access_token included with response. Grant:\n${JSON.stringify(
+          grant,
+          null,
+          2
+        )}`
+      );
     }
+    const user = await User.findOrCreateSlackUser(
+      grant.response.raw.user_id,
+      grant.response.raw.user.email,
+      grant.response.raw.user.name,
+      grant.response.raw.team_id
+    );
+    return userDocumentToUser(user);
   } catch (e) {
-    console.error("Error querying the Facebook API:\t", e.message);
+    console.error(e);
+    throw new Error(
+      `Error creating or finding new slack user with slack ID ${grant.response.raw.user_id}:\n${e}`
+    );
   }
 }
 
@@ -95,6 +150,8 @@ async function grantToUser(grant: TGrant) {
       return await facebookGrantToUser(grant);
     case "google":
       return await googleGrantToUser(grant);
+    case "slack":
+      return await slackGrantToUser(grant);
     default:
       throw new Error(
         `Received unknown provider ${

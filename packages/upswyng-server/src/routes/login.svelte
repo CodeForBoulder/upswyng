@@ -1,6 +1,7 @@
 <script>
   import FacebookLoginButton from "../components/FacebookLoginButton.svelte";
   import GoogleLoginButton from "../components/GoogleLoginButton.svelte";
+  import SlackLoginButton from "../components/SlackLoginButton.svelte";
 </script>
 
 <style>
@@ -30,6 +31,9 @@
       </li>
       <li>
         <GoogleLoginButton href="/connect/google" />
+      </li>
+      <li>
+        <SlackLoginButton href="/connect/slack" />
       </li>
     </ul>
   </div>
