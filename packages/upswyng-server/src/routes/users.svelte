@@ -324,6 +324,11 @@
                   <i class="fab fa-lg fa-google" />
                 </span>
               {/if}
+              {#if user.providers.includes('slack')}
+                <span class="icon">
+                  <i class="fab fa-lg fa-slack" />
+                </span>
+              {/if}
             </td>
             <td>
               {#if user.isAdmin}

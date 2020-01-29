@@ -58,6 +58,14 @@ const grantConfig = {
     nonce: true,
     callback: "/callback",
   },
+  slack: {
+    callback: "/callback",
+    key: process.env.OAUTH_SLACK_CLIENT_ID,
+    nonce: true,
+    scope: ["identity.basic", "identity.email"],
+    secret: process.env.OAUTH_SLACK_CLIENT_SECRET,
+    team: process.env.OAUTH_SLACK_WORKSPACE_ID,
+  },
 };
 
 mongoose
