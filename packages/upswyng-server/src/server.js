@@ -5,7 +5,9 @@ import * as sapper from "@sapper/server";
 
 import app from "./app.ts";
 import getUserFromRawUsers from "./utility/getUserFromRawUsers.ts";
+import http from "http";
 import mongoose from "mongoose";
+import webSocketServer from "./worker/webSocketServer.ts";
 
 dotenv.config();
 
@@ -86,22 +88,24 @@ mongoose
         );
       }
 
-      app({
+      const { handler } = app({
         dev,
         grantConfig,
         mongooseConnection: mongoose.connection,
         sessionSecret: process.env.DATABASE_SESSION_SECRET || "default_secret",
-      })
-        .use(
-          sapper.middleware({
-            session: (req, _res) => {
-              return { user: getUserFromRawUsers(req) };
-            },
-          })
-        )
-        .listen(PORT, err => {
-          if (err) console.error("Error starting polka server:", err);
-        });
+      }).use(
+        sapper.middleware({
+          session: (req, _res) => {
+            return { user: getUserFromRawUsers(req) };
+          },
+        })
+      );
+
+      const s = http.createServer(handler);
+
+      webSocketServer(s);
+
+      s.listen(PORT);
     },
     e =>
       console.error(

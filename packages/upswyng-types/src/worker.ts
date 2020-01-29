@@ -2,9 +2,18 @@
  * Type definitions for server worker jobs.
  */
 
-/**
- * Update Alolia
- */
+// Test Job
+export interface TJobTestData {
+  kind: "test";
+  initiatorId?: string; // _id of user who started this job
+  shouldFail?: boolean; // force this job to fail at some point
+}
+
+export interface TJobTestResult {
+  kind: "test";
+}
+
+// Update Algolia
 export interface TJobUpdateAlgoliaData {
   kind: "update_algolia";
 }
@@ -15,5 +24,5 @@ export interface TJobUpdateAlgoliaResult {
   taskID: number;
 }
 
-export type TJobData = TJobUpdateAlgoliaData /* | TJobNexJobData */;
-export type TJobResult = TJobUpdateAlgoliaResult;
+export type TJobData = TJobUpdateAlgoliaData | TJobTestData;
+export type TJobResult = TJobUpdateAlgoliaResult | TJobTestResult;
