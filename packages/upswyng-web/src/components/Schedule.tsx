@@ -102,11 +102,11 @@ const WeeklySchedule = ({ items }: { items: TScheduleItem[] }) => {
   });
 
   return (
-    <div>
+    <Grid container>
       {dayItemsMap
         .filter(x => x.items.length)
         .map(x => (
-          <Grid container key={x.day}>
+          <React.Fragment key={x.day}>
             <Grid item xs={4}>
               <Typography component="h3" variant="subtitle2">
                 {capitalize(x.day)}:
@@ -119,9 +119,9 @@ const WeeklySchedule = ({ items }: { items: TScheduleItem[] }) => {
                 </Typography>
               ))}
             </Grid>
-          </Grid>
+          </React.Fragment>
         ))}
-    </div>
+    </Grid>
   );
 };
 
@@ -146,11 +146,11 @@ const Schedule = ({ schedule }: ScheduleProps) => {
     return (
       <>
         {Object.entries(commentMap).map(([comment, items]) => (
-          <div key={comment}>
+          <React.Fragment key={comment}>
             <WeeklySchedule items={items as TScheduleItem[]} />
             <MonthlySchedule items={items as TScheduleItem[]} />
             {comment !== "_no_comment_" && <div>{comment}</div>}
-          </div>
+          </React.Fragment>
         ))}
       </>
     );
