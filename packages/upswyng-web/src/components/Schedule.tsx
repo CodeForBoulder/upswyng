@@ -38,11 +38,7 @@ const groupByRRuleText = (items: TScheduleItem[]) =>
   );
 
 const MonthlySchedule = ({ items }: { items: TScheduleItem[] }) => {
-  const monthlyItems = items.filter(
-    (item: TScheduleItem) => item.recurrenceRule.options.freq === RRule.MONTHLY
-  );
-
-  if (!monthlyItems.length) {
+  if (!items.length) {
     return null;
   }
 
@@ -96,12 +92,10 @@ const WeeklySchedule = ({ items }: { items: TScheduleItem[] }) => {
   const dayItemsMap = Object.entries(days).map(([label, key]) => {
     return {
       day: label,
-      items: items.filter(
-        item =>
-          item.recurrenceRule.options.freq === RRule.WEEKLY &&
-          item.recurrenceRule.options.byweekday.includes(
-            (RRule as any)[key]["weekday"]
-          )
+      items: items.filter(item =>
+        item.recurrenceRule.options.byweekday.includes(
+          (RRule as any)[key]["weekday"]
+        )
       ),
     };
   });
@@ -152,20 +146,34 @@ const Schedule = ({ schedule }: ScheduleProps) => {
 
     return (
       <Grid container direction="column" spacing={5} wrap="nowrap">
-        {Object.entries(commentMap).map(([comment, items]) => (
-          <React.Fragment key={comment}>
-            <Grid item>
-              <WeeklySchedule items={items as TScheduleItem[]} />
-            </Grid>
-            <Grid item>
-              <Divider />
-            </Grid>
-            <Grid item>
-              <MonthlySchedule items={items as TScheduleItem[]} />
-            </Grid>
-            {comment !== "_no_comment_" && <div>{comment}</div>}
-          </React.Fragment>
-        ))}
+        {Object.entries(commentMap).map(([comment, items]) => {
+          const weeklyItems = items.filter(
+            item => item.recurrenceRule.options.freq === RRule.WEEKLY
+          ) as TScheduleItem[];
+          const monthlyItems = items.filter(
+            item => item.recurrenceRule.options.freq === RRule.MONTHLY
+          ) as TScheduleItem[];
+          return (
+            <React.Fragment key={comment}>
+              {!!weeklyItems.length && (
+                <Grid item>
+                  <WeeklySchedule items={weeklyItems} />
+                </Grid>
+              )}
+              {!!weeklyItems.length && !!monthlyItems.length && (
+                <Grid item>
+                  <Divider />
+                </Grid>
+              )}
+              {!!monthlyItems.length && (
+                <Grid item>
+                  <MonthlySchedule items={monthlyItems} />
+                </Grid>
+              )}
+              {comment !== "_no_comment_" && <div>{comment}</div>}
+            </React.Fragment>
+          );
+        })}
       </Grid>
     );
   } catch {
