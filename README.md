@@ -39,9 +39,27 @@ Note: the above command may fail if your `node` version is not 12.14.x. [nvm](ht
 
 ### Development Ports
 
-| server     | 3000 |
+| Job        | Port |
 | ---------- | ---: |
+| server     | 3000 |
 | web client | 3001 |
+
+### Troubleshooting
+
+#### Type Errors
+
+The packages `upswyng-native`, `upswyng-server`, and `upswyng-web` depend on `upswyng-core` and `upswyng-types`. If you edit `upswyng-core` or `upswyng-types`, or pull a new commit which contains edits to
+those packages, they need to be rebuilt. If you do not rebuild, you may see a type error like:
+
+```
+/upswyng/packages/upswyng-server/src/utility/slackbot.ts(116,10): semantic error TS2678: Type '"user_permission_changed"' is not comparable to type '"draft_approved" | "draft_created" | "draft_deleted" | "resource_issue_reopened" | "resource_issue_resolved"'.
+```
+
+To fix this, run the script:
+
+```
+yarn build-local-packages
+```
 
 ### Next Steps
 
