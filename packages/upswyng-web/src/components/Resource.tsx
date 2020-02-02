@@ -132,17 +132,19 @@ export const Resource = () => {
             </ListItemText>
           </ListItem>
         )}
-        <ListItem component="div">
-          <ListItemIcon classes={listIconClasses}>
-            <ScheduleIcon />
-          </ListItemIcon>
-          <ListItemText>
-            <Typography component="h2" variant="srOnly">
-              Schedule
-            </Typography>
-            <Schedule schedule={resource.schedule} />
-          </ListItemText>
-        </ListItem>
+        {!!resource.schedule._items.length && (
+          <ListItem component="div">
+            <ListItemIcon classes={listIconClasses}>
+              <ScheduleIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <Typography component="h2" variant="srOnly">
+                Schedule
+              </Typography>
+              <Schedule schedule={resource.schedule} />
+            </ListItemText>
+          </ListItem>
+        )}
         <ListItem component="div">
           <Typography variant="srOnly">Services</Typography>
           <Services resource={resource} />

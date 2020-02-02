@@ -25,6 +25,7 @@ const palette = {
   action: {
     active: "#fff",
   },
+  divider: "#fff",
 };
 
 const typography = {
@@ -51,6 +52,11 @@ const typography = {
     fontSize: "1rem",
     fontWeight: 400,
     margin: 0,
+  },
+  caption: {
+    display: "inline-block",
+    fontSize: "0.75rem",
+    lineHeight: 1.3,
   },
 } as { [name: string]: React.CSSProperties };
 
