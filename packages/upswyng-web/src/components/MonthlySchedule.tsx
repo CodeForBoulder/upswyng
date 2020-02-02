@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 
 const groupByRRuleText = (items: TScheduleItem[]) =>
   items.reduce(
-    (groupedItems: { [key: string]: TScheduleItem[] }, item: TScheduleItem) => {
+    (groupedItems: Record<string, TScheduleItem[]>, item: TScheduleItem) => {
       const currentKey = item.recurrenceRule.toText();
       const currentGroup = groupedItems[currentKey] || [];
       return {
