@@ -1,5 +1,5 @@
 import { Job, JobsOptions, QueueEvents } from "bullmq";
-import { TJobData, TJobResult } from "@upswyng/upswyng-types";
+import { TJobData, TJobResult } from "./workerTypes";
 
 import { Server } from "http";
 import { TCounts } from "./mq";

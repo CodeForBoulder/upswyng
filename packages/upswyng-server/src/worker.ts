@@ -8,7 +8,7 @@ import {
   TJobResult,
   TJobTestData,
   TJobTestResult,
-} from "@upswyng/upswyng-types";
+} from "./worker/workerTypes";
 
 import mq from "./worker/mq";
 import throng from "throng";

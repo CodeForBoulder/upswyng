@@ -5,7 +5,7 @@
 import * as dotenv from "dotenv";
 
 import { Job, Queue, QueueEvents, QueueScheduler } from "bullmq";
-import { TJobData, TJobTestData, TJobTestResult } from "@upswyng/upswyng-types";
+import { TJobData, TJobTestData, TJobTestResult } from "./workerTypes";
 
 import { ObjectID } from "bson";
 import getName from "@afuggini/namegenerator";
