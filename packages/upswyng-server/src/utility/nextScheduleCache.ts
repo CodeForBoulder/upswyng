@@ -1,4 +1,4 @@
-interface SchedulePeriod {
+export interface SchedulePeriod {
   open: Date;
   close: Date;
 }
@@ -6,9 +6,13 @@ interface SchedulePeriod {
 export default function() {
   const cache = {} as Record<string, SchedulePeriod>;
 
-  this.set = (resourceId: string, period: SchedulePeriod) => {
+  const set = (resourceId: string, period: SchedulePeriod) => {
     cache[resourceId] = period;
   };
+  const get = (resourceId: string) => cache[resourceId] || null;
 
-  this.get = (resourceId: string) => cache[resourceId] || null;
+  return {
+    set,
+    get,
+  };
 }
