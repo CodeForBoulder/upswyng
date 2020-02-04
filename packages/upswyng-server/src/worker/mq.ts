@@ -64,7 +64,7 @@ export function parseRedisUrl(
   throw new Error(`Could not parse redis url: ${x}`);
 }
 
-const connection = parseRedisUrl(REDIS_URL);
+const connection = parseRedisUrl(REDIS_URL || "redis://localhost:6379");
 
 let queueEvents: QueueEvents;
 let queue: Queue<TJobData>;
