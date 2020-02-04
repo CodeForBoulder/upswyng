@@ -8,7 +8,12 @@ import mq from "../../../worker/mq";
 export async function post(req, res, _next) {
   const { response_url: responseUrl } = req.body;
 
-  const slackSigningSecret = "eea106e4ec1ec7e34dde049a7e767f1a";
+  const slackSigningSecret = process.env.SLACK_SIGNING_SECRET;
+  if (!slackSigningSecret) {
+    throw new Error(
+      "No Slack signing secret was provided in the `env` variables"
+    );
+  }
 
   if (responseUrl && responseUrl.includes("hooks.slack.com")) {
     // This ALLEGEDLY came from the slack bot. Verify the request.

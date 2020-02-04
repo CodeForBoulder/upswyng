@@ -35,7 +35,6 @@
   const dispatch = createEventDispatcher();
 
   function dispatchRemoveJob(jobId) {
-    console.log(jobId);
     dispatch("remove-job", { jobId });
   }
 
@@ -77,7 +76,6 @@
     padding: 0;
     cursor: pointer;
     transition: transform 0.25s ease;
-    /* display: inline-block; */
     transform-origin: 50% 50%;
   }
   .expand.expanded {
@@ -228,7 +226,7 @@
         </span>
       </button>
     </div>
-    <div class="level-right json-key">
+    <div class="level-right">
       <div class="level-item has-text-right">
         <span
           class="is-size-6 is-uppercase has-text-weight-medium"

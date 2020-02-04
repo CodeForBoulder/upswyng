@@ -90,6 +90,9 @@ interface TIncomingMessageCleanCompletedJobs {
   kind: "clean_completed_jobs";
 }
 
+/**
+ * Remove the job with the `jobId` provided from the queues
+ */
 interface TIncomingMessageRemoveJob {
   kind: "remove_job";
   data: { jobId: string };
@@ -111,7 +114,7 @@ interface TIncomingMessageRetryAllFailedJobs {
 }
 
 /**
- * Messages from cliens back to the server
+ * Messages from clients back to the server
  */
 export type TIncomingMessage =
   | TIncomingMessageCleanCompletedJobs
@@ -322,53 +325,16 @@ export default function(server: Server): void {
     }
   });
 
-  // send updated counts every time we get a change in job status
-  // NOTE: I'm not 100% sure that these are all the event names we need to have,
-  // or maybe it's too many. Docs are sketchy right now.
-  // TODO: !!!!!!!!!! Figuire out which event (if any) fires when a job is addeed to the queue -- it's not in this list
-  // See: https://github.com/taskforcesh/bullmq/issues/122
-  [
-    "wait",
-    "paused",
-    "resumed",
-    "resume",
-    "priority",
-    "stalled-check",
-    "stalled",
-    "repeat",
-    "limiter",
-    "events",
-  ].forEach(eventName => {
-    queueEvents.on(eventName, (e, t, x) => {
-      console.log(`E:${eventName} event fired`);
-      console.log("e", e);
-      console.log("t", t);
-      console.log("typeof t", typeof t);
-      wss.clients.forEach(async (ws: WebSocket) => {
-        sendCounts(ws, await getCounts());
-      });
-    });
-
-    queue.on(eventName, (e, t) => {
-      console.log(`Q:${eventName} event fired`);
-      console.log(e);
-      console.log(t);
-      wss.clients.forEach(async (ws: WebSocket) => {
-        sendCounts(ws, await getCounts());
-      });
-    });
-  });
-
-  // event  -  who - args
-  // waiting   Q     Job
-  // cleaned   Q     JobID[]
-  // active    E     { event: 'active', jobId: '5e32969eb9dcea0e4fa73ef1', prev: 'waiting' } <ts> 1580373686472-0
-  // completed E     { event: 'completed', jobId: '5e32969eb9dcea0e4fa73ef1', returnvalue: { kind: 'test' }} <ts>
-  // progress  E     { event: 'progress', jobId: '5e32969eb9dcea0e4fa73ef1', data: 2 } <ts>
-  // failed    E     { event: 'failed', jobId: 'akje43fwjhaanfwkefnaaef', failedReason: string (error.message) }, <ts>
-  // drained   E     { event: 'drained' }, <ts>
-  // stalled   E     { event: 'stalled', jobId: '5e34bb8cde649f8dcc27f484' }, <ts>
-  // delayed   E     { event: 'delayed', jobId: '5e354983af70e5a2c3725b4d', delay: '1580550551357' }, <ts>
+  // event  -  who    -    args
+  // waiting   Queue       Job
+  // cleaned   Queue       JobID[]
+  // active    QEvents     { event: 'active', jobId: '5e32969eb9dcea0e4fa73ef1', prev: 'waiting' } <ts> 1580373686472-0
+  // completed QEvents     { event: 'completed', jobId: '5e32969eb9dcea0e4fa73ef1', returnvalue: { kind: 'test' }} <ts>
+  // progress  QEvents     { event: 'progress', jobId: '5e32969eb9dcea0e4fa73ef1', data: 2 } <ts>
+  // failed    QEvents     { event: 'failed', jobId: 'akje43fwjhaanfwkefnaaef', failedReason: string (error.message) }, <ts>
+  // drained   QEvents     { event: 'drained' }, <ts>
+  // stalled   QEvents     { event: 'stalled', jobId: '5e34bb8cde649f8dcc27f484' }, <ts>
+  // delayed   QEvents     { event: 'delayed', jobId: '5e354983af70e5a2c3725b4d', delay: '1580550551357' }, <ts>
 
   ["active", "completed", "delayed", "failed", "waiting"].forEach(eventName => {
     queueEvents.on(
