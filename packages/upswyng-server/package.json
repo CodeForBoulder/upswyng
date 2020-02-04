@@ -13,8 +13,8 @@
     "dev": "node showBuildNotification.js && sapper dev",
     "server-build": "sapper build --legacy",
     "server-start": "node __sapper__/build",
-    "test": "yarn workspace @upswyng/upswyng-core build && run-p --race dev unit",
-    "unit": "yarn workspace @upswyng/upswyng-core build && jest --passWithNoTests",
+    "test": "yarn workspace @upswyng/upswyng-core build && run-p --race unit",
+    "unit": "jest --passWithNoTests",
     "worker-build": "rollup --config worker.rollup.config.js",
     "worker-start": "node __build__/worker.js"
   },
