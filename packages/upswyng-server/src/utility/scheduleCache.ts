@@ -6,10 +6,9 @@ interface SchedulePeriod {
 export default function() {
   const cache = {} as Record<string, SchedulePeriod>;
 
-  this.setNextOpenClose = (resourceId: string, period: SchedulePeriod) => {
+  this.set = (resourceId: string, period: SchedulePeriod) => {
     cache[resourceId] = period;
   };
 
-  this.getNextSchedulePeriod = (resourceId: string) =>
-    cache[resourceId] || null;
+  this.get = (resourceId: string) => cache[resourceId] || null;
 }
