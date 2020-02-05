@@ -1,7 +1,5 @@
 import { TTimezoneName as TTimezoneName_ } from "./TTimezoneName";
 
-export * from "./worker";
-
 export type TDay =
   | "Monday"
   | "Tuesday"
