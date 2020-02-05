@@ -7,13 +7,13 @@ import * as dotenv from "dotenv";
 import { Job, Queue, QueueEvents, QueueScheduler } from "bullmq";
 import {
   TJobCheckLinksData,
+  TJobCheckLinksResult,
   TJobData,
   TJobTestData,
   TJobTestResult,
 } from "./workerTypes";
 
 import { ObjectID } from "bson";
-import { TJobCheckLinksResult } from "packages/upswyng-server/__build__/worker/workerTypes";
 import getName from "@afuggini/namegenerator";
 import parseRedisUrl from "../utility/parseRedisUrl";
 
