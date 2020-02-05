@@ -1,4 +1,4 @@
-import { parseRedisUrl } from "../mq";
+import parseRedisUrl from "../parseRedisUrl";
 
 describe("parseRedisUrl", () => {
   it("parses a short url", () => {
