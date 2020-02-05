@@ -5,7 +5,7 @@
 // Test Job
 export interface TJobTestData {
   kind: "test";
-  initiatorId?: string; // _id of user who started this job
+  userId?: string; // _id of user who started this job
   shouldFail?: boolean; // force this job to fail at some point
 }
 

@@ -65,11 +65,12 @@ const getCounts = async (): Promise<TCounts> => {
 const addJobTest = async (
   name: string = getName("-"),
   delayMs: number = 0,
-  shouldFail = false
+  shouldFail = false,
+  userId = null
 ): Promise<Job<TJobTestData, TJobTestResult>> =>
   queue.add(
     name,
-    { kind: "test", shouldFail },
+    { kind: "test", shouldFail, userId },
     {
       priority: 1,
       jobId: new ObjectID().toHexString(),
