@@ -13,16 +13,25 @@ export interface TJobTestResult {
   kind: "test";
 }
 
-// Update Algolia
-export interface TJobUpdateAlgoliaData {
-  kind: "update_algolia";
+/**
+ * Check the links in the Resource directory for broken URLs
+ */
+export interface TJobCheckLinksData {
+  kind: "check_links";
+  userId: string; // _id of user who initiated the job
 }
-export interface TJobUpdateAlgoliaResult {
-  createdAt: string;
-  kind: "update_algolia";
-  objectID?: string;
-  taskID: number;
+export interface TJobCheckLinksResult {
+  erroredLinks: {
+    accessTime: Date;
+    resourceId: string;
+    status: number | null;
+    statusText: string;
+    url: string;
+  }[];
+  linksCheckedCount: number;
+  jobName: string;
+  kind: "check_links";
 }
 
-export type TJobData = TJobUpdateAlgoliaData | TJobTestData;
-export type TJobResult = TJobUpdateAlgoliaResult | TJobTestResult;
+export type TJobData = TJobCheckLinksData | TJobTestData;
+export type TJobResult = TJobCheckLinksResult | TJobTestResult;

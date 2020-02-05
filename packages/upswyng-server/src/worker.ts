@@ -2,7 +2,10 @@
  * Node app which executes jobs separate from the server.
  */
 
+import * as dotenv from "dotenv";
+
 import { Job, Worker } from "bullmq";
+import { TJobCheckLinksData, TJobCheckLinksResult } from "./worker/workerTypes";
 import {
   TJobData,
   TJobResult,
@@ -10,8 +13,37 @@ import {
   TJobTestResult,
 } from "./worker/workerTypes";
 
+import mongoose from "mongoose";
 import mq from "./worker/mq";
+import { processesJobCheckLinks } from "./worker/processJobCheckLinks";
 import throng from "throng";
+
+dotenv.config();
+
+const {
+  DATABASE_URL,
+  DATABASE_NAME,
+  DATABASE_PASSWORD,
+  DATABASE_USER,
+} = process.env;
+
+mongoose
+  .connect(DATABASE_URL, {
+    useNewUrlParser: true,
+    dbName: DATABASE_NAME,
+    user: DATABASE_USER,
+    pass: DATABASE_PASSWORD,
+  })
+  .then(
+    () => console.log(`Connected to MongoDB instance at ${DATABASE_URL}`),
+    e =>
+      console.log(
+        `There was an error connecting to the MongoDB instance at ${DATABASE_URL}:\n${e}`
+      )
+  )
+  .catch(error => {
+    throw new Error("Error when importing resources into Algolia:\n" + error);
+  });
 
 const { queueName, connection } = mq;
 
@@ -52,6 +84,10 @@ async function start() {
     queueName,
     async (job: Job<TJobData, TJobResult>) => {
       switch (job.data.kind) {
+        case "check_links":
+          return await processesJobCheckLinks(
+            job as Job<TJobCheckLinksData, TJobCheckLinksResult>
+          );
         case "test":
           return await processesTestJob(
             job as Job<TJobTestData, TJobTestResult>

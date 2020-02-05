@@ -5,7 +5,13 @@
 import * as dotenv from "dotenv";
 
 import { Job, Queue, QueueEvents, QueueScheduler } from "bullmq";
-import { TJobData, TJobTestData, TJobTestResult } from "./workerTypes";
+import {
+  TJobCheckLinksData,
+  TJobCheckLinksResult,
+  TJobData,
+  TJobTestData,
+  TJobTestResult,
+} from "./workerTypes";
 
 import { ObjectID } from "bson";
 import getName from "@afuggini/namegenerator";
@@ -62,13 +68,13 @@ const getCounts = async (): Promise<TCounts> => {
   return counts as TCounts;
 };
 
-const addJobTest = async (
+async function addJobTest(
   name: string = getName("-"),
   delayMs: number = 0,
   shouldFail = false,
-  userId = null
-): Promise<Job<TJobTestData, TJobTestResult>> =>
-  queue.add(
+  userId: string = null
+): Promise<Job<TJobTestData, TJobTestResult>> {
+  return queue.add(
     name,
     { kind: "test", shouldFail, userId },
     {
@@ -77,8 +83,24 @@ const addJobTest = async (
       delay: delayMs,
     }
   );
+}
+
+async function addJobCheckLinks(
+  name: string = getName("-"),
+  userId
+): Promise<Job<TJobCheckLinksData, TJobCheckLinksResult>> {
+  return queue.add(
+    name,
+    { kind: "check_links", userId },
+    {
+      priority: 2,
+      jobId: new ObjectID().toHexString(),
+    }
+  );
+}
 
 const mq = {
+  addJobCheckLinks,
   addJobTest,
   connection,
   getCounts,

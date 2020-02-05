@@ -239,9 +239,9 @@
     </div>
 
     <div class="content">
-      {#each Object.entries(jobs).sort(([, { job: a }], [, { job: b }]) => new Date(b.timestamp) - new Date(a.timestamp)) as [_, { job }]}
+      {#each Object.keys(jobs) as id, i (id)}
         <Job
-          {job}
+          job={jobs[id]['job']}
           on:remove-job={({ detail }) => removeJob(detail.jobId)}
           on:retry-job={({ detail }) => retryJob(detail.jobId)} />
       {/each}
