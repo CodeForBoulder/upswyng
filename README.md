@@ -11,7 +11,30 @@ UpSwyng is a [Code For Boulder](https://www.codeforboulder.org) project.
 ## Project Organization
 
 ![Project Organization Diagram](./upswyng-project-layout.svg)
-UpSwyng is a monorepo managed with Yarn Workspaces. It consists of five packages all in the `packages` directory: `upswyng-core` contains common libraries and utilities used across the other packages. `upswyng-types` holds the TypeScript definitions used across the project. `upswyng-server` is a [Sapper](https://sapper.svelte.dev/) application with two parts: an API server which provides data to the UpSwyng clients, and an admin web interface which uses the [Svelte](https://svelte.dev/) framework to create and modify data for the project. `upswyng-web` contains the [React](https://reactjs.org/) web client, and `upswyng-native` contains a work-in-progress [React Native](https://facebook.github.io/react-native/) cleint.
+
+UpSwyng is a monorepo managed with [Yarn Workspaces](https://classic.yarnpkg.com/en/docs/workspaces/). It consists of five packages all in the `packages` directory: `upswyng-core` contains common libraries and utilities used across the other packages. `upswyng-types` holds the TypeScript definitions used across the project. `upswyng-server` is a [Sapper](https://sapper.svelte.dev/) application with two parts: an API server which provides data to the UpSwyng clients, and an admin web interface which uses the [Svelte](https://svelte.dev/) framework to create and modify data for the project. `upswyng-web` contains the [React](https://reactjs.org/) web client, and `upswyng-native` contains a work-in-progress [React Native](https://facebook.github.io/react-native/) cleint.
+
+## Working With Yarn Workspaces
+
+To run a command in a specific package, use the `yarn workspace` command from the project root.
+For example, to start the web package development server run:
+
+```console
+yarn workspace @upswyng/upswyng-web start
+``` 
+
+To run the same command in _all_ workspaces, use `yarn workspaces`. For instance, to run `test` in all packages use:
+
+```console
+yarn workspaces test
+```
+
+> Typing out the full workspace name can get tedious. You can place aliases in your `.bashrc`
+> or `.profile` to save time:
+> ```console
+> alias @uw="yarn workspace @upswyng/upswyng-web "
+> ```
+> Now you only need `@uw start` to start the web dev server.
 
 ## Getting Started
 
@@ -36,6 +59,8 @@ yarn
 ```
 
 Note: the above command may fail if your `node` version is not 12.14.x. [nvm](https://itnext.io/nvm-the-easiest-way-to-switch-node-js-environments-on-your-machine-in-a-flash-17babb7d5f1b#d594) is one solution (among others) to manage `node` versions precisely.
+
+Next, try starting up a development client by running `yarn workspace @upswyng/upswyng-web start`.
 
 ### Development Ports
 
