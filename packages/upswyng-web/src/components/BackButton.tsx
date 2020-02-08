@@ -1,7 +1,8 @@
 import { Icon, Typography } from "@material-ui/core";
+import React, { useState } from "react";
 
 import { ArrowBack } from "@material-ui/icons";
-import React from "react";
+import { Redirect } from "react-router";
 import { createBrowserHistory } from "history";
 import { font } from "../App.styles";
 import styled from "styled-components";
@@ -29,14 +30,33 @@ const CategoryBannerArrowBack = styled(ArrowBack)`
 ` as typeof ArrowBack;
 
 const customHistory = createBrowserHistory();
+const resourceRegex: RegExp = /(resource\/)/;
 
-const BackButton = () => (
-  <CategoryBannerLink onClick={() => customHistory.goBack()}>
-    <Typography variant="srOnly">go back to pervious page</Typography>
-    <CategoryBannerIcon>
-      <CategoryBannerArrowBack />
-    </CategoryBannerIcon>
-  </CategoryBannerLink>
-);
+const isOnResource = () => {
+  return createBrowserHistory().location.pathname.match(resourceRegex);
+};
+
+const BackButton = () => {
+  const [isGoingHome, setIsGoingHome] = useState(false);
+
+  const handleClick = () => {
+    if (isOnResource()) {
+      customHistory.goBack();
+    } else {
+      setIsGoingHome(true);
+    }
+  };
+
+  return isGoingHome ? (
+    <Redirect to="/" />
+  ) : (
+    <CategoryBannerLink onClick={() => handleClick()}>
+      <Typography variant="srOnly">go back to previous page</Typography>
+      <CategoryBannerIcon>
+        <CategoryBannerArrowBack />
+      </CategoryBannerIcon>
+    </CategoryBannerLink>
+  );
+};
 
 export default BackButton;
