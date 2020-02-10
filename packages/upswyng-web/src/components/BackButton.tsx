@@ -1,11 +1,10 @@
 import { Icon, Typography } from "@material-ui/core";
-import React, { useState } from "react";
 
 import { ArrowBack } from "@material-ui/icons";
-import { Redirect } from "react-router";
-import { createBrowserHistory } from "history";
+import React from "react";
 import { font } from "../App.styles";
 import styled from "styled-components";
+import { useHistory } from "react-router";
 
 const CategoryBannerLink = styled.a`
   align-items: center;
@@ -29,28 +28,17 @@ const CategoryBannerArrowBack = styled(ArrowBack)`
   }
 ` as typeof ArrowBack;
 
-const customHistory = createBrowserHistory();
-const resourceRegex: RegExp = /(resource\/)/;
+interface Props {
+  backRef?: Function;
+}
 
-const isOnResource = () => {
-  return createBrowserHistory().location.pathname.match(resourceRegex);
-};
+const BackButton = ({ backRef }: Props) => {
+  const history = useHistory();
 
-const BackButton = () => {
-  const [isGoingHome, setIsGoingHome] = useState(false);
-
-  const handleClick = () => {
-    if (isOnResource()) {
-      customHistory.goBack();
-    } else {
-      setIsGoingHome(true);
-    }
-  };
-
-  return isGoingHome ? (
-    <Redirect to="/" />
-  ) : (
-    <CategoryBannerLink onClick={() => handleClick()}>
+  return (
+    <CategoryBannerLink
+      onClick={() => (backRef ? backRef() : history.push("/"))}
+    >
       <Typography variant="srOnly">go back to previous page</Typography>
       <CategoryBannerIcon>
         <CategoryBannerArrowBack />
