@@ -1,7 +1,8 @@
 import React from "react";
 import { Resource } from "../Resource";
+import { MemoryRouter as Router } from "react-router";
 import { foodResource } from "../../DataMocks";
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
 import useResource from "../useResource";
 
 jest.mock("../Categories", () => ({
@@ -36,7 +37,11 @@ const mockedUseResource = useResource as jest.Mock;
 
 describe("<Resource/>", () => {
   mockedUseResource.mockImplementation(() => foodResource) as typeof jest.mock;
-  const wrapper = shallow(<Resource />);
+  const wrapper = mount(
+    <Router>
+      <Resource />
+    </Router>
+  );
 
   it("renders the charityname property of the resource prop object", () => {
     expect(wrapper.find("PageBanner").prop("text")).toBe(foodResource.name);
@@ -44,7 +49,11 @@ describe("<Resource/>", () => {
 
   it("renders a loading spinner when a resource is not loaded", () => {
     mockedUseResource.mockImplementation(() => undefined) as typeof jest.mock;
-    const wrapper = shallow(<Resource />);
+    const wrapper = mount(
+      <Router>
+        <Resource />
+      </Router>
+    );
 
     expect(wrapper.find("LoadingSpinner").length).toBe(1);
   });
