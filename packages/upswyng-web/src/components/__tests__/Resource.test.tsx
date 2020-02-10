@@ -9,7 +9,7 @@ jest.mock("../Categories", () => ({
 jest.mock("../LoadingSpinner.tsx", () => () => "TEST-loading-spinner");
 jest.mock("../PageBanner", () => () => "PageBanner");
 jest.mock("../Map", () => () => "Map");
-jest.mock("../Schedule", () => "Schedule");
+jest.mock("../Schedule", () => () => "Schedule");
 jest.mock("react-router", () => ({
   useHistory: () => undefined,
 }));
