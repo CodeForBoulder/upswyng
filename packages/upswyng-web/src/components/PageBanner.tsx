@@ -8,7 +8,7 @@ import styled from "styled-components";
 interface Props {
   color?: string;
   text: string;
-  backRef?: Function;
+  backButtonAction?: (() => void) | null;
 }
 
 const PageBannerContainer = styled.div`
@@ -29,7 +29,7 @@ const PageBannerHeading = styled.h1`
   margin: ${font.helpers.convertPixelsToRems(-2)} 0 0;
 `;
 
-const PageBanner = ({ color, text, backRef }: Props) => {
+const PageBanner = ({ color, text, backButtonAction }: Props) => {
   const { currentBannerColor, updateCurrentBannerColor } = React.useContext(
     BannerColorContext
   );
@@ -40,7 +40,7 @@ const PageBanner = ({ color, text, backRef }: Props) => {
 
   return (
     <PageBannerContainer color={currentBannerColor || colors.black}>
-      <BackButton backRef={backRef} />
+      <BackButton backButtonAction={backButtonAction} />
       <PageBannerHeading>{text}</PageBannerHeading>
     </PageBannerContainer>
   );

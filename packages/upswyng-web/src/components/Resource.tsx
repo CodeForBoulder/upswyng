@@ -89,7 +89,7 @@ export const Resource = () => {
       <PageBanner
         color={resourceColor}
         text={resource.name}
-        backRef={!!lastLocation ? history.goBack : undefined}
+        backButtonAction={lastLocation ? history.goBack : null}
       />
       <List component="div">
         {resource.address && (

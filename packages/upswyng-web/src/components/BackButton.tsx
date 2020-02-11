@@ -29,15 +29,17 @@ const CategoryBannerArrowBack = styled(ArrowBack)`
 ` as typeof ArrowBack;
 
 interface Props {
-  backRef?: Function;
+  backButtonAction?: (() => void) | null;
 }
 
-const BackButton = ({ backRef }: Props) => {
+const BackButton = ({ backButtonAction }: Props) => {
   const history = useHistory();
 
   return (
     <CategoryBannerLink
-      onClick={() => (backRef ? backRef() : history.push("/"))}
+      onClick={() =>
+        backButtonAction ? backButtonAction() : history.push("/")
+      }
     >
       <Typography variant="srOnly">go back to previous page</Typography>
       <CategoryBannerIcon>
