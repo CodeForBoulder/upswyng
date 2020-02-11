@@ -16,6 +16,9 @@ jest.mock("react-router", () => ({
 jest.mock("react-router-dom", () => ({
   useParams: () => ({ resourceId: "some resource ID" }),
 }));
+jest.mock("react-router-last-location", () => ({
+  useLastLocation: () => false,
+}));
 jest.mock("../useResource.tsx", () => jest.fn());
 jest.mock("../../App.styles", () => ({
   Container: () => "Container",
