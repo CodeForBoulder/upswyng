@@ -1,17 +1,27 @@
 import React from "react";
 import { Resource } from "../Resource";
-import { foodResource } from "../../DataMocks";
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
 import useResource from "../useResource";
 
 jest.mock("../Categories", () => ({
   categories: {},
 }));
-jest.mock("../../utils/searchParams");
-jest.mock("../../constants");
-jest.mock("../LoadingSpinner.tsx", () => "LoadingSpinner");
+jest.mock("../LoadingSpinner.tsx", () => () => "TEST-loading-spinner");
+jest.mock("../PageBanner", () => () => "PageBanner");
+jest.mock("../Map", () => () => "Map");
+jest.mock("../Schedule", () => () => "Schedule");
+jest.mock("react-router", () => ({
+  useHistory: () => undefined,
+}));
+jest.mock("react-router-dom", () => ({
+  useParams: () => ({ resourceId: "some resource ID" }),
+}));
+jest.mock("react-router-last-location", () => ({
+  useLastLocation: () => false,
+}));
+jest.mock("../useResource.tsx", () => jest.fn());
 jest.mock("../../App.styles", () => ({
-  Container: "Container",
+  Container: () => "Container",
   colors: {
     charcoal: "",
     greyLight: "",
@@ -25,27 +35,18 @@ jest.mock("../../App.styles", () => ({
     },
   },
 }));
-jest.mock("react-router-dom", () => ({
-  useParams: () => ({ resourceId: "some resource ID" }),
-}));
-jest.mock("../PageBanner", () => "PageBanner");
-jest.mock("../Schedule", () => "Schedule");
-jest.mock("../Map", () => "Map");
-jest.mock("../useResource.tsx");
-const mockedUseResource = useResource as jest.Mock;
+
+const mockUseResource = useResource as jest.Mock;
 
 describe("<Resource/>", () => {
-  mockedUseResource.mockImplementation(() => foodResource) as typeof jest.mock;
-  const wrapper = shallow(<Resource />);
-
-  it("renders the charityname property of the resource prop object", () => {
-    expect(wrapper.find("PageBanner").prop("text")).toBe(foodResource.name);
-  });
+  const setup = (overrides = {}) => {
+    return mount(<Resource {...overrides} />);
+  };
 
   it("renders a loading spinner when a resource is not loaded", () => {
-    mockedUseResource.mockImplementation(() => undefined) as typeof jest.mock;
-    const wrapper = shallow(<Resource />);
+    mockUseResource.mockReturnValueOnce(undefined);
+    const wrapper = setup();
 
-    expect(wrapper.find("LoadingSpinner").length).toBe(1);
+    expect(wrapper.text()).toBe("TEST-loading-spinner");
   });
 });

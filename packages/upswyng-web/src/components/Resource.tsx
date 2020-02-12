@@ -1,5 +1,6 @@
 import { Container, colors } from "../App.styles";
 import { TCategoryDefinition, categories } from "./Categories";
+
 import BannerColorContext from "./BannerColorContext";
 import Link from "@material-ui/core/Link";
 import List from "@material-ui/core/List";
@@ -20,6 +21,8 @@ import { TResource } from "@upswyng/upswyng-types";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import Typography from "@material-ui/core/Typography";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import { useHistory } from "react-router";
+import { useLastLocation } from "react-router-last-location";
 import { useParams } from "react-router-dom";
 import useResource from "./useResource";
 
@@ -57,6 +60,8 @@ export const Resource = () => {
   const { currentBannerColor } = React.useContext(BannerColorContext);
   const resource = useResource(resourceId || "");
   const listIconClasses = useListIconStyles({});
+  const history = useHistory();
+  const lastLocation = useLastLocation();
 
   if (resource === undefined) {
     return <LoadingSpinner />;
@@ -81,7 +86,11 @@ export const Resource = () => {
 
   return (
     <Container>
-      <PageBanner color={resourceColor} text={resource.name} />
+      <PageBanner
+        color={resourceColor}
+        text={resource.name}
+        backButtonAction={lastLocation ? history.goBack : null}
+      />
       <List component="div">
         {resource.address && (
           <ListItem component="div">

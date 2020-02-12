@@ -2,9 +2,9 @@ import { Icon, Typography } from "@material-ui/core";
 
 import { ArrowBack } from "@material-ui/icons";
 import React from "react";
-import { createBrowserHistory } from "history";
 import { font } from "../App.styles";
 import styled from "styled-components";
+import { useHistory } from "react-router";
 
 const CategoryBannerLink = styled.a`
   align-items: center;
@@ -28,15 +28,25 @@ const CategoryBannerArrowBack = styled(ArrowBack)`
   }
 ` as typeof ArrowBack;
 
-const customHistory = createBrowserHistory();
+interface Props {
+  backButtonAction?: (() => void) | null;
+}
 
-const BackButton = () => (
-  <CategoryBannerLink onClick={() => customHistory.goBack()}>
-    <Typography variant="srOnly">go back to pervious page</Typography>
-    <CategoryBannerIcon>
-      <CategoryBannerArrowBack />
-    </CategoryBannerIcon>
-  </CategoryBannerLink>
-);
+const BackButton = ({ backButtonAction }: Props) => {
+  const history = useHistory();
+
+  return (
+    <CategoryBannerLink
+      onClick={() =>
+        backButtonAction ? backButtonAction() : history.push("/")
+      }
+    >
+      <Typography variant="srOnly">go back to previous page</Typography>
+      <CategoryBannerIcon>
+        <CategoryBannerArrowBack />
+      </CategoryBannerIcon>
+    </CategoryBannerLink>
+  );
+};
 
 export default BackButton;
