@@ -1,6 +1,6 @@
 import { ResourceSchedule, TScheduleItem } from "@upswyng/upswyng-core";
 import nextScheduleCache, {
-  SchedulePeriod,
+  TSchedulePeriod,
 } from "../../../utility/nextScheduleCache";
 import { ObjectId } from "bson";
 import Resource from "../../../models/Resource";
@@ -8,7 +8,7 @@ import moment from "moment";
 
 const cache = nextScheduleCache();
 
-const scheduleItemToPeriod = (item: TScheduleItem): SchedulePeriod => {
+const scheduleItemToPeriod = (item: TScheduleItem): TSchedulePeriod => {
   const dateFormat = "YYYY MM DD";
   const dateTimeFormat = `${dateFormat} HH:mm`;
   const itemDateString = moment(item.recurrenceRule.all()[0]).format(
@@ -36,7 +36,7 @@ const getNextSchedulePeriod = async (id: string) => {
   const scheduleItems = ResourceSchedule.parse(schedule).getItems();
 
   return scheduleItems.reduce(
-    (nextSchedule: SchedulePeriod | null, currentSchedule: TScheduleItem) => {
+    (nextSchedule: TSchedulePeriod | null, currentSchedule: TScheduleItem) => {
       const currentPeriod = scheduleItemToPeriod(currentSchedule);
       if (!nextSchedule) {
         return currentPeriod;
@@ -67,7 +67,7 @@ export const get = async (req, res, _next) => {
   } else {
     const ids = resourceIds.split(",");
     const now = Date.now();
-    const nextSchedules = {} as Record<string, SchedulePeriod>;
+    const nextSchedules = {} as Record<string, TSchedulePeriod>;
 
     for (let index = 0; index < ids.length; index++) {
       const currentId = ids[index];
