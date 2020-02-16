@@ -32,13 +32,15 @@ const scheduleItemToPeriod = (item: TScheduleItem): TSchedulePeriod => {
   };
 };
 
-const getNextSchedulePeriod = async (id: string) => {
+const getNextSchedulePeriod = async (
+  id: string
+): Promise<Record<string, TSchedulePeriod>> => {
   const { schedule } = await Resource.getByResourceId(
     ObjectId.createFromHexString(id)
   );
   const scheduleItems = ResourceSchedule.parse(schedule).getItems();
 
-  return scheduleItems.reduce(
+  const nextSchedulePeriod = scheduleItems.reduce(
     (nextSchedule: TSchedulePeriod | null, currentSchedule: TScheduleItem) => {
       const currentPeriod = scheduleItemToPeriod(currentSchedule);
       if (!nextSchedule) {
@@ -52,34 +54,30 @@ const getNextSchedulePeriod = async (id: string) => {
     },
     null
   );
+
+  cache.setValue(id, nextSchedulePeriod);
+
+  return { [id]: nextSchedulePeriod };
 };
 
-const getNextSchedulePeriods = async (resourceIds: string[]) => {
+const getNextSchedulePeriods = (
+  resourceIds: string[]
+): Promise<Record<string, TSchedulePeriod>>[] => {
   const now = Date.now();
-  const nextSchedules = {} as Record<string, TSchedulePeriod>;
 
-  for (const id of resourceIds) {
+  const nextSchedulePeriods = resourceIds.map(id => {
     const cachedResourceSchedule = cache.getValue(id);
     if (
       cachedResourceSchedule &&
       cachedResourceSchedule.close.getTime() > now
     ) {
-      nextSchedules[id] = cachedResourceSchedule;
-      continue;
+      return Promise.resolve({ [id]: cachedResourceSchedule });
     }
 
-    try {
-      const nextSchedulePeriod = await getNextSchedulePeriod(id);
+    return getNextSchedulePeriod(id);
+  });
 
-      if (nextSchedulePeriod) {
-        cache.setValue(id, nextSchedulePeriod);
-        nextSchedules[id] = nextSchedulePeriod;
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  }
-  return nextSchedules;
+  return nextSchedulePeriods;
 };
 
 export const get = async (req, res, _next) => {
@@ -98,7 +96,12 @@ export const get = async (req, res, _next) => {
     return;
   }
 
-  const schedulePeriods = await getNextSchedulePeriods(resourceIds);
+  const schedulePeriods = await getNextSchedulePeriods(resourceIds).reduce(
+    (acc, period) => ({
+      ...acc,
+      ...period,
+    })
+  );
 
   res.writeHead(200, {
     "Content-Type": "application/json",
