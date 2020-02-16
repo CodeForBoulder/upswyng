@@ -14,9 +14,9 @@ const cache = new Cache<TSchedulePeriod>();
 const scheduleItemToPeriod = (item: TScheduleItem): TSchedulePeriod => {
   const dateFormat = "YYYY MM DD";
   const dateTimeFormat = `${dateFormat} HH:mm`;
-  const itemDateString = moment(item.recurrenceRule.all()[0]).format(
-    dateFormat
-  );
+  const itemDateString = moment(
+    item.recurrenceRule.all((_, i) => i < 1)[0]
+  ).format(dateFormat);
   const periodOpen = moment(
     `${itemDateString} ${item.fromTime.value}`,
     dateTimeFormat
