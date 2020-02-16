@@ -1,12 +1,15 @@
 import { ResourceSchedule, TScheduleItem } from "@upswyng/upswyng-core";
-import nextScheduleCache, {
-  TSchedulePeriod,
-} from "../../../utility/nextScheduleCache";
+import Cache from "../../../utility/cache";
 import { ObjectId } from "bson";
 import Resource from "../../../models/Resource";
 import moment from "moment";
 
-const cache = nextScheduleCache();
+interface TSchedulePeriod {
+  open: Date;
+  close: Date;
+}
+
+const cache = new Cache<TSchedulePeriod>();
 
 const scheduleItemToPeriod = (item: TScheduleItem): TSchedulePeriod => {
   const dateFormat = "YYYY MM DD";
@@ -56,7 +59,7 @@ const getNextSchedulePeriods = async (resourceIds: string[]) => {
   const nextSchedules = {} as Record<string, TSchedulePeriod>;
 
   for (const id of resourceIds) {
-    const cachedResourceSchedule = cache.get(id);
+    const cachedResourceSchedule = cache.getValue(id);
     if (
       cachedResourceSchedule &&
       cachedResourceSchedule.close.getTime() > now
@@ -69,7 +72,7 @@ const getNextSchedulePeriods = async (resourceIds: string[]) => {
       const nextSchedulePeriod = await getNextSchedulePeriod(id);
 
       if (nextSchedulePeriod) {
-        cache.set(id, nextSchedulePeriod);
+        cache.setValue(id, nextSchedulePeriod);
         nextSchedules[id] = nextSchedulePeriod;
       }
     } catch (e) {
