@@ -71,21 +71,20 @@ export const get = async (req, res, _next) => {
   const now = Date.now();
   const nextSchedules = {} as Record<string, TSchedulePeriod>;
 
-  for (let index = 0; index < ids.length; index++) {
-    const currentId = ids[index];
-    const cachedResourceSchedule = cache.get(currentId);
+  for (const id of ids) {
+    const cachedResourceSchedule = cache.get(id);
     if (
       cachedResourceSchedule &&
       cachedResourceSchedule.close.getTime() > now
     ) {
-      nextSchedules[currentId] = cachedResourceSchedule;
+      nextSchedules[id] = cachedResourceSchedule;
     } else {
       try {
-        const nextSchedulePeriod = await getNextSchedulePeriod(currentId);
+        const nextSchedulePeriod = await getNextSchedulePeriod(id);
 
         if (nextSchedulePeriod) {
-          cache.set(currentId, nextSchedulePeriod);
-          nextSchedules[currentId] = nextSchedulePeriod;
+          cache.set(id, nextSchedulePeriod);
+          nextSchedules[id] = nextSchedulePeriod;
         }
       } catch (e) {
         console.error(e);
