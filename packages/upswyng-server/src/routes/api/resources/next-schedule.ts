@@ -51,6 +51,34 @@ const getNextSchedulePeriod = async (id: string) => {
   );
 };
 
+const getNextSchedulePeriods = async (resourceIds: string[]) => {
+  const now = Date.now();
+  const nextSchedules = {} as Record<string, TSchedulePeriod>;
+
+  for (const id of resourceIds) {
+    const cachedResourceSchedule = cache.get(id);
+    if (
+      cachedResourceSchedule &&
+      cachedResourceSchedule.close.getTime() > now
+    ) {
+      nextSchedules[id] = cachedResourceSchedule;
+      continue;
+    }
+
+    try {
+      const nextSchedulePeriod = await getNextSchedulePeriod(id);
+
+      if (nextSchedulePeriod) {
+        cache.set(id, nextSchedulePeriod);
+        nextSchedules[id] = nextSchedulePeriod;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  return nextSchedules;
+};
+
 export const get = async (req, res, _next) => {
   const { resourceIds } = req.body;
 
@@ -67,33 +95,11 @@ export const get = async (req, res, _next) => {
     return;
   }
 
-  const now = Date.now();
-  const nextSchedules = {} as Record<string, TSchedulePeriod>;
-
-  for (const id of resourceIds) {
-    const cachedResourceSchedule = cache.get(id);
-    if (
-      cachedResourceSchedule &&
-      cachedResourceSchedule.close.getTime() > now
-    ) {
-      nextSchedules[id] = cachedResourceSchedule;
-    } else {
-      try {
-        const nextSchedulePeriod = await getNextSchedulePeriod(id);
-
-        if (nextSchedulePeriod) {
-          cache.set(id, nextSchedulePeriod);
-          nextSchedules[id] = nextSchedulePeriod;
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    }
-  }
+  const schedulePeriods = await getNextSchedulePeriods(resourceIds);
 
   res.writeHead(200, {
     "Content-Type": "application/json",
   });
 
-  res.end(JSON.stringify(nextSchedules));
+  res.end(JSON.stringify(schedulePeriods));
 };
