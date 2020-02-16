@@ -1,9 +1,9 @@
 import { ResourceSchedule, TScheduleItem } from "@upswyng/upswyng-core";
 import nextScheduleCache, {
   SchedulePeriod,
-} from "../../utility/nextScheduleCache";
+} from "../../../utility/nextScheduleCache";
 import { ObjectId } from "bson";
-import Resource from "../../models/Resource";
+import Resource from "../../../models/Resource";
 import moment from "moment";
 
 const cache = nextScheduleCache();
