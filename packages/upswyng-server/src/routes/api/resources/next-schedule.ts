@@ -61,15 +61,16 @@ const getNextSchedulePeriod = async (
 };
 
 const getNextSchedulePeriods = (
-  resourceIds: string[]
+  resourceIds: string[],
+  timeStamp?: string
 ): Promise<Record<string, TSchedulePeriod>>[] => {
-  const now = Date.now();
+  const compareDate = timeStamp ? parseInt(timeStamp) : Date.now();
 
   const nextSchedulePeriods = resourceIds.map(id => {
     const cachedResourceSchedule = cache.getValue(id);
     if (
       cachedResourceSchedule &&
-      cachedResourceSchedule.close.getTime() > now
+      cachedResourceSchedule.close.getTime() > compareDate
     ) {
       return Promise.resolve({ [id]: cachedResourceSchedule });
     }
@@ -82,6 +83,7 @@ const getNextSchedulePeriods = (
 
 export const get = async (req, res, _next) => {
   const { resourceIds } = req.body;
+  const { date } = req.query;
 
   if (!resourceIds || !resourceIds.length) {
     res.writeHead(400, {
@@ -96,16 +98,32 @@ export const get = async (req, res, _next) => {
     return;
   }
 
-  const schedulePeriods = await getNextSchedulePeriods(resourceIds).reduce(
-    (acc, period) => ({
-      ...acc,
-      ...period,
-    })
-  );
+  try {
+    const schedulePeriods = await Promise.all(
+      getNextSchedulePeriods(resourceIds, date)
+    ).then(periods =>
+      periods.reduce((acc, period) => ({
+        ...acc,
+        ...period,
+      }))
+    );
 
-  res.writeHead(200, {
-    "Content-Type": "application/json",
-  });
+    res.writeHead(200, {
+      "Content-Type": "application/json",
+    });
 
-  res.end(JSON.stringify(schedulePeriods));
+    res.end(JSON.stringify(schedulePeriods));
+  } catch (err) {
+    console.error(err);
+
+    res.writeHead(500, {
+      "Content-Type": "application/json",
+    });
+
+    res.end(
+      JSON.stringify({
+        message: "Failed to retrieve next schedules",
+      })
+    );
+  }
 };
