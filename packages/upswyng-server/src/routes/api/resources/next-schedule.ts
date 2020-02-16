@@ -11,12 +11,15 @@ interface TSchedulePeriod {
 
 const cache = new Cache<TSchedulePeriod>();
 
-const scheduleItemToPeriod = (item: TScheduleItem): TSchedulePeriod => {
+const scheduleItemToPeriod = (
+  item: TScheduleItem,
+  dt: Date
+): TSchedulePeriod => {
   const dateFormat = "YYYY MM DD";
   const dateTimeFormat = `${dateFormat} HH:mm`;
-  const itemDateString = moment(
-    item.recurrenceRule.all((_, i) => i < 1)[0]
-  ).format(dateFormat);
+  const itemDateString = moment(item.recurrenceRule.after(dt, true)).format(
+    dateFormat
+  );
   const periodOpen = moment(
     `${itemDateString} ${item.fromTime.value}`,
     dateTimeFormat
@@ -33,7 +36,8 @@ const scheduleItemToPeriod = (item: TScheduleItem): TSchedulePeriod => {
 };
 
 const getNextSchedulePeriod = async (
-  id: string
+  id: string,
+  dt: Date
 ): Promise<Record<string, TSchedulePeriod>> => {
   const { schedule } = await Resource.getByResourceId(
     ObjectId.createFromHexString(id)
@@ -42,7 +46,7 @@ const getNextSchedulePeriod = async (
 
   const nextSchedulePeriod = scheduleItems.reduce(
     (nextSchedule: TSchedulePeriod | null, currentSchedule: TScheduleItem) => {
-      const currentPeriod = scheduleItemToPeriod(currentSchedule);
+      const currentPeriod = scheduleItemToPeriod(currentSchedule, dt);
       if (!nextSchedule) {
         return currentPeriod;
       }
@@ -64,18 +68,20 @@ const getNextSchedulePeriods = (
   resourceIds: string[],
   timeStamp?: string
 ): Promise<Record<string, TSchedulePeriod>>[] => {
-  const compareDate = timeStamp ? parseInt(timeStamp) : Date.now();
+  const compareDateTime = timeStamp
+    ? new Date(parseInt(timeStamp))
+    : new Date();
 
   const nextSchedulePeriods = resourceIds.map(id => {
     const cachedResourceSchedule = cache.getValue(id);
     if (
       cachedResourceSchedule &&
-      cachedResourceSchedule.close.getTime() > compareDate
+      cachedResourceSchedule.close.getTime() > compareDateTime.getTime()
     ) {
       return Promise.resolve({ [id]: cachedResourceSchedule });
     }
 
-    return getNextSchedulePeriod(id);
+    return getNextSchedulePeriod(id, compareDateTime);
   });
 
   return nextSchedulePeriods;
@@ -101,18 +107,18 @@ export const get = async (req, res, _next) => {
   try {
     const schedulePeriods = await Promise.all(
       getNextSchedulePeriods(resourceIds, date)
-    ).then(periods =>
-      periods.reduce((acc, period) => ({
-        ...acc,
-        ...period,
-      }))
     );
+
+    const combinedSchedulePeriods = schedulePeriods.reduce((acc, period) => ({
+      ...acc,
+      ...period,
+    }));
 
     res.writeHead(200, {
       "Content-Type": "application/json",
     });
 
-    res.end(JSON.stringify(schedulePeriods));
+    res.end(JSON.stringify(combinedSchedulePeriods));
   } catch (err) {
     console.error(err);
 
