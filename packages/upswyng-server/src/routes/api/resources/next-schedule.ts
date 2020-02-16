@@ -64,37 +64,38 @@ export const get = async (req, res, _next) => {
         message: "Please provide resource ID(s)",
       })
     );
-  } else {
-    const ids = resourceIds.split(",");
-    const now = Date.now();
-    const nextSchedules = {} as Record<string, TSchedulePeriod>;
+    return;
+  }
 
-    for (let index = 0; index < ids.length; index++) {
-      const currentId = ids[index];
-      const cachedResourceSchedule = cache.get(currentId);
-      if (
-        cachedResourceSchedule &&
-        cachedResourceSchedule.close.getTime() > now
-      ) {
-        nextSchedules[currentId] = cachedResourceSchedule;
-      } else {
-        try {
-          const nextSchedulePeriod = await getNextSchedulePeriod(currentId);
+  const ids = resourceIds.split(",");
+  const now = Date.now();
+  const nextSchedules = {} as Record<string, TSchedulePeriod>;
 
-          if (nextSchedulePeriod) {
-            cache.set(currentId, nextSchedulePeriod);
-            nextSchedules[currentId] = nextSchedulePeriod;
-          }
-        } catch (e) {
-          console.error(e);
+  for (let index = 0; index < ids.length; index++) {
+    const currentId = ids[index];
+    const cachedResourceSchedule = cache.get(currentId);
+    if (
+      cachedResourceSchedule &&
+      cachedResourceSchedule.close.getTime() > now
+    ) {
+      nextSchedules[currentId] = cachedResourceSchedule;
+    } else {
+      try {
+        const nextSchedulePeriod = await getNextSchedulePeriod(currentId);
+
+        if (nextSchedulePeriod) {
+          cache.set(currentId, nextSchedulePeriod);
+          nextSchedules[currentId] = nextSchedulePeriod;
         }
+      } catch (e) {
+        console.error(e);
       }
     }
-
-    res.writeHead(200, {
-      "Content-Type": "application/json",
-    });
-
-    res.end(JSON.stringify(nextSchedules));
   }
+
+  res.writeHead(200, {
+    "Content-Type": "application/json",
+  });
+
+  res.end(JSON.stringify(nextSchedules));
 };
