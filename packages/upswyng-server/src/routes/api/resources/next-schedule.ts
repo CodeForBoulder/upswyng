@@ -52,9 +52,9 @@ const getNextSchedulePeriod = async (id: string) => {
 };
 
 export const get = async (req, res, _next) => {
-  const { resourceIds } = req.query;
+  const { resourceIds } = req.body;
 
-  if (!resourceIds) {
+  if (!resourceIds || !resourceIds.length) {
     res.writeHead(400, {
       "Content-Type": "application/json",
     });
@@ -67,11 +67,10 @@ export const get = async (req, res, _next) => {
     return;
   }
 
-  const ids = resourceIds.split(",");
   const now = Date.now();
   const nextSchedules = {} as Record<string, TSchedulePeriod>;
 
-  for (const id of ids) {
+  for (const id of resourceIds) {
     const cachedResourceSchedule = cache.get(id);
     if (
       cachedResourceSchedule &&
