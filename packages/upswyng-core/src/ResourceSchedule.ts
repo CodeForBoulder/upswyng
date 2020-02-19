@@ -52,31 +52,47 @@ function validateTimezone(timezone: string): TTimezoneName {
   return timezone as TTimezoneName;
 }
 
+function makeSchedulePeriodDate(dt: Date, timeValue: string): Date {
+  const dateFormat = "YYYY MM DD";
+  const itemDate = moment(dt).format(dateFormat);
+
+  const dateTimeFormat = `${dateFormat} H:mm A`;
+  return moment(`${itemDate.toString()} ${timeValue}`, dateTimeFormat).toDate();
+}
+
 export function getScheduleItemPeriod(
   item: TScheduleItem,
   dt = new Date()
 ): TScheduleItemOpenClose {
-  const nextOccurenceDate = item.recurrenceRule.after(dt, true);
+  const nextOccurenceDate = item.recurrenceRule.all((_, i) => i < 1)[0];
 
   const openTime = item.fromTime.value;
   const closeTime = item.toTime.value;
 
-  const dateFormat = "YYYY MM DD";
-  const itemDate = moment(nextOccurenceDate).format(dateFormat);
+  const nextCloseDateTime = makeSchedulePeriodDate(
+    nextOccurenceDate,
+    closeTime
+  );
+  if (nextCloseDateTime.getTime() > dt.getTime()) {
+    const openDateTime = makeSchedulePeriodDate(nextOccurenceDate, openTime);
+    return {
+      open: openDateTime,
+      close: nextCloseDateTime,
+    };
+  }
 
-  const dateTimeFormat = `${dateFormat} H:mm A`;
-  const openDateTime = moment(
-    `${itemDate.toString()} ${openTime}`,
-    dateTimeFormat
-  ).toDate();
-  const closeDateTime = moment(
-    `${itemDate.toString()} ${closeTime}`,
-    dateTimeFormat
-  ).toDate();
-
+  const afterOccurenceDate = item.recurrenceRule.after(dt);
+  const afterCloseDateTime = makeSchedulePeriodDate(
+    afterOccurenceDate,
+    closeTime
+  );
+  const afterOpenDateTime = makeSchedulePeriodDate(
+    afterOccurenceDate,
+    closeTime
+  );
   return {
-    open: openDateTime,
-    close: closeDateTime,
+    open: afterOpenDateTime,
+    close: afterCloseDateTime,
   };
 }
 
