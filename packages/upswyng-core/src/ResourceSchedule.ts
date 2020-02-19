@@ -14,6 +14,11 @@ export interface TScheduleItem {
   toTime: Time;
 }
 
+export interface TScheduleItemPeriod {
+  open: Date;
+  close: Date;
+}
+
 function validateScheduleItem(item: TScheduleItem) {
   if (item.fromTime.value === item.toTime.value) {
     throw new Error(
@@ -48,10 +53,10 @@ function validateTimezone(timezone: string): TTimezoneName {
   return timezone as TTimezoneName;
 }
 
-function getNextPeriodDateTime(
+export function getScheduleItemPeriod(
   item: TScheduleItem,
   dt = new Date()
-): { open: Date; close: Date } {
+): TScheduleItemPeriod {
   const nextOccurenceDate = item.recurrenceRule.after(dt, true);
 
   const openTime = item.fromTime.value;
@@ -152,30 +157,25 @@ export default class ResourceSchedule {
   }
 
   /**
-   * Returns the ScheduleItem that contains the current or next upcoming occurence
+   * Returns the current/next open/close period of the ScheduleItems
    *
    * @param date The date we're comparing our schedule items to.
    */
-  getNextOpenItem(date = new Date()): TScheduleItem | null {
+  getNextScheduleItemPeriod(date = new Date()): TScheduleItemPeriod | null {
     return this._items.reduce(
       (
-        nextItem: TScheduleItem | null,
+        period: TScheduleItemPeriod | null,
         currentItem: TScheduleItem
-      ): TScheduleItem => {
-        if (!nextItem) {
-          return currentItem;
+      ): TScheduleItemPeriod => {
+        const currentPeriod = getScheduleItemPeriod(currentItem, date);
+        if (!period) {
+          return currentPeriod;
         }
 
-        const { open: itemOpen } = getNextPeriodDateTime(nextItem, date);
-        const { open: currentItemOpen } = getNextPeriodDateTime(
-          currentItem,
-          date
-        );
-
         const currentItemIsSooner =
-          currentItemOpen.getTime() < itemOpen.getTime();
+          currentPeriod.open.getTime() < period.open.getTime();
 
-        return currentItemIsSooner ? currentItem : nextItem;
+        return currentItemIsSooner ? currentPeriod : period;
       },
       null
     );

@@ -1,6 +1,6 @@
 import RRule, { RRuleSet } from "rrule";
 
-import ResourceSchedule from "../ResourceSchedule";
+import ResourceSchedule, { getScheduleItemPeriod } from "../ResourceSchedule";
 import Time from "../Time";
 
 describe("ResourceSchedule", () => {
@@ -202,16 +202,16 @@ describe("ResourceSchedule", () => {
       [
         "returns tomorrows schedule item when checking against now",
         new Date(),
-        scheduleItems[0],
+        getScheduleItemPeriod(scheduleItems[0]),
       ],
       [
         "returns the schedule item two days from tomorrow when checking against the day after tomorrow",
         new Date(mockDates[0].getTime() + dayMs),
-        scheduleItems[1],
+        getScheduleItemPeriod(scheduleItems[1]),
       ],
-    ])("%s", (_, dt, expectedScheduleItem) => {
-      const nextScheduleItem = schedule.getNextOpenItem(dt);
-      expect(nextScheduleItem).toEqual(expectedScheduleItem);
+    ])("%s", (_, dt, expectedScheduleItemPeriod) => {
+      const nextScheduleItem = schedule.getNextScheduleItemPeriod(dt);
+      expect(nextScheduleItem).toEqual(expectedScheduleItemPeriod);
     });
   });
 });
