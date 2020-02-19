@@ -1,11 +1,14 @@
-import { TEnvVariables, TWeatherCurrentResponse } from "../webTypes";
 import { useEffect, useState } from "react";
 
+import { TWeatherCurrentResponse } from "../webTypes";
 import axios from "axios";
 
-declare const process: TEnvVariables;
+let serverUri = process.env.REACT_APP_SERVER_URI || "http://localhost:3000";
+if (serverUri.charAt(serverUri.length - 1) === "/") {
+  serverUri = serverUri.slice(0, -1);
+}
 
-const GET_TEMP_INTERVAL_MS = 600000;
+const GET_TEMP_INTERVAL_MS = 60000;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const convertCelsiusToFarenheit = (cTemp: number): number =>
@@ -23,12 +26,11 @@ const useTemperature = (): undefined | null | number => {
     const getCurrentTemp = async (): Promise<void> => {
       try {
         const { data } = await axios.get<TWeatherCurrentResponse>(
-          "https://api.openweathermap.org/data/2.5/weather?units=imperial",
+          `${serverUri}/api/weather`,
           {
             params: {
               lat: boulderCoords.lat,
               lon: boulderCoords.lon,
-              APPID: process.env.REACT_APP_OPEN_WEATHER_API_KEY,
             },
           }
         );
