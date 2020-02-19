@@ -32,8 +32,11 @@ const SearchResultsItem = styled.li`
 
 const getNextOpenText = (scheduleData: TResourceScheduleData): string => {
   const schedule = ResourceSchedule.parse(scheduleData);
-  const currentDateTime = new Date();
+  if (schedule.alwaysOpen) {
+    return "Open 24/7";
+  }
 
+  const currentDateTime = new Date();
   const nextScheduleItemPeriod = schedule.getNextScheduleItemPeriod(
     currentDateTime
   );
