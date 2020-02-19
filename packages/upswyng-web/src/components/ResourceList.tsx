@@ -1,10 +1,9 @@
-import { TResource, TResourceScheduleData } from "@upswyng/upswyng-types";
 import LoadingSpinner from "./LoadingSpinner";
 import React from "react";
 import ResourceCard from "./ResourceCard";
-import { ResourceSchedule } from "@upswyng/upswyng-core";
+import { TResource } from "@upswyng/upswyng-types";
 import { font } from "../App.styles";
-import moment from "moment";
+import { getNextOpenText } from "../utils/schedule";
 import styled from "styled-components";
 
 interface Props {
@@ -29,31 +28,6 @@ const SearchResultsItem = styled.li`
   list-style-type: none;
   padding: ${font.helpers.convertPixelsToRems(8)};
 `;
-
-const getNextOpenText = (scheduleData: TResourceScheduleData): string => {
-  const schedule = ResourceSchedule.parse(scheduleData);
-  if (schedule.alwaysOpen) {
-    return "Open 24/7";
-  }
-
-  const currentDateTime = new Date();
-  const nextScheduleItemPeriod = schedule.getNextScheduleItemPeriod(
-    currentDateTime
-  );
-
-  if (!nextScheduleItemPeriod) {
-    return "";
-  }
-
-  const { open, close } = nextScheduleItemPeriod;
-  if (currentDateTime.getTime() > open.getTime()) {
-    return `Closes at ${moment(close).format("h:mm A")}`;
-  }
-
-  return `Opens ${moment(open).format("MMM D")} at ${moment(open).format(
-    "h:mm A"
-  )}`;
-};
 
 const ResourceList = ({ placeholder, resources }: Props) => {
   if (resources === undefined) {

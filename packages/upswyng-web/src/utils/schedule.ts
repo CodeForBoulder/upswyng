@@ -1,4 +1,6 @@
 import { TDay, TSchedule, TSchedulePeriod } from "@upswyng/upswyng-types";
+import { ResourceSchedule } from "@upswyng/upswyng-core";
+import { TResourceScheduleData } from "@upswyng/upswyng-types";
 import moment from "moment";
 
 const orderedPeriods: TSchedulePeriod[] = [
@@ -71,4 +73,31 @@ export const orderSchedule = (schedule: TSchedule[]) => {
     }
   }
   return schedule;
+};
+
+export const getNextOpenText = (
+  scheduleData: TResourceScheduleData
+): string => {
+  const schedule = ResourceSchedule.parse(scheduleData);
+  if (schedule.alwaysOpen) {
+    return "Open 24/7";
+  }
+
+  const currentDateTime = new Date();
+  const nextScheduleItemPeriod = schedule.getNextScheduleItemPeriod(
+    currentDateTime
+  );
+
+  if (!nextScheduleItemPeriod) {
+    return "";
+  }
+
+  const { open, close } = nextScheduleItemPeriod;
+  if (currentDateTime.getTime() > open.getTime()) {
+    return `Closes at ${moment(close).format("h:mm A")}`;
+  }
+
+  return `Opens ${moment(open).format("MMM D")} at ${moment(open).format(
+    "h:mm A"
+  )}`;
 };
