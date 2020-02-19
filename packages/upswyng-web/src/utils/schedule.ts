@@ -96,16 +96,13 @@ export const getNextOpenText = (
     return "Open 24/7";
   }
 
-  const currentDateTime = new Date();
-  const nextScheduleItemPeriod = schedule.getNextScheduleItemPeriod(
-    currentDateTime
-  );
-
+  const currentDt = new Date();
+  const nextScheduleItemPeriod = schedule.getNextScheduleItemPeriod(currentDt);
   if (!nextScheduleItemPeriod) {
     return "";
   }
 
-  if (currentDateTime.getTime() > nextScheduleItemPeriod.open.getTime()) {
+  if (currentDt.getTime() > nextScheduleItemPeriod.open.getTime()) {
     return `Closes at ${moment(nextScheduleItemPeriod.close).format("h:mm A")}`;
   }
 
