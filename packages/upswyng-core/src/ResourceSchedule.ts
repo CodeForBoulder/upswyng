@@ -64,35 +64,36 @@ export function getScheduleItemPeriod(
   item: TScheduleItem,
   dt = new Date()
 ): TScheduleItemOpenClose {
-  const nextOccurenceDate = item.recurrenceRule.all((_, i) => i < 1)[0];
+  const openTimeValue = item.fromTime.value;
+  const closeTimeValue = item.toTime.value;
+  const firstOccurenceDate = item.recurrenceRule.all((_, i) => i < 1)[0];
 
-  const openTime = item.fromTime.value;
-  const closeTime = item.toTime.value;
-
-  const nextCloseDateTime = makeSchedulePeriodDate(
-    nextOccurenceDate,
-    closeTime
+  const firstCloseDt = makeSchedulePeriodDate(
+    firstOccurenceDate,
+    closeTimeValue
   );
-  if (nextCloseDateTime.getTime() > dt.getTime()) {
-    const openDateTime = makeSchedulePeriodDate(nextOccurenceDate, openTime);
+  // rrule doesn't know of the time so its first occurence could be past close
+  if (firstCloseDt.getTime() > dt.getTime()) {
+    const openDt = makeSchedulePeriodDate(firstOccurenceDate, openTimeValue);
     return {
-      open: openDateTime,
-      close: nextCloseDateTime,
+      open: openDt,
+      close: firstCloseDt,
     };
   }
 
-  const afterOccurenceDate = item.recurrenceRule.after(dt);
-  const afterCloseDateTime = makeSchedulePeriodDate(
-    afterOccurenceDate,
-    closeTime
+  // the first occurence is past close so retrieve first occurence after the given date
+  const secondOccurenceDate = item.recurrenceRule.after(dt);
+  const secondCloseDt = makeSchedulePeriodDate(
+    secondOccurenceDate,
+    closeTimeValue
   );
-  const afterOpenDateTime = makeSchedulePeriodDate(
-    afterOccurenceDate,
-    closeTime
+  const secondOpenDt = makeSchedulePeriodDate(
+    secondOccurenceDate,
+    closeTimeValue
   );
   return {
-    open: afterOpenDateTime,
-    close: afterCloseDateTime,
+    open: secondOpenDt,
+    close: secondCloseDt,
   };
 }
 
