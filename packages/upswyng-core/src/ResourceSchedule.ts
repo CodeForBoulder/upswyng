@@ -151,6 +151,11 @@ export default class ResourceSchedule {
     return this.removeItemAtIndex(i);
   }
 
+  /**
+   * Returns the ScheduleItem that contains the current or next upcoming occurence
+   *
+   * @param date The date we're comparing our schedule items to.
+   */
   getNextOpenItem(date = new Date()): TScheduleItem | null {
     return this._items.reduce(
       (
