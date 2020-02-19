@@ -168,4 +168,50 @@ describe("ResourceSchedule", () => {
       })
     ).toThrow(/Error removing schedule item/);
   });
+
+  describe("getNextOpenItem()", () => {
+    const days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const dayMs = 86400000;
+    // create mock dates of tomorrow and two days after tomorrow
+    const mockDates = [
+      new Date(Date.now() + dayMs),
+      new Date(Date.now() + dayMs * 3),
+    ];
+    const rawScheduleItems = mockDates.map(date => {
+      const day = days[date.getDay()];
+      return {
+        recurrenceRule: RRule.fromText(`every week on ${day}`),
+        comment: "",
+        fromTime: Time.fromTTime(Time.options[4]),
+        toTime: Time.fromTTime(Time.options[5]),
+      };
+    });
+
+    const schedule = new ResourceSchedule(rawScheduleItems);
+    const scheduleItems = schedule.getItems();
+
+    it.each([
+      [
+        "returns tomorrows schedule item when checking against now",
+        new Date(),
+        scheduleItems[0],
+      ],
+      [
+        "returns the schedule item two days from tomorrow when checking against the day after tomorrow",
+        new Date(mockDates[0].getTime() + dayMs),
+        scheduleItems[1],
+      ],
+    ])("%s", (_, dt, expectedScheduleItem) => {
+      const nextScheduleItem = schedule.getNextOpenItem(dt);
+      expect(nextScheduleItem).toEqual(expectedScheduleItem);
+    });
+  });
 });

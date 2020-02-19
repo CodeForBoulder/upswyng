@@ -2,6 +2,7 @@ import { RRule, RRuleSet } from "rrule";
 import { TResourceScheduleData, TTimezoneName } from "@upswyng/upswyng-types";
 
 import Time from "./Time";
+import moment from "moment";
 import momentTimezone from "moment-timezone";
 
 const { tz } = momentTimezone;
@@ -45,6 +46,34 @@ function validateTimezone(timezone: string): TTimezoneName {
     );
   }
   return timezone as TTimezoneName;
+}
+
+function getNextPeriodDateTime(
+  item: TScheduleItem,
+  dt = new Date()
+): { open: Date; close: Date } {
+  const nextOccurenceDate = item.recurrenceRule.after(dt, true);
+
+  const openTime = item.fromTime.value;
+  const closeTime = item.toTime.value;
+
+  const dateFormat = "YYYY MM DD";
+  const itemDate = moment(nextOccurenceDate).format(dateFormat);
+
+  const dateTimeFormat = `${dateFormat} H:mm A`;
+  const openDateTime = moment(
+    `${itemDate.toString()} ${openTime}`,
+    dateTimeFormat
+  ).toDate();
+  const closeDateTime = moment(
+    `${itemDate.toString()} ${closeTime}`,
+    dateTimeFormat
+  ).toDate();
+
+  return {
+    open: openDateTime,
+    close: closeDateTime,
+  };
 }
 
 /**
@@ -120,6 +149,31 @@ export default class ResourceSchedule {
       );
     }
     return this.removeItemAtIndex(i);
+  }
+
+  getNextOpenItem(date = new Date()): TScheduleItem | null {
+    return this._items.reduce(
+      (
+        nextItem: TScheduleItem | null,
+        currentItem: TScheduleItem
+      ): TScheduleItem => {
+        if (!nextItem) {
+          return currentItem;
+        }
+
+        const { open: itemOpen } = getNextPeriodDateTime(nextItem, date);
+        const { open: currentItemOpen } = getNextPeriodDateTime(
+          currentItem,
+          date
+        );
+
+        const currentItemIsSooner =
+          currentItemOpen.getTime() < itemOpen.getTime();
+
+        return currentItemIsSooner ? currentItem : nextItem;
+      },
+      null
+    );
   }
 
   /**
