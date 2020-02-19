@@ -1,6 +1,6 @@
 import React from "react";
 import ResourceList from "../ResourceList";
-import { mockResources } from "./data-mocks";
+import { mockResources } from "../../DataMocks";
 import { mount } from "enzyme";
 
 jest.mock("../LoadingSpinner", () => () => "TEST-loading-spinner");
