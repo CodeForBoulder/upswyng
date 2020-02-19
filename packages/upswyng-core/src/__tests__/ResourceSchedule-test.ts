@@ -169,7 +169,7 @@ describe("ResourceSchedule", () => {
     ).toThrow(/Error removing schedule item/);
   });
 
-  describe("getNextOpenItem()", () => {
+  describe("getNextScheduleItemPeriod()", () => {
     const days = [
       "Sunday",
       "Monday",
