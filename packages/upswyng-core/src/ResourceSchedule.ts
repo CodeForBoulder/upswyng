@@ -1,5 +1,9 @@
 import { RRule, RRuleSet } from "rrule";
-import { TResourceScheduleData, TTimezoneName } from "@upswyng/upswyng-types";
+import {
+  TResourceScheduleData,
+  TScheduleItemOpenClose,
+  TTimezoneName,
+} from "@upswyng/upswyng-types";
 
 import Time from "./Time";
 import moment from "moment";
@@ -12,11 +16,6 @@ export interface TScheduleItem {
   fromTime: Time;
   recurrenceRule: RRule;
   toTime: Time;
-}
-
-export interface TScheduleItemPeriod {
-  open: Date;
-  close: Date;
 }
 
 function validateScheduleItem(item: TScheduleItem) {
@@ -56,7 +55,7 @@ function validateTimezone(timezone: string): TTimezoneName {
 export function getScheduleItemPeriod(
   item: TScheduleItem,
   dt = new Date()
-): TScheduleItemPeriod {
+): TScheduleItemOpenClose {
   const nextOccurenceDate = item.recurrenceRule.after(dt, true);
 
   const openTime = item.fromTime.value;
@@ -161,12 +160,12 @@ export default class ResourceSchedule {
    *
    * @param date The date we're comparing our schedule items to.
    */
-  getNextScheduleItemPeriod(date = new Date()): TScheduleItemPeriod | null {
+  getNextScheduleItemPeriod(date = new Date()): TScheduleItemOpenClose | null {
     return this._items.reduce(
       (
-        period: TScheduleItemPeriod | null,
+        period: TScheduleItemOpenClose | null,
         currentItem: TScheduleItem
-      ): TScheduleItemPeriod => {
+      ): TScheduleItemOpenClose => {
         const currentPeriod = getScheduleItemPeriod(currentItem, date);
         if (!period) {
           return currentPeriod;

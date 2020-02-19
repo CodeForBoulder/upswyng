@@ -161,6 +161,11 @@ interface TLegacyScheduleBase {
   tostring?: string;
 }
 
+export interface TScheduleItemOpenClose {
+  open: Date;
+  close: Date;
+}
+
 export interface TLegacySchedule extends TLegacyScheduleBase {
   type: TScheduleType;
 }
