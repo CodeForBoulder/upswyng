@@ -291,8 +291,8 @@ export interface TLegacyScheduleParsingErrorDetails {
 
 export interface TUserReportDetails {
   kind: "user_report";
-  detailExplanation: string; // text the user writes in a 'detail'
-  reportedIssues: string; // "Schedule Incorrect, WebsiteInop"
+  detailExplanation?: string; // text the user writes in a 'detail'
+  reportedIssues: string[]; // "Schedule Incorrect, WebsiteInop"
 }
 
 export type TResourceIssueDetail =
