@@ -278,6 +278,7 @@ export interface TEventLog {
 /** Resource Issue */
 export const ResourceIssueKind = {
   legacy_schedule_parsing_error: null, // eslint-disable-line @typescript-eslint/camelcase
+  user_report: null, // eslint-disable-line @typescript-eslint/camelcase
 };
 
 export type TResourceIssueKind = keyof typeof ResourceIssueKind;
@@ -288,7 +289,15 @@ export interface TLegacyScheduleParsingErrorDetails {
   legacyClosesSchedule: string; // stringified legacy closes schedule
 }
 
-export type TResourceIssueDetail = TLegacyScheduleParsingErrorDetails;
+export interface TUserReportDetails {
+  kind: "user_report";
+  detailExplanation: string; // text the user writes in a 'detail'
+  reportedIssues: string; // "Schedule Incorrect, WebsiteInop"
+}
+
+export type TResourceIssueDetail =
+  | TLegacyScheduleParsingErrorDetails
+  | TUserReportDetails;
 
 export interface TResourceIssue {
   _id: string;
