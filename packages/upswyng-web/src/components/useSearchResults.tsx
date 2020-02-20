@@ -22,7 +22,7 @@ function useSearchResults(
   >(undefined);
 
   useEffect(() => {
-    if (query) {
+    if (query && !searchResults) {
       const getSearchResults = async (query: string): Promise<void> => {
         try {
           const searchResults = await searchIndex.search(query);
@@ -36,7 +36,7 @@ function useSearchResults(
 
       getSearchResults(query);
     }
-  }, [query, searchIndex]);
+  }, [query, searchResults]);
 
   return searchResults;
 }
