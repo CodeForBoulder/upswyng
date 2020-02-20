@@ -19,9 +19,9 @@ const mapResultsToResources = (
     return null;
   }
 
-  return hits.map(({ name, objectID }) => ({
+  return hits.map(({ charityname, objectID }) => ({
     resourceId: objectID,
-    name,
+    name: charityname,
   }));
 };
 
