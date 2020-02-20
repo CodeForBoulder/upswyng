@@ -15,7 +15,11 @@ interface TRequest extends ParamsDictionary {
 }
 
 /**
- * API endpoint to create a new User Report Resource Issue
+ * API endpoint to create a new User Report Resource Issue.
+ * In an Upswyng client, if a user notices a problem with a Resource
+ * (schedule is wrong, phone number is out of service, etc..) they can
+ * initiate a report saying so through this endpont.
+ *
  * {
  *   resourceId: string;
  *   detailExplanation?: string; // text the user writes in a 'detail'
