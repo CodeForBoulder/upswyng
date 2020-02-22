@@ -1,4 +1,4 @@
-import { Input, InputAdornment } from "@material-ui/core";
+import { Input, InputAdornment, InputBaseProps } from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
 import React from "react";
 import { Redirect } from "react-router";
@@ -17,20 +17,16 @@ const useInputStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const Search = () => {
+const Search = (props: InputBaseProps) => {
   const inputClasses = useInputStyles({});
   const [query, setQuery] = React.useState<string>("");
   const [submitted, setSubmitted] = React.useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { value },
-    } = e;
-
-    setQuery(value);
+    setQuery(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     setSubmitted(true);
   };
@@ -53,6 +49,7 @@ const Search = () => {
             name="search"
             onChange={handleChange}
             value={query}
+            {...props}
           />
         </FormControl>
       </form>
