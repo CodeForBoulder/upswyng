@@ -24,7 +24,7 @@ const SearchResults = () => {
   const [searchValue, setSearchValue] = React.useState<string>(
     searchQueryParam || ""
   );
-  const results = useSearchResults(searchQueryParam || "");
+  const [status, results] = useSearchResults(searchQueryParam || "");
   const history = useHistory();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
