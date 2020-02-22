@@ -90,9 +90,9 @@ const Hotlines = () => (
   <Container>
     <PageBanner color={colors.pink} text={"Hotlines"} />
     <List>
-      {hotlineList.map(({ name, description, phone }, i) => (
+      {hotlineList.map(({ name, description, phone }) => (
         <HotlineCard
-          key={i}
+          key={name}
           name={name}
           description={description}
           phone={phone}
