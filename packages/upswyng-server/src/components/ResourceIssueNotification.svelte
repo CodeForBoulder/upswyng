@@ -77,6 +77,7 @@
         </p>
       </div>
       <div class="content">
+        <!-- LEGACY SCHEDULE PARSING ERROR -->
         {#if resourceIssue.kind === 'legacy_schedule_parsing_error'}
           <article class="message">
             <div class="message-body">
@@ -97,6 +98,20 @@
             <p class="is-family-code">
               {format(resourceIssue.detail.legacyClosesSchedule)}
             </p>
+          {/if}
+        {/if}
+        <!-- USER REPORT -->
+        {#if resourceIssue.kind === 'user_report'}
+          <article class="message">
+            <div class="message-body">
+              A user reported the following about this resource:
+            </div>
+          </article>
+          <p class="has-text-weight-bold">
+            {resourceIssue.detail.reportedIssues.join(',')}
+          </p>
+          {#if resourceIssue.detail.detailExplanation}
+            <p>{resourceIssue.detail.detailExplanation}</p>
           {/if}
         {/if}
         {#if resolveError}
