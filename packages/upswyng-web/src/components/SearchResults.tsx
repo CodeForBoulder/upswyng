@@ -1,11 +1,12 @@
+import { Link, useHistory } from "react-router-dom";
 import { History } from "history";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
 import React from "react";
 import { SEARCH_PARAM_QUERY } from "../constants";
 import SearchInput from "./SearchInput";
 import debounce from "debounce";
-import { useHistory } from "react-router-dom";
 import useSearchParam from "./useSearchParam";
 import useSearchResults from "./useSearchResults";
 
@@ -40,7 +41,14 @@ const SearchResults = () => {
       {results && (
         <List>
           {results.hits.map(hit => (
-            <ListItem key={hit.objectID}>{hit.charityname}</ListItem>
+            <ListItem
+              button
+              component={Link}
+              to={`resource/${hit.objectID}`}
+              key={hit.objectID}
+            >
+              <ListItemText primary={hit.name} secondary={hit.description} />
+            </ListItem>
           ))}
         </List>
       )}
