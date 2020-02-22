@@ -4,7 +4,7 @@ import AlgoliaBadge from "./AlgoliaBadge";
 import { Grid } from "@material-ui/core";
 import HomeButtons from "./HomeButtons";
 import React from "react";
-import SearchInput from "./SearchInput";
+import SearchForm from "./SearchForm";
 import styled from "styled-components";
 
 const HomeButtonsContainer = styled(Grid)`
@@ -20,7 +20,7 @@ const HomeButtonsContainer = styled(Grid)`
 const Home = () => (
   <Container container justify="space-evenly" alignItems="center">
     <Grid item xs={12}>
-      <SearchInput />
+      <SearchForm />
     </Grid>
     <Grid item xs={12}>
       <HomeButtonsContainer

@@ -51,7 +51,9 @@ const SearchResults = ({ placeholder }: Props) => {
 
   return (
     <>
-      <SearchInput onChange={handleChange} value={searchQuery} />
+      <form onSubmit={e => e.preventDefault()}>
+        <SearchInput onChange={handleChange} />
+      </form>
       <ResourceList
         placeholder={placeholder}
         resources={mapResultsToResources(results)}
