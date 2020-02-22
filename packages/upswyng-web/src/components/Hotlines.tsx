@@ -33,7 +33,7 @@ const hotlineList = [
   {
     name: "National Runaway Safeline",
     description:
-      "For Youth &amp; Teens, The National Runaway Safeline (NRS) is here to listen whether you are thinking of running away or already have. Our services are confidential and nonjudgmental. For Parents &amp;  Guardians, NRS can offer you support and help connect you to the right resources for your family. Whether you’re having trouble talking to your child or your child has already run, we can help. We will listen and assist you in developing a plan",
+      "For Youth and Teens, The National Runaway Safeline (NRS) is here to listen whether you are thinking of running away or already have. Our services are confidential and nonjudgmental. For Parents and Guardians, NRS can offer you support and help connect you to the right resources for your family. Whether you’re having trouble talking to your child or your child has already run, we can help. We will listen and assist you in developing a plan",
     phone: "1-800-786-2929",
   },
   {
@@ -51,7 +51,7 @@ const hotlineList = [
   {
     name: "National Sexual Assult Hotline",
     description:
-      "RAINN (Rape, Abuse &amp; Incest National Network) is the nation's largest anti-sexual violence organization. RAINN created and operates the National Sexual Assault Hotline (800.656.HOPE, online.rainn.org y rainn.org/es) in partnership with more than 1,000 local sexual assault service providers across the country and operates the DoD Safe Helpline for the Department of Defense. RAINN also carries out programs to prevent sexual violence, help victims, and ensure that perpetrators are brought to justice.",
+      "RAINN (Rape, Abuse and Incest National Network) is the nation's largest anti-sexual violence organization. RAINN created and operates the National Sexual Assault Hotline (800.656.HOPE, online.rainn.org y rainn.org/es) in partnership with more than 1,000 local sexual assault service providers across the country and operates the DoD Safe Helpline for the Department of Defense. RAINN also carries out programs to prevent sexual violence, help victims, and ensure that perpetrators are brought to justice.",
     phone: "1-800-656-4673",
   },
   {
