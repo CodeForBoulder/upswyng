@@ -1,3 +1,4 @@
+import { History } from "history";
 import React from "react";
 import ResourceList from "./ResourceList";
 import { Response } from "algoliasearch";
@@ -30,29 +31,33 @@ const mapResultsToResources = (
   }));
 };
 
+const updateSearchParam = debounce((searchValue: string, history: History) => {
+  const searchParams = new URLSearchParams(window.location.search);
+  searchParams.set(SEARCH_PARAM_QUERY, searchValue);
+
+  history.replace({
+    search: searchParams.toString(),
+  });
+}, 300);
+
 const SearchResults = ({ placeholder }: Props) => {
-  const searchQuery = useSearchParam(SEARCH_PARAM_QUERY);
-  const results = useSearchResults(searchQuery || "");
+  const searchQueryParam = useSearchParam(SEARCH_PARAM_QUERY);
+  const [searchValue, setSearchValue] = React.useState<string>(
+    searchQueryParam || ""
+  );
+  const results = useSearchResults(searchQueryParam || "");
   const history = useHistory();
 
-  const updateSearch = debounce((searchQuery: string) => {
-    const searchParams = new URLSearchParams(window.location.search);
-    searchParams.set(SEARCH_PARAM_QUERY, searchQuery);
-
-    history.replace({
-      search: searchParams.toString(),
-    });
-  }, 300);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const searchQuery = e.target.value;
-    updateSearch(searchQuery);
+    const searchInputValue = e.target.value;
+    setSearchValue(searchInputValue);
+    updateSearchParam(searchInputValue, history);
   };
 
   return (
     <>
       <form onSubmit={e => e.preventDefault()}>
-        <SearchInput onChange={handleChange} />
+        <SearchInput onChange={handleChange} value={searchValue} />
       </form>
       <ResourceList
         placeholder={placeholder}
