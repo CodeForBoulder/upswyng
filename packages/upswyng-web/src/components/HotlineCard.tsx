@@ -9,16 +9,13 @@ const initiatePhoneCall = (phoneNumber: string): void => {
 };
 
 interface Props {
-  hotline: {
-    name: string;
-    description: string;
-    phone: string;
-  };
+  name: string;
+  description: string;
+  phone: string;
 }
 
-const HotlineCard = ({ hotline }: Props) => {
+const HotlineCard = ({ name, description, phone }: Props) => {
   const [hideText, setHideText] = React.useState(true);
-  const { name, description, phone } = hotline;
   return (
     <ListItem button>
       <ListItemText
@@ -36,7 +33,7 @@ const HotlineCard = ({ hotline }: Props) => {
         size="small"
         color="secondary"
       >
-        {hideText ? "Show" : "Hide"}
+        {hideText ? "More" : "Less"}
       </Button>
     </ListItem>
   );
