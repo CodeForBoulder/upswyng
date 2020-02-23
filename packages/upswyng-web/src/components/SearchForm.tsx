@@ -23,7 +23,7 @@ const SearchForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="search">
-      <SearchInput onChange={handleChange} value={query} />
+      <SearchInput fullWidth onChange={handleChange} value={query} />
     </form>
   );
 };
