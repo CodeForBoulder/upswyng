@@ -2,7 +2,7 @@ import { Link as RouterLink, useHistory } from "react-router-dom";
 import { TAlgoliaHit, TStatusFetch } from "@upswyng/upswyng-types";
 import Grid from "@material-ui/core/Grid";
 import { History } from "history";
-import LoadingList from "./LoadingList";
+import LoadingList from "./LoadingSearchResults";
 import MuiLink from "@material-ui/core/Link";
 import React from "react";
 import { SEARCH_PARAM_QUERY } from "../constants";
