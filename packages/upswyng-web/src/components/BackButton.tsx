@@ -4,7 +4,7 @@ import { ArrowBack } from "@material-ui/icons";
 import React from "react";
 import { font } from "../App.styles";
 import styled from "styled-components";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 
 const CategoryBannerLink = styled.a`
   align-items: center;
