@@ -1,6 +1,6 @@
 import RRule, { RRuleSet } from "rrule";
 
-import ResourceSchedule from "../ResourceSchedule";
+import ResourceSchedule, { getScheduleItemPeriod } from "../ResourceSchedule";
 import Time from "../Time";
 
 describe("ResourceSchedule", () => {
@@ -167,5 +167,51 @@ describe("ResourceSchedule", () => {
         toTime: Time.fromTTime(Time.options[5]),
       })
     ).toThrow(/Error removing schedule item/);
+  });
+
+  describe("getNextScheduleItemPeriod()", () => {
+    const days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const dayMs = 86400000;
+    // create mock dates of tomorrow and two days after tomorrow
+    const mockDates = [
+      new Date(Date.now() + dayMs),
+      new Date(Date.now() + dayMs * 3),
+    ];
+    const rawScheduleItems = mockDates.map(date => {
+      const day = days[date.getDay()];
+      return {
+        recurrenceRule: RRule.fromText(`every week on ${day}`),
+        comment: "",
+        fromTime: Time.fromTTime(Time.options[4]),
+        toTime: Time.fromTTime(Time.options[5]),
+      };
+    });
+
+    const schedule = new ResourceSchedule(rawScheduleItems);
+    const scheduleItems = schedule.getItems();
+
+    it.each([
+      [
+        "returns tomorrows schedule item when checking against now",
+        new Date(),
+        getScheduleItemPeriod(scheduleItems[0]),
+      ],
+      [
+        "returns the schedule item two days from tomorrow when checking against the day after tomorrow",
+        new Date(mockDates[0].getTime() + dayMs),
+        getScheduleItemPeriod(scheduleItems[1]),
+      ],
+    ])("%s", (_, dt, expectedScheduleItemPeriod) => {
+      const nextScheduleItem = schedule.getNextScheduleItemPeriod(dt);
+      expect(nextScheduleItem).toEqual(expectedScheduleItemPeriod);
+    });
   });
 });

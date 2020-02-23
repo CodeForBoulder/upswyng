@@ -9,6 +9,7 @@ interface Props {
   placeholder?: React.ReactElement;
   resourceId: string;
   resourceName: string;
+  scheduleText?: string;
 }
 
 const ResourceCardContainer = styled(Link)`
@@ -119,6 +120,7 @@ const ResourceCard = ({
   placeholder,
   resourceId,
   resourceName,
+  scheduleText,
 }: Props) => {
   const cardColor =
     typeof index === "number" && !(index % 2) ? cardColors[0] : cardColors[1];
@@ -140,11 +142,13 @@ const ResourceCard = ({
         </ResourceCardImagePlaceholderContainer>
         <ResourceCardResourceName>{resourceName}</ResourceCardResourceName>
       </ResourceCardImageContainer>
-      <ResourceCardFooter>
-        <ResourceCardScheduleContainer>
-          schedule placeholder
-        </ResourceCardScheduleContainer>
-      </ResourceCardFooter>
+      {scheduleText && (
+        <ResourceCardFooter>
+          <ResourceCardScheduleContainer>
+            {scheduleText}
+          </ResourceCardScheduleContainer>
+        </ResourceCardFooter>
+      )}
     </ResourceCardContainer>
   );
 };

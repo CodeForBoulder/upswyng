@@ -1,17 +1,14 @@
 import LoadingSpinner from "./LoadingSpinner";
 import React from "react";
 import ResourceCard from "./ResourceCard";
+import { TResource } from "@upswyng/upswyng-types";
 import { font } from "../App.styles";
+import { getNextOpenText } from "../utils/schedule";
 import styled from "styled-components";
-
-interface Resource {
-  resourceId: string;
-  name: string;
-}
 
 interface Props {
   placeholder?: React.ReactElement;
-  resources: undefined | null | Resource[];
+  resources: undefined | null | TResource[];
 }
 
 const SearchResultsList = styled.ul`
@@ -38,10 +35,11 @@ const ResourceList = ({ placeholder, resources }: Props) => {
   }
 
   if (resources && resources.length) {
-    const listItems = resources.map(({ name, resourceId }, index) => {
+    const listItems = resources.map(({ name, resourceId, schedule }, index) => {
       if (!name || !resourceId) {
         return null;
       }
+      const scheduleText = getNextOpenText(schedule);
       return (
         <SearchResultsItem key={resourceId}>
           <ResourceCard
@@ -49,6 +47,7 @@ const ResourceList = ({ placeholder, resources }: Props) => {
             placeholder={placeholder}
             resourceId={resourceId}
             resourceName={name}
+            scheduleText={scheduleText}
           />
         </SearchResultsItem>
       );
