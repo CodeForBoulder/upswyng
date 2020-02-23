@@ -1,13 +1,13 @@
-import { Link, useHistory } from "react-router-dom";
+import { Link as RouterLink, useHistory } from "react-router-dom";
+import Grid from "@material-ui/core/Grid";
 import { History } from "history";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import LoadingList from "./LoadingList";
+import MuiLink from "@material-ui/core/Link";
 import React from "react";
 import { SEARCH_PARAM_QUERY } from "../constants";
 import SearchInput from "./SearchInput";
 import { TStatusFetch } from "@upswyng/upswyng-types";
+import Typography from "@material-ui/core/Typography";
 import debounce from "debounce";
 import useSearchParam from "./useSearchParam";
 import useSearchResults from "./useSearchResults";
@@ -36,26 +36,35 @@ const SearchResults = () => {
   };
 
   return (
-    <>
-      <form onSubmit={e => e.preventDefault()}>
-        <SearchInput onChange={handleChange} value={searchValue} />
-      </form>
-      {status === TStatusFetch.STATUS_FETCHING && <LoadingList numItems={4} />}
-      {results && (
-        <List>
-          {results.hits.map(hit => (
-            <ListItem
-              button
-              component={Link}
-              to={`resource/${hit.objectID}`}
-              key={hit.objectID}
-            >
-              <ListItemText primary={hit.name} secondary={hit.description} />
-            </ListItem>
-          ))}
-        </List>
-      )}
-    </>
+    <Grid container direction="column" spacing={5}>
+      <Grid item>
+        <form onSubmit={e => e.preventDefault()}>
+          <SearchInput onChange={handleChange} value={searchValue} />
+        </form>
+      </Grid>
+      <Grid item>
+        {status === TStatusFetch.STATUS_FETCHING && (
+          <LoadingList numItems={4} />
+        )}
+        {results && (
+          <Grid container direction="column" spacing={2}>
+            {results.hits.map(hit => (
+              <Grid item key={hit.objectID}>
+                <Typography variant="h3" component="h2" paragraph>
+                  <MuiLink
+                    component={RouterLink}
+                    to={`resource/${hit.objectID}`}
+                  >
+                    {hit.name}
+                  </MuiLink>
+                </Typography>
+                <Typography paragraph>{hit.description}</Typography>
+              </Grid>
+            ))}
+          </Grid>
+        )}
+      </Grid>
+    </Grid>
   );
 };
 

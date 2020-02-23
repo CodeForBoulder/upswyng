@@ -1,31 +1,28 @@
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
+import Grid from "@material-ui/core/Grid";
 import React from "react";
 import Skeleton from "@material-ui/lab/Skeleton";
+import Typography from "@material-ui/core/Typography";
 
 interface LoadingResultsProps {
   numItems?: number;
 }
 
 const LoadingList = ({ numItems = 4 }: LoadingResultsProps) => (
-  <List>
+  <Grid container direction="column" spacing={2}>
     {Array(numItems)
       .fill(null)
       .map((_, i) => (
-        <ListItem key={i}>
-          <ListItemText
-            primary={<Skeleton animation="wave" variant="text" width="45%" />}
-            secondary={
-              <>
-                <Skeleton animation="wave" variant="text" />
-                <Skeleton animation="wave" variant="text" />
-              </>
-            }
-          />
-        </ListItem>
+        <Grid item key={i}>
+          <Typography variant="h3" component="div" paragraph>
+            <Skeleton animation="wave" variant="text" width="60%" />
+          </Typography>
+          <Typography paragraph>
+            <Skeleton animation="wave" variant="text" />
+            <Skeleton animation="wave" variant="text" />
+          </Typography>
+        </Grid>
       ))}
-  </List>
+  </Grid>
 );
 
 export default LoadingList;

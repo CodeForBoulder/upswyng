@@ -29,6 +29,7 @@ function useSearchResults(
       const getSearchResults = async (query: string): Promise<void> => {
         try {
           setStatus(TStatusFetch.STATUS_FETCHING);
+          setSearchResults(null);
           const searchResults = await searchIndex.search(query);
 
           setStatus(TStatusFetch.STATUS_FETCH_SUCCESS);
