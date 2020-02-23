@@ -66,6 +66,7 @@ const SearchResults = () => {
                   <MuiLink
                     component={RouterLink}
                     to={`resource/${hit.objectID}`}
+                    underline="always"
                   >
                     {hit.name}
                   </MuiLink>
