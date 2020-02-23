@@ -5,18 +5,17 @@ import algoliaSearch from "algoliasearch";
 
 declare const process: TEnvVariables;
 
+const algoliaClient = algoliaSearch(
+  process.env.REACT_APP_ALGOLIA_APP_ID,
+  process.env.REACT_APP_ALGOLIA_SEARCH_API_KEY
+);
+const searchIndex = algoliaClient.initIndex(
+  process.env.REACT_APP_ALGOLIA_INDEX_NAME
+);
+
 function useSearchResults(
   query: string
 ): [TStatusFetch, algoliaSearch.Response | null] {
-  const algoliaClient = algoliaSearch(
-    process.env.REACT_APP_ALGOLIA_APP_ID,
-    process.env.REACT_APP_ALGOLIA_SEARCH_API_KEY
-  );
-
-  const searchIndex = algoliaClient.initIndex(
-    process.env.REACT_APP_ALGOLIA_INDEX_NAME
-  );
-
   const [status, setStatus] = useState<TStatusFetch>(
     TStatusFetch.STATUS_NOT_FETCHED
   );
@@ -26,7 +25,7 @@ function useSearchResults(
   ] = useState<null | algoliaSearch.Response>(null);
 
   useEffect(() => {
-    if (query && !searchResults) {
+    if (query) {
       const getSearchResults = async (query: string): Promise<void> => {
         try {
           setStatus(TStatusFetch.STATUS_FETCHING);
@@ -43,7 +42,7 @@ function useSearchResults(
 
       getSearchResults(query);
     }
-  }, [query, searchIndex, searchResults]);
+  }, [query]);
 
   return [status, searchResults];
 }
