@@ -3,11 +3,11 @@ import React from "react";
 import Skeleton from "@material-ui/lab/Skeleton";
 import Typography from "@material-ui/core/Typography";
 
-interface LoadingResultsProps {
+interface Props {
   numItems?: number;
 }
 
-const LoadingList = ({ numItems = 4 }: LoadingResultsProps) => (
+const LoadingSearchResults = ({ numItems = 4 }: Props) => (
   <Grid container direction="column" spacing={2}>
     {Array(numItems)
       .fill(null)
@@ -25,4 +25,4 @@ const LoadingList = ({ numItems = 4 }: LoadingResultsProps) => (
   </Grid>
 );
 
-export default LoadingList;
+export default LoadingSearchResults;
