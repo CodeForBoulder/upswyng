@@ -1,5 +1,4 @@
 import { CloseIcon, InfoIcon, PolicyIcon, TermsOfServiceIcon } from "./Icons";
-import { NavLinkProps, Link as RouterLink } from "react-router-dom";
 import { colors, font } from "../App.styles";
 
 import Drawer from "@material-ui/core/Drawer";
@@ -10,6 +9,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Logo from "./Logo";
 import MuiLink from "@material-ui/core/Link";
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledDrawer = styled(Drawer)`
@@ -39,24 +39,6 @@ const StyledCloseButton = styled(IconButton)`
     z-index: 10;
   }
 ` as typeof IconButton;
-
-const StyledMenuLink = styled((props: NavLinkProps) => {
-  const { children, ...rest } = props;
-  return <RouterLink {...rest}>{children}</RouterLink>;
-})`
-  && {
-    display: flex;
-    align-items: center;
-    &:link,
-    &:visited {
-      text-decoration: none;
-    }
-    &:hover,
-    &:active {
-      text-decoration: underline;
-    }
-  }
-`;
 
 const StyledListIcon = styled(ListItemIcon)`
   && {
