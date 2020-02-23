@@ -1,6 +1,6 @@
-import { TResource } from "@upswyng/upswyng-types";
+import { TCategory, TResource, TSubcategory } from "@upswyng/upswyng-types";
 
-export const mockResources = [
+export const mockResources: TResource[] = [
   {
     _id: "5def5b875fe02cacaec1919c",
     address: {
@@ -280,28 +280,26 @@ export const mockResources = [
     subcategories: [],
     website: "http://littleflowermaternity.org",
   },
-] as TResource[];
+];
 
-export const mockCategory = {
-  category: {
-    subcategories: [
-      {
-        resources: mockResources,
-        _id: "5dad0693dbe5cc7b65bcabbe",
-        name: "Sub-Category Name Here",
-        stub: "subcategory-name-here",
-        parentCategory: null,
-        createdAt: "2019-10-21T01:14:59.832Z",
-        lastModifiedAt: "2019-10-21T01:14:59.832Z",
-        __v: 8,
-      },
-    ],
-    _id: "5dad0693dbe5cc7b65bcabbd",
-    name: "Category Name Here",
-    stub: "category-name-here",
-    color: "orangePrimary",
-    createdAt: "2019-10-21T01:14:59.830Z",
-    lastModifiedAt: "2019-10-21T01:14:59.830Z",
-    __v: 6,
-  },
+export const category: TCategory = {
+  subcategories: [],
+  _id: "5dad0693dbe5cc7b65bcabbd",
+  name: "Category Name Here",
+  stub: "category-name-here",
+  color: "orangePrimary",
+  createdAt: new Date(),
+  lastModifiedAt: new Date(),
 };
+
+export const subCategory: TSubcategory = {
+  resources: mockResources,
+  _id: "5dad0693dbe5cc7b65bcabbe",
+  name: "Sub-Category Name Here",
+  stub: "subcategory-name-here",
+  parentCategory: category,
+  createdAt: new Date(),
+  lastModifiedAt: new Date(),
+};
+
+category.subcategories = [subCategory];
