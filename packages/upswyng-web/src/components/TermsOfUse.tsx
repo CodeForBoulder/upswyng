@@ -1,7 +1,7 @@
-import { Container, colors } from "../App.styles";
-
+import Container from "@material-ui/core/Container";
 import PageBanner from "./PageBanner";
 import React from "react";
+import { colors } from "../App.styles";
 
 const TermsOfUse = () => (
   <Container>

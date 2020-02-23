@@ -1,5 +1,4 @@
-import styled, { createGlobalStyle, css } from "styled-components";
-import { Grid } from "@material-ui/core";
+import { createGlobalStyle, css } from "styled-components";
 
 interface TColors {
   [key: string]: string;
@@ -63,12 +62,6 @@ const heading1Styles = css`
   font-size: 18px;
   font-weight: 700;
 `;
-
-export const Container = styled(Grid)`
-  margin: 0 auto;
-  max-width: ${font.helpers.convertPixelsToRems(480)};
-  padding: 0 ${font.helpers.convertPixelsToRems(10)};
-` as typeof Grid;
 
 export default createGlobalStyle`
   * {

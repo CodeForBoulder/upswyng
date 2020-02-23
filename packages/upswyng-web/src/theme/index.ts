@@ -1,5 +1,9 @@
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 
+const breakpoints = {
+  values: { xs: 0, sm: 480, md: 480, lg: 480, xl: 480 },
+};
+
 const spacing = (factor: number): string => `${0.25 * factor}rem`;
 
 const palette = {
@@ -62,6 +66,7 @@ const typography = {
 } as { [name: string]: React.CSSProperties };
 
 const theme = createMuiTheme({
+  breakpoints,
   palette,
   spacing,
   typography,

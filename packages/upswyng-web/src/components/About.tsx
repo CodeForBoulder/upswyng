@@ -1,5 +1,5 @@
-import { Container, colors, font } from "../App.styles";
-
+import { colors, font } from "../App.styles";
+import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import Logo from "./Logo";
 import PageBanner from "./PageBanner";

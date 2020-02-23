@@ -1,10 +1,10 @@
-import { Container, font } from "../App.styles";
-
 import AlgoliaBadge from "./AlgoliaBadge";
+import Container from "@material-ui/core/Container";
 import { Grid } from "@material-ui/core";
 import HomeButtons from "./HomeButtons";
 import React from "react";
 import SearchForm from "./SearchForm";
+import { font } from "../App.styles";
 import styled from "styled-components";
 
 const HomeButtonsContainer = styled(Grid)`
@@ -18,36 +18,38 @@ const HomeButtonsContainer = styled(Grid)`
 ` as typeof Grid;
 
 const Home = () => (
-  <Container container justify="space-evenly" alignItems="center">
-    <Grid item xs={12}>
-      <SearchForm />
-    </Grid>
-    <Grid item xs={12}>
-      <HomeButtonsContainer
-        container
-        direction="row"
-        justify="space-evenly"
-        alignItems="stretch"
-        spacing={0}
-      >
-        <HomeButtons />
-      </HomeButtonsContainer>
-    </Grid>
-    <Grid item xs={6}>
-      <Grid container justify="center">
-        <a href="https://www.netlify.com">
-          <img
-            src="https://www.netlify.com/img/global/badges/netlify-light.svg"
-            alt="deploys by Netlify"
-          />
-        </a>
+  <Container>
+    <Grid container justify="space-evenly" alignItems="center">
+      <Grid item xs={12}>
+        <SearchForm />
       </Grid>
-    </Grid>
-    <Grid item xs={6}>
-      <Grid container justify="center">
-        <a href="https://www.algolia.com/">
-          <AlgoliaBadge />
-        </a>
+      <Grid item xs={12}>
+        <HomeButtonsContainer
+          container
+          direction="row"
+          justify="space-evenly"
+          alignItems="stretch"
+          spacing={0}
+        >
+          <HomeButtons />
+        </HomeButtonsContainer>
+      </Grid>
+      <Grid item xs={6}>
+        <Grid container justify="center">
+          <a href="https://www.netlify.com">
+            <img
+              src="https://www.netlify.com/img/global/badges/netlify-light.svg"
+              alt="deploys by Netlify"
+            />
+          </a>
+        </Grid>
+      </Grid>
+      <Grid item xs={6}>
+        <Grid container justify="center">
+          <a href="https://www.algolia.com/">
+            <AlgoliaBadge />
+          </a>
+        </Grid>
       </Grid>
     </Grid>
   </Container>

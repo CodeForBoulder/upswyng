@@ -1,9 +1,9 @@
-import { Container, colors } from "../App.styles";
-
+import Container from "@material-ui/core/Container";
 import MuiLink from "@material-ui/core/Link";
 import PageBanner from "./PageBanner";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
+import { colors } from "../App.styles";
 import styled from "styled-components";
 
 const LowerAlphaList = styled.ol`

@@ -1,7 +1,6 @@
-import { Container, font } from "../App.styles";
 import React, { useState } from "react";
-
 import AppBar from "@material-ui/core/AppBar";
+import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import { Link } from "react-router-dom";
@@ -10,6 +9,7 @@ import MenuDrawer from "./MenuDrawer";
 import MenuIcon from "@material-ui/icons/Menu";
 import Temperature from "./Temperature";
 import Toolbar from "@material-ui/core/Toolbar";
+import { font } from "../App.styles";
 import styled from "styled-components";
 
 const StyledHeader = styled(AppBar)`
@@ -40,23 +40,25 @@ const Header = () => {
   return (
     <StyledHeader position="static">
       <StyledToolbar>
-        <Container container justify="space-between" alignItems="center">
-          <Grid item>
-            <IconButton
-              aria-label="Menu"
-              edge="start"
-              onClick={() => setIsMenuOpen(true)}
-            >
-              <MenuIcon />
-            </IconButton>
-          </Grid>
-          <Grid item>
-            <Grid container alignItems="center" justify="space-between">
-              <Grid item component={Temperature} />
-              <Grid item>
-                <Link to="/">
-                  <StyledLogo />
-                </Link>
+        <Container>
+          <Grid container justify="space-between" alignItems="center">
+            <Grid item>
+              <IconButton
+                aria-label="Menu"
+                edge="start"
+                onClick={() => setIsMenuOpen(true)}
+              >
+                <MenuIcon />
+              </IconButton>
+            </Grid>
+            <Grid item>
+              <Grid container alignItems="center" justify="space-between">
+                <Grid item component={Temperature} />
+                <Grid item>
+                  <Link to="/">
+                    <StyledLogo />
+                  </Link>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
