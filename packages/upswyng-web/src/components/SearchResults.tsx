@@ -9,7 +9,7 @@ import { SEARCH_PARAM_QUERY } from "../constants";
 import SearchInput from "./SearchInput";
 import Typography from "@material-ui/core/Typography";
 import debounce from "debounce";
-import useSearchParam from "./useSearchParam";
+import useSearchParam from "./useQueryParam";
 import useSearchResults from "./useSearchResults";
 
 const shortenString = (s: string, numChars: number): string => {
