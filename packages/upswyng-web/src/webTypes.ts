@@ -9,7 +9,7 @@ import { SvgIconProps } from "@material-ui/core/SvgIcon";
 import algoliaSearch from "algoliasearch";
 
 export interface TAlgoliaResponse extends algoliaSearch.Response {
-  hit: TAlgoliaHit[];
+  hits: TAlgoliaHit[];
 }
 
 export interface TEnvVariables {
