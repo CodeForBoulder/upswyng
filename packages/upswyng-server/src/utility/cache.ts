@@ -1,5 +1,5 @@
 export default class Cache<T> {
-  cache = {} as Record<string, T>;
+  private cache = {} as Record<string, T>;
   setValue = (key: string, value: T) => {
     this.cache[key] = value;
   };
