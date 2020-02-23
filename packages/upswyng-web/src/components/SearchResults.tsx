@@ -9,7 +9,7 @@ import { SEARCH_PARAM_QUERY } from "../constants";
 import SearchInput from "./SearchInput";
 import Typography from "@material-ui/core/Typography";
 import debounce from "debounce";
-import useSearchParam from "./useQueryParam";
+import useQueryParam from "./useQueryParam";
 import useSearchResults from "./useSearchResults";
 
 const shortenString = (s: string, numChars: number): string => {
@@ -34,7 +34,7 @@ const updateSearchParam = debounce((searchValue: string, history: History) => {
 }, 300);
 
 const SearchResults = () => {
-  const searchQueryParam = useSearchParam(SEARCH_PARAM_QUERY);
+  const searchQueryParam = useQueryParam(SEARCH_PARAM_QUERY);
   const [searchValue, setSearchValue] = React.useState<string>(
     searchQueryParam || ""
   );
