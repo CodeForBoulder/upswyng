@@ -62,7 +62,7 @@ const SearchResults = () => {
           <Grid container direction="column" spacing={2}>
             {results.hits.map((hit: TAlgoliaHit) => (
               <Grid item key={hit.objectID}>
-                <Typography variant="h3" component="h2" paragraph>
+                <Typography variant="h3" component="h2" gutterBottom>
                   <MuiLink
                     component={RouterLink}
                     to={`resource/${hit.objectID}`}
