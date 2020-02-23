@@ -24,6 +24,7 @@ const palette = {
   },
   action: {
     active: "#fff",
+    hover: "rgba(255, 255, 255, 0.07)",
   },
   divider: "#fff",
 };
