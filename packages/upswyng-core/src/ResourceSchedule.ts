@@ -1,7 +1,12 @@
 import { RRule, RRuleSet } from "rrule";
-import { TResourceScheduleData, TTimezoneName } from "@upswyng/upswyng-types";
+import {
+  TResourceScheduleData,
+  TScheduleItemOpenClose,
+  TTimezoneName,
+} from "@upswyng/upswyng-types";
 
 import Time from "./Time";
+import moment from "moment";
 import momentTimezone from "moment-timezone";
 
 const { tz } = momentTimezone;
@@ -45,6 +50,51 @@ function validateTimezone(timezone: string): TTimezoneName {
     );
   }
   return timezone as TTimezoneName;
+}
+
+function makeSchedulePeriodDate(dt: Date, timeValue: string): Date {
+  const dateFormat = "YYYY MM DD";
+  const itemDate = moment(dt).format(dateFormat);
+
+  const dateTimeFormat = `${dateFormat} H:mm A`;
+  return moment(`${itemDate.toString()} ${timeValue}`, dateTimeFormat).toDate();
+}
+
+export function getScheduleItemPeriod(
+  item: TScheduleItem,
+  dt = new Date()
+): TScheduleItemOpenClose {
+  const openTimeValue = item.fromTime.value;
+  const closeTimeValue = item.toTime.value;
+  const firstOccurenceDate = item.recurrenceRule.all((_, i) => i < 1)[0];
+
+  const firstCloseDt = makeSchedulePeriodDate(
+    firstOccurenceDate,
+    closeTimeValue
+  );
+  // rrule doesn't know of the time so its first occurence could be past close
+  if (firstCloseDt.getTime() > dt.getTime()) {
+    const openDt = makeSchedulePeriodDate(firstOccurenceDate, openTimeValue);
+    return {
+      open: openDt,
+      close: firstCloseDt,
+    };
+  }
+
+  // the first occurence is past close so retrieve first occurence after the given date
+  const secondOccurenceDate = item.recurrenceRule.after(dt);
+  const secondCloseDt = makeSchedulePeriodDate(
+    secondOccurenceDate,
+    closeTimeValue
+  );
+  const secondOpenDt = makeSchedulePeriodDate(
+    secondOccurenceDate,
+    closeTimeValue
+  );
+  return {
+    open: secondOpenDt,
+    close: secondCloseDt,
+  };
 }
 
 /**
@@ -120,6 +170,31 @@ export default class ResourceSchedule {
       );
     }
     return this.removeItemAtIndex(i);
+  }
+
+  /**
+   * Returns the current/next open/close period of the ScheduleItems
+   *
+   * @param date The date we're comparing our schedule items to.
+   */
+  getNextScheduleItemPeriod(date = new Date()): TScheduleItemOpenClose | null {
+    return this._items.reduce(
+      (
+        period: TScheduleItemOpenClose | null,
+        currentItem: TScheduleItem
+      ): TScheduleItemOpenClose => {
+        const currentPeriod = getScheduleItemPeriod(currentItem, date);
+        if (!period) {
+          return currentPeriod;
+        }
+
+        const currentItemIsSooner =
+          currentPeriod.open.getTime() < period.open.getTime();
+
+        return currentItemIsSooner ? currentPeriod : period;
+      },
+      null
+    );
   }
 
   /**

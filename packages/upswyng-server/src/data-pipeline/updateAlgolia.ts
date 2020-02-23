@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv";
-
 import Resource, { resourceDocumentToResource } from "../models/Resource";
+import { TAlgoliaHit } from "@upswyng/upswyng-types";
 
 import algoliaSearch from "algoliasearch";
 import mongoose from "mongoose";
@@ -44,7 +44,7 @@ mongoose
   .then(resourceDocuments => resourceDocuments.map(resourceDocumentToResource))
   .then(resources => {
     const updatedAlgoliaIndex = resources.map(
-      ({ resourceId, name, description, subcategories }) => ({
+      ({ resourceId, name, description, subcategories }): TAlgoliaHit => ({
         objectID: resourceId,
         name,
         description,
