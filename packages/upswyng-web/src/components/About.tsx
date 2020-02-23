@@ -1,25 +1,22 @@
-import { colors, font } from "../App.styles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import Logo from "./Logo";
 import PageBanner from "./PageBanner";
 import React from "react";
-import styled from "styled-components";
-
-const StyledLogo = styled(Logo)`
-  display: block;
-  margin: ${font.helpers.convertPixelsToRems(30)} auto;
-`;
+import Typography from "@material-ui/core/Typography";
+import { colors } from "../App.styles";
 
 const About = () => (
   <Container>
     <PageBanner color={colors.orangeDark} text={"About UpSwyng"} />
-    <p>
+    <Typography paragraph>
       UpSwyng is a mobile-ready, digital directory of resources to assist the
       unhoused and at-risk communities.
-    </p>
-    <StyledLogo />
-    <p>
+    </Typography>
+    <Typography align="center" paragraph>
+      <Logo />
+    </Typography>
+    <Typography paragraph>
       UpSwyng is maintained by{" "}
       <Link
         href="http://www.codeforboulder.org"
@@ -37,11 +34,11 @@ const About = () => (
         Code for America&apos;s
       </Link>{" "}
       Brigade network.
-    </p>
-    <p>
+    </Typography>
+    <Typography paragraph>
       For questions related to UpSwyng, please contact{" "}
       <Link href="mailto:info@upswyng.org">info@upswyng.org</Link>.
-    </p>
+    </Typography>
   </Container>
 );
 
