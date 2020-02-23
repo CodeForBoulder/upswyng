@@ -5,7 +5,7 @@ import List from "@material-ui/core/List";
 import PageBanner from "./PageBanner";
 import React from "react";
 
-const hotlineList = [
+export const hotlineList = [
   {
     name: "National Suicide Prevention Lifeline",
     description:
