@@ -1,4 +1,3 @@
-import Adapter from "enzyme-adapter-react-16";
-import { configure } from "enzyme";
+import { configure } from "@testing-library/react";
 
-configure({ adapter: new Adapter() });
+configure({ testIdAttribute: "data-test" });
