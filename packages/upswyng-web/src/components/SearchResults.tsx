@@ -3,9 +3,11 @@ import { History } from "history";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import LoadingList from "./LoadingList";
 import React from "react";
 import { SEARCH_PARAM_QUERY } from "../constants";
 import SearchInput from "./SearchInput";
+import { TStatusFetch } from "@upswyng/upswyng-types";
 import debounce from "debounce";
 import useSearchParam from "./useSearchParam";
 import useSearchResults from "./useSearchResults";
@@ -38,6 +40,7 @@ const SearchResults = () => {
       <form onSubmit={e => e.preventDefault()}>
         <SearchInput onChange={handleChange} value={searchValue} />
       </form>
+      {status === TStatusFetch.STATUS_FETCHING && <LoadingList numItems={4} />}
       {results && (
         <List>
           {results.hits.map(hit => (
