@@ -39,6 +39,7 @@
     "typescript": "^3.7.3"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.1.1",
     "@testing-library/react": "^9.4.1",
     "@testing-library/react-hooks": "^1.0.4",
     "@upswyng/upswyng-types": "0.1.0",
