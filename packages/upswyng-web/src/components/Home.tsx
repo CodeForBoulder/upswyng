@@ -21,20 +21,20 @@ const Home = () => (
         <HomeButtons />
       </Grid>
       <Grid item>
-        <Grid container justify="center">
-          <a href="https://www.netlify.com">
-            <img
-              src="https://www.netlify.com/img/global/badges/netlify-light.svg"
-              alt="deploys by Netlify"
-            />
-          </a>
-        </Grid>
-      </Grid>
-      <Grid item>
-        <Grid container justify="center">
-          <a href="https://www.algolia.com/">
-            <AlgoliaBadge />
-          </a>
+        <Grid alignItems="center" container justify="center" spacing={4}>
+          <Grid item>
+            <a href="https://www.netlify.com">
+              <img
+                src="https://www.netlify.com/img/global/badges/netlify-light.svg"
+                alt="deploys by Netlify"
+              />
+            </a>
+          </Grid>
+          <Grid item>
+            <a href="https://www.algolia.com/">
+              <AlgoliaBadge />
+            </a>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>
