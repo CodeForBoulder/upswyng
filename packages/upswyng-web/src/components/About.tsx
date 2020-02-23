@@ -1,5 +1,6 @@
 import { Container, colors, font } from "../App.styles";
 
+import Link from "@material-ui/core/Link";
 import Logo from "./Logo";
 import PageBanner from "./PageBanner";
 import React from "react";
@@ -20,26 +21,26 @@ const About = () => (
     <StyledLogo />
     <p>
       UpSwyng is maintained by{" "}
-      <a
+      <Link
         href="http://www.codeforboulder.org"
         target="_blank"
         rel="noopener noreferrer"
       >
         Code for Boulder
-      </a>
+      </Link>
       , part of{" "}
-      <a
+      <Link
         href="https://www.codeforamerica.org/"
         target="_blank"
         rel="noopener noreferrer"
       >
         Code for America&apos;s
-      </a>{" "}
+      </Link>{" "}
       Brigade network.
     </p>
     <p>
       For questions related to UpSwyng, please contact{" "}
-      <a href="mailto:info@upswyng.org">info@upswyng.org</a>.
+      <Link href="mailto:info@upswyng.org">info@upswyng.org</Link>.
     </p>
   </Container>
 );

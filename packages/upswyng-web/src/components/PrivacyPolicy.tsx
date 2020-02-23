@@ -1,8 +1,9 @@
 import { Container, colors } from "../App.styles";
 
-import { Link } from "react-router-dom";
+import MuiLink from "@material-ui/core/Link";
 import PageBanner from "./PageBanner";
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
 
 const LowerAlphaList = styled.ol`
@@ -17,16 +18,25 @@ const PrivacyPolicy = () => (
       particular information and how we will protect your personal privacy
       within our Web site. This Privacy Policy discloses our information
       gathering and dissemination practices for the Web site located at the URL{" "}
-      <Link to="/">https://upswyng.org</Link> (the “Site”).
+      <MuiLink component={RouterLink} to="/">
+        https://upswyng.org
+      </MuiLink>{" "}
+      (the “Site”).
     </p>
     <p>
       In order to fully understand your rights we encourage you to read this
-      Privacy Policy as well as our <Link to="/terms-of-use">Terms of Use</Link>
+      Privacy Policy as well as our{" "}
+      <MuiLink component={RouterLink} to="/terms-of-use">
+        Terms of Use
+      </MuiLink>
       . This Privacy Policy is incorporated by reference into and is subject to
-      our <Link to="/terms-of-use">Terms of Use</Link>. upswyng.org reserves the
-      right at any time and without notice to change this Privacy Policy simply
-      by posting such changes on our Site. Any such change will be effective
-      immediately upon posting.
+      our{" "}
+      <MuiLink component={RouterLink} to="/terms-of-use">
+        Terms of Use
+      </MuiLink>
+      . upswyng.org reserves the right at any time and without notice to change
+      this Privacy Policy simply by posting such changes on our Site. Any such
+      change will be effective immediately upon posting.
     </p>
     <p>
       Because we want to demonstrate our commitment to your privacy, this
@@ -44,8 +54,9 @@ const PrivacyPolicy = () => (
     </ol>
     <p>
       Questions regarding this statement should be directed to the UpSwyng.org
-      by sending an email <a href="mailto:info@upswyng.org">info@upswyng.org</a>
-      . Please reference this Privacy Policy in your subject line.
+      by sending an email{" "}
+      <MuiLink href="mailto:info@upswyng.org">info@upswyng.org</MuiLink>. Please
+      reference this Privacy Policy in your subject line.
     </p>
     <h2>What Information We Collect and How We Use That Information</h2>
     <p>
@@ -168,7 +179,7 @@ const PrivacyPolicy = () => (
       verification of parental consent, we will delete that information. If you
       believe we might have any information from or about a child under 13,
       please contact us at{" "}
-      <a href="mailto:info@upswyng.org">info@upswyng.org</a>.
+      <MuiLink href="mailto:info@upswyng.org">info@upswyng.org</MuiLink>.
     </p>
     <h2>Consent; Changes to Privacy Policy</h2>
     <p>
@@ -184,7 +195,7 @@ const PrivacyPolicy = () => (
     <p>
       If you have any questions about this Privacy Policy, the practices of this
       Site, or your dealings with this Site, you can contact:{" "}
-      <a href="mailto:info@upswyng.org">info@upswyng.org</a>.
+      <MuiLink href="mailto:info@upswyng.org">info@upswyng.org</MuiLink>.
     </p>
   </Container>
 );

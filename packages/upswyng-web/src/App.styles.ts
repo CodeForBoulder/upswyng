@@ -64,15 +64,6 @@ const heading1Styles = css`
   font-weight: 700;
 `;
 
-export const aStyles = css`
-  &:link,
-  &:visited,
-  &:hover,
-  &:active {
-    color: ${colors.white};
-  }
-`;
-
 export const Container = styled(Grid)`
   margin: 0 auto;
   max-width: ${font.helpers.convertPixelsToRems(480)};
@@ -88,9 +79,6 @@ export default createGlobalStyle`
     color: ${colors.white};
     font-family: ${font.families.openSans};
     font-size: ${font.sizes.basePercent};
-  }
-  a {
-    ${aStyles}
   }
   h1{
     ${heading1Styles}
