@@ -13,6 +13,7 @@ interface Props {
 
 const ResourceCardContainer = styled(Link)`
   border-radius: 6px;
+  color: ${colors.white};
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;

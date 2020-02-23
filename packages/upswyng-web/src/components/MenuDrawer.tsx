@@ -1,5 +1,5 @@
 import { CloseIcon, InfoIcon, PolicyIcon, TermsOfServiceIcon } from "./Icons";
-import { Link, NavLinkProps } from "react-router-dom";
+import { NavLinkProps, Link as RouterLink } from "react-router-dom";
 import { colors, font } from "../App.styles";
 
 import Drawer from "@material-ui/core/Drawer";
@@ -8,6 +8,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Logo from "./Logo";
+import MuiLink from "@material-ui/core/Link";
 import React from "react";
 import styled from "styled-components";
 
@@ -41,7 +42,7 @@ const StyledCloseButton = styled(IconButton)`
 
 const StyledMenuLink = styled((props: NavLinkProps) => {
   const { children, ...rest } = props;
-  return <Link {...rest}>{children}</Link>;
+  return <RouterLink {...rest}>{children}</RouterLink>;
 })`
   && {
     display: flex;
@@ -87,31 +88,42 @@ const MenuDrawer = ({ handleMenuClose, open }: MenuDrawerProps) => (
     </StyledDrawerHeader>
     <List>
       <ListItem>
-        <StyledMenuLink
-          aria-label="home"
-          onClick={() => handleMenuClose()}
-          to="/"
-        >
+        <RouterLink aria-label="home" onClick={() => handleMenuClose()} to="/">
           <StyledLogo />
-        </StyledMenuLink>
+        </RouterLink>
       </ListItem>
       <ListItem>
-        <StyledMenuLink onClick={() => handleMenuClose()} to="/about">
+        <MuiLink
+          color="textPrimary"
+          component={RouterLink}
+          onClick={() => handleMenuClose()}
+          to="/about"
+        >
           <StyledListIcon>{InfoIcon}</StyledListIcon>
           About
-        </StyledMenuLink>
+        </MuiLink>
       </ListItem>
       <ListItem>
-        <StyledMenuLink onClick={() => handleMenuClose()} to="/terms-of-use">
+        <MuiLink
+          color="textPrimary"
+          component={RouterLink}
+          onClick={() => handleMenuClose()}
+          to="/terms-of-use"
+        >
           <StyledListIcon>{TermsOfServiceIcon}</StyledListIcon>
           Terms of Use
-        </StyledMenuLink>
+        </MuiLink>
       </ListItem>
       <ListItem>
-        <StyledMenuLink onClick={() => handleMenuClose()} to="/privacy-policy">
+        <MuiLink
+          color="textPrimary"
+          component={RouterLink}
+          onClick={() => handleMenuClose()}
+          to="/privacy-policy"
+        >
           <StyledListIcon>{PolicyIcon}</StyledListIcon>
           Privacy policy
-        </StyledMenuLink>
+        </MuiLink>
       </ListItem>
     </List>
   </StyledDrawer>
