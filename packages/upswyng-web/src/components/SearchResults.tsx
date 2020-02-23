@@ -1,4 +1,5 @@
 import { Link as RouterLink, useHistory } from "react-router-dom";
+import { TAlgoliaHit, TStatusFetch } from "@upswyng/upswyng-types";
 import Grid from "@material-ui/core/Grid";
 import { History } from "history";
 import LoadingList from "./LoadingList";
@@ -6,11 +7,22 @@ import MuiLink from "@material-ui/core/Link";
 import React from "react";
 import { SEARCH_PARAM_QUERY } from "../constants";
 import SearchInput from "./SearchInput";
-import { TStatusFetch } from "@upswyng/upswyng-types";
 import Typography from "@material-ui/core/Typography";
 import debounce from "debounce";
 import useSearchParam from "./useSearchParam";
 import useSearchResults from "./useSearchResults";
+
+const shortenString = (s: string, numChars: number): string => {
+  if (s.length <= numChars) {
+    return s;
+  }
+  const splitString = s.substring(0, numChars).split(" ");
+  if (splitString.length > 1) {
+    // remove partial words
+    splitString.pop();
+  }
+  return `${splitString.join(" ")}...`;
+};
 
 const updateSearchParam = debounce((searchValue: string, history: History) => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -48,7 +60,7 @@ const SearchResults = () => {
         )}
         {results && (
           <Grid container direction="column" spacing={2}>
-            {results.hits.map(hit => (
+            {results.hits.map((hit: TAlgoliaHit) => (
               <Grid item key={hit.objectID}>
                 <Typography variant="h3" component="h2" paragraph>
                   <MuiLink
@@ -58,7 +70,9 @@ const SearchResults = () => {
                     {hit.name}
                   </MuiLink>
                 </Typography>
-                <Typography paragraph>{hit.description}</Typography>
+                <Typography paragraph>
+                  {shortenString(hit.description, 100)}
+                </Typography>
               </Grid>
             ))}
           </Grid>
