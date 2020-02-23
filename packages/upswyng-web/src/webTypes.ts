@@ -1,7 +1,16 @@
-import { TCategory, TResource, TSubcategory } from "@upswyng/upswyng-types";
-
+import {
+  TAlgoliaHit,
+  TCategory,
+  TResource,
+  TSubcategory,
+} from "@upswyng/upswyng-types";
 import { LinkProps } from "react-router-dom";
 import { SvgIconProps } from "@material-ui/core/SvgIcon";
+import algoliaSearch from "algoliasearch";
+
+export interface TAlgoliaResponse extends algoliaSearch.Response {
+  hit: TAlgoliaHit[];
+}
 
 export interface TEnvVariables {
   env: {

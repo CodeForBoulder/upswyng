@@ -1,5 +1,5 @@
+import { TAlgoliaResponse, TEnvVariables } from "../webTypes";
 import { useEffect, useState } from "react";
-import { TEnvVariables } from "../webTypes";
 import { TStatusFetch } from "@upswyng/upswyng-types";
 import algoliaSearch from "algoliasearch";
 
@@ -15,14 +15,13 @@ const searchIndex = algoliaClient.initIndex(
 
 function useSearchResults(
   query: string
-): [TStatusFetch, algoliaSearch.Response | null] {
+): [TStatusFetch, TAlgoliaResponse | null] {
   const [status, setStatus] = useState<TStatusFetch>(
     TStatusFetch.STATUS_NOT_FETCHED
   );
-  const [
-    searchResults,
-    setSearchResults,
-  ] = useState<null | algoliaSearch.Response>(null);
+  const [searchResults, setSearchResults] = useState<null | TAlgoliaResponse>(
+    null
+  );
 
   useEffect(() => {
     if (query) {
@@ -30,7 +29,9 @@ function useSearchResults(
         try {
           setStatus(TStatusFetch.STATUS_FETCHING);
           setSearchResults(null);
-          const searchResults = await searchIndex.search(query);
+          const searchResults = (await searchIndex.search(
+            query
+          )) as TAlgoliaResponse;
 
           setStatus(TStatusFetch.STATUS_FETCH_SUCCESS);
           setSearchResults(searchResults);

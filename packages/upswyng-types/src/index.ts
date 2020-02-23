@@ -1,5 +1,12 @@
 import { TTimezoneName as TTimezoneName_ } from "./TTimezoneName";
 
+export interface TAlgoliaHit {
+  objectID: string;
+  name: string;
+  description: string;
+  subcategories: string;
+}
+
 export type TDay =
   | "Monday"
   | "Tuesday"
