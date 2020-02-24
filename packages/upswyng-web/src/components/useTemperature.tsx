@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { TWeatherCurrentResponse } from "../webTypes";
+import { TWeatherCurrentResponse } from "@upswyng/upswyng-types";
 import axios from "axios";
 
 let serverUri = process.env.REACT_APP_SERVER_URI || "http://localhost:3000";
@@ -19,8 +19,8 @@ const useTemperature = (): undefined | null | number => {
 
   useEffect(() => {
     const boulderCoords = {
-      lat: 40.015,
-      lon: -105.2705,
+      latitude: 40.015,
+      longitude: -105.2705,
     };
 
     const getCurrentTemp = async (): Promise<void> => {
@@ -29,8 +29,8 @@ const useTemperature = (): undefined | null | number => {
           `${serverUri}/api/weather`,
           {
             params: {
-              lat: boulderCoords.lat,
-              lon: boulderCoords.lon,
+              latitude: boulderCoords.latitude,
+              longitude: boulderCoords.longitude,
             },
           }
         );
