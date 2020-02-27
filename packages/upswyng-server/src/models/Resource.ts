@@ -408,11 +408,11 @@ const DraftResource = mongoose.model<TResourceDocument>(
   ) => Promise<void>;
   deleteByRecordId: (_id: ObjectId) => Promise<TResourceDocument>;
   getAll: (includeDeleted?: boolean) => Promise<TResourceDocument[]>;
-  getByRecordId: (
-    _id: ObjectId,
+  getByRecordId: (_id: ObjectId) => Promise<TResourceDocument | null>;
+  getByResourceId: (
+    resourceId: ObjectId,
     includeDeleted?: boolean
   ) => Promise<TResourceDocument | null>;
-  getByResourceId: (resourceId: ObjectId) => Promise<TResourceDocument | null>;
 };
 
 (DraftResource as any).getUncategorized = () => {
