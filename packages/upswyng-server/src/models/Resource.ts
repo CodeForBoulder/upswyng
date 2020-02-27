@@ -303,11 +303,16 @@ ResourceSchema.statics.addOrUpdateLegacyResource = async function(
 
 /**
  * Retrieve a resource by its `resourceId`. `null` if there is no matching Resource.
+ * The `includeDeleted` flag must be set to `true` to return trashed resources.
  */
 ResourceSchema.statics.getByResourceId = async function(
-  resourceId: ObjectId
+  resourceId: ObjectId,
+  includeDeleted: boolean = false
 ): Promise<TResourceDocument | null> {
-  return await this.findOne({ resourceId })
+  return await this.findOne({
+    resourceId,
+    deleted: { $in: [false, includeDeleted] },
+  })
     .populate({ path: "subcategories", populate: { path: "parentCategory" } })
     .populate("createdBy")
     .populate("lastModifiedBy");
@@ -319,7 +324,7 @@ ResourceSchema.statics.getByResourceId = async function(
 ResourceSchema.statics.getByRecordId = async function(
   _id: ObjectId
 ): Promise<TResourceDocument | null> {
-  return await this.findOne({ _id, deleted: false })
+  return await this.findOne({ _id })
     .populate({ path: "subcategories", populate: { path: "parentCategory" } })
     .populate("createdBy")
     .populate("lastModifiedBy");
@@ -328,8 +333,10 @@ ResourceSchema.statics.getByRecordId = async function(
 /**
  * Retrieve all resources.
  */
-ResourceSchema.statics.getAll = async function(): Promise<TResourceDocument[]> {
-  return await this.find({ deleted: false })
+ResourceSchema.statics.getAll = async function(
+  includeDeleted: boolean = false
+): Promise<TResourceDocument[]> {
+  return await this.find({ deleted: { $in: [false, includeDeleted] } })
     .populate({ path: "subcategories", populate: { path: "parentCategory" } })
     .populate("createdBy")
     .populate("lastModifiedBy");
@@ -400,9 +407,12 @@ const DraftResource = mongoose.model<TResourceDocument>(
     timezone?: TTimezoneName
   ) => Promise<void>;
   deleteByRecordId: (_id: ObjectId) => Promise<TResourceDocument>;
-  getAll: () => Promise<TResourceDocument[]>;
+  getAll: (includeDeleted?: boolean) => Promise<TResourceDocument[]>;
   getByRecordId: (_id: ObjectId) => Promise<TResourceDocument | null>;
-  getByResourceId: (resourceId: ObjectId) => Promise<TResourceDocument | null>;
+  getByResourceId: (
+    resourceId: ObjectId,
+    includeDeleted?: boolean
+  ) => Promise<TResourceDocument | null>;
 };
 
 (DraftResource as any).getUncategorized = () => {

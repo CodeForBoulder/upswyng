@@ -7,7 +7,7 @@
       "/api/resources/uncategorized"
     ).then(r => r.json());
     const { draftResources } = await this.fetch(
-      "/api/resources/drafts"
+      "/api/resources/drafts?include-deleted"
     ).then(r => r.json());
     const { draftResources: draftsForUser } = await this.fetch(
       "/api/resources/drafts/mine",

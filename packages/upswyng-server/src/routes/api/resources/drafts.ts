@@ -1,8 +1,13 @@
 import { DraftResource } from "../../../models/Resource";
 
-export async function get(_req, res, _next) {
+/**
+ * Get all draft resources. Include the `include-deleted` query parameter to
+ * get deleted resources.
+ */
+export async function get(req, res, _next) {
+  const includeDeleted = req.query["include-deleted"] !== undefined || false;
   try {
-    const draftResources = await DraftResource.getAll();
+    const draftResources = await DraftResource.getAll(includeDeleted);
     res.writeHead(200, {
       "Content-Type": "application/json",
     });
