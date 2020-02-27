@@ -1,7 +1,7 @@
 import React from "react";
 import ResourceList from "../ResourceList";
 import { mockResources } from "../../data-mocks";
-import { mount } from "enzyme";
+import { render } from "@testing-library/react";
 
 jest.mock("../LoadingSpinner", () => () => "TEST-loading-spinner");
 jest.mock("../ResourceCard", () => () => (
@@ -9,23 +9,21 @@ jest.mock("../ResourceCard", () => () => (
 ));
 
 describe("<ResourceList/>", () => {
-  function renderWith(overrides = {}) {
-    return mount(<ResourceList resources={mockResources} {...overrides} />);
+  function setup(overrides = {}) {
+    return render(<ResourceList resources={mockResources} {...overrides} />);
   }
 
   it("renders a loading spinner when resources are not loaded", () => {
     const resources = undefined;
-    const subject = renderWith({ resources });
+    const { getByText } = setup({ resources });
 
-    expect(subject.text()).toContain("TEST-loading-spinner");
+    expect(getByText("TEST-loading-spinner")).toBeInTheDocument();
   });
 
   it("renders a resource for each resource in the list", () => {
     const resources = mockResources;
-    const subject = renderWith({ resources });
+    const { getAllByTestId } = setup({ resources });
 
-    expect(subject.find('[data-test="TEST-resource-card"]')).toHaveLength(
-      resources.length
-    );
+    expect(getAllByTestId("TEST-resource-card")).toHaveLength(resources.length);
   });
 });
