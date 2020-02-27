@@ -303,7 +303,7 @@ ResourceSchema.statics.addOrUpdateLegacyResource = async function(
 
 /**
  * Retrieve a resource by its `resourceId`. `null` if there is no matching Resource.
- * The `includeDeleted` flag must be set to `true` to return trashed resoueces.
+ * The `includeDeleted` flag must be set to `true` to return trashed resources.
  */
 ResourceSchema.statics.getByResourceId = async function(
   resourceId: ObjectId,
@@ -320,7 +320,6 @@ ResourceSchema.statics.getByResourceId = async function(
 
 /**
  * Retrieve a resource by its record ID (_id). `null` if there is no matching Resource.
- * The `includeDeleted` flag must be set to `true` to return trashed resoueces.
  */
 ResourceSchema.statics.getByRecordId = async function(
   _id: ObjectId
