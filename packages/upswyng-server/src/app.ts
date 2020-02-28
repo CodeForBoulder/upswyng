@@ -53,7 +53,13 @@ export default function(options: TAppOptions) {
           saveUninitialized: false,
           resave: true,
         }),
-        grant(grantConfig),
+        (req, res, next) => {
+          if (req.session) {
+            grant(grantConfig)(req, res, next);
+          } else {
+            next();
+          }
+        },
       ])
     )
     .use(userMiddleware)
