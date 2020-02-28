@@ -168,6 +168,7 @@ export default async function(req, res, next): Promise<void> {
     }
     if (
       req.session.grant &&
+      req.session.grant.response &&
       !req.session.rawUsers[grantToKey(req.session.grant)]
     ) {
       const user = await grantToUser(req.session.grant);
