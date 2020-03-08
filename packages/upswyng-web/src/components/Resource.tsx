@@ -14,6 +14,7 @@ import PageBanner from "./PageBanner";
 import PhoneIcon from "@material-ui/icons/Phone";
 import PublicIcon from "@material-ui/icons/Public";
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 import Schedule from "./Schedule";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import Services from "./Services";
@@ -167,6 +168,9 @@ export const Resource = () => {
           longitude={resource.longitude}
         />
       )}
+      <RouterLink to={`/report-issue/${resourceId}`} style={{ color: "white" }}>
+        Report an Issue
+      </RouterLink>
     </Container>
   );
 };

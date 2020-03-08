@@ -11,6 +11,7 @@ import Home from "./components/Home";
 import Hotlines from "./components/Hotlines";
 import { LastLocationProvider } from "react-router-last-location";
 import PrivacyPolicy from "./components/PrivacyPolicy";
+import ReportIssue from "./components/ReportIssue";
 import Resource from "./components/Resource";
 import Search from "./components/Search";
 import TermsOfUse from "./components/TermsOfUse";
@@ -55,6 +56,11 @@ class App extends Component {
               <Route exact path="/search" component={Search} />
               <Route exact path="/terms-of-use" component={TermsOfUse} />
               <Route path="/wifi" component={Wifi} />
+              <Route
+                exact
+                path="/report-issue/:resourceId"
+                component={ReportIssue}
+              />
             </BannerColorContextProvider>
           </LastLocationProvider>
         </Router>
