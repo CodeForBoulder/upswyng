@@ -1,21 +1,19 @@
-import {
-  Button,
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  Input,
-  TextField,
-  Typography,
-  createStyles,
-  makeStyles,
-} from "@material-ui/core";
 import { useHistory, useParams } from "react-router-dom";
 
+import Button from "@material-ui/core/Button";
+import Checkbox from "@material-ui/core/Checkbox";
 import { Container } from "../App.styles";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormGroup from "@material-ui/core/FormGroup";
+import Input from "@material-ui/core/Input";
 import LoadingSpinner from "./LoadingSpinner";
 import PageBanner from "./PageBanner";
 import React from "react";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 import axios from "axios";
+import createStyles from "@material-ui/core/styles/createStyles";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 import { useLastLocation } from "react-router-last-location";
 import useResource from "./useResource";
 
