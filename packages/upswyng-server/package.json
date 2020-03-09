@@ -29,7 +29,6 @@
     "bson": "^4.0.2",
     "bullmq": "^1.6.7",
     "bulma-calendar": "^6.0.7",
-    "bulma-iconpicker": "^2.1.0",
     "bulma-ribbon": "^0.1.1",
     "bulma-switch": "^2.0.0",
     "bulma-tagsinput": "^2.0.0",
