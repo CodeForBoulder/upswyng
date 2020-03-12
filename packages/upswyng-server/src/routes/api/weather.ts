@@ -5,17 +5,17 @@ import axios from "axios";
 const cache = new Cache();
 
 const getCurrentWeather = async (
-  lat: number | null,
-  lon: number | null
+  latitude: number | null,
+  longitude: number | null
 ): Promise<TWeatherCurrentResponse> => {
   try {
     const { data } = await axios.get<TWeatherCurrentResponse>(
       "https://api.openweathermap.org/data/2.5/weather?units=imperial",
       {
         params: {
-          lat: lat,
-          lon: lon,
-          APPID: process.env.REACT_APP_OPEN_WEATHER_API_KEY,
+          lat: latitude,
+          lon: longitude,
+          APPID: process.env.OPEN_WEATHER_API_KEY,
         },
       }
     );
