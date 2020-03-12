@@ -131,14 +131,16 @@ export const Resource = () => {
               <Typography component="h2" variant="srOnly">
                 Website
               </Typography>
-              <Link
-                href={resource.website}
-                rel="noopener noreferrer"
-                target="_blank"
-                underline="always"
-              >
-                {resource.website}
-              </Link>
+              <Typography noWrap={true} color="primary">
+                <Link
+                  href={resource.website}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  underline="always"
+                >
+                  {resource.website}
+                </Link>
+              </Typography>
             </ListItemText>
           </ListItem>
         )}
