@@ -1,4 +1,5 @@
-import Alert from "../Alert";
+import Alert, { alertDocumentToFullAlert } from "../Alert";
+
 import { MongoMemoryServer } from "mongodb-memory-server";
 import User from "../User";
 import mongoose from "mongoose";
@@ -77,7 +78,7 @@ describe("Alert (model)", () => {
         isCancelled: true,
         color: "#ffffff",
         icon: "fas fa-icon",
-        title: "Should show this",
+        title: "Should not show this",
         start,
         end,
       });
@@ -100,7 +101,7 @@ describe("Alert (model)", () => {
         isCancelled: false,
         color: "#ffffff",
         icon: "fas fa-icon",
-        title: "Should show this",
+        title: "Should not show this",
         start,
         end,
       });
@@ -109,6 +110,33 @@ describe("Alert (model)", () => {
       const result = await Alert.genActiveAlerts(now);
 
       expect(result.length).toEqual(0);
+    });
+  });
+
+  describe("converting alert documents to alerts", () => {
+    it("converts to full alert (populating user)", async () => {
+      const testUser = await new User().save();
+      const start = new Date("2010-01-01");
+      const end = new Date("2010-01-03");
+      const a = new Alert({
+        createdBy: testUser._id,
+        lastModifiedBy: testUser._id,
+        isApproved: false,
+        isCancelled: false,
+        color: "#ffffff",
+        icon: "fas fa-icon",
+        title: "Test Title",
+        start,
+        end,
+      });
+
+      const result = await alertDocumentToFullAlert(a);
+
+      expect(result.title).toEqual("Test Title");
+      expect(result.start).toEqual(start);
+      expect(result.end).toEqual(end);
+      expect(result.createdBy._id).toEqual(testUser._id);
+      expect(result.lastModifiedBy._id).toEqual(testUser._id);
     });
   });
 });

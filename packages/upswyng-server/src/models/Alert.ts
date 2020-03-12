@@ -28,7 +28,7 @@ export function fullAlertToAlert(a: TAlertFull): TAlert {
   return a;
 }
 
-export async function alertDocumentToAlertFull(
+export async function alertDocumentToFullAlert(
   u: TAlertDocument
 ): Promise<TAlertFull> {
   const result = u.toObject();
@@ -45,7 +45,7 @@ export async function alertDocumentToAlertFull(
     const lastModifiedBy = await User.findById(result.lastModifiedBy);
     if (!lastModifiedBy) {
       throw new Error(
-        `While retreiving an alert, could not find the user who created the alert (ID: ${result.lastModifiedBy})`
+        `While retreiving an alert, could not find the user who last modified the alert (ID: ${result.lastModifiedBy})`
       );
     }
     result.lastModifiedBy = lastModifiedBy;
@@ -93,5 +93,8 @@ AlertSchema.statics.genActiveAlerts = async function(now = new Date()) {
 const Alert = mongoose.model<TAlertDocument>("Alert", AlertSchema);
 
 export default Alert as typeof Alert & {
+  /**
+   * Fetch the active alerts. `now` pararameter provided for testing purposes.
+   */
   genActiveAlerts: (now: Date | undefined) => Promise<Array<TAlertFull>>;
 };

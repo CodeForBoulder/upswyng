@@ -1,7 +1,8 @@
 import { TUser } from "@upswyng/upswyng-types";
 
 /**
- * Represents an alert which will be shown to users of Upswyng over a time period
+ * Represents an alert which will be shown to users of Upswyng over a time period.
+ * This is the format that will be sent over the API to clients.
  */
 export interface TAlert {
   _id: string;
