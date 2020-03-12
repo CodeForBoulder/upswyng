@@ -1,196 +1,97 @@
+import { TAlert, TAlertFull } from "@upswyng/upswyng-types";
+import User, { TUserDocument } from "./User";
 import mongoose, { Document, Schema } from "mongoose";
 
 import { ObjectId } from "bson";
-import { TUser } from "@upswyng/upswyng-types";
 import removeUndefinedFields from "../utility/removeUndefinedFields";
 
 export interface TAlertDocument extends Document {
   _id: ObjectId;
-  start: Date;
+  createdAt: Date;
+  createdBy: ObjectId | TUserDocument;
+  color: string;
   end: Date;
-  title: string;
-  createdBy: ObjectId;
-  lastModifiedBy: ObjectId;
+  isApproved: boolean;
   isCancelled: boolean;
+  lastModifiedAt: Date;
+  lastModifiedBy: ObjectId | TUserDocument;
+  start: Date;
+  title: string;
 }
 
-// export function userDocumentToUser(u: TUserDocument): TUser {
-//   const result: Partial<TUser> = {
-//     _id: u._id.toHexString(),
-//     providers: [],
-//     isAdmin: u.isAdmin || false,
-//     isSuperAdmin: u.isSuperAdmin || false,
-//   };
+export function fullAlertToAlert(a: TAlertFull): TAlert {
+  delete a.createdAt;
+  delete a.createdBy;
+  delete a.isCancelled;
+  delete a.lastModifiedAt;
+  delete a.lastModifiedBy;
+  return a;
+}
 
-//   if (u.facebook && u.facebook.email) {
-//     result.providers.push("facebook");
-//     result.name = u.facebook.name;
-//     result.email = u.facebook.email;
-//   }
-//   if (u.google && u.google.email) {
-//     result.providers.push("google");
-//     result.email = u.google.email;
-//   }
-//   if (u.slack && u.slack.email) {
-//     result.providers.push("slack");
-//     result.email = u.slack.email;
-//     if (!result.name && u.slack.name) {
-//       // don't overwrite the name if it came from Facebook since that one is more likely accurate/complete
-//       result.name = u.slack.name;
-//     }
-//   }
-//   removeUndefinedFields(result);
-//   return result as TUser;
-// }
+export async function alertDocumentToAlertFull(
+  u: TAlertDocument
+): Promise<TAlertFull> {
+  const result = u.toObject();
+  if (result.createdBy instanceof ObjectId) {
+    const createdBy = await User.findById(result.createdBy);
+    if (!createdBy) {
+      throw new Error(
+        `While retreiving an alert, could not find the user who created the alert (ID: ${result.createdBy})`
+      );
+    }
+    result.createdBy = createdBy;
+  }
+  if (result.lastModifiedBy instanceof ObjectId) {
+    const lastModifiedBy = await User.findById(result.lastModifiedBy);
+    if (!lastModifiedBy) {
+      throw new Error(
+        `While retreiving an alert, could not find the user who created the alert (ID: ${result.lastModifiedBy})`
+      );
+    }
+    result.lastModifiedBy = lastModifiedBy;
+  }
+  result._id = (result._id as ObjectId).toHexString();
+  removeUndefinedFields(result);
+  return result as TAlertFull;
+}
 
-// const UserSchema = new Schema(
-//   {
-//     facebook: {
-//       id: { type: String, index: true },
-//       name: { type: String },
-//       email: { type: String, index: true },
-//     },
-//     google: {
-//       // The google ID; doesn't ever change.
-//       // See https://developers.google.com/identity/protocols/OpenIDConnect?hl=en#obtainuserinfo
-//       sub: { type: String, index: true },
-//       email: { type: String, index: true },
-//     },
-//     slack: {
-//       email: { index: true, type: String },
-//       name: { type: String },
-//       teamId: { type: String },
-//       userId: { index: true, type: String },
-//     },
-//     // can approve new resources, etc
-//     isAdmin: { type: Boolean, default: false },
-//     // can execute operations on users
-//     isSuperAdmin: { type: Boolean, default: false },
-//   },
-//   { timestamps: true }
-// );
+const AlertSchema = new Schema(
+  {
+    createdBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    color: { type: String, required: true },
+    detail: { type: String },
+    end: { type: Date, required: true, index: true },
+    icon: { type: String, required: true },
+    isApproved: { type: Boolean, default: true }, // for bots, may be false
+    isCancelled: { type: Boolean, default: false },
+    lastModifiedBy: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    start: { type: Date, required: true, index: true },
+    title: { type: String, required: true },
+  },
+  { timestamps: { createdAt: "createdAt", updatedAt: "lastModifiedAt" } }
+);
 
-// UserSchema.statics.findOrCreateFacebookUser = async function(
-//   id: string,
-//   name?: string,
-//   email?: string
-// ): Promise<TUserDocument> {
-//   const self = this; // eslint-disable-line @typescript-eslint/no-this-alias
-//   const user = await this.findOne({ "facebook.id": id });
-//   if (!user && !email) {
-//     throw new Error(
-//       `User with id ${id} not found and no email included to create the user.`
-//     );
-//   } else if (!user) {
-//     try {
-//       const newUser = new self({ facebook: { id, name, email } });
-//       const result = await newUser.save();
-//       return result.toObject();
-//     } catch (e) {
-//       console.error(`Error creating new user:\t${e}`);
-//       throw e;
-//     }
-//   }
-//   if (user.facebook.email !== email || user.facebook.name !== name) {
-//     // if the user has updated their name or email on facebook,
-//     // update it in our records
-//     if (email) {
-//       user.facebook.email = email;
-//     }
-//     if (name) {
-//       user.facebook.name = name;
-//     }
-//     const updatedUser = await user.save();
-//     return updatedUser.toObject();
-//   }
-//   return user;
-// };
+/**
+ * Fetches the alerts that are currently active
+ */
+AlertSchema.statics.genActiveAlerts = async function(now = new Date()) {
+  const results: Array<TAlertDocument> = await this.find({
+    end: { $gte: now },
+  })
+    .populate("createdBy")
+    .populate("lastModifiedBy");
+  return results
+    .filter(x => x.isCancelled === false)
+    .filter(x => x.isApproved === true)
+    .filter(x => x.start <= now);
+};
 
-// UserSchema.statics.findOrCreateGoogleUser = async function(
-//   sub: string,
-//   email?: string
-// ): Promise<TUserDocument> {
-//   const self = this; // eslint-disable-line @typescript-eslint/no-this-alias
-//   const user = await this.findOne({ "google.sub": sub });
-//   if (!user && !email) {
-//     throw new Error(
-//       `User with sub ${sub} not found and no email included to create the user.`
-//     );
-//   } else if (!user) {
-//     try {
-//       const newUser = new self({ google: { sub, email } });
-//       const result = await newUser.save();
-//       return result;
-//     } catch (e) {
-//       console.error(`Error creating new user:\t${e}`);
-//       throw e;
-//     }
-//   }
-//   if (user.google.email !== email) {
-//     // if the user has updated their email on google,
-//     // update it in our records
-//     if (email) {
-//       user.google.email = email;
-//     }
-//     return await user.save();
-//   }
-//   return user;
-// };
+const Alert = mongoose.model<TAlertDocument>("Alert", AlertSchema);
 
-// UserSchema.statics.findOrCreateSlackUser = async function(
-//   slackUserId: string,
-//   email: string,
-//   name: string,
-//   teamId: string
-// ): Promise<TUserDocument> {
-//   const self = this; // eslint-disable-line @typescript-eslint/no-this-alias
-//   const user = (await this.findOne({
-//     "slack.userId": slackUserId,
-//   })) as TUserDocument | null;
-//   if (!user && !email) {
-//     throw new Error(
-//       `User with slack ID ${slackUserId} not found and no email included to create the user.`
-//     );
-//   } else if (!user) {
-//     try {
-//       const newUser = new self({
-//         slack: { email, name, userId: slackUserId, teamId },
-//       });
-//       const result = await newUser.save();
-//       return result;
-//     } catch (e) {
-//       console.error(`Error creating new user:\t${e}`);
-//       throw e;
-//     }
-//   }
-//   if (
-//     user.slack.email !== email ||
-//     user.slack.name !== name ||
-//     user.slack.teamId !== teamId
-//   ) {
-//     // if the user has updated these fields,
-//     // update it in our records
-//     user.slack.email = email;
-//     user.slack.teamId = teamId;
-//     user.slack.name = name;
-//     return await user.save();
-//   }
-//   return user;
-// };
-
-// const User = mongoose.model<TUserDocument>("User", UserSchema);
-
-// export default User as typeof User & {
-//   findOrCreateFacebookUser: (
-//     id: string,
-//     name?: string,
-//     email?: string
-//   ) => Promise<TUserDocument>;
-//   findOrCreateGoogleUser: (sub: string, email?: string) => TUserDocument;
-//   findOrCreateSlackUser: (
-//     slackUserId: string,
-//     email: string,
-//     name: string,
-//     teamId: string
-//   ) => Promise<TUserDocument>;
-// };
+export default Alert as typeof Alert & {
+  genActiveAlerts: (now: Date | undefined) => Promise<Array<TAlertFull>>;
+};

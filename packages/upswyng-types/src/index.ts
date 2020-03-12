@@ -1,5 +1,6 @@
-import { TTimezoneName as TTimezoneName_ } from "./TTimezoneName";
+export * from "./TAlert";
 
+import { TTimezoneName as TTimezoneName_ } from "./TTimezoneName";
 export interface TAlgoliaHit {
   objectID: string; // objectID = resourceId and is required by Algolia
   name: string;
