@@ -19,7 +19,7 @@ import { THomeButtonRouterLink } from "../webTypes";
 import { colors } from "../App.styles";
 import styled from "styled-components";
 
-const routerLinkButtons: THomeButtonRouterLink[] = [
+export const routerLinkButtons: THomeButtonRouterLink[] = [
   {
     text: "Food",
     icon: BananaIcon,
@@ -122,7 +122,10 @@ const HomeButtons = () => (
       return (
         <HomeButtonContainer item xs={6} key={button.text}>
           <HomeRouterLink {...button}>
-            <HomeButton buttonColor={button.color}>
+            <HomeButton
+              buttonColor={button.color}
+              data-test="home-router-button"
+            >
               {button.text}
               {button.icon}
             </HomeButton>

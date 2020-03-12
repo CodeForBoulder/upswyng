@@ -167,9 +167,13 @@ export default class Time {
   /**
    * Prints a duration in minutes nicely.
    * @param {number} duration The duration in minutes
+   * @param {boolean} capitalizeFirstLetter
    * @returns {string} A pretty version of the duraton. ex: Time.prettyPrintDuration(255); // "Four hours and fifteen minutes"
    */
-  static prettyPrintDuration(duration: number): string {
+  static prettyPrintDuration(
+    duration: number,
+    capitalizeFirstLetter: boolean = true
+  ): string {
     if (duration <= 0) {
       throw new Error(
         `Error pretty printing duration: The duration must be more than zero; got ${duration}`
@@ -179,8 +183,12 @@ export default class Time {
     const minutes = Math.floor(duration) % 60;
     let result = "";
     if (hours) {
-      result +=
-        numWords(hours)[0].toUpperCase() + numWords(hours).slice(1) + " ";
+      if (capitalizeFirstLetter) {
+        result +=
+          numWords(hours)[0].toUpperCase() + numWords(hours).slice(1) + " ";
+      } else {
+        result += numWords(hours) + " ";
+      }
       result += hours === 1 ? "hour" : "hours";
       if (minutes) {
         result += " and ";
@@ -190,8 +198,12 @@ export default class Time {
       if (hours) {
         result += numWords(minutes);
       } else {
-        result +=
-          numWords(minutes)[0].toUpperCase() + numWords(minutes).slice(1);
+        if (capitalizeFirstLetter) {
+          result +=
+            numWords(minutes)[0].toUpperCase() + numWords(minutes).slice(1);
+        } else {
+          result += numWords(minutes);
+        }
       }
       result += minutes === 1 ? " minute" : " minutes";
     }

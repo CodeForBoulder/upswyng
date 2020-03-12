@@ -6,6 +6,7 @@
 
 import { Connection } from "mongoose";
 import bodyParser from "body-parser";
+import { compose } from "compose-middleware";
 import compression from "compression";
 import connectMongo from "connect-mongo";
 import cors from "cors";
@@ -45,14 +46,22 @@ export default function(options: TAppOptions) {
       })
     )
     .use(
-      session({
-        store: new MongoStore({ mongooseConnection }),
-        secret: sessionSecret,
-        saveUninitialized: false,
-        resave: true,
-      })
+      compose([
+        session({
+          store: new MongoStore({ mongooseConnection }),
+          secret: sessionSecret,
+          saveUninitialized: false,
+          resave: true,
+        }),
+        (req, res, next) => {
+          if (req.session) {
+            grant(grantConfig)(req, res, next);
+          } else {
+            next();
+          }
+        },
+      ])
     )
-    .use(grant(grantConfig))
     .use(userMiddleware)
     .get("/callback", oidc(grantConfig), (_req, res) => {
       res.redirect("/?loggedin=true");

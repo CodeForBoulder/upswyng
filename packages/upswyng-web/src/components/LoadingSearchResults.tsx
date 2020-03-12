@@ -12,7 +12,7 @@ const LoadingSearchResults = ({ numItems = 4 }: Props) => (
     {Array(numItems)
       .fill(null)
       .map((_, i) => (
-        <Grid item key={i}>
+        <Grid item data-test="loading-item" key={i}>
           <Typography variant="h3" component="div" gutterBottom>
             <Skeleton animation="wave" variant="text" width="60%" />
           </Typography>
