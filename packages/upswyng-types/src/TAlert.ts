@@ -1,4 +1,4 @@
-import { TUser } from "@upswyng/upswyng-types";
+import { TUser } from "./TUser";
 
 /**
  * Represents an alert which will be shown to users of Upswyng over a time period.
