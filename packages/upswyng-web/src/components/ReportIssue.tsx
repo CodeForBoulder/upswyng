@@ -5,7 +5,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { Container } from "../App.styles";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
-import Input from "@material-ui/core/Input";
 import LoadingSpinner from "./LoadingSpinner";
 import PageBanner from "./PageBanner";
 import React from "react";
@@ -43,9 +42,8 @@ const ReportIssue = () => {
   const history = useHistory();
   const lastLocation = useLastLocation();
   const classes = useStyles();
-  const [other, setOther] = React.useState("");
   const [comments, setComments] = React.useState("");
-  const [submissionError, setError] = React.useState(false);
+  const [submissionError, setError] = React.useState("");
   const [formSubmitted, setFormSubmitted] = React.useState(false);
   const [issues, updateIssues] = React.useState({
     address: {
@@ -68,10 +66,6 @@ const ReportIssue = () => {
       text: "The directions are wrong.",
       checked: false,
     },
-    other: {
-      text: "Other",
-      checked: false,
-    },
   } as State);
 
   const selectedIssues = (): string => {
@@ -80,25 +74,30 @@ const ReportIssue = () => {
       if (issues[issue].checked) {
         selected.push(issues[issue].text);
       }
-      if (selected.includes("Other")) {
-        selected.pop();
-        if (other) {
-          selected.push(other);
-        }
-      }
     });
     return JSON.stringify(selected);
   };
 
   const handleSubmit = () => {
-    axios
-      .post(`${serverUri}/api/resources/issues/user-report`, {
-        resourceId: resourceId,
-        detailExplanation: comments,
-        reportedIssues: selectedIssues(),
-      })
-      .then(() => setFormSubmitted(true))
-      .catch(() => setError(true));
+    // checking for empty stringified array
+    if (selectedIssues().length < 4 && !comments) {
+      setError(
+        "No feedback to submit. Please check desired boxes, enter comments, and try again."
+      );
+    } else {
+      axios
+        .post(`${serverUri}/api/resources/issues/user-report`, {
+          resourceId: resourceId,
+          detailExplanation: comments,
+          reportedIssues: selectedIssues(),
+        })
+        .then(() => setFormSubmitted(true))
+        .catch(() =>
+          setError(
+            "There was a problem sending your feedback. Please try again."
+          )
+        );
+    }
   };
 
   const handleCheck = (key: string) => (
@@ -120,9 +119,9 @@ const ReportIssue = () => {
         text="Report an Issue"
         backButtonAction={lastLocation ? history.goBack : null}
       />
-      <Typography component="div">
-        Report an issue for:{" "}
-        <Typography color="primary">{resource?.name}</Typography>
+      <Typography component="div">Report an issue for: </Typography>
+      <Typography variant="h2" color="primary">
+        {resource?.name}
       </Typography>
       {formSubmitted ? (
         <>
@@ -156,12 +155,6 @@ const ReportIssue = () => {
                 />
               );
             })}
-            <Input
-              disabled={!issues.other.checked}
-              value={issues.other.checked ? other : ""}
-              placeholder="Explain..."
-              onChange={e => setOther(e.target.value)}
-            />
           </FormGroup>
           <TextField
             multiline
@@ -183,7 +176,7 @@ const ReportIssue = () => {
             Send
           </Button>
           <Typography hidden={!submissionError} color="primary">
-            There was a problem sending your feedback. Please try again.
+            {submissionError}
           </Typography>
         </>
       )}
