@@ -135,8 +135,8 @@ describe("Alert (model)", () => {
       expect(result.title).toEqual("Test Title");
       expect(result.start).toEqual(start);
       expect(result.end).toEqual(end);
-      expect(result.createdBy._id).toEqual(testUser._id);
-      expect(result.lastModifiedBy._id).toEqual(testUser._id);
+      expect(result.createdBy._id).toEqual(testUser._id.toHexString());
+      expect(result.lastModifiedBy._id).toEqual(testUser._id.toHexString());
     });
   });
 });

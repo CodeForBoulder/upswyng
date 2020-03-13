@@ -4,6 +4,7 @@ import mongoose, { Document, Schema } from "mongoose";
 
 import { ObjectId } from "bson";
 import removeUndefinedFields from "../utility/removeUndefinedFields";
+import { userDocumentToUser } from "./User";
 
 export interface TAlertDocument extends Document {
   _id: ObjectId;
@@ -23,6 +24,7 @@ export function fullAlertToAlert(a: TAlertFull): TAlert {
   delete a.createdAt;
   delete a.createdBy;
   delete a.isCancelled;
+  delete a.isApproved;
   delete a.lastModifiedAt;
   delete a.lastModifiedBy;
   return a;
@@ -32,8 +34,8 @@ export async function alertDocumentToFullAlert(
   u: TAlertDocument
 ): Promise<TAlertFull> {
   const result = u.toObject();
-  if (result.createdBy instanceof ObjectId) {
-    const createdBy = await User.findById(result.createdBy);
+  if (!result.createdBy.hasOwnProperty("_id")) {
+    const createdBy = userDocumentToUser(await User.findById(result.createdBy));
     if (!createdBy) {
       throw new Error(
         `While retreiving an alert, could not find the user who created the alert (ID: ${result.createdBy})`
@@ -41,8 +43,10 @@ export async function alertDocumentToFullAlert(
     }
     result.createdBy = createdBy;
   }
-  if (result.lastModifiedBy instanceof ObjectId) {
-    const lastModifiedBy = await User.findById(result.lastModifiedBy);
+  if (!result.lastModifiedBy.hasOwnProperty("_id")) {
+    const lastModifiedBy = userDocumentToUser(
+      await User.findById(result.lastModifiedBy)
+    );
     if (!lastModifiedBy) {
       throw new Error(
         `While retreiving an alert, could not find the user who last modified the alert (ID: ${result.lastModifiedBy})`
