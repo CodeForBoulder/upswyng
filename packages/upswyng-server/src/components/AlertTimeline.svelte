@@ -1,15 +1,32 @@
 <script>
+  import DatePicker from "./DatePicker.svelte";
+
   let alerts = [];
+
+  /**
+   * Converts a Javascript Date to a MM/DD/YYYY string
+   * https://stackoverflow.com/questions/3552461/how-to-format-a-javascript-date
+   */
+  function formatDateToDay(d) {
+    const dtf = new Intl.DateTimeFormat("en", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+    });
+    const [{ value: mo }, , { value: da }, , { value: ye }] = dtf.formatToParts(
+      d
+    );
+    return `${mo}/${da}/${ye}`;
+  }
 
   const MS_IN_DAY = 1000 * 60 * 60 * 24;
 
   const now = new Date();
 
-  let start = new Date();
-  let end = now;
-  let errorMessage = "";
+  let startDay = formatDateToDay(now); // string | null; MM/DD/YYYY
+  let endDay = formatDateToDay(now);
 
-  $: start = new Date(end.getTime() - MS_IN_DAY * 7);
+  let errorMessage = "";
 
   async function fetchAlerts(start, end) /*: Promise<TAlert> */ {
     let response = await fetch(`/api/alert`, {
@@ -34,6 +51,14 @@
 
   let alertPromise;
   $: {
+    const start = new Date(startDay);
+    start.setHours(0);
+    start.setMinutes(0);
+
+    const end = new Date(endDay);
+    end.setHours(23);
+    end.setMinutes(59);
+
     alertPromise = fetchAlerts(start, end);
   }
 </script>
@@ -46,7 +71,32 @@
     {errorMessage}
   </div>
 {/if}
-
+<div class="columns">
+  <div class="column">
+    <div class="content">
+      <div class="field">
+        <label class="label">Start Date</label>
+        <div class="control">
+          <DatePicker
+            options={{ color: 'grey', showClearButton: false, showHeader: false }}
+            bind:value={startDay} />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="content">
+      <div class="field">
+        <label class="label">End Date</label>
+        <div class="control">
+          <DatePicker
+            options={{ color: 'grey', showClearButton: false, showHeader: false }}
+            bind:value={endDay} />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {#await alertPromise}
   <progress class="progress is-small is-primary" max="100" />
 {:then alerts}
