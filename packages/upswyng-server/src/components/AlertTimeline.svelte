@@ -1,4 +1,5 @@
 <script>
+  import AlertTimelineDisplay from "./AlertTimelineDisplay.svelte";
   import DatePicker from "./DatePicker.svelte";
 
   let alerts = [];
@@ -108,3 +109,6 @@
 {:catch error}
   <div class="notification is-danger">{error.message}</div>
 {/await}
+<div class="content">
+  <AlertTimelineDisplay />
+</div>
