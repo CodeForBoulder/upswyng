@@ -212,7 +212,7 @@
         addFlashMessage(
           session,
           "success",
-          `Alert "${alertTitle}" was successful created.`
+          `Alert "${alertTitle}" was successful created`
         );
         goto("/alert");
       })
