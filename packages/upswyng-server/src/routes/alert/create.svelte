@@ -181,7 +181,7 @@
 
     isSubmitting = true;
 
-    fetch(`/api/alert/create`, {
+    fetch(`/api/alert`, {
       method: "POST",
       body: JSON.stringify({
         title: alertTitle,
