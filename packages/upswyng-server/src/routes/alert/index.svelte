@@ -1,9 +1,15 @@
 <script>
+  import AlertTimeline from "../../components/AlertTimeline.svelte";
+  import { onMount } from "svelte";
   import { stores } from "@sapper/app";
   import { readFlashMessages } from "../../utility/flashMessage.ts";
 
   const { session } = stores();
   const flashMessages = readFlashMessages(session);
+
+  let mounted = false;
+
+  onMount(() => (mounted = true));
 </script>
 
 <svelte:head>
@@ -25,4 +31,7 @@
       <span class="tag is-dark">Admin</span>
     </h1>
   </div>
+  {#if mounted}
+    <AlertTimeline />
+  {/if}
 </section>
