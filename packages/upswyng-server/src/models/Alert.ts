@@ -8,12 +8,15 @@ import { userDocumentToUser } from "./User";
 
 export interface TAlertDocument extends Document {
   _id: ObjectId;
+  category: string | null;
   createdAt: Date;
   createdBy: ObjectId | TUserDocument;
   color: string;
+  detail: string | null;
   end: Date;
   isApproved: boolean;
   isCancelled: boolean;
+  icon: string;
   lastModifiedAt: Date;
   lastModifiedBy: ObjectId | TUserDocument;
   start: Date;
@@ -61,6 +64,7 @@ export async function alertDocumentToFullAlert(
 
 const AlertSchema = new Schema(
   {
+    category: { type: String, required: false },
     createdBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
     color: { type: String, required: true },
     detail: { type: String },

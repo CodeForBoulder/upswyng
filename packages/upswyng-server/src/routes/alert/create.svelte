@@ -81,6 +81,8 @@
   $: now = formatDateToDay(new Date());
   let intervalHandle;
   let timezoneGuess = "";
+  let isSubmitting = false;
+  let errorMessage = "";
 
   onMount(() => {
     timezoneGuess = tz.guess();
@@ -176,7 +178,49 @@
     if (!isFormValid) {
       throw new Error("Attempted to publish an invalid alert");
     }
-    console.log("publish");
+
+    isSubmitting = true;
+
+    fetch(`/api/alert/create`, {
+      method: "POST",
+      body: JSON.stringify({
+        title: alertTitle,
+        category: alertType === "Custom" ? null : alertType,
+        color: alertColor,
+        detail: alertDetailRaw.length ? alertDetailRaw : null,
+        end: alertEnd,
+        icon: alertIcon,
+        isApproved: true,
+        isCancelled: false,
+        start: alertStart,
+        title: alertTitle,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(async res => {
+        if (res.status >= 400) {
+          const { message } = await res.json();
+          if (message) {
+            errorMessage = message;
+          } else {
+            errorMessage = "There was an error creating the alert";
+          }
+          return;
+        }
+        addFlashMessage(
+          session,
+          "success",
+          `Alert "${alertTitle}" was successful created.`
+        );
+        goto("/alert");
+      })
+      .catch(e => (errorMessage = e))
+      .finally(() => {
+        isSubmitting = false;
+        isSubmitDialogOpen = false;
+      });
   }
 </script>
 
@@ -300,6 +344,9 @@
       Create an Alert
       <span class="tag is-dark">Admin</span>
     </h1>
+    {#if errorMessage}
+      <div class="notification is-danger">{errorMessage}</div>
+    {/if}
     <div class="field">
       <label class="label">Title</label>
       <div class="control">
@@ -660,7 +707,11 @@
           <button class="button" on:click={() => (isSubmitDialogOpen = false)}>
             Cancel
           </button>
-          <button class="button is-success" on:click={publishAlert}>
+          <button
+            class="button is-success"
+            class:is-loading={isSubmitting}
+            type="submit"
+            on:click={publishAlert}>
             <span class="icon">
               <i class="fas fa-rocket is-small" />
             </span>

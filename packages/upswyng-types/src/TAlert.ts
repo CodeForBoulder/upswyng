@@ -6,6 +6,7 @@ import { TUser } from "./TUser";
  */
 export interface TAlert {
   _id: string;
+  category: string | null;
   color: string; // Hex string, eg #FF11BB
   detail: string | null;
   end: Date;
@@ -18,6 +19,7 @@ export interface TAlert {
  * Full information about the alert used on the server/provider side
  */
 export interface TAlertFull extends TAlert {
+  category: string | null;
   createdAt: Date;
   createdBy: TUser;
   isApproved: boolean; // will be auto-approved for manually created entries, but can be set to `false` for alerts created by a bot
