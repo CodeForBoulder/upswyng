@@ -1,12 +1,8 @@
-import Alert, {
-  alertDocumentToFullAlert,
-  fullAlertToAlert,
-} from "../../../models/Alert";
+import Alert, { TAlertDocument } from "../../../models/Alert";
 import { NextFunction, Request, Response } from "express";
 
 import { ObjectId } from "bson";
 import { ParamsDictionary } from "express-serve-static-core";
-import { TAlertDocument } from "../../../models/Alert";
 import { body } from "express-validator";
 import { compose } from "compose-middleware";
 import { requireAdmin } from "../../../utility/authHelpers";

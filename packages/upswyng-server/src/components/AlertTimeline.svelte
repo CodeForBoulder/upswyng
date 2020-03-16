@@ -24,13 +24,13 @@
 
   const now = new Date();
 
-  let startDay = formatDateToDay(now); // string | null; MM/DD/YYYY
-  let endDay = formatDateToDay(now);
+  let startDay = formatDateToDay(new Date(now.getTime() - 2 * MS_IN_DAY)); // string | null; MM/DD/YYYY
+  let endDay = formatDateToDay(new Date(now.getTime() + 5 * MS_IN_DAY));
 
   let errorMessage = "";
 
   async function fetchAlerts(start, end) /*: Promise<TAlert> */ {
-    let response = await fetch(`/api/alert`, {
+    let response = await fetch(`/api/alert/search`, {
       method: "POST",
       body: JSON.stringify({
         includeCancelled: true,
@@ -72,9 +72,9 @@
     {errorMessage}
   </div>
 {/if}
-<div class="columns">
-  <div class="column">
-    <div class="content">
+<div class="content">
+  <div class="columns">
+    <div class="column">
       <div class="field">
         <label class="label">Start Date</label>
         <div class="control">
@@ -84,9 +84,7 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="column">
-    <div class="content">
+    <div class="column">
       <div class="field">
         <label class="label">End Date</label>
         <div class="control">
@@ -101,14 +99,12 @@
 {#await alertPromise}
   <progress class="progress is-small is-primary" max="100" />
 {:then alerts}
-  {#each alerts as alert}
-    <div>{JSON.stringify(alert, null, 2)}</div>
-  {:else}
-    <p>No alerts in the timeframe</p>
-  {/each}
+  {#if !alerts.length}
+    <div class="notifications">
+      There are no alerts for the selected timeframe
+    </div>
+  {/if}
+  <AlertTimelineDisplay {alerts} />
 {:catch error}
   <div class="notification is-danger">{error.message}</div>
 {/await}
-<div class="content">
-  <AlertTimelineDisplay />
-</div>
