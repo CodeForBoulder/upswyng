@@ -46,7 +46,6 @@
     if (response.status !== 200) {
       throw new Error(message || "Error getting Resource Issues");
     }
-    console.log("AAA", alerts);
     return alerts;
   }
 
