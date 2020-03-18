@@ -43,6 +43,7 @@ web-report/
 yarn-debug.log*
 yarn-error.log
 yarn-error.log*
+.yarn/
 
 # force include
 !.vscode
