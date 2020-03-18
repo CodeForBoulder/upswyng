@@ -54,7 +54,9 @@ function validateTimezone(timezone: string): TTimezoneName {
 
 function makeSchedulePeriodDate(dt: Date, timeValue: string): Date {
   const dateFormat = "YYYY MM DD";
-  const itemDate = moment(dt).format(dateFormat);
+  const itemDate = moment(dt)
+    .utc()
+    .format(dateFormat);
 
   const dateTimeFormat = `${dateFormat} H:mm A`;
   return moment(`${itemDate.toString()} ${timeValue}`, dateTimeFormat).toDate();
