@@ -24,6 +24,7 @@ function isAlertActive(alert: TAlertFull, now: Date = new Date()) {
  */
 export default function alertsToCharEntries(
   alerts: TAlertFull[],
+  selectedAlertId: string | null = null,
   barHeight: number = 1,
   spacing: number = 0.25 // spacing between rows of bars
 ): TAlertChartEntry[] {
@@ -86,6 +87,10 @@ export default function alertsToCharEntries(
       }
       if (!alert.isApproved) {
         a.borderColor = "#F3BD20CC";
+        a.borderWidth = 4;
+      }
+      if (alert._id === selectedAlertId) {
+        a.borderColor = "#00CCFFEE";
         a.borderWidth = 4;
       }
       result.push(a);

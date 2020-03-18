@@ -1,0 +1,217 @@
+<script context="module">
+  export async function preload({ params, query }, { user }) {
+    if (!user || !user.isAdmin) {
+      this.error(401, "You must be an admin to access this page.");
+    }
+    return { id: params.alert_id || null };
+  }
+
+  /**
+   * Converts a Javascript Date to a MM/DD/YYYY string
+   * https://stackoverflow.com/questions/3552461/how-to-format-a-javascript-date
+   */
+  function formatDateToDay(d) {
+    const dtf = new Intl.DateTimeFormat("en", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+    });
+    const [{ value: mo }, , { value: da }, , { value: ye }] = dtf.formatToParts(
+      d
+    );
+    return `${mo}/${da}/${ye}`;
+  }
+</script>
+
+<script>
+  import Alert from "../../components/Alert.svelte";
+  import AlertTimeline from "../../components/AlertTimeline.svelte";
+  import { onMount } from "svelte";
+  import { stores, goto } from "@sapper/app";
+  import { readFlashMessages } from "../../utility/flashMessage.ts";
+
+  const { session, preloading, page } = stores();
+  const flashMessages = readFlashMessages(session);
+
+  export let id; // string (ObjectID) or `null`
+  const MS_IN_DAY = 1000 * 60 * 60 * 24;
+  let mounted = false;
+  const now = new Date();
+  let startDay = formatDateToDay(new Date(now.getTime() - 2 * MS_IN_DAY)); // string | null; MM/DD/YYYY
+  let endDay = formatDateToDay(new Date(now.getTime() + 5 * MS_IN_DAY));
+  let errorMessage = "";
+  let start; // Date
+  let end; // Date
+
+  let isProcessingCancel = false;
+  let cancelError = "";
+
+  onMount(() => (mounted = true));
+
+  let alertsPromise; // promise which resolves to TAlertFull[] containing the alerts for the selected time frame
+  let selectedAlertPromise; // promise which resolves to the selected alert (TAlertFull)
+
+  $: {
+    if (id && alertsPromise) {
+      alertsPromise.then(alerts => {
+        // pull the alert with the selected ID out of our list of alerts
+        const filteredAlerts = alerts.filter(a => a._id === id);
+        if (filteredAlerts.length) {
+          selectedAlertPromise = Promise.resolve(filteredAlerts[0]);
+        } else {
+          selectedAlertPromise = fetchAlert(id);
+        }
+      });
+    }
+  }
+
+  $: {
+    const start = new Date(startDay);
+    start.setHours(0);
+    start.setMinutes(0);
+
+    const end = new Date(endDay);
+    end.setHours(23);
+    end.setMinutes(59);
+
+    alertsPromise = $preloading ? null : fetchAlerts(start, end);
+  }
+
+  async function fetchAlert(id) /*: Promise<TAlertFull> */ {
+    let response = await fetch(`/api/alert/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const { alert, message } = await response.json();
+    if (response.status !== 200) {
+      throw new Error(message || `Error getting alert with ID ${id}`);
+    }
+    return alert;
+  }
+
+  async function fetchAlerts(start, end) /*: Promise<TAlertFull[]> */ {
+    let response = await fetch(`/api/alert/search`, {
+      method: "POST",
+      body: JSON.stringify({
+        includeCancelled: true,
+        includeUnapproved: true,
+        start,
+        end,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const { alerts, message } = await response.json();
+    if (response.status !== 200) {
+      throw new Error(message || "Error getting alerts");
+    }
+    return alerts;
+  }
+
+  function handleAlertClick(alertId) {
+    if (alertId === id) return;
+    cancelError = "";
+    id = alertId;
+    history && history.pushState(`Upswyng: Alert`, {}, `/alert/${alertId}`);
+  }
+
+  async function cancelAlert(
+    alert
+  ) /* Promise<TAlertFull> the updated alert post-cancel*/ {
+    if (alert.isCancelled) {
+      throw new Error("Attempted to cancel alert that was already cancelled");
+    }
+    const response = await fetch(`/api/alert`, {
+      method: "POST",
+      body: JSON.stringify({
+        ...alert,
+        isCancelled: true,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const { alert: updatedAlert, message } = await response.json();
+    if (response.status !== 200) {
+      throw new Error(message || "Error getting alerts");
+    }
+    return updatedAlert;
+  }
+</script>
+
+<svelte:head>
+  <title>Upswyng: Alerts</title>
+</svelte:head>
+
+<section class="section">
+  <div class="container">
+    <h1 class="title">
+      Alerts
+      <span class="tag is-dark">Admin</span>
+    </h1>
+
+    {#each flashMessages as flashMessage}
+      <div
+        class="notification"
+        class:is-success={flashMessage.type === 'success'}
+        class:is-danger={flashMessage.type === 'error'}>
+        {flashMessage.message}
+      </div>
+    {/each}
+
+    <div class="content">
+      <a href="/alert/create" class="button is-large">
+        <span class="icon is-large">
+          <i class="fas fa-plus" />
+        </span>
+        <span>Schedule an Alert</span>
+      </a>
+    </div>
+
+    {#if mounted && !$preloading}
+      <AlertTimeline
+        {alertsPromise}
+        bind:startDay
+        bind:endDay
+        selectedAlertId={id}
+        {errorMessage}
+        on:click={({ detail: { id } }) => handleAlertClick(id)} />
+    {/if}
+    {#if selectedAlertPromise}
+      {#await selectedAlertPromise}
+        <progress class="progress is-small is-primary" max="100" />
+      {:then selectedAlert}
+        <Alert
+          alert={selectedAlert}
+          {isProcessingCancel}
+          {cancelError}
+          on:cancelAlert={async ({ detail: { alert } }) => {
+            isProcessingCancel = true;
+            cancelError = '';
+            try {
+              const updatedAlert = await cancelAlert(alert);
+              const alerts = await alertsPromise;
+              alertsPromise = Promise.resolve(alerts.map(a => {
+                  if (a._id === updatedAlert._id) {
+                    return updatedAlert;
+                  }
+                  return a;
+                }));
+              const selectedAlert = await selectedAlertPromise;
+              if (selectedAlert._id === updatedAlert._id) {
+                selectedAlertPromise = Promise.resolve(updatedAlert);
+              }
+            } catch (e) {
+              cancelError = e.message;
+            } finally {
+              isProcessingCancel = false;
+            }
+          }} />
+      {:catch error}
+        <div class="notification is-danger">{error.message}</div>
+      {/await}
+    {/if}
+  </div>
+</section>

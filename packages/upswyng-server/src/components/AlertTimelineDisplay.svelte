@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, createEventDispatcher } from "svelte";
   import alertsToChartEntries from "../utility/alertsToChartEntries.ts";
   import roundRect from "../utility/roundRect.ts";
 
@@ -10,11 +10,27 @@
   const yPixelHeightPerRow = 12; // not actually working out to a pixel height, but bigger is more
 
   export let alerts = []; // TAlertFull[]
+  export let selectedAlertId = null; // string? (bson ObjectId)
 
+  let chart; // chart.js chart instance; assigned during `onMount`
   let entries = [];
   let minY;
   let maxY;
-  $: entries = alertsToChartEntries(alerts, barHeight, /* spacing = */ 0.5);
+  $: {
+    entries = alertsToChartEntries(
+      alerts,
+      selectedAlertId,
+      barHeight,
+      /* spacing = */ 0.5
+    );
+    console.log("should update", chart);
+    console.log(entries);
+    if (chart && entries) {
+      chart.data.datasets[0].data = entries;
+      chart.update();
+    }
+  }
+
   $: [minY, maxY] = entries.length
     ? entries.reduce(
         (result, alert) => {
@@ -48,6 +64,8 @@
       timeSpan = 0;
     }
   }
+
+  let clickDispatcher = createEventDispatcher();
 
   let canvas;
 
@@ -338,7 +356,7 @@
 
     const context = canvas.getContext("2d");
 
-    const chart = new Chart(context, {
+    chart = new Chart(context, {
       type: "gantt",
       plugins: [
         {
@@ -384,8 +402,20 @@
         ],
       },
       options: {
-        onClick: function(e /* MouseEvent */, elements /* ChartElement[] */) {
-          console.log(e, elements);
+        layout: {
+          padding: {
+            left: 12,
+            right: 12,
+            top: 12,
+            bottom: 12,
+          },
+        },
+        onClick: function(_e /* MouseEvent */, elements /* ChartElement[] */) {
+          const { _datasetIndex: datasetIndex, _index: index } = elements[0];
+          const alert =
+            elements[0]._chart.config.data.datasets[datasetIndex].data[index]
+              .alert;
+          clickDispatcher("click", { id: alert._id });
         },
         tooltips: {
           custom: function(tooltip) {
@@ -434,8 +464,8 @@
               id: "x-axis",
               time: {
                 displayFormats: {
-                  hour: "ddd hA",
-                  minute: "ddd h:mm a",
+                  hour: "ddd D, hA",
+                  minute: "ddd D, h:mm a",
                 },
               },
             },
