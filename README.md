@@ -114,7 +114,7 @@ Then, create a new branch off the current `master`.
 
 All feature branch names should briefly describe what the branch addresses using [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles).
 
-For example, if you wanted to create a branch that update the way a service was displayed which is described in issue 36, you could name the branch **`update-service-display`**.
+For example, if you wanted to create a branch that update the way a service was displayed, you could name the branch **`update-service-display`**.
 
 ### 3. Create a Pull Request (PR)
 
