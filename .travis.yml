@@ -7,6 +7,7 @@ cache:
 node_js:
   - "12"
 script:
+  - yarn policies set-version 1.22.1
   - yarn install
   - mv packages/upswyng-native/config.example.ts packages/upswyng-native/config.ts
   - yarn run build-local-packages
