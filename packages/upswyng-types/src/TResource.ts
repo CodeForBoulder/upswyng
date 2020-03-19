@@ -48,6 +48,7 @@ export interface TResource {
   resourceId: string; // the canonical upswyng id for the resource; this is probably the one you want
   schedule: TResourceScheduleData; // sent over the wire as a string; call `ResourceSchedule.parse(<TResourceScheduleJson>)` to get the `ResourceSchedule` instance
   services: string[]; // maps from servicetype
+  streetViewImage: string | null;
   subcategories: TSubcategory[];
   website: string;
 }
