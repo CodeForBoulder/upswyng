@@ -22,6 +22,7 @@ export default function diffResources(
     "phone",
     "schedule",
     "services",
+    "streetViewImage",
     "subcategories",
     "website",
   ];
