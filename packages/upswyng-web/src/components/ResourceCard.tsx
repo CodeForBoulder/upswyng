@@ -1,5 +1,6 @@
 import { colors, font } from "../App.styles";
 
+import Image from "material-ui-image";
 import { Link } from "react-router-dom";
 import React from "react";
 import styled from "styled-components";
@@ -8,6 +9,7 @@ interface Props {
   index?: number;
   placeholder?: React.ReactElement;
   resourceId: string;
+  resourceImage: string | null;
   resourceName: string;
   scheduleText?: string;
 }
@@ -36,12 +38,6 @@ const ResourceCardContainer = styled(Link)`
 const ResourceCardImageContainer = styled.div`
   position: relative;
   flex: 1 1 auto;
-  &::before {
-    content: "";
-    display: block;
-    padding-bottom: ${(96 / 146) * 100}%;
-    width: 100%;
-  }
 `;
 
 interface ResourceCardImagePlaceholderContainerProps {
@@ -51,19 +47,20 @@ interface ResourceCardImagePlaceholderContainerProps {
 const ResourceCardImagePlaceholderContainer = styled.div`
   background: ${(props: ResourceCardImagePlaceholderContainerProps) =>
     props.backgroundColor};
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
+  position: relative;
+
+  &::before {
+    content: "";
+    display: block;
+    padding-bottom: ${(250 / 457) * 100}%;
+    width: 100%;
+  }
   && > * {
     height: 80%;
-    left: 50%;
+    left: 10%;
     position: absolute;
-    margin-left: -40%;
-    margin-top: -25%;
     opacity: 0.5;
-    top: 50%;
+    top: 10%;
     width: 80%;
   }
 `;
@@ -121,6 +118,7 @@ const ResourceCard = ({
   resourceId,
   resourceName,
   scheduleText,
+  resourceImage,
 }: Props) => {
   const cardColor =
     typeof index === "number" && !(index % 2) ? cardColors[0] : cardColors[1];
@@ -132,14 +130,19 @@ const ResourceCard = ({
       }}
     >
       <ResourceCardImageContainer>
-        <ResourceCardImagePlaceholderContainer
-          backgroundColor={cardColor.placeholderBackgroundColor}
-        >
-          {placeholder &&
-            React.cloneElement(placeholder, {
-              color: cardColor.iconColor,
-            })}
-        </ResourceCardImagePlaceholderContainer>
+        {resourceImage && (
+          <Image aspectRatio={457 / 250} src={resourceImage} alt="a" />
+        )}
+        {!resourceImage && (
+          <ResourceCardImagePlaceholderContainer
+            backgroundColor={cardColor.placeholderBackgroundColor}
+          >
+            {placeholder &&
+              React.cloneElement(placeholder, {
+                color: cardColor.iconColor,
+              })}
+          </ResourceCardImagePlaceholderContainer>
+        )}
         <ResourceCardResourceName>{resourceName}</ResourceCardResourceName>
       </ResourceCardImageContainer>
       {scheduleText && (
