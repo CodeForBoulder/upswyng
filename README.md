@@ -21,7 +21,7 @@ For example, to start the web package development server run:
 
 ```console
 yarn workspace @upswyng/upswyng-web start
-``` 
+```
 
 To run the same command in _all_ workspaces, use `yarn workspaces`. For instance, to run `test` in all packages use:
 
@@ -31,9 +31,11 @@ yarn workspaces test
 
 > Typing out the full workspace name can get tedious. You can place aliases in your `.bashrc`
 > or `.profile` to save time:
+>
 > ```console
 > alias @uw="yarn workspace @upswyng/upswyng-web "
 > ```
+>
 > Now you only need `@uw start` to start the web dev server.
 
 ## Getting Started
@@ -92,6 +94,8 @@ yarn build-local-packages
 
 ## Contributing
 
+Before contributing, please review and abide by [Code for Boulder's Code of Conduct](http://www.codeforboulder.org/code-of-conduct).
+
 ### 1. Find an Issue Pending Development, Needing Help, or Asking a Question
 
 Want to develop? All issues that have been approved for development, but have not been started will be labelled as **Status: Pending**.
@@ -108,18 +112,9 @@ Then, create a new branch off the current `master`.
 
 #### Branch Naming
 
-All feature branch names will begin with a group-token, be proceed by a short name describing what the branch addresses, and finally end with the issue this branch addresses.
+All feature branch names should briefly describe what the branch addresses using [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles).
 
-**`grouptoken/short-name-#issuenumber`**
-
-Below are approved group-tokens:
-
-- **`add/`** : identifies a branch that _adds_ a feature
-- **`updt/`** : identifies a branch that _updates_ a feature. This is useful for features whose original feature branches were deleted, or have already been merged with the master branch.
-- **`rmv/`** : identifies a branch that _removes_ a feature.
-- **`exp/`** : identifies a branch that _experiments_ with creating a new feature without plans of implementation.
-
-For example, if you wanted to create a branch that update the way a service was displayed which is described in issue 36, you could name the branch **`updt/service-display-#36`**.
+For example, if you wanted to create a branch that update the way a service was displayed, you could name the branch **`update-service-display`**.
 
 ### 3. Create a Pull Request (PR)
 

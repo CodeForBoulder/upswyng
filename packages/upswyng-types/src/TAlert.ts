@@ -6,6 +6,7 @@ import { TUser } from "./TUser";
  */
 export interface TAlert {
   _id: string;
+  category: string | null;
   color: string; // Hex string, eg #FF11BB
   detail: string | null;
   end: Date;
