@@ -74,6 +74,10 @@
       </li>
     {/each}
   </ul>
+  {#if resource.streetViewImage}
+    <h2>Street View Image</h2>
+    <img src={resource.streetViewImage} alt="street view" />
+  {/if}
   <h2>Website</h2>
   <p>{resource.website}</p>
 </div>
