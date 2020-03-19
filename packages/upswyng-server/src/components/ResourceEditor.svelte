@@ -65,6 +65,10 @@
       validators: ["required"],
     },
     services: { value: resource.services || [], validators: [] },
+    streetViewImage: {
+      value: resource.streetViewImage || "",
+      validators: ["url"],
+    },
     website: { value: resource.website || "", validators: ["url"] },
   }));
 </script>
@@ -352,6 +356,29 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="field">
+      <label class="label" for="streetViewImage">Street View Image URL</label>
+      <div class="control has-icons-left has-icons-right">
+        <input
+          class="input"
+          class:is-danger={$resourceForm.streetViewImage.errors.length}
+          type="text"
+          placeholder="Street View Image URL"
+          bind:value={resource.streetViewImage} />
+        <span class="icon is-small is-left">
+          <i class="fas fa-wifi" />
+        </span>
+        {#if $resourceForm.streetViewImage.errors.length}
+          <span class="icon is-small is-right">
+            <i class="fas fa-exclamation-triangle" />
+          </span>
+        {/if}
+      </div>
+      {#if $resourceForm.streetViewImage.errors.includes('url')}
+        <p class="help is-danger">Please enter a valid image URL.</p>
+      {/if}
     </div>
 
     <div class="field">
