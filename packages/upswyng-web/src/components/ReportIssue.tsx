@@ -78,7 +78,8 @@ const ReportIssue = () => {
     return JSON.stringify(selected);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     // checking for empty stringified array
     if (selectedIssues().length < 4 && !comments) {
       setError(
@@ -142,39 +143,44 @@ const ReportIssue = () => {
         </>
       ) : (
         <>
-          <FormGroup className={classes.marginTop}>
-            {Object.keys(issues).map((issue: string) => {
-              const { text, checked } = issues[issue];
-              return (
-                <FormControlLabel
-                  control={
-                    <Checkbox checked={checked} onChange={handleCheck(issue)} />
-                  }
-                  label={text}
-                  key={text}
-                />
-              );
-            })}
-          </FormGroup>
-          <TextField
-            multiline
-            fullWidth
-            className={classes.marginTop}
-            label="Comments"
-            variant="outlined"
-            value={comments}
-            onChange={e => setComments(e.target.value)}
-          />
-          <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            onClick={handleSubmit}
-            className={classes.marginTop}
-            size="medium"
-          >
-            Send
-          </Button>
+          <form onSubmit={e => handleSubmit(e)}>
+            <FormGroup className={classes.marginTop}>
+              {Object.keys(issues).map((issue: string) => {
+                const { text, checked } = issues[issue];
+                return (
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={checked}
+                        onChange={handleCheck(issue)}
+                      />
+                    }
+                    label={text}
+                    key={text}
+                  />
+                );
+              })}
+            </FormGroup>
+            <TextField
+              multiline
+              fullWidth
+              className={classes.marginTop}
+              label="Comments"
+              variant="outlined"
+              value={comments}
+              onChange={e => setComments(e.target.value)}
+            />
+            <Button
+              fullWidth
+              type="submit"
+              variant="contained"
+              color="primary"
+              className={classes.marginTop}
+              size="medium"
+            >
+              Send
+            </Button>
+          </form>
           <Typography hidden={!submissionError} color="primary">
             {submissionError}
           </Typography>
