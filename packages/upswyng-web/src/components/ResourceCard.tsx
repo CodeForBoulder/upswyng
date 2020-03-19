@@ -131,7 +131,12 @@ const ResourceCard = ({
     >
       <ResourceCardImageContainer>
         {resourceImage && (
-          <Image aspectRatio={457 / 250} src={resourceImage} alt="a" />
+          <Image
+            aspectRatio={457 / 250}
+            color={cardColor.placeholderBackgroundColor}
+            src={resourceImage}
+            alt=""
+          />
         )}
         {!resourceImage && (
           <ResourceCardImagePlaceholderContainer
