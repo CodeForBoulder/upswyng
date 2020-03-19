@@ -39,7 +39,6 @@
   const now = new Date();
   let startDay = formatDateToDay(new Date(now.getTime() - 2 * MS_IN_DAY)); // string | null; MM/DD/YYYY
   let endDay = formatDateToDay(new Date(now.getTime() + 5 * MS_IN_DAY));
-  let errorMessage = "";
   let start; // Date
   let end; // Date
 
@@ -48,20 +47,22 @@
 
   onMount(() => (mounted = true));
 
-  let alertsPromise; // promise which resolves to TAlertFull[] containing the alerts for the selected time frame
+  let alerts = null; // TAlertFull[] | null, the alerts for the selected time frame
+  let isLoadingAlerts = false;
+  let loadingAlertsError = "";
   let selectedAlertPromise; // promise which resolves to the selected alert (TAlertFull)
 
   $: {
-    if (id && alertsPromise) {
-      alertsPromise.then(alerts => {
-        // pull the alert with the selected ID out of our list of alerts
-        const filteredAlerts = alerts.filter(a => a._id === id);
-        if (filteredAlerts.length) {
-          selectedAlertPromise = Promise.resolve(filteredAlerts[0]);
-        } else {
-          selectedAlertPromise = fetchAlert(id);
-        }
-      });
+    if (id && alerts) {
+      // pull the alert with the selected ID out of our list of alerts
+      const filteredAlerts = alerts.filter(a => a._id === id);
+      if (filteredAlerts.length) {
+        selectedAlertPromise = Promise.resolve(filteredAlerts[0]);
+      } else {
+        selectedAlertPromise = fetchAlert(id);
+      }
+    } else if (id) {
+      selectedAlertPromise = fetchAlert(id);
     }
   }
 
@@ -74,7 +75,10 @@
     end.setHours(23);
     end.setMinutes(59);
 
-    alertsPromise = $preloading ? null : fetchAlerts(start, end);
+    !$preloading &&
+      fetchAlerts(start, end)
+        .then(a => (alerts = a))
+        .catch(e => (loadingAlertsError = e.message));
   }
 
   async function fetchAlert(id) /*: Promise<TAlertFull> */ {
@@ -170,13 +174,13 @@
       </a>
     </div>
 
-    {#if mounted && !$preloading}
+    {#if mounted && !$preloading && Array.isArray(alerts)}
       <AlertTimeline
-        {alertsPromise}
+        {alerts}
         bind:startDay
         bind:endDay
         selectedAlertId={id}
-        {errorMessage}
+        bind:errorMessage={loadingAlertsError}
         on:click={({ detail: { id } }) => handleAlertClick(id)} />
     {/if}
     {#if selectedAlertPromise}
@@ -192,13 +196,12 @@
             cancelError = '';
             try {
               const updatedAlert = await cancelAlert(alert);
-              const alerts = await alertsPromise;
-              alertsPromise = Promise.resolve(alerts.map(a => {
-                  if (a._id === updatedAlert._id) {
-                    return updatedAlert;
-                  }
-                  return a;
-                }));
+              alerts = alerts.map(a => {
+                if (a._id === updatedAlert._id) {
+                  return updatedAlert;
+                }
+                return a;
+              });
               const selectedAlert = await selectedAlertPromise;
               if (selectedAlert._id === updatedAlert._id) {
                 selectedAlertPromise = Promise.resolve(updatedAlert);

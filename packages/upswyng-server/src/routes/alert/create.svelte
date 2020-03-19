@@ -200,8 +200,8 @@
       },
     })
       .then(async res => {
+        const { alert, message } = await res.json();
         if (res.status >= 400) {
-          const { message } = await res.json();
           if (message) {
             errorMessage = message;
           } else {
@@ -214,7 +214,7 @@
           "success",
           `Alert "${alertTitle}" was successful created`
         );
-        goto("/alert");
+        goto(`/alert/${alert._id}`);
       })
       .catch(e => (errorMessage = e))
       .finally(() => {

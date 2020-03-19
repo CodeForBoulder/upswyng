@@ -7,10 +7,12 @@
   let h; // canvas height
 
   const barHeight = 1;
-  const yPixelHeightPerRow = 12; // not actually working out to a pixel height, but bigger is more
+  const yPixelHeightPerRow = 20; // not actually working out to a pixel height, but bigger is more
 
   export let alerts = []; // TAlertFull[]
   export let selectedAlertId = null; // string? (bson ObjectId)
+  export let minDate = new Date();
+  export let maxDate = new Date();
 
   let chart; // chart.js chart instance; assigned during `onMount`
   let entries = [];
@@ -23,10 +25,16 @@
       barHeight,
       /* spacing = */ 0.5
     );
-    console.log("should update", chart);
-    console.log(entries);
     if (chart && entries) {
       chart.data.datasets[0].data = entries;
+      chart.update();
+    }
+  }
+
+  $: {
+    if (chart) {
+      chart.options.scales.xAxes[0].ticks.min = minDate.getTime();
+      chart.options.scales.xAxes[0].ticks.max = maxDate.getTime();
       chart.update();
     }
   }
@@ -43,27 +51,27 @@
     : [0, 0];
   let pixelHeight = 0;
   $: pixelHeight =
-    (maxY - minY) * (yPixelHeightPerRow / 2) + 32 /* for axis labels */;
+    (maxY - minY) * yPixelHeightPerRow + 20 /* for axis labels */;
   $: h = pixelHeight;
 
-  let timeSpan = 0; // ms
-  $: {
-    if (entries.length) {
-      let entriesStart = new Date("2100-01-01");
-      let entriesEnd = new Date("1900-01-01");
-      entries.forEach(entry => {
-        if (entry.x.from < entriesStart) {
-          entriesStart = entry.x.from;
-        }
-        if (entry.x.to > entriesEnd) {
-          entriesEnd = entry.x.to;
-        }
-      });
-      timeSpan = entriesEnd.getTime() - entriesStart.getTime();
-    } else {
-      timeSpan = 0;
-    }
-  }
+  // let timeSpan = 0; // ms
+  // $: {
+  //   if (entries.length) {
+  //     let entriesStart = new Date("2100-01-01");
+  //     let entriesEnd = new Date("1900-01-01");
+  //     entries.forEach(entry => {
+  //       if (entry.x.from < entriesStart) {
+  //         entriesStart = entry.x.from;
+  //       }
+  //       if (entry.x.to > entriesEnd) {
+  //         entriesEnd = entry.x.to;
+  //       }
+  //     });
+  //     timeSpan = entriesEnd.getTime() - entriesStart.getTime();
+  //   } else {
+  //     timeSpan = 0;
+  //   }
+  // }
 
   let clickDispatcher = createEventDispatcher();
 
@@ -203,11 +211,24 @@
         const vm = this._view;
         const ctx = this._chart.ctx;
 
-        ctx.save();
+        const alert = this._chart.config.data.datasets[this._datasetIndex].data[
+          this._index
+        ].alert;
 
+        ctx.save();
         ctx.lineWidth = vm.borderWidth;
         ctx.strokeStyle = vm.borderColor;
         ctx.fillStyle = vm.backgroundColor;
+
+        let hatchColor = null;
+
+        if (!alert.isApproved) {
+          hatchColor = "#F3BD20DD";
+        }
+
+        if (alert.isCancelled) {
+          hatchColor = "#DD0000DD";
+        }
 
         const rect = vm.rect;
         roundRect(
@@ -218,7 +239,8 @@
           rect.y.size,
           "full",
           true,
-          true
+          true,
+          hatchColor
         );
 
         ctx.restore();
@@ -355,7 +377,6 @@
     //////////////////////////////
 
     const context = canvas.getContext("2d");
-
     chart = new Chart(context, {
       type: "gantt",
       plugins: [
@@ -363,23 +384,16 @@
           id: "nowMarkerAnnotation",
           afterDraw: chart => {
             const ctx = chart.ctx;
-            const now = new Date();
-
+            const now = new Date().getTime();
             const xAxis = chart.scales["x-axis"];
             const yAxis = chart.scales["y-axis"];
-
             const isNowInView = now >= xAxis.min && now <= xAxis.max;
-
             if (!isNowInView || !yAxis || !xAxis) {
               return;
             }
-
             const x =
               xAxis.left +
-              xAxis.width *
-                ((now - xAxis.min.getTime()) /
-                  (xAxis.max.getTime() - xAxis.min.getTime()));
-
+              xAxis.width * ((now - xAxis.min) / (xAxis.max - xAxis.min));
             ctx.save();
             ctx.beginPath();
             ctx.moveTo(x, yAxis.top);
@@ -394,23 +408,23 @@
       data: {
         datasets: [
           {
-            label: "Time gantt",
+            label: "Alerts",
             data: entries,
             height: barHeight,
-            width: timeSpan,
           },
         ],
       },
       options: {
         layout: {
           padding: {
-            left: 12,
-            right: 12,
-            top: 12,
-            bottom: 12,
+            left: 0.25,
+            right: 0.25,
+            top: 0.25,
+            bottom: 0.25,
           },
         },
         onClick: function(_e /* MouseEvent */, elements /* ChartElement[] */) {
+          if (!elements.length) return;
           const { _datasetIndex: datasetIndex, _index: index } = elements[0];
           const alert =
             elements[0]._chart.config.data.datasets[datasetIndex].data[index]
@@ -459,8 +473,12 @@
             {
               type: "time-gantt",
               position: "bottom",
-              bounds: "data",
-              ticks: { source: "auto" },
+              bounds: "ticks",
+              ticks: {
+                min: minDate.getTime(),
+                max: maxDate.getTime(),
+                source: "auto",
+              },
               id: "x-axis",
               time: {
                 displayFormats: {
