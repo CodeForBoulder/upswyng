@@ -2,6 +2,7 @@ import { Container, colors } from "../App.styles";
 import { TCategoryDefinition, categories } from "./Categories";
 
 import BannerColorContext from "./BannerColorContext";
+import Button from "@material-ui/core/Button/Button";
 import Link from "@material-ui/core/Link";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -14,6 +15,8 @@ import PageBanner from "./PageBanner";
 import PhoneIcon from "@material-ui/icons/Phone";
 import PublicIcon from "@material-ui/icons/Public";
 import React from "react";
+import ReportProblemIcon from "@material-ui/icons/ReportProblem";
+import { Link as RouterLink } from "react-router-dom";
 import Schedule from "./Schedule";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import Services from "./Services";
@@ -169,6 +172,14 @@ export const Resource = () => {
           longitude={resource.longitude}
         />
       )}
+      <Button
+        size="small"
+        component={RouterLink}
+        startIcon={<ReportProblemIcon color="secondary" />}
+        to={`/report-issue/${resourceId}`}
+      >
+        Report a Problem
+      </Button>
     </Container>
   );
 };
