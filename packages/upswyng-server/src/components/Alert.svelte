@@ -1,6 +1,9 @@
 <script>
-  import moment from "moment";
   import { onDestroy, createEventDispatcher } from "svelte";
+  import CopyToClipboard from "./CopyToClipboard.svelte";
+  import insane from "insane"; // html sanitizer
+  import marked from "marked";
+  import moment from "moment";
 
   export let alert; // TAlertFull
   export let isProcessingCancel = false;
@@ -19,6 +22,19 @@
   $: nowMoment = moment(now);
 
   let isConfirmingCancel = false;
+
+  let alertDetailHtml = null;
+
+  $: alertDetailHtml =
+    alert.detail &&
+    alert.detail.length &&
+    insane(marked(alert.detail), {
+      ...insane.defaults,
+      allowedAttributes: {
+        ...insane.defaults.allowedAttributes,
+        iframe: [],
+      },
+    });
 
   $: {
     if (typeof alert.start === "string") {
@@ -56,6 +72,14 @@
   .icon-bullet {
     border-radius: 50%;
   }
+
+  .detail {
+    flex-grow: 1;
+  }
+
+  .detail-label {
+    margin-right: 0.5em;
+  }
 </style>
 
 <div class="content">
@@ -69,7 +93,16 @@
         </span>
       </div>
       <div class="level-item">
-        <h2 class="subtitle">{alert.title}</h2>
+        <div>
+          <h2 class="subtitle">{alert.title}</h2>
+          {#if alert.category}
+            <h3
+              class="category is-marginless is-size-6 has-text-grey
+              has-text-weight-bold">
+              {alert.category}
+            </h3>
+          {/if}
+        </div>
       </div>
     </div>
     <div class="level-right" />
@@ -137,13 +170,74 @@
     </div>
   </div>
 </div>
-<div class="content columns">
-  <p class="column">
-    <span class="label">From:</span>
-    {startMoment.format(TIME_FORMAT)}
+<div class="content">
+  <p>
+    <span
+      class="alert-label is-size-7 is-uppercase has-text-weight-bold
+      has-color-grey-dark">
+      ID
+    </span>
+    <span class="is-family-monospace">{alert._id}</span>
+    <CopyToClipboard textToCopy={alert._id} />
   </p>
-  <p class="column">
-    <span class="label">To:</span>
-    {endMoment.format(TIME_FORMAT)}
+  <p>
+    <span
+      class="alert-label is-size-7 is-uppercase has-text-weight-bold
+      has-color-grey-dark">
+      From
+    </span>
+    <span>{startMoment.format(TIME_FORMAT)}</span>
   </p>
+  <p>
+    <span
+      class="alert-label is-size-7 is-uppercase has-text-weight-bold
+      has-color-grey-dark">
+      To
+    </span>
+    <span>{endMoment.format(TIME_FORMAT)}</span>
+  </p>
+  <p>
+    <span
+      class="alert-label is-size-7 is-uppercase has-text-weight-bold
+      has-color-grey-dark">
+      Created
+    </span>
+    <span>
+      {alert.createdBy.email} - {moment(alert.createdAt).format(TIME_FORMAT)}
+    </span>
+  </p>
+  <p>
+    <span
+      class="alert-label is-size-7 is-uppercase has-text-weight-bold
+      has-color-grey-dark">
+      Last Modified
+    </span>
+    <span>
+      {alert.lastModifiedBy.email} - {moment(alert.lastModifiedAt).format(TIME_FORMAT)}
+    </span>
+  </p>
+
+  {#if alertDetailHtml}
+    <div class="is-flex">
+      <div class="detail-label">
+        <span
+          class="alert-label is-size-7 is-uppercase has-text-weight-bold
+          has-color-grey-dark">
+          Detail &nbsp;
+        </span>
+      </div>
+      <div class="box detail">
+        {@html alertDetailHtml}
+      </div>
+    </div>
+  {:else}
+    <p>
+      <span
+        class="alert-label is-size-7 is-uppercase has-text-weight-bold
+        has-color-grey-dark">
+        Detail
+      </span>
+      <span class="is-italic">No alert detail was provided</span>
+    </p>
+  {/if}
 </div>
