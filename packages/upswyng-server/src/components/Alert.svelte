@@ -6,8 +6,17 @@
   import moment from "moment";
 
   export let alert; // TAlertFull
+
   export let isProcessingCancel = false;
   export let cancelError = "";
+  let isConfirmingCancel = false;
+  let confirmingCancelTimeoutHandle;
+
+  export let isProcessingApprove = false;
+  export let approveError = "";
+  let isConfirmingApprove = false;
+  let confirmingApproveTimeoutHandle;
+
   export let now = new Date();
 
   const TIME_FORMAT = "dddd, MMMM Do YYYY, h:mm:ss A"; // "Sunday, February 14th 2010, 3:25:50 PM"
@@ -20,8 +29,6 @@
   $: startMoment = moment(alert.start);
   $: endMoment = moment(alert.end);
   $: nowMoment = moment(now);
-
-  let isConfirmingCancel = false;
 
   let alertDetailHtml = null;
 
@@ -45,25 +52,40 @@
     }
   }
 
-  let cancelTimeoutHandle;
+  function handleApproveClick() {
+    isConfirmingApprove = true;
+    confirmingApproveTimeoutHandle = setTimeout(() => {
+      isConfirmingApprove = false;
+    }, 8000);
+  }
+
+  function handleApproveConfirmClick() {
+    if (confirmingApproveTimeoutHandle) {
+      clearTimeout(confirmingApproveTimeoutHandle);
+    }
+    dispatch("approveAlert", { alert });
+  }
 
   function handleCancelClick() {
     isConfirmingCancel = true;
-    cancelTimeoutHandle = setTimeout(() => {
+    confirmingCancelTimeoutHandle = setTimeout(() => {
       isConfirmingCancel = false;
     }, 8000);
   }
 
   function handleCancelConfirmClick() {
-    if (cancelTimeoutHandle) {
-      clearTimeout(cancelTimeoutHandle);
+    if (confirmingCancelTimeoutHandle) {
+      clearTimeout(confirmingCancelTimeoutHandle);
     }
     dispatch("cancelAlert", { alert });
   }
 
   onDestroy(() => {
-    if (cancelTimeoutHandle) {
-      clearTimeout(cancelTimeoutHandle);
+    if (confirmingCancelTimeoutHandle) {
+      clearTimeout(confirmingCancelTimeoutHandle);
+    }
+    if (confirmingApproveTimeoutHandle) {
+      clearTimeout(confirmingApproveTimeoutHandle);
     }
   });
 </script>
@@ -97,7 +119,7 @@
           <h2 class="subtitle">{alert.title}</h2>
           {#if alert.category}
             <h3
-              class="category is-marginless is-size-6 has-text-grey
+              class="category is-marginless is-size-6 has-text-grey-light
               has-text-weight-bold">
               {alert.category}
             </h3>
@@ -109,6 +131,9 @@
   </div>
   {#if cancelError}
     <div class="notification is-danger">{cancelError}</div>
+  {/if}
+  {#if approveError}
+    <div class="notification is-danger">{approveError}</div>
   {/if}
   <div class="level">
     <div class="level-left">
@@ -143,6 +168,31 @@
       </div>
     </div>
     <div class="level-right">
+      <div class="level-item">
+        {#if !alert.isApproved && !alert.isCancelled && alert.end > now}
+          {#if !isConfirmingApprove}
+            <button
+              class="button is-success is-outlined"
+              on:click|preventDefault={handleApproveClick}>
+              <span class="icon is-small">
+                <i class="fas fa-check" />
+              </span>
+              <span>Approve Alert</span>
+            </button>
+          {:else}
+            <button
+              class="button is-success"
+              class:is-loading={isProcessingApprove}
+              on:click|preventDefault={handleApproveConfirmClick}>
+              <span class="icon">
+                <i class="fas fa-check" />
+              </span>
+              <span>Confirm Approve</span>
+            </button>
+          {/if}
+        {/if}
+      </div>
+
       <div class="level-item">
         {#if !alert.isCancelled && alert.end > now}
           {#if !isConfirmingCancel}

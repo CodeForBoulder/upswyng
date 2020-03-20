@@ -45,6 +45,9 @@
   let isProcessingCancel = false;
   let cancelError = "";
 
+  let isProcessingApprove = false;
+  let approveError = "";
+
   onMount(() => (mounted = true));
 
   let alerts = null; // TAlertFull[] | null, the alerts for the selected time frame
@@ -121,6 +124,29 @@
     history && history.pushState(`Upswyng: Alert`, {}, `/alert/${alertId}`);
   }
 
+  async function approveAlert(
+    alert
+  ) /* Promise<TAlertFull> the updated alert post-approve*/ {
+    if (alert.isApproveled) {
+      throw new Error("Attempted to approve alert that was already approved");
+    }
+    const response = await fetch(`/api/alert`, {
+      method: "POST",
+      body: JSON.stringify({
+        ...alert,
+        isApproved: true,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const { alert: updatedAlert, message } = await response.json();
+    if (response.status !== 200) {
+      throw new Error(message || "Error approving alert");
+    }
+    return updatedAlert;
+  }
+
   async function cancelAlert(
     alert
   ) /* Promise<TAlertFull> the updated alert post-cancel*/ {
@@ -139,7 +165,7 @@
     });
     const { alert: updatedAlert, message } = await response.json();
     if (response.status !== 200) {
-      throw new Error(message || "Error getting alerts");
+      throw new Error(message || "Error cancelling alert");
     }
     return updatedAlert;
   }
@@ -191,6 +217,29 @@
           alert={selectedAlert}
           {isProcessingCancel}
           {cancelError}
+          {isProcessingApprove}
+          {approveError}
+          on:approveAlert={async ({ detail: { alert } }) => {
+            isProcessingApprove = true;
+            approveError = '';
+            try {
+              const updatedAlert = await approveAlert(alert);
+              alerts = alerts.map(a => {
+                if (a._id === updatedAlert._id) {
+                  return updatedAlert;
+                }
+                return a;
+              });
+              const selectedAlert = await selectedAlertPromise;
+              if (selectedAlert._id === updatedAlert._id) {
+                selectedAlertPromise = Promise.resolve(updatedAlert);
+              }
+            } catch (e) {
+              approveError = e.message;
+            } finally {
+              isProcessingApprove = false;
+            }
+          }}
           on:cancelAlert={async ({ detail: { alert } }) => {
             isProcessingCancel = true;
             cancelError = '';
