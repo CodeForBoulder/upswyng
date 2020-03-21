@@ -22,7 +22,7 @@ const SearchResultsList = styled.ul`
 `;
 
 const SearchResultsItem = styled.li`
-  align-items: stretch;
+  align-items: flex-start;
   display: flex;
   flex: 0 1 50%;
   list-style-type: none;
@@ -35,23 +35,26 @@ const ResourceList = ({ placeholder, resources }: Props) => {
   }
 
   if (resources && resources.length) {
-    const listItems = resources.map(({ name, resourceId, schedule }, index) => {
-      if (!name || !resourceId) {
-        return null;
+    const listItems = resources.map(
+      ({ name, resourceId, schedule, streetViewImage }, index) => {
+        if (!name || !resourceId) {
+          return null;
+        }
+        const scheduleText = getNextOpenText(schedule);
+        return (
+          <SearchResultsItem key={resourceId}>
+            <ResourceCard
+              index={index}
+              placeholder={placeholder}
+              resourceId={resourceId}
+              resourceImage={streetViewImage}
+              resourceName={name}
+              scheduleText={scheduleText}
+            />
+          </SearchResultsItem>
+        );
       }
-      const scheduleText = getNextOpenText(schedule);
-      return (
-        <SearchResultsItem key={resourceId}>
-          <ResourceCard
-            index={index}
-            placeholder={placeholder}
-            resourceId={resourceId}
-            resourceName={name}
-            scheduleText={scheduleText}
-          />
-        </SearchResultsItem>
-      );
-    });
+    );
     return <SearchResultsList>{listItems}</SearchResultsList>;
   }
 

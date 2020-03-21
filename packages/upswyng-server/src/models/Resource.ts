@@ -42,6 +42,7 @@ export interface TResourceDocument extends Document {
   phone: string;
   schedule: TResourceScheduleData;
   services: string[];
+  streetViewImage: string | null;
   subcategories: ObjectId[] | TSubcategoryDocument[];
   website: string;
 }
@@ -89,6 +90,7 @@ export const resourceDocumentToResource = (
     phone: r.phone,
     schedule: r.schedule,
     services: r.services,
+    streetViewImage: r.streetViewImage,
     subcategories: (r.subcategories as any)
       .map(subcategoryDocumentToSubcategory)
       .filter(Boolean) as TSubcategory[],
@@ -151,6 +153,7 @@ export const ResourceSchema = new Schema({
     index: false,
   },
   services: [{ type: String, trim: true }],
+  streetViewImage: String,
   subcategories: [
     {
       type: Schema.Types.ObjectId,
@@ -216,6 +219,7 @@ const legacyResourceToResource = (
       subcategories: [],
       schedule: schedule.toData(),
       services: r.servicetype.split(","),
+      streetViewImage: "",
       website: r.website,
     },
     issue,

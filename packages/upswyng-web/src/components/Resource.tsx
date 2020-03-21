@@ -3,6 +3,7 @@ import { TCategoryDefinition, categories } from "./Categories";
 
 import BannerColorContext from "./BannerColorContext";
 import Button from "@material-ui/core/Button/Button";
+import Image from "material-ui-image";
 import Link from "@material-ui/core/Link";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -94,6 +95,14 @@ export const Resource = () => {
         text={resource.name}
         backButtonAction={lastLocation ? history.goBack : null}
       />
+      {resource.streetViewImage && (
+        <Image
+          alt={`street view of ${resource.name}`}
+          aspectRatio={457 / 250}
+          color="none"
+          src={resource.streetViewImage}
+        />
+      )}
       <List component="div">
         {resource.address && (
           <ListItem component="div">
