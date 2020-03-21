@@ -1,9 +1,8 @@
 <script context="module">
-  export async function preload({ params, query }, { user }) {
+  export async function preload({}, { user }) {
     if (!user || !user.isAdmin) {
       this.error(401, "You must be an admin to access this page.");
     }
-    return { id: params.alert_id || null };
   }
 
   /**
@@ -33,7 +32,8 @@
   const { session, preloading, page } = stores();
   const flashMessages = readFlashMessages(session);
 
-  export let id; // string (ObjectID) or `null`
+  let id = $page.query.id || null; // string (ObjectID) or `null`
+
   const MS_IN_DAY = 1000 * 60 * 60 * 24;
   let mounted = false;
   const now = new Date();
@@ -121,7 +121,7 @@
     if (alertId === id) return;
     cancelError = "";
     id = alertId;
-    history && history.pushState(`Upswyng: Alert`, {}, `/alert/${alertId}`);
+    history && history.pushState(`Upswyng: Alert`, {}, `/alert?id=${alertId}`);
   }
 
   async function approveAlert(
@@ -222,9 +222,7 @@
         <Alert
           alert={selectedAlert}
           {isProcessingCancel}
-          {cancelError}
           {isProcessingApprove}
-          {approveError}
           on:approveAlert={async ({ detail: { alert } }) => {
             isProcessingApprove = true;
             approveError = '';
