@@ -1,4 +1,8 @@
 <script>
+  /**
+   * A small button with the icon of a clipboard. When clicked, it copies `textToCopy`
+   * to the clipboard.
+   */
   import { onDestroy, onMount } from "svelte";
 
   export let textToCopy; // string

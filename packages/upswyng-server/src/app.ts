@@ -29,7 +29,7 @@ export default function(options: TAppOptions) {
 
   const MongoStore = connectMongo(session);
 
-  const a = polka()
+  return polka()
     .use(
       compression({ threshold: 0 }),
       cors(), // TODO: Lock this down to non-admin routes
@@ -70,5 +70,4 @@ export default function(options: TAppOptions) {
       dev && console.info(`~> Received ${req.method} on ${req.url}`);
       next();
     });
-  return a;
 }

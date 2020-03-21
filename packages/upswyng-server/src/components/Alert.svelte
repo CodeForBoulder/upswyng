@@ -8,12 +8,10 @@
   export let alert; // TAlertFull
 
   export let isProcessingCancel = false;
-  export let cancelError = "";
   let isConfirmingCancel = false;
   let confirmingCancelTimeoutHandle;
 
   export let isProcessingApprove = false;
-  export let approveError = "";
   let isConfirmingApprove = false;
   let confirmingApproveTimeoutHandle;
 

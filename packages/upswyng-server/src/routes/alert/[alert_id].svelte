@@ -209,6 +209,12 @@
         bind:errorMessage={loadingAlertsError}
         on:click={({ detail: { id } }) => handleAlertClick(id)} />
     {/if}
+    {#if cancelError}
+      <div class="notification is-danger">{cancelError}</div>
+    {/if}
+    {#if approveError}
+      <div class="notification is-danger">{approveError}</div>
+    {/if}
     {#if selectedAlertPromise}
       {#await selectedAlertPromise}
         <progress class="progress is-small is-primary" max="100" />

@@ -460,7 +460,7 @@
                 max: maxDate.getTime(),
                 source: "auto",
                 maxRotation: 0,
-                maxTicksLimit: 12.1,
+                maxTicksLimit: 8.1,
               },
               id: "x-axis",
               time: {
