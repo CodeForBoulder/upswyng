@@ -15,7 +15,6 @@
     const lastTooltipText = tooltipText;
     navigator.clipboard.writeText(textToCopy).then(
       () => {
-        console.log("copied");
         tooltipText = "Copied";
         timeoutHandle = setTimeout(() => {
           alwaysShowTooltip = false;

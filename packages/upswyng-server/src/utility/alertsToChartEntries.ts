@@ -86,8 +86,8 @@ export default function alertsToCharEntries(
         a.backgroundColor = "#00000022";
       }
       if (alert._id === selectedAlertId) {
-        a.borderColor = "#000477";
-        a.borderWidth = 4;
+        a.borderColor = "#000477DD";
+        a.borderWidth = 3;
       }
       result.push(a);
     })

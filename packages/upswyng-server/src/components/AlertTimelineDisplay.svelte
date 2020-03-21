@@ -7,7 +7,7 @@
   let h; // canvas height
 
   const barHeight = 1;
-  const yPixelHeightPerRow = 20; // not actually working out to a pixel height, but bigger is more
+  const yPixelHeightPerRow = 16; // not actually working out to a pixel height, but bigger is more
 
   export let alerts = []; // TAlertFull[]
   export let selectedAlertId = null; // string? (bson ObjectId)
@@ -18,7 +18,12 @@
   let entries = [];
   let minY;
   let maxY;
+
+  let clickDispatcher = createEventDispatcher();
+  let canvas;
+
   $: {
+    // update everything when we get new alerts
     entries = alertsToChartEntries(
       alerts,
       selectedAlertId,
@@ -27,55 +32,30 @@
     );
     if (chart && entries) {
       chart.data.datasets[0].data = entries;
-      chart.update();
-    }
-  }
-
-  $: {
-    if (chart) {
       chart.options.scales.xAxes[0].ticks.min = minDate.getTime();
       chart.options.scales.xAxes[0].ticks.max = maxDate.getTime();
+
+      [minY, maxY] =
+        entries && entries.length
+          ? entries.reduce(
+              (result, alert) => {
+                const minY = Math.min(result[0], alert.y);
+                const maxY = Math.max(result[1], alert.y);
+                return [minY, maxY];
+              },
+              [Infinity, -Infinity]
+            )
+          : [0, 0];
+
+      h =
+        Math.max(maxY - minY, barHeight) * yPixelHeightPerRow +
+        32 /* for axis labels */;
+
+      const { top, bottom } = chart.controller.chartArea;
+      chart.canvas.parentNode.style.height = `${h}px`;
       chart.update();
     }
   }
-
-  $: [minY, maxY] = entries.length
-    ? entries.reduce(
-        (result, alert) => {
-          const minY = Math.min(result[0], alert.y);
-          const maxY = Math.max(result[1], alert.y);
-          return [minY, maxY];
-        },
-        [Infinity, -Infinity]
-      )
-    : [0, 0];
-  let pixelHeight = 0;
-  $: pixelHeight =
-    (maxY - minY) * yPixelHeightPerRow + 20 /* for axis labels */;
-  $: h = pixelHeight;
-
-  // let timeSpan = 0; // ms
-  // $: {
-  //   if (entries.length) {
-  //     let entriesStart = new Date("2100-01-01");
-  //     let entriesEnd = new Date("1900-01-01");
-  //     entries.forEach(entry => {
-  //       if (entry.x.from < entriesStart) {
-  //         entriesStart = entry.x.from;
-  //       }
-  //       if (entry.x.to > entriesEnd) {
-  //         entriesEnd = entry.x.to;
-  //       }
-  //     });
-  //     timeSpan = entriesEnd.getTime() - entriesStart.getTime();
-  //   } else {
-  //     timeSpan = 0;
-  //   }
-  // }
-
-  let clickDispatcher = createEventDispatcher();
-
-  let canvas;
 
   onMount(async () => {
     const { default: Chart } = await import("chart.js");
@@ -415,6 +395,7 @@
         ],
       },
       options: {
+        maintainAspectRatio: false,
         layout: {
           padding: {
             left: 0.25,
@@ -478,6 +459,8 @@
                 min: minDate.getTime(),
                 max: maxDate.getTime(),
                 source: "auto",
+                maxRotation: 0,
+                maxTicksLimit: 12.1,
               },
               id: "x-axis",
               time: {
@@ -508,9 +491,6 @@
   }
 </style>
 
-<canvas
-  bind:this={canvas}
-  bind:clientWidth={w}
-  bind:clientHeight={h}
-  width={w}
-  height={h} />
+<div bind:clientWidth={w} class="chart-container" style="position: relative">
+  <canvas bind:this={canvas} />
+</div>
