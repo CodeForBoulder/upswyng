@@ -37,7 +37,7 @@ const typography = {
   fontFamily: '"Open Sans","Helvetica","Arial",sans-serif',
   fontSize: 16,
   h1: {
-    fontSize: "1.75rem",
+    fontSize: "1.6rem",
     fontWeight: 400,
   },
   h2: {
