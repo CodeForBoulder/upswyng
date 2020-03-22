@@ -4,7 +4,7 @@ import { TResourceCategory, TResourceSubcategory } from "../webTypes";
 import React from "react";
 import SubCategoryButton from "./SubCategoryButton";
 import { font } from "../App.styles";
-import styled from "styled-components";
+import makeStyles from "@material-ui/styles/makeStyles";
 
 interface Props {
   category: TResourceCategory;
@@ -14,33 +14,35 @@ interface Props {
 
 const subCategoryHorizontalSpacing = 5;
 
-const SubCategoriesList = styled.ul`
-  display: flex;
-  flex-direction: row;
-  margin: ${font.helpers.convertPixelsToRems(10)}
-    ${font.helpers.convertPixelsToRems(-subCategoryHorizontalSpacing)} 0;
-  overflow-x: scroll;
-  padding: ${font.helpers.convertPixelsToRems(10)} 0
-    ${font.helpers.convertPixelsToRems(10)};
-  width: auto;
-`;
-
-const SubCategoryItem = styled.li`
-  flex: 0 0 auto;
-  list-style-type: none;
-  margin: 0 ${font.helpers.convertPixelsToRems(subCategoryHorizontalSpacing)};
-`;
-
-const SubCategoryLink = styled(Link)`
-  &:link,
-  &:visited,
-  &:hover,
-  &:active {
-    text-decoration: none;
-  }
-`;
+const useStyles = makeStyles({
+  list: {
+    display: "flex",
+    flexDirection: "row",
+    margin: `${font.helpers.convertPixelsToRems(
+      10
+    )} ${font.helpers.convertPixelsToRems(-subCategoryHorizontalSpacing)} 0`,
+    overflowX: "scroll",
+    padding: `${font.helpers.convertPixelsToRems(
+      10
+    )} 0 ${font.helpers.convertPixelsToRems(10)}`,
+    width: "auto",
+  },
+  listItem: {
+    flex: "0 0 auto",
+    listStyleType: "none",
+    margin: `0 ${font.helpers.convertPixelsToRems(
+      subCategoryHorizontalSpacing
+    )}`,
+  },
+  link: {
+    "&:link,&:visited,&:hover,&:active": {
+      textDecoration: "none",
+    },
+  },
+});
 
 const SubCategories = ({ category, color, subCategories }: Props) => {
+  const classes = useStyles();
   const params = useParams<{ subcategory?: string }>();
 
   const { stub: categoryStub } = category;
@@ -48,33 +50,36 @@ const SubCategories = ({ category, color, subCategories }: Props) => {
   const currentSubCategoryStub = params.subcategory ? params.subcategory : null;
 
   return (
-    <SubCategoriesList>
-      <SubCategoryItem>
-        <SubCategoryLink to={`/${categoryStub}`}>
+    <ul className={classes.list}>
+      <li className={classes.listItem}>
+        <Link className={classes.link} to={`/${categoryStub}`}>
           <SubCategoryButton
             buttonColor={color}
             isSelected={!currentSubCategoryStub}
           >
             All
           </SubCategoryButton>
-        </SubCategoryLink>
-      </SubCategoryItem>
+        </Link>
+      </li>
       {subCategories.map(subCategory => {
         const { text, stub: subcategoryStub } = subCategory;
         return (
-          <SubCategoryItem key={subcategoryStub}>
-            <SubCategoryLink to={`/${categoryStub}/${subcategoryStub}`}>
+          <li className={classes.listItem} key={subcategoryStub}>
+            <Link
+              className={classes.link}
+              to={`/${categoryStub}/${subcategoryStub}`}
+            >
               <SubCategoryButton
                 buttonColor={color}
                 isSelected={currentSubCategoryStub === subcategoryStub}
               >
                 {text}
               </SubCategoryButton>
-            </SubCategoryLink>
-          </SubCategoryItem>
+            </Link>
+          </li>
         );
       })}
-    </SubCategoriesList>
+    </ul>
   );
 };
 
