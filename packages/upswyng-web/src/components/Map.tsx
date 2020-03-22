@@ -1,9 +1,10 @@
-import { BikeIcon, BusIcon, CarIcon, CloseIcon, WalkIcon } from "./Icons";
+import { BikeIcon, BusIcon, CarIcon, WalkIcon } from "./Icons";
 import React, { useCallback, useEffect, useState } from "react";
 import {
   TGoogleMapDirectionsStatusCode,
   TGoogleMapTravelMode,
 } from "../webTypes";
+import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import GoogleMapReact from "google-map-react";
 import Grid from "@material-ui/core/Grid";
@@ -13,54 +14,57 @@ import Snackbar from "@material-ui/core/Snackbar";
 import { TResource } from "@upswyng/upswyng-types";
 import { colors } from "../App.styles";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import styled from "styled-components";
 
 const boulderCoordinates = {
   lat: 40.0156852,
   lng: -105.2792069,
 };
 
-const useStyles = makeStyles({
-  mapOuterContainer: {
-    margin: "auto 0",
-    position: "relative",
-    width: "100%",
-    "&::before": {
-      content: '""',
-      display: "block",
-      paddingBottom: "55%",
+const useStyles = makeStyles(theme => {
+  console.log("theme: ", theme);
+
+  return {
+    mapOuterContainer: {
+      margin: "auto 0",
+      position: "relative",
       width: "100%",
+      "&::before": {
+        content: '""',
+        display: "block",
+        paddingBottom: "55%",
+        width: "100%",
+      },
     },
-  },
-  mapInnerContainer: {
-    bottom: 0,
-    left: 0,
-    position: "absolute",
-    right: 0,
-    top: 0,
-    "& .google-map__info-window": {
-      background: colors.white,
-      color: colors.black,
-      display: "block",
+    mapInnerContainer: {
+      bottom: 0,
+      left: 0,
+      position: "absolute",
+      right: 0,
+      top: 0,
+      "& .google-map__info-window": {
+        background: colors.white,
+        color: colors.black,
+        display: "block",
+      },
+      "& .google-map__charity-name": {
+        fontWeight: 700,
+      },
+      "& .google-map__address-line": {
+        display: "block",
+      },
     },
-    "& .google-map__charity-name": {
-      fontWeight: 700,
+    mapLoadingMask: {
+      alignItems: "center",
+      background: "rgba(0, 0, 0, 0.25)",
+      bottom: 0,
+      display: "flex",
+      justifyContent: "center",
+      left: 0,
+      position: "absolute",
+      right: 0,
+      top: 0,
     },
-    "& .google-map__address-line": {
-      display: "block",
-    },
-  },
-  mapLoadingMask: {
-    alignItems: "center",
-    background: "rgba(0, 0, 0, 0.25)",
-    bottom: 0,
-    display: "flex",
-    justifyContent: "center",
-    left: 0,
-    position: "absolute",
-    right: 0,
-    top: 0,
-  },
+  };
 });
 
 // TODO: Only pass down the props that are needed
@@ -70,20 +74,6 @@ interface Props {
   latitude: NonNullable<TResource["latitude"]>;
   longitude: NonNullable<TResource["longitude"]>;
 }
-
-const StyledSnackbar = styled(Snackbar)`
-  && .MuiSnackbarContent-root {
-    align-items: center;
-    display: inline-flex;
-    flex-wrap: nowrap;
-  }
-` as typeof Snackbar;
-
-const SnackbarCloseButton = styled(IconButton)`
-  && {
-    color: ${colors.white};
-  }
-` as typeof IconButton;
 
 const Map = ({ address, name, latitude, longitude }: Props) => {
   const classes = useStyles();
@@ -344,20 +334,13 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
       </div>
       <Snackbar
         autoHideDuration={10000}
-        message={directionsError}
         onClose={() => setDirectionsError(null)}
-        open
-        // open={!!directionsError}
-        action={[
-          <SnackbarCloseButton
-            key="close"
-            aria-label="close"
-            onClick={handleErrorSnackbarClose}
-          >
-            {CloseIcon}
-          </SnackbarCloseButton>,
-        ]}
-      />
+        open={!!directionsError}
+      >
+        <Alert onClose={handleErrorSnackbarClose} severity="error">
+          {directionsError}
+        </Alert>
+      </Snackbar>
     </>
   );
 };
