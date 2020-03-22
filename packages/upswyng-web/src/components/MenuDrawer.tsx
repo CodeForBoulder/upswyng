@@ -1,57 +1,17 @@
 import { CloseIcon, InfoIcon, PolicyIcon, TermsOfServiceIcon } from "./Icons";
-import { colors, font } from "../App.styles";
 
+import Box from "@material-ui/core/Box";
 import Drawer from "@material-ui/core/Drawer";
+import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
 import Logo from "./Logo";
-import MuiLink from "@material-ui/core/Link";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
-import styled from "styled-components";
-
-const StyledDrawer = styled(Drawer)`
-  && {
-    .MuiPaper-root {
-      background: ${colors.charcoal};
-      font-size: ${font.helpers.convertPixelsToRems(24)};
-      max-width: 100%;
-      position: relative;
-      width: ${font.helpers.convertPixelsToRems(400)};
-    }
-  }
-` as typeof Drawer;
-
-const StyledDrawerHeader = styled.div`
-  display: block;
-  margin-bottom: ${font.helpers.convertPixelsToRems(15)};
-  position: relative;
-`;
-
-const StyledCloseButton = styled(IconButton)`
-  && {
-    color: ${colors.white};
-    position: absolute;
-    right: 0;
-    top: 0;
-    z-index: 10;
-  }
-` as typeof IconButton;
-
-const StyledListIcon = styled(ListItemIcon)`
-  && {
-    color: ${colors.white};
-  }
-` as typeof ListItemIcon;
-
-const StyledLogo = styled(Logo)`
-  && {
-    max-width: 100%;
-    width: ${font.helpers.convertPixelsToRems(250)};
-  }
-` as typeof Logo;
+import Typography from "@material-ui/core/Typography";
 
 interface MenuDrawerProps {
   handleMenuClose: Function;
@@ -59,56 +19,58 @@ interface MenuDrawerProps {
 }
 
 const MenuDrawer = ({ handleMenuClose, open }: MenuDrawerProps) => (
-  <StyledDrawer onClose={() => handleMenuClose()} open={open}>
-    <StyledDrawerHeader>
-      <StyledCloseButton
-        aria-label="close menu"
-        onClick={() => handleMenuClose()}
-      >
-        {CloseIcon}
-      </StyledCloseButton>
-    </StyledDrawerHeader>
-    <List>
-      <ListItem>
-        <RouterLink aria-label="home" onClick={() => handleMenuClose()} to="/">
-          <StyledLogo />
-        </RouterLink>
-      </ListItem>
-      <ListItem>
-        <MuiLink
-          color="textPrimary"
-          component={RouterLink}
-          onClick={() => handleMenuClose()}
-          to="/about"
-        >
-          <StyledListIcon>{InfoIcon}</StyledListIcon>
-          About
-        </MuiLink>
-      </ListItem>
-      <ListItem>
-        <MuiLink
-          color="textPrimary"
-          component={RouterLink}
-          onClick={() => handleMenuClose()}
-          to="/terms-of-use"
-        >
-          <StyledListIcon>{TermsOfServiceIcon}</StyledListIcon>
-          Terms of Use
-        </MuiLink>
-      </ListItem>
-      <ListItem>
-        <MuiLink
-          color="textPrimary"
-          component={RouterLink}
-          onClick={() => handleMenuClose()}
-          to="/privacy-policy"
-        >
-          <StyledListIcon>{PolicyIcon}</StyledListIcon>
-          Privacy policy
-        </MuiLink>
-      </ListItem>
-    </List>
-  </StyledDrawer>
+  <Drawer onClose={() => handleMenuClose()} open={open}>
+    <Grid container direction="column">
+      <Grid container item justify="flex-end">
+        <IconButton onClick={() => handleMenuClose()}>
+          <Typography variant="srOnly">close menu</Typography>
+          {CloseIcon}
+        </IconButton>
+      </Grid>
+      <Grid item>
+        <List disablePadding>
+          <ListItem
+            button
+            component={RouterLink}
+            onClick={() => handleMenuClose()}
+            to="/"
+          >
+            <Typography variant="srOnly">home</Typography>
+            <Box maxWidth="100%" width={250}>
+              <Logo />
+            </Box>
+          </ListItem>
+          <ListItem
+            button
+            component={RouterLink}
+            onClick={() => handleMenuClose()}
+            to="/about"
+          >
+            <ListItemIcon>{InfoIcon}</ListItemIcon>
+            <ListItemText>About</ListItemText>
+          </ListItem>
+          <ListItem
+            button
+            component={RouterLink}
+            onClick={() => handleMenuClose()}
+            to="/terms-of-use"
+          >
+            <ListItemIcon>{TermsOfServiceIcon}</ListItemIcon>
+            <ListItemText>Terms of Use</ListItemText>
+          </ListItem>
+          <ListItem
+            button
+            component={RouterLink}
+            onClick={() => handleMenuClose()}
+            to="/privacy-policy"
+          >
+            <ListItemIcon>{PolicyIcon}</ListItemIcon>
+            <ListItemText>Privacy policy</ListItemText>
+          </ListItem>
+        </List>
+      </Grid>
+    </Grid>
+  </Drawer>
 );
 
 export default MenuDrawer;
