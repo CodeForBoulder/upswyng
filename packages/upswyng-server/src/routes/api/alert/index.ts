@@ -1,4 +1,7 @@
-import Alert, { TAlertDocument } from "../../../models/Alert";
+import Alert, {
+  TAlertDocument,
+  alertDocumentToFullAlert,
+} from "../../../models/Alert";
 import { NextFunction, Request, Response } from "express";
 
 import { ObjectId } from "bson";
@@ -21,10 +24,12 @@ interface TRequest extends ParamsDictionary {
 }
 
 /**
- * API endpoint to create an alert. Requires admin permissions.
+ * API endpoint to create or update an alert. Requires admin permissions.
  *
- * Successful response (201):
- * {}
+ * Successful response (200):
+ * {
+ *   alert: TAlertFull; // newly created or modified alert
+ * }
  *
  * Error response (4xx | 5xx):
  * {
@@ -56,7 +61,7 @@ export const post = compose([
     let existingAlert;
     if (id) {
       try {
-        existingAlert = Alert.findById(ObjectId.createFromHexString(id));
+        existingAlert = await Alert.findById(ObjectId.createFromHexString(id));
       } catch (e) {
         return res
           .status(500)
@@ -88,11 +93,13 @@ export const post = compose([
       alert.start = start;
       alert.title = req.body.title;
       await alert.save();
-      return res.status(!existingAlert ? 201 : 204).json({});
+      return res
+        .status(200)
+        .json({ alert: await alertDocumentToFullAlert(alert) });
     } catch (e) {
       return res
         .status(500)
-        .json({ message: `Error creating alert: ${e.message}` });
+        .json({ message: `Error creating or updating alert: ${e.message}` });
     }
   },
 ]);

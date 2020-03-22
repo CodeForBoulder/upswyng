@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, createEventDispatcher } from "svelte";
   import alertsToChartEntries from "../utility/alertsToChartEntries.ts";
   import roundRect from "../utility/roundRect.ts";
 
@@ -7,49 +7,55 @@
   let h; // canvas height
 
   const barHeight = 1;
-  const yPixelHeightPerRow = 12; // not actually working out to a pixel height, but bigger is more
+  const yPixelHeightPerRow = 16; // not actually working out to a pixel height, but bigger is more
 
   export let alerts = []; // TAlertFull[]
+  export let selectedAlertId = null; // string? (bson ObjectId)
+  export let minDate = new Date();
+  export let maxDate = new Date();
 
+  let chart; // chart.js chart instance; assigned during `onMount`
   let entries = [];
   let minY;
   let maxY;
-  $: entries = alertsToChartEntries(alerts, barHeight, /* spacing = */ 0.5);
-  $: [minY, maxY] = entries.length
-    ? entries.reduce(
-        (result, alert) => {
-          const minY = Math.min(result[0], alert.y);
-          const maxY = Math.max(result[1], alert.y);
-          return [minY, maxY];
-        },
-        [Infinity, -Infinity]
-      )
-    : [0, 0];
-  let pixelHeight = 0;
-  $: pixelHeight =
-    (maxY - minY) * (yPixelHeightPerRow / 2) + 32 /* for axis labels */;
-  $: h = pixelHeight;
 
-  let timeSpan = 0; // ms
+  let clickDispatcher = createEventDispatcher();
+  let canvas;
+
   $: {
-    if (entries.length) {
-      let entriesStart = new Date("2100-01-01");
-      let entriesEnd = new Date("1900-01-01");
-      entries.forEach(entry => {
-        if (entry.x.from < entriesStart) {
-          entriesStart = entry.x.from;
-        }
-        if (entry.x.to > entriesEnd) {
-          entriesEnd = entry.x.to;
-        }
-      });
-      timeSpan = entriesEnd.getTime() - entriesStart.getTime();
-    } else {
-      timeSpan = 0;
+    // update everything when we get new alerts
+    entries = alertsToChartEntries(
+      alerts,
+      selectedAlertId,
+      barHeight,
+      /* spacing = */ 0.5
+    );
+    if (chart && entries) {
+      chart.data.datasets[0].data = entries;
+      chart.options.scales.xAxes[0].ticks.min = minDate.getTime();
+      chart.options.scales.xAxes[0].ticks.max = maxDate.getTime();
+
+      [minY, maxY] =
+        entries && entries.length
+          ? entries.reduce(
+              (result, alert) => {
+                const minY = Math.min(result[0], alert.y);
+                const maxY = Math.max(result[1], alert.y);
+                return [minY, maxY];
+              },
+              [Infinity, -Infinity]
+            )
+          : [0, 0];
+
+      h =
+        Math.max(maxY - minY, barHeight) * yPixelHeightPerRow +
+        32 /* for axis labels */;
+
+      const { top, bottom } = chart.controller.chartArea;
+      chart.canvas.parentNode.style.height = `${h}px`;
+      chart.update();
     }
   }
-
-  let canvas;
 
   onMount(async () => {
     const { default: Chart } = await import("chart.js");
@@ -185,11 +191,24 @@
         const vm = this._view;
         const ctx = this._chart.ctx;
 
-        ctx.save();
+        const alert = this._chart.config.data.datasets[this._datasetIndex].data[
+          this._index
+        ].alert;
 
+        ctx.save();
         ctx.lineWidth = vm.borderWidth;
         ctx.strokeStyle = vm.borderColor;
         ctx.fillStyle = vm.backgroundColor;
+
+        let hatchColor = null;
+
+        if (!alert.isApproved) {
+          hatchColor = "#F3BD20DD";
+        }
+
+        if (alert.isCancelled) {
+          hatchColor = "#DD0000DD";
+        }
 
         const rect = vm.rect;
         roundRect(
@@ -200,7 +219,8 @@
           rect.y.size,
           "full",
           true,
-          true
+          true,
+          hatchColor
         );
 
         ctx.restore();
@@ -337,31 +357,23 @@
     //////////////////////////////
 
     const context = canvas.getContext("2d");
-
-    const chart = new Chart(context, {
+    chart = new Chart(context, {
       type: "gantt",
       plugins: [
         {
           id: "nowMarkerAnnotation",
           afterDraw: chart => {
             const ctx = chart.ctx;
-            const now = new Date();
-
+            const now = new Date().getTime();
             const xAxis = chart.scales["x-axis"];
             const yAxis = chart.scales["y-axis"];
-
             const isNowInView = now >= xAxis.min && now <= xAxis.max;
-
             if (!isNowInView || !yAxis || !xAxis) {
               return;
             }
-
             const x =
               xAxis.left +
-              xAxis.width *
-                ((now - xAxis.min.getTime()) /
-                  (xAxis.max.getTime() - xAxis.min.getTime()));
-
+              xAxis.width * ((now - xAxis.min) / (xAxis.max - xAxis.min));
             ctx.save();
             ctx.beginPath();
             ctx.moveTo(x, yAxis.top);
@@ -376,16 +388,29 @@
       data: {
         datasets: [
           {
-            label: "Time gantt",
+            label: "Alerts",
             data: entries,
             height: barHeight,
-            width: timeSpan,
           },
         ],
       },
       options: {
-        onClick: function(e /* MouseEvent */, elements /* ChartElement[] */) {
-          console.log(e, elements);
+        maintainAspectRatio: false,
+        layout: {
+          padding: {
+            left: 0.25,
+            right: 0.25,
+            top: 0.25,
+            bottom: 0.25,
+          },
+        },
+        onClick: function(_e /* MouseEvent */, elements /* ChartElement[] */) {
+          if (!elements.length) return;
+          const { _datasetIndex: datasetIndex, _index: index } = elements[0];
+          const alert =
+            elements[0]._chart.config.data.datasets[datasetIndex].data[index]
+              .alert;
+          clickDispatcher("click", { id: alert._id });
         },
         tooltips: {
           custom: function(tooltip) {
@@ -429,13 +454,19 @@
             {
               type: "time-gantt",
               position: "bottom",
-              bounds: "data",
-              ticks: { source: "auto" },
+              bounds: "ticks",
+              ticks: {
+                min: minDate.getTime(),
+                max: maxDate.getTime(),
+                source: "auto",
+                maxRotation: 0,
+                maxTicksLimit: 8.1,
+              },
               id: "x-axis",
               time: {
                 displayFormats: {
-                  hour: "ddd hA",
-                  minute: "ddd h:mm a",
+                  hour: "ddd D, hA",
+                  minute: "ddd D, h:mm a",
                 },
               },
             },
@@ -460,9 +491,6 @@
   }
 </style>
 
-<canvas
-  bind:this={canvas}
-  bind:clientWidth={w}
-  bind:clientHeight={h}
-  width={w}
-  height={h} />
+<div bind:clientWidth={w} class="chart-container" style="position: relative">
+  <canvas bind:this={canvas} />
+</div>

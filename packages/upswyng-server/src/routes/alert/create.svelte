@@ -9,17 +9,17 @@
 <script>
   import { addFlashMessage } from "../../utility/flashMessage.ts";
   import { goto, stores } from "@sapper/app";
+  import { onDestroy, onMount } from "svelte";
   import { ResourceSchedule } from "@upswyng/upswyng-core";
-  import moment from "moment-timezone";
+  import { Time } from "@upswyng/upswyng-core";
   import DatePicker from "../../components/DatePicker.svelte";
-  import TimePicker from "../../components/TimePicker.svelte";
+  import HsvPicker from "../../components/HsvPicker.svelte";
+  import insane from "insane"; // html sanitizer
+  import marked from "marked";
+  import moment from "moment-timezone";
   import ResourceEditor from "../../components/ResourceEditor.svelte";
   import rgbHex from "rgb-hex";
-  import HsvPicker from "../../components/HsvPicker.svelte";
-  import marked from "marked";
-  import insane from "insane"; // html sanitizer
-  import { Time } from "@upswyng/upswyng-core";
-  import { onDestroy, onMount } from "svelte";
+  import TimePicker from "../../components/TimePicker.svelte";
 
   const { tz } = moment;
   const { session } = stores();
@@ -200,8 +200,8 @@
       },
     })
       .then(async res => {
+        const { alert, message } = await res.json();
         if (res.status >= 400) {
-          const { message } = await res.json();
           if (message) {
             errorMessage = message;
           } else {
@@ -214,7 +214,7 @@
           "success",
           `Alert "${alertTitle}" was successful created`
         );
-        goto("/alert");
+        goto(`/alert/${alert._id}`);
       })
       .catch(e => (errorMessage = e))
       .finally(() => {

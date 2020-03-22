@@ -64,8 +64,8 @@ export const post = compose([
 
     try {
       const alertsDocuments = await Alert.find({
-        start: { $gte: start },
-        end: { $lte: end },
+        end: { $gte: start },
+        start: { $lte: end },
         isCancelled: { $in: [false, includeCancelled] },
         isApproved: { $in: [true, !includeUnapproved] },
       });

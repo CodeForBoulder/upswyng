@@ -88,18 +88,22 @@ mongoose
         );
       }
 
-      const { handler } = app({
+      const appInstance = app({
         dev,
         grantConfig,
         mongooseConnection: mongoose.connection,
         sessionSecret: process.env.DATABASE_SESSION_SECRET || "default_secret",
-      }).use(
+      });
+
+      appInstance.use(
         sapper.middleware({
           session: (req, _res) => {
             return { user: getUserFromRawUsers(req) };
           },
         })
       );
+
+      const handler = appInstance.handler;
 
       const s = http.createServer(handler);
 

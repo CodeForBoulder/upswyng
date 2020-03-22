@@ -24,6 +24,7 @@ function isAlertActive(alert: TAlertFull, now: Date = new Date()) {
  */
 export default function alertsToCharEntries(
   alerts: TAlertFull[],
+  selectedAlertId: string | null = null,
   barHeight: number = 1,
   spacing: number = 0.25 // spacing between rows of bars
 ): TAlertChartEntry[] {
@@ -78,15 +79,15 @@ export default function alertsToCharEntries(
         x: { from: alert.start, to: alert.end },
         y: -1 * (i * (barHeight + spacing)),
         backgroundColor: isAlertActive(alert)
-          ? `${alert.color}BB`
-          : `${alert.color}88`, // alerts that arent active are less opaque
+          ? `${alert.color}F9`
+          : `${alert.color}E9`, // alerts that arent active are less opaque
       };
       if (alert.isCancelled) {
         a.backgroundColor = "#00000022";
       }
-      if (!alert.isApproved) {
-        a.borderColor = "#F3BD20CC";
-        a.borderWidth = 4;
+      if (alert._id === selectedAlertId) {
+        a.borderColor = "#000477DD";
+        a.borderWidth = 3;
       }
       result.push(a);
     })

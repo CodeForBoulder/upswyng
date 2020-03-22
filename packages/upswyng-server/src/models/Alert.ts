@@ -23,7 +23,8 @@ export interface TAlertDocument extends Document {
   title: string;
 }
 
-export function fullAlertToAlert(a: TAlertFull): TAlert {
+export function fullAlertToAlert(alert: TAlertFull): TAlert {
+  const a = Object.assign({}, alert);
   delete a.createdAt;
   delete a.createdBy;
   delete a.isCancelled;
@@ -89,9 +90,8 @@ const AlertSchema = new Schema(
 AlertSchema.statics.genActiveAlerts = async function(now = new Date()) {
   const results: Array<TAlertDocument> = await this.find({
     end: { $gte: now },
-  })
-    .populate("createdBy")
-    .populate("lastModifiedBy");
+  });
+
   return results
     .filter(x => x.isCancelled === false)
     .filter(x => x.isApproved === true)
