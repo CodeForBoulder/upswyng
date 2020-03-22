@@ -20,52 +20,49 @@ const boulderCoordinates = {
   lng: -105.2792069,
 };
 
-const useStyles = makeStyles(theme => {
-  console.log("theme: ", theme);
-
-  return {
-    mapOuterContainer: {
-      margin: "auto 0",
-      position: "relative",
+const useStyles = makeStyles(theme => ({
+  mapOuterContainer: {
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2),
+    position: "relative",
+    width: "100%",
+    "&::before": {
+      content: '""',
+      display: "block",
+      paddingBottom: "55%",
       width: "100%",
-      "&::before": {
-        content: '""',
-        display: "block",
-        paddingBottom: "55%",
-        width: "100%",
-      },
     },
-    mapInnerContainer: {
-      bottom: 0,
-      left: 0,
-      position: "absolute",
-      right: 0,
-      top: 0,
-      "& .google-map__info-window": {
-        background: colors.white,
-        color: colors.black,
-        display: "block",
-      },
-      "& .google-map__charity-name": {
-        fontWeight: 700,
-      },
-      "& .google-map__address-line": {
-        display: "block",
-      },
+  },
+  mapInnerContainer: {
+    bottom: 0,
+    left: 0,
+    position: "absolute",
+    right: 0,
+    top: 0,
+    "& .google-map__info-window": {
+      background: colors.white,
+      color: colors.black,
+      display: "block",
     },
-    mapLoadingMask: {
-      alignItems: "center",
-      background: "rgba(0, 0, 0, 0.25)",
-      bottom: 0,
-      display: "flex",
-      justifyContent: "center",
-      left: 0,
-      position: "absolute",
-      right: 0,
-      top: 0,
+    "& .google-map__charity-name": {
+      fontWeight: 700,
     },
-  };
-});
+    "& .google-map__address-line": {
+      display: "block",
+    },
+  },
+  mapLoadingMask: {
+    alignItems: "center",
+    background: "rgba(0, 0, 0, 0.75)",
+    bottom: 0,
+    display: "flex",
+    justifyContent: "center",
+    left: 0,
+    position: "absolute",
+    right: 0,
+    top: 0,
+  },
+}));
 
 // TODO: Only pass down the props that are needed
 interface Props {
@@ -293,7 +290,7 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
         <Grid container item justify="center">
           <IconButton
             onClick={() => handleDirectionButtonClick("BICYCLING")}
-            color={travelMode === "TRANSIT" ? "primary" : "default"}
+            color={travelMode === "BICYCLING" ? "primary" : "default"}
           >
             {BikeIcon}
           </IconButton>
@@ -302,7 +299,7 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
         <Grid container item justify="center">
           <IconButton
             onClick={() => handleDirectionButtonClick("DRIVING")}
-            color={travelMode === "TRANSIT" ? "primary" : "default"}
+            color={travelMode === "DRIVING" ? "primary" : "default"}
           >
             {CarIcon}
           </IconButton>
@@ -311,7 +308,7 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
         <Grid container item justify="center">
           <IconButton
             onClick={() => handleDirectionButtonClick("WALKING")}
-            color={travelMode === "TRANSIT" ? "primary" : "default"}
+            color={travelMode === "WALKING" ? "primary" : "default"}
           >
             {WalkIcon}
           </IconButton>
