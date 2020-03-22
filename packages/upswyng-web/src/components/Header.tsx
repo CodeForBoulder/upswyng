@@ -10,6 +10,7 @@ import MenuDrawer from "./MenuDrawer";
 import MenuIcon from "@material-ui/icons/Menu";
 import Temperature from "./Temperature";
 import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -21,11 +22,8 @@ const Header = () => {
           <Container>
             <Grid alignItems="center" container wrap="nowrap">
               <Grid item>
-                <IconButton
-                  aria-label="Menu"
-                  edge="start"
-                  onClick={() => setIsMenuOpen(true)}
-                >
+                <IconButton edge="start" onClick={() => setIsMenuOpen(true)}>
+                  <Typography variant="srOnly">Menu</Typography>
                   <MenuIcon />
                 </IconButton>
               </Grid>
