@@ -13,9 +13,9 @@ const Services = ({ resource }: Props) => {
   }
 
   return (
-    <Grid component="ul" container spacing={2}>
+    <Grid container spacing={2}>
       {resource.services.map(service => (
-        <Grid component="li" item key={service.trim()}>
+        <Grid item key={service.trim()}>
           <Chip label={service.trim()} />
         </Grid>
       ))}
