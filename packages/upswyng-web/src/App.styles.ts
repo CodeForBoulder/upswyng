@@ -1,5 +1,3 @@
-import { createGlobalStyle, css } from "styled-components";
-
 interface TColors {
   [key: string]: string;
 }
@@ -41,39 +39,3 @@ export const font = {
       `${value / baseFontSize}rem`,
   },
 };
-
-export const ScreenReaderOnly = css`
-  clip: rect(1px, 1px, 1px, 1px);
-  clip-path: inset(50%);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-`;
-
-const headingStyles = css`
-  font-family: ${font.families.openSans};
-`;
-
-const heading1Styles = css`
-  ${headingStyles}
-  font-size: 18px;
-  font-weight: 700;
-`;
-
-export default createGlobalStyle`
-  * {
-    box-sizing: border-box;
-  }
-  body {
-    background: ${colors.charcoal};
-    color: ${colors.white};
-    font-family: ${font.families.openSans};
-    font-size: ${font.sizes.basePercent};
-  }
-  h1{
-    ${heading1Styles}
-  }
-`;

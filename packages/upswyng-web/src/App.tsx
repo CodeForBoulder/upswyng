@@ -5,7 +5,7 @@ import About from "./components/About";
 import { BannerColorContextProvider } from "./components/BannerColorContext";
 import Categories from "./components/Categories";
 import CoordinatedEntry from "./components/CoordinatedEntry";
-import GlobalStyle from "./App.styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Hotlines from "./components/Hotlines";
@@ -34,7 +34,7 @@ class App extends Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <GlobalStyle />
+        <CssBaseline />
         <Router>
           <LastLocationProvider>
             <BannerColorContextProvider>
