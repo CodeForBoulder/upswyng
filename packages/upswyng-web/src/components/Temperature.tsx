@@ -1,57 +1,55 @@
-import { colors, font } from "../App.styles";
 import React from "react";
+import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import { Typography } from "@material-ui/core";
-
-import styled from "styled-components";
+import { font } from "../App.styles";
+import makeStyles from "@material-ui/styles/makeStyles";
 import useTemperature from "./useTemperature";
 
-const StyledContainer = styled.aside`
-  color: ${colors.white};
-  font-family: ${font.families.openSans};
-`;
-
-const StyledTemp = styled.div`
-  align-items: flex-end;
-  border-right: solid 2px ${colors.white};
-  display: flex;
-  flex-direction: column;
-  margin-right: ${font.helpers.convertPixelsToRems(12)};
-  padding: ${font.helpers.convertPixelsToRems(5)}
-    ${font.helpers.convertPixelsToRems(10)};
-`;
-
-const StyledDegrees = styled.span`
-  font-size: ${font.helpers.convertPixelsToRems(18)};
-  line-height: 1;
-  font-weight: 700;
-  margin: 0;
-  padding: 0;
-`;
-
-const StyledLocation = styled.span`
-  font-size: ${font.helpers.convertPixelsToRems(12)};
-  margin: 0;
-  padding: 0;
-`;
+const useStyles = makeStyles((theme: Theme) => ({
+  container: {
+    color: theme.palette.common.white,
+  },
+  temp: {
+    alignItems: "flex-end",
+    borderRight: `solid 2px ${theme.palette.common.white}`,
+    display: "flex",
+    flexDirection: "column",
+    marginRight: "12px",
+    padding: "5px 10px",
+  },
+  degrees: {
+    fontSize: font.helpers.convertPixelsToRems(18),
+    lineHeight: 1,
+    fontWeight: 700,
+    margin: 0,
+    padding: 0,
+  },
+  location: {
+    fontSize: font.helpers.convertPixelsToRems(12),
+    margin: 0,
+    padding: 0,
+  },
+}));
 
 const Temperature = () => {
+  const classes = useStyles();
   const temp: undefined | null | number = useTemperature();
   if (!temp) {
     return null;
-  } else {
-    return (
-      <StyledContainer>
-        <Typography variant="srOnly" component="h2">
-          Current Temperature
-        </Typography>
-        <StyledTemp>
-          <StyledDegrees>{temp}&deg;</StyledDegrees>
-          <Typography variant="srOnly">in</Typography>
-          <StyledLocation>Boulder, CO</StyledLocation>
-        </StyledTemp>
-      </StyledContainer>
-    );
   }
+
+  return (
+    <div className={classes.container}>
+      <Typography variant="srOnly" component="h2">
+        Current Temperature
+      </Typography>
+      <div className={classes.temp}>
+        <span className={classes.degrees}>{temp}&deg;</span>
+        <Typography variant="srOnly">in</Typography>
+        <span className={classes.location}>Boulder, CO</span>
+      </div>
+    </div>
+  );
 };
 
 export default Temperature;
