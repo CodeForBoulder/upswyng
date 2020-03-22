@@ -11,9 +11,10 @@ import {
   TGoogleMapTravelMode,
 } from "../webTypes";
 import { colors, font } from "../App.styles";
-
 import ButtonGroup from "@material-ui/core/ButtonGroup";
+import Divider from "@material-ui/core/Divider";
 import GoogleMapReact from "google-map-react";
+import Grid from "@material-ui/core/Grid";
 import LoadingSpinner from "./LoadingSpinner";
 import Snackbar from "@material-ui/core/Snackbar";
 import { TResource } from "@upswyng/upswyng-types";
@@ -31,36 +32,6 @@ interface Props {
   latitude: NonNullable<TResource["latitude"]>;
   longitude: NonNullable<TResource["longitude"]>;
 }
-
-const TravelButtonsContainer = styled(ButtonGroup)`
-  && {
-    align-items: stretch;
-    box-shadow: none;
-    display: flex;
-    margin: ${font.helpers.convertPixelsToRems(16)} auto
-      ${font.helpers.convertPixelsToRems(5)};
-  }
-` as typeof ButtonGroup;
-
-interface TTravelButtonProps extends IconButtonProps {
-  selected?: boolean;
-}
-
-const TravelButton: FunctionComponent<TTravelButtonProps> = ({
-  selected: _,
-  ...rest
-}: TTravelButtonProps) => <IconButton {...rest} />;
-
-const StyledTravelButton = styled(TravelButton)`
-  && {
-    background: ${(props: TTravelButtonProps) =>
-      props.selected ? "rgba(250,250,250,0.1)" : "none"};
-    border-radius: 0;
-    color: ${(props: TTravelButtonProps) =>
-      props.selected ? colors.orangePrimary : colors.white};
-    flex: 1 1 auto;
-  }
-` as typeof TravelButton;
 
 const MapOuterContainer = styled.div`
   margin: auto 0;
@@ -323,32 +294,43 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
 
   return (
     <>
-      <TravelButtonsContainer variant="contained">
-        <StyledTravelButton
-          onClick={() => handleDirectionButtonClick("TRANSIT")}
-          selected={travelMode === "TRANSIT"}
-        >
-          {BusIcon}
-        </StyledTravelButton>
-        <StyledTravelButton
-          onClick={() => handleDirectionButtonClick("BICYCLING")}
-          selected={travelMode === "BICYCLING"}
-        >
-          {BikeIcon}
-        </StyledTravelButton>
-        <StyledTravelButton
-          onClick={() => handleDirectionButtonClick("DRIVING")}
-          selected={travelMode === "DRIVING"}
-        >
-          {CarIcon}
-        </StyledTravelButton>
-        <StyledTravelButton
-          onClick={() => handleDirectionButtonClick("WALKING")}
-          selected={travelMode === "WALKING"}
-        >
-          {WalkIcon}
-        </StyledTravelButton>
-      </TravelButtonsContainer>
+      <Grid container justify="space-between" wrap="nowrap">
+        <Grid container item justify="center">
+          <IconButton
+            onClick={() => handleDirectionButtonClick("TRANSIT")}
+            color={travelMode === "TRANSIT" ? "primary" : "default"}
+          >
+            {BusIcon}
+          </IconButton>
+        </Grid>
+        <Divider flexItem orientation="vertical" />
+        <Grid container item justify="center">
+          <IconButton
+            onClick={() => handleDirectionButtonClick("BICYCLING")}
+            color={travelMode === "TRANSIT" ? "primary" : "default"}
+          >
+            {BikeIcon}
+          </IconButton>
+        </Grid>
+        <Divider flexItem orientation="vertical" />
+        <Grid container item justify="center">
+          <IconButton
+            onClick={() => handleDirectionButtonClick("DRIVING")}
+            color={travelMode === "TRANSIT" ? "primary" : "default"}
+          >
+            {CarIcon}
+          </IconButton>
+        </Grid>
+        <Divider flexItem orientation="vertical" />
+        <Grid container item justify="center">
+          <IconButton
+            onClick={() => handleDirectionButtonClick("WALKING")}
+            color={travelMode === "TRANSIT" ? "primary" : "default"}
+          >
+            {WalkIcon}
+          </IconButton>
+        </Grid>
+      </Grid>
       <MapOuterContainer>
         <MapInnerContainer>
           <GoogleMapReact
