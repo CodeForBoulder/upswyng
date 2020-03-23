@@ -1,4 +1,5 @@
 import {
+  TAlertFull,
   TAlgoliaHit,
   TCategory,
   TResource,
@@ -28,6 +29,11 @@ export interface TEnvVariables {
 
 interface TPayloadBase {
   message?: string;
+}
+
+export interface TAlertsPayload extends TPayloadBase {
+  alerts?: TAlertFull[];
+  count?: number;
 }
 
 export interface TResourcePayload extends TPayloadBase {
