@@ -14,9 +14,8 @@ function useSearchResults(): [TStatusFetch, TAlertFull[] | null] {
       try {
         setStatus(TStatusFetch.STATUS_FETCHING);
         setAlertsPayload(null);
-        const now = new Date();
         const { data } = await apiClient.post<TAlertsPayload>(`/alert/search`, {
-          end: now,
+          start: new Date(),
         });
 
         setStatus(TStatusFetch.STATUS_FETCH_SUCCESS);
