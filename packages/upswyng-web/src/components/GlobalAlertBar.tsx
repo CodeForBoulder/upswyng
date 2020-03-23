@@ -1,5 +1,6 @@
 import Alert from "@material-ui/lab/Alert";
 import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import React from "react";
 import { TStatusFetch } from "@upswyng/upswyng-types";
@@ -31,7 +32,15 @@ const GlobalAlertBar = () => {
   return (
     <Box bgcolor={alert.color || "primary.main"} color="common.white">
       <Container>
-        <Alert classes={alertClasses} icon={<span className={alert.icon} />}>
+        <Alert
+          action={
+            <Button size="small" variant="outlined">
+              Read More
+            </Button>
+          }
+          classes={alertClasses}
+          icon={<span className={alert.icon} />}
+        >
           {alert.title}
         </Alert>
       </Container>
