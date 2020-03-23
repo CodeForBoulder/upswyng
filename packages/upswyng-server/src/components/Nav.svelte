@@ -53,6 +53,10 @@
 
         <div class="navbar-dropdown">
           {#if user && user.isAdmin}
+            <a class="navbar-item" href="alert" rel="prefetch">
+              <span>Alerts &nbsp;</span>
+              <span class="tag is-dark">Admin</span>
+            </a>
             <a class="navbar-item" href="resource/issues" rel="prefetch">
               <span>Issues &nbsp;</span>
               <span class="tag is-dark">Admin</span>
