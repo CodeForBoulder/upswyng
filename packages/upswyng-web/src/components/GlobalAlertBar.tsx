@@ -1,6 +1,7 @@
 import Alert from "@material-ui/lab/Alert";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
+import ChevronRight from "@material-ui/icons/ChevronRight";
 import Container from "@material-ui/core/Container";
 import React from "react";
 import { TStatusFetch } from "@upswyng/upswyng-types";
@@ -34,7 +35,7 @@ const GlobalAlertBar = () => {
       <Container>
         <Alert
           action={
-            <Button size="small" variant="outlined">
+            <Button endIcon={<ChevronRight />} size="small" variant="text">
               Read More
             </Button>
           }
