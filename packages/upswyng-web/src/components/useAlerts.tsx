@@ -7,30 +7,31 @@ function useSearchResults(): [TStatusFetch, TAlertFull[] | null] {
   const [status, setStatus] = useState<TStatusFetch>(
     TStatusFetch.STATUS_NOT_FETCHED
   );
-  const [alerts, setAlerts] = useState<null | TAlertFull[]>(null);
+  const [alertsPayload, setAlertsPayload] = useState<null | TAlertFull[]>(null);
 
   useEffect(() => {
     const getAlerts = async (): Promise<void> => {
       try {
         setStatus(TStatusFetch.STATUS_FETCHING);
-        setAlerts(null);
+        setAlertsPayload(null);
+        const now = new Date();
         const { data } = await apiClient.post<TAlertsPayload>(`/alert/search`, {
-          end: new Date(),
+          end: now,
         });
 
         setStatus(TStatusFetch.STATUS_FETCH_SUCCESS);
-        setAlerts(data?.alerts || null);
+        setAlertsPayload(data.alerts || null);
       } catch (err) {
         // TODO: log this error
         setStatus(TStatusFetch.STATUS_FETCH_ERROR);
-        setAlerts(null);
+        setAlertsPayload(null);
       }
     };
 
     getAlerts();
   }, []);
 
-  return [status, alerts];
+  return [status, alertsPayload];
 }
 
 export default useSearchResults;
