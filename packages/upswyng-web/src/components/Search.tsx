@@ -1,5 +1,5 @@
 import BannerColorContext from "./BannerColorContext";
-import { Container } from "../App.styles";
+import Container from "@material-ui/core/Container";
 import React from "react";
 import SearchResults from "./SearchResults";
 import Typography from "@material-ui/core/Typography";

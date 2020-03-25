@@ -3,13 +3,7 @@ import { StyledComponentProps } from "@material-ui/core";
 import { colors } from "../App.styles";
 
 const Logo = (props: StyledComponentProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 318.4 108.22"
-    width="318.4"
-    height="108.22"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 318.4 108.22" {...props}>
     <title>UpSwyng</title>
     <path
       transform="translate(-4.76991 -3.98222)"

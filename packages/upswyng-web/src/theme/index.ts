@@ -1,10 +1,14 @@
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 
+const breakpoints = {
+  values: { xs: 0, sm: 480, md: 480, lg: 480, xl: 480 },
+};
+
 const spacing = (factor: number): string => `${0.25 * factor}rem`;
 
 const palette = {
   common: { black: "#000", white: "#fff" },
-  background: { paper: "#262626", default: "#3a3a3a" },
+  background: { paper: "#3a3a3a", default: "#3a3a3a" },
   primary: {
     main: "#F05A28",
     contrastText: "#000",
@@ -33,7 +37,7 @@ const typography = {
   fontFamily: '"Open Sans","Helvetica","Arial",sans-serif',
   fontSize: 16,
   h1: {
-    fontSize: "1.75rem",
+    fontSize: "1.6rem",
     fontWeight: 400,
   },
   h2: {
@@ -62,6 +66,7 @@ const typography = {
 } as { [name: string]: React.CSSProperties };
 
 const theme = createMuiTheme({
+  breakpoints,
   palette,
   spacing,
   typography,

@@ -1,7 +1,7 @@
-import { Container, font } from "../App.styles";
 import React, { useState } from "react";
-
 import AppBar from "@material-ui/core/AppBar";
+import Box from "@material-ui/core/Box";
+import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import { Link } from "react-router-dom";
@@ -10,63 +10,40 @@ import MenuDrawer from "./MenuDrawer";
 import MenuIcon from "@material-ui/icons/Menu";
 import Temperature from "./Temperature";
 import Toolbar from "@material-ui/core/Toolbar";
-import styled from "styled-components";
-
-const StyledHeader = styled(AppBar)`
-  && {
-    background: none;
-    box-shadow: none;
-    margin-bottom: ${font.helpers.convertPixelsToRems(12)};
-    margin-top: ${font.helpers.convertPixelsToRems(8)};
-  }
-` as typeof AppBar;
-
-const StyledToolbar = styled(Toolbar)`
-  && {
-    padding: 0;
-  }
-` as typeof Toolbar;
-
-const StyledLogo = styled(Logo)`
-  && {
-    height: 40px;
-    width: auto;
-  }
-` as typeof Logo;
+import Typography from "@material-ui/core/Typography";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   return (
-    <StyledHeader position="static">
-      <StyledToolbar>
-        <Container container justify="space-between" alignItems="center">
-          <Grid item>
-            <IconButton
-              aria-label="Menu"
-              edge="start"
-              onClick={() => setIsMenuOpen(true)}
-            >
-              <MenuIcon />
-            </IconButton>
-          </Grid>
-          <Grid item>
-            <Grid container alignItems="center" justify="space-between">
-              <Grid item component={Temperature} />
+    <Box my={2}>
+      <AppBar color="transparent" elevation={0} position="static">
+        <Toolbar disableGutters>
+          <Container>
+            <Grid alignItems="center" container wrap="nowrap">
               <Grid item>
-                <Link to="/">
-                  <StyledLogo />
-                </Link>
+                <IconButton edge="start" onClick={() => setIsMenuOpen(true)}>
+                  <Typography variant="srOnly">Menu</Typography>
+                  <MenuIcon />
+                </IconButton>
+              </Grid>
+              <Grid alignItems="center" justify="flex-end" container item>
+                <Grid item component={Temperature} />
+                <Grid item>
+                  <Link to="/">
+                    <Box component={Logo} height={40} width="auto" />
+                  </Link>
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </Container>
-      </StyledToolbar>
-      <MenuDrawer
-        open={isMenuOpen}
-        handleMenuClose={() => setIsMenuOpen(false)}
-      />
-    </StyledHeader>
+          </Container>
+        </Toolbar>
+        <MenuDrawer
+          open={isMenuOpen}
+          handleMenuClose={() => setIsMenuOpen(false)}
+        />
+      </AppBar>
+    </Box>
   );
 };
 

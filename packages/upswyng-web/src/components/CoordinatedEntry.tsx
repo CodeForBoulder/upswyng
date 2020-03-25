@@ -1,6 +1,6 @@
-import { Container, colors } from "../App.styles";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
+import Container from "@material-ui/core/Container";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -10,6 +10,7 @@ import PageBanner from "./PageBanner";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import WarningIcon from "@material-ui/icons/Warning";
+import { colors } from "../App.styles";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
 const useButtonStyles = makeStyles({

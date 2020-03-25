@@ -1,15 +1,11 @@
-import { CircularProgress } from "@material-ui/core";
-import { colors } from "../App.styles";
-import styled from "styled-components";
+import Box from "@material-ui/core/Box";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import React from "react";
 
-const LoadingSpinner = styled(CircularProgress)`
-  && {
-    display: block;
-    margin: 0 auto;
-  }
-  svg * {
-    stroke: ${colors.orangePrimary};
-  }
-` as typeof CircularProgress;
+const LoadingSpinner = () => (
+  <Box textAlign="center">
+    <CircularProgress />
+  </Box>
+);
 
 export default LoadingSpinner;

@@ -4,32 +4,34 @@ import ResourceCard from "./ResourceCard";
 import { TResource } from "@upswyng/upswyng-types";
 import { font } from "../App.styles";
 import { getNextOpenText } from "../utils/schedule";
-import styled from "styled-components";
+import makeStyles from "@material-ui/styles/makeStyles";
 
 interface Props {
   placeholder?: React.ReactElement;
   resources: undefined | null | TResource[];
 }
 
-const SearchResultsList = styled.ul`
-  align-items: stretch;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin: 0 ${font.helpers.convertPixelsToRems(-8)};
-  padding: 0;
-  width: auto;
-`;
-
-const SearchResultsItem = styled.li`
-  align-items: flex-start;
-  display: flex;
-  flex: 0 1 50%;
-  list-style-type: none;
-  padding: ${font.helpers.convertPixelsToRems(8)};
-`;
+const useStyles = makeStyles({
+  list: {
+    alignItems: "stretch",
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    margin: `0 ${font.helpers.convertPixelsToRems(-8)}`,
+    padding: 0,
+    width: "auto",
+  },
+  listItem: {
+    alignItems: "flex-start",
+    display: "flex",
+    flex: "0 1 50%",
+    listStyleType: "none",
+    padding: font.helpers.convertPixelsToRems(8),
+  },
+});
 
 const ResourceList = ({ placeholder, resources }: Props) => {
+  const classes = useStyles();
   if (resources === undefined) {
     return <LoadingSpinner />;
   }
@@ -42,7 +44,7 @@ const ResourceList = ({ placeholder, resources }: Props) => {
         }
         const scheduleText = getNextOpenText(schedule);
         return (
-          <SearchResultsItem key={resourceId}>
+          <li className={classes.listItem} key={resourceId}>
             <ResourceCard
               index={index}
               placeholder={placeholder}
@@ -51,11 +53,11 @@ const ResourceList = ({ placeholder, resources }: Props) => {
               resourceName={name}
               scheduleText={scheduleText}
             />
-          </SearchResultsItem>
+          </li>
         );
       }
     );
-    return <SearchResultsList>{listItems}</SearchResultsList>;
+    return <ul className={classes.list}>{listItems}</ul>;
   }
 
   return (

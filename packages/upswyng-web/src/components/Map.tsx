@@ -1,28 +1,68 @@
-import { BikeIcon, BusIcon, CarIcon, CloseIcon, WalkIcon } from "./Icons";
-import IconButton, { IconButtonProps } from "@material-ui/core/IconButton";
-import React, {
-  FunctionComponent,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { BikeIcon, BusIcon, CarIcon, WalkIcon } from "./Icons";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   TGoogleMapDirectionsStatusCode,
   TGoogleMapTravelMode,
 } from "../webTypes";
-import { colors, font } from "../App.styles";
-
-import ButtonGroup from "@material-ui/core/ButtonGroup";
+import Alert from "@material-ui/lab/Alert";
+import Divider from "@material-ui/core/Divider";
 import GoogleMapReact from "google-map-react";
+import Grid from "@material-ui/core/Grid";
+import IconButton from "@material-ui/core/IconButton";
 import LoadingSpinner from "./LoadingSpinner";
 import Snackbar from "@material-ui/core/Snackbar";
 import { TResource } from "@upswyng/upswyng-types";
-import styled from "styled-components";
+import { colors } from "../App.styles";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 
 const boulderCoordinates = {
   lat: 40.0156852,
   lng: -105.2792069,
 };
+
+const useStyles = makeStyles(theme => ({
+  mapOuterContainer: {
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2),
+    position: "relative",
+    width: "100%",
+    "&::before": {
+      content: '""',
+      display: "block",
+      paddingBottom: "55%",
+      width: "100%",
+    },
+  },
+  mapInnerContainer: {
+    bottom: 0,
+    left: 0,
+    position: "absolute",
+    right: 0,
+    top: 0,
+    "& .google-map__info-window": {
+      background: colors.white,
+      color: colors.black,
+      display: "block",
+    },
+    "& .google-map__charity-name": {
+      fontWeight: 700,
+    },
+    "& .google-map__address-line": {
+      display: "block",
+    },
+  },
+  mapLoadingMask: {
+    alignItems: "center",
+    background: "rgba(0, 0, 0, 0.75)",
+    bottom: 0,
+    display: "flex",
+    justifyContent: "center",
+    left: 0,
+    position: "absolute",
+    right: 0,
+    top: 0,
+  },
+}));
 
 // TODO: Only pass down the props that are needed
 interface Props {
@@ -32,94 +72,8 @@ interface Props {
   longitude: NonNullable<TResource["longitude"]>;
 }
 
-const TravelButtonsContainer = styled(ButtonGroup)`
-  && {
-    align-items: stretch;
-    box-shadow: none;
-    display: flex;
-    margin: ${font.helpers.convertPixelsToRems(16)} auto
-      ${font.helpers.convertPixelsToRems(5)};
-  }
-` as typeof ButtonGroup;
-
-interface TTravelButtonProps extends IconButtonProps {
-  selected?: boolean;
-}
-
-const TravelButton: FunctionComponent<TTravelButtonProps> = ({
-  selected: _,
-  ...rest
-}: TTravelButtonProps) => <IconButton {...rest} />;
-
-const StyledTravelButton = styled(TravelButton)`
-  && {
-    background: ${(props: TTravelButtonProps) =>
-      props.selected ? "rgba(250,250,250,0.1)" : "none"};
-    border-radius: 0;
-    color: ${(props: TTravelButtonProps) =>
-      props.selected ? colors.orangePrimary : colors.white};
-    flex: 1 1 auto;
-  }
-` as typeof TravelButton;
-
-const MapOuterContainer = styled.div`
-  margin: auto 0;
-  position: relative;
-  width: 100%;
-  &::before {
-    content: "";
-    display: block;
-    padding-bottom: 55%;
-    width: 100%;
-  }
-`;
-
-const MapInnerContainer = styled.div`
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  & .google-map__info-window {
-    background: ${colors.white};
-    color: ${colors.black};
-    display: block;
-  }
-  & .google-map__charity-name {
-    font-weight: 700;
-  }
-  & .google-map__address-line {
-    display: block;
-  }
-`;
-
-const MapLoadingMask = styled.div`
-  align-items: center;
-  background: rgba(0, 0, 0, 0.75);
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-`;
-
-const StyledSnackbar = styled(Snackbar)`
-  && .MuiSnackbarContent-root {
-    align-items: center;
-    display: inline-flex;
-    flex-wrap: nowrap;
-  }
-` as typeof Snackbar;
-
-const SnackbarCloseButton = styled(IconButton)`
-  && {
-    color: ${colors.white};
-  }
-` as typeof IconButton;
-
 const Map = ({ address, name, latitude, longitude }: Props) => {
+  const classes = useStyles();
   const [googleMap, setGoogleMap] = useState<any | null>(null);
   const [googleMaps, setGoogleMaps] = useState<any | null>(null);
   const [isFetchingGoogleMaps, setIsFetchingGoogleMaps] = useState<boolean>(
@@ -313,9 +267,9 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
   const MapLoadingElements = () => {
     if (isFetchingGoogleMaps || isFetchingDirections) {
       return (
-        <MapLoadingMask>
+        <div className={classes.mapLoadingMask}>
           <LoadingSpinner />
-        </MapLoadingMask>
+        </div>
       );
     }
     return null;
@@ -323,34 +277,45 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
 
   return (
     <>
-      <TravelButtonsContainer variant="contained">
-        <StyledTravelButton
-          onClick={() => handleDirectionButtonClick("TRANSIT")}
-          selected={travelMode === "TRANSIT"}
-        >
-          {BusIcon}
-        </StyledTravelButton>
-        <StyledTravelButton
-          onClick={() => handleDirectionButtonClick("BICYCLING")}
-          selected={travelMode === "BICYCLING"}
-        >
-          {BikeIcon}
-        </StyledTravelButton>
-        <StyledTravelButton
-          onClick={() => handleDirectionButtonClick("DRIVING")}
-          selected={travelMode === "DRIVING"}
-        >
-          {CarIcon}
-        </StyledTravelButton>
-        <StyledTravelButton
-          onClick={() => handleDirectionButtonClick("WALKING")}
-          selected={travelMode === "WALKING"}
-        >
-          {WalkIcon}
-        </StyledTravelButton>
-      </TravelButtonsContainer>
-      <MapOuterContainer>
-        <MapInnerContainer>
+      <Grid container justify="space-between" wrap="nowrap">
+        <Grid container item justify="center">
+          <IconButton
+            onClick={() => handleDirectionButtonClick("TRANSIT")}
+            color={travelMode === "TRANSIT" ? "primary" : "default"}
+          >
+            {BusIcon}
+          </IconButton>
+        </Grid>
+        <Divider flexItem orientation="vertical" />
+        <Grid container item justify="center">
+          <IconButton
+            onClick={() => handleDirectionButtonClick("BICYCLING")}
+            color={travelMode === "BICYCLING" ? "primary" : "default"}
+          >
+            {BikeIcon}
+          </IconButton>
+        </Grid>
+        <Divider flexItem orientation="vertical" />
+        <Grid container item justify="center">
+          <IconButton
+            onClick={() => handleDirectionButtonClick("DRIVING")}
+            color={travelMode === "DRIVING" ? "primary" : "default"}
+          >
+            {CarIcon}
+          </IconButton>
+        </Grid>
+        <Divider flexItem orientation="vertical" />
+        <Grid container item justify="center">
+          <IconButton
+            onClick={() => handleDirectionButtonClick("WALKING")}
+            color={travelMode === "WALKING" ? "primary" : "default"}
+          >
+            {WalkIcon}
+          </IconButton>
+        </Grid>
+      </Grid>
+      <div className={classes.mapOuterContainer}>
+        <div className={classes.mapInnerContainer}>
           <GoogleMapReact
             bootstrapURLKeys={{
               key: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
@@ -361,24 +326,18 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
             yesIWantToUseGoogleMapApiInternals={true}
             onGoogleApiLoaded={handleGoogleMapApiLoaded}
           />
-        </MapInnerContainer>
+        </div>
         <MapLoadingElements />
-      </MapOuterContainer>
-      <StyledSnackbar
+      </div>
+      <Snackbar
         autoHideDuration={10000}
-        message={directionsError}
         onClose={() => setDirectionsError(null)}
         open={!!directionsError}
-        action={[
-          <SnackbarCloseButton
-            key="close"
-            aria-label="close"
-            onClick={handleErrorSnackbarClose}
-          >
-            {CloseIcon}
-          </SnackbarCloseButton>,
-        ]}
-      />
+      >
+        <Alert onClose={handleErrorSnackbarClose} severity="error">
+          {directionsError}
+        </Alert>
+      </Snackbar>
     </>
   );
 };

@@ -1,57 +1,37 @@
 import Button, { ButtonProps } from "@material-ui/core/Button";
 import { colors, font } from "../App.styles";
-import styled, { css } from "styled-components";
-
 import React from "react";
+import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import { darken } from "polished";
-
-const baseButtonStyles = css`
-  color: ${colors.white};
-  font-family: ${font.families.openSans};
-  font-size: ${font.helpers.convertPixelsToRems(16)};
-  text-transform: none;
-  &:hover,
-  &:focus {
-    background: ${darken(0.05, colors.charcoal)};
-  }
-`;
-
-const UnSelectedSubCategoryButton = styled(Button)`
-  && {
-    ${baseButtonStyles}
-  }
-` as typeof Button;
+import makeStyles from "@material-ui/styles/makeStyles";
 
 interface Props extends ButtonProps {
   buttonColor: string;
   isSelected: boolean;
 }
 
-const SubCategoryButton = ({
-  children,
-  buttonColor,
-  isSelected,
-  ...rest
-}: Props) => {
-  const SelectedSubCategoryButton = styled(Button)`
-    && {
-      ${baseButtonStyles}
-      background: ${buttonColor};
-      &:hover,
-      &:focus {
-        background: ${darken(0.1, buttonColor)};
-      }
-    }
-  ` as typeof Button;
+const useStyles = makeStyles((theme: Theme) => ({
+  button: (props: Props) => ({
+    background: props.isSelected ? props.buttonColor : "none",
+    color: theme.palette.common.white,
+    fontSize: font.helpers.convertPixelsToRems(16),
+    textTransform: "none",
+    "&:hover,&:focus": {
+      background: props.isSelected
+        ? darken(0.1, props.buttonColor)
+        : darken(0.05, colors.charcoal),
+    },
+  }),
+}));
 
-  return isSelected ? (
-    <SelectedSubCategoryButton component="span" {...rest}>
+const SubCategoryButton = (props: Props) => {
+  const { children, buttonColor, isSelected, ...rest } = props;
+  const classes = useStyles(props);
+
+  return (
+    <Button className={classes.button} {...rest}>
       {children}
-    </SelectedSubCategoryButton>
-  ) : (
-    <UnSelectedSubCategoryButton component="span" {...rest}>
-      {children}
-    </UnSelectedSubCategoryButton>
+    </Button>
   );
 };
 

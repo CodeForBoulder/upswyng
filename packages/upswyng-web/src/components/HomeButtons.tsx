@@ -11,13 +11,13 @@ import {
   SocksIcon,
   WifiIcon,
 } from "./Icons";
-import { Grid } from "@material-ui/core";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
 import HomeButton from "./HomeButton";
 import { HomeRouterLink } from "./HomeLink";
 import React from "react";
 import { THomeButtonRouterLink } from "../webTypes";
 import { colors } from "../App.styles";
-import styled from "styled-components";
 
 export const routerLinkButtons: THomeButtonRouterLink[] = [
   {
@@ -111,17 +111,24 @@ const coordinatedEntryButton: THomeButtonRouterLink = {
   color: colors.rosewood,
 };
 
-const HomeButtonContainer = styled(Grid)`
-  display: flex;
-  alignitems: stretch;
-` as typeof Grid;
-
 const HomeButtons = () => (
-  <>
+  <Grid
+    container
+    direction="row"
+    justify="space-evenly"
+    alignItems="stretch"
+    spacing={2}
+  >
     {routerLinkButtons.map(button => {
       return (
-        <HomeButtonContainer item xs={6} key={button.text}>
-          <HomeRouterLink {...button}>
+        <Grid item xs={6} key={button.text}>
+          <Box
+            alignContent="stretch"
+            component={HomeRouterLink}
+            display="flex"
+            height="100%"
+            {...button}
+          >
             <HomeButton
               buttonColor={button.color}
               data-test="home-router-button"
@@ -129,22 +136,25 @@ const HomeButtons = () => (
               {button.text}
               {button.icon}
             </HomeButton>
-          </HomeRouterLink>
-        </HomeButtonContainer>
+          </Box>
+        </Grid>
       );
-    })}{" "}
+    })}
     <Grid item xs={12}>
-      <HomeRouterLink
+      <Box
+        alignContent="stretch"
+        component={HomeRouterLink}
+        display="flex"
+        height="100%"
         {...coordinatedEntryButton}
-        key={coordinatedEntryButton.text}
       >
         <HomeButton buttonColor={coordinatedEntryButton.color}>
           {coordinatedEntryButton.text}
           {coordinatedEntryButton.icon}
         </HomeButton>
-      </HomeRouterLink>
+      </Box>
     </Grid>
-  </>
+  </Grid>
 );
 
 export default HomeButtons;

@@ -9,12 +9,12 @@ import {
   SocksIcon,
   WifiIcon,
 } from "./Icons";
-import { Container, colors } from "../App.styles";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import { TResourceCategory, TResourceSubcategory } from "../webTypes";
-
 import CategoryResults from "./CategoryResults";
+import Container from "@material-ui/core/Container";
 import React from "react";
+import { colors } from "../App.styles";
 
 export interface TCategoryDefinition {
   color: keyof typeof colors;

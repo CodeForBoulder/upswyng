@@ -2,7 +2,7 @@ import { useHistory, useParams } from "react-router-dom";
 
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
-import { Container } from "../App.styles";
+import Container from "@material-ui/core/Container";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import LoadingSpinner from "./LoadingSpinner";

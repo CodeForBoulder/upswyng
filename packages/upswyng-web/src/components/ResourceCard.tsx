@@ -3,98 +3,82 @@ import { colors, font } from "../App.styles";
 import Image from "material-ui-image";
 import { Link } from "react-router-dom";
 import React from "react";
-import styled from "styled-components";
+import { Theme } from "@material-ui/core/styles/createMuiTheme";
+import makeStyles from "@material-ui/styles/makeStyles";
 
-interface Props {
-  index?: number;
-  placeholder?: React.ReactElement;
-  resourceId: string;
-  resourceImage: string | null;
-  resourceName: string;
-  scheduleText?: string;
-}
-
-const ResourceCardContainer = styled(Link)`
-  border-radius: 6px;
-  color: ${colors.white};
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-  font-family: ${font.families.openSans};
-  overflow: hidden;
-  &:link,
-  &:visited {
-    text-decoration: none;
-  }
-  &:hover,
-  &:active {
-    text-decoration: none;
-    & > *:first-child {
-      text-decoration: underline;
-    }
-  }
-`;
-
-const ResourceCardImageContainer = styled.div`
-  position: relative;
-  flex: 1 1 auto;
-`;
-
-interface ResourceCardImagePlaceholderContainerProps {
+interface StyleProps {
   backgroundColor: string;
 }
 
-const ResourceCardImagePlaceholderContainer = styled.div`
-  background: ${(props: ResourceCardImagePlaceholderContainerProps) =>
-    props.backgroundColor};
-  position: relative;
-
-  &::before {
-    content: "";
-    display: block;
-    padding-bottom: ${(250 / 457) * 100}%;
-    width: 100%;
-  }
-  && > * {
-    height: 80%;
-    left: 10%;
-    position: absolute;
-    opacity: 0.5;
-    top: 10%;
-    width: 80%;
-  }
-`;
-
-const ResourceCardResourceName = styled.span`
-  bottom: 4px;
-  color: ${colors.white};
-  display: flex;
-  flex-direction: column;
-  font-size: ${font.helpers.convertPixelsToRems(14)};
-  font-weight: 700;
-  padding: 0 8px 8px;
-  position: absolute;
-  width: 100%;
-  text-decoration: inherit;
-  text-shadow: 0 3px 6px ${colors.black};
-`;
-
-const ResourceCardFooter = styled.span`
-  align-items: stretch;
-  display: flex;
-  flex-direction: row;
-`;
-
-const ResourceCardScheduleContainer = styled.span`
-  align-items: center;
-  background: ${colors.black};
-  display: flex;
-  flex: 1 1 auto;
-  font-size: ${font.helpers.convertPixelsToRems(12)};
-  font-weight: 600;
-  text-decoration: none;
-  padding: 6px 8px;
-`;
+const useStyles = makeStyles((theme: Theme) => ({
+  cardContainer: {
+    borderRadius: "6px",
+    color: theme.palette.common.white,
+    display: "flex",
+    flexDirection: "column",
+    flex: "1 1 auto",
+    overflow: "hidden",
+    "&:link,&:visited": {
+      textDecoration: "none",
+    },
+    "&:hover,&:active": {
+      textDecoration: "none",
+      "& > *:first-child": {
+        textDecoration: "underline",
+      },
+    },
+  },
+  cardImageContainer: {
+    position: "relative",
+    flex: "1 1 auto",
+  },
+  cardImagePlaceHolderContainer: (styleProps: StyleProps) => ({
+    background: styleProps.backgroundColor,
+    position: "relative",
+    "&::before": {
+      content: '""',
+      display: "block",
+      paddingBottom: `${(250 / 457) * 100}%`,
+      width: "100%",
+    },
+    "&& > *": {
+      height: "80%",
+      left: "10%",
+      position: "absolute",
+      opacity: 0.5,
+      top: "10%",
+      width: "80%",
+    },
+  }),
+  cardResourceName: {
+    bottom: 4,
+    color: theme.palette.common.white,
+    display: "flex",
+    flexDirection: "column",
+    fontSize: font.helpers.convertPixelsToRems(14),
+    fontWeight: 700,
+    padding: "0 8px 8px",
+    position: "absolute",
+    width: "100%",
+    textDecoration: "inherit",
+    textShadow: `0 3px 6px ${theme.palette.common.black}`,
+  },
+  cardFooter: {
+    alignItems: "stretch",
+    display: "flex",
+    flexDirection: "row",
+  },
+  cardScheduleContainer: {
+    alignItems: "center",
+    background: theme.palette.common.black,
+    display: "flex",
+    flex: "1 1 auto",
+    fontSize: font.helpers.convertPixelsToRems(12),
+    fontWeight: 600,
+    textDecoration: "none",
+    padding: "6px 8px",
+  },
+}));
 
 interface TCardColor {
   iconColor: string;
@@ -112,6 +96,15 @@ const cardColors: TCardColor[] = [
   },
 ];
 
+interface Props {
+  index?: number;
+  placeholder?: React.ReactElement;
+  resourceId: string;
+  resourceImage: string | null;
+  resourceName: string;
+  scheduleText?: string;
+}
+
 const ResourceCard = ({
   index = 1,
   placeholder,
@@ -122,14 +115,18 @@ const ResourceCard = ({
 }: Props) => {
   const cardColor =
     typeof index === "number" && !(index % 2) ? cardColors[0] : cardColors[1];
+  const classes = useStyles({
+    backgroundColor: cardColor.placeholderBackgroundColor,
+  });
 
   return (
-    <ResourceCardContainer
+    <Link
+      className={classes.cardContainer}
       to={{
         pathname: `/resource/${resourceId}`,
       }}
     >
-      <ResourceCardImageContainer>
+      <div className={classes.cardImageContainer}>
         {resourceImage && (
           <Image
             aspectRatio={457 / 250}
@@ -139,25 +136,21 @@ const ResourceCard = ({
           />
         )}
         {!resourceImage && (
-          <ResourceCardImagePlaceholderContainer
-            backgroundColor={cardColor.placeholderBackgroundColor}
-          >
+          <div className={classes.cardImagePlaceHolderContainer}>
             {placeholder &&
               React.cloneElement(placeholder, {
                 color: cardColor.iconColor,
               })}
-          </ResourceCardImagePlaceholderContainer>
+          </div>
         )}
-        <ResourceCardResourceName>{resourceName}</ResourceCardResourceName>
-      </ResourceCardImageContainer>
+        <span className={classes.cardResourceName}>{resourceName}</span>
+      </div>
       {scheduleText && (
-        <ResourceCardFooter>
-          <ResourceCardScheduleContainer>
-            {scheduleText}
-          </ResourceCardScheduleContainer>
-        </ResourceCardFooter>
+        <span className={classes.cardFooter}>
+          <span className={classes.cardScheduleContainer}>{scheduleText}</span>
+        </span>
       )}
-    </ResourceCardContainer>
+    </Link>
   );
 };
 
