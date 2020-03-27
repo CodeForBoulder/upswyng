@@ -1,4 +1,5 @@
 import Avatar from "@material-ui/core/Avatar";
+import ExpandMore from "@material-ui/icons/ExpandMore";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
@@ -29,7 +30,7 @@ const AlertPanel = ({ alert }: Props) => {
   const classes = useStyles(alert);
   return (
     <ExpansionPanel className={classes.expansionPanel}>
-      <ExpansionPanelSummary>
+      <ExpansionPanelSummary expandIcon={<ExpandMore />}>
         <Grid alignItems="center" container spacing={3} wrap="nowrap">
           <Grid item>
             <Avatar className={classes.avatar}>
