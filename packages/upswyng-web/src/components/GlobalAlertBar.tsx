@@ -34,13 +34,16 @@ const GlobalAlertBar = () => {
     return null;
   }
 
-  const toggleDrawer = () => setViewingAlerts(b => !b);
-  const [firstAlert] = alerts;
+  const sortedAlerts = alerts.sort(
+    (a1, a2) => new Date(a1.start).getTime() - new Date(a2.start).getTime()
+  );
+  const [firstAlert] = sortedAlerts;
   const alertButtonText = [
     "View",
     alerts.length,
     alerts.length ? "Alerts" : "Alert",
   ].reduce((acc, item) => (item ? `${acc} ${item}` : acc), "");
+  const toggleDrawer = () => setViewingAlerts(b => !b);
 
   return (
     <>
@@ -61,7 +64,7 @@ const GlobalAlertBar = () => {
         </Container>
       </Box>
       <AlertsDrawer
-        alerts={alerts}
+        alerts={sortedAlerts}
         anchor="top"
         open={viewingAlerts}
         onClose={toggleDrawer}
