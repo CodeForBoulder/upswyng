@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, BrowserRouter as Router } from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
 import About from "./components/About";
 import { BannerColorContextProvider } from "./components/BannerColorContext";
@@ -10,6 +10,7 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import Hotlines from "./components/Hotlines";
 import { LastLocationProvider } from "react-router-last-location";
+import NotFound from "./components/NotFound";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import ReportIssue from "./components/ReportIssue";
 import Resource from "./components/Resource";
@@ -39,28 +40,35 @@ class App extends Component {
           <LastLocationProvider>
             <BannerColorContextProvider>
               <Header />
-              <Route exact path="/" component={Home} />
-              <Route exact path="/about" component={About} />
-              <Route path="/coordinated-entry" component={CoordinatedEntry} />
-              <Route path="/shelters" component={Shelters} />
-              <Route path="/job-training" component={JobTraining} />
-              <Route path="/health" component={Health} />
-              <Route path="/hygiene" component={Hygiene} />
-              <Route exact path="/hotlines" component={Hotlines} />
-              <Route path="/food" component={Food} />
-              <Route exact path="/privacy-policy" component={PrivacyPolicy} />
-              <Route path="/transit" component={Transit} />
-              <Route exact path="/resource/:resourceId" component={Resource} />
-              <Route path="/resources" component={Resources} />
-              <Route path="/social_services" component={SocialServices} />
-              <Route exact path="/search" component={Search} />
-              <Route exact path="/terms-of-use" component={TermsOfUse} />
-              <Route path="/wifi" component={Wifi} />
-              <Route
-                exact
-                path="/report-issue/:resourceId"
-                component={ReportIssue}
-              />
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/about" component={About} />
+                <Route path="/coordinated-entry" component={CoordinatedEntry} />
+                <Route path="/shelters" component={Shelters} />
+                <Route path="/job-training" component={JobTraining} />
+                <Route path="/health" component={Health} />
+                <Route path="/hygiene" component={Hygiene} />
+                <Route exact path="/hotlines" component={Hotlines} />
+                <Route path="/food" component={Food} />
+                <Route exact path="/privacy-policy" component={PrivacyPolicy} />
+                <Route path="/transit" component={Transit} />
+                <Route
+                  exact
+                  path="/resource/:resourceId"
+                  component={Resource}
+                />
+                <Route path="/resources" component={Resources} />
+                <Route path="/social_services" component={SocialServices} />
+                <Route exact path="/search" component={Search} />
+                <Route exact path="/terms-of-use" component={TermsOfUse} />
+                <Route path="/wifi" component={Wifi} />
+                <Route
+                  exact
+                  path="/report-issue/:resourceId"
+                  component={ReportIssue}
+                />
+                <Route component={NotFound} />
+              </Switch>
             </BannerColorContextProvider>
           </LastLocationProvider>
         </Router>
