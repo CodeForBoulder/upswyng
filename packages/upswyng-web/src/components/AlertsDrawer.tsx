@@ -1,9 +1,9 @@
 import Drawer, { DrawerProps } from "@material-ui/core/Drawer";
 import AlertPanel from "./AlertPanel";
-import Button from "@material-ui/core/Button";
+import CloseIcon from "@material-ui/icons/Close";
 import Container from "@material-ui/core/Container";
-import ExpandLess from "@material-ui/icons/ExpandLess";
 import Grid from "@material-ui/core/Grid";
+import IconButton from "@material-ui/core/IconButton";
 import React from "react";
 import { TAlertFull } from "@upswyng/upswyng-types";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
@@ -17,6 +17,7 @@ interface Props extends DrawerProps {
 
 const useStyles = makeStyles((theme: Theme) => ({
   drawerPaper: {
+    backgroundColor: theme.palette.grey[900],
     paddingBottom: theme.spacing(5),
     paddingTop: theme.spacing(5),
   },
@@ -47,14 +48,10 @@ const AlertsDrawer = ({ alerts, toggleDrawer, ...drawerProps }: Props) => {
             </Grid>
           )}
           <Grid container justify="flex-end" item>
-            <Button
-              color="secondary"
-              endIcon={<ExpandLess />}
-              onClick={toggleDrawer}
-              variant="contained"
-            >
-              Hide Alerts
-            </Button>
+            <IconButton onClick={toggleDrawer}>
+              <Typography variant="srOnly">close alerts</Typography>
+              <CloseIcon />
+            </IconButton>
           </Grid>
         </Grid>
       </Container>
