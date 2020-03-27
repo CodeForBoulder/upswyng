@@ -1,11 +1,10 @@
-import ReactMarkdown, { NodeType } from "react-markdown";
 import Divider from "@material-ui/core/Divider";
 import Link from "@material-ui/core/Link";
 import React from "react";
+import ReactMarkdown from "react-markdown";
 import Typography from "@material-ui/core/Typography";
 
 type THeadingVariant = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-
 const asHeadingVariant = (headingLevel: number): THeadingVariant | null => {
   switch (headingLevel) {
     case 1:
@@ -28,17 +27,14 @@ const asHeadingVariant = (headingLevel: number): THeadingVariant | null => {
 interface RendererProps {
   children: React.ReactNode;
 }
-
 interface HeadingRendererProps extends RendererProps {
   level: number;
 }
-
 interface ListRendererProps extends RendererProps {
   ordered: boolean;
 }
 
 const renderers: Record<string, React.ElementType> = {
-  emphasis: Typography,
   heading: ({ children, level }: HeadingRendererProps) => {
     const headingVariant = asHeadingVariant(level);
     if (!headingVariant) {
@@ -59,14 +55,16 @@ const renderers: Record<string, React.ElementType> = {
     );
   },
   listItem: ({ children }: RendererProps) => (
-    <Typography component="li" paragraph>
-      {children}
-    </Typography>
+    <Typography component="li">{children}</Typography>
   ),
   paragraph: ({ children }: RendererProps) => (
     <Typography paragraph>{children}</Typography>
   ),
-  thematicBreak: Divider,
+  thematicBreak: () => (
+    <Typography component="div" paragraph>
+      <Divider />
+    </Typography>
+  ),
 };
 
 interface Props {
