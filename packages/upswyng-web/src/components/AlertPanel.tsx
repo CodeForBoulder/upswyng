@@ -10,8 +10,11 @@ import MuiMarkdown from "./MuiMarkdown";
 import React from "react";
 import { TAlertFull } from "@upswyng/upswyng-types";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
+import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import makeStyles from "@material-ui/styles/makeStyles";
+
+// const AlertPanelTooltip = ({children}:{})
 
 const useStyles = makeStyles((theme: Theme) => ({
   avatar: (alert: TAlertFull) => ({
@@ -19,6 +22,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: theme.palette.common.white,
   }),
   expansionPanel: (alert: TAlertFull) => ({
+    "&&, && *": {
+      opacity: !alert.detail ? 1 : undefined,
+    },
     "&::before": {
       backgroundColor: alert.color || theme.palette.primary.main,
     },
@@ -26,6 +32,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   expansionPanelDetails: {
     display: "block",
   },
+  expansionPanelSummary: (alert: TAlertFull) => ({
+    cursor: !alert.detail ? "default" : undefined,
+  }),
 }));
 
 interface Props extends ExpansionPanelProps {
@@ -34,28 +43,35 @@ interface Props extends ExpansionPanelProps {
 
 const AlertPanel = ({ alert, ...rest }: Props) => {
   const classes = useStyles(alert);
+
   return (
-    <ExpansionPanel className={classes.expansionPanel} {...rest}>
-      <ExpansionPanelSummary expandIcon={alert.detail ? <ExpandMore /> : null}>
-        <Grid alignItems="center" container spacing={3} wrap="nowrap">
-          <Grid item>
-            <Avatar className={classes.avatar}>
-              <span className={alert.icon} />
-            </Avatar>
+    <Tooltip arrow title={!alert.detail ? "No details on this alert." : ""}>
+      <ExpansionPanel className={classes.expansionPanel} {...rest}>
+        <ExpansionPanelSummary
+          className={classes.expansionPanelSummary}
+          disabled={!alert.detail}
+          expandIcon={alert.detail ? <ExpandMore /> : null}
+        >
+          <Grid alignItems="center" container spacing={3} wrap="nowrap">
+            <Grid item>
+              <Avatar className={classes.avatar}>
+                <span className={alert.icon} />
+              </Avatar>
+            </Grid>
+            <Grid item>
+              <Typography component="h2" variant="h3">
+                {alert.title}
+              </Typography>
+            </Grid>
           </Grid>
-          <Grid item>
-            <Typography component="h2" variant="h3">
-              {alert.title}
-            </Typography>
-          </Grid>
-        </Grid>
-      </ExpansionPanelSummary>
-      {alert.detail && (
-        <ExpansionPanelDetails className={classes.expansionPanelDetails}>
-          <MuiMarkdown markdown={alert.detail} />
-        </ExpansionPanelDetails>
-      )}
-    </ExpansionPanel>
+        </ExpansionPanelSummary>
+        {alert.detail && (
+          <ExpansionPanelDetails className={classes.expansionPanelDetails}>
+            <MuiMarkdown markdown={alert.detail} />
+          </ExpansionPanelDetails>
+        )}
+      </ExpansionPanel>
+    </Tooltip>
   );
 };
 
