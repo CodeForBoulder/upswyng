@@ -31,7 +31,13 @@ const AlertsDrawer = ({ alerts, ...drawerProps }: Props) => {
           Alerts
         </Typography>
         {alerts &&
-          alerts.map(alert => <AlertPanel alert={alert} key={alert.title} />)}
+          alerts.map((alert, i) => (
+            <AlertPanel
+              alert={alert}
+              defaultExpanded={i === 0}
+              key={alert.title}
+            />
+          ))}
       </Container>
     </Drawer>
   );

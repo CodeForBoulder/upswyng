@@ -1,6 +1,8 @@
+import ExpansionPanel, {
+  ExpansionPanelProps,
+} from "@material-ui/core/ExpansionPanel";
 import Avatar from "@material-ui/core/Avatar";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import Grid from "@material-ui/core/Grid";
@@ -26,14 +28,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-interface Props {
+interface Props extends ExpansionPanelProps {
   alert: TAlertFull;
 }
 
-const AlertPanel = ({ alert }: Props) => {
+const AlertPanel = ({ alert, ...rest }: Props) => {
   const classes = useStyles(alert);
   return (
-    <ExpansionPanel className={classes.expansionPanel}>
+    <ExpansionPanel className={classes.expansionPanel} {...rest}>
       <ExpansionPanelSummary expandIcon={<ExpandMore />}>
         <Grid alignItems="center" container spacing={3} wrap="nowrap">
           <Grid item>
