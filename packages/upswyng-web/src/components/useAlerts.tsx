@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import { TAlertsPayload } from "../webTypes";
 import apiClient from "../utils/apiClient";
 
-function useSearchResults(): [TStatusFetch, TAlertFull[] | null] {
+const GET_ALERTS_INTERVAL_MS = 300000; // 5 minutes
+
+const useAlerts = (): [TStatusFetch, TAlertFull[] | null] => {
   const [status, setStatus] = useState<TStatusFetch>(
     TStatusFetch.STATUS_NOT_FETCHED
   );
@@ -13,7 +15,6 @@ function useSearchResults(): [TStatusFetch, TAlertFull[] | null] {
     const getAlerts = async (): Promise<void> => {
       try {
         setStatus(TStatusFetch.STATUS_FETCHING);
-        setAlertsPayload(null);
         const { data } = await apiClient.post<TAlertsPayload>(`/alert/search`, {
           start: new Date(),
         });
@@ -23,14 +24,19 @@ function useSearchResults(): [TStatusFetch, TAlertFull[] | null] {
       } catch (err) {
         // TODO: log this error
         setStatus(TStatusFetch.STATUS_FETCH_ERROR);
-        setAlertsPayload(null);
       }
     };
 
     getAlerts();
+    const getTemperatureInterval = window.setInterval(
+      getAlerts,
+      GET_ALERTS_INTERVAL_MS
+    );
+
+    return () => window.clearInterval(getTemperatureInterval);
   }, []);
 
   return [status, alertsPayload];
-}
+};
 
-export default useSearchResults;
+export default useAlerts;
