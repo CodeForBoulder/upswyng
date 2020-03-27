@@ -14,6 +14,7 @@ const useAlertStyles = makeStyles((theme: Theme) => ({
   root: {
     background: "none",
     color: theme.palette.common.white,
+    cursor: "pointer",
     paddingLeft: 0,
     paddingRight: 0,
   },
@@ -47,17 +48,13 @@ const GlobalAlertBar = () => {
         <Container>
           <Alert
             action={
-              <Button
-                onClick={toggleDrawer}
-                endIcon={<ExpandMore />}
-                size="small"
-                variant="text"
-              >
+              <Button endIcon={<ExpandMore />} size="small" variant="text">
                 {alertButtonText}
               </Button>
             }
             classes={alertClasses}
             icon={<span className={firstAlert.icon} />}
+            onClick={toggleDrawer}
           >
             {firstAlert.title}
           </Alert>
