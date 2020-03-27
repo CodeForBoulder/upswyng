@@ -40,8 +40,8 @@ const GlobalAlertBar = () => {
   const [firstAlert] = sortedAlerts;
   const alertButtonText = [
     "View",
-    alerts.length,
-    alerts.length ? "Alerts" : "Alert",
+    alerts.length > 1 ? alerts.length : "",
+    alerts.length > 1 ? "Alerts" : "Alert",
   ].reduce((acc, item) => (item ? `${acc} ${item}` : acc), "");
   const toggleDrawer = () => setViewingAlerts(b => !b);
 
