@@ -1,6 +1,9 @@
 import Drawer, { DrawerProps } from "@material-ui/core/Drawer";
 import AlertPanel from "./AlertPanel";
+import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import Grid from "@material-ui/core/Grid";
 import React from "react";
 import { TAlertFull } from "@upswyng/upswyng-types";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
@@ -9,6 +12,7 @@ import makeStyles from "@material-ui/styles/makeStyles";
 
 interface Props extends DrawerProps {
   alerts: TAlertFull[] | null;
+  toggleDrawer: () => void;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -18,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const AlertsDrawer = ({ alerts, ...drawerProps }: Props) => {
+const AlertsDrawer = ({ alerts, toggleDrawer, ...drawerProps }: Props) => {
   const classes = useStyles();
   return (
     <Drawer
@@ -27,17 +31,32 @@ const AlertsDrawer = ({ alerts, ...drawerProps }: Props) => {
       PaperProps={{ className: classes.drawerPaper }}
     >
       <Container>
-        <Typography variant="h1" paragraph>
-          Alerts
-        </Typography>
-        {alerts &&
-          alerts.map((alert, i) => (
-            <AlertPanel
-              alert={alert}
-              defaultExpanded={i === 0}
-              key={alert.title}
-            />
-          ))}
+        <Grid container direction="column" spacing={4}>
+          <Grid item>
+            <Typography variant="h1">Alerts</Typography>
+          </Grid>
+          {alerts && (
+            <Grid item>
+              {alerts.map((alert, i) => (
+                <AlertPanel
+                  alert={alert}
+                  defaultExpanded={i === 0}
+                  key={alert.title}
+                />
+              ))}
+            </Grid>
+          )}
+          <Grid container justify="flex-end" item>
+            <Button
+              color="secondary"
+              endIcon={<ExpandLess />}
+              onClick={toggleDrawer}
+              variant="contained"
+            >
+              Hide Alerts
+            </Button>
+          </Grid>
+        </Grid>
       </Container>
     </Drawer>
   );

@@ -68,6 +68,7 @@ const GlobalAlertBar = () => {
         anchor="top"
         open={viewingAlerts}
         onClose={toggleDrawer}
+        toggleDrawer={toggleDrawer}
       />
     </>
   );
