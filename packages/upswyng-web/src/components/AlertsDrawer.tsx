@@ -24,7 +24,6 @@ const AlertsDrawer = ({ alerts, ...drawerProps }: Props) => {
     <Drawer
       anchor="top"
       {...drawerProps}
-      open
       PaperProps={{ className: classes.drawerPaper }}
     >
       <Container>

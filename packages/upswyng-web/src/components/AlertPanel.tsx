@@ -4,6 +4,7 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import Grid from "@material-ui/core/Grid";
+import MuiMarkdown from "./MuiMarkdown";
 import React from "react";
 import { TAlertFull } from "@upswyng/upswyng-types";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
@@ -20,6 +21,9 @@ const useStyles = makeStyles((theme: Theme) => ({
       backgroundColor: alert.color || theme.palette.primary.main,
     },
   }),
+  expansionPanelDetails: {
+    display: "block",
+  },
 }));
 
 interface Props {
@@ -45,8 +49,8 @@ const AlertPanel = ({ alert }: Props) => {
         </Grid>
       </ExpansionPanelSummary>
       {alert.detail && (
-        <ExpansionPanelDetails>
-          <Typography>{alert.detail}</Typography>
+        <ExpansionPanelDetails className={classes.expansionPanelDetails}>
+          <MuiMarkdown markdown={alert.detail} />
         </ExpansionPanelDetails>
       )}
     </ExpansionPanel>
