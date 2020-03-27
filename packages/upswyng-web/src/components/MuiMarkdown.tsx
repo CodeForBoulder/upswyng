@@ -4,8 +4,9 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import Typography from "@material-ui/core/Typography";
 
-type THeadingVariant = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-const asHeadingVariant = (headingLevel: number): THeadingVariant | null => {
+const asHeadingVariant = (
+  headingLevel: number
+): "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | null => {
   switch (headingLevel) {
     case 1:
       return "h1";
@@ -72,7 +73,7 @@ interface Props {
 }
 
 const MuiMarkdown = ({ markdown }: Props) => (
-  <ReactMarkdown renderers={renderers} source={markdown} />
+  <ReactMarkdown renderers={renderers} source={markdown} skipHtml />
 );
 
 export default MuiMarkdown;
