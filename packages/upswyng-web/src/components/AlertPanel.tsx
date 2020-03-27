@@ -36,7 +36,7 @@ const AlertPanel = ({ alert, ...rest }: Props) => {
   const classes = useStyles(alert);
   return (
     <ExpansionPanel className={classes.expansionPanel} {...rest}>
-      <ExpansionPanelSummary expandIcon={<ExpandMore />}>
+      <ExpansionPanelSummary expandIcon={alert.detail ? <ExpandMore /> : null}>
         <Grid alignItems="center" container spacing={3} wrap="nowrap">
           <Grid item>
             <Avatar className={classes.avatar}>
