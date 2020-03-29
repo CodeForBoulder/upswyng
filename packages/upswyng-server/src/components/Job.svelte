@@ -2,6 +2,7 @@
   import { createEventDispatcher } from "svelte";
   import { onMount, onDestroy } from "svelte";
   import converter from "number-to-words-en";
+  import CopyToClipboard from "./CopyToClipboard.svelte";
   import jsonHighlight from "json-highlight";
   import prettyMilliseconds from "pretty-ms";
 
@@ -154,6 +155,7 @@
     <p class="is-size-8">
       <span class="has-text-weight-semibold">ID:</span>
       <span class="is-size-9">{job.id}</span>
+      <CopyToClipboard textToCopy={job.id} />
     </p>
   </div>
   {#if job.attemptsMade && job.status !== 'completed'}
