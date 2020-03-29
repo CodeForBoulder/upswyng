@@ -1,5 +1,8 @@
 # How to create a new job for the worker, UpswyngBot
 
+> See [PR #310](https://github.com/CodeForBoulder/upswyng/pull/310)
+> for an example of creating a new worker job
+
 ## Create types
 
 To start, you'll need to add two types to `workerTypes.ts`: a
