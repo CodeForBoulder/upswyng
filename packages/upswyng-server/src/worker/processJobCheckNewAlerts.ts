@@ -35,16 +35,19 @@ export async function processJobCheckNewAlerts(
 
   let alertsProcessed = []; // Array<alert IDs>
 
-  unsentAlertWeb.forEach(async alert => {
+  unsentAlertWeb.forEach(async (alert, i) => {
     try {
       alert.wasProcessed = true;
       await alert.save();
       alertsProcessed = [...alertsProcessed, alert._id];
       console.debug(`Simulate ${alert} sent to web`);
+      job.updateProgress(((i + 1) / alertsProcessed.length) * 100);
     } catch (e) {
       throw e;
     }
   });
+
+  job.updateProgress(100);
 
   return { alertsProcessed, jobName: job.name, kind: "check_new_alerts" };
 }
