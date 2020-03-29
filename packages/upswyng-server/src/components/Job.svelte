@@ -142,6 +142,14 @@
       {/if}
     </div>
   </div>
+  <div class="job-kind">
+    <p class="is-size-8">
+      <span
+        class="is-size-9 has-text-weight-semibold has-text-grey is-capitalized">
+        {job.data.kind.replace(/_/g, ' ')}
+      </span>
+    </p>
+  </div>
   <div class="job-id">
     <p class="is-size-8">
       <span class="has-text-weight-semibold">ID:</span>
