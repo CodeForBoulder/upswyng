@@ -47,7 +47,7 @@ Create and export your function:
 
 import { Job } from "bullmq";
 
-export async function processesJobWash(
+export async function processJobWash(
   job: Job<TJobWashData, TJobWashResult>
 ): Promise<TJobWashResult> {
   // do some things
@@ -57,6 +57,13 @@ export async function processesJobWash(
   // ex: job.updateProgress(Math.min(progress, 100));
 }
 ```
+
+## Add the processor to the worker logic
+
+`packages/upswyng-server/src/worker.ts` contains the logic for the worker; a node app separate from the server
+which runs in its own VM to execute long-running tasks. The `start` function contains a `switch` which
+ensures each job is processed with the correct logic according to its `kind`. Import `processJobWash` and
+add a `case` to the `switch` so that jobs with `kind` `wash` are sent to `processJobWash`.
 
 ## Create a helper method to add a job
 

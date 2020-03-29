@@ -1,19 +1,17 @@
-import Alert, { alertDocumentToFullAlert } from "../models/Alert";
 import {
   TJobCheckNewAlertsData,
   TJobCheckNewAlertsResult,
 } from "./workerTypes";
 
+import Alert from "../models/Alert";
 import { Job } from "bullmq";
-import { TAlert } from "@upswyng/upswyng-types";
-import axios from "axios";
 import moment from "moment";
 
 /**
  * Check the Alerts for any which have recently become active, and push
  * a notification out to users
  */
-export async function processesJobCheckNewAlerts(
+export async function processJobCheckNewAlerts(
   job: Job<TJobCheckNewAlertsData, TJobCheckNewAlertsResult>
 ): Promise<TJobCheckNewAlertsResult> {
   console.info(`${job.name}[${job.id}]\t: Checking for new alerts`);
