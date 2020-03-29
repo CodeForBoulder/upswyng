@@ -47,9 +47,9 @@ Create and export your function:
 
 import { Job } from "bullmq";
 
-export async function processesJobCheckLinks(
-  job: Job<TJobCheckLinksData, TJobCheckLinksResult>
-): Promise<TJobCheckLinksResult> {
+export async function processesJobWash(
+  job: Job<TJobWashData, TJobWashResult>
+): Promise<TJobWashResult> {
   // do some things
   //
   // you can call `job.updateProgress()` with number between 0 and 100 to send a completion
