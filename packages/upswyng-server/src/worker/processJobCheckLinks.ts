@@ -9,7 +9,7 @@ import axios from "axios";
  * Go through `Resource`s and check the URL in the `website` field
  * to ensure its validity
  */
-export async function processesJobCheckLinks(
+export async function processJobCheckLinks(
   job: Job<TJobCheckLinksData, TJobCheckLinksResult>
 ): Promise<TJobCheckLinksResult> {
   const BATCH_SIZE = 5;
