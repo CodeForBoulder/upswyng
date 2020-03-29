@@ -32,7 +32,7 @@ export async function processesJobCheckNewAlerts(
   );
 
   console.info(
-    `${job.name}[${job.id}]\t: Found ${unsentAlertWeb.length} alerts which have not been sent as web notifiactions`
+    `${job.name}[${job.id}]\t: Found ${unsentAlertWeb.length} alerts which have not been processed`
   );
 
   let alertsProcessed = []; // Array<alert IDs>

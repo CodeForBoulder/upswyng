@@ -21,7 +21,7 @@ export interface TJobWashData {
 ```typescript
 export interface TJobWashResult {
   kind: "wash";
-  jobName: string;
+  jobName: string; // needed to display the job in the UI
   // add more result fields as necessary
 }
 ```
