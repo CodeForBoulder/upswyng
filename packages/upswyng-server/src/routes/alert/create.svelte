@@ -214,7 +214,7 @@
           "success",
           `Alert "${alertTitle}" was successful created`
         );
-        goto(`/alert/${alert._id}`);
+        goto(`/alert?id=${alert._id}`);
       })
       .catch(e => (errorMessage = e))
       .finally(() => {
