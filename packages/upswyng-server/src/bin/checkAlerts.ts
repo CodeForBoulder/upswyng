@@ -1,3 +1,8 @@
+/**
+ * Standalone script to add a "Check New Alerts" job to the Worker queue.
+ *
+ * Transpiled with the config in `bin.rollup.config.js` to `upswyng/packages/upswyng-server/__build__/bin/check_alerts`.
+ */
 import * as dotenv from "dotenv";
 
 import mq from "../worker/mq";
