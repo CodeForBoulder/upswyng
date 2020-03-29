@@ -154,7 +154,7 @@
   <div class="job-id">
     <p class="is-size-8">
       <span class="has-text-weight-semibold">ID:</span>
-      <span class="is-size-9">{job.id}</span>
+      <span class="is-size-9 is-family-monospace">{job.id}</span>
       <CopyToClipboard textToCopy={job.id} />
     </p>
   </div>
