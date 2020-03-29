@@ -6,9 +6,9 @@
 ## Create types
 
 To start, you'll need to add two types to `workerTypes.ts`: a
-`Data` type and a `Result` interface. If the title of your job is "Wash",
+`Data` interface and a `Result` interface. If the title of your job is "Wash",
 they'll be named `TJobWashData` and `TJobWashResult`. Both interfaces will
-have a `kind` key, whose value is a unique string of your job title.
+have a `kind` key, whose value is the unique string of your job title.
 The `Result` interface will contain the job name. Ex:
 
 ```typescript
@@ -52,15 +52,15 @@ export async function processesJobCheckLinks(
 ): Promise<TJobCheckLinksResult> {
   // do some things
   //
-  // you can call `job.updateProgress()` with numer betwween 0 and 100 to send a completion
+  // you can call `job.updateProgress()` with number between 0 and 100 to send a completion
   // percentage which will show up in the worker UI
   // ex: job.updateProgress(Math.min(progress, 100));
 }
 ```
 
-### Create a helper method to add a job
+## Create a helper method to add a job
 
-For convienece and consistency, add a helper function to `mq.ts` to create
+For convenience and consistency, add a helper function to `mq.ts` to create
 an instance of your job (don't forget to export it):
 
 ```typescript
