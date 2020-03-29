@@ -20,7 +20,7 @@ export async function processJobCheckNewAlerts(
 
   const activeAlerts = await Alert.genActiveAlerts(now);
 
-  const unsentAlertWeb = activeAlerts.filter(
+  const unprocessedAlerts = activeAlerts.filter(
     a =>
       !a.wasProcessed &&
       a.start >= // don't do anything about really old alerts
@@ -30,18 +30,20 @@ export async function processJobCheckNewAlerts(
   );
 
   console.info(
-    `${job.name}[${job.id}]\t: Found ${unsentAlertWeb.length} alerts which have not been processed`
+    `${job.name}[${job.id}]\t: Found ${unprocessedAlerts.length} alerts which have not been processed`
   );
 
   let alertsProcessed = []; // Array<alert IDs>
 
-  unsentAlertWeb.forEach(async (alert, i) => {
+  unprocessedAlerts.forEach(async (alert, i, { length: count }) => {
     try {
+      console.info(`Processing alert ${alert._id.toHexString()}`);
       alert.wasProcessed = true;
       await alert.save();
-      alertsProcessed = [...alertsProcessed, alert._id];
+      alertsProcessed = [...alertsProcessed, alert._id.toHexString()];
       console.debug(`Simulate ${alert} sent to web`);
-      job.updateProgress(((i + 1) / alertsProcessed.length) * 100);
+      console.info(`Finished processing alert ${alert._id.toHexString()}`);
+      job.updateProgress(((i + 1) / count) * 100);
     } catch (e) {
       throw e;
     }
