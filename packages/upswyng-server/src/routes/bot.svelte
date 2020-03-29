@@ -161,7 +161,10 @@
             src="/upswyngbot.svg" />
         </div>
         <div class="column">
-          <h1 class="title is-family-monospace">upswyngbot</h1>
+          <h1 class="title is-family-monospace">
+            upswyngbot
+            <span class="tag is-dark is-family-primary">Admin</span>
+          </h1>
           <h2 class="subtitle">
             <span class="is-family-monospace">upswyngbot</span>
             runs tasks like checking to make sure the links on UpSwyng aren't
