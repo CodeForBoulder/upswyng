@@ -24,7 +24,7 @@ export async function processesJobCheckNewAlerts(
 
   const unsentAlertWeb = activeAlerts.filter(
     a =>
-      !a.notificationSentWeb &&
+      !a.wasProcessed &&
       a.start >= // don't do anything about really old alerts
         moment(now)
           .subtract(3, "hours")
@@ -39,7 +39,7 @@ export async function processesJobCheckNewAlerts(
 
   unsentAlertWeb.forEach(async alert => {
     try {
-      alert.notificationSentWeb = true;
+      alert.wasProcessed = true;
       await alert.save();
       alertsProcessed = [...alertsProcessed, alert._id];
       console.debug(`Simulate ${alert} sent to web`);

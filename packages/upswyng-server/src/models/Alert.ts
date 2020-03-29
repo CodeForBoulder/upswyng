@@ -19,9 +19,9 @@ export interface TAlertDocument extends Document {
   icon: string;
   lastModifiedAt: Date;
   lastModifiedBy: ObjectId | TUserDocument;
-  notificationSentWeb: boolean;
   start: Date;
   title: string;
+  wasProcessed: boolean;
 }
 
 export function fullAlertToAlert(alert: TAlertFull): TAlert {
