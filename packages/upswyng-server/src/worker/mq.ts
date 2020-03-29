@@ -8,6 +8,8 @@ import { Job, Queue, QueueEvents, QueueScheduler } from "bullmq";
 import {
   TJobCheckLinksData,
   TJobCheckLinksResult,
+  TJobCheckNewAlertsData,
+  TJobCheckNewAlertsResult,
   TJobData,
   TJobTestData,
   TJobTestResult,
@@ -99,8 +101,23 @@ async function addJobCheckLinks(
   );
 }
 
+async function addJobCheckNewAlerts(
+  name: string = getName("-"),
+  userId
+): Promise<Job<TJobCheckNewAlertsData, TJobCheckNewAlertsResult>> {
+  return queue.add(
+    name,
+    { kind: "check_new_alerts", userId },
+    {
+      priority: 2,
+      jobId: new ObjectID().toHexString(),
+    }
+  );
+}
+
 const mq = {
   addJobCheckLinks,
+  addJobCheckNewAlerts,
   addJobTest,
   connection,
   getCounts,

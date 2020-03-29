@@ -1,4 +1,5 @@
 *.scss
+*.md
 packages/**/__build__/**
 packages/**/__sapper__/**
 packages/**/coverage/**

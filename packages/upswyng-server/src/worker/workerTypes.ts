@@ -14,6 +14,21 @@ export interface TJobTestResult {
 }
 
 /**
+ * Check for alerts that have recently become active. Log an event/send a message
+ * to Slack, and push the notification out to clients.
+ */
+export interface TJobCheckNewAlertsData {
+  kind: "check_new_alerts";
+  userId: string; // _id of user who initiated the job
+}
+
+export interface TJobCheckNewAlertsResult {
+  kind: "check_new_alerts";
+  alertsProcessed: string[];
+  jobName: string;
+}
+
+/**
  * Check the links in the Resource directory for broken URLs
  */
 export interface TJobCheckLinksData {
@@ -33,5 +48,11 @@ export interface TJobCheckLinksResult {
   kind: "check_links";
 }
 
-export type TJobData = TJobCheckLinksData | TJobTestData;
-export type TJobResult = TJobCheckLinksResult | TJobTestResult;
+export type TJobData =
+  | TJobCheckLinksData
+  | TJobCheckNewAlertsData
+  | TJobTestData;
+export type TJobResult =
+  | TJobCheckLinksResult
+  | TJobCheckNewAlertsResult
+  | TJobTestResult;
