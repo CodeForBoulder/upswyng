@@ -5,7 +5,12 @@
 import * as dotenv from "dotenv";
 
 import { Job, Worker } from "bullmq";
-import { TJobCheckLinksData, TJobCheckLinksResult } from "./worker/workerTypes";
+import {
+  TJobCheckLinksData,
+  TJobCheckLinksResult,
+  TJobCheckNewAlertsData,
+  TJobCheckNewAlertsResult,
+} from "./worker/workerTypes";
 import {
   TJobData,
   TJobResult,
@@ -15,6 +20,7 @@ import {
 
 import mongoose from "mongoose";
 import mq from "./worker/mq";
+import { processJobCheckNewAlerts } from "./worker/processJobCheckNewAlerts";
 import { processesJobCheckLinks } from "./worker/processJobCheckLinks";
 import throng from "throng";
 
@@ -87,6 +93,10 @@ async function start() {
         case "check_links":
           return await processesJobCheckLinks(
             job as Job<TJobCheckLinksData, TJobCheckLinksResult>
+          );
+        case "check_new_alerts":
+          return await processJobCheckNewAlerts(
+            job as Job<TJobCheckNewAlertsData, TJobCheckNewAlertsResult>
           );
         case "test":
           return await processesTestJob(

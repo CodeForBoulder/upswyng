@@ -25,4 +25,5 @@ export interface TAlertFull extends TAlert {
   isCancelled: boolean;
   lastModifiedAt: Date;
   lastModifiedBy: TUser;
+  wasProcessed: boolean; // worker has processed the alert when it's become active; worker sends push notification and sets this field to `true`
 }

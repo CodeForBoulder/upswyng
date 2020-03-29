@@ -21,6 +21,7 @@ export interface TAlertDocument extends Document {
   lastModifiedBy: ObjectId | TUserDocument;
   start: Date;
   title: string;
+  wasProcessed: boolean;
 }
 
 export function fullAlertToAlert(alert: TAlertFull): TAlert {
@@ -78,6 +79,7 @@ const AlertSchema = new Schema(
       ref: "User",
       required: true,
     },
+    wasProcessed: { type: Boolean, default: false },
     start: { type: Date, required: true, index: true },
     title: { type: String, required: true },
   },
@@ -104,5 +106,5 @@ export default Alert as typeof Alert & {
   /**
    * Fetch the active alerts. `now` pararameter provided for testing purposes.
    */
-  genActiveAlerts: (now: Date | undefined) => Promise<Array<TAlertFull>>;
+  genActiveAlerts: (now: Date | undefined) => Promise<Array<TAlertDocument>>;
 };
