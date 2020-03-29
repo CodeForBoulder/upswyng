@@ -4,7 +4,7 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "build": "yarn workspace @upswyng/upswyng-core build && sapper build --legacy && rollup --config worker.rollup.config.js",
+    "build": "yarn workspace @upswyng/upswyng-core build && sapper build --legacy && rollup --config worker.rollup.config.js && rollup --config bin.rollup.config.js",
     "cy:open": "yarn workspace @upswyng/upswyng-core build && cypress open",
     "cy:run": "yarn workspace @upswyng/upswyng-core build && cypress run",
     "data-setup-categories": "yarn workspace @upswyng/upswyng-core build && rollup --config data-pipeline.rollup.config.js && node __build__/setupCategories.js",
@@ -105,6 +105,7 @@
     "npm-run-all": "^4.1.5",
     "postcss": "^7.0.18",
     "rollup": "^1.12.0",
+    "rollup-plugin-add-shebang": "^0.3.1",
     "rollup-plugin-babel": "^4.0.2",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "^1.4.0",
