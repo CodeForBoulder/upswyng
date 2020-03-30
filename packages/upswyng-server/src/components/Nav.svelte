@@ -65,6 +65,10 @@
               <span>Event Logs &nbsp;</span>
               <span class="tag is-dark">Admin</span>
             </a>
+            <a class="navbar-item" href="bot" rel="prefetch">
+              <span class="is-family-monospace">upswyngbot &nbsp;</span>
+              <span class="tag is-dark">Admin</span>
+            </a>
             <a class="navbar-item" href="users" rel="prefetch">
               <span>Users &nbsp;</span>
               <span class="tag is-dark">Admin</span>
