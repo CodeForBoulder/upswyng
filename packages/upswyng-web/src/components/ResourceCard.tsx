@@ -82,6 +82,7 @@ const ResourceCard = ({
   });
   const history = useHistory();
   const resourceUrl = `/resource/${resourceId}`;
+  const resourceScheduleId = `${resourceId}-schedule`;
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -90,7 +91,11 @@ const ResourceCard = ({
 
   return (
     <Card className={classes.card} raised>
-      <CardActionArea role="link" onClick={handleClick}>
+      <CardActionArea
+        aria-describedby={scheduleText && resourceScheduleId}
+        role="link"
+        onClick={handleClick}
+      >
         <CardMedia
           component={() =>
             resourceImage ? (
@@ -113,12 +118,14 @@ const ResourceCard = ({
         <CardContent>
           <Typography variant="subtitle1">{resourceName}</Typography>
         </CardContent>
-        {scheduleText && (
-          <CardActions className={classes.cardScheduleContainer}>
-            <Typography variant="subtitle2">{scheduleText}</Typography>
-          </CardActions>
-        )}
       </CardActionArea>
+      {scheduleText && (
+        <CardActions className={classes.cardScheduleContainer}>
+          <Typography id={resourceScheduleId} variant="subtitle2">
+            {scheduleText}
+          </Typography>
+        </CardActions>
+      )}
     </Card>
   );
 };
