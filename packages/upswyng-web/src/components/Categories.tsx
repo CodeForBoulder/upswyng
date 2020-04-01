@@ -139,10 +139,6 @@ export const categories: Record<TCategoryName, TCategoryDefinition> = {
         stub: "temp_agency",
       },
       {
-        text: "Day Labor",
-        stub: "day_labor",
-      },
-      {
         text: "Career Counseling",
         stub: "career_counseling",
       },
