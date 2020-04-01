@@ -8,7 +8,7 @@ const spacing = (factor: number): string => `${0.25 * factor}rem`;
 
 const palette = {
   common: { black: "#000", white: "#fff" },
-  background: { paper: "#3a3a3a", default: "#3a3a3a" },
+  background: { paper: "#252525", default: "#3a3a3a" },
   primary: {
     main: "#F05A28",
     contrastText: "#000",
