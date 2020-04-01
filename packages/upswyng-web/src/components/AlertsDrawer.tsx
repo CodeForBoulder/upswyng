@@ -5,13 +5,13 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import React from "react";
-import { TAlertFull } from "@upswyng/upswyng-types";
+import { TAlert } from "@upswyng/upswyng-types";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import Typography from "@material-ui/core/Typography";
 import makeStyles from "@material-ui/styles/makeStyles";
 
 interface Props extends DrawerProps {
-  alerts: TAlertFull[] | null;
+  alerts: TAlert[] | null;
   toggleDrawer: () => void;
 }
 

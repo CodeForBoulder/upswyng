@@ -1,15 +1,15 @@
-import { TAlertFull, TStatusFetch } from "@upswyng/upswyng-types";
+import { TAlert, TStatusFetch } from "@upswyng/upswyng-types";
 import { useEffect, useState } from "react";
 import { TAlertsPayload } from "../webTypes";
 import apiClient from "../utils/apiClient";
 
 const GET_ALERTS_INTERVAL_MS = 300000; // 5 minutes
 
-const useAlerts = (): [TStatusFetch, TAlertFull[] | null] => {
+const useAlerts = (): [TStatusFetch, TAlert[] | null] => {
   const [status, setStatus] = useState<TStatusFetch>(
     TStatusFetch.STATUS_NOT_FETCHED
   );
-  const [alertsPayload, setAlertsPayload] = useState<null | TAlertFull[]>(null);
+  const [alertsPayload, setAlertsPayload] = useState<null | TAlert[]>(null);
 
   useEffect(() => {
     const getAlerts = async (): Promise<void> => {

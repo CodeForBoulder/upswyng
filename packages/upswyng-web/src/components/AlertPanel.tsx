@@ -8,18 +8,18 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import Grid from "@material-ui/core/Grid";
 import MuiMarkdown from "./MuiMarkdown";
 import React from "react";
-import { TAlertFull } from "@upswyng/upswyng-types";
+import { TAlert } from "@upswyng/upswyng-types";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import makeStyles from "@material-ui/styles/makeStyles";
 
 const useStyles = makeStyles((theme: Theme) => ({
-  avatar: (alert: TAlertFull) => ({
+  avatar: (alert: TAlert) => ({
     backgroundColor: alert.color || theme.palette.primary.main,
     color: theme.palette.common.white,
   }),
-  expansionPanel: (alert: TAlertFull) => ({
+  expansionPanel: (alert: TAlert) => ({
     "&&, && *": {
       opacity: !alert.detail ? 1 : undefined,
     },
@@ -30,13 +30,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   expansionPanelDetails: {
     display: "block",
   },
-  expansionPanelSummary: (alert: TAlertFull) => ({
+  expansionPanelSummary: (alert: TAlert) => ({
     cursor: !alert.detail ? "default" : undefined,
   }),
 }));
 
 interface Props extends ExpansionPanelProps {
-  alert: TAlertFull;
+  alert: TAlert;
 }
 
 const AlertPanel = ({ alert, ...rest }: Props) => {

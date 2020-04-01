@@ -1,5 +1,5 @@
 import {
-  TAlertFull,
+  TAlert,
   TAlgoliaHit,
   TCategory,
   TResource,
@@ -32,7 +32,7 @@ interface TPayloadBase {
 }
 
 export interface TAlertsPayload extends TPayloadBase {
-  alerts?: TAlertFull[];
+  alerts?: TAlert[];
   count?: number;
 }
 
