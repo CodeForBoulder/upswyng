@@ -16,9 +16,6 @@ interface StyleProps {
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
-  card: {
-    width: "100%",
-  },
   cardImagePlaceHolderContainer: (styleProps: StyleProps) => ({
     background: styleProps.backgroundColor,
     position: "relative",
@@ -90,9 +87,9 @@ const ResourceCard = ({
   };
 
   return (
-    <Card className={classes.card} raised>
+    <Card raised>
       <CardActionArea
-        aria-describedby={scheduleText && resourceScheduleId}
+        aria-describedby={scheduleText ? resourceScheduleId : undefined}
         role="link"
         onClick={handleClick}
       >
