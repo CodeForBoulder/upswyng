@@ -94,7 +94,7 @@ yarn build-local-packages
 
 ## Contributing
 
-Before contributing, please review and abide by [Code for Boulder's Code of Conduct](http://www.codeforboulder.org/code-of-conduct).
+Before contributing, please review and abide by the [code of conduct](CODE_OF_CONDUCT.md).
 
 ### 1. Find an Issue Pending Development, Needing Help, or Asking a Question
 
