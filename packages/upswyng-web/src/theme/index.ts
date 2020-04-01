@@ -53,9 +53,16 @@ const typography = {
     fontSize: "1rem",
     fontWeight: 300,
   },
-  subtitle2: {
+  subtitle1: {
     fontSize: "1rem",
     fontWeight: 400,
+    lineHeight: 1.2,
+    margin: 0,
+  },
+  subtitle2: {
+    fontSize: "0.8rem",
+    fontWeight: 400,
+    lineHeight: 1.2,
     margin: 0,
   },
   caption: {
