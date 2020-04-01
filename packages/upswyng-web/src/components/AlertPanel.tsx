@@ -14,8 +14,6 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import makeStyles from "@material-ui/styles/makeStyles";
 
-// const AlertPanelTooltip = ({children}:{})
-
 const useStyles = makeStyles((theme: Theme) => ({
   avatar: (alert: TAlertFull) => ({
     backgroundColor: alert.color || theme.palette.primary.main,
