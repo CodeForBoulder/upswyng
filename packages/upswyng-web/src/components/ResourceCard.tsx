@@ -111,9 +111,7 @@ const ResourceCard = ({
           }
         />
         <CardContent>
-          <Typography gutterBottom variant="subtitle1">
-            {resourceName}
-          </Typography>
+          <Typography variant="subtitle1">{resourceName}</Typography>
         </CardContent>
         {scheduleText && (
           <CardActions className={classes.cardScheduleContainer}>
