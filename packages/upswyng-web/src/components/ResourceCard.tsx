@@ -87,7 +87,7 @@ const ResourceCard = ({
   };
 
   return (
-    <Card raised>
+    <Card>
       <CardActionArea
         aria-describedby={scheduleText ? resourceScheduleId : undefined}
         role="link"
