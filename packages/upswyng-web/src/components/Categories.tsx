@@ -266,10 +266,6 @@ export const categories: Record<TCategoryName, TCategoryDefinition> = {
         text: "Bicycle",
         stub: "bicycle",
       },
-      {
-        text: "Lite Rail",
-        stub: "lite_rail",
-      },
     ],
   },
   Wifi: {
