@@ -39,12 +39,12 @@ export async function get(req, res, _next) {
   const user = getUserFromRawUsers(req);
   const isAdmin = !!user || (user && user.isAdmin);
 
-  const alert = await Alert.findById(ObjectId.createFromHexString(_id));
+  const alert = await Alert.findById(id);
 
   if (!alert) {
     return res
       .status(404)
-      .json({ message: `There is no alert with ID: ${_id}` });
+      .json({ message: `There is no alert with ID: ${id.toHexString()}` });
   }
 
   return res.status(200).json({
