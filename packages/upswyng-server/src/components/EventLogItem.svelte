@@ -147,6 +147,24 @@
         {/if}
       {/if}
     </div>
+  {:else if eventLog.detail.kind === EventLogKind.AlertLive}
+    <div class="timeline-marker is-icon">
+      <i class="fas fa-exclamation" />
+    </div>
+    <div class="timeline-content">
+      <p class="heading">
+        {#if timeAgo}{timeAgo.format(new Date(eventLog.createdAt))}{/if}
+      </p>
+      <p>
+        Alert
+        <a href={`/alert?id=${eventLog.detail.alertId}`} rel="prefetch">
+          <span class="has-text-weight-semibold">
+            {eventLog.detail.alertTitle}
+          </span>
+        </a>
+        is now live
+      </p>
+    </div>
   {:else if eventLog.detail.kind === EventLogKind.DraftCreated}
     <div class="timeline-marker is-icon">
       <i class="fas fa-asterisk" />

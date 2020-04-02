@@ -7,17 +7,18 @@ and are shown in the UI accessable by administrators. When an event is recorded 
 
 ## Creating a new Event Log kind
 
-For this example, we'll setup logging for when an Alert goes live called `alert_live`.
+For this example, we'll setup logging for when an Alert goes live. The worker job checks regularly
+for Alerts whose start time has recently passed and marks them as "processed" (eventually it will send
+push notifications).
 
 ### Create types
 
-The types for the alerts are located in `TEventLog.ts` in the `@upswyng/upswyng-types`
-package. The `TEventLog` interface represents any Event Log, and contains the user who initiated the action
-which caused the event, as well as the kind of the event (`alert_live` in our case), as well as extra
-details about the event which are specific to that kind of event. (For `alert_live` we'll add information like
-the time the worker actually processed the event when it went live.)
+The types for Event Logs are located in `TEventLog.ts` in the `@upswyng/upswyng-types`
+package. The `TEventLog` interface represents any Event Log. It contains the user who initiated the action
+which caused the event, as well as the kind of the event (we'll use `alert_live` for this case), plus extra
+details which are specific to that kind of event.
 
-To start, add the kind title to the `EventLogKind` object in `TEventLog.ts`:
+To start, add the kind name to the `EventLogKind` object in `TEventLog.ts`:
 
 ```typescript
 export const EventLogKind = {
@@ -36,12 +37,12 @@ export type TEventLogKind = keyof typeof EventLogKind;
 > By using an object with dummy values we can ensure the Typescript type and the values at runtime
 > stay in sync.
 
-Next, create an interface to hold the details of your event. The detail interfaces follow the naming
+Next, we create an interface to hold the details of your event. The detail interfaces follow the naming
 convention `TEventLog<kind>Detail`, so for this example create `TEventLogAlertLiveDetail`. Objects of this
 type get serialized to JSON and stored in the database with the rest of the Event Log. What fields you add
 to this depend on the nature of the event, but the interface must have a `kind` key with the string from the
 previous step; `alert_live` in this example. We'll also add the ID of the Alert, as well as the title. Our
-interface therefore is:
+interface is:
 
 ```typescript
 interface TEventLogAlertLiveDetail {
@@ -58,4 +59,81 @@ export type TEventLogDetail =
   | TEventLogAlertLiveDetail
   /* ... */
   | TEventLogOtherEventDetail;
+```
+
+### Add the logic to create the Event Log
+
+Event Logs are added to the database just like any other MongoDB document.
+Where the logic goes depends on the nature of the Event. Most often that will
+be in an API endpoint, but for some events it could be in the worker code.
+
+> Take a minute to consider failure cases. Most often, if creating the Event Log fails
+> but the rest of the code succeeds, the API endpoint, for instance, should still return
+> a success response. In this case the Event Log logic should come last and any errors
+> can just be logged. However, there may be a situation where an Event Log is a requirement
+> and the rest of the code shouldn't run unless and Event Log has been successfully created.
+> Modify your approach accordingly.
+
+Here's what our code to create our `alert_live` Event Log might look like. (Note that
+the `kind` appears in both the top level of the object and in the `detail`. The top level is
+used for indexed database lookups and the `detail` `kind` is used for switching on a
+`TEventLogDetail` object.)
+
+```typescript
+try {
+  await new EventLog({
+    actor: user._id,
+    detail: {
+      kind: "alert_live",
+      alertId: alert._id,
+      alertTitle: alert.title,
+    },
+    kind: "alert_live",
+  }).save();
+} catch (e) {
+  console.error(
+    `Error creating Event Log \`alert_live\` for Alert ${_id}: ${e}`
+  );
+}
+```
+
+### Modify UI to display the Event Log
+
+The code behind the Event Logs page fetches recent Event Logs and displays a timeline
+where each Event Log is rendered by `EventLogItem.svelte`. The component contains a wrapper
+`div` around `if`-`else` statements which check the `kind`. We'll add a branch to the `if`-`else`s
+for our `kind`. We can copy-paste the `.timeline-marker` `div` and the `.timeline-content.heading`
+from one of the other `kind`s and pick an icon from [FontAwesome](https://www.fontawesome.com)
+to represent our Event Log `kind`. The second `p` of `div.timeline-content` will be specific to our
+Event Log. We'll just show the title and a link to the Alert, but some Event Logs will require
+more. Check out the "Event Log" page and the code to render some of the other `kind`s for ideas.
+
+Once done, the `EventLogItem` component body will look like:
+
+```html
+<div class="timeline-item">
+  {#if eventLog.detail.kind === 'some_event_log_kind'}
+    <!-- ... -->
+  {:else if eventLog.detail.kind === 'alert_live'}
+    <div class="timeline-marker is-icon">
+      <i class="fas fa-exclamation" />
+    </div>
+    <div class="timeline-content">
+      <p class="heading">
+        {#if timeAgo}{timeAgo.format(new Date(eventLog.createdAt))}{/if}
+      </p>
+      <p>
+        Alert
+        <a href={`/alert?id=${eventLog.detail.alertId}`} rel="prefetch">
+          <span class="has-text-weight-semibold">
+            {eventLog.detail.alertTitle}
+          </span>
+        </a>
+        is now live
+      </p>
+    </div>
+  {:else if eventLog.detail.kind === 'another_kind'}
+    <!-- ... -->
+  {/if}
+</div>
 ```
