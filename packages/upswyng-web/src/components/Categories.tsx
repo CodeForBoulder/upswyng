@@ -256,7 +256,7 @@ export const categories: Record<TCategoryName, TCategoryDefinition> = {
     subCategories: [
       {
         text: "Bus Passes",
-        stub: "bus",
+        stub: "bus_passes",
       },
       {
         text: "Bicycle",

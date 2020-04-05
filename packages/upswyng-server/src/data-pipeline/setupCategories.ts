@@ -103,7 +103,7 @@ const categories: {
     name: "Transit",
     stub: "transit",
     subcategories: [
-      { name: "Bus Passes", stub: "bus" },
+      { name: "Bus Passes", stub: "bus_passes" },
       { name: "Bicycle", stub: "bicycle" },
     ],
   },
