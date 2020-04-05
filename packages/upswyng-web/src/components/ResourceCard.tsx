@@ -122,8 +122,10 @@ const ResourceCard = ({ index = 1, placeholder, resource }: Props) => {
               wrap="nowrap"
               variant="subtitle1"
             >
-              <Grid alignContent="center" container item>
-                <ScheduleIcon color="inherit" fontSize="inherit" />
+              <Grid item>
+                <Grid alignContent="center" container>
+                  <ScheduleIcon color="inherit" fontSize="inherit" />
+                </Grid>
               </Grid>
               <Grid item>{isOpen ? "Open" : "Closed"}</Grid>
             </Grid>
