@@ -1,37 +1,21 @@
-import { colors, font } from "../App.styles";
-
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
 import Image from "material-ui-image";
-import { Link } from "react-router-dom";
 import React from "react";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
+import Typography from "@material-ui/core/Typography";
+import { colors } from "../App.styles";
 import makeStyles from "@material-ui/styles/makeStyles";
+import { useHistory } from "react-router-dom";
 
 interface StyleProps {
   backgroundColor: string;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
-  cardContainer: {
-    borderRadius: "6px",
-    color: theme.palette.common.white,
-    display: "flex",
-    flexDirection: "column",
-    flex: "1 1 auto",
-    overflow: "hidden",
-    "&:link,&:visited": {
-      textDecoration: "none",
-    },
-    "&:hover,&:active": {
-      textDecoration: "none",
-      "& > *:first-child": {
-        textDecoration: "underline",
-      },
-    },
-  },
-  cardImageContainer: {
-    position: "relative",
-    flex: "1 1 auto",
-  },
   cardImagePlaceHolderContainer: (styleProps: StyleProps) => ({
     background: styleProps.backgroundColor,
     position: "relative",
@@ -50,33 +34,8 @@ const useStyles = makeStyles((theme: Theme) => ({
       width: "80%",
     },
   }),
-  cardResourceName: {
-    bottom: 4,
-    color: theme.palette.common.white,
-    display: "flex",
-    flexDirection: "column",
-    fontSize: font.helpers.convertPixelsToRems(14),
-    fontWeight: 700,
-    padding: "0 8px 8px",
-    position: "absolute",
-    width: "100%",
-    textDecoration: "inherit",
-    textShadow: `0 3px 6px ${theme.palette.common.black}`,
-  },
-  cardFooter: {
-    alignItems: "stretch",
-    display: "flex",
-    flexDirection: "row",
-  },
   cardScheduleContainer: {
-    alignItems: "center",
     background: theme.palette.common.black,
-    display: "flex",
-    flex: "1 1 auto",
-    fontSize: font.helpers.convertPixelsToRems(12),
-    fontWeight: 600,
-    textDecoration: "none",
-    padding: "6px 8px",
   },
 }));
 
@@ -118,39 +77,53 @@ const ResourceCard = ({
   const classes = useStyles({
     backgroundColor: cardColor.placeholderBackgroundColor,
   });
+  const history = useHistory();
+  const resourceUrl = `/resource/${resourceId}`;
+  const resourceScheduleId = `${resourceId}-schedule`;
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    history.push(resourceUrl);
+  };
 
   return (
-    <Link
-      className={classes.cardContainer}
-      to={{
-        pathname: `/resource/${resourceId}`,
-      }}
-    >
-      <div className={classes.cardImageContainer}>
-        {resourceImage && (
-          <Image
-            aspectRatio={457 / 250}
-            color={cardColor.placeholderBackgroundColor}
-            src={resourceImage}
-            alt=""
-          />
-        )}
-        {!resourceImage && (
-          <div className={classes.cardImagePlaceHolderContainer}>
-            {placeholder &&
-              React.cloneElement(placeholder, {
-                color: cardColor.iconColor,
-              })}
-          </div>
-        )}
-        <span className={classes.cardResourceName}>{resourceName}</span>
-      </div>
+    <Card>
+      <CardActionArea
+        aria-describedby={scheduleText ? resourceScheduleId : undefined}
+        role="link"
+        onClick={handleClick}
+      >
+        <CardMedia
+          component={() =>
+            resourceImage ? (
+              <Image
+                alt=""
+                aspectRatio={457 / 250}
+                color={cardColor.placeholderBackgroundColor}
+                src={resourceImage}
+              />
+            ) : (
+              <div className={classes.cardImagePlaceHolderContainer}>
+                {placeholder &&
+                  React.cloneElement(placeholder, {
+                    color: cardColor.iconColor,
+                  })}
+              </div>
+            )
+          }
+        />
+        <CardContent>
+          <Typography variant="subtitle1">{resourceName}</Typography>
+        </CardContent>
+      </CardActionArea>
       {scheduleText && (
-        <span className={classes.cardFooter}>
-          <span className={classes.cardScheduleContainer}>{scheduleText}</span>
-        </span>
+        <CardActions className={classes.cardScheduleContainer}>
+          <Typography id={resourceScheduleId} variant="subtitle2">
+            {scheduleText}
+          </Typography>
+        </CardActions>
       )}
-    </Link>
+    </Card>
   );
 };
 

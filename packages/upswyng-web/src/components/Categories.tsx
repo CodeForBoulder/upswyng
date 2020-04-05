@@ -139,10 +139,6 @@ export const categories: Record<TCategoryName, TCategoryDefinition> = {
         stub: "temp_agency",
       },
       {
-        text: "Day Labor",
-        stub: "day_labor",
-      },
-      {
         text: "Career Counseling",
         stub: "career_counseling",
       },
@@ -259,16 +255,12 @@ export const categories: Record<TCategoryName, TCategoryDefinition> = {
     },
     subCategories: [
       {
-        text: "Bus",
-        stub: "bus",
+        text: "Bus Passes",
+        stub: "bus_passes",
       },
       {
         text: "Bicycle",
         stub: "bicycle",
-      },
-      {
-        text: "Lite Rail",
-        stub: "lite_rail",
       },
     ],
   },
