@@ -87,6 +87,24 @@ const getOpensAtText = ({ open }: TScheduleItemOpenClose) =>
     sameElse: "MMM Do",
   });
 
+export const getIsOpen = (schedule: ResourceSchedule): boolean | null => {
+  if (schedule.alwaysOpen) {
+    return true;
+  }
+
+  const currentDt = new Date();
+  const nextScheduleItemPeriod = schedule.getNextScheduleItemPeriod(currentDt);
+  if (!nextScheduleItemPeriod) {
+    return null;
+  }
+
+  if (currentDt.getTime() > nextScheduleItemPeriod.open.getTime()) {
+    return true;
+  }
+
+  return false;
+};
+
 export const getNextOpenText = (schedule: ResourceSchedule): string => {
   if (schedule.alwaysOpen) {
     return "Open 24/7";
@@ -102,5 +120,5 @@ export const getNextOpenText = (schedule: ResourceSchedule): string => {
     return `Closes at ${moment(nextScheduleItemPeriod.close).format("h:mm A")}`;
   }
 
-  return `Closed: open ${getOpensAtText(nextScheduleItemPeriod)}`;
+  return `open ${getOpensAtText(nextScheduleItemPeriod)}`;
 };

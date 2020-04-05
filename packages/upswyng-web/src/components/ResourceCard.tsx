@@ -1,21 +1,24 @@
+import { getIsOpen, getNextOpenText } from "../utils/schedule";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
+import Grid from "@material-ui/core/Grid";
 import Image from "material-ui-image";
 import React from "react";
 import { ResourceSchedule } from "@upswyng/upswyng-core";
+import ScheduleIcon from "@material-ui/icons/Schedule";
 import { TResource } from "@upswyng/upswyng-types";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import Typography from "@material-ui/core/Typography";
 import { colors } from "../App.styles";
-import { getNextOpenText } from "../utils/schedule";
 import makeStyles from "@material-ui/styles/makeStyles";
 import { useHistory } from "react-router-dom";
 
 interface StyleProps {
   backgroundColor: string;
+  isOpen: boolean | null;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -40,6 +43,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   cardScheduleContainer: {
     background: theme.palette.common.black,
   },
+  cardScheduleText: (styleProps: StyleProps) => ({
+    color: styleProps.isOpen ? "green" : theme.palette.error.main,
+    fontWeight: 700,
+  }),
 }));
 
 interface TCardColor {
@@ -65,18 +72,21 @@ interface Props {
 }
 
 const ResourceCard = ({ index = 1, placeholder, resource }: Props) => {
+  const { name, resourceId, schedule, streetViewImage } = resource;
+
+  const parsedSchedule = ResourceSchedule.parse(schedule);
+  const isOpen = getIsOpen(parsedSchedule);
+  const scheduleText = getNextOpenText(parsedSchedule);
   const cardColor =
     typeof index === "number" && !(index % 2) ? cardColors[0] : cardColors[1];
   const classes = useStyles({
     backgroundColor: cardColor.placeholderBackgroundColor,
+    isOpen,
   });
   const history = useHistory();
 
-  const { name, resourceId, schedule, streetViewImage } = resource;
   const resourceUrl = `/resource/${resourceId}`;
   const resourceScheduleId = `${resourceId}-schedule`;
-  const parsedSchedule = ResourceSchedule.parse(schedule);
-  const scheduleText = getNextOpenText(parsedSchedule);
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -113,11 +123,34 @@ const ResourceCard = ({ index = 1, placeholder, resource }: Props) => {
           <Typography variant="subtitle1">{name}</Typography>
         </CardContent>
       </CardActionArea>
-      {scheduleText && (
+      {typeof isOpen === "boolean" && scheduleText && (
         <CardActions className={classes.cardScheduleContainer}>
-          <Typography id={resourceScheduleId} variant="subtitle2">
-            {scheduleText}
-          </Typography>
+          <Grid container direction="column" spacing={1}>
+            <Grid
+              alignItems="center"
+              className={classes.cardScheduleText}
+              container
+              component={Typography}
+              id={resourceScheduleId}
+              item
+              spacing={2}
+              wrap="nowrap"
+              variant="subtitle1"
+            >
+              <Grid component={ScheduleIcon} item>
+                <ScheduleIcon fontSize="inherit" />
+              </Grid>
+              <Grid item>{isOpen ? "Open" : "Closed"}</Grid>
+            </Grid>
+            <Grid
+              component={Typography}
+              id={resourceScheduleId}
+              item
+              variant="subtitle2"
+            >
+              {scheduleText}
+            </Grid>
+          </Grid>
         </CardActions>
       )}
     </Card>
