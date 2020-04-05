@@ -55,7 +55,6 @@ const categories: {
     subcategories: [
       { name: "Craigs List", stub: "craigslist" },
       { name: "Temp Agency", stub: "temp_agency" },
-      { name: "Day Labor", stub: "day_labor" },
       { name: "Ready to Work", stub: "ready_to_work" },
       { name: "Career Counseling", stub: "career_counseling" },
     ],
@@ -104,9 +103,8 @@ const categories: {
     name: "Transit",
     stub: "transit",
     subcategories: [
-      { name: "Bus", stub: "bus" },
+      { name: "Bus Passes", stub: "bus" },
       { name: "Bicycle", stub: "bicycle" },
-      { name: "Lite Rail", stub: "lite_rail" },
     ],
   },
   {
