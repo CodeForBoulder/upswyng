@@ -44,8 +44,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     background: theme.palette.common.black,
   },
   cardScheduleText: (styleProps: StyleProps) => ({
-    color: styleProps.isOpen ? "green" : theme.palette.error.main,
-    fontWeight: 700,
+    color: styleProps.isOpen
+      ? theme.palette.success.main
+      : theme.palette.error.main,
   }),
 }));
 
