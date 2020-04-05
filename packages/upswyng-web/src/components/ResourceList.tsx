@@ -2,6 +2,7 @@ import Grid from "@material-ui/core/Grid";
 import LoadingSpinner from "./LoadingSpinner";
 import React from "react";
 import ResourceCard from "./ResourceCard";
+import { ResourceSchedule } from "@upswyng/upswyng-core";
 import { TResource } from "@upswyng/upswyng-types";
 import { getNextOpenText } from "../utils/schedule";
 import makeStyles from "@material-ui/styles/makeStyles";
@@ -33,7 +34,8 @@ const ResourceList = ({ placeholder, resources }: Props) => {
         if (!name || !resourceId) {
           return null;
         }
-        const scheduleText = getNextOpenText(schedule);
+        const parsedSchedule = ResourceSchedule.parse(schedule);
+        const scheduleText = getNextOpenText(parsedSchedule);
         return (
           <Grid
             className={classes.listItem}

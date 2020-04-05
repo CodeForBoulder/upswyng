@@ -1,6 +1,5 @@
 import {
   TDay,
-  TResourceScheduleData,
   TSchedule,
   TScheduleItemOpenClose,
   TSchedulePeriod,
@@ -88,10 +87,7 @@ const getOpensAtText = ({ open }: TScheduleItemOpenClose) =>
     sameElse: "MMM Do",
   });
 
-export const getNextOpenText = (
-  scheduleData: TResourceScheduleData
-): string => {
-  const schedule = ResourceSchedule.parse(scheduleData);
+export const getNextOpenText = (schedule: ResourceSchedule): string => {
   if (schedule.alwaysOpen) {
     return "Open 24/7";
   }
