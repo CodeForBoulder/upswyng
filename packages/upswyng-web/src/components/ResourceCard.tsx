@@ -12,18 +12,20 @@ import ScheduleIcon from "@material-ui/icons/Schedule";
 import { TResource } from "@upswyng/upswyng-types";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import Typography from "@material-ui/core/Typography";
-import { colors } from "../App.styles";
 import makeStyles from "@material-ui/styles/makeStyles";
 import { useHistory } from "react-router-dom";
 
 interface StyleProps {
-  backgroundColor: string;
+  index: number;
   isOpen: boolean | null;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
   cardImagePlaceHolderContainer: (styleProps: StyleProps) => ({
-    background: styleProps.backgroundColor,
+    background:
+      styleProps.index % 2 ? theme.palette.grey.A200 : theme.palette.grey[600],
+    color:
+      styleProps.index % 2 ? theme.palette.grey[600] : theme.palette.grey.A200,
     position: "relative",
     "&::before": {
       content: '""',
@@ -50,22 +52,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   }),
 }));
 
-interface TCardColor {
-  iconColor: string;
-  placeholderBackgroundColor: string;
-}
-
-const cardColors: TCardColor[] = [
-  {
-    iconColor: colors.greyMedium,
-    placeholderBackgroundColor: colors.greyLight,
-  },
-  {
-    iconColor: colors.greyLight,
-    placeholderBackgroundColor: colors.greyMedium,
-  },
-];
-
 interface Props {
   index?: number;
   placeholder?: React.ReactElement;
@@ -78,10 +64,8 @@ const ResourceCard = ({ index = 1, placeholder, resource }: Props) => {
   const parsedSchedule = ResourceSchedule.parse(schedule);
   const isOpen = getIsOpen(parsedSchedule);
   const scheduleText = getNextOpenText(parsedSchedule);
-  const cardColor =
-    typeof index === "number" && !(index % 2) ? cardColors[0] : cardColors[1];
   const classes = useStyles({
-    backgroundColor: cardColor.placeholderBackgroundColor,
+    index,
     isOpen,
   });
   const history = useHistory();
@@ -107,14 +91,14 @@ const ResourceCard = ({ index = 1, placeholder, resource }: Props) => {
               <Image
                 alt=""
                 aspectRatio={457 / 250}
-                color={cardColor.placeholderBackgroundColor}
+                color="transparent"
                 src={streetViewImage}
               />
             ) : (
               <div className={classes.cardImagePlaceHolderContainer}>
                 {placeholder &&
                   React.cloneElement(placeholder, {
-                    color: cardColor.iconColor,
+                    color: "inherit",
                   })}
               </div>
             )
@@ -138,8 +122,8 @@ const ResourceCard = ({ index = 1, placeholder, resource }: Props) => {
               wrap="nowrap"
               variant="subtitle1"
             >
-              <Grid component={ScheduleIcon} item>
-                <ScheduleIcon fontSize="inherit" />
+              <Grid alignContent="center" container item>
+                <ScheduleIcon color="inherit" fontSize="inherit" />
               </Grid>
               <Grid item>{isOpen ? "Open" : "Closed"}</Grid>
             </Grid>
