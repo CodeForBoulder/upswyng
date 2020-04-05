@@ -5,9 +5,12 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Image from "material-ui-image";
 import React from "react";
+import { ResourceSchedule } from "@upswyng/upswyng-core";
+import { TResource } from "@upswyng/upswyng-types";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import Typography from "@material-ui/core/Typography";
 import { colors } from "../App.styles";
+import { getNextOpenText } from "../utils/schedule";
 import makeStyles from "@material-ui/styles/makeStyles";
 import { useHistory } from "react-router-dom";
 
@@ -58,28 +61,22 @@ const cardColors: TCardColor[] = [
 interface Props {
   index?: number;
   placeholder?: React.ReactElement;
-  resourceId: string;
-  resourceImage: string | null;
-  resourceName: string;
-  scheduleText?: string;
+  resource: TResource;
 }
 
-const ResourceCard = ({
-  index = 1,
-  placeholder,
-  resourceId,
-  resourceName,
-  scheduleText,
-  resourceImage,
-}: Props) => {
+const ResourceCard = ({ index = 1, placeholder, resource }: Props) => {
   const cardColor =
     typeof index === "number" && !(index % 2) ? cardColors[0] : cardColors[1];
   const classes = useStyles({
     backgroundColor: cardColor.placeholderBackgroundColor,
   });
   const history = useHistory();
+
+  const { name, resourceId, schedule, streetViewImage } = resource;
   const resourceUrl = `/resource/${resourceId}`;
   const resourceScheduleId = `${resourceId}-schedule`;
+  const parsedSchedule = ResourceSchedule.parse(schedule);
+  const scheduleText = getNextOpenText(parsedSchedule);
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -95,12 +92,12 @@ const ResourceCard = ({
       >
         <CardMedia
           component={() =>
-            resourceImage ? (
+            streetViewImage ? (
               <Image
                 alt=""
                 aspectRatio={457 / 250}
                 color={cardColor.placeholderBackgroundColor}
-                src={resourceImage}
+                src={streetViewImage}
               />
             ) : (
               <div className={classes.cardImagePlaceHolderContainer}>
@@ -113,7 +110,7 @@ const ResourceCard = ({
           }
         />
         <CardContent>
-          <Typography variant="subtitle1">{resourceName}</Typography>
+          <Typography variant="subtitle1">{name}</Typography>
         </CardContent>
       </CardActionArea>
       {scheduleText && (
