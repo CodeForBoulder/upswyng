@@ -38,7 +38,7 @@ const WeeklySchedule = ({ items }: { items: TScheduleItem[] }) => {
           <Grid item xs={12} key={x.day}>
             <Grid container spacing={6}>
               <Grid item xs={6}>
-                <Typography component="h3" variant="subtitle2">
+                <Typography component="h3" variant="subtitle1">
                   {capitalize(x.day)}:
                 </Typography>
               </Grid>

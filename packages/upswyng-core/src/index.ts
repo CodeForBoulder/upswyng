@@ -1,8 +1,5 @@
-import ResourceSchedule_ from "./ResourceSchedule";
 import { TScheduleItem as TScheduleItem_ } from "./ResourceSchedule";
-import Time_ from "./Time";
 
-export const ResourceSchedule = ResourceSchedule_;
-export const Time = Time_;
-
+export { default as ResourceSchedule } from "./ResourceSchedule";
+export { default as Time } from "./Time";
 export type TScheduleItem = TScheduleItem_;

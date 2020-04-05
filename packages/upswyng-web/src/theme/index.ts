@@ -8,7 +8,7 @@ const spacing = (factor: number): string => `${0.25 * factor}rem`;
 
 const palette = {
   common: { black: "#000", white: "#fff" },
-  background: { paper: "#3a3a3a", default: "#3a3a3a" },
+  background: { paper: "#252525", default: "#3a3a3a" },
   primary: {
     main: "#F05A28",
     contrastText: "#000",
@@ -53,9 +53,16 @@ const typography = {
     fontSize: "1rem",
     fontWeight: 300,
   },
-  subtitle2: {
+  subtitle1: {
     fontSize: "1rem",
     fontWeight: 400,
+    lineHeight: 1.2,
+    margin: 0,
+  },
+  subtitle2: {
+    fontSize: "0.8rem",
+    fontWeight: 400,
+    lineHeight: 1.2,
     margin: 0,
   },
   caption: {

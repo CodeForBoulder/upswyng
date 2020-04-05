@@ -1,8 +1,8 @@
+import Grid from "@material-ui/core/Grid";
 import LoadingSpinner from "./LoadingSpinner";
 import React from "react";
 import ResourceCard from "./ResourceCard";
 import { TResource } from "@upswyng/upswyng-types";
-import { font } from "../App.styles";
 import { getNextOpenText } from "../utils/schedule";
 import makeStyles from "@material-ui/styles/makeStyles";
 
@@ -13,25 +13,16 @@ interface Props {
 
 const useStyles = makeStyles({
   list: {
-    alignItems: "stretch",
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    margin: `0 ${font.helpers.convertPixelsToRems(-8)}`,
     padding: 0,
-    width: "auto",
   },
   listItem: {
-    alignItems: "flex-start",
-    display: "flex",
-    flex: "0 1 50%",
     listStyleType: "none",
-    padding: font.helpers.convertPixelsToRems(8),
   },
 });
 
 const ResourceList = ({ placeholder, resources }: Props) => {
   const classes = useStyles();
+
   if (resources === undefined) {
     return <LoadingSpinner />;
   }
@@ -44,7 +35,13 @@ const ResourceList = ({ placeholder, resources }: Props) => {
         }
         const scheduleText = getNextOpenText(schedule);
         return (
-          <li className={classes.listItem} key={resourceId}>
+          <Grid
+            className={classes.listItem}
+            component="li"
+            item
+            key={resourceId}
+            xs={6}
+          >
             <ResourceCard
               index={index}
               placeholder={placeholder}
@@ -53,11 +50,21 @@ const ResourceList = ({ placeholder, resources }: Props) => {
               resourceName={name}
               scheduleText={scheduleText}
             />
-          </li>
+          </Grid>
         );
       }
     );
-    return <ul className={classes.list}>{listItems}</ul>;
+    return (
+      <Grid
+        alignItems="stretch"
+        className={classes.list}
+        component="ul"
+        container
+        spacing={3}
+      >
+        {listItems}
+      </Grid>
+    );
   }
 
   return (
