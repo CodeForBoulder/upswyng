@@ -1,23 +1,31 @@
+import { getIsOpen, getNextOpenText } from "../utils/schedule";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
+import Grid from "@material-ui/core/Grid";
 import Image from "material-ui-image";
 import React from "react";
+import { ResourceSchedule } from "@upswyng/upswyng-core";
+import ScheduleIcon from "@material-ui/icons/Schedule";
+import { TResource } from "@upswyng/upswyng-types";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import Typography from "@material-ui/core/Typography";
-import { colors } from "../App.styles";
 import makeStyles from "@material-ui/styles/makeStyles";
 import { useHistory } from "react-router-dom";
 
 interface StyleProps {
-  backgroundColor: string;
+  index: number;
+  isOpen: boolean | null;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
   cardImagePlaceHolderContainer: (styleProps: StyleProps) => ({
-    background: styleProps.backgroundColor,
+    background:
+      styleProps.index % 2 ? theme.palette.grey.A200 : theme.palette.grey[600],
+    color:
+      styleProps.index % 2 ? theme.palette.grey[600] : theme.palette.grey.A200,
     position: "relative",
     "&::before": {
       content: '""',
@@ -37,47 +45,31 @@ const useStyles = makeStyles((theme: Theme) => ({
   cardScheduleContainer: {
     background: theme.palette.common.black,
   },
+  cardScheduleText: (styleProps: StyleProps) => ({
+    color: styleProps.isOpen
+      ? theme.palette.success.main
+      : theme.palette.error.main,
+  }),
 }));
-
-interface TCardColor {
-  iconColor: string;
-  placeholderBackgroundColor: string;
-}
-
-const cardColors: TCardColor[] = [
-  {
-    iconColor: colors.greyMedium,
-    placeholderBackgroundColor: colors.greyLight,
-  },
-  {
-    iconColor: colors.greyLight,
-    placeholderBackgroundColor: colors.greyMedium,
-  },
-];
 
 interface Props {
   index?: number;
   placeholder?: React.ReactElement;
-  resourceId: string;
-  resourceImage: string | null;
-  resourceName: string;
-  scheduleText?: string;
+  resource: TResource;
 }
 
-const ResourceCard = ({
-  index = 1,
-  placeholder,
-  resourceId,
-  resourceName,
-  scheduleText,
-  resourceImage,
-}: Props) => {
-  const cardColor =
-    typeof index === "number" && !(index % 2) ? cardColors[0] : cardColors[1];
+const ResourceCard = ({ index = 1, placeholder, resource }: Props) => {
+  const { name, resourceId, schedule, streetViewImage } = resource;
+
+  const parsedSchedule = ResourceSchedule.parse(schedule);
+  const isOpen = getIsOpen(parsedSchedule);
+  const scheduleText = getNextOpenText(parsedSchedule);
   const classes = useStyles({
-    backgroundColor: cardColor.placeholderBackgroundColor,
+    index,
+    isOpen,
   });
   const history = useHistory();
+
   const resourceUrl = `/resource/${resourceId}`;
   const resourceScheduleId = `${resourceId}-schedule`;
 
@@ -95,32 +87,57 @@ const ResourceCard = ({
       >
         <CardMedia
           component={() =>
-            resourceImage ? (
+            streetViewImage ? (
               <Image
                 alt=""
                 aspectRatio={457 / 250}
-                color={cardColor.placeholderBackgroundColor}
-                src={resourceImage}
+                color="transparent"
+                src={streetViewImage}
               />
             ) : (
               <div className={classes.cardImagePlaceHolderContainer}>
                 {placeholder &&
                   React.cloneElement(placeholder, {
-                    color: cardColor.iconColor,
+                    color: "inherit",
                   })}
               </div>
             )
           }
         />
         <CardContent>
-          <Typography variant="subtitle1">{resourceName}</Typography>
+          <Typography variant="subtitle1">{name}</Typography>
         </CardContent>
       </CardActionArea>
-      {scheduleText && (
+      {typeof isOpen === "boolean" && scheduleText && (
         <CardActions className={classes.cardScheduleContainer}>
-          <Typography id={resourceScheduleId} variant="subtitle2">
-            {scheduleText}
-          </Typography>
+          <Grid container direction="column" spacing={1}>
+            <Grid
+              alignItems="center"
+              className={classes.cardScheduleText}
+              container
+              component={Typography}
+              id={resourceScheduleId}
+              item
+              spacing={2}
+              wrap="nowrap"
+              variant="subtitle1"
+            >
+              <Grid item>
+                <Grid alignContent="center" container>
+                  <ScheduleIcon color="inherit" fontSize="inherit" />
+                </Grid>
+              </Grid>
+              <Grid item>{isOpen ? "Open" : "Closed"}</Grid>
+            </Grid>
+            <Grid
+              component={Typography}
+              id={resourceScheduleId}
+              item
+              variant="subtitle2"
+            >
+              {scheduleText}
+            </Grid>
+          </Grid>
         </CardActions>
       )}
     </Card>

@@ -3,7 +3,6 @@ import LoadingSpinner from "./LoadingSpinner";
 import React from "react";
 import ResourceCard from "./ResourceCard";
 import { TResource } from "@upswyng/upswyng-types";
-import { getNextOpenText } from "../utils/schedule";
 import makeStyles from "@material-ui/styles/makeStyles";
 
 interface Props {
@@ -28,32 +27,26 @@ const ResourceList = ({ placeholder, resources }: Props) => {
   }
 
   if (resources && resources.length) {
-    const listItems = resources.map(
-      ({ name, resourceId, schedule, streetViewImage }, index) => {
-        if (!name || !resourceId) {
-          return null;
-        }
-        const scheduleText = getNextOpenText(schedule);
-        return (
-          <Grid
-            className={classes.listItem}
-            component="li"
-            item
-            key={resourceId}
-            xs={6}
-          >
-            <ResourceCard
-              index={index}
-              placeholder={placeholder}
-              resourceId={resourceId}
-              resourceImage={streetViewImage}
-              resourceName={name}
-              scheduleText={scheduleText}
-            />
-          </Grid>
-        );
+    const listItems = resources.map((resource, index) => {
+      if (!resource.name || !resource.resourceId) {
+        return null;
       }
-    );
+      return (
+        <Grid
+          className={classes.listItem}
+          component="li"
+          item
+          key={resource.resourceId}
+          xs={6}
+        >
+          <ResourceCard
+            index={index}
+            placeholder={placeholder}
+            resource={resource}
+          />
+        </Grid>
+      );
+    });
     return (
       <Grid
         alignItems="stretch"
