@@ -44,7 +44,7 @@
         class="navbar-item"
         href="resource"
         rel="prefetch">
-        Resources
+        Service Providers
       </a>
 
       <div class="navbar-item has-dropdown is-hoverable">
