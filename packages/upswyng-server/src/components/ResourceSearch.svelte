@@ -42,8 +42,11 @@
 
 <div class="field">
   <div class="control has-icons-left" class:is-loading={isLoading}>
+    <label for="search" class="is-sr-only">Search for a provider</label>
     <input
       class="input is-rounded"
+      id="search"
+      name="search"
       type="text"
       placeholder="Search for a resource..."
       bind:value={query} />
