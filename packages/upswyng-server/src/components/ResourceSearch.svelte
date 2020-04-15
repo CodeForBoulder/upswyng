@@ -48,14 +48,14 @@
       id="search"
       name="search"
       type="text"
-      placeholder="Search for a resource..."
+      placeholder="Search for a provider..."
       bind:value={query} />
     <span class="icon is-left">
       <i class="fas fa-search" />
     </span>
   </div>
   {#if query.length > 3 && !isLoading && !results.length}
-    <p class="help">No resources match your search</p>
+    <p class="help">No providers match your search</p>
   {/if}
   {#if errorMessage}
     <p class="help is-danger">{errorMessage}</p>
