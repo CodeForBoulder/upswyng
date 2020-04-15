@@ -59,7 +59,7 @@
           <h2 class="message-header">Looking for the public app?</h2>
           <div class="columns is-multiline message-body">
             <p class="column is-full">
-              See how the at-risk community can find what you provide.
+              See how the at-risk community can find your offerings.
             </p>
             <div class="column">
               <a href="https://upswyng.netlify.com" class="button is-primary">
