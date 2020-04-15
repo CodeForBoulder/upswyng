@@ -47,7 +47,7 @@
   <div class="hero-body upswyng-intro">
     <div class="container hero-container">
       <div class="hero-image-container">
-        <img alt="Upswyng: Resource within reach" src="upswyng_light.svg" />
+        <img alt="upswyng: Resources within reach" src="upswyng_light.svg" />
       </div>
       <p class="title hero-tag">
         Upswyng is helping people in Boulder access the resources they need.
