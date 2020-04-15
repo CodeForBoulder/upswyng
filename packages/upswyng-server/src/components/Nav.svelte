@@ -16,113 +16,115 @@
 </style>
 
 <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="/">
-      <img alt="Upswyng: Resources within reach" src="upswyng_arrow.svg" />
-    </a>
-    <!-- svelte-ignore a11y-missing-attribute -->
-    <a
-      role="button"
-      class="navbar-burger burger"
-      class:is-active={toggled}
-      on:click={burgerClick}
-      aria-label="menu"
-      aria-expanded="false"
-      data-target="upswyng-main-nav">
-      <span aria-hidden="true" />
-      <span aria-hidden="true" />
-      <span aria-hidden="true" />
-    </a>
-  </div>
-  <div id="upswyng-main-nav" class="navbar-menu" class:is-active={toggled}>
-    <div class="navbar-start">
-      <a class:has-text-weight-bold={!segment} class="navbar-item" href="/">
-        Home
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img alt="Upswyng: Resources within reach" src="upswyng_arrow.svg" />
       </a>
+      <!-- svelte-ignore a11y-missing-attribute -->
       <a
-        class:has-text-weight-bold={segment === 'resource'}
-        class="navbar-item"
-        href="resource"
-        rel="prefetch">
-        Service Providers
+        role="button"
+        class="navbar-burger burger"
+        class:is-active={toggled}
+        on:click={burgerClick}
+        aria-label="menu"
+        aria-expanded="false"
+        data-target="upswyng-main-nav">
+        <span aria-hidden="true" />
+        <span aria-hidden="true" />
+        <span aria-hidden="true" />
       </a>
+    </div>
+    <div id="upswyng-main-nav" class="navbar-menu" class:is-active={toggled}>
+      <div class="navbar-start">
+        <a class:has-text-weight-bold={!segment} class="navbar-item" href="/">
+          Home
+        </a>
+        <a
+          class:has-text-weight-bold={segment === 'resource'}
+          class="navbar-item"
+          href="resource"
+          rel="prefetch">
+          Service Providers
+        </a>
 
-      <div class="navbar-item has-dropdown is-hoverable">
-        <!-- svelte-ignore a11y-missing-attribute -->
-        <a class="navbar-link">More</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <!-- svelte-ignore a11y-missing-attribute -->
+          <a class="navbar-link">More</a>
 
-        <div class="navbar-dropdown">
-          {#if user && user.isAdmin}
-            <a class="navbar-item" href="alert" rel="prefetch">
-              <span>Alerts &nbsp;</span>
-              <span class="tag is-dark">Admin</span>
-            </a>
-            <a class="navbar-item" href="resource/issues" rel="prefetch">
-              <span>Issues &nbsp;</span>
-              <span class="tag is-dark">Admin</span>
-            </a>
-            <a class="navbar-item" href="eventlogs" rel="prefetch">
-              <span>Event Logs &nbsp;</span>
-              <span class="tag is-dark">Admin</span>
-            </a>
-            <a class="navbar-item" href="bot" rel="prefetch">
-              <span class="is-family-monospace">upswyngbot &nbsp;</span>
-              <span class="tag is-dark">Admin</span>
-            </a>
-            <a class="navbar-item" href="users" rel="prefetch">
-              <span>Users &nbsp;</span>
-              <span class="tag is-dark">Admin</span>
-            </a>
+          <div class="navbar-dropdown">
+            {#if user && user.isAdmin}
+              <a class="navbar-item" href="alert" rel="prefetch">
+                <span>Alerts &nbsp;</span>
+                <span class="tag is-dark">Admin</span>
+              </a>
+              <a class="navbar-item" href="resource/issues" rel="prefetch">
+                <span>Issues &nbsp;</span>
+                <span class="tag is-dark">Admin</span>
+              </a>
+              <a class="navbar-item" href="eventlogs" rel="prefetch">
+                <span>Event Logs &nbsp;</span>
+                <span class="tag is-dark">Admin</span>
+              </a>
+              <a class="navbar-item" href="bot" rel="prefetch">
+                <span class="is-family-monospace">upswyngbot &nbsp;</span>
+                <span class="tag is-dark">Admin</span>
+              </a>
+              <a class="navbar-item" href="users" rel="prefetch">
+                <span>Users &nbsp;</span>
+                <span class="tag is-dark">Admin</span>
+              </a>
+              <hr class="navbar-divider" />
+            {/if}
+            <!-- svelte-ignore a11y-missing-attribute -->
+            <a class="navbar-item">About</a>
+            <!-- svelte-ignore a11y-missing-attribute -->
+            <a class="navbar-item">Privacy</a>
+            <!-- svelte-ignore a11y-missing-attribute -->
+            <a class="navbar-item">Contact</a>
             <hr class="navbar-divider" />
-          {/if}
-          <!-- svelte-ignore a11y-missing-attribute -->
-          <a class="navbar-item">About</a>
-          <!-- svelte-ignore a11y-missing-attribute -->
-          <a class="navbar-item">Privacy</a>
-          <!-- svelte-ignore a11y-missing-attribute -->
-          <a class="navbar-item">Contact</a>
-          <hr class="navbar-divider" />
-          <!-- svelte-ignore a11y-missing-attribute -->
-          <a class="navbar-item">Report an issue</a>
+            <!-- svelte-ignore a11y-missing-attribute -->
+            <a class="navbar-item">Report an issue</a>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="navbar-end">
-      {#if user && user.name}
+      <div class="navbar-end">
+        {#if user && user.name}
+          <div class="navbar-item">
+            <span class="has-text-weight-semibold">{user.name}</span>
+            {#if user && user.isSuperAdmin}
+              &nbsp;&nbsp;&nbsp;
+              <span class="tag is-primary">Super Admin</span>
+            {:else if user && user.isAdmin}
+              &nbsp;&nbsp;&nbsp;
+              <span class="tag is-black">Admin</span>
+            {/if}
+          </div>
+        {:else if user && user.email}
+          <div class="navbar-item">
+            <span class="has-text-weight-semibold">{user.email}</span>
+            {#if user && user.isSuperAdmin}
+              &nbsp;&nbsp;&nbsp;
+              <span class="tag is-primary">Super Admin</span>
+            {:else if user && user.isAdmin}
+              &nbsp;&nbsp;&nbsp;
+              <span class="tag is-black">Admin</span>
+            {/if}
+          </div>
+        {/if}
         <div class="navbar-item">
-          <span class="has-text-weight-semibold">{user.name}</span>
-          {#if user && user.isSuperAdmin}
-            &nbsp;&nbsp;&nbsp;
-            <span class="tag is-primary">Super Admin</span>
-          {:else if user && user.isAdmin}
-            &nbsp;&nbsp;&nbsp;
-            <span class="tag is-black">Admin</span>
-          {/if}
-        </div>
-      {:else if user && user.email}
-        <div class="navbar-item">
-          <span class="has-text-weight-semibold">{user.email}</span>
-          {#if user && user.isSuperAdmin}
-            &nbsp;&nbsp;&nbsp;
-            <span class="tag is-primary">Super Admin</span>
-          {:else if user && user.isAdmin}
-            &nbsp;&nbsp;&nbsp;
-            <span class="tag is-black">Admin</span>
-          {/if}
-        </div>
-      {/if}
-      <div class="navbar-item">
-        <div class="buttons">
-          {#if !user}
-            <a class="button is-primary" href="login">
-              <strong>Log In</strong>
-            </a>
-          {:else}
-            <a class="button" href="logout">
-              <strong>Log Out</strong>
-            </a>
-          {/if}
+          <div class="buttons">
+            {#if !user}
+              <a class="button is-primary" href="login">
+                <strong>Log In</strong>
+              </a>
+            {:else}
+              <a class="button" href="logout">
+                <strong>Log Out</strong>
+              </a>
+            {/if}
+          </div>
         </div>
       </div>
     </div>
