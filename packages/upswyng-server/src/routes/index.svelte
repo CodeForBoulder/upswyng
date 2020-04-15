@@ -1,11 +1,6 @@
-<script context="module">
-  export function preload(page, { user }) {
-    return { user };
-  }
-</script>
-
 <script>
-  export let user;
+  import { goto } from "@sapper/app";
+  import ResourceSearch from "../components/ResourceSearch.svelte";
 </script>
 
 <style>
@@ -43,6 +38,7 @@
   }
 </style>
 
+`
 <svelte:head>
   <title>Upswyng</title>
 </svelte:head>
@@ -62,9 +58,17 @@
 <section class="section">
   <div class="container">
     <a
-      href="https://upswyng.netlify.com"
+      href="https://upswyng.netlify.app"
       class="button is-primary visit-web-app">
       Visit the Web App
     </a>
+  </div>
+  <div class="container">
+    <h2 class="subtitle">Search for a Resource, Just for Mike</h2>
+    <ResourceSearch
+      action="view"
+      on:resourceClick={({ detail: resourceId }) => {
+        goto(`/resource/${resourceId}`);
+      }} />
   </div>
 </section>
