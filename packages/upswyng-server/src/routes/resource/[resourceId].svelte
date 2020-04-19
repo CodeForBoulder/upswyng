@@ -1,7 +1,7 @@
 <script context="module">
   import { ResourceSchedule } from "@upswyng/upswyng-core";
 
-  export async function preload({ params, query }, session) {
+  export async function preload({ params, query }, { user }) {
     const resourceResponse = await this.fetch(
       `/api/resource/${params.resourceId}`
     );
@@ -21,8 +21,8 @@
       return {
         resource,
         subcategories,
-        isLoggedIn: !!session.user,
-        isAdmin: session && !!session.user,
+        isLoggedIn: !!user,
+        isAdmin: !!user && user.isAdmin,
       };
     }
   }
