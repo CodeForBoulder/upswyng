@@ -72,12 +72,4 @@
       </div>
     </div>
   </div>
-  <div class="container">
-    <h2 class="subtitle">Search for a Resource, Just for Mike</h2>
-    <ResourceSearch
-      action="view"
-      on:resourceClick={({ detail: resourceId }) => {
-        goto(`/resource/${resourceId}`);
-      }} />
-  </div>
 </section>
