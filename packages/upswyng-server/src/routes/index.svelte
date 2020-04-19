@@ -53,6 +53,7 @@
           changes are subject to confirmation before going live. Just update and
           save as a draft and we will do the rest.
         </p>
+        <a href="/login" class="button is-primary">Login to Add Yours</a>
       </div>
       <div class="column">
         <aside class="message is-medium">
