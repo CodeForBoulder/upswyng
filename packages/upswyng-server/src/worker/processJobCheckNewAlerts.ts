@@ -7,9 +7,9 @@ import {
 import Alert from "../models/Alert";
 import EventLog from "../models/EventLog";
 import { Job } from "bullmq";
-import { eventLogDocumentToEventLog } from "packages/upswyng-server/__sapper__/build/client/legacy/models/EventLog";
+import { eventLogDocumentToEventLog } from "../models/EventLog";
 import moment from "moment";
-import { postEventLogMessage } from "packages/upswyng-server/__sapper__/build/client/legacy/utility/slackbot";
+import { postEventLogMessage } from "../utility/slackbot";
 
 /**
  * Check the Alerts for any which have recently become active, and push
