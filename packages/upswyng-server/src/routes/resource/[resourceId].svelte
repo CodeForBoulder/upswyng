@@ -34,6 +34,7 @@
   import { onMount } from "svelte";
   import * as animateScroll from "svelte-scrollto";
   import EventLogs from "../../components/EventLogs.svelte";
+  import ResourceBreadcrumbs from "../../components/ResourceBreadcrumbs.svelte";
   import ResourceDisplay from "../../components/ResourceDisplay.svelte";
   import ResourceEditor from "../../components/ResourceEditor.svelte";
   import ResourceIssueNotification from "../../components/ResourceIssueNotification.svelte";
@@ -161,7 +162,10 @@
           <div>
             <button
               class="button"
-              on:click|preventDefault={() => scrollToIssues()}>
+              on:click|preventDefault={() => {
+                view = 'issues';
+                scrollToIssues();
+              }}>
               <span>View</span>
               <span class="icon">
                 <i class="fas fa-arrow-circle-down" />
@@ -171,41 +175,38 @@
         </div>
       {/if}
       <h1 class="title">{resource.name}</h1>
-      <div class="tabs">
-        <ul>
-          <li class={view === 'edit' ? 'is-active' : ''}>
-            <button on:click={() => (view = 'edit')}>
-              <span class="icon is-small">
-                <span class="fas fa-info-circle" aria-hidden="true" />
-              </span>
-              <span>Provider Info</span>
-            </button>
-          </li>
-          {#if isLoggedIn && isAdmin}
-            <li class={view === 'issues' ? 'is-active' : ''}>
-              <button on:click={() => (view = 'issues')}>
-                <span class="icon is-small">
-                  <span
-                    class="fas fa-exclamation-triangle"
-                    aria-hidden="true" />
-                </span>
-                <span
-                  class={`has-badge-rounded has-badge-${unresolvedIssues && unresolvedIssues.length ? 'danger' : 'success'}`}
-                  data-badge={unresolvedIssues && unresolvedIssues.length}>
-                  Reported Issues
-                </span>
-              </button>
-            </li>
-            <li class={view === 'logs' ? 'is-active' : ''}>
-              <button on:click={() => (view = 'logs')}>
-                <span class="icon is-small">
-                  <span class="fas fa-history" aria-hidden="true" />
-                </span>
-                <span>Event Logs</span>
-              </button>
-            </li>
-          {/if}
-        </ul>
+      <ResourceBreadcrumbs {resource} />
+      <div class="buttons has-addons">
+        <button
+          class={`button is-medium ${view === 'edit' ? 'is-primary' : ''}`}
+          on:click|preventDefault={() => (view = 'edit')}>
+          <span class="icon is-small">
+            <span class="fas fa-info-circle" aria-hidden="true" />
+          </span>
+          <span>Provider Info</span>
+        </button>
+        {#if isLoggedIn && isAdmin}
+          <button
+            class={`button is-medium ${view === 'issues' ? 'is-primary' : ''}`}
+            on:click|preventDefault={() => (view = 'issues')}>
+            <span class="icon is-small">
+              <span class="fas fa-exclamation-triangle" aria-hidden="true" />
+            </span>
+            <span
+              class={`has-badge-rounded has-badge-${unresolvedIssues && unresolvedIssues.length ? 'danger' : 'success'}`}
+              data-badge={unresolvedIssues && unresolvedIssues.length}>
+              Reported Issues
+            </span>
+          </button>
+          <button
+            class={`button is-medium ${view === 'logs' ? 'is-primary' : ''}`}
+            on:click|preventDefault={() => (view = 'logs')}>
+            <span class="icon is-small">
+              <span class="fas fa-history" aria-hidden="true" />
+            </span>
+            <span>Event Logs</span>
+          </button>
+        {/if}
       </div>
       {#if view === 'edit'}
         <ResourceEditor
