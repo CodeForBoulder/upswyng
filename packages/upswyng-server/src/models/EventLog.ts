@@ -16,6 +16,7 @@ export interface TEventLogDocument extends Document {
   createdAt: Date;
   detail: TEventLogDetail;
   kind: TEventLogKind;
+  wasProcessed: boolean;
 }
 
 export function eventLogDocumentToEventLog(d: TEventLogDocument): TEventLog {
@@ -43,6 +44,7 @@ const EventLogSchema = new Schema(
       required: true,
       type: String,
     },
+    wasProcessed: { type: Boolean, default: false },
   },
   { timestamps: { createdAt: "createdAt" } }
 );
