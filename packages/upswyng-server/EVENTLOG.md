@@ -5,6 +5,8 @@ like Resources being created or Alerts going live. Events are recorded in the da
 and are shown in the UI accessable by administrators. When an event is recorded the
 `upswyngbot` on Slack can also send a message to its group.
 
+**See [PR #326](https://github.com/CodeForBoulder/upswyng/pull/326) for the implementation of the steps in this document**
+
 ## Creating a new Event Log kind
 
 For this example, we'll setup logging for when an Alert goes live. The worker job checks regularly
