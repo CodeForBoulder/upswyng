@@ -180,21 +180,23 @@
               <span>Provider Info</span>
             </a>
           </li>
-          {#if isAdmin}
-            <li>
-              <a href="#">
-                <span class="icon is-small">
+          {#if isLoggedIn}
+            {#if isAdmin}
+              <li>
+                <a href="#">
+                  <span class="icon is-small">
+                    <span
+                      class="fas fa-exclamation-triangle"
+                      aria-hidden="true" />
+                  </span>
                   <span
-                    class="fas fa-exclamation-triangle"
-                    aria-hidden="true" />
-                </span>
-                <span
-                  class={`has-badge-rounded has-badge-${unresolvedIssues && unresolvedIssues.length ? 'danger' : 'success'}`}
-                  data-badge={unresolvedIssues && unresolvedIssues.length}>
-                  Reported Issues
-                </span>
-              </a>
-            </li>
+                    class={`has-badge-rounded has-badge-${unresolvedIssues && unresolvedIssues.length ? 'danger' : 'success'}`}
+                    data-badge={unresolvedIssues && unresolvedIssues.length}>
+                    Reported Issues
+                  </span>
+                </a>
+              </li>
+            {/if}
             <li>
               <a href="#">
                 <span class="icon is-small">
