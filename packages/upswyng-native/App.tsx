@@ -1,26 +1,28 @@
-import React, { useEffect, useState } from "react";
+import * as Font from "expo-font";
+
 import {
-  StyleSheet,
-  View,
-  StatusBar,
-  Platform,
+  ActivityIndicator,
   BackHandler,
   NativeEventSubscription,
-  ActivityIndicator,
+  Platform,
+  StatusBar,
+  StyleSheet,
+  View,
 } from "react-native";
 import {
   NativeRouter,
   Route,
+  RouteComponentProps,
   Switch,
   withRouter,
-  RouteComponentProps,
 } from "react-router-native";
-import Home from "./src/components/Home";
+import React, { useEffect, useState } from "react";
+
 import Categories from "./src/components/Categories";
-import { colors } from "./src/App.styles";
-import * as Font from "expo-font";
 import Header from "./src/components/Header";
+import Home from "./src/components/Home";
 import Resource from "./src/components/Resource";
+import { colors } from "./src/App.styles";
 
 // import Hotlines from "./src/components/Hotlines";
 // import Resource from "./src/components/Resource";
@@ -37,6 +39,18 @@ const {
   Transit,
   Wifi,
 } = Categories;
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: Platform.OS === "ios" ? 20 : StatusBar.currentHeight,
+    flex: 1,
+    backgroundColor: colors.charcoal,
+    alignItems: "stretch",
+    justifyContent: "center",
+    paddingLeft: 8,
+    paddingRight: 8,
+  },
+});
 
 const AppContents = withRouter((props: RouteComponentProps) => {
   let listener: NativeEventSubscription | null;
@@ -97,15 +111,3 @@ export default function App() {
     </NativeRouter>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: Platform.OS === "ios" ? 20 : StatusBar.currentHeight,
-    flex: 1,
-    backgroundColor: colors.charcoal,
-    alignItems: "stretch",
-    justifyContent: "center",
-    paddingLeft: 8,
-    paddingRight: 8,
-  },
-});
