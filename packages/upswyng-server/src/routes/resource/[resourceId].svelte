@@ -55,7 +55,7 @@
 
   function scrollToIssues() {
     animateScroll.scrollTo({
-      element: "#issues",
+      element: "#issues-tab-button",
       duration: 1000,
     });
   }
@@ -176,19 +176,29 @@
       {/if}
       <h1 class="title">{resource.name}</h1>
       <ResourceBreadcrumbs {resource} />
-      <div class="buttons has-addons">
+      <div class="buttons has-addons" role="tablist">
         <button
+          aria-selected={view === 'edit'}
+          aria-controls="editor-tab"
           class={`button is-medium ${view === 'edit' ? 'is-primary' : ''}`}
-          on:click|preventDefault={() => (view = 'edit')}>
+          id="editor-tab-button"
+          on:click|preventDefault={() => (view = 'edit')}
+          role="tab"
+          tabindex={view === 'edit' ? 0 : -1}>
           <span class="icon is-small">
-            <span class="fas fa-info-circle" aria-hidden="true" />
+            <span class="fas fa-edit" aria-hidden="true" />
           </span>
-          <span>Provider Info</span>
+          <span>Edit Provider Info</span>
         </button>
         {#if isLoggedIn && isAdmin}
           <button
+            aria-selected={view === 'issues'}
+            aria-controls="issues-tab"
             class={`button is-medium ${view === 'issues' ? 'is-primary' : ''}`}
-            on:click|preventDefault={() => (view = 'issues')}>
+            id="issues-tab-button"
+            on:click|preventDefault={() => (view = 'issues')}
+            role="tab"
+            tabindex={view === 'issues' ? 0 : -1}>
             <span class="icon is-small">
               <span class="fas fa-exclamation-triangle" aria-hidden="true" />
             </span>
@@ -199,8 +209,12 @@
             </span>
           </button>
           <button
+            aria-selected={view === 'logs'}
+            aria-controls="logs-tab"
             class={`button is-medium ${view === 'logs' ? 'is-primary' : ''}`}
-            on:click|preventDefault={() => (view = 'logs')}>
+            on:click|preventDefault={() => (view = 'logs')}
+            role="tab"
+            tabindex={view === 'logs' ? 0 : -1}>
             <span class="icon is-small">
               <span class="fas fa-history" aria-hidden="true" />
             </span>
@@ -209,22 +223,26 @@
         {/if}
       </div>
       {#if view === 'edit'}
-        <ResourceEditor
-          {resource}
-          {subcategories}
-          {isSaving}
-          errorText={saveError ? saveError.message : ''}
-          on:clearErrorText={() => (saveError = null)}
-          on:dispatchSaveResource={e => handleSaveClick(e.detail)} />
+        <div id="editor-tab" tabindex="0" aria-labelledby="editor-tab-button">
+          <ResourceEditor
+            {resource}
+            {subcategories}
+            {isSaving}
+            errorText={saveError ? saveError.message : ''}
+            on:clearErrorText={() => (saveError = null)}
+            on:dispatchSaveResource={e => handleSaveClick(e.detail)} />
+        </div>
       {/if}
       {#if view === 'issues' && isAdmin && issues && issues.length}
-        <h1 id="issues" class="title">
-          Issues
-          <span class="tag is-dark">Admin</span>
-        </h1>
-        {#each issues as issue (issue._id)}
-          <ResourceIssueNotification resourceIssue={issue} />
-        {/each}
+        <div id="issues-tab" tabindex="0" aria-labelledby="issues-heading">
+          <h1 id="issues-heading" class="title">
+            Issues
+            <span class="tag is-dark">Admin</span>
+          </h1>
+          {#each issues as issue (issue._id)}
+            <ResourceIssueNotification resourceIssue={issue} />
+          {/each}
+        </div>
       {/if}
     {:else}
       <ResourceDisplay {resource} />
@@ -232,11 +250,13 @@
     {/if}
 
     {#if view === 'logs' && isAdmin}
-      <h1 class="title">
-        Event Logs
-        <span class="tag is-dark">Admin</span>
-      </h1>
-      <EventLogs resourceId={resource.resourceId} />
+      <div id="logs-tab" tabindex="0" aria-labelledby="logs-heading">
+        <h1 class="title" id="logs-heading">
+          Event Logs
+          <span class="tag is-dark">Admin</span>
+        </h1>
+        <EventLogs resourceId={resource.resourceId} />
+      </div>
     {/if}
 
   </div>
