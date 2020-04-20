@@ -46,6 +46,7 @@
   export let isAdmin; // boolean
 
   let issues /* TResourceIssue[] | null */ = null;
+  let unresolvedIssues = null;
   let isLoadingIssues = false;
   let isSaving = false;
   let saveError = null; // Error | null
@@ -110,6 +111,7 @@
           console.error(response.status);
         } else {
           issues = resourceIssues;
+          unresolvedIssues = issues.filter(i => !i.resolved);
         }
       })
       .finally(() => {
@@ -172,7 +174,7 @@
       <div class="tabs">
         <ul>
           <li class="is-active">
-            <a>
+            <a href="#">
               <span class="icon is-small">
                 <span class="fas fa-info-circle" aria-hidden="true" />
               </span>
@@ -180,15 +182,19 @@
             </a>
           </li>
           <li>
-            <a>
+            <a href="#">
               <span class="icon is-small">
                 <span class="fas fa-exclamation-triangle" aria-hidden="true" />
               </span>
-              <span>Reported Issues</span>
+              <span
+                class="has-badge-rounded has-badge-danger"
+                data-badge={unresolvedIssues && unresolvedIssues.length ? unresolvedIssues.length : undefined}>
+                Reported Issues
+              </span>
             </a>
           </li>
           <li>
-            <a>
+            <a href="#">
               <span class="icon is-small">
                 <span class="fas fa-history" aria-hidden="true" />
               </span>
