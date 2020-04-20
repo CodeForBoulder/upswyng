@@ -79,10 +79,6 @@
   }
 </style>
 
-<h1 class="title">
-  {#if resource.name}{resource.name}{:else}Create A Resource{/if}
-</h1>
-
 {#each resource.subcategories || [] as subcategory}
   <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
     <ul>

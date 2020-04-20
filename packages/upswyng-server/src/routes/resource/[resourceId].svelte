@@ -136,7 +136,6 @@
 <svelte:head>
   <title>Upswyng: {resource.name}</title>
 </svelte:head>
-
 <section class="section">
   <div class="container">
     {#if isLoggedIn}
@@ -168,6 +167,10 @@
           </div>
         </div>
       {/if}
+
+      <h1 class="title">
+        {#if resource.name}{resource.name}{:else}Create A Resource{/if}
+      </h1>
       <ResourceEditor
         {resource}
         {subcategories}
