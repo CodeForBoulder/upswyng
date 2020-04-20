@@ -169,6 +169,34 @@
       {/if}
 
       <h1 class="title">{resource.name}</h1>
+      <div class="tabs">
+        <ul>
+          <li class="is-active">
+            <a>
+              <span class="icon is-small">
+                <span class="fas fa-info-circle" aria-hidden="true" />
+              </span>
+              <span>Provider Info</span>
+            </a>
+          </li>
+          <li>
+            <a>
+              <span class="icon is-small">
+                <span class="fas fa-exclamation-triangle" aria-hidden="true" />
+              </span>
+              <span>Reported Issues</span>
+            </a>
+          </li>
+          <li>
+            <a>
+              <span class="icon is-small">
+                <span class="fas fa-history" aria-hidden="true" />
+              </span>
+              <span>Event Logs</span>
+            </a>
+          </li>
+        </ul>
+      </div>
       <ResourceEditor
         {resource}
         {subcategories}
