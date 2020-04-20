@@ -169,7 +169,6 @@
           </div>
         </div>
       {/if}
-
       <h1 class="title">{resource.name}</h1>
       <div class="tabs">
         <ul>
@@ -181,26 +180,30 @@
               <span>Provider Info</span>
             </a>
           </li>
-          <li>
-            <a href="#">
-              <span class="icon is-small">
-                <span class="fas fa-exclamation-triangle" aria-hidden="true" />
-              </span>
-              <span
-                class="has-badge-rounded has-badge-danger"
-                data-badge={unresolvedIssues && unresolvedIssues.length ? unresolvedIssues.length : undefined}>
-                Reported Issues
-              </span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span class="icon is-small">
-                <span class="fas fa-history" aria-hidden="true" />
-              </span>
-              <span>Event Logs</span>
-            </a>
-          </li>
+          {#if isAdmin}
+            <li>
+              <a href="#">
+                <span class="icon is-small">
+                  <span
+                    class="fas fa-exclamation-triangle"
+                    aria-hidden="true" />
+                </span>
+                <span
+                  class={`has-badge-rounded has-badge-${unresolvedIssues && unresolvedIssues.length ? 'danger' : 'success'}`}
+                  data-badge={unresolvedIssues && unresolvedIssues.length}>
+                  Reported Issues
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="icon is-small">
+                  <span class="fas fa-history" aria-hidden="true" />
+                </span>
+                <span>Event Logs</span>
+              </a>
+            </li>
+          {/if}
         </ul>
       </div>
       <ResourceEditor
