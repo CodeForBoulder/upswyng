@@ -168,9 +168,7 @@
         </div>
       {/if}
 
-      <h1 class="title">
-        {#if resource.name}{resource.name}{:else}Create A Resource{/if}
-      </h1>
+      <h1 class="title">{resource.name}</h1>
       <ResourceEditor
         {resource}
         {subcategories}
