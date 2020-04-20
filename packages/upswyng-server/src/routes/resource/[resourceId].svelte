@@ -156,7 +156,7 @@
         <div class="notification is-warning found-issues">
           <div class="notification-text">
             <span class="has-text-weight-medium">
-              Found issues with Resource
+              Issues have been reported for this resource.
             </span>
           </div>
           <div>
