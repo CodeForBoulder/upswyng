@@ -5,8 +5,11 @@ import {
 } from "./workerTypes";
 
 import Alert from "../models/Alert";
+import EventLog from "../models/EventLog";
 import { Job } from "bullmq";
+import { eventLogDocumentToEventLog } from "packages/upswyng-server/__sapper__/build/client/legacy/models/EventLog";
 import moment from "moment";
+import { postEventLogMessage } from "packages/upswyng-server/__sapper__/build/client/legacy/utility/slackbot";
 
 /**
  * Check the Alerts for any which have recently become active, and push
@@ -44,6 +47,23 @@ export async function processJobCheckNewAlerts(
       alertsProcessed = [...alertsProcessed, alert._id.toHexString()];
       console.debug(`Simulate ${alert} sent to web`);
       console.info(`Finished processing alert ${alert._id.toHexString()}`);
+      try {
+        const eventLogDocument = await new EventLog({
+          actor: process.env.BOT_USER_ID,
+          detail: {
+            kind: "alert_live",
+            alertId: alert._id,
+            alertTitle: alert.title,
+          },
+          kind: "alert_live",
+        }).save();
+        const eventLog = eventLogDocumentToEventLog(eventLogDocument);
+        await postEventLogMessage(eventLog);
+      } catch (e) {
+        console.error(
+          `Error creating Event Log \`alert_live\` for Alert ${alert._id}: ${e}`
+        );
+      }
       job.updateProgress(((i + 1) / count) * 100);
     } catch (e) {
       throw e;

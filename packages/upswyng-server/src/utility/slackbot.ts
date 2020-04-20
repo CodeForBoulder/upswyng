@@ -73,6 +73,8 @@ function assertUnreachable(_x: never): never {
 async function createTextForEventLog(e: TEventLog): Promise<string> {
   const { detail } = e;
   switch (detail.kind) {
+    case EventLogKind.AlertLive:
+      return `:bangbang: Alert <${HOST}/alert?id=${detail.alertId}|${detail.alertTitle}> is now live.`;
     case EventLogKind.DraftApproved:
       return `:thumbsup: ${
         e.actor.name ? e.actor.name : e.actor.email

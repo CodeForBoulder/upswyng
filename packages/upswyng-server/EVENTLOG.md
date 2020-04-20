@@ -137,3 +137,16 @@ Once done, the `EventLogItem` component body will look like:
   {/if}
 </div>
 ```
+
+### Make `upswyngbot` message the Slack group
+
+There are just two simple steps to do to enable messaging to Slack.
+
+First we'll add a `case` to the `switch` in the `createTextForEventLog`
+function in `utility/slackbot.ts` to translate our Event Log to the
+message that will be sent to Slack. Check out some of the other `case`s to get an idea of what the logic should look like. Note that if you want to add an emoji you use the Slack format `:<emoji-name>:`. Check out the Slack docs [here](https://www.livexlive.com/live-events/festival/music-lives?utm_source=twitter&utm_medium=social&utm_campaign=event-musiclives2020). One other note: Slack uses [custom markup](https://api.slack.com/reference/surfaces/formatting) to add style and links to text.
+
+Next, add a call to `postEventLogMessage` from `utility/slackbot.ts` where appropriate, most commonly just after where you created and saved the Event Log.
+
+> If you don't want `upswyngbot` to send a message to Slack for your event you still need to add a `case`\
+> to the `switch` statement from above. It should throw an error because it shouldn't ever get called.

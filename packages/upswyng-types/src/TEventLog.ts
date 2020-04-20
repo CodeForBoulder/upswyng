@@ -14,9 +14,9 @@ export enum EventLogKind {
 }
 
 interface TEventLogAlertLiveDetail {
-  kind: "alert_live";
   alertId: string;
   alertTitle: string;
+  kind: EventLogKind.AlertLive;
 }
 
 interface TEventLogUserPermissionChangedDetail {
