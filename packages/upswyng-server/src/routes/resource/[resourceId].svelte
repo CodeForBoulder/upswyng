@@ -50,6 +50,7 @@
   let isLoadingIssues = false;
   let isSaving = false;
   let saveError = null; // Error | null
+  let view = "edit";
 
   function scrollToIssues() {
     animateScroll.scrollTo({
@@ -172,50 +173,50 @@
       <h1 class="title">{resource.name}</h1>
       <div class="tabs">
         <ul>
-          <li class="is-active">
-            <a href="#">
+          <li class={view === 'edit' ? 'is-active' : ''}>
+            <button on:click={() => (view = 'edit')}>
               <span class="icon is-small">
                 <span class="fas fa-info-circle" aria-hidden="true" />
               </span>
               <span>Provider Info</span>
-            </a>
+            </button>
           </li>
-          {#if isLoggedIn}
-            {#if isAdmin}
-              <li>
-                <a href="#">
-                  <span class="icon is-small">
-                    <span
-                      class="fas fa-exclamation-triangle"
-                      aria-hidden="true" />
-                  </span>
+          {#if isLoggedIn && isAdmin}
+            <li class={view === 'issues' ? 'is-active' : ''}>
+              <button on:click={() => (view = 'issues')}>
+                <span class="icon is-small">
                   <span
-                    class={`has-badge-rounded has-badge-${unresolvedIssues && unresolvedIssues.length ? 'danger' : 'success'}`}
-                    data-badge={unresolvedIssues && unresolvedIssues.length}>
-                    Reported Issues
-                  </span>
-                </a>
-              </li>
-            {/if}
-            <li>
-              <a href="#">
+                    class="fas fa-exclamation-triangle"
+                    aria-hidden="true" />
+                </span>
+                <span
+                  class={`has-badge-rounded has-badge-${unresolvedIssues && unresolvedIssues.length ? 'danger' : 'success'}`}
+                  data-badge={unresolvedIssues && unresolvedIssues.length}>
+                  Reported Issues
+                </span>
+              </button>
+            </li>
+            <li class={view === 'logs' ? 'is-active' : ''}>
+              <button on:click={() => (view = 'logs')}>
                 <span class="icon is-small">
                   <span class="fas fa-history" aria-hidden="true" />
                 </span>
                 <span>Event Logs</span>
-              </a>
+              </button>
             </li>
           {/if}
         </ul>
       </div>
-      <ResourceEditor
-        {resource}
-        {subcategories}
-        {isSaving}
-        errorText={saveError ? saveError.message : ''}
-        on:clearErrorText={() => (saveError = null)}
-        on:dispatchSaveResource={e => handleSaveClick(e.detail)} />
-      {#if isAdmin && issues && issues.length}
+      {#if view === 'edit'}
+        <ResourceEditor
+          {resource}
+          {subcategories}
+          {isSaving}
+          errorText={saveError ? saveError.message : ''}
+          on:clearErrorText={() => (saveError = null)}
+          on:dispatchSaveResource={e => handleSaveClick(e.detail)} />
+      {/if}
+      {#if view === 'issues' && isAdmin && issues && issues.length}
         <h1 id="issues" class="title">
           Issues
           <span class="tag is-dark">Admin</span>
@@ -229,7 +230,7 @@
       <div class="notification">Log in to make changes to this resource</div>
     {/if}
 
-    {#if isAdmin}
+    {#if view === 'logs' && isAdmin}
       <h1 class="title">
         Event Logs
         <span class="tag is-dark">Admin</span>
