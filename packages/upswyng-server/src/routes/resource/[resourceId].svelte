@@ -38,6 +38,9 @@
   import ResourceDisplay from "../../components/ResourceDisplay.svelte";
   import ResourceEditor from "../../components/ResourceEditor.svelte";
   import ResourceIssueNotification from "../../components/ResourceIssueNotification.svelte";
+  import Tab from "../../components/Tab.svelte";
+  import TabPanel from "../../components/TabPanel.svelte";
+  import Tabs from "../../components/Tabs.svelte";
 
   const { session } = stores();
 
@@ -52,41 +55,9 @@
   let isSaving = false;
   let saveError = null; // Error | null
 
-  let selectedTabView = "edit";
-  let focusedTabView = "edit";
-  let tabs = [];
-  let editTab;
-  let issuesTab;
-  let logsTab;
-
-  function handleTabClick(view) {
-    focusedTabView = view;
-    selectedTabView = view;
-  }
-
-  function handleTabKeydown(e) {
-    const focusedTabIndex = tabs.findIndex(tab => focusedTabView === tab.view);
-    let focusTabIndex;
-
-    switch (event.key) {
-      case "ArrowLeft": {
-        focusTabIndex =
-          focusedTabIndex === 0 ? tabs.length - 1 : focusedTabIndex - 1;
-        break;
-      }
-      case "ArrowRight": {
-        focusTabIndex =
-          focusedTabIndex === tabs.length - 1 ? 0 : focusedTabIndex + 1;
-      }
-    }
-
-    focusedTabView = tabs[focusTabIndex].view;
-    tabs[focusTabIndex].element.focus();
-  }
-
   function scrollToIssues() {
     animateScroll.scrollTo({
-      element: "#issues-tab-button",
+      element: "#tab-1",
       duration: 1000,
     });
   }
@@ -152,24 +123,6 @@
         issues = issues;
       });
   }
-
-  onMount(() => {
-    tabs = [
-      {
-        view: "edit",
-        element: editTab,
-      },
-      {
-        view: "issues",
-        element: issuesTab,
-      },
-      {
-        view: "logs",
-        element: logsTab,
-      },
-    ];
-    resource.resourceId && isAdmin && loadIssues();
-  });
 </script>
 
 <style>
@@ -210,7 +163,6 @@
             <button
               class="button"
               on:click|preventDefault={() => {
-                selectedTabView = 'issues';
                 scrollToIssues();
               }}>
               <span>View</span>
@@ -223,60 +175,34 @@
       {/if}
       <h1 class="title">{resource.name}</h1>
       <ResourceBreadcrumbs {resource} />
-      <div class="buttons has-addons" role="tablist">
-        <button
-          aria-selected={selectedTabView === 'edit'}
-          aria-controls="editor-tab"
-          bind:this={editTab}
-          class={`button is-medium ${selectedTabView === 'edit' ? 'is-primary' : ''}`}
-          id="editor-tab-button"
-          on:click|preventDefault={() => handleTabClick('edit')}
-          on:keydown={handleTabKeydown}
-          role="tab"
-          tabindex={selectedTabView === 'edit' ? 0 : -1}>
-          <span class="icon is-small">
-            <span class="fas fa-edit" aria-hidden="true" />
-          </span>
-          <span>Edit Provider Info</span>
-        </button>
-        {#if isLoggedIn && isAdmin}
-          <button
-            aria-selected={selectedTabView === 'issues'}
-            aria-controls="issues-tab"
-            bind:this={issuesTab}
-            class={`button is-medium ${selectedTabView === 'issues' ? 'is-primary' : ''}`}
-            id="issues-tab-button"
-            on:click|preventDefault={() => handleTabClick('issues')}
-            on:keydown={handleTabKeydown}
-            role="tab"
-            tabindex={selectedTabView === 'issues' ? 0 : -1}>
+      <Tabs>
+        <div class="buttons has-addons" role="tablist">
+          <Tab>
             <span class="icon is-small">
-              <span class="fas fa-exclamation-triangle" aria-hidden="true" />
+              <span class="fas fa-edit" aria-hidden="true" />
             </span>
-            <span
-              class={`has-badge-rounded has-badge-${unresolvedIssues && unresolvedIssues.length ? 'danger' : 'success'}`}
-              data-badge={unresolvedIssues && unresolvedIssues.length}>
-              Reported Issues
-            </span>
-          </button>
-          <button
-            aria-selected={selectedTabView === 'logs'}
-            aria-controls="logs-tab"
-            bind:this={logsTab}
-            class={`button is-medium ${selectedTabView === 'logs' ? 'is-primary' : ''}`}
-            on:click|preventDefault={() => handleTabClick('logs')}
-            on:keydown={handleTabKeydown}
-            role="tab"
-            tabindex={selectedTabView === 'logs' ? 0 : -1}>
-            <span class="icon is-small">
-              <span class="fas fa-history" aria-hidden="true" />
-            </span>
-            <span>Event Logs</span>
-          </button>
-        {/if}
-      </div>
-      {#if selectedTabView === 'edit'}
-        <div id="editor-tab" tabindex="0" aria-labelledby="editor-tab-button">
+            <span>Edit Provider Info</span>
+          </Tab>
+          {#if isAdmin}
+            <Tab>
+              <span class="icon is-small">
+                <span class="fas fa-exclamation-triangle" aria-hidden="true" />
+              </span>
+              <span
+                class={`has-badge-rounded has-badge-${unresolvedIssues && unresolvedIssues.length ? 'danger' : 'success'}`}
+                data-badge={unresolvedIssues && unresolvedIssues.length}>
+                Reported Issues
+              </span>
+            </Tab>
+            <Tab>
+              <span class="icon is-small">
+                <span class="fas fa-history" aria-hidden="true" />
+              </span>
+              <span>Event Logs</span>
+            </Tab>
+          {/if}
+        </div>
+        <TabPanel>
           <ResourceEditor
             {resource}
             {subcategories}
@@ -284,33 +210,37 @@
             errorText={saveError ? saveError.message : ''}
             on:clearErrorText={() => (saveError = null)}
             on:dispatchSaveResource={e => handleSaveClick(e.detail)} />
-        </div>
-      {/if}
-      {#if selectedTabView === 'issues' && isAdmin && issues && issues.length}
-        <div id="issues-tab" tabindex="0" aria-labelledby="issues-heading">
-          <h1 id="issues-heading" class="title">
-            Issues
-            <span class="tag is-dark">Admin</span>
-          </h1>
-          {#each issues as issue (issue._id)}
-            <ResourceIssueNotification resourceIssue={issue} />
-          {/each}
-        </div>
-      {/if}
+        </TabPanel>
+        {#if isAdmin}
+          <TabPanel>
+            <div class="content">
+              <h1 id="issues-heading" class="title">
+                Issues
+                <span class="tag is-dark">Admin</span>
+              </h1>
+              {#if issues && issues.length}
+                {#each issues as issue (issue._id)}
+                  <ResourceIssueNotification resourceIssue={issue} />
+                {/each}
+              {:else}
+                <p>No issues have been reported for this listing.</p>
+              {/if}
+            </div>
+          </TabPanel>
+          <TabPanel>
+            <div class="content">
+              <h1 class="title" id="logs-heading">
+                Event Logs
+                <span class="tag is-dark">Admin</span>
+              </h1>
+              <EventLogs resourceId={resource.resourceId} />
+            </div>
+          </TabPanel>
+        {/if}
+      </Tabs>
     {:else}
       <ResourceDisplay {resource} />
       <div class="notification">Log in to make changes to this resource</div>
     {/if}
-
-    {#if selectedTabView === 'logs' && isAdmin}
-      <div id="logs-tab" tabindex="0" aria-labelledby="logs-heading">
-        <h1 class="title" id="logs-heading">
-          Event Logs
-          <span class="tag is-dark">Admin</span>
-        </h1>
-        <EventLogs resourceId={resource.resourceId} />
-      </div>
-    {/if}
-
   </div>
 </section>
