@@ -123,6 +123,8 @@
         issues = issues;
       });
   }
+
+  onMount(() => resource.resourceId && isAdmin && loadIssues());
 </script>
 
 <style>
