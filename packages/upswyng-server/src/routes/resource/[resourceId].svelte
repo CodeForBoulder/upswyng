@@ -165,9 +165,7 @@
           <div>
             <button
               class="button"
-              on:click|preventDefault={() => {
-                scrollToIssues();
-              }}>
+              on:click|preventDefault={() => scrollToIssues()}>
               <span>View</span>
               <span class="icon">
                 <i class="fas fa-arrow-circle-down" />
