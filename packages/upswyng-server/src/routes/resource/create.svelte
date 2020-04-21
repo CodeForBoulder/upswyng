@@ -81,7 +81,7 @@
 </script>
 
 <svelte:head>
-  <title>Upswyng: Create a New Resource</title>
+  <title>Upswyng: Create a New Provider</title>
 </svelte:head>
 
 <section class="section">
