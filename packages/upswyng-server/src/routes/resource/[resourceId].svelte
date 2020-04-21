@@ -80,7 +80,7 @@
         if (res.status >= 400) {
           const { message } = await res.json();
           throw new Error(
-            message || "There was an error creating the draft resource."
+            message || "There was an error creating the draft provider."
           );
         }
         return await res.json();
@@ -98,7 +98,7 @@
         } else {
           console.error(res);
           saveError = new Error(
-            "There was an error creating the draft resource."
+            "There was an error creating the draft provider."
           );
         }
       })
@@ -159,7 +159,7 @@
         <div class="notification is-warning found-issues">
           <div class="notification-text">
             <span class="has-text-weight-medium">
-              Issues have been reported for this resource.
+              Issues have been reported for this provider.
             </span>
           </div>
           <div>
@@ -243,7 +243,7 @@
       </Tabs>
     {:else}
       <ResourceDisplay {resource} />
-      <div class="notification">Log in to make changes to this resource</div>
+      <div class="notification">Log in to make changes to this provider.</div>
     {/if}
   </div>
 </section>
