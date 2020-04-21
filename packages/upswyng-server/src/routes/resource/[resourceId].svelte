@@ -60,6 +60,7 @@
       element: "#tab-1",
       duration: 1000,
     });
+    document.getElementById("tab-1").click();
   }
 
   function handleSaveClick(resource) {
