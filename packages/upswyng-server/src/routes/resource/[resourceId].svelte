@@ -51,7 +51,38 @@
   let isLoadingIssues = false;
   let isSaving = false;
   let saveError = null; // Error | null
-  let view = "edit";
+
+  let selectedTabView = "edit";
+  let focusedTabView = "edit";
+  let tabs = [];
+  let editTab;
+  let issuesTab;
+  let logsTab;
+
+  function handleTabClick(view) {
+    focusedTabView = view;
+    selectedTabView = view;
+  }
+
+  function handleTabKeydown(e) {
+    const focusedTabIndex = tabs.findIndex(tab => focusedTabView === tab.view);
+    let focusTabIndex;
+
+    switch (event.key) {
+      case "ArrowLeft": {
+        focusTabIndex =
+          focusedTabIndex === 0 ? tabs.length - 1 : focusedTabIndex - 1;
+        break;
+      }
+      case "ArrowRight": {
+        focusTabIndex =
+          focusedTabIndex === tabs.length - 1 ? 0 : focusedTabIndex + 1;
+      }
+    }
+
+    focusedTabView = tabs[focusTabIndex].view;
+    tabs[focusTabIndex].element.focus();
+  }
 
   function scrollToIssues() {
     animateScroll.scrollTo({
@@ -122,7 +153,23 @@
       });
   }
 
-  onMount(() => resource.resourceId && isAdmin && loadIssues());
+  onMount(() => {
+    tabs = [
+      {
+        view: "edit",
+        element: editTab,
+      },
+      {
+        view: "issues",
+        element: issuesTab,
+      },
+      {
+        view: "logs",
+        element: logsTab,
+      },
+    ];
+    resource.resourceId && isAdmin && loadIssues();
+  });
 </script>
 
 <style>
@@ -163,7 +210,7 @@
             <button
               class="button"
               on:click|preventDefault={() => {
-                view = 'issues';
+                selectedTabView = 'issues';
                 scrollToIssues();
               }}>
               <span>View</span>
@@ -178,13 +225,15 @@
       <ResourceBreadcrumbs {resource} />
       <div class="buttons has-addons" role="tablist">
         <button
-          aria-selected={view === 'edit'}
+          aria-selected={selectedTabView === 'edit'}
           aria-controls="editor-tab"
-          class={`button is-medium ${view === 'edit' ? 'is-primary' : ''}`}
+          bind:this={editTab}
+          class={`button is-medium ${selectedTabView === 'edit' ? 'is-primary' : ''}`}
           id="editor-tab-button"
-          on:click|preventDefault={() => (view = 'edit')}
+          on:click|preventDefault={() => handleTabClick('edit')}
+          on:keydown={handleTabKeydown}
           role="tab"
-          tabindex={view === 'edit' ? 0 : -1}>
+          tabindex={selectedTabView === 'edit' ? 0 : -1}>
           <span class="icon is-small">
             <span class="fas fa-edit" aria-hidden="true" />
           </span>
@@ -192,13 +241,15 @@
         </button>
         {#if isLoggedIn && isAdmin}
           <button
-            aria-selected={view === 'issues'}
+            aria-selected={selectedTabView === 'issues'}
             aria-controls="issues-tab"
-            class={`button is-medium ${view === 'issues' ? 'is-primary' : ''}`}
+            bind:this={issuesTab}
+            class={`button is-medium ${selectedTabView === 'issues' ? 'is-primary' : ''}`}
             id="issues-tab-button"
-            on:click|preventDefault={() => (view = 'issues')}
+            on:click|preventDefault={() => handleTabClick('issues')}
+            on:keydown={handleTabKeydown}
             role="tab"
-            tabindex={view === 'issues' ? 0 : -1}>
+            tabindex={selectedTabView === 'issues' ? 0 : -1}>
             <span class="icon is-small">
               <span class="fas fa-exclamation-triangle" aria-hidden="true" />
             </span>
@@ -209,12 +260,14 @@
             </span>
           </button>
           <button
-            aria-selected={view === 'logs'}
+            aria-selected={selectedTabView === 'logs'}
             aria-controls="logs-tab"
-            class={`button is-medium ${view === 'logs' ? 'is-primary' : ''}`}
-            on:click|preventDefault={() => (view = 'logs')}
+            bind:this={logsTab}
+            class={`button is-medium ${selectedTabView === 'logs' ? 'is-primary' : ''}`}
+            on:click|preventDefault={() => handleTabClick('logs')}
+            on:keydown={handleTabKeydown}
             role="tab"
-            tabindex={view === 'logs' ? 0 : -1}>
+            tabindex={selectedTabView === 'logs' ? 0 : -1}>
             <span class="icon is-small">
               <span class="fas fa-history" aria-hidden="true" />
             </span>
@@ -222,7 +275,7 @@
           </button>
         {/if}
       </div>
-      {#if view === 'edit'}
+      {#if selectedTabView === 'edit'}
         <div id="editor-tab" tabindex="0" aria-labelledby="editor-tab-button">
           <ResourceEditor
             {resource}
@@ -233,7 +286,7 @@
             on:dispatchSaveResource={e => handleSaveClick(e.detail)} />
         </div>
       {/if}
-      {#if view === 'issues' && isAdmin && issues && issues.length}
+      {#if selectedTabView === 'issues' && isAdmin && issues && issues.length}
         <div id="issues-tab" tabindex="0" aria-labelledby="issues-heading">
           <h1 id="issues-heading" class="title">
             Issues
@@ -249,7 +302,7 @@
       <div class="notification">Log in to make changes to this resource</div>
     {/if}
 
-    {#if view === 'logs' && isAdmin}
+    {#if selectedTabView === 'logs' && isAdmin}
       <div id="logs-tab" tabindex="0" aria-labelledby="logs-heading">
         <h1 class="title" id="logs-heading">
           Event Logs
