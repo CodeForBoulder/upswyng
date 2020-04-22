@@ -22,7 +22,7 @@
         resource,
         subcategories,
         isLoggedIn: !!user,
-        isAdmin: !!user.isAdmin,
+        isAdmin: !!user && user.isAdmin,
       };
     }
   }

@@ -83,4 +83,5 @@ export interface TEventLog {
   createdAt: Date;
   detail: TEventLogDetail;
   kind: TEventLogKind;
+  wasProcessed: boolean; // intially false, then true once the start time has come and the worker has processed the event and sent notifications
 }
