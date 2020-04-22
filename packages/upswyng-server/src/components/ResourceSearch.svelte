@@ -40,11 +40,13 @@
   }
 </script>
 
-<div class="field">
+<div
+  class="field dropdown is-block"
+  class:is-active={!isLoading && results.length}>
+  <label for="search" class="is-sr-only">Search for a provider</label>
   <div class="control has-icons-left" class:is-loading={isLoading}>
-    <label for="search" class="is-sr-only">Search for a provider</label>
     <input
-      class="input is-rounded"
+      class="input"
       id="search"
       name="search"
       type="text"
@@ -54,20 +56,24 @@
       <i class="fas fa-search" />
     </span>
   </div>
-  {#if query.length > 3 && !isLoading && !results.length}
-    <p class="help">No providers match your search</p>
-  {/if}
-  {#if errorMessage}
-    <p class="help is-danger">{errorMessage}</p>
-  {/if}
-</div>
-
-<div class="content">
-  {#each results as resource}
-    <ResourceSearchResult
-      {action}
-      name={resource.name}
-      description={resource.description}
-      on:resourceClick={() => dispatch('resourceClick', resource.objectID)} />
-  {/each}
+  <div class="dropdown-menu">
+    <ul class="dropdown-content is-marginless">
+      {#if query.length > 3 && !isLoading && !results.length}
+        <li class="dropdown-item help">No providers match your search</li>
+      {/if}
+      {#if errorMessage}
+        <li class="dropdown-item help is-danger">{errorMessage}</li>
+      {/if}
+      {#each results as resource, i}
+        {#if i !== 0}
+          <hr class="dropdown-divider" />
+        {/if}
+        <ResourceSearchResult
+          {action}
+          name={resource.name}
+          description={resource.description}
+          on:resourceClick={() => dispatch('resourceClick', resource.objectID)} />
+      {/each}
+    </ul>
+  </div>
 </div>
