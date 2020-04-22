@@ -86,7 +86,7 @@
 
 <section class="section">
   <div class="container">
-    <h1 class="title">Create A Resource</h1>
+    <h1 class="title">Create A Provider</h1>
     <ResourceEditor
       {resource}
       {subcategories}
