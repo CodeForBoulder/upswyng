@@ -1,9 +1,7 @@
 <script>
   import { createEventDispatcher } from "svelte";
 
-  export let name;
-  export let description;
-  export let id;
+  export let resourceResult;
   export let action; // string "view | addToSubcategory"
 
   const EXPAND_DESCRIPTION_LENGTH = 120;
@@ -15,19 +13,23 @@
 
 <li class="dropdown-item">
   {#if action === 'view'}
-    <a href={`/resource/${id}`}>{name}</a>
+    <a href={`/resource/${resourceResult.objectID}`}>{resourceResult.name}</a>
   {:else if action === 'addToSubcategory'}
-    <p class="title is-6">{name}</p>
+    <p class="title is-6">{resourceResult.name}</p>
     <p>
-      {#if description.length <= EXPAND_DESCRIPTION_LENGTH}
-        {description}
+      {#if resourceResult.description.length <= EXPAND_DESCRIPTION_LENGTH}
+        {resourceResult.description}
       {:else if !expandDescription}
-        <span>{description.slice(0, EXPAND_DESCRIPTION_LENGTH).trim()}...</span>
+        <span>
+          {resourceResult.description
+            .slice(0, EXPAND_DESCRIPTION_LENGTH)
+            .trim()}...
+        </span>
         <button type="button" on:click={() => (expandDescription = true)}>
           more
         </button>
       {:else}
-        <span>{description}</span>
+        <span>{resourceResult.description}</span>
         <button
           type="button result-button"
           on:click={() => (expandDescription = false)}>

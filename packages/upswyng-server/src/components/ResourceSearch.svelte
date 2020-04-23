@@ -64,15 +64,13 @@
       {#if errorMessage}
         <li class="dropdown-item help is-danger">{errorMessage}</li>
       {/if}
-      {#each results as resource, i}
+      {#each results as resourceResult, i}
         {#if i !== 0}
           <hr class="dropdown-divider" />
         {/if}
         <ResourceSearchResult
           {action}
-          name={resource.name}
-          description={resource.description}
-          id={resource.objectID}
+          {resourceResult}
           on:resourceClick={() => dispatch('resourceClick', resource.objectID)} />
       {/each}
     </ul>
