@@ -72,6 +72,7 @@
           {action}
           name={resource.name}
           description={resource.description}
+          id={resource.objectID}
           on:resourceClick={() => dispatch('resourceClick', resource.objectID)} />
       {/each}
     </ul>
