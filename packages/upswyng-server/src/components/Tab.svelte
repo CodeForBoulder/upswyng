@@ -1,6 +1,6 @@
 <script>
   import { getContext, onDestroy, onMount } from "svelte";
-  import { key } from "./Tabs.svelte";
+  import { key } from "./TabbedContent.svelte";
 
   const {
     focusedTabIndex,

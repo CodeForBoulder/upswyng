@@ -39,8 +39,8 @@
   import ResourceEditor from "../../components/ResourceEditor.svelte";
   import ResourceIssueNotification from "../../components/ResourceIssueNotification.svelte";
   import Tab from "../../components/Tab.svelte";
+  import TabbedContent from "../../components/TabbedContent.svelte";
   import TabPanel from "../../components/TabPanel.svelte";
-  import Tabs from "../../components/Tabs.svelte";
 
   const { session } = stores();
 
@@ -176,7 +176,7 @@
       {/if}
       <h1 class="title">{resource.name}</h1>
       <ResourceBreadcrumbs {resource} />
-      <Tabs>
+      <TabbedContent>
         <div class="buttons has-addons" role="tablist">
           <Tab>
             <span class="icon is-small">
@@ -238,7 +238,7 @@
             </div>
           </TabPanel>
         {/if}
-      </Tabs>
+      </TabbedContent>
     {:else}
       <ResourceDisplay {resource} />
       <div class="notification">Log in to make changes to this provider.</div>

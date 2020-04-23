@@ -1,6 +1,6 @@
 <script>
   import { getContext, onMount, onDestroy } from "svelte";
-  import { key } from "./Tabs.svelte";
+  import { key } from "./TabbedContent.svelte";
 
   const { getTabPanelElements, selectedTabIndex } = getContext(key);
 
