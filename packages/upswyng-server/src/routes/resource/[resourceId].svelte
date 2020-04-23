@@ -34,9 +34,13 @@
   import { onMount } from "svelte";
   import * as animateScroll from "svelte-scrollto";
   import EventLogs from "../../components/EventLogs.svelte";
+  import ResourceBreadcrumbs from "../../components/ResourceBreadcrumbs.svelte";
   import ResourceDisplay from "../../components/ResourceDisplay.svelte";
   import ResourceEditor from "../../components/ResourceEditor.svelte";
   import ResourceIssueNotification from "../../components/ResourceIssueNotification.svelte";
+  import Tab from "../../components/Tab.svelte";
+  import TabbedContent from "../../components/TabbedContent.svelte";
+  import TabPanel from "../../components/TabPanel.svelte";
 
   const { session } = stores();
 
@@ -46,15 +50,17 @@
   export let isAdmin; // boolean
 
   let issues /* TResourceIssue[] | null */ = null;
+  let unresolvedIssues = null;
   let isLoadingIssues = false;
   let isSaving = false;
   let saveError = null; // Error | null
 
   function scrollToIssues() {
     animateScroll.scrollTo({
-      element: "#issues",
+      element: "#tab-1",
       duration: 1000,
     });
+    document.getElementById("tab-1").click();
   }
 
   function handleSaveClick(resource) {
@@ -74,7 +80,7 @@
         if (res.status >= 400) {
           const { message } = await res.json();
           throw new Error(
-            message || "There was an error creating the draft resource."
+            message || "There was an error creating the draft provider."
           );
         }
         return await res.json();
@@ -92,7 +98,7 @@
         } else {
           console.error(res);
           saveError = new Error(
-            "There was an error creating the draft resource."
+            "There was an error creating the draft provider."
           );
         }
       })
@@ -110,6 +116,7 @@
           console.error(response.status);
         } else {
           issues = resourceIssues;
+          unresolvedIssues = issues.filter(i => !i.resolved);
         }
       })
       .finally(() => {
@@ -136,7 +143,6 @@
 <svelte:head>
   <title>Upswyng: {resource.name}</title>
 </svelte:head>
-
 <section class="section">
   <div class="container">
     {#if isLoggedIn}
@@ -153,7 +159,7 @@
         <div class="notification is-warning found-issues">
           <div class="notification-text">
             <span class="has-text-weight-medium">
-              Found issues with Resource
+              Issues have been reported for this provider.
             </span>
           </div>
           <div>
@@ -168,34 +174,74 @@
           </div>
         </div>
       {/if}
-      <ResourceEditor
-        {resource}
-        {subcategories}
-        {isSaving}
-        errorText={saveError ? saveError.message : ''}
-        on:clearErrorText={() => (saveError = null)}
-        on:dispatchSaveResource={e => handleSaveClick(e.detail)} />
-      {#if isAdmin && issues && issues.length}
-        <h1 id="issues" class="title">
-          Issues
-          <span class="tag is-dark">Admin</span>
-        </h1>
-        {#each issues as issue (issue._id)}
-          <ResourceIssueNotification resourceIssue={issue} />
-        {/each}
-      {/if}
+      <h1 class="title">{resource.name}</h1>
+      <ResourceBreadcrumbs {resource} />
+      <TabbedContent>
+        <div class="buttons has-addons" role="tablist">
+          <Tab>
+            <span class="icon is-small">
+              <span class="fas fa-edit" aria-hidden="true" />
+            </span>
+            <span>Edit Provider Info</span>
+          </Tab>
+          {#if isAdmin}
+            <Tab>
+              <span class="icon is-small">
+                <span class="fas fa-exclamation-triangle" aria-hidden="true" />
+              </span>
+              <span
+                class={`has-badge-rounded has-badge-${unresolvedIssues && unresolvedIssues.length ? 'danger' : 'success'}`}
+                data-badge={unresolvedIssues && unresolvedIssues.length}>
+                Reported Issues
+              </span>
+            </Tab>
+            <Tab>
+              <span class="icon is-small">
+                <span class="fas fa-history" aria-hidden="true" />
+              </span>
+              <span>Event Logs</span>
+            </Tab>
+          {/if}
+        </div>
+        <TabPanel>
+          <ResourceEditor
+            {resource}
+            {subcategories}
+            {isSaving}
+            errorText={saveError ? saveError.message : ''}
+            on:clearErrorText={() => (saveError = null)}
+            on:dispatchSaveResource={e => handleSaveClick(e.detail)} />
+        </TabPanel>
+        {#if isAdmin}
+          <TabPanel>
+            <div class="content">
+              <h1 id="issues-heading" class="title">
+                Issues
+                <span class="tag is-dark">Admin</span>
+              </h1>
+              {#if issues && issues.length}
+                {#each issues as issue (issue._id)}
+                  <ResourceIssueNotification resourceIssue={issue} />
+                {/each}
+              {:else}
+                <p>No issues have been reported for this listing.</p>
+              {/if}
+            </div>
+          </TabPanel>
+          <TabPanel>
+            <div class="content">
+              <h1 class="title" id="logs-heading">
+                Event Logs
+                <span class="tag is-dark">Admin</span>
+              </h1>
+              <EventLogs resourceId={resource.resourceId} />
+            </div>
+          </TabPanel>
+        {/if}
+      </TabbedContent>
     {:else}
       <ResourceDisplay {resource} />
-      <div class="notification">Log in to make changes to this resource</div>
+      <div class="notification">Log in to make changes to this provider.</div>
     {/if}
-
-    {#if isAdmin}
-      <h1 class="title">
-        Event Logs
-        <span class="tag is-dark">Admin</span>
-      </h1>
-      <EventLogs resourceId={resource.resourceId} />
-    {/if}
-
   </div>
 </section>

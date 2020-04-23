@@ -81,11 +81,12 @@
 </script>
 
 <svelte:head>
-  <title>Upswyng: Create a New Resource</title>
+  <title>Upswyng: Create a New Provider</title>
 </svelte:head>
 
 <section class="section">
   <div class="container">
+    <h1 class="title">Create A Provider</h1>
     <ResourceEditor
       {resource}
       {subcategories}
