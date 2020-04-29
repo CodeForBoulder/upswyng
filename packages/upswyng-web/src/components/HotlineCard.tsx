@@ -5,10 +5,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 
-const initiatePhoneCall = (phoneNumber: string): void => {
-  window.open(`tel:${phoneNumber.replace(/[-]/g, "")}`);
-};
-
 interface Props {
   name: string;
   description: string;
@@ -25,7 +21,7 @@ const HotlineCard = ({ name, description, phone }: Props) => {
           <>
             <Link
               underline="always"
-              onClick={() => initiatePhoneCall(phone)}
+              href={`tel:${phone.replace(/[-]/g, "")}`}
               color="secondary"
               style={{ cursor: "pointer" }}
             >
