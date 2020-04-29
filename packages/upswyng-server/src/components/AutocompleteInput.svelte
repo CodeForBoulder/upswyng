@@ -97,7 +97,7 @@
   <input
     aria-activedescendant={currentFocusedItemIndex !== null ? `${id}-item-${currentFocusedItemIndex}` : ''}
     aria-autocomplete="list"
-    aria-controls="search-results-list"
+    aria-controls={`${id}-list`}
     bind:value={inputValue}
     class="input"
     {id}
