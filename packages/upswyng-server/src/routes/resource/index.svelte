@@ -54,7 +54,17 @@
         {flashMessage.message}
       </div>
     {/each}
-    <h1 class="title">Resources</h1>
+    <h1 class="title">Providers</h1>
+
+    <div class="content">
+      <h2 class="subtitle">Search for a Provider</h2>
+      <ResourceSearch
+        action="view"
+        on:select={({ detail: resourceId }) => {
+          goto(`/resource/${resourceId}`);
+        }} />
+    </div>
+
     {#if user}
       <div class="content">
         <a href="/resource/create" class="button is-large">
@@ -89,7 +99,7 @@
     {#if user && user.isAdmin}
       <div class="content">
         <h2 class="subtitle">
-          Draft Resources
+          Draft Providers
           <span class="tag is-dark">Admin</span>
         </h2>
         {#if draftResources.length}
@@ -121,19 +131,10 @@
       </div>
     {/if}
 
-    <div class="content">
-      <h2 class="subtitle">Search for a Resource</h2>
-      <ResourceSearch
-        action="view"
-        on:resourceClick={({ detail: resourceId }) => {
-          goto(`/resource/${resourceId}`);
-        }} />
-    </div>
-
     {#if uncategorizedResources.length && user && user.isAdmin}
       <div class="content">
         <h2 class="subtitle">
-          Uncategorized Resources
+          Uncategorized Providers
           <span class="tag is-dark">Admin</span>
         </h2>
         <ul class="content">
