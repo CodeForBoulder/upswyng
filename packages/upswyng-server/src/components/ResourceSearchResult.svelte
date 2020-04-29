@@ -34,17 +34,15 @@
       </button>
     {/if}
   </p>
-  {#if action === 'addToSubcategory'}
-    <div class="buttons">
-      <button
-        class="button is-success is-small"
-        type="button"
-        on:click={() => dispatch('resourceClick')}>
-        <span class="icon is-small">
-          <i class="fas fa-plus" />
-        </span>
-        <span>Add to subcategory</span>
-      </button>
-    </div>
-  {/if}
+  <div class="buttons">
+    <button
+      class="button is-success is-small"
+      type="button"
+      on:click={() => dispatch('resourceClick')}>
+      <span class="icon is-small">
+        <i class="fas fa-plus" />
+      </span>
+      <span>Add to subcategory</span>
+    </button>
+  </div>
 {/if}
