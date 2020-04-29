@@ -28,10 +28,7 @@
   const searchIndex = client.initIndex(indexName);
 
   const dispatch = createEventDispatcher();
-  const handleSelect = resourceId => {
-    console.log("test");
-    dispatch("select", resourceId);
-  };
+  const handleSelect = resourceId => dispatch("select", resourceId);
 
   let hasQuery = query.length > 3;
 
@@ -42,12 +39,8 @@
       errorMessage = "";
       searchIndex
         .search({ query, hitsPerPage: maxResults })
-        .then(({ hits }) => {
-          return (results = hits);
-        })
-        .catch(e => {
-          return (errorMessage = e.message);
-        })
+        .then(({ hits }) => (results = hits))
+        .catch(e => (errorMessage = e.message))
         .finally(() => (isLoading = false));
     } else {
       hasQuery = false;
