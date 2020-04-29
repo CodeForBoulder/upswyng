@@ -10,7 +10,6 @@
 
   export let value; // TResourceSchedule
 
-  let isExpanded = false;
   let recurrenceText = "";
 
   // Run once mounted so this logic is executed on the user's machine
@@ -103,13 +102,6 @@
     value = value; // make svelte update itself
   }
 
-  function toggleExpanded() {
-    isExpanded = !isExpanded;
-    if (!isExpanded) {
-      certainWeekRepeatState = Object.assign({}, certainWeekRepeatStateDefault);
-    }
-  }
-
   const weeklyRepeatStateDefault = {
     comment: "",
     error: "",
@@ -190,19 +182,25 @@
   </fieldset>
 </div>
 <div class="content">
-  <fieldset>
-    <label class="label" for="timezone">Timezone</label>
-    <Select
-      isClearable={false}
-      items={tz.names().map(z => ({ label: z.replace(/_/g, ' '), value: z }))}
-      on:select={({ detail: tz }) => {
-        value.timezone = tz.value;
-        value = value;
-      }}
-      selectedValue={value.timezone ? { label: value.timezone.replace(/_/g, ' '), value: value.timezone } : null} />
-  </fieldset>
+  <div class="columns">
+    <div class="column is-fifth">
+      <fieldset>
+        <label class="label" for="timezone">Timezone</label>
+        <Select
+          isClearable={false}
+          items={tz
+            .names()
+            .map(z => ({ label: z.replace(/_/g, ' '), value: z }))}
+          on:select={({ detail: tz }) => {
+            value.timezone = tz.value;
+            value = value;
+          }}
+          selectedValue={value.timezone ? { label: value.timezone.replace(/_/g, ' '), value: value.timezone } : null} />
+      </fieldset>
+    </div>
+  </div>
 </div>
-<h2 class="subtitle is-size-5">Schedule Entries</h2>
+<h2 class="subtitle is-size-5">Hours of Operation</h2>
 <div class="content">
   <ul>
     {#each value.getItems() as scheduleItem, _i (JSON.stringify(scheduleItem))}
@@ -217,7 +215,7 @@
   </ul>
 </div>
 <div class="box">
-  <h2 class="subtitle is-size-5">Add A Schedule Entry</h2>
+  <h2 class="subtitle is-size-5">Add Hours of Operation</h2>
   <div class="content">
     <fieldset>
       <div class="field has-addons">
@@ -259,106 +257,78 @@
           </span>
         </button>
       </div>
-      <div class="columns content">
-        <div class="column">
+      <div class="control field">
+        <span class="label" id="day-repeat">These days repeat</span>
+        <label class="radio" aria-describedby="day-repeat">
+          <input
+            type="radio"
+            name="repeats"
+            checked={certainWeekRepeatState.everyWeek}
+            on:click={() => {
+              certainWeekRepeatState = { ...certainWeekRepeatStateDefault };
+            }} />
+          weekly
+        </label>
+        <label class="radio" aria-describedby="day-repeat">
+          <input
+            type="radio"
+            name="repeats"
+            checked={!certainWeekRepeatState.everyWeek}
+            on:click={() => {
+              certainWeekRepeatState = { ...certainWeekRepeatState, everyWeek: false, [1]: true };
+            }} />
+          monthly
+        </label>
+      </div>
+      {#if !certainWeekRepeatState.everyWeek}
+        <div class="field">
+          <label class="label">How often do these days repeat?</label>
+        </div>
+        <div class="field has-addons">
+          {#each [{ name: 'First', value: 1 }, { name: 'Second', value: 2 }, { name: 'Third', value: 3 }, { name: 'Fourth', value: 4 }, { name: 'Last', value: -1 }, { name: 'Second-to-last', value: -2 }] as entry}
+            <p class="control">
+              <button
+                aria-label={entry.name}
+                class="button"
+                class:is-primary={certainWeekRepeatState[entry.value]}
+                on:click|preventDefault={() => {
+                  certainWeekRepeatState = { ...certainWeekRepeatState, everyWeek: false, [entry.value]: !certainWeekRepeatState[entry.value] };
+                }}>
+                <span>{entry.name}</span>
+              </button>
+            </p>
+          {/each}
+        </div>
+      {/if}
+      <div class="columns">
+        <div class="column is-one-fifth">
           <label class="label" for="from-time">From</label>
           <Select
             bind:selectedValue={weeklyRepeatState.fromTime}
             items={Time.options.filter(o => !o.isNextDay)} />
         </div>
-        <div class="column">
+        <div class="column is-one-fifth">
           <label class="label" for="to-time">To</label>
           <Select
             bind:selectedValue={weeklyRepeatState.toTime}
             items={Time.options} />
         </div>
       </div>
-      <div class="content">
-        {#if isExpanded}
-          <header class="more-less-selector">
-            <!-- svelte-ignore a11y-missing-attribute -->
-            <a
-              on:click|preventDefault={() => toggleExpanded()}
-              class="has-text-grey is-uppercase is-size-6 has-text-weight-bold">
-              <span>Fewer Options</span>
-              <!-- svelte-ignore a11y-missing-attribute -->
-              <span class="icon is-small">
-                <i class="fas fa-chevron-up" aria-hidden="true" />
-              </span>
-            </a>
-          </header>
-        {:else}
-          <header class="more-less-selector">
-            <!-- svelte-ignore a11y-missing-attribute -->
-            <a
-              on:click|preventDefault={() => toggleExpanded()}
-              class="has-text-grey is-uppercase is-size-6 has-text-weight-bold">
-              <span>More Options</span>
-              <!-- svelte-ignore a11y-missing-attribute -->
-              <span class="icon is-small">
-                <i class="fas fa-chevron-down" aria-hidden="true" />
-              </span>
-            </a>
-          </header>
-        {/if}
-      </div>
-      {#if isExpanded}
-        <div class="content">
-          <div class="field">
-            <label class="label">
-              Certain occurances of the day in a month
-            </label>
-          </div>
-          <div class="field has-addons">
-            <p class="control">
-              <button
-                aria-label="All occurances of the day"
-                class="button"
-                class:is-primary={certainWeekRepeatState.everyWeek}
-                on:click|preventDefault={() => {
-                  certainWeekRepeatState = { ...certainWeekRepeatStateDefault };
-                }}
-                title="Select all occurances of the day">
-                <span>
-                  <strong>All</strong>
-                </span>
-              </button>
-            </p>
-            {#each [{ name: 'First', value: 1 }, { name: 'Second', value: 2 }, { name: 'Third', value: 3 }, { name: 'Fourth', value: 4 }, { name: 'Last', value: -1 }, { name: 'Second-to-last', value: -2 }] as entry}
-              <p class="control">
-                <button
-                  aria-label={entry.name}
-                  class="button"
-                  class:is-primary={certainWeekRepeatState[entry.value]}
-                  on:click|preventDefault={() => {
-                    certainWeekRepeatState = { ...certainWeekRepeatState, everyWeek: false, [entry.value]: !certainWeekRepeatState[entry.value] };
-                  }}>
-                  <span>{entry.name}</span>
-                </button>
-              </p>
-            {/each}
-          </div>
-          {#if recurrenceText.length}
-            <div class="box">
-              {recurrenceText.charAt(0).toUpperCase() + recurrenceText.slice(1)}
-              {#if weeklyRepeatState.fromTime && weeklyRepeatState.toTime}
-                from {weeklyRepeatState.fromTime.label} to {weeklyRepeatState.toTime.label}
-              {:else}
-                <span class="has-text-grey is-italic">
-                  &lt;select times&gt;
-                </span>
-              {/if}
-            </div>
+      {#if recurrenceText.length}
+        <div class="box">
+          {recurrenceText.charAt(0).toUpperCase() + recurrenceText.slice(1)}
+          {#if weeklyRepeatState.fromTime && weeklyRepeatState.toTime}
+            from {weeklyRepeatState.fromTime.label} to {weeklyRepeatState.toTime.label}
+          {:else}
+            <span class="has-text-grey is-italic">&lt;select times&gt;</span>
           {/if}
         </div>
       {/if}
-      <div class="content">
-        {#if weeklyRepeatState.fromTime && weeklyRepeatState.toTime && parseInt(weeklyRepeatState.fromTime.value, 10) >= parseInt(weeklyRepeatState.toTime.value, 10)}
-          <p class="notification is-warning">
-            The 'From' time must be before the 'To' time.
-          </p>
-        {/if}
-      </div>
+      {#if weeklyRepeatState.fromTime && weeklyRepeatState.toTime && parseInt(weeklyRepeatState.fromTime.value, 10) >= parseInt(weeklyRepeatState.toTime.value, 10)}
+        <p class="notification is-warning">
+          The 'From' time must be before the 'To' time.
+        </p>
+      {/if}
       <p>
         <label class="label" for="comment">Comment (optional)</label>
         <textarea
@@ -368,23 +338,21 @@
           placeholder="ex: Open only for residents"
           rows="3" />
       </p>
-      <div class="content">
-        <button
-          class="button is-primary"
-          disabled={!weeklyRepeatState.fromTime || !weeklyRepeatState.toTime || parseInt(weeklyRepeatState.fromTime.value, 10) >= parseInt(weeklyRepeatState.toTime.value, 10)}
-          type="button"
-          preventDefault
-          on:click={() => {
-            weeklyRepeatState.error = '';
-            try {
-              addWeeklyRecurrence();
-            } catch (e) {
-              weeklyRepeatState.error = e.message;
-            }
-          }}>
-          Add To Schedule
-        </button>
-      </div>
+      <button
+        class="button is-primary"
+        disabled={!weeklyRepeatState.fromTime || !weeklyRepeatState.toTime || parseInt(weeklyRepeatState.fromTime.value, 10) >= parseInt(weeklyRepeatState.toTime.value, 10)}
+        type="button"
+        preventDefault
+        on:click={() => {
+          weeklyRepeatState.error = '';
+          try {
+            addWeeklyRecurrence();
+          } catch (e) {
+            weeklyRepeatState.error = e.message;
+          }
+        }}>
+        Add To Schedule
+      </button>
     </fieldset>
   </div>
 </div>
