@@ -1,6 +1,8 @@
 <script>
-  import { createEventDispatcher } from "svelte";
   import algoliaSearch from "algoliasearch";
+  import { createEventDispatcher } from "svelte";
+  import { goto } from "@sapper/app";
+
   import Autocomplete from "./Autocomplete.svelte";
   import AutocompleteItem from "./AutocompleteItem.svelte";
   import ResourceSearchResult from "./ResourceSearchResult.svelte";
@@ -69,11 +71,9 @@
     </div>
     {#if hasQuery}
       {#each results as resourceResult, i}
-        <AutocompleteItem>
-          <ResourceSearchResult
-            {action}
-            {resourceResult}
-            on:resourceClick={() => dispatch('resourceClick', resourceResult.objectID)} />
+        <AutocompleteItem
+          onSelect={() => goto(`/resource/${resourceResult.objectID}`)}>
+          <ResourceSearchResult {action} {resourceResult} />
         </AutocompleteItem>
       {/each}
     {/if}

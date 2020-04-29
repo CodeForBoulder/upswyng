@@ -3,8 +3,11 @@
   import { key } from "./Autocomplete.svelte";
 
   export let className = "";
+  export let onSelect = () => {};
 
-  const { addItem, focusedItemIndex, numItems, removeItem } = getContext(key);
+  const { addItem, focusedItemIndex, id, numItems, removeItem } = getContext(
+    key
+  );
 
   let itemIndex;
 
@@ -30,14 +33,26 @@
   });
 </script>
 
+<style>
+  .autocomplete-item:hover {
+    background-color: #f5f5f5;
+    color: #0a0a0a;
+    cursor: pointer;
+  }
+</style>
+
 {#if itemIndex !== 0}
   <hr class="dropdown-divider is-marginless" />
 {/if}
 <li
   aria-selected={isFocused}
-  class={`dropdown-item ${className}`}
+  class={`dropdown-item autocomplete-item ${className}`}
   class:has-background-dark={isFocused}
   class:has-text-light={isFocused}
-  role="option">
+  data-autocomplete-id={id}
+  id={`${id}-item-${itemIndex}`}
+  on:click={onSelect}
+  role="option"
+  tabindex="-1">
   <slot />
 </li>

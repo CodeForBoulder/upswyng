@@ -19,6 +19,7 @@
   setContext(key, {
     addItem: () => numItems.update(n => n + 1),
     focusedItemIndex,
+    id,
     inputIsFocused,
     numItems,
     removeItem: () => numItems.update(n => n - 1),
@@ -43,7 +44,7 @@
   class={`field dropdown ${className}`}
   class:is-active={$inputIsFocused && !!$numItems}>
   <div
-    aria-expanded={!!$numItems}
+    aria-expanded={$inputIsFocused && !!$numItems}
     aria-owns={listId}
     aria-haspopup="listbox"
     class="control has-icons-left"

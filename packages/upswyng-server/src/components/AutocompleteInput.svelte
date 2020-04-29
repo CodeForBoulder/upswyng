@@ -31,9 +31,14 @@
     isFocused = b;
   });
 
-  function handleInputBlur() {
-    setInputIsFocused(false);
-    setFocusedItemIndex(null);
+  function handleInputBlur(e) {
+    const autocompleteId = e.relatedTarget
+      ? e.relatedTarget.dataset.autocompleteId
+      : null;
+    if (autocompleteId !== id) {
+      setInputIsFocused(false);
+      setFocusedItemIndex(null);
+    }
   }
 
   function handleInputKeydown(e) {
@@ -65,6 +70,13 @@
         return setFocusedItemIndex(newFocusedItemIndex);
       }
       case "Enter": {
+        e.preventDefault();
+        if (currentFocusedItemIndex === null) {
+          return;
+        }
+        document
+          .getElementById(`${id}-item-${currentFocusedItemIndex}`)
+          .click();
       }
     }
   }
@@ -80,13 +92,9 @@
   });
 </script>
 
-<div
-  class={`control has-icons-left`}
-  role="combobox"
-  aria-expanded={!!numberItems.length}
-  aria-owns="search-results-list"
-  aria-haspopup="listbox">
+<div class="control has-icons-left">
   <input
+    aria-activedescendant={currentFocusedItemIndex !== null ? `${id}-item-${currentFocusedItemIndex}` : ''}
     aria-autocomplete="list"
     aria-controls="search-results-list"
     bind:value={inputValue}
