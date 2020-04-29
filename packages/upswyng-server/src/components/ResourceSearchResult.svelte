@@ -14,7 +14,7 @@
 {#if action === 'view'}
   {resourceResult.name}
 {:else if action === 'addToSubcategory'}
-  <p class="title is-6">{resourceResult.name}</p>
+  <p class="has-text-weight-bold is-size-6">{resourceResult.name}</p>
   <p>
     {#if resourceResult.description.length <= EXPAND_DESCRIPTION_LENGTH}
       {resourceResult.description}

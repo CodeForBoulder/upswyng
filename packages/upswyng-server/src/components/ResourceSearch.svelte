@@ -1,7 +1,6 @@
 <script>
   import algoliaSearch from "algoliasearch";
   import { createEventDispatcher } from "svelte";
-  import { goto } from "@sapper/app";
 
   import Autocomplete from "./Autocomplete.svelte";
   import AutocompleteItem from "./AutocompleteItem.svelte";
@@ -27,7 +26,12 @@
 
   const client = algoliaSearch(appId, searchApiKey);
   const searchIndex = client.initIndex(indexName);
+
   const dispatch = createEventDispatcher();
+  const handleSelect = resourceId => {
+    console.log("test");
+    dispatch("select", resourceId);
+  };
 
   let hasQuery = query.length > 3;
 
@@ -59,7 +63,8 @@
   <Autocomplete
     className={isLoading ? 'is-flex is-loading' : 'is-flex'}
     bind:value={query}
-    id="search">
+    id="search"
+    placeholder="Search for a provider...">
     <i class="fas fa-search" slot="input-left-icon" />
     <div slot="help">
       {#if hasQuery && !isLoading && !results.length}
@@ -72,7 +77,7 @@
     {#if hasQuery}
       {#each results as resourceResult, i}
         <AutocompleteItem
-          onSelect={() => goto(`/resource/${resourceResult.objectID}`)}>
+          on:select={() => handleSelect(resourceResult.objectID)}>
           <ResourceSearchResult {action} {resourceResult} />
         </AutocompleteItem>
       {/each}

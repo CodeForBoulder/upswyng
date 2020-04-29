@@ -20,7 +20,7 @@
   let successMessage = "";
   let isSaving = false;
 
-  async function addResourceToSubcategory(resourceIdd /* string */) {
+  async function addResourceToSubcategory(resourceId /* string */) {
     isSaving = true;
     errorMessage = "";
     successMessage = "";
@@ -94,7 +94,7 @@
         {/if}
         <ResourceSearch
           action="addToSubcategory"
-          on:resourceClick={async ({ detail: resourceId }) => {
+          on:select={async ({ detail: resourceId }) => {
             await addResourceToSubcategory(resourceId);
           }} />
       </div>

@@ -9,6 +9,7 @@
 
   export let className = "";
   export let id;
+  export let placeholder;
   export let value;
 
   const focusedItemIndex = writable(null);
@@ -35,7 +36,10 @@
 </script>
 
 <style>
-  .dropdown-content {
+  .autocomplete-input-container {
+    width: 100%;
+  }
+  .autocomplete-list {
     list-style-type: none;
   }
 </style>
@@ -47,9 +51,9 @@
     aria-expanded={$inputIsFocused && !!$numItems}
     aria-owns={listId}
     aria-haspopup="listbox"
-    class="control has-icons-left"
+    class="autocomplete-input-container"
     role="combobox">
-    <AutocompleteInput bind:value={inputValue} {id}>
+    <AutocompleteInput bind:value={inputValue} {id} {placeholder}>
       <span class="icon is-left">
         <slot name="input-left-icon" />
       </span>
@@ -59,7 +63,7 @@
   <div class="dropdown-menu">
     <ul
       aria-labelledby="search-label"
-      class="dropdown-content is-marginless"
+      class="dropdown-content autocomplete-list is-marginless"
       id={listId}
       role="listbox">
       <slot />

@@ -3,6 +3,7 @@
   import { key } from "./Autocomplete.svelte";
 
   export let id;
+  export let placeholder = "";
   export let value = "";
 
   const {
@@ -104,6 +105,7 @@
     on:blur={handleInputBlur}
     on:focus={() => setInputIsFocused(true)}
     on:keydown={handleInputKeydown}
+    {placeholder}
     type="text" />
   <slot />
 </div>

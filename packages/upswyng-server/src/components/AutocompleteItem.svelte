@@ -1,9 +1,13 @@
 <script>
-  import { getContext, onMount, onDestroy } from "svelte";
+  import {
+    createEventDispatcher,
+    getContext,
+    onMount,
+    onDestroy,
+  } from "svelte";
   import { key } from "./Autocomplete.svelte";
 
   export let className = "";
-  export let onSelect = () => {};
 
   const { addItem, focusedItemIndex, id, numItems, removeItem } = getContext(
     key
@@ -20,6 +24,9 @@
   const unsubscribeFocusedTabIndex = focusedItemIndex.subscribe(i => {
     isFocused = i === itemIndex;
   });
+
+  const dispatch = createEventDispatcher();
+  const handleClick = () => dispatch("select");
 
   onDestroy(() => {
     removeItem();
@@ -51,7 +58,7 @@
   class:has-text-light={isFocused}
   data-autocomplete-id={id}
   id={`${id}-item-${itemIndex}`}
-  on:click={onSelect}
+  on:click={handleClick}
   role="option"
   tabindex="-1">
   <slot />
