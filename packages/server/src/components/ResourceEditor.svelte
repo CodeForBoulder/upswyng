@@ -121,22 +121,6 @@
   </div>
   <form>
     <div class="field">
-      <div class="control">
-        <input
-          id="trash"
-          type="checkbox"
-          name="trash"
-          class="switch is-danger"
-          bind:checked={resource.deleted} />
-        <label class="label" for="trash">Trash Resource</label>
-      </div>
-      <p class="has-text-weight-light">
-        Trashed resources won't show up anywhere in the app, but will remain
-        available in the admin control and can be restored later.
-      </p>
-    </div>
-
-    <div class="field">
       <label class="label" for="name">Resource Name</label>
       <div class="control has-icons-right">
         <input
@@ -440,7 +424,21 @@
       </div>
     </div>
     <SubcategoryInput bind:value={resource.subcategories} {subcategories} />
-
+    <div class="field">
+      <div class="control">
+        <input
+          id="trash"
+          type="checkbox"
+          name="trash"
+          class="switch is-danger"
+          bind:checked={resource.deleted} />
+        <label class="label" for="trash">Trash Resource</label>
+      </div>
+      <p class="has-text-weight-light">
+        Trashed resources won't show up anywhere in the app, but will remain
+        available in the admin control and can be restored later.
+      </p>
+    </div>
     <div class="buttons is-right">
       <button
         type="button"
