@@ -80,7 +80,7 @@
     {/if}
     {#if resource.resourceId}
       <p>
-        <span class="label">Resource ID</span>
+        <span class="label">Provider ID</span>
         <span class="is-family-code">{resource.resourceId}</span>
       </p>
     {/if}
@@ -121,7 +121,7 @@
   </div>
   <form>
     <div class="field">
-      <label class="label" for="name">Resource Name</label>
+      <label class="label" for="name">Provider Name</label>
       <div class="control has-icons-right">
         <input
           class="input"
@@ -432,10 +432,10 @@
           name="trash"
           class="switch is-danger"
           bind:checked={resource.deleted} />
-        <label class="label" for="trash">Trash Resource</label>
+        <label class="label" for="trash">Trash Provider</label>
       </div>
       <p class="has-text-weight-light">
-        Trashed resources won't show up anywhere in the app, but will remain
+        Trashed providers won't show up anywhere in the app, but will remain
         available in the admin control and can be restored later.
       </p>
     </div>
