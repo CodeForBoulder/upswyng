@@ -23,7 +23,6 @@ const HotlineCard = ({ name, description, phone }: Props) => {
               underline="always"
               href={`tel:${phone.replace(/[-]/g, "")}`}
               color="secondary"
-              style={{ cursor: "pointer" }}
             >
               {phone}
             </Link>
