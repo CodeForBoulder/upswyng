@@ -11,6 +11,7 @@
   export let value; // TResourceSchedule
 
   let recurrenceText = "";
+  let isCommentExpanded = false;
 
   // Run once mounted so this logic is executed on the user's machine
   // instead of on our server.
@@ -183,7 +184,7 @@
 </div>
 <div class="content">
   <div class="columns">
-    <div class="column is-fifth">
+    <div class="column is-one-fifth">
       <fieldset>
         <label class="label" for="timezone">Timezone</label>
         <Select
@@ -257,6 +258,21 @@
           </span>
         </button>
       </div>
+      <div class="columns">
+        <div class="column is-one-fifth">
+          <label class="label" for="from-time">From</label>
+          <Select
+            bind:selectedValue={weeklyRepeatState.fromTime}
+            items={Time.options.filter(o => !o.isNextDay)} />
+        </div>
+        <div class="column is-one-fifth">
+          <label class="label" for="to-time">To</label>
+          <Select
+            bind:selectedValue={weeklyRepeatState.toTime}
+            items={Time.options} />
+        </div>
+      </div>
+
       <div class="control field">
         <span class="label" id="day-repeat">These days repeat</span>
         <label class="radio" aria-describedby="day-repeat">
@@ -300,20 +316,6 @@
           {/each}
         </div>
       {/if}
-      <div class="columns">
-        <div class="column is-one-fifth">
-          <label class="label" for="from-time">From</label>
-          <Select
-            bind:selectedValue={weeklyRepeatState.fromTime}
-            items={Time.options.filter(o => !o.isNextDay)} />
-        </div>
-        <div class="column is-one-fifth">
-          <label class="label" for="to-time">To</label>
-          <Select
-            bind:selectedValue={weeklyRepeatState.toTime}
-            items={Time.options} />
-        </div>
-      </div>
       {#if recurrenceText.length}
         <div class="box">
           {recurrenceText.charAt(0).toUpperCase() + recurrenceText.slice(1)}
@@ -330,13 +332,32 @@
         </p>
       {/if}
       <p>
-        <label class="label" for="comment">Comment (optional)</label>
-        <textarea
-          bind:value={weeklyRepeatState.comment}
-          class="textarea"
-          name="comment"
-          placeholder="ex: Open only for residents"
-          rows="3" />
+        <label
+          class="label"
+          for="comment"
+          aria-expanded={isCommentExpanded}
+          aria-controls="comment"
+          on:click={() => (isCommentExpanded = !isCommentExpanded)}>
+          Comment (optional)
+          {#if !isCommentExpanded}
+            <span>
+              <i class="fas fa-chevron-right" aria-hidden="true" />
+            </span>
+          {:else}
+            <span>
+              <i class="fas fa-chevron-down" aria-hidden="true" />
+            </span>
+          {/if}
+        </label>
+        {#if isCommentExpanded}
+          <textarea
+            bind:value={weeklyRepeatState.comment}
+            class="textarea"
+            name="comment"
+            id="comment"
+            placeholder="ex: Open only for residents"
+            rows="3" />
+        {/if}
       </p>
       <button
         class="button is-primary"
@@ -351,7 +372,7 @@
             weeklyRepeatState.error = e.message;
           }
         }}>
-        Add To Schedule
+        Update Schedule
       </button>
     </fieldset>
   </div>
