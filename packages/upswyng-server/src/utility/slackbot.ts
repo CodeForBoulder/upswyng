@@ -2,10 +2,10 @@ import * as SlackRtmApi from "@slack/rtm-api";
 import * as SlackWebApi from "@slack/web-api";
 import * as dotenv from "dotenv";
 
+import { EventLogKind, TEventLog } from "@upswyng/upswyng-types";
 import User, { userDocumentToUser } from "../models/User";
 
 import { ObjectId } from "bson";
-import { TEventLog } from "@upswyng/upswyng-types";
 import { WebAPICallResult } from "@slack/web-api";
 
 const { WebClient } = SlackWebApi;
@@ -73,25 +73,25 @@ function assertUnreachable(_x: never): never {
 async function createTextForEventLog(e: TEventLog): Promise<string> {
   const { detail } = e;
   switch (detail.kind) {
-    case "draft_approved":
+    case EventLogKind.DraftApproved:
       return `:thumbsup: ${
         e.actor.name ? e.actor.name : e.actor.email
       } approved a draft to ${
         detail.newResource ? "create" : "update"
       } <${HOST}/resource/${detail.resourceId}|${detail.resourceName}>`;
-    case "draft_created":
+    case EventLogKind.DraftCreated:
       return `:eight_spoked_asterisk: ${
         e.actor.name ? e.actor.name : e.actor.email
       } wrote <${HOST}/resource/draft/${detail.draftId}|a draft> to ${
         detail.newResource ? "create" : "update"
       } ${detail.resourceName}`;
-    case "draft_deleted":
+    case EventLogKind.DraftDeleted:
       return `:put_litter_in_its_place: ${
         e.actor.name ? e.actor.name : e.actor.email
       } deleted a draft of <${HOST}/resource/${detail.resourceId}|${
         detail.resourceName
       }>`;
-    case "resource_issue_reopened":
+    case EventLogKind.ResourceIssueReopened:
       return `:slightly_frowning_face: ${
         e.actor.name ? e.actor.name : e.actor.email
       } reopened a <${HOST}/resource/issue/${
@@ -102,7 +102,7 @@ async function createTextForEventLog(e: TEventLog): Promise<string> {
       )} issue> for <${HOST}/resource/${detail.resourceId}|${
         detail.resourceName
       }>`;
-    case "resource_issue_resolved":
+    case EventLogKind.ResourceIssueResolved:
       return `:clipboard: ${
         e.actor.name ? e.actor.name : e.actor.email
       } resolved a <${HOST}/resource/issue/${
@@ -113,7 +113,7 @@ async function createTextForEventLog(e: TEventLog): Promise<string> {
       )} issue> for <${HOST}/resource/${detail.resourceId}|${
         detail.resourceName
       }>`;
-    case "user_permission_changed":
+    case EventLogKind.UserPermissionChanged:
       const modifiedUserDocument = await User.findById(
         ObjectId.createFromHexString((e.detail as any).modifiedUserId)
       );

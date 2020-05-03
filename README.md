@@ -75,11 +75,15 @@ Next, try starting up a development client by running `yarn workspace @upswyng/u
 
 #### Type Errors
 
-The packages `upswyng-native`, `upswyng-server`, and `upswyng-web` depend on `upswyng-core` and `upswyng-types`. If you edit `upswyng-core` or `upswyng-types`, or pull a new commit which contains edits to
-those packages, they need to be rebuilt. If you do not rebuild, you may see a type error like:
+The packages `upswyng-native`, `upswyng-server`, and `upswyng-web` depend on `upswyng-core` and `upswyng-types`. If you edit
+`upswyng-core` or `upswyng-types`, or pull a new commit which contains edits to those packages, they need to be rebuilt.
+If you do not rebuild, you may see a type error like:
 
 ```
-/upswyng/packages/upswyng-server/src/utility/slackbot.ts(116,10): semantic error TS2678: Type '"user_permission_changed"' is not comparable to type '"draft_approved" | "draft_created" | "draft_deleted" | "resource_issue_reopened" | "resource_issue_resolved"'.
+upswyng/packages/upswyng-server/src/utility/slackbot.ts(76,23): semantic error TS2551:
+Property 'DraftApproved' does not exist on type '{ alert_live: any; draft_approved: any;
+draft_created: any; draft_deleted: any; resource_issue_reopened: any; resource_issue_resolved: any;
+user_permission_changed: any; }'. Did you mean 'draft_approved'?
 ```
 
 To fix this, run the script:

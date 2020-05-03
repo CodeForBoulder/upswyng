@@ -3,24 +3,23 @@ import { TResourceIssueKind } from "./TResourceIssue";
 import { TUser } from "./TUser";
 
 /** Event Logs */
-export const EventLogKind = {
+export enum EventLogKind {
   /* eslint-disable @typescript-eslint/camelcase */
-  draft_approved: null, // a draft resource was approved
-  draft_created: null,
-  draft_deleted: null, // a draft resource was deleted
-  resource_issue_reopened: null,
-  resource_issue_resolved: null,
-  user_permission_changed: null,
+  DraftApproved = "draft_approved", // a draft resource was approved
+  DraftCreated = "draft_created",
+  DraftDeleted = "draft_deleted", // a draft resource was deleted
+  ResourceIssueReopened = "resource_issue_reopened",
+  ResourceIssueResolved = "resource_issue_resolved",
+  UserPermissionChanged = "user_permission_changed",
   /* eslint-enable @typescript-eslint/camelcase */
-};
-export type TEventLogKind = keyof typeof EventLogKind;
+}
 
 interface TEventLogUserPermissionChangedDetail {
   isAdminNew: boolean;
   isAdminOld: boolean;
   isSuperAdminNew: boolean;
   isSuperAdminOld: boolean;
-  kind: "user_permission_changed";
+  kind: EventLogKind.UserPermissionChanged;
   modifiedUserId: string; // the ID of the user whose permissions are changing
 }
 
@@ -28,7 +27,7 @@ interface TEventLogDraftApprovedDetail {
   // The diff of the resource before and after the draft was approved.
   // Won't be populated if `newResource` is true.
   diff?: { left: Partial<TResource>; right: Partial<TResource> };
-  kind: "draft_approved";
+  kind: EventLogKind.DraftApproved;
   newResource: boolean; // no resource previously existed
   resourceId: string;
   resourceName: string;
@@ -36,20 +35,20 @@ interface TEventLogDraftApprovedDetail {
 
 interface TEventLogDraftCreatedDetail {
   draftId: string; // `_id` of the draft
-  kind: "draft_created";
+  kind: EventLogKind.DraftCreated;
   newResource: boolean; // no resource previously existed
   resourceId: string;
   resourceName: string;
 }
 
 interface TEventLogDraftDeletedDetail {
-  kind: "draft_deleted";
+  kind: EventLogKind.DraftDeleted;
   resourceId: string;
   resourceName: string;
 }
 
 interface TEventLogResourceIssueReopenedDetail {
-  kind: "resource_issue_reopened";
+  kind: EventLogKind.ResourceIssueReopened;
   resourceId: string;
   resourceName: string;
   resourceIssueKind: TResourceIssueKind;
@@ -58,7 +57,7 @@ interface TEventLogResourceIssueReopenedDetail {
 }
 
 interface TEventLogResourceIssueResolvedDetail {
-  kind: "resource_issue_resolved";
+  kind: EventLogKind.ResourceIssueResolved;
   resourceId: string;
   resourceName: string;
   resourceIssueKind: TResourceIssueKind;
@@ -82,6 +81,6 @@ export interface TEventLog {
   actor: TUser;
   createdAt: Date;
   detail: TEventLogDetail;
-  kind: TEventLogKind;
+  kind: EventLogKind;
   wasProcessed: boolean; // intially false, then true once the start time has come and the worker has processed the event and sent notifications
 }
