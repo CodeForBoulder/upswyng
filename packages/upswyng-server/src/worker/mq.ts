@@ -6,6 +6,7 @@ import * as dotenv from "dotenv";
 
 import { Job, Queue, QueueEvents, QueueScheduler } from "bullmq";
 import {
+  JobKind,
   TJobCheckLinksData,
   TJobCheckLinksResult,
   TJobCheckNewAlertsData,
@@ -78,7 +79,7 @@ async function addJobTest(
 ): Promise<Job<TJobTestData, TJobTestResult>> {
   return queue.add(
     name,
-    { kind: "test", shouldFail, userId },
+    { kind: JobKind.Test, shouldFail, userId },
     {
       priority: 1,
       jobId: new ObjectID().toHexString(),
@@ -93,7 +94,7 @@ async function addJobCheckLinks(
 ): Promise<Job<TJobCheckLinksData, TJobCheckLinksResult>> {
   return queue.add(
     name,
-    { kind: "check_links", userId },
+    { kind: JobKind.CheckLinks, userId },
     {
       priority: 2,
       jobId: new ObjectID().toHexString(),
@@ -107,7 +108,7 @@ async function addJobCheckNewAlerts(
 ): Promise<Job<TJobCheckNewAlertsData, TJobCheckNewAlertsResult>> {
   return queue.add(
     name,
-    { kind: "check_new_alerts", userId },
+    { kind: JobKind.CheckNewAlerts, userId },
     {
       priority: 2,
       jobId: new ObjectID().toHexString(),

@@ -2,15 +2,24 @@
  * Type definitions for server worker jobs.
  */
 
+/**
+ * Represents each kind of task the worker can execute
+ */
+export enum JobKind {
+  CheckLinks = "check_links", // visit the websites listed in Resources and check for broken URLs
+  CheckNewAlerts = "check_new_alerts", // look for alerts whose start time has come and process them
+  Test = "test", // no-op job used for testing the worker/queue
+}
+
 // Test Job
 export interface TJobTestData {
-  kind: "test";
+  kind: JobKind.Test;
   userId?: string; // _id of user who started this job
   shouldFail?: boolean; // force this job to fail at some point
 }
 
 export interface TJobTestResult {
-  kind: "test";
+  kind: JobKind.Test;
 }
 
 /**
@@ -18,12 +27,12 @@ export interface TJobTestResult {
  * to Slack, and push the notification out to clients.
  */
 export interface TJobCheckNewAlertsData {
-  kind: "check_new_alerts";
+  kind: JobKind.CheckNewAlerts;
   userId: string; // _id of user who initiated the job
 }
 
 export interface TJobCheckNewAlertsResult {
-  kind: "check_new_alerts";
+  kind: JobKind.CheckNewAlerts;
   alertsProcessed: string[];
   jobName: string;
 }
@@ -32,7 +41,7 @@ export interface TJobCheckNewAlertsResult {
  * Check the links in the Resource directory for broken URLs
  */
 export interface TJobCheckLinksData {
-  kind: "check_links";
+  kind: JobKind.CheckLinks;
   userId: string; // _id of user who initiated the job
 }
 export interface TJobCheckLinksResult {
@@ -45,7 +54,7 @@ export interface TJobCheckLinksResult {
   }[];
   linksCheckedCount: number;
   jobName: string;
-  kind: "check_links";
+  kind: JobKind.CheckLinks;
 }
 
 export type TJobData =

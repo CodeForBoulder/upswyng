@@ -1,7 +1,7 @@
 /**
  * Example worker job processor; doesn't actually do anything
  */
-import { TJobTestData, TJobTestResult } from "./workerTypes";
+import { JobKind, TJobTestData, TJobTestResult } from "./workerTypes";
 
 import { Job } from "bullmq";
 import { sleep } from "../worker";
@@ -25,5 +25,5 @@ export async function processJobTest(
   }
   // A job can return values that will be stored in Redis as JSON
   // This return value is unused in this demo application.
-  return { kind: "test" };
+  return { kind: JobKind.Test };
 }

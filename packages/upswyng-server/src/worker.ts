@@ -6,6 +6,7 @@ import * as dotenv from "dotenv";
 
 import { Job, Worker } from "bullmq";
 import {
+  JobKind,
   TJobCheckLinksData,
   TJobCheckLinksResult,
   TJobCheckNewAlertsData,
@@ -67,15 +68,15 @@ async function start() {
     queueName,
     async (job: Job<TJobData, TJobResult>) => {
       switch (job.data.kind) {
-        case "check_links":
+        case JobKind.CheckLinks:
           return await processJobCheckLinks(
             job as Job<TJobCheckLinksData, TJobCheckLinksResult>
           );
-        case "check_new_alerts":
+        case JobKind.CheckNewAlerts:
           return await processJobCheckNewAlerts(
             job as Job<TJobCheckNewAlertsData, TJobCheckNewAlertsResult>
           );
-        case "test":
+        case JobKind.Test:
           return await processJobTest(job as Job<TJobTestData, TJobTestResult>);
         default:
           // TODO: Implement other jobs and then put an exhaustive requirement here

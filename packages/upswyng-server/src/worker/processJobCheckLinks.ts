@@ -1,5 +1,9 @@
+import {
+  JobKind,
+  TJobCheckLinksData,
+  TJobCheckLinksResult,
+} from "./workerTypes";
 import Resource, { resourceDocumentToResource } from "../models/Resource";
-import { TJobCheckLinksData, TJobCheckLinksResult } from "./workerTypes";
 
 import { Job } from "bullmq";
 import { TResource } from "@upswyng/upswyng-types/src";
@@ -86,7 +90,7 @@ export async function processJobCheckLinks(
   return {
     erroredLinks,
     jobName: job.name,
-    kind: "check_links",
+    kind: JobKind.CheckLinks,
     linksCheckedCount,
   };
 }

@@ -1,4 +1,5 @@
 import {
+  JobKind,
   TJobCheckNewAlertsData,
   TJobCheckNewAlertsResult,
 } from "./workerTypes";
@@ -51,5 +52,5 @@ export async function processJobCheckNewAlerts(
 
   job.updateProgress(100);
 
-  return { alertsProcessed, jobName: job.name, kind: "check_new_alerts" };
+  return { alertsProcessed, jobName: job.name, kind: JobKind.CheckNewAlerts };
 }
