@@ -1,10 +1,10 @@
 import EventLog, {
   eventLogDocumentToEventLog,
 } from "../../../../models/EventLog";
+import { EventLogKind, TUser } from "@upswyng/upswyng-types";
 import ResourceIssue, {
   TResourceIssueDocument,
 } from "../../../../models/ResourceIssue";
-import { TEventLogKind, TUser } from "@upswyng/upswyng-types";
 
 import { ObjectId } from "bson";
 import Resource from "../../../../models/Resource";
@@ -63,9 +63,9 @@ export async function setResolved(resolved: boolean, req, res, next) {
       // Create Event Log
       try {
         const resource = await Resource.getByResourceId(issue.resourceId);
-        const kind: TEventLogKind = resolved
-          ? "resource_issue_resolved"
-          : "resource_issue_reopened";
+        const kind: EventLogKind = resolved
+          ? EventLogKind.ResourceIssueResolved
+          : EventLogKind.ResourceIssueReopened;
         const newDocument = await new EventLog({
           actor: user._id,
           detail: {

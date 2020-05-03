@@ -1,8 +1,8 @@
 import EventLog, { eventLogDocumentToEventLog } from "../../models/EventLog";
+import { EventLogKind, TUser } from "@upswyng/upswyng-types";
 
 import { ObjectId } from "bson";
 import Resource from "../../models/Resource";
-import { TUser } from "@upswyng/upswyng-types";
 import { createDraftResource } from "../../models/Utility";
 import { postEventLogMessage } from "../../utility/slackbot";
 import { requireLoggedIn } from "../../utility/authHelpers";
@@ -43,12 +43,12 @@ export async function post(req, res, next) {
           actor: user._id,
           detail: {
             draftId: newResource._id,
-            kind: "draft_created",
+            kind: EventLogKind.DraftCreated,
             newResource: !existingResource,
             resourceId: newResource.resourceId,
             resourceName: newResource.name,
           },
-          kind: "draft_created",
+          kind: EventLogKind.DraftCreated,
         }).save();
         await eventLog.populate("actor").execPopulate();
         await postEventLogMessage(eventLogDocumentToEventLog(eventLog));

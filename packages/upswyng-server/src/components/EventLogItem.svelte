@@ -1,4 +1,5 @@
 <script>
+  import { EventLogKind } from "@upswyng/upswyng-types";
   import { onMount } from "svelte";
   import ResourceDiff from "./ResourceDiff.svelte";
 
@@ -15,9 +16,9 @@
   async function getDescriptionForUserPermissionChanged(
     e /* :TEventLog */
   ) /* : Promise<string> */ {
-    if (e.kind !== "user_permission_changed") {
+    if (e.kind !== EventLogKind.UserPermissionChanged) {
       throw new Error(
-        `\`getDescriptionForUserPermissionChanged\` was called on an event with kind ${e.kind}. The function only operates on events with kind \`user_permission_changed\`.`
+        `\`getDescriptionForUserPermissionChanged\` was called on an event with kind ${e.kind}. The function only operates on events with kind \`UserPermissionChanged\`.`
       );
     }
     const res = await fetch(`api/users/${e.detail.modifiedUserId}`);
@@ -90,7 +91,7 @@
 </style>
 
 <div class="timeline-item">
-  {#if eventLog.detail.kind === 'draft_approved'}
+  {#if eventLog.detail.kind === EventLogKind.DraftApproved}
     <div class="timeline-marker is-icon">
       <i class="fa fa-thumbs-up" />
     </div>
@@ -146,7 +147,7 @@
         {/if}
       {/if}
     </div>
-  {:else if eventLog.detail.kind === 'draft_created'}
+  {:else if eventLog.detail.kind === EventLogKind.DraftCreated}
     <div class="timeline-marker is-icon">
       <i class="fas fa-asterisk" />
     </div>
@@ -168,7 +169,7 @@
         <strong>{eventLog.detail.resourceName}</strong>
       </p>
     </div>
-  {:else if eventLog.detail.kind === 'draft_deleted'}
+  {:else if eventLog.detail.kind === EventLogKind.DraftDeleted}
     <div class="timeline-marker is-icon">
       <i class="fa fa-trash-alt" />
     </div>
@@ -189,7 +190,7 @@
         </strong>
       </p>
     </div>
-  {:else if eventLog.detail.kind === 'resource_issue_reopened'}
+  {:else if eventLog.detail.kind === EventLogKind.ResourceIssueReopened}
     <div class="timeline-marker is-icon">
       <i class="far fa-frown-open" />
     </div>
@@ -217,7 +218,7 @@
         </strong>
       </p>
     </div>
-  {:else if eventLog.detail.kind === 'resource_issue_resolved'}
+  {:else if eventLog.detail.kind === EventLogKind.ResourceIssueResolved}
     <div class="timeline-marker is-icon">
       <i class="fa fa-clipboard-check" />
     </div>
@@ -245,7 +246,7 @@
         </strong>
       </p>
     </div>
-  {:else if eventLog.detail.kind === 'user_permission_changed'}
+  {:else if eventLog.detail.kind === EventLogKind.UserPermissionChanged}
     <div class="timeline-marker is-icon">
       <i class="fa fa-lock" />
     </div>

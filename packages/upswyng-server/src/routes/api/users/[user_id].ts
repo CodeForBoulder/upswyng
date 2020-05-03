@@ -1,9 +1,9 @@
 import EventLog, { eventLogDocumentToEventLog } from "../../../models/EventLog";
+import { EventLogKind, TUser } from "@upswyng/upswyng-types";
 import User, { userDocumentToUser } from "../../../models/User";
 import { requireAdmin, requireSuperAdmin } from "../../../utility/authHelpers";
 
 import { ObjectId } from "bson";
-import { TUser } from "@upswyng/upswyng-types";
 import { postEventLogMessage } from "../../../utility/slackbot";
 
 /**
@@ -132,10 +132,10 @@ export async function post(req, res, _next) {
           isAdminOld,
           isSuperAdminNew: updatedUser.isSuperAdmin,
           isSuperAdminOld,
-          kind: "user_permission_changed",
+          kind: EventLogKind.UserPermissionChanged,
           modifiedUserId: updatedUser._id.toHexString(),
         },
-        kind: "user_permission_changed",
+        kind: EventLogKind.UserPermissionChanged,
       }).save();
       await newDocument.populate("actor").execPopulate();
       await postEventLogMessage(eventLogDocumentToEventLog(newDocument));

@@ -6,9 +6,9 @@ import {
 import EventLog, {
   eventLogDocumentToEventLog,
 } from "../../../../../models/EventLog";
+import { EventLogKind, TUser } from "@upswyng/upswyng-types";
 
 import { ObjectId } from "bson";
-import { TUser } from "@upswyng/upswyng-types";
 import { createOrUpdateResourceFromDraft } from "../../../../../models/Utility";
 import diffResources from "../../../../../utility/diffResources";
 import { postEventLogMessage } from "../../../../../utility/slackbot";
@@ -71,7 +71,7 @@ export async function post(req, res, next) {
       const newDocument = await new EventLog({
         actor: user._id,
         detail: {
-          kind: "draft_approved",
+          kind: EventLogKind.DraftApproved,
           resourceId: draftToApprove.resourceId.toHexString(),
           resourceName: draftToApprove.name,
           newResource: !updatedResource,
@@ -82,7 +82,7 @@ export async function post(req, res, next) {
               )
             : undefined,
         },
-        kind: "draft_approved",
+        kind: EventLogKind.DraftApproved,
       }).save();
       await newDocument.populate("actor").execPopulate();
       await postEventLogMessage(eventLogDocumentToEventLog(newDocument));

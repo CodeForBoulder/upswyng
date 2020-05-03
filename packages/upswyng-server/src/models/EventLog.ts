@@ -2,7 +2,6 @@ import {
   EventLogKind,
   TEventLog,
   TEventLogDetail,
-  TEventLogKind,
 } from "@upswyng/upswyng-types";
 import { TUserDocument, userDocumentToUser } from "./User";
 import mongoose, { Document, Schema } from "mongoose";
@@ -15,7 +14,7 @@ export interface TEventLogDocument extends Document {
   actor: TUserDocument;
   createdAt: Date;
   detail: TEventLogDetail;
-  kind: TEventLogKind;
+  kind: EventLogKind;
   wasProcessed: boolean;
 }
 
@@ -39,7 +38,7 @@ const EventLogSchema = new Schema(
       type: Object,
     },
     kind: {
-      enum: Object.keys(EventLogKind),
+      enum: Object.values(EventLogKind),
       index: true,
       required: true,
       type: String,

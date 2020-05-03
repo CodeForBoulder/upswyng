@@ -5,9 +5,9 @@ import {
 import EventLog, {
   eventLogDocumentToEventLog,
 } from "../../../../../models/EventLog";
+import { EventLogKind, TUser } from "@upswyng/upswyng-types";
 
 import { ObjectId } from "bson";
-import { TUser } from "@upswyng/upswyng-types";
 import { postEventLogMessage } from "../../../../../utility/slackbot";
 import { requireAdmin } from "../../../../../utility/authHelpers";
 
@@ -51,11 +51,11 @@ export async function post(req, res, next) {
       const newDocument = await new EventLog({
         actor: user._id,
         detail: {
-          kind: "draft_deleted",
+          kind: EventLogKind.DraftDeleted,
           resourceId: deletedResource.resourceId.toHexString(),
           resourceName: deletedResource.name,
         },
-        kind: "draft_deleted",
+        kind: EventLogKind.DraftDeleted,
       }).save();
       await newDocument.populate("actor").execPopulate();
       await postEventLogMessage(eventLogDocumentToEventLog(newDocument));
