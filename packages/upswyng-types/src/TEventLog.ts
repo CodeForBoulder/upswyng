@@ -4,7 +4,7 @@ import { TUser } from "./TUser";
 
 /** Event Logs */
 export enum EventLogKind {
-  AlertLive = "alert_live",
+  AlertLive = "alert_live", // an alert's start time has come and the worker has processed it
   DraftApproved = "draft_approved", // a draft resource was approved
   DraftCreated = "draft_created",
   DraftDeleted = "draft_deleted", // a draft resource was deleted
@@ -84,7 +84,7 @@ export type TEventLogDetail =
  */
 export interface TEventLog {
   _id: string;
-  actor: TUser; // the user who initiated the action which caused th eevent
+  actor: TUser; // the user who initiated the action which caused the event
   createdAt: Date;
   detail: TEventLogDetail;
   kind: EventLogKind;
