@@ -1,5 +1,7 @@
 # Event Logs
 
+![admin UI screenshot showing sample event logs](./event_logs.png)
+
 UpSwyng server has a framework used to record business events happening in the system
 like Service Providers being created or Alerts going live. Events are recorded in the database
 and are shown in the UI accessable by administrators. When an event is recorded the
