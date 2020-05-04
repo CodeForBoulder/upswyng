@@ -4,14 +4,19 @@ import { TUser } from "./TUser";
 
 /** Event Logs */
 export enum EventLogKind {
-  /* eslint-disable @typescript-eslint/camelcase */
+  AlertLive = "alert_live", // an alert's start time has come and the worker has processed it
   DraftApproved = "draft_approved", // a draft resource was approved
   DraftCreated = "draft_created",
   DraftDeleted = "draft_deleted", // a draft resource was deleted
   ResourceIssueReopened = "resource_issue_reopened",
   ResourceIssueResolved = "resource_issue_resolved",
   UserPermissionChanged = "user_permission_changed",
-  /* eslint-enable @typescript-eslint/camelcase */
+}
+
+interface TEventLogAlertLiveDetail {
+  alertId: string;
+  alertTitle: string;
+  kind: EventLogKind.AlertLive;
 }
 
 interface TEventLogUserPermissionChangedDetail {
@@ -66,6 +71,7 @@ interface TEventLogResourceIssueResolvedDetail {
 }
 
 export type TEventLogDetail =
+  | TEventLogAlertLiveDetail
   | TEventLogDraftApprovedDetail
   | TEventLogDraftCreatedDetail
   | TEventLogDraftDeletedDetail
@@ -78,7 +84,7 @@ export type TEventLogDetail =
  */
 export interface TEventLog {
   _id: string;
-  actor: TUser;
+  actor: TUser; // the user who initiated the action which caused the event
   createdAt: Date;
   detail: TEventLogDetail;
   kind: EventLogKind;
