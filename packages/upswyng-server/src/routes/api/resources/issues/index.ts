@@ -24,14 +24,9 @@ export async function post(req, res, _next) {
   try {
     requireAdmin(req);
   } catch {
-    res.writeHead(401, {
-      "Content-Type": "application/json",
+    return res.status(401).json({
+      message: `You are not authorized to view the list of Resource Issues`,
     });
-    return res.end(
-      JSON.stringify({
-        message: `You are not authorized to view the list of Resource Issues`,
-      })
-    );
   }
 
   const includeResolved: boolean = !!req.body.includeResolved;
@@ -61,25 +56,15 @@ export async function post(req, res, _next) {
 
     const estimatedTotal = await ResourceIssue.find().estimatedDocumentCount();
 
-    res.writeHead(200, {
-      "Content-Type": "application/json",
+    return res.status(200).json({
+      count,
+      estimatedTotal,
+      resourceIssues: issues.map(resourceIssueDocumentToResourceIssue),
     });
-
-    return res.end(
-      JSON.stringify({
-        count,
-        estimatedTotal,
-        resourceIssues: issues.map(resourceIssueDocumentToResourceIssue),
-      })
-    );
   } catch (e) {
-    res.writeHead(500, {
-      "Content-Type": "application/json",
+    console.error(e);
+    return res.status(500).json({
+      message: `Error getting Resource Issues: ${e.message}`,
     });
-    return res.end(
-      JSON.stringify({
-        message: `Error getting Resource Issues: ${e.message}`,
-      })
-    );
   }
 }

@@ -16,15 +16,9 @@ export async function get(req, res, _next) {
     user = requireLoggedIn(req);
   } catch (e) {
     console.error(e);
-
-    res.writeHead(401, {
-      "Content-Type": "application/json",
+    return res.status(401).json({
+      message: `Please log in to view your drafts.`,
     });
-    return res.end(
-      JSON.stringify({
-        message: `Please log in to view your drafts.`,
-      })
-    );
   }
   try {
     const draftDocuments = await DraftResource.find({
@@ -39,19 +33,11 @@ export async function get(req, res, _next) {
         return result;
       });
     }
-    res.writeHead(200, {
-      "Content-Type": "application/json",
-    });
-    res.end(JSON.stringify({ draftResources: drafts }));
+    return res.status(200).json({ draftResources: drafts });
   } catch (e) {
-    res.writeHead(500, {
-      "Content-Type": "application/json",
+    console.error(e);
+    return res.status(500).json({
+      message: e.message,
     });
-
-    return res.end(
-      JSON.stringify({
-        message: e.message,
-      })
-    );
   }
 }
