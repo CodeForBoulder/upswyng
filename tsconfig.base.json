@@ -8,6 +8,6 @@
     "moduleResolution": "node",
     "noUnusedLocals": false,
     "resolveJsonModule": true,
-    "types": ["jest"]
+    "types": ["cypress", "jest"]
   }
 }

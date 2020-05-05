@@ -114,7 +114,7 @@ CategorySchema.statics.getByStub = async function(
   );
   await (subcategory as any).save();
   this.subcategories.push((subcategory as any)._id);
-  this.save();
+  await this.save();
 };
 
 const Category = mongoose.model<TCategoryDocument>("Category", CategorySchema);
