@@ -274,7 +274,7 @@
       </div>
 
       <div class="control field">
-        <span class="label" id="day-repeat">These days repeat</span>
+        <span class="label" id="day-repeat">These day(s) repeat</span>
         <label class="radio" aria-describedby="day-repeat">
           <input
             type="radio"
@@ -298,22 +298,21 @@
       </div>
       {#if !certainWeekRepeatState.everyWeek}
         <div class="field">
-          <label class="label">How often do these days repeat?</label>
-        </div>
-        <div class="field has-addons">
-          {#each [{ name: 'First', value: 1 }, { name: 'Second', value: 2 }, { name: 'Third', value: 3 }, { name: 'Fourth', value: 4 }, { name: 'Last', value: -1 }, { name: 'Second-to-last', value: -2 }] as entry}
-            <p class="control">
-              <button
-                aria-label={entry.name}
-                class="button"
-                class:is-primary={certainWeekRepeatState[entry.value]}
-                on:click|preventDefault={() => {
-                  certainWeekRepeatState = { ...certainWeekRepeatState, everyWeek: false, [entry.value]: !certainWeekRepeatState[entry.value] };
-                }}>
-                <span>{entry.name}</span>
-              </button>
-            </p>
-          {/each}
+          <label class="label">These day(s) repeat every month on their</label>
+          <div class="control">
+            <div class="buttons has-addons">
+              {#each [{ name: 'first occurrence', value: 1 }, { name: 'second occurrence', value: 2 }, { name: 'third occurrence', value: 3 }, { name: 'fourth occurrence', value: 4 }, { name: 'last occurrence', value: -1 }, { name: 'second-to-last occurrence', value: -2 }] as entry}
+                <button
+                  class="button is-marginless"
+                  class:is-primary={certainWeekRepeatState[entry.value]}
+                  on:click|preventDefault={() => {
+                    certainWeekRepeatState = { ...certainWeekRepeatState, everyWeek: false, [entry.value]: !certainWeekRepeatState[entry.value] };
+                  }}>
+                  <span>{entry.name}</span>
+                </button>
+              {/each}
+            </div>
+          </div>
         </div>
       {/if}
       {#if recurrenceText.length}
