@@ -1,6 +1,9 @@
 <script>
-  import { createEventDispatcher } from "svelte";
   import algoliaSearch from "algoliasearch";
+  import { createEventDispatcher } from "svelte";
+
+  import Autocomplete from "./Autocomplete.svelte";
+  import AutocompleteItem from "./AutocompleteItem.svelte";
   import ResourceSearchResult from "./ResourceSearchResult.svelte";
 
   export let maxResults = 5;
@@ -23,10 +26,15 @@
 
   const client = algoliaSearch(appId, searchApiKey);
   const searchIndex = client.initIndex(indexName);
+
   const dispatch = createEventDispatcher();
+  const handleSelect = resourceId => dispatch("select", resourceId);
+
+  let hasQuery = query.length > 3;
 
   $: {
-    if (query) {
+    if (query && query.length > 3) {
+      hasQuery = true;
       isLoading = true;
       errorMessage = "";
       searchIndex
@@ -35,39 +43,37 @@
         .catch(e => (errorMessage = e.message))
         .finally(() => (isLoading = false));
     } else {
+      hasQuery = false;
       results = [];
     }
   }
 </script>
 
-<div class="field">
-  <div class="control has-icons-left" class:is-loading={isLoading}>
-    <label for="search" class="is-sr-only">Search for a provider</label>
-    <input
-      class="input is-rounded"
-      id="search"
-      name="search"
-      type="text"
-      placeholder="Search for a provider..."
-      bind:value={query} />
-    <span class="icon is-left">
-      <i class="fas fa-search" />
-    </span>
-  </div>
-  {#if query.length > 3 && !isLoading && !results.length}
-    <p class="help">No providers match your search</p>
-  {/if}
-  {#if errorMessage}
-    <p class="help is-danger">{errorMessage}</p>
-  {/if}
-</div>
-
-<div class="content">
-  {#each results as resource}
-    <ResourceSearchResult
-      {action}
-      name={resource.name}
-      description={resource.description}
-      on:resourceClick={() => dispatch('resourceClick', resource.objectID)} />
-  {/each}
+<div class="field dropdown is-block">
+  <label for="search" class="is-sr-only" id="search-label">
+    Search for a provider
+  </label>
+  <Autocomplete
+    className={isLoading ? 'is-flex is-loading' : 'is-flex'}
+    bind:value={query}
+    id="search"
+    placeholder="Search for a provider...">
+    <i class="fas fa-search" slot="input-left-icon" />
+    <div slot="help">
+      {#if hasQuery && !isLoading && !results.length}
+        <p class="help is-info">No providers match your search</p>
+      {/if}
+      {#if hasQuery && errorMessage}
+        <p class="help is-error">{errorMessage}</p>
+      {/if}
+    </div>
+    {#if hasQuery}
+      {#each results as resourceResult (resourceResult.objectID)}
+        <AutocompleteItem
+          on:select={() => handleSelect(resourceResult.objectID)}>
+          <ResourceSearchResult {action} {resourceResult} />
+        </AutocompleteItem>
+      {/each}
+    {/if}
+  </Autocomplete>
 </div>

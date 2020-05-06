@@ -20,7 +20,7 @@
   let successMessage = "";
   let isSaving = false;
 
-  async function addResourceToSubcategory(resourceIdd /* string */) {
+  async function addResourceToSubcategory(resourceId /* string */) {
     isSaving = true;
     errorMessage = "";
     successMessage = "";
@@ -64,40 +64,46 @@
 
 <section class="section">
   <div class="container">
-    <h1 class="title">{subcategory.name}</h1>
-    {#if subcategory.resources.length}
-      <ul class="content">
-        {#each subcategory.resources as resource}
-          <li>
-            <a rel="prefetch" href={`resource/${resource.resourceId}`}>
-              {resource.name}
-            </a>
-          </li>
-        {/each}
-      </ul>
-    {:else}
-      <div class="notification">
-        There are no resources for this subcategory.
-      </div>
-    {/if}
-    {#if user && user.isAdmin}
-      <div class="content">
-        <h2 class="subtitle">Add resources to {subcategory.name}</h2>
-        {#if errorMessage}
-          <div class="notification is-danger">{errorMessage}</div>
-        {/if}
-        {#if successMessage}
-          <div class="notification is-success">
-            <button class="delete" on:click={() => (successMessage = '')} />
-            {successMessage}
+    <div class="columns">
+      <div class="column">
+        <h1 class="title">{subcategory.name}</h1>
+        {#if subcategory.resources.length}
+          <ul class="content">
+            {#each subcategory.resources as resource}
+              <li>
+                <a rel="prefetch" href={`resource/${resource.resourceId}`}>
+                  {resource.name}
+                </a>
+              </li>
+            {/each}
+          </ul>
+        {:else}
+          <div class="notification">
+            There are no resources for this subcategory.
           </div>
         {/if}
-        <ResourceSearch
-          action="addToSubcategory"
-          on:resourceClick={async ({ detail: resourceId }) => {
-            await addResourceToSubcategory(resourceId);
-          }} />
       </div>
-    {/if}
+      {#if user && user.isAdmin}
+        <div class="column">
+          <div class="content">
+            <h2 class="title">Add resources to {subcategory.name}</h2>
+            {#if errorMessage}
+              <div class="notification is-danger">{errorMessage}</div>
+            {/if}
+            {#if successMessage}
+              <div class="notification is-success">
+                <button class="delete" on:click={() => (successMessage = '')} />
+                {successMessage}
+              </div>
+            {/if}
+            <ResourceSearch
+              action="addToSubcategory"
+              on:select={async ({ detail: resourceId }) => {
+                await addResourceToSubcategory(resourceId);
+              }} />
+          </div>
+        </div>
+      {/if}
+    </div>
   </div>
 </section>
