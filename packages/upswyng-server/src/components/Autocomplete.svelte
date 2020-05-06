@@ -3,7 +3,7 @@
 </script>
 
 <script>
-  import { afterUpdate, onDestroy, setContext } from "svelte";
+  import { setContext } from "svelte";
   import { writable } from "svelte/store";
   import AutocompleteInput from "./AutocompleteInput.svelte";
 
