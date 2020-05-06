@@ -44,7 +44,7 @@
         <h2 class="is-size-4 has-text-weight-semibold">Find Your Listing</h2>
         <ResourceSearch
           action="view"
-          on:resourceClick={({ detail: resourceId }) => {
+          on:select={({ detail: resourceId }) => {
             goto(`/resource/${resourceId}`);
           }} />
         <p>
