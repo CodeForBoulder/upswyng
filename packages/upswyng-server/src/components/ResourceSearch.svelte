@@ -68,7 +68,7 @@
       {/if}
     </div>
     {#if hasQuery}
-      {#each results as resourceResult, i}
+      {#each results as resourceResult (resourceResult.objectID)}
         <AutocompleteItem
           on:select={() => handleSelect(resourceResult.objectID)}>
           <ResourceSearchResult {action} {resourceResult} />

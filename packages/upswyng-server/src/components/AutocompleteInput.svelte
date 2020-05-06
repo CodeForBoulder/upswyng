@@ -46,7 +46,7 @@
     let newFocusedItemIndex = null;
 
     switch (e.key) {
-      case "ArrowUp": {
+      case "ArrowDown": {
         e.preventDefault();
         if (currentFocusedItemIndex === null) {
           newFocusedItemIndex = currentNumItems - 1;
@@ -58,7 +58,7 @@
         }
         return setFocusedItemIndex(newFocusedItemIndex);
       }
-      case "ArrowDown": {
+      case "ArrowUp": {
         e.preventDefault();
         if (currentFocusedItemIndex === null) {
           newFocusedItemIndex = 0;
