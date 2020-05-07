@@ -11,7 +11,7 @@
     "clean": "node clean.js",
     "heroku-postbuild": "yarn workspace @upswyng/upswyng-core build && yarn workspace @upswyng/upswyng-server run build",
     "lint": "prettier --write --loglevel warn '{{.github,.vscode}/**/*,packages/*/src/**/*}.{js,jsx,ts,tsx,json,css,scss,svelte,md}' && tsc --noEmit && eslint 'packages/upswyng-*/src/**/*.{js,jsx,ts,tsx}' --fix",
-    "test": "CI=true SKIP_PREFLIGHT_CHECK=true concurrently --kill-others-on-fail \"yarn workspace @upswyng/upswyng-core run test\" \"yarn workspace @upswyng/upswyng-server run test\" && yarn workspace @upswyng/upswyng-web run test"
+    "test": "CI=true SKIP_PREFLIGHT_CHECK=true concurrently --kill-others-on-fail \"yarn workspace @upswyng/upswyng-core run test\" \"yarn workspace @upswyng/upswyng-server test:unit\" && yarn workspace @upswyng/upswyng-web run test && yarn workspace @upswyng/upswyng-server test:e2e"
   },
   "browserslist": [
     ">0.2%",
