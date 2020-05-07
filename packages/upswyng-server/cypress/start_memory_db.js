@@ -25,8 +25,7 @@ child.stdout.on("data", chunk => {
     /^CONNECTION_STRING=(?<connectionString>mongodb:\/\/.+\?)$/
   );
   if (!match) {
-    console.error(`Invalid connection string: ${uri}`);
-    process.exit(1);
+    return;
   }
   const { connectionString } = match.groups;
   fs.writeFileSync(`${__dirname}/.mongodburi`, connectionString);
@@ -35,7 +34,7 @@ child.stdout.on("data", chunk => {
   console.info(`🎉 Started in-memory mongo db`);
   console.info(`PID:\t\t${pid}`);
   console.info(`Connection URI:\t${connectionString}`);
-  
+
   // got data, maybe look at it to verify that it started up ok
   child.unref(); // let the process close normally
   process.exit(0);
