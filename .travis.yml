@@ -1,9 +1,18 @@
+# if using Ubuntu 16 need this library for cypress
+# https://github.com/cypress-io/cypress-documentation/pull/1647
+addons:
+  apt:
+    packages:
+      - libgconf-2-4
 language: node_js
 before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.22.1
   - export PATH="$HOME/.yarn/bin:$PATH"
 cache:
   yarn: true
+  directories:
+    # we also need to cache folder with Cypress binary
+    - ~/.cache
 node_js:
   - "12"
 script:
