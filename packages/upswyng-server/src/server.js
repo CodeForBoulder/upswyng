@@ -103,9 +103,9 @@ mongoose
         })
       );
 
-      const handler = appInstance.handler;
+      // const handler = appInstance.handler;
 
-      const s = http.createServer(handler);
+      const s = http.createServer(appInstance);
 
       webSocketServer(s);
 

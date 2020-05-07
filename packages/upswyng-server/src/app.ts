@@ -31,7 +31,7 @@ export default function(options: TAppOptions) {
 
   const MongoStore = connectMongo(session);
 
-  const app = polka()
+  const app = express()
     .use(
       compression({ threshold: 0 }),
       cors(), // TODO: Lock this down to non-admin routes
@@ -70,9 +70,10 @@ export default function(options: TAppOptions) {
       res.redirect("/?loggedin=true");
     });
 
-  return process.env.TRAVIS === "true"
-    ? express()
-        .set("trust proxy", "loopback")
-        .use(app)
-    : app;
+  /**
+   * Travis puts the express app behind a proxy during e2e tests, so
+   * make it not blow up
+   */
+  process.env.TRAVIS === "true" && app.set("trust proxy", "loopback");
+  return app;
 }

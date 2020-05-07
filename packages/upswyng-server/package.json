@@ -44,7 +44,6 @@
     "node-forge": "^0.9.1",
     "num-words": "^1.0.1",
     "number-to-words-en": "^1.2.5",
-    "polka": "next",
     "pretty-ms": "^5.1.0",
     "redis-info": "^3.0.7",
     "rgb-hex": "^3.0.0",
