@@ -13,6 +13,7 @@ import cors from "cors";
 import grant from "grant-express";
 import oidc from "grant-oidc";
 import polka from "polka";
+import requestResponseLogger from "express-request-response-logger";
 import session from "express-session";
 import sirv from "sirv";
 import userMiddleware from "./utility/userMiddleware";
@@ -29,10 +30,17 @@ export default function(options: TAppOptions) {
 
   const MongoStore = connectMongo(session);
 
+  const logger = dev
+    ? requestResponseLogger()
+    : (_request, _response, next) => {
+        next();
+      };
+
   return polka()
     .use(
       compression({ threshold: 0 }),
       cors(), // TODO: Lock this down to non-admin routes
+      requestResponseLogger(),
       sirv("static", { dev }),
       bodyParser.json({}),
       bodyParser.urlencoded({
@@ -65,9 +73,5 @@ export default function(options: TAppOptions) {
     .use(userMiddleware)
     .get("/callback", oidc(grantConfig), (_req, res) => {
       res.redirect("/?loggedin=true");
-    })
-    .use((req, _res, next) => {
-      dev && console.info(`~> Received ${req.method} on ${req.url}`);
-      next();
     });
 }

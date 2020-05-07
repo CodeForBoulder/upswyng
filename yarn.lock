@@ -6527,6 +6527,13 @@ expo@^34.0.1:
     unimodules-task-manager-interface "~3.0.0"
     uuid-js "^0.7.5"
 
+express-request-response-logger@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/express-request-response-logger/-/express-request-response-logger-1.0.0.tgz#3cf672ab10bd9bc299366bb1645ed9a2beeb86aa"
+  integrity sha1-PPZyqxC9m8KZNmuxZF7Zor7rhqo=
+  dependencies:
+    random-strings "^0.0.1"
+
 express-session@^1.16.2:
   version "1.17.0"
   resolved "https://registry.yarnpkg.com/express-session/-/express-session-1.17.0.tgz#9b50dbb5e8a03c3537368138f072736150b7f9b3"
@@ -13209,6 +13216,11 @@ random-bytes@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/random-bytes/-/random-bytes-1.0.0.tgz#4f68a1dc0ae58bd3fb95848c30324db75d64360b"
   integrity sha1-T2ih3Arli9P7lYSMMDJNt11kNgs=
+
+random-strings@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/random-strings/-/random-strings-0.0.1.tgz#ab761f9575a3e62ab054a34654041c2848a2894f"
+  integrity sha1-q3YflXWj5iqwVKNGVAQcKEiiiU8=
 
 randomatic@^3.0.0:
   version "3.1.1"
