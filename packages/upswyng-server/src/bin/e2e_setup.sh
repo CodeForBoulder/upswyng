@@ -6,6 +6,7 @@
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
+### MONGO
 # start the in-memory mongodb instance
 node "${DIR}/../../cypress/start_memory_db.js"
 
@@ -24,5 +25,14 @@ fi
 DATABASE_URL=$MONGODB_URI DATABASE_NAME="" DATABASE_USER="" DATABASE_PASSWORD="" \
     node $SETUP_SCRIPT
 
-DATABASE_URL=$MONGODB_URI DATABASE_NAME="" DATABASE_USER="" DATABASE_PASSWORD="" PORT=43637 \
+### REDIS
+
+# start the in-memory mongodb instance
+node "${DIR}/../../cypress/start_memory_redis.js"
+
+# get the pid and uri of the redis instance
+read -r REDIS_PID <"${DIR}/../../cypress/.redispid"
+read -r REDIS_URI <"${DIR}/../../cypress/.redisuri"
+
+REDIS_URL=$REDIS_URI DATABASE_URL=$MONGODB_URI DATABASE_NAME="" DATABASE_USER="" DATABASE_PASSWORD="" PORT=43637 \
     yarn workspace @upswyng/upswyng-server dev

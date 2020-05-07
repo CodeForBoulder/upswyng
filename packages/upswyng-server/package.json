@@ -80,6 +80,7 @@
     "cli-progress": "^3.1.0",
     "cypress": "^4.5.0",
     "dotenv": "^8.1.0",
+    "get-port": "^5.1.1",
     "jest": "^24.9.0",
     "mongodb-memory-server": "^6.0.2",
     "mongodb-memory-server-core": "^6.0.2",
@@ -101,6 +102,7 @@
     "svelte-preprocess": "^3.1.2",
     "svelte-scrollto": "^0.1.1",
     "svelte-select": "^3.1.2",
+    "tmp-redis": "^1.0.0",
     "ts-jest": "^24.2.0",
     "tslib": "^1.10.0",
     "typescript": "^3.7.3"
@@ -120,7 +122,7 @@
     "start:server": "node __sapper__/build",
     "start:worker": "node __build__/worker.js",
     "sync:strappd": "TARGETS=syncStrappd rollup -c bin.rollup.config.js && node __build__/bin/sync_strappd",
-    "test": "yarn workspace @upswyng/upswyng-core build && run-p test:e2e test:unit",
+    "test": "yarn workspace @upswyng/upswyng-core build && run-p --print-label test:e2e test:unit",
     "test:e2e": "start-server-and-test './src/bin/e2e_setup.sh' 43637 'cypress run' && ./src/bin/e2e_teardown.sh",
     "test:unit": "jest --passWithNoTests",
     "update:algolia": "TARGETS=updateAlgolia rollup -c bin.rollup.config.js && node __build__/bin/update_algolia"
