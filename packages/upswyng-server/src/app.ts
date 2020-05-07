@@ -13,6 +13,7 @@ import cors from "cors";
 import express from "express";
 import grant from "grant-express";
 import oidc from "grant-oidc";
+import polka from "polka";
 import requestResponseLogger from "express-request-response-logger";
 import session from "express-session";
 import sirv from "sirv";
@@ -30,17 +31,11 @@ export default function(options: TAppOptions) {
 
   const MongoStore = connectMongo(session);
 
-  const logger = dev
-    ? requestResponseLogger()
-    : (_request, _response, next) => {
-        next();
-      };
-
-  const app = express()
+  const app = polka()
     .use(
       compression({ threshold: 0 }),
       cors(), // TODO: Lock this down to non-admin routes
-      requestResponseLogger(),
+      dev ? requestResponseLogger() : (_req, _res, next) => next(),
       sirv("static", { dev }),
       bodyParser.json({}),
       bodyParser.urlencoded({
@@ -51,8 +46,7 @@ export default function(options: TAppOptions) {
             (req as any).rawBody = buf.toString(encoding || "utf8");
           }
         },
-      }),
-      logger
+      })
     )
     .use(
       compose([
@@ -76,6 +70,9 @@ export default function(options: TAppOptions) {
       res.redirect("/?loggedin=true");
     });
 
-  process.env.CI === "true" && app.set("trust proxy", "loopback");
-  return app;
+  return process.env.TRAVIS === "true"
+    ? express()
+        .set("trust proxy", "loopback")
+        .use(app)
+    : app;
 }
