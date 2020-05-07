@@ -13,7 +13,6 @@ import cors from "cors";
 import express from "express";
 import grant from "grant-express";
 import oidc from "grant-oidc";
-import polka from "polka";
 import requestResponseLogger from "express-request-response-logger";
 import session from "express-session";
 import sirv from "sirv";
