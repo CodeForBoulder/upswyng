@@ -105,7 +105,8 @@
     "tmp-redis": "^1.0.0",
     "ts-jest": "^24.2.0",
     "tslib": "^1.10.0",
-    "typescript": "^3.7.3"
+    "typescript": "^3.7.3",
+    "wait-on": "^5.0.0"
   },
   "main": "src/index.ts",
   "name": "@upswyng/upswyng-server",
@@ -123,7 +124,7 @@
     "start:worker": "node __build__/worker.js",
     "sync:strappd": "TARGETS=syncStrappd rollup -c bin.rollup.config.js && node __build__/bin/sync_strappd",
     "test": "yarn workspace @upswyng/upswyng-core build && run-p -l test:e2e test:unit",
-    "test:e2e": "start-server-and-test './src/bin/e2e_setup.sh' http-get://localhost:43637 'cypress run' && ./src/bin/e2e_teardown.sh",
+    "test:e2e": "./src/bin/e2e_setup.sh && wait-on http://localhost:43637 && cypress run && ./src/bin/e2e_teardown.sh",
     "test:unit": "jest --passWithNoTests",
     "update:algolia": "TARGETS=updateAlgolia rollup -c bin.rollup.config.js && node __build__/bin/update_algolia"
   },
