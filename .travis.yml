@@ -21,7 +21,7 @@ script:
   - yarn build-local-packages
   - yarn workspace @upswyng/upswyng-core build
   - yarn run ci-lint
-  - yarn run test
+  - yarn workspace @upswyng/upswyng-server test:e2e
   - yarn workspace @upswyng/upswyng-server build:server
   - yarn workspace @upswyng/upswyng-server build:worker
   - yarn workspace @upswyng/upswyng-server build:bin
