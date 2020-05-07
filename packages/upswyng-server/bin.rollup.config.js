@@ -1,9 +1,9 @@
 import { createEnv, readConfigFile } from "@pyoner/svelte-ts-preprocess";
 
 import commonjs from "@rollup/plugin-commonjs";
+import fs from "fs";
 import json from "@rollup/plugin-json";
 import pkg from "./package.json";
-import replace from "@rollup/plugin-replace";
 import resolve from "@rollup/plugin-node-resolve";
 import shebang from "rollup-plugin-add-shebang";
 import typescript from "rollup-plugin-typescript2";
@@ -29,11 +29,21 @@ const tsOpts = {
   tsconfig: "./tsconfig.build.json",
 };
 
-const targets = ["checkAlerts"];
+const targets = process.env.TARGETS
+  ? process.env.TARGETS.split(",")
+  : fs
+      .readdirSync("./src/bin")
+      .filter(x => /^.+\.ts/.test(x))
+      .map(f => {
+        // remove extension
+        return f.slice(0, -3);
+      });
+
+// IDEA(@rhinodavid): suppress the output from rollup and just print out the file name as they succeed
 
 export default targets.map(target => ({
   input: `./src/bin/${target}.ts`,
-  output: { file: `__build__/bin/${camelToSnake(target)}`, format: "cjs" },
+  output: { file: `__build__/${camelToSnake(target)}`, format: "cjs" },
   plugins: [
     resolve(),
     typescript(tsOpts),

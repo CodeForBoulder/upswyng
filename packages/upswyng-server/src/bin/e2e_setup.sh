@@ -13,11 +13,11 @@ node "${DIR}/../../cypress/start_memory_db.js"
 read -r MONGODB_PID <"${DIR}/../../cypress/.mongodbpid"
 read -r MONGODB_URI <"${DIR}/../../cypress/.mongodburi"
 
-SETUP_SCRIPT="${DIR}/../../__build__/setupCategories.js"
+SETUP_SCRIPT="${DIR}/../../__build__/setup_categories"
 
 # see if the category setup script exists, if not, build it
 if ! test -f "$SETUP_SCRIPT"; then
-    yarn workspace @upswyng/upswyng-server rollup --config data-pipeline.rollup.config.js
+    TARGETS=setupCategories yarn workspace @upswyng/upswyng-server build:bin
 fi
 
 # setup categories

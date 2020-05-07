@@ -12,7 +12,7 @@ script:
   - yarn run build-local-packages
   - yarn run ci-lint
   - yarn run test
-  - yarn workspace @upswyng/upswyng-server server-build
-  - yarn workspace @upswyng/upswyng-server worker-build
+  - yarn workspace @upswyng/upswyng-server build:server
+  - yarn workspace @upswyng/upswyng-server build:worker
   - yarn workspace @upswyng/upswyng-server rollup --config data-pipeline.rollup.config.js
   - CI=false yarn workspace @upswyng/upswyng-web build
