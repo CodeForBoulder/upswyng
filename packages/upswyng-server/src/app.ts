@@ -5,6 +5,7 @@
  */
 
 import { Connection } from "mongoose";
+import app from "../__build__/app";
 import bodyParser from "body-parser";
 import { compose } from "compose-middleware";
 import compression from "compression";
@@ -36,7 +37,7 @@ export default function(options: TAppOptions) {
         next();
       };
 
-  return polka()
+  const app = polka()
     .use(
       compression({ threshold: 0 }),
       cors(), // TODO: Lock this down to non-admin routes
@@ -74,4 +75,7 @@ export default function(options: TAppOptions) {
     .get("/callback", oidc(grantConfig), (_req, res) => {
       res.redirect("/?loggedin=true");
     });
+
+  process.env.CI === "true" && app.set("trust proxy", "loopback");
+  return app;
 }
