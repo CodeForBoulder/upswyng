@@ -35,6 +35,13 @@ export default function(options: TAppOptions) {
       compression({ threshold: 0 }),
       cors(), // TODO: Lock this down to non-admin routes
       dev ? requestResponseLogger() : (_req, _res, next) => next(),
+      (err, req, res, _next) => {
+        console.error(`*************************`);
+        console.error(`${JSON.stringify(err, null, 2)}`);
+        console.error(`${JSON.stringify(req, null, 2)}`);
+        console.error(`${JSON.stringify(res, null, 2)}`);
+        console.error(`*************************`);
+      },
       sirv("static", { dev }),
       bodyParser.json({}),
       bodyParser.urlencoded({
