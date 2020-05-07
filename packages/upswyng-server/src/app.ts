@@ -73,6 +73,9 @@ export default function(options: TAppOptions) {
    * Travis puts the express app behind a proxy during e2e tests, so
    * make it not blow up
    */
-  process.env.TRAVIS === "true" && app.set("trust proxy", "loopback");
+  if (process.env.TRAVIS === "true") {
+    console.info("𝑻 Travis environment detected; trusting proxy");
+    app.set("trust proxy", true);
+  }
   return app;
 }
