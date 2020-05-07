@@ -23,5 +23,5 @@ script:
   - yarn run test
   - yarn workspace @upswyng/upswyng-server build:server
   - yarn workspace @upswyng/upswyng-server build:worker
-  - yarn workspace @upswyng/upswyng-server rollup --config data-pipeline.rollup.config.js
+  - yarn workspace @upswyng/upswyng-server build:bin
   - CI=false yarn workspace @upswyng/upswyng-web build
