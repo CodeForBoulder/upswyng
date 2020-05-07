@@ -5,15 +5,14 @@
  */
 
 import { Connection } from "mongoose";
-import app from "../__build__/app";
 import bodyParser from "body-parser";
 import { compose } from "compose-middleware";
 import compression from "compression";
 import connectMongo from "connect-mongo";
 import cors from "cors";
+import express from "express";
 import grant from "grant-express";
 import oidc from "grant-oidc";
-import polka from "polka";
 import requestResponseLogger from "express-request-response-logger";
 import session from "express-session";
 import sirv from "sirv";
@@ -37,7 +36,7 @@ export default function(options: TAppOptions) {
         next();
       };
 
-  const app = polka()
+  const app = express()
     .use(
       compression({ threshold: 0 }),
       cors(), // TODO: Lock this down to non-admin routes
@@ -52,7 +51,8 @@ export default function(options: TAppOptions) {
             (req as any).rawBody = buf.toString(encoding || "utf8");
           }
         },
-      })
+      }),
+      logger
     )
     .use(
       compose([
