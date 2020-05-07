@@ -5,7 +5,6 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "module": "CommonJS",
-    "moduleResolution": "node",
-    "types": ["@pyoner/svelte-types", "jest"]
+    "moduleResolution": "node"
   }
 }

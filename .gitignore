@@ -26,6 +26,11 @@ dist
 .env.test.local
 config.ts
 
+# server e2e test
+.mongodbpid
+.mongodburi
+packages/upswyng-server/cypress/screenshots/**/*(failed).png
+
 # misc
 .DS_Store
 .expo/*

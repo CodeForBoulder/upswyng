@@ -9,5 +9,6 @@
     "noUnusedLocals": false,
     "resolveJsonModule": true,
     "types": ["jest"]
-  }
+  },
+  "exclude": ["node_modules", "packages/upswyng-server/cypress/**/*"]
 }
