@@ -13,7 +13,7 @@ node "${DIR}/../../cypress/start_memory_db.js"
 read -r MONGODB_PID <"${DIR}/../../cypress/.mongodbpid"
 read -r MONGODB_URI <"${DIR}/../../cypress/.mongodburi"
 
-SETUP_SCRIPT="${DIR}/../../__build__/setup_categories"
+SETUP_SCRIPT="${DIR}/../../__build__/bin/setup_categories"
 
 # see if the category setup script exists, if not, build it
 if ! test -f "$SETUP_SCRIPT"; then

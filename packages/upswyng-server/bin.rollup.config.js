@@ -43,7 +43,7 @@ const targets = process.env.TARGETS
 
 export default targets.map(target => ({
   input: `./src/bin/${target}.ts`,
-  output: { file: `__build__/${camelToSnake(target)}`, format: "cjs" },
+  output: { file: `__build__/bin/${camelToSnake(target)}`, format: "cjs" },
   plugins: [
     resolve(),
     typescript(tsOpts),
