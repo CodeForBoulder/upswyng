@@ -21,7 +21,7 @@ child.stdout.on("data", chunk => {
   const pid = String(child.pid).trim();
   const uri = String(chunk).trim();
   const match = uri.match(
-    /^CONNECTION_STRING=(?<connectionString>redis:\/\/.+\?)$/
+    /^CONNECTION_STRING=(?<connectionString>redis:\/\/.+:\[0-9]{4,})$/
   );
   if (!match) {
     console.error(`Invalid connection string: ${uri}`);
