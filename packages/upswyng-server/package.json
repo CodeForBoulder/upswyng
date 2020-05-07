@@ -122,7 +122,7 @@
     "start:server": "node __sapper__/build",
     "start:worker": "node __build__/worker.js",
     "sync:strappd": "TARGETS=syncStrappd rollup -c bin.rollup.config.js && node __build__/bin/sync_strappd",
-    "test": "yarn workspace @upswyng/upswyng-core build && run-p --print-label test:e2e test:unit",
+    "test": "yarn workspace @upswyng/upswyng-core build && run-p test:e2e test:unit",
     "test:e2e": "start-server-and-test './src/bin/e2e_setup.sh' http-get://localhost:43637 'cypress run' && ./src/bin/e2e_teardown.sh",
     "test:unit": "jest --passWithNoTests",
     "update:algolia": "TARGETS=updateAlgolia rollup -c bin.rollup.config.js && node __build__/bin/update_algolia"
