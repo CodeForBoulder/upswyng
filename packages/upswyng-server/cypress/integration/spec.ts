@@ -7,5 +7,3 @@ describe("UpSwyng", () => {
     cy.contains("Upswyng Provider Portal");
   });
 });
-
-export {}; // make typescript happy
