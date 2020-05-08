@@ -15,7 +15,7 @@ cache:
   directories:
     # we also need to cache folder with Cypress binary
     - ~/.cache
-before_script: -yarn install
+before_script:
   - yarn install
   - mv packages/upswyng-native/config.example.ts packages/upswyng-native/config.ts
   - yarn build-local-packages
