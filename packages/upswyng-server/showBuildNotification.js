@@ -10,7 +10,7 @@ console.log(`
 If you encounter issues with not being able to find @upswyng
 modules, build local packages by running:
 
-yarn build-local-packages
+yarn build:local-packages
 
 If you encounter Mongoose errors like:
 
