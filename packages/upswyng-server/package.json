@@ -1,4 +1,5 @@
 {
+  "description": "API server and Provider Portal",
   "dependencies": {
     "@afuggini/namegenerator": "^0.1.3",
     "@slack/rtm-api": "^5.0.3",
@@ -112,7 +113,7 @@
   "name": "@upswyng/upswyng-server",
   "private": true,
   "scripts": {
-    "build": "yarn workspace @upswyng/upswyng-core build && sapper build --legacy && rollup --config worker.rollup.config.js && rollup --config bin.rollup.config.js",
+    "build": "sapper build --legacy && rollup -c worker.rollup.config.js && rollup -c bin.rollup.config.js",
     "build:bin": "rollup -c bin.rollup.config.js",
     "build:server": "sapper build --legacy",
     "build:worker": "rollup --config worker.rollup.config.js",

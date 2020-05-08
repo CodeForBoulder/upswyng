@@ -20,7 +20,7 @@ script:
   - mv packages/upswyng-native/config.example.ts packages/upswyng-native/config.ts
   - yarn build:local-packages
   - yarn workspace @upswyng/upswyng-server build:bin
-  - yarn run lint:ci
+  - yarn lint:ci
   - yarn test:ci
   - yarn workspace @upswyng/upswyng-server build:server
   - yarn workspace @upswyng/upswyng-server build:worker
