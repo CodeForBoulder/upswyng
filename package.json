@@ -80,8 +80,8 @@
   "private": true,
   "scripts": {
     "build-local-packages": "yarn build:local-packages",
-    "build-server": "build:server",
-    "build-web": "build:web",
+    "build-server": "yarn build:server",
+    "build-web": "yarn build:web",
     "build:local-packages": "yarn workspace @upswyng/upswyng-types build && yarn workspace @upswyng/upswyng-core build",
     "build:server": "yarn build-local-packages && yarn workspace @upswyng/upswyng-server build",
     "build:web": "yarn build-local-packages && yarn workspace @upswyng/upswyng-web build",
