@@ -21,8 +21,7 @@ script:
   - yarn build-local-packages
   - yarn workspace @upswyng/upswyng-server build:bin
   - yarn run lint:ci
-  - yarn test
-  - yarn workspace @upswyng/upswyng-server cy:run
+  - yarn test:ci
   - yarn workspace @upswyng/upswyng-server build:server
   - yarn workspace @upswyng/upswyng-server build:worker
   - CI=false yarn workspace @upswyng/upswyng-web build
