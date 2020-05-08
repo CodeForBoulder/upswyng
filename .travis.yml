@@ -20,7 +20,7 @@ before_script:
   - mv packages/upswyng-native/config.example.ts packages/upswyng-native/config.ts
   - yarn build-local-packages
   - yarn workspace @upswyng/upswyng-core build
-  - .packages/upswyng-src/src/bin/e2e_setup.sh
+  - .packages/upswyng-server/src/bin/e2e_setup.sh
 script:
   - yarn run ci-lint
   - yarn workspace @upswyng/upwsyng-server wait-on http://127.0.0.1:43637
