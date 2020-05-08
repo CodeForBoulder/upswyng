@@ -23,7 +23,7 @@ before_script:
   - ./packages/upswyng-server/src/bin/e2e_setup.sh &
 script:
   - yarn run ci-lint
-  - yarn workspace @upswyng/upwsyng-server wait-on http://127.0.0.1:43637
+  - yarn workspace @upswyng/upswyng-server wait-on http://127.0.0.1:43637
   - yarn workspace @upswyng/upswyng-server cy:run
   - yarn workspace @upswyng/upswyng-server build:server
   - yarn workspace @upswyng/upswyng-server build:worker
