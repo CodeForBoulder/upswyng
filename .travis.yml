@@ -8,20 +8,23 @@ addons:
     packages:
       - libgconf-2-4
 before_install:
-  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.22.1
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.22.4
   - export PATH="$HOME/.yarn/bin:$PATH"
 cache:
   yarn: true
   directories:
     # we also need to cache folder with Cypress binary
     - ~/.cache
-script:
+before_script: -yarn install
   - yarn install
   - mv packages/upswyng-native/config.example.ts packages/upswyng-native/config.ts
   - yarn build-local-packages
   - yarn workspace @upswyng/upswyng-core build
+  - ./src/bin/e2e_setup.sh
+script:
   - yarn run ci-lint
-  - yarn workspace @upswyng/upswyng-server test:e2e
+  - yarn workspace @upswyng/upwsyng-server wait-on http://127.0.0.1:43637
+  - yarn workspace @upswyng/upswyng-server cy:run
   - yarn workspace @upswyng/upswyng-server build:server
   - yarn workspace @upswyng/upswyng-server build:worker
   - yarn workspace @upswyng/upswyng-server build:bin
