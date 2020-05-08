@@ -10,7 +10,7 @@ import {
   TSubcategoryDocument,
   subcategoryDocumentToSubcategory,
 } from "./Subcategory";
-import { TUserDocument, userDocumentToUser } from "./User";
+import User, { userDocumentToUser } from "./User";
 import mongoose, { Document, Schema } from "mongoose";
 
 /**
@@ -29,13 +29,13 @@ export interface TResourceDocument extends Document {
   _id: ObjectId; // this is the mongodb id of the record
   address: TAddress;
   createdAt: Date;
-  createdBy: TUserDocument | undefined; // always populate
+  createdBy: ObjectId | undefined; // always populate
   deleted: boolean;
   description: string;
   resourceId: ObjectId; // this is canonical upswyng ID
   kudos: number;
   lastModifiedAt: Date;
-  lastModifiedBy: TUserDocument | undefined; // always populate
+  lastModifiedBy: ObjectId | undefined; // always populate
   legacyId: string | null | undefined;
   location: { type: string; coordinates: number[] };
   name: string;
@@ -51,9 +51,9 @@ export interface TResourceDocument extends Document {
  * Convert a resource document from the database into our `TResource` type.
  * Explicity enumerate keys so we make TypeScript happy.
  */
-export const resourceDocumentToResource = (
+export const resourceDocumentToResource = async (
   r: TResourceDocument
-): TResource | null => {
+): Promise<TResource | null> => {
   if (r.toObject) {
     r = r.toObject();
   } else {
@@ -64,6 +64,20 @@ export const resourceDocumentToResource = (
     //   )}]:\n${JSON.stringify(r, null, 2)}`
     // );
   }
+  if (r.createdBy && (r.createdBy as any)._id) {
+    // if we actually got a user document here put it back to an id
+    r.createdBy = (r.createdBy as any)._id;
+  }
+  if (r.lastModifiedBy && (r.lastModifiedBy as any)._id) {
+    r.lastModifiedBy = (r.lastModifiedBy as any)._id;
+  }
+
+  const createdBy = r.createdBy
+    ? userDocumentToUser(await User.findById(r.createdBy))
+    : null;
+  const lastModifiedBy = r.lastModifiedBy
+    ? userDocumentToUser(await User.findById(r.lastModifiedBy))
+    : null;
   const result = {
     _id: r._id.toHexString(),
     address: {
@@ -74,15 +88,13 @@ export const resourceDocumentToResource = (
       zip: r.address.zip,
     },
     createdAt: r.createdAt,
-    createdBy: r.createdBy ? userDocumentToUser(r.createdBy) : undefined,
+    createdBy: createdBy || undefined,
     deleted: r.deleted,
     description: r.description,
     resourceId: r.resourceId.toHexString(),
     kudos: r.kudos,
     lastModifiedAt: r.lastModifiedAt,
-    lastModifiedBy: r.lastModifiedBy
-      ? userDocumentToUser((r.lastModifiedBy as unknown) as TUserDocument)
-      : undefined,
+    lastModifiedBy: lastModifiedBy || undefined,
     latitude: r.location ? r.location.coordinates[1] : null,
     legacyId: r.legacyId,
     longitude: r.location ? r.location.coordinates[0] : null,

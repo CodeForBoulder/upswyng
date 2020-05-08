@@ -28,7 +28,7 @@ export async function get(req, res, _next) {
       );
     }
 
-    draftResource = resourceDocumentToResource(draftResourceDocument);
+    draftResource = await resourceDocumentToResource(draftResourceDocument);
 
     if (!isAdmin(req)) {
       // don't allow non-admins to see who created a resource

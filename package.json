@@ -1,35 +1,10 @@
 {
-  "name": "upswyng",
-  "version": "0.1.0",
-  "private": true,
-  "license": "MIT",
-  "scripts": {
-    "build-local-packages": "yarn workspace @upswyng/upswyng-types run build && yarn workspace @upswyng/upswyng-core run build",
-    "build-server": "yarn run build-local-packages && yarn workspace @upswyng/upswyng-server run build",
-    "build-web": "yarn run build-local-packages && yarn workspace @upswyng/upswyng-web run build",
-    "ci-lint": "prettier --check --loglevel error '{{.github,.vscode}/**/*,packages/*/src/**/*}.{js,jsx,ts,tsx,json,css,scss,svelte,md}' && tsc --noEmit && eslint 'packages/upswyng-*/src/**/*.{js,jsx,ts,tsx}' --quiet",
-    "clean": "node clean.js",
-    "heroku-postbuild": "yarn workspace @upswyng/upswyng-core build && yarn workspace @upswyng/upswyng-server run build",
-    "lint": "prettier --write --loglevel warn '{{.github,.vscode}/**/*,packages/*/src/**/*}.{js,jsx,ts,tsx,json,css,scss,svelte,md}' && tsc --noEmit && eslint 'packages/upswyng-*/src/**/*.{js,jsx,ts,tsx}' --fix",
-    "test": "CI=true SKIP_PREFLIGHT_CHECK=true concurrently --kill-others-on-fail \"yarn workspace @upswyng/upswyng-core run test\" \"yarn workspace @upswyng/upswyng-server run test\" && yarn workspace @upswyng/upswyng-web run test"
-  },
   "browserslist": [
     ">0.2%",
     "not dead",
     "not ie <= 11",
     "not op_mini all"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "packages/*/src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "yarn lint",
-      "git add"
-    ]
-  },
   "devDependencies": {
     "@pyoner/svelte-types": "^3.4.4-2",
     "@testing-library/react-hooks": "^1.0.4",
@@ -55,7 +30,7 @@
     "@types/simple-oauth2": "^2.2.1",
     "@typescript-eslint/eslint-plugin": "^2.6.0",
     "@typescript-eslint/parser": "^2.6.0",
-    "concurrently": "^5.0.0",
+    "concurrently": "^5.2.0",
     "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-prettier": "^3.1.1",
@@ -73,26 +48,52 @@
     "ts-jest": "^24.2.0",
     "typescript": "^3.7.3"
   },
-  "workspaces": [
-    "packages/*"
-  ],
-  "dependencies": {
-    "concurrently": "^5.0.0"
-  },
-  "importSort": {
-    ".js, .jsx, .es6, .es": {
-      "parser": "babylon",
-      "style": "eslint",
-      "options": {}
-    },
-    ".ts, .tsx": {
-      "parser": "typescript",
-      "style": "eslint",
-      "options": {}
-    }
-  },
   "engines": {
     "node": "12.x.x",
     "yarn": "^1.22.1"
-  }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "importSort": {
+    ".js, .jsx, .es6, .es": {
+      "options": {},
+      "parser": "babylon",
+      "style": "eslint"
+    },
+    ".ts, .tsx": {
+      "options": {},
+      "parser": "typescript",
+      "style": "eslint"
+    }
+  },
+  "license": "MIT",
+  "lint-staged": {
+    "packages/*/src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "yarn lint",
+      "git add"
+    ]
+  },
+  "name": "upswyng",
+  "private": true,
+  "scripts": {
+    "build-local-packages": "yarn build:local-packages",
+    "build-server": "yarn build:server",
+    "build-web": "yarn build:web",
+    "build:local-packages": "yarn workspace @upswyng/upswyng-types build && yarn workspace @upswyng/upswyng-core build",
+    "build:server": "yarn build-local-packages && yarn workspace @upswyng/upswyng-server build",
+    "build:web": "yarn build-local-packages && yarn workspace @upswyng/upswyng-web build",
+    "clean": "node clean.js",
+    "heroku-postbuild": "yarn workspace @upswyng/upswyng-core build && yarn workspace @upswyng/upswyng-server build",
+    "lint": "tsc --noEmit && eslint 'packages/upswyng-*/src/**/*.{js,jsx,ts,tsx}' --fix",
+    "lint:ci": "tsc --noEmit && eslint 'packages/upswyng-*/src/**/*.{js,jsx,ts,tsx}' --quiet",
+    "test": "concurrently -n core,server,web -c yellow,blue,cyan \"yarn workspace @upswyng/upswyng-core test\" \"yarn workspace @upswyng/upswyng-server test\" \"yarn workspace @upswyng/upswyng-web test\"",
+    "test:ci": "yarn test --kill-others-on-fail"
+  },
+  "version": "0.1.0",
+  "workspaces": [
+    "packages/*"
+  ]
 }

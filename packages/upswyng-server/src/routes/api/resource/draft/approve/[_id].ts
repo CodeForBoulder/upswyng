@@ -63,7 +63,7 @@ export async function post(req, res, next) {
   }
   try {
     const updatedResource = await createOrUpdateResourceFromDraft(
-      resourceDocumentToResource(draftToApprove)
+      await resourceDocumentToResource(draftToApprove)
     );
     await DraftResource.deleteByRecordId(draftToApprove._id);
 
@@ -77,8 +77,8 @@ export async function post(req, res, next) {
           newResource: !updatedResource,
           diff: updatedResource
             ? diffResources(
-                resourceDocumentToResource(updatedResource),
-                resourceDocumentToResource(draftToApprove)
+                await resourceDocumentToResource(updatedResource),
+                await resourceDocumentToResource(draftToApprove)
               )
             : undefined,
         },

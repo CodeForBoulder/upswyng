@@ -29,6 +29,8 @@ config.ts
 # server e2e test
 .mongodbpid
 .mongodburi
+.redispid
+.redisuri
 packages/upswyng-server/cypress/screenshots/**/*(failed).png
 
 # misc

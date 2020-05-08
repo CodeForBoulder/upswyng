@@ -28,7 +28,7 @@ export async function createDraftResource(
       );
     }
     const updateObject = diffResources(
-      resourceDocumentToResource(
+      await resourceDocumentToResource(
         existingResource as TResourceDocument & {
           subcategories: TSubcategory[];
         }
@@ -163,13 +163,13 @@ export async function createOrUpdateResourceFromDraft(
   }).populate("subcategories");
   const resourceBeforeEdits: TResourceDocument | null = existingResource
     ? new Resource(
-        resourceToSchema(resourceDocumentToResource(existingResource))
+        resourceToSchema(await resourceDocumentToResource(existingResource))
       )
     : null;
   if (existingResource) {
     // update an existing resource
     const updateObject = diffResources(
-      resourceDocumentToResource(existingResource),
+      await resourceDocumentToResource(existingResource),
       draftResource as TResource
     );
     // go over each subcategory the old resource was in.. if it's not in the new resource, remove it

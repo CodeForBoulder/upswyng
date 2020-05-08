@@ -24,7 +24,9 @@ export async function get(req, res, _next) {
     const draftDocuments = await DraftResource.find({
       createdBy: ObjectId.createFromHexString(user._id),
     }).sort([["lastModifiedAt", -1]]);
-    let drafts = draftDocuments.map(resourceDocumentToResource);
+    let drafts = await Promise.all(
+      draftDocuments.map(resourceDocumentToResource)
+    );
     if (!isAdmin(req)) {
       // don't allow non-admins to see who created a resource
       drafts = drafts.map(d => {

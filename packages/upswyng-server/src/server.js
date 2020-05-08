@@ -103,13 +103,11 @@ mongoose
         })
       );
 
-      const handler = appInstance.handler;
-
-      const s = http.createServer(handler);
+      const s = http.createServer(appInstance);
 
       webSocketServer(s);
 
-      s.listen(PORT);
+      s.listen(PORT, "127.0.0.1");
     },
     e =>
       console.error(

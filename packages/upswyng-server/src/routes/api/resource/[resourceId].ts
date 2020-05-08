@@ -16,7 +16,7 @@ export async function get(req, res, _next) {
       ObjectId.createFromHexString(resourceId)
     );
     if (resourceDocument) {
-      resource = resourceDocumentToResource(resourceDocument);
+      resource = await resourceDocumentToResource(resourceDocument);
     }
   } catch (e) {
     res.writeHead(500, {

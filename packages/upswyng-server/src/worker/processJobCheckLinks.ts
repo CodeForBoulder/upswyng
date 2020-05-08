@@ -30,11 +30,13 @@ export async function processJobCheckLinks(
   let resources: TResource[] = [];
   do {
     console.info(`${job.name}[${job.id}]\tStarting batch ${batch}`);
-    resources = (
-      await Resource.find({})
-        .skip(batch * BATCH_SIZE)
-        .limit(BATCH_SIZE)
-    ).map(resourceDocumentToResource);
+    resources = await Promise.all(
+      (
+        await Resource.find({})
+          .skip(batch * BATCH_SIZE)
+          .limit(BATCH_SIZE)
+      ).map(resourceDocumentToResource)
+    );
     batch++;
 
     const newErroredLinks = (

@@ -10,9 +10,10 @@ import { compose } from "compose-middleware";
 import compression from "compression";
 import connectMongo from "connect-mongo";
 import cors from "cors";
+import express from "express";
 import grant from "grant-express";
 import oidc from "grant-oidc";
-import polka from "polka";
+import requestResponseLogger from "express-request-response-logger";
 import session from "express-session";
 import sirv from "sirv";
 import userMiddleware from "./utility/userMiddleware";
@@ -29,10 +30,11 @@ export default function(options: TAppOptions) {
 
   const MongoStore = connectMongo(session);
 
-  return polka()
+  return express()
     .use(
       compression({ threshold: 0 }),
       cors(), // TODO: Lock this down to non-admin routes
+      dev ? requestResponseLogger() : (_req, _res, next) => next(),
       sirv("static", { dev }),
       bodyParser.json({}),
       bodyParser.urlencoded({
@@ -65,9 +67,5 @@ export default function(options: TAppOptions) {
     .use(userMiddleware)
     .get("/callback", oidc(grantConfig), (_req, res) => {
       res.redirect("/?loggedin=true");
-    })
-    .use((req, _res, next) => {
-      dev && console.info(`~> Received ${req.method} on ${req.url}`);
-      next();
     });
 }

@@ -119,19 +119,11 @@ const categories: {
   },
 ];
 
-const {
-  DATABASE_URL,
-  DATABASE_NAME,
-  DATABASE_PASSWORD,
-  DATABASE_USER,
-} = process.env;
+const { DATABASE_URL } = process.env;
 
 mongoose
   .connect(DATABASE_URL, {
     useNewUrlParser: true,
-    dbName: DATABASE_NAME,
-    user: DATABASE_USER,
-    pass: DATABASE_PASSWORD,
   })
   .then(() => console.log(`Connected to MongoDB instance at ${DATABASE_URL}`))
   .catch(e =>
