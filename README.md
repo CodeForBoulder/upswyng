@@ -89,7 +89,7 @@ user_permission_changed: any; }'. Did you mean 'draft_approved'?
 To fix this, run the script:
 
 ```
-yarn build-local-packages
+yarn build:local-packages
 ```
 
 ### Next Steps
