@@ -30,18 +30,11 @@ export default function(options: TAppOptions) {
 
   const MongoStore = connectMongo(session);
 
-  const app = express()
+  return express()
     .use(
       compression({ threshold: 0 }),
       cors(), // TODO: Lock this down to non-admin routes
       dev ? requestResponseLogger() : (_req, _res, next) => next(),
-      (err, req, res, _next) => {
-        console.error(`*************************`);
-        console.error(`${JSON.stringify(err, null, 2)}`);
-        console.error(`${JSON.stringify(req, null, 2)}`);
-        console.error(`${JSON.stringify(res, null, 2)}`);
-        console.error(`*************************`);
-      },
       sirv("static", { dev }),
       bodyParser.json({}),
       bodyParser.urlencoded({
@@ -75,14 +68,4 @@ export default function(options: TAppOptions) {
     .get("/callback", oidc(grantConfig), (_req, res) => {
       res.redirect("/?loggedin=true");
     });
-
-  /**
-   * Travis puts the express app behind a proxy during e2e tests, so
-   * make it not blow up
-   */
-  if (process.env.TRAVIS === "true") {
-    console.info("𝑻 Travis environment detected; trusting proxy");
-    app.set("trust proxy", true);
-  }
-  return app;
 }
