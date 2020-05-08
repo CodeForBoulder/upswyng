@@ -15,17 +15,14 @@ cache:
   directories:
     # we also need to cache folder with Cypress binary
     - ~/.cache
-before_script:
+script:
   - yarn install
   - mv packages/upswyng-native/config.example.ts packages/upswyng-native/config.ts
   - yarn build-local-packages
-  - yarn workspace @upswyng/upswyng-core build
-  - ./packages/upswyng-server/src/bin/e2e_setup.sh &
-script:
+  - yarn workspace @upswyng/upswyng-server build:bin
   - yarn run ci-lint
-  - yarn workspace @upswyng/upswyng-server wait-on http://127.0.0.1:43637
+  - yarn test
   - yarn workspace @upswyng/upswyng-server cy:run
   - yarn workspace @upswyng/upswyng-server build:server
   - yarn workspace @upswyng/upswyng-server build:worker
-  - yarn workspace @upswyng/upswyng-server build:bin
   - CI=false yarn workspace @upswyng/upswyng-web build

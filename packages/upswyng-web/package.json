@@ -48,7 +48,7 @@
     "build": "SKIP_PREFLIGHT_CHECK=true yarn workspace @upswyng/upswyng-core build && react-scripts build",
     "eject": "SKIP_PREFLIGHT_CHECK=true react-scripts eject",
     "start": "PORT=3001 SKIP_PREFLIGHT_CHECK=true react-scripts start",
-    "test": "SKIP_PREFLIGHT_CHECK=true react-scripts test"
+    "test": "SKIP_PREFLIGHT_CHECK=true react-scripts test --watchAll=false"
   },
   "browserslist": [
     ">0.2%",
