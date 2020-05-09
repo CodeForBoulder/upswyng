@@ -17,11 +17,11 @@ cache:
     - ~/.cache
 script:
   - yarn install
-  - mv packages/upswyng-native/config.example.ts packages/upswyng-native/config.ts
+  - mv packages/native/config.example.ts packages/native/config.ts
   - yarn build:local-packages
-  - yarn workspace @upswyng/upswyng-server build:bin
+  - yarn workspace @upswyng/server build:bin
   - yarn lint:ci
   - yarn test:ci
-  - yarn workspace @upswyng/upswyng-server build:server
-  - yarn workspace @upswyng/upswyng-server build:worker
-  - CI=false yarn workspace @upswyng/upswyng-web build
+  - yarn workspace @upswyng/server build:server
+  - yarn workspace @upswyng/server build:worker
+  - CI=false yarn workspace @upswyng/web build

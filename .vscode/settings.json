@@ -1,12 +1,11 @@
 {
-  "jest.pathToJest": "npm run test -- --coverage",
+  "jest.pathToJest": "node_modules/.bin/jest",
   "editor.formatOnSave": true,
-  "eslint.autoFixOnSave": true,
   "eslint.validate": [
     "javascript",
     "javascriptreact",
-    { "language": "typescript", "autoFix": true },
-    { "language": "typescriptreact", "autoFix": true }
+    { "language": "typescript" },
+    { "language": "typescriptreact" }
   ],
   "eslint.enable": true,
   "typescript.tsdk": "node_modules/typescript/lib",

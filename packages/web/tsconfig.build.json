@@ -1,0 +1,19 @@
+// Production build
+// See https://github.com/Izhaki/mono.ts
+
+{
+  "extends": "../../tsconfig.build.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "jsx": "preserve",
+    "noUnusedLocals": false
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"],
+  "references": [
+    {
+      "path": "../common/tsconfig.build.json"
+    }
+  ]
+}

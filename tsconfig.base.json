@@ -10,5 +10,5 @@
     "resolveJsonModule": true,
     "types": ["jest"]
   },
-  "exclude": ["node_modules", "packages/upswyng-server/cypress/**/*"]
+  "exclude": ["node_modules", "packages/server/cypress/**/*"]
 }

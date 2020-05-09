@@ -1,0 +1,17 @@
+{
+  "description": "TypeScript definitions shared across the project",
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^6.1.0",
+    "rollup": "^1.28.0",
+    "rollup-plugin-typescript2": "^0.25.3"
+  },
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "name": "@upswyng/types",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "types": "dist/index.d.ts",
+  "version": "0.1.0"
+}

@@ -14,24 +14,24 @@
     "noUnusedLocals": false
   },
   "paths": {
-    "@upswyng/upswyng-core": ["./packages/upswyng-core/src/index.ts"],
-    "@upswyng/upswyng-types": ["./packages/upswyng-types/src/index.ts"]
+    "@upswyng/common": ["./packages/common/src/index.ts"],
+    "@upswyng/types": ["./packages/types/src/index.ts"]
   },
   "files": [],
   "include": [],
   "exclude": ["node_modules"],
   "references": [
     {
-      "path": "packages/upswyng-core/tsconfig.build.json"
+      "path": "./packages/common/tsconfig.build.json"
     },
     {
-      "path": "packages/upswyng-types/tsconfig.build.json"
+      "path": "./packages/types/tsconfig.build.json"
     },
     {
-      "path": "packages/upswyng-web/tsconfig.build.json"
+      "path": "./packages/web/tsconfig.build.json"
     },
     {
-      "path": "packages/upswyng-server/tsconfig.build.json"
+      "path": "./packages/server/tsconfig.build.json"
     }
   ]
 }

@@ -12,7 +12,13 @@ UpSwyng is a [Code For Boulder](https://www.codeforboulder.org) project.
 
 ![Project Organization Diagram](./upswyng-project-layout.svg)
 
-UpSwyng is a monorepo managed with [Yarn Workspaces](https://classic.yarnpkg.com/en/docs/workspaces/). It consists of five packages all in the `packages` directory: `upswyng-core` contains common libraries and utilities used across the other packages. `upswyng-types` holds the TypeScript definitions used across the project. `upswyng-server` is a [Sapper](https://sapper.svelte.dev/) application with two parts: an API server which provides data to the UpSwyng clients, and an admin web interface which uses the [Svelte](https://svelte.dev/) framework to create and modify data for the project. `upswyng-web` contains the [React](https://reactjs.org/) web client, and `upswyng-native` contains a work-in-progress [React Native](https://facebook.github.io/react-native/) cleint.
+UpSwyng is a monorepo managed with [Yarn Workspaces](https://classic.yarnpkg.com/en/docs/workspaces/). It consists of five
+packages all in the `packages` directory: `common` contains common libraries and utilities used across the other packages.
+`types` holds the TypeScript definitions used across the project. `server` is a [Sapper](https://sapper.svelte.dev/)
+application with two parts: an API server which provides data to the UpSwyng clients, and an admin web interface which uses
+the [Svelte](https://svelte.dev/) framework to create and modify data for the project. `web` contains the
+[React](https://reactjs.org/) web client, and `native` contains a work-in-progress
+[React Native](https://facebook.github.io/react-native/) cleint.
 
 ## Working With Yarn Workspaces
 
@@ -20,7 +26,7 @@ To run a command in a specific package, use the `yarn workspace` command from th
 For example, to start the web package development server run:
 
 ```console
-yarn workspace @upswyng/upswyng-web start
+yarn workspace @upswyng/web start
 ```
 
 To run the same command in _all_ workspaces, use `yarn workspaces`. For instance, to run `test` in all packages use:
@@ -33,14 +39,15 @@ yarn workspaces test
 > or `.profile` to save time:
 >
 > ```console
-> alias @uw="yarn workspace @upswyng/upswyng-web "
+> alias @uw="yarn workspace @upswyng/web "
 > ```
 >
 > Now you only need `@uw start` to start the web dev server.
 
 ## Getting Started
 
-Install the Yarn package manager by following the instructions at [https://yarnpkg.com/lang/en/docs/install](https://yarnpkg.com/lang/en/docs/install)
+Install the Yarn package manager by following the instructions at
+[https://yarnpkg.com/lang/en/docs/install](https://yarnpkg.com/lang/en/docs/install)
 
 Next, clone the repo:
 
@@ -60,9 +67,10 @@ and install the project dependencies by running
 yarn
 ```
 
-Note: the above command may fail if your `node` version is not 12.14.x. [nvm](https://itnext.io/nvm-the-easiest-way-to-switch-node-js-environments-on-your-machine-in-a-flash-17babb7d5f1b#d594) is one solution (among others) to manage `node` versions precisely.
+Note: the above command may fail if your `node` version is not 12.14.x. [nvm](https://itnext.io/nvm-the-easiest-way-to-switch-node-js-environments-on-your-machine-in-a-flash-17babb7d5f1b#d594) is one solution
+(among others) to manage `node` versions precisely.
 
-Next, try starting up a development client by running `yarn workspace @upswyng/upswyng-web start`.
+Next, try starting up a development client by running `yarn workspace @upswyng/web start`.
 
 ### Development Ports
 
@@ -75,12 +83,12 @@ Next, try starting up a development client by running `yarn workspace @upswyng/u
 
 #### Type Errors
 
-The packages `upswyng-native`, `upswyng-server`, and `upswyng-web` depend on `upswyng-core` and `upswyng-types`. If you edit
-`upswyng-core` or `upswyng-types`, or pull a new commit which contains edits to those packages, they need to be rebuilt.
+The packages `native`, `server`, and `web` depend on `common` and `types`. If you edit
+`common` or `types`, or pull a new commit which contains edits to those packages, they need to be rebuilt.
 If you do not rebuild, you may see a type error like:
 
 ```
-upswyng/packages/upswyng-server/src/utility/slackbot.ts(76,23): semantic error TS2551:
+upswyng/packages/server/src/utility/slackbot.ts(76,23): semantic error TS2551:
 Property 'DraftApproved' does not exist on type '{ alert_live: any; draft_approved: any;
 draft_created: any; draft_deleted: any; resource_issue_reopened: any; resource_issue_resolved: any;
 user_permission_changed: any; }'. Did you mean 'draft_approved'?
@@ -94,7 +102,8 @@ yarn build:local-packages
 
 ### Next Steps
 
-`cd` into the package you're interested in working on and run the appropriate script. Visit each package's `README` for more information about environment setup, scripts, and more.
+`cd` into the package you're interested in working on and run the appropriate script. Visit each package's `README` for more
+information about environment setup, scripts, and more.
 
 ## Contributing
 
@@ -102,27 +111,33 @@ Before contributing, please review and abide by the [code of conduct](CODE_OF_CO
 
 ### 1. Find an Issue Pending Development, Needing Help, or Asking a Question
 
-Want to develop? All issues that have been approved for development, but have not been started will be labelled as **Status: Pending**.
+Want to develop? All issues that have been approved for development, but have not been started will be labelled
+as **Status: Pending**.
 
-We'd love your input on possible new features. Some issues aren't ready for development and won't have a status label. These issues may need more input before being approved and instead be labelled **Type: Help Wanted**.
+We'd love your input on possible new features. Some issues aren't ready for development and won't have a status label.
+These issues may need more input before being approved and instead be labelled **Type: Help Wanted**.
 
 Maybe you have the answer to someone's question. Look through any issues labelled with **Type: Help Wanted** and comment with your answer.
 
 ### 2. Work on an Issue
 
-Once you have have found an issue you feel comfortable working on, request to work on the issue and we'll label the issue as **Status: In Progress** to make sure others don't work on it as well.
+Once you have have found an issue you feel comfortable working on, request to work on the issue and we'll label the issue
+as **Status: In Progress** to make sure others don't work on it as well.
 
 Then, create a new branch off the current `master`.
 
 #### Branch Naming
 
-All feature branch names should briefly describe what the branch addresses using [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles).
+All feature branch names should briefly describe what the branch addresses using
+[kebab-case](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles).
 
-For example, if you wanted to create a branch that update the way a service was displayed, you could name the branch **`update-service-display`**.
+For example, if you wanted to create a branch that update the way a service was displayed, you could name the
+branch **`update-service-display`**.
 
 ### 3. Create a Pull Request (PR)
 
-Once you believe your feature is ready for production, create a PR and reference what issue this addresses in the PR's description.
+Once you believe your feature is ready for production, create a PR and reference what issue this addresses in the PR's
+description.
 
 If there any updates requested, please make those updates on your local branch and re-push that branch to the repository.
 

@@ -7,11 +7,10 @@ node_modules
 
 # testing
 /coverage
-/cypress/screenshots/
 
 # production
-packages/upswyng-web/build
-packages/upswyng-web/coverage
+packages/web/build
+packages/web/coverage
 __sapper__
 __build__
 dist
@@ -31,7 +30,7 @@ config.ts
 .mongodburi
 .redispid
 .redisuri
-packages/upswyng-server/cypress/screenshots/**/*(failed).png
+packages/server/cypress/screenshots/**/*(failed).png
 
 # misc
 .DS_Store
