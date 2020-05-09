@@ -35,7 +35,10 @@ export default function(options: TAppOptions) {
       compression({ threshold: 0 }),
       cors(), // TODO: Lock this down to non-admin routes
       dev ? requestResponseLogger() : (_req, _res, next) => next(),
-      sirv("static", { dev }),
+      sirv("static", {
+        dev,
+        maxAge: 2_628_000, // ~ 1 month
+      }),
       bodyParser.json({}),
       bodyParser.urlencoded({
         extended: true,
