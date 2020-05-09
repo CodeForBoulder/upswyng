@@ -8,7 +8,7 @@
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
-  "name": "@upswyng/upswyng-types",
+  "name": "@upswyng/types",
   "scripts": {
     "build": "rollup -c"
   },

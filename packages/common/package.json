@@ -20,7 +20,7 @@
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
-  "name": "@upswyng/upswyng-core",
+  "name": "@upswyng/common",
   "scripts": {
     "build": "rollup --config",
     "test": "jest"
