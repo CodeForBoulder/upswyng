@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "bson": "^4.0.2",
+    "moment-timezone": "^0.5.27",
+    "rrule": "^2.6.2"
+  },
+  "description": "Common libraries and utilities used across the project",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "11.0.2",
+    "@rollup/plugin-json": "^4.0.1",
+    "@rollup/plugin-node-resolve": "^6.0.0",
+    "@types/moment-timezone": "^0.5.12",
+    "jest": "^24.9.0",
+    "rollup": "^1.27.8",
+    "rollup-plugin-typescript2": "^0.25.3",
+    "ts-jest": "^24.2.0",
+    "tslib": "^1.10.0",
+    "typescript": "^3.7.3"
+  },
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "name": "@upswyng/common",
+  "scripts": {
+    "build": "rollup --config",
+    "test": "jest"
+  },
+  "types": "dist/index.d.ts",
+  "version": "0.1.0"
+}
