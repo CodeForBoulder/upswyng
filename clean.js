@@ -2,10 +2,10 @@ const fs = require("fs");
 const glob = require("glob");
 
 const foldersToDelete = [
-  "./packages/upswyng-types/dist",
-  "./packages/upswyng-core/dist",
-  "./packages/upswyng-server/__build__",
-  "./packages/upswyng-web/build",
+  "./packages/types/dist",
+  "./packages/core/dist",
+  "./packages/server/__build__",
+  "./packages/web/build",
 ];
 
 const globsToDelete = ["./packages/**/tsconfig*.tsbuildinfo"];

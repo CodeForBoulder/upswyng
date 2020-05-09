@@ -10,8 +10,8 @@
     "noEmit": true,
     "noUnusedLocals": false,
     "paths": {
-      "@upswyng/upswyng-core": ["./packages/upswyng-core/src/index.ts"],
-      "@upswyng/upswyng-types": ["./packages/upswyng-types/src/index.ts"]
+      "@upswyng/core": ["./packages/core/src/index.ts"],
+      "@upswyng/types": ["./packages/types/src/index.ts"]
     },
     "target": "es6",
     "skipLibCheck": true

@@ -1,0 +1,3 @@
+# https://github.com/heroku/heroku-buildpack-multi-procfile
+web: yarn workspace @upswyng/server run start:server
+worker: yarn workspace @upswyng/server run start:worker
