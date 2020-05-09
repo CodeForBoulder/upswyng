@@ -1,9 +1,5 @@
 <script context="module">
-<<<<<<< HEAD:packages/server/src/routes/resource/draft/[_id].svelte
   import { ResourceSchedule } from "@upswyng/common";
-=======
-  import { ResourceSchedule } from "@upswyng/core";
->>>>>>> Remove `upswyng-` prefix from package names:packages/upswyng-server/src/routes/resource/draft/[_id].svelte
 
   export async function preload({ params, query }, { user }) {
     if (!user || !user.isAdmin) {

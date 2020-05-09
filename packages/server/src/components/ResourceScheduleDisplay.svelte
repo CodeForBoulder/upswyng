@@ -1,10 +1,6 @@
 <script>
   import ScheduleSelectorScheduleItem from "./ScheduleSelectorScheduleItem.svelte";
-<<<<<<< HEAD:packages/server/src/components/ResourceScheduleDisplay.svelte
   import { ResourceSchedule } from "@upswyng/common";
-=======
-  import { ResourceSchedule } from "@upswyng/core";
->>>>>>> Remove `upswyng-` prefix from package names:packages/upswyng-server/src/components/ResourceScheduleDisplay.svelte
 
   export let schedule; /* TResourceScheduleData | ResourceSchedule */
 

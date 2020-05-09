@@ -1,8 +1,4 @@
-<<<<<<< HEAD:packages/server/src/utility/convertLegacyScheduleToResourceSchedule.ts
 import { ResourceSchedule, Time } from "@upswyng/common";
-=======
-import { ResourceSchedule, Time } from "@upswyng/core";
->>>>>>> Remove `upswyng-` prefix from package names:packages/upswyng-server/src/utility/convertLegacyScheduleToResourceSchedule.ts
 import { TDay, TLegacySchedule, TTimezoneName } from "@upswyng/types";
 
 import RRule from "rrule";

@@ -1,11 +1,7 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import { form as svelteForm } from "svelte-forms";
-<<<<<<< HEAD:packages/server/src/components/ResourceEditor.svelte
   import { ResourceSchedule } from "@upswyng/common";
-=======
-  import { ResourceSchedule } from "@upswyng/core";
->>>>>>> Remove `upswyng-` prefix from package names:packages/upswyng-server/src/components/ResourceEditor.svelte
   import ScheduleSelector from "./ScheduleSelector.svelte";
   import ServicesInput from "./ServicesInput.svelte";
   import SubcategoryInput from "./SubcategoryInput.svelte";

@@ -13,11 +13,7 @@
 <script>
   import { addFlashMessage } from "../../utility/flashMessage.ts";
   import { goto, stores } from "@sapper/app";
-<<<<<<< HEAD:packages/server/src/routes/resource/create.svelte
   import { ResourceSchedule } from "@upswyng/common";
-=======
-  import { ResourceSchedule } from "@upswyng/core";
->>>>>>> Remove `upswyng-` prefix from package names:packages/upswyng-server/src/routes/resource/create.svelte
   import ResourceEditor from "../../components/ResourceEditor.svelte";
 
   const { session } = stores();

@@ -1,10 +1,6 @@
 <script>
   import { format } from "json-string-formatter";
-<<<<<<< HEAD:packages/server/src/components/ResourceDisplay.svelte
   import { ResourceSchedule } from "@upswyng/common";
-=======
-  import { ResourceSchedule } from "@upswyng/core";
->>>>>>> Remove `upswyng-` prefix from package names:packages/upswyng-server/src/components/ResourceDisplay.svelte
   import ResourceScheduleDisplay from "./ResourceScheduleDisplay.svelte";
 
   export let resource; // TResource

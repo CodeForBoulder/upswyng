@@ -1,10 +1,6 @@
 <script>
   import { onMount } from "svelte";
-<<<<<<< HEAD:packages/server/src/components/ScheduleSelector.svelte
   import { ResourceSchedule, Time } from "@upswyng/common";
-=======
-  import { ResourceSchedule, Time } from "@upswyng/core";
->>>>>>> Remove `upswyng-` prefix from package names:packages/upswyng-server/src/components/ScheduleSelector.svelte
   import { RRule } from "rrule";
   import moment from "moment-timezone";
   import ScheduleItem from "./ScheduleSelectorScheduleItem.svelte";
