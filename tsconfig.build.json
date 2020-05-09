@@ -14,7 +14,7 @@
     "noUnusedLocals": false
   },
   "paths": {
-    "@upswyng/core": ["./packages/core/src/index.ts"],
+    "@upswyng/common": ["./packages/common/src/index.ts"],
     "@upswyng/types": ["./packages/types/src/index.ts"]
   },
   "files": [],
@@ -22,7 +22,7 @@
   "exclude": ["node_modules"],
   "references": [
     {
-      "path": "./packages/core/tsconfig.build.json"
+      "path": "./packages/common/tsconfig.build.json"
     },
     {
       "path": "./packages/types/tsconfig.build.json"

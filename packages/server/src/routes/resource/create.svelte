@@ -13,7 +13,7 @@
 <script>
   import { addFlashMessage } from "../../utility/flashMessage.ts";
   import { goto, stores } from "@sapper/app";
-  import { ResourceSchedule } from "@upswyng/core";
+  import { ResourceSchedule } from "@upswyng/common";
   import ResourceEditor from "../../components/ResourceEditor.svelte";
 
   const { session } = stores();

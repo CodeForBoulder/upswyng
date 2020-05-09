@@ -5,7 +5,7 @@ import {
   TSchedulePeriod,
 } from "@upswyng/types";
 
-import { ResourceSchedule } from "@upswyng/core/src";
+import { ResourceSchedule } from "@upswyng/common";
 import moment from "moment";
 
 const orderedPeriods: TSchedulePeriod[] = [

@@ -1,6 +1,6 @@
 import Grid from "@material-ui/core/Grid";
 import React from "react";
-import { TScheduleItem } from "@upswyng/core/src";
+import { TScheduleItem } from "@upswyng/common/src";
 import Typography from "@material-ui/core/Typography";
 
 const groupByRRuleText = (items: TScheduleItem[]) =>

@@ -1,4 +1,4 @@
-import { ResourceSchedule, Time } from "@upswyng/core";
+import { ResourceSchedule, Time } from "@upswyng/common";
 import { TDay, TLegacySchedule, TTimezoneName } from "@upswyng/types";
 
 import RRule from "rrule";

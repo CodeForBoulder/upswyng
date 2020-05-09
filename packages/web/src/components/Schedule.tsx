@@ -1,4 +1,4 @@
-import { ResourceSchedule, TScheduleItem } from "@upswyng/core/src";
+import { ResourceSchedule, TScheduleItem } from "@upswyng/common/src";
 import WeeklySchedule, { days } from "./WeeklySchedule";
 
 import Divider from "@material-ui/core/Divider";

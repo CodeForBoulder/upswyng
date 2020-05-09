@@ -8,7 +8,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
 import Image from "material-ui-image";
 import React from "react";
-import { ResourceSchedule } from "@upswyng/core/src";
+import { ResourceSchedule } from "@upswyng/common/src";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import { TResource } from "@upswyng/types";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";

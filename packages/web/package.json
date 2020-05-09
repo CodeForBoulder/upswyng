@@ -18,7 +18,7 @@
     "@types/react-dom": "^16.8.3",
     "@types/react-gtm-module": "^2.0.0",
     "@types/react-router-dom": "^5.1.0",
-    "@upswyng/core": "0.1.0",
+    "@upswyng/common": "0.1.0",
     "algoliasearch": "^3.33.0",
     "axios": "^0.19.0",
     "debounce": "^1.2.0",
@@ -54,7 +54,7 @@
   "name": "@upswyng/upswyng-web",
   "private": true,
   "scripts": {
-    "build": "SKIP_PREFLIGHT_CHECK=true yarn workspace @upswyng/core build && react-scripts build",
+    "build": "SKIP_PREFLIGHT_CHECK=true yarn workspace @upswyng/common build && react-scripts build",
     "eject": "SKIP_PREFLIGHT_CHECK=true react-scripts eject",
     "start": "PORT=3001 SKIP_PREFLIGHT_CHECK=true react-scripts start",
     "test": "SKIP_PREFLIGHT_CHECK=true react-scripts test --watchAll=false"

@@ -4,7 +4,7 @@
     "@afuggini/namegenerator": "^0.1.3",
     "@slack/rtm-api": "^5.0.3",
     "@slack/web-api": "^5.6.0",
-    "@upswyng/core": "0.1.0",
+    "@upswyng/common": "0.1.0",
     "@upswyng/types": "0.1.0",
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",

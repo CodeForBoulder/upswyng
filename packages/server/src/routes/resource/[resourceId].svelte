@@ -1,5 +1,5 @@
 <script context="module">
-  import { ResourceSchedule } from "@upswyng/core";
+  import { ResourceSchedule } from "@upswyng/common";
 
   export async function preload({ params, query }, { user }) {
     const resourceResponse = await this.fetch(

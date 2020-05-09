@@ -1,5 +1,5 @@
 <script context="module">
-  import { ResourceSchedule } from "@upswyng/core";
+  import { ResourceSchedule } from "@upswyng/common";
 
   function usersToActions(users) {
     return users.reduce((result, user) => {

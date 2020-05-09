@@ -1,6 +1,6 @@
 <script>
   import ScheduleSelectorScheduleItem from "./ScheduleSelectorScheduleItem.svelte";
-  import { ResourceSchedule } from "@upswyng/core";
+  import { ResourceSchedule } from "@upswyng/common";
 
   export let schedule; /* TResourceScheduleData | ResourceSchedule */
 

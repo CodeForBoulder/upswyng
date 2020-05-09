@@ -1,6 +1,6 @@
 <script>
   import { format } from "json-string-formatter";
-  import { ResourceSchedule } from "@upswyng/core";
+  import { ResourceSchedule } from "@upswyng/common";
   import ResourceScheduleDisplay from "./ResourceScheduleDisplay.svelte";
 
   export let resource; // TResource

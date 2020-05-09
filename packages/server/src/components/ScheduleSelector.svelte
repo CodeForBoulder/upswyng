@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { ResourceSchedule, Time } from "@upswyng/core";
+  import { ResourceSchedule, Time } from "@upswyng/common";
   import { RRule } from "rrule";
   import moment from "moment-timezone";
   import ScheduleItem from "./ScheduleSelectorScheduleItem.svelte";

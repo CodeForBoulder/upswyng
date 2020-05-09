@@ -13,7 +13,7 @@ UpSwyng is a [Code For Boulder](https://www.codeforboulder.org) project.
 ![Project Organization Diagram](./upswyng-project-layout.svg)
 
 UpSwyng is a monorepo managed with [Yarn Workspaces](https://classic.yarnpkg.com/en/docs/workspaces/). It consists of five
-packages all in the `packages` directory: `core` contains common libraries and utilities used across the other packages.
+packages all in the `packages` directory: `common` contains common libraries and utilities used across the other packages.
 `types` holds the TypeScript definitions used across the project. `server` is a [Sapper](https://sapper.svelte.dev/)
 application with two parts: an API server which provides data to the UpSwyng clients, and an admin web interface which uses
 the [Svelte](https://svelte.dev/) framework to create and modify data for the project. `web` contains the
@@ -83,8 +83,8 @@ Next, try starting up a development client by running `yarn workspace @upswyng/w
 
 #### Type Errors
 
-The packages `native`, `server`, and `web` depend on `core` and `types`. If you edit
-`core` or `types`, or pull a new commit which contains edits to those packages, they need to be rebuilt.
+The packages `native`, `server`, and `web` depend on `common` and `types`. If you edit
+`common` or `types`, or pull a new commit which contains edits to those packages, they need to be rebuilt.
 If you do not rebuild, you may see a type error like:
 
 ```

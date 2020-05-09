@@ -20,7 +20,7 @@ import mongoose, { Document, Schema } from "mongoose";
  * the internal schema is abstracted away by the logic in this module.
  */
 import { ObjectId } from "bson";
-import { ResourceSchedule } from "@upswyng/core";
+import { ResourceSchedule } from "@upswyng/common";
 import { TTimezoneName } from "@upswyng/types";
 import convertLegacyScheduleToResourceSchedule from "../utility/convertLegacyScheduleToResourceSchedule";
 import removeUndefinedFields from "../utility/removeUndefinedFields";

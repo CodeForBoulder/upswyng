@@ -3,7 +3,7 @@ const glob = require("glob");
 
 const foldersToDelete = [
   "./packages/types/dist",
-  "./packages/core/dist",
+  "./packages/common/dist",
   "./packages/server/__build__",
   "./packages/web/build",
 ];

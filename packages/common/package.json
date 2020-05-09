@@ -1,11 +1,10 @@
 {
-  "author": "",
   "dependencies": {
     "bson": "^4.0.2",
     "moment-timezone": "^0.5.27",
     "rrule": "^2.6.2"
   },
-  "description": "Core libraries and utilities used across the project",
+  "description": "Common libraries and utilities used across the project",
   "devDependencies": {
     "@rollup/plugin-commonjs": "11.0.2",
     "@rollup/plugin-json": "^4.0.1",
