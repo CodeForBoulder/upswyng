@@ -29,18 +29,18 @@
 </script>
 
 <script>
-  import { addFlashMessage } from "../../utility/flashMessage.ts";
+  import { addFlashMessage } from "./../../../utility/flashMessage.ts";
   import { goto, stores } from "@sapper/app";
   import { onMount } from "svelte";
   import * as animateScroll from "svelte-scrollto";
-  import EventLogs from "../../components/EventLogs.svelte";
-  import ResourceBreadcrumbs from "../../components/ResourceBreadcrumbs.svelte";
-  import ResourceDisplay from "../../components/ResourceDisplay.svelte";
-  import ResourceEditor from "../../components/ResourceEditor.svelte";
-  import ResourceIssueNotification from "../../components/ResourceIssueNotification.svelte";
-  import Tab from "../../components/Tab.svelte";
-  import TabbedContent from "../../components/TabbedContent.svelte";
-  import TabPanel from "../../components/TabPanel.svelte";
+  import EventLogs from "./../../../components/EventLogs.svelte";
+  import ResourceBreadcrumbs from "./../../../components/ResourceBreadcrumbs.svelte";
+  import ResourceDisplay from "./../../../components/ResourceDisplay.svelte";
+  import ResourceEditor from "./../../../components/ResourceEditor.svelte";
+  import ResourceIssueNotification from "./../../../components/ResourceIssueNotification.svelte";
+  import Tab from "./../../../components/Tab.svelte";
+  import TabbedContent from "./../../../components/TabbedContent.svelte";
+  import TabPanel from "./../../../components/TabPanel.svelte";
 
   const { session } = stores();
 
@@ -94,7 +94,7 @@
               ? `A draft update of ${res.draftResource.name} was created`
               : "A draft update was created"
           );
-          goto("/resource");
+          goto("/provider/resource");
         } else {
           console.error(res);
           saveError = new Error(

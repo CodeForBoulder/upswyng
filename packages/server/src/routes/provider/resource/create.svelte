@@ -11,10 +11,10 @@
 </script>
 
 <script>
-  import { addFlashMessage } from "../../utility/flashMessage.ts";
+  import { addFlashMessage } from "./../../../utility/flashMessage.ts";
   import { goto, stores } from "@sapper/app";
   import { ResourceSchedule } from "@upswyng/common";
-  import ResourceEditor from "../../components/ResourceEditor.svelte";
+  import ResourceEditor from "./../../../components/ResourceEditor.svelte";
 
   const { session } = stores();
 
@@ -67,7 +67,7 @@
               ? `A draft of ${res.draftResource.name} was created`
               : "A new draft was created"
           );
-          goto("/resource");
+          goto("/provider/resource");
         } else {
           console.error(res);
           saveError = new Error(

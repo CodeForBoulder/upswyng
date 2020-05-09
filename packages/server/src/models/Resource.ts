@@ -64,6 +64,8 @@ export const resourceDocumentToResource = async (
     //   )}]:\n${JSON.stringify(r, null, 2)}`
     // );
   }
+
+  // TODO (rhinodavid): This section of code is deleting both fields
   if (r.createdBy && (r.createdBy as any)._id) {
     // if we actually got a user document here put it back to an id
     r.createdBy = (r.createdBy as any)._id;
@@ -103,9 +105,13 @@ export const resourceDocumentToResource = async (
     schedule: r.schedule,
     services: r.services,
     streetViewImage: r.streetViewImage,
-    subcategories: (r.subcategories as any)
-      .map(subcategoryDocumentToSubcategory)
-      .filter(Boolean) as TSubcategory[],
+    subcategories: (
+      await Promise.all(
+        (r.subcategories as TSubcategoryDocument[]).map(
+          subcategoryDocumentToSubcategory
+        )
+      )
+    ).filter(Boolean),
     website: r.website,
   };
 

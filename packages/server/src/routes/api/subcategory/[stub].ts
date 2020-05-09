@@ -12,7 +12,7 @@ export async function get(req, res, _next) {
   try {
     subcategoryDocument = await Subcategory.getByStub(stub);
     if (subcategoryDocument) {
-      subcategory = subcategoryDocumentToSubcategory(subcategoryDocument);
+      subcategory = await subcategoryDocumentToSubcategory(subcategoryDocument);
       if (!subcategory) {
         console.error(
           "Could not convert subcategory document to subcategory after initial fetch.\n" +
@@ -22,36 +22,13 @@ export async function get(req, res, _next) {
       }
     }
   } catch (e) {
-    res.writeHead(500, {
-      "Content-Type": "application/json",
-    });
-
-    return res.end(
-      JSON.stringify({
-        message: e.message,
-      })
-    );
+    res.status(500).json({ message: e.message });
+    return;
   }
 
   if (subcategoryDocument) {
-    res.writeHead(200, {
-      "Content-Type": "application/json",
-    });
-
-    res.end(
-      JSON.stringify({
-        subcategory,
-      })
-    );
+    res.status(200).json({ subcategory });
   } else {
-    res.writeHead(404, {
-      "Content-Type": "application/json",
-    });
-
-    res.end(
-      JSON.stringify({
-        message: `Subcategory not found`,
-      })
-    );
+    res.status(404).json({ message: `Subcategory not found` });
   }
 }

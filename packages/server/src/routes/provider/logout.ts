@@ -6,6 +6,6 @@ export function get(req, res, _next) {
     if (e) {
       console.log("Error destroying session:\n", e);
     }
-    res.redirect(302, "/?loggedout=true"); // use temporary redirect to prevent caching
+    res.redirect(302, "/provider/?loggedout=true"); // use temporary redirect to prevent caching
   });
 }

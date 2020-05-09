@@ -1,20 +1,31 @@
 <script context="module">
   export async function preload({ params, query }, { user }) {
+    const isLoggedIn = !!user;
+    const isAdmin = isLoggedIn && user.isAdmin;
+
     const { categories } = await this.fetch("/api/categories").then(r =>
       r.json()
     );
-    const { uncategorizedResources } = await this.fetch(
-      "/api/resources/uncategorized"
-    ).then(r => r.json());
-    const { draftResources } = await this.fetch(
-      "/api/resources/drafts?include-deleted"
-    ).then(r => r.json());
-    const { draftResources: draftsForUser } = await this.fetch(
-      "/api/resources/drafts/mine",
-      {
-        credentials: "same-origin",
-      }
-    ).then(r => r.json());
+
+    let uncategorizedResources = [];
+    let draftResources = [];
+    let draftsForUser = [];
+    if (isAdmin) {
+      uncategorizedResources =
+        (await this.fetch("/api/resources/uncategorized", {
+          credentials: "same-origin",
+        }).then(r => r.json()).uncategorizedResources) || [];
+      draftResources =
+        (await this.fetch("/api/resources/drafts?include-deleted", {
+          credentials: "same-origin",
+        }).then(r => r.json())).draftResources || [];
+    }
+    if (isLoggedIn) {
+      draftsForUser =
+        (await this.fetch("/api/resources/drafts/mine", {
+          credentials: "same-origin",
+        }).then(r => r.json())).draftResources || [];
+    }
     return {
       categories,
       draftResources,
@@ -26,9 +37,9 @@
 </script>
 
 <script>
-  import ResourceSearch from "../../components/ResourceSearch.svelte";
+  import ResourceSearch from "./../../../components/ResourceSearch.svelte";
   import { goto, stores } from "@sapper/app";
-  import { readFlashMessages } from "../../utility/flashMessage.ts";
+  import { readFlashMessages } from "./../../../utility/flashMessage.ts";
 
   const { session } = stores();
   const flashMessages = readFlashMessages(session);
@@ -61,13 +72,13 @@
       <ResourceSearch
         action="view"
         on:select={({ detail: resourceId }) => {
-          goto(`/resource/${resourceId}`);
+          goto(`/provider/resource/${resourceId}`);
         }} />
     </div>
 
     {#if user}
       <div class="content">
-        <a href="/resource/create" class="button is-large">
+        <a href="/provider/resource/create" class="button is-large">
           <span class="icon is-large">
             <i class="fas fa-plus" />
           </span>
@@ -76,7 +87,7 @@
       </div>
     {:else}
       <div class="notification">
-        <a href="/login">Log in</a>
+        <a href="/provider/login">Log in</a>
         to create a resource
       </div>
     {/if}
@@ -87,7 +98,9 @@
         <ul class="content">
           {#each categories as category}
             <li>
-              <a href={`/category/${category.stub}`}>{category.name}</a>
+              <a href={`/provider/category/${category.stub}`}>
+                {category.name}
+              </a>
             </li>
           {/each}
         </ul>
@@ -106,7 +119,7 @@
           <ul class="content">
             {#each draftResources as draftResource}
               <li>
-                <a href={`/resource/draft/${draftResource._id}`}>
+                <a href={`/provider/resource/draft/${draftResource._id}`}>
                   {draftResource.name}
                 </a>
               </li>
@@ -124,7 +137,7 @@
         <ul class="content">
           {#each draftsForUser as draft}
             <li>
-              <a href={`/resource/draft/${draft._id}`}>{draft.name}</a>
+              <a href={`/provider/resource/draft/${draft._id}`}>{draft.name}</a>
             </li>
           {/each}
         </ul>
@@ -140,7 +153,9 @@
         <ul class="content">
           {#each uncategorizedResources as resource}
             <li>
-              <a href={`/resource/${resource.resourceId}`}>{resource.name}</a>
+              <a href={`/provider/resource/${resource.resourceId}`}>
+                {resource.name}
+              </a>
             </li>
           {/each}
         </ul>

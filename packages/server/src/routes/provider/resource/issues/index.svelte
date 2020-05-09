@@ -76,7 +76,7 @@
   import { goto, stores } from "@sapper/app";
   import { onMount } from "svelte";
   import en from "javascript-time-ago/locale/en";
-  import ResourceIssueNotification from "../../../components/ResourceIssueNotification.svelte";
+  import ResourceIssueNotification from "./../../../../components/ResourceIssueNotification.svelte";
   import TimeAgo from "javascript-time-ago";
 
   const { preloading } = stores();
@@ -343,7 +343,7 @@
                     <i class="fas fa-spinner spinner" />
                   </div>
                 {:then title}
-                  <a href={`/resource/${i.resourceId}`}>{title}</a>
+                  <a href={`/provider/resource/${i.resourceId}`}>{title}</a>
                 {/await}
               {:else}
                 <div class="is-loading has-text-grey">
@@ -352,7 +352,7 @@
               {/if}
             </td>
             <td>
-              <a href={`/resource/issue/${i._id}`}>
+              <a href={`/provider/resource/issue/${i._id}`}>
                 <span class="is-capitalized">{i.kind.replace(/_/g, ' ')}</span>
               </a>
             </td>

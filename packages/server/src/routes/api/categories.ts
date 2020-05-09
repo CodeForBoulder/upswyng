@@ -3,18 +3,11 @@ import Category from "../../models/Category";
 export async function get(_req, res) {
   try {
     const categories = await Category.getCategoryList();
-    res.writeHead(200, { "Content-Type": "application/json" });
-    return res.end(JSON.stringify({ categories }));
+    return res.status(200).json({ categories });
   } catch (e) {
     console.error(e);
-    res.writeHead(500, {
-      "Content-Type": "application/json",
+    return res.status(500).json({
+      message: `Error fetching categories: ${e.message}`,
     });
-
-    return res.end(
-      JSON.stringify({
-        message: `Error fetching categories: ${e.message}`,
-      })
-    );
   }
 }
