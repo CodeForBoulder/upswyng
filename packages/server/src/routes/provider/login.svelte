@@ -1,7 +1,7 @@
 <script>
-  import FacebookLoginButton from "../components/FacebookLoginButton.svelte";
-  import GoogleLoginButton from "../components/GoogleLoginButton.svelte";
-  import SlackLoginButton from "../components/SlackLoginButton.svelte";
+  import FacebookLoginButton from "./../../components/FacebookLoginButton.svelte";
+  import GoogleLoginButton from "./../../components/GoogleLoginButton.svelte";
+  import SlackLoginButton from "./../../components/SlackLoginButton.svelte";
 </script>
 
 <style>

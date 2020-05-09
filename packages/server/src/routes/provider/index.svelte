@@ -1,6 +1,6 @@
 <script>
   import { goto } from "@sapper/app";
-  import ResourceSearch from "../components/ResourceSearch.svelte";
+  import ResourceSearch from "./../../components/ResourceSearch.svelte";
 </script>
 
 <style>
@@ -45,14 +45,16 @@
         <ResourceSearch
           action="view"
           on:select={({ detail: resourceId }) => {
-            goto(`/resource/${resourceId}`);
+            goto(`/provider/resource/${resourceId}`);
           }} />
         <p>
           We have made an easy and intuitive portal for you to make changes. All
           changes are subject to confirmation before going live. Just update and
           save as a draft and we will do the rest.
         </p>
-        <a href="/login" class="button is-primary">Login to Add Yours</a>
+        <a href="/provider/login" class="button is-primary">
+          Login to Add Yours
+        </a>
       </div>
       <div class="column">
         <aside class="message is-medium">
@@ -62,9 +64,7 @@
               See how the at-risk community can find your offerings.
             </p>
             <div class="column">
-              <a href="https://upswyng.netlify.com" class="button is-primary">
-                Visit the Web App
-              </a>
+              <a href="/" class="button is-primary">Visit the Web App</a>
             </div>
           </div>
         </aside>

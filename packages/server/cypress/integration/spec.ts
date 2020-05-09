@@ -1,6 +1,6 @@
-describe("UpSwyng", () => {
+describe("Provider Portal", () => {
   beforeEach(() => {
-    cy.visit("/");
+    cy.visit("/provider");
   });
 
   it("loads the homepage", () => {

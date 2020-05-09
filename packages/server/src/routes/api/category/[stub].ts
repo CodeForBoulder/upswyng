@@ -6,22 +6,10 @@ export async function get(req, res, _next) {
   const categoryDocument = await Category.getByStub(stub);
 
   if (categoryDocument) {
-    res.writeHead(200, {
-      "Content-Type": "application/json",
-    });
-
-    res.end(
-      JSON.stringify({ category: categoryDocumentToCategory(categoryDocument) })
-    );
+    res
+      .status(200)
+      .json({ category: await categoryDocumentToCategory(categoryDocument) });
   } else {
-    res.writeHead(404, {
-      "Content-Type": "application/json",
-    });
-
-    res.end(
-      JSON.stringify({
-        message: `Category not found`,
-      })
-    );
+    res.status(404).json({ message: `Category ${stub} not found` });
   }
 }

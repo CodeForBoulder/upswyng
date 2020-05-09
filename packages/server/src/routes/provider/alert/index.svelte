@@ -23,11 +23,11 @@
 </script>
 
 <script>
-  import Alert from "../../components/Alert.svelte";
-  import AlertTimeline from "../../components/AlertTimeline.svelte";
+  import Alert from "./../../../components/Alert.svelte";
+  import AlertTimeline from "./../../../components/AlertTimeline.svelte";
   import { onMount } from "svelte";
   import { stores, goto } from "@sapper/app";
-  import { readFlashMessages } from "../../utility/flashMessage.ts";
+  import { readFlashMessages } from "./../../../utility/flashMessage.ts";
 
   const { session, preloading, page } = stores();
   const flashMessages = readFlashMessages(session);
@@ -121,7 +121,8 @@
     if (alertId === id) return;
     cancelError = "";
     id = alertId;
-    history && history.pushState(`Upswyng: Alert`, {}, `/alert?id=${alertId}`);
+    history &&
+      history.pushState(`Upswyng: Alert`, {}, `/provider/alert?id=${alertId}`);
   }
 
   async function approveAlert(
@@ -192,7 +193,7 @@
     {/each}
 
     <div class="content">
-      <a href="/alert/create" class="button is-large">
+      <a href="/provider/alert/create" class="button is-large">
         <span class="icon is-large">
           <i class="fas fa-plus" />
         </span>

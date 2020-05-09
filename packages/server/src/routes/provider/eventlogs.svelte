@@ -7,7 +7,7 @@
 </script>
 
 <script>
-  import EventLogs from "../components/EventLogs.svelte";
+  import EventLogs from "./../../components/EventLogs.svelte";
 </script>
 
 <svelte:head>

@@ -12,12 +12,14 @@
   <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
     <ul>
       <li>
-        <a href={`/category/${subcategory.parentCategory.stub}`}>
+        <a href={`/provider/category/${subcategory.parentCategory.stub}`}>
           {subcategory.parentCategory.name}
         </a>
       </li>
       <li>
-        <a href={`/subcategory/${subcategory.stub}`}>{subcategory.name}</a>
+        <a href={`/provider/subcategory/${subcategory.stub}`}>
+          {subcategory.name}
+        </a>
       </li>
       <li class="is-active">
         <!-- svelte-ignore a11y-invalid-attribute -->

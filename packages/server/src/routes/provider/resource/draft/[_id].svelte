@@ -57,10 +57,10 @@
 </script>
 
 <script>
-  import { addFlashMessage } from "../../../utility/flashMessage.ts";
+  import { addFlashMessage } from "./../../../../utility/flashMessage.ts";
   import { goto, stores } from "@sapper/app";
-  import ResourceDiff from "../../../components/ResourceDiff.svelte";
-  import ResourceDisplay from "../../../components/ResourceDisplay.svelte";
+  import ResourceDiff from "./../../../../components/ResourceDiff.svelte";
+  import ResourceDisplay from "./../../../../components/ResourceDisplay.svelte";
 
   const { session } = stores();
 
@@ -111,7 +111,7 @@
           "success",
           `The draft of ${draftResource.name} was approved`
         );
-        goto("/resource");
+        goto("/provider/resource");
       })
       .catch(e => (approveError = e))
       .finally(() => (isApproving = false));
@@ -131,7 +131,7 @@
       </h1>
       <p class="subtitle">
         Resource ID:
-        <a href={`/resource/${existingResource.resourceId}`}>
+        <a href={`/provider/resource/${existingResource.resourceId}`}>
           {existingResource.resourceId}
         </a>
       </p>

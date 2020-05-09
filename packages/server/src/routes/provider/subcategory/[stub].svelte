@@ -1,6 +1,6 @@
 <script context="module">
   export async function preload({ params, query }, { user }) {
-    const res = await this.fetch(`api/subcategory/${params.stub}`);
+    const res = await this.fetch(`/api/subcategory/${params.stub}`);
     const data = await res.json();
     if (res.status === 200) {
       return { subcategory: data.subcategory, user };
@@ -11,7 +11,7 @@
 </script>
 
 <script>
-  import ResourceSearch from "../../components/ResourceSearch.svelte";
+  import ResourceSearch from "./../../../components/ResourceSearch.svelte";
 
   export let subcategory;
   export let user = null;
@@ -44,7 +44,7 @@
         } else {
           successMessage = `Resource added to ${subcategory.name}`;
           // reload the subcategories
-          const res = await fetch(`api/subcategory/${subcategory.stub}`);
+          const res = await fetch(`/api/subcategory/${subcategory.stub}`);
           const { subcategory: updatedSubcategory } = await res.json();
           if (res.status === 200) {
             subcategory = updatedSubcategory;
@@ -71,7 +71,9 @@
           <ul class="content">
             {#each subcategory.resources as resource}
               <li>
-                <a rel="prefetch" href={`resource/${resource.resourceId}`}>
+                <a
+                  rel="prefetch"
+                  href={`/provider/resource/${resource.resourceId}`}>
                   {resource.name}
                 </a>
               </li>

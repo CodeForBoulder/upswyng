@@ -7,19 +7,19 @@
 </script>
 
 <script>
-  import { addFlashMessage } from "../../utility/flashMessage.ts";
+  import { addFlashMessage } from "./../../../utility/flashMessage.ts";
   import { goto, stores } from "@sapper/app";
   import { onDestroy, onMount } from "svelte";
   import { ResourceSchedule } from "@upswyng/common";
   import { Time } from "@upswyng/common";
-  import DatePicker from "../../components/DatePicker.svelte";
-  import HsvPicker from "../../components/HsvPicker.svelte";
+  import DatePicker from "./../../../components/DatePicker.svelte";
+  import HsvPicker from "./../../../components/HsvPicker.svelte";
   import insane from "insane"; // html sanitizer
   import marked from "marked";
   import moment from "moment-timezone";
-  import ResourceEditor from "../../components/ResourceEditor.svelte";
+  import ResourceEditor from "./../../../components/ResourceEditor.svelte";
   import rgbHex from "rgb-hex";
-  import TimePicker from "../../components/TimePicker.svelte";
+  import TimePicker from "./../../../components/TimePicker.svelte";
 
   const { tz } = moment;
   const { session } = stores();
@@ -214,7 +214,7 @@
           "success",
           `Alert "${alertTitle}" was successful created`
         );
-        goto(`/alert?id=${alert._id}`);
+        goto(`/provider/alert?id=${alert._id}`);
       })
       .catch(e => (errorMessage = e))
       .finally(() => {
