@@ -20,12 +20,30 @@
   let isLoading = false;
   let errorMessage = "";
 
+  const dev = process.env.NODE_ENV && process.env.NODE_ENV !== "production";
+
   const appId = process.env.ALGOLIA_APP_ID;
   const indexName = process.env.ALGOLIA_INDEX_NAME;
   const searchApiKey = process.env.ALGOLIA_SEARCH_API_KEY;
 
-  const client = algoliaSearch(appId, searchApiKey);
-  const searchIndex = client.initIndex(indexName);
+  let client;
+  let searchIndex;
+
+  let mock = false; // if not in prod and incomplete algolia creds, this will be set true
+
+  if (appId && indexName && searchApiKey) {
+    client = algoliaSearch(appId, searchApiKey);
+    searchIndex = client.initIndex(indexName);
+  } else {
+    if (!dev) {
+      throw new Error(
+        `Attempted to start server without Algolia credentials in production`
+      );
+    } else {
+      console.warn("Initiating ResourceSearch as a mock");
+      mock = true;
+    }
+  }
 
   const dispatch = createEventDispatcher();
   const handleSelect = resourceId => dispatch("select", resourceId);
@@ -34,14 +52,18 @@
 
   $: {
     if (query && query.length > 3) {
-      hasQuery = true;
-      isLoading = true;
-      errorMessage = "";
-      searchIndex
-        .search({ query, hitsPerPage: maxResults })
-        .then(({ hits }) => (results = hits))
-        .catch(e => (errorMessage = e.message))
-        .finally(() => (isLoading = false));
+      if (mock) {
+        console.warn(`ResourceSearch in mock mode. q: ${query}`);
+      } else {
+        hasQuery = true;
+        isLoading = true;
+        errorMessage = "";
+        searchIndex
+          .search({ query, hitsPerPage: maxResults })
+          .then(({ hits }) => (results = hits))
+          .catch(e => (errorMessage = e.message))
+          .finally(() => (isLoading = false));
+      }
     } else {
       hasQuery = false;
       results = [];

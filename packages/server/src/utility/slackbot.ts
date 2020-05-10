@@ -44,7 +44,7 @@ try {
     console.info("🤖   Disconnecting from slack RTM API...")
   );
   rtm.on("disconnected", () =>
-    console.error("🤖   Disconnected from slacK RTM API")
+    console.error("🤖   Disconnected from slack RTM API")
   );
   rtm.on("reconnecting", () =>
     console.info("🤖   Reconnecting to slack RTM API")
@@ -54,14 +54,18 @@ try {
       `🤖   slack RTM API Error: ${JSON.stringify(error, null, 2)}`
     );
   });
-  rtm.start().then(
-    (_r: WebAPICallResult) => {
+  rtm
+    .start()
+    .then((_r: WebAPICallResult) => {
       console.info(`🤖   slack RTM started`);
-    },
-    e => {
-      throw e;
-    }
-  );
+    })
+    .catch(e => {
+      if (process.env.NODE_ENV !== "production") {
+        console.warn(`Failed to start slack RTM: ${e}`);
+      } else {
+        throw new Error(`Failed to start slack RTM in production: ${e}`);
+      }
+    });
 } catch (e) {
   console.error(`Problem starting slack bot rtm client:\n${e.message}`);
 }
