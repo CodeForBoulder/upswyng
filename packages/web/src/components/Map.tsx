@@ -263,7 +263,7 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
     } else {
       hideDirections();
     }
-  }, [travelMode]);
+  }, [travelMode, handleShowDirectionsChange, hideDirections]);
 
   const MapLoadingElements = () => {
     if (isFetchingGoogleMaps || isFetchingDirections) {
