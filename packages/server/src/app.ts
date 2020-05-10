@@ -22,6 +22,7 @@ interface TAppOptions {
   dev: boolean; // start server in development mode
   grantConfig: Record<string, any>; // see https://github.com/simov/grant#configuration
   sessionSecret: string;
+  beta?: boolean; // if true, only requests from host `beta.upswyng.*` will go to the app; otherwise a placeholder is shown
 }
 
 export default function(options: TAppOptions) {
@@ -29,7 +30,21 @@ export default function(options: TAppOptions) {
 
   const MongoStore = connectMongo(session);
 
-  return express()
+  const app = express();
+
+  // if the app is in beta, show the placeholder on any request that doesn't come
+  // from a hostname starting with 'beta'
+  if (options.beta) {
+    app.use((req, res, next) => {
+      if (/^beta\..*/.test(req.headers.host || "")) {
+        next();
+      } else {
+        const placeholderServer = sirv("src/placeholder");
+        placeholderServer(req, res);
+      }
+    });
+  }
+  app
     .use(
       compression({ threshold: 0 }),
       cors(), // TODO: Lock this down to non-admin routes
@@ -68,4 +83,5 @@ export default function(options: TAppOptions) {
     .get("/callback", oidc(grantConfig), (_req, res) => {
       res.redirect("/provider/?loggedin=true");
     });
+  return app;
 }

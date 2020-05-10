@@ -100,6 +100,7 @@ mongoose
         grantConfig,
         mongooseConnection: mongoose.connection,
         sessionSecret: process.env.DATABASE_SESSION_SECRET || "default_secret",
+        beta: process.env.BETA && process.env.BETA.toLowerCase() === "true",
       });
 
       if (!appInstance) {
