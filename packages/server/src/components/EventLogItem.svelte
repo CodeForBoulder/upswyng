@@ -21,7 +21,7 @@
         `\`getDescriptionForUserPermissionChanged\` was called on an event with kind ${e.kind}. The function only operates on events with kind \`UserPermissionChanged\`.`
       );
     }
-    const res = await fetch(`api/users/${e.detail.modifiedUserId}`);
+    const res = await fetch(`/api/users/${e.detail.modifiedUserId}`);
     const data = await res.json();
     if (res.status !== 200 || !data.user) {
       throw new Error(
@@ -106,7 +106,9 @@
         <span class="has-text-weight-semibold">approved a draft</span>
         to {`${eventLog.detail.newResource ? 'create' : 'update'}`}
         <strong>
-          <a href={`/resource/${eventLog.detail.resourceId}`} rel="prefetch">
+          <a
+            href={`/provider/resource/${eventLog.detail.resourceId}`}
+            rel="prefetch">
             {eventLog.detail.resourceName}
           </a>
         </strong>
@@ -179,7 +181,9 @@
         </span>
         <span class="has-text-weight-semibold">
           wrote a
-          <a href={`/resource/draft/${eventLog.detail.draftId}`} rel="prefetch">
+          <a
+            href={`/provider/resource/draft/${eventLog.detail.draftId}`}
+            rel="prefetch">
             draft
           </a>
         </span>
@@ -202,7 +206,9 @@
         <span class="has-text-weight-semibold">deleted a draft</span>
         of
         <strong>
-          <a href={`/resource/${eventLog.detail.resourceId}`} rel="prefetch">
+          <a
+            href={`/provider/resource/${eventLog.detail.resourceId}`}
+            rel="prefetch">
             {eventLog.detail.resourceName}
           </a>
         </strong>
@@ -224,13 +230,15 @@
         a
         <a
           class="is-capitalized has-text-weight-bold"
-          href={`/resource/issue/${eventLog.detail.resourceIssueId}`}
+          href={`/provider/resource/issue/${eventLog.detail.resourceIssueId}`}
           rel="prefetch">
           {eventLog.detail.resourceIssueKind.replace(/_/g, ' ')} issue
         </a>
         for
         <strong>
-          <a href={`/resource/${eventLog.detail.resourceId}`} rel="prefetch">
+          <a
+            href={`/provider/resource/${eventLog.detail.resourceId}`}
+            rel="prefetch">
             {eventLog.detail.resourceName}
           </a>
         </strong>
@@ -252,13 +260,15 @@
         a
         <a
           class="is-capitalized has-text-weight-bold"
-          href={`/resource/issue/${eventLog.detail.resourceIssueId}`}
+          href={`/provider/resource/issue/${eventLog.detail.resourceIssueId}`}
           rel="prefetch">
           {eventLog.detail.resourceIssueKind.replace(/_/g, ' ')} issue
         </a>
         for
         <strong>
-          <a href={`/resource/${eventLog.detail.resourceId}`} rel="prefetch">
+          <a
+            href={`/provider/resource/${eventLog.detail.resourceId}`}
+            rel="prefetch">
             {eventLog.detail.resourceName}
           </a>
         </strong>

@@ -1,7 +1,7 @@
 <script>
   import { camelCase } from "camel-case";
   import { onDestroy, onMount } from "svelte";
-  import Job from "./../components/Job.svelte";
+  import Job from "./../../components/Job.svelte";
 
   let jobs = {}; // Record<string (job id), {job: TJob, jobtTimestamp?: number, updateTimestamp?: number}>
   let messageCounts;

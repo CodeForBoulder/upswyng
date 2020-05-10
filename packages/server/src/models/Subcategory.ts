@@ -16,9 +16,9 @@ export interface TSubcategoryDocument extends Document {
   stub: string;
 }
 
-export function subcategoryDocumentToSubcategory(
+export async function subcategoryDocumentToSubcategory(
   d: TSubcategoryDocument
-): TSubcategory | null {
+): Promise<TSubcategory | null> {
   let s = d;
   if (d.toObject) {
     s = d.toObject();
@@ -47,7 +47,7 @@ export function subcategoryDocumentToSubcategory(
     result = {
       ...s,
       _id: s._id.toHexString(),
-      parentCategory: categoryDocumentToCategory(s.parentCategory),
+      parentCategory: await categoryDocumentToCategory(s.parentCategory),
       resources: [],
     };
   } else if (s.resources[0].hasOwnProperty("_bsontype")) {
@@ -55,7 +55,7 @@ export function subcategoryDocumentToSubcategory(
     result = {
       ...s,
       _id: s._id.toHexString(),
-      parentCategory: categoryDocumentToCategory(s.parentCategory),
+      parentCategory: await categoryDocumentToCategory(s.parentCategory),
       resources: undefined,
     };
   } else {
@@ -63,10 +63,12 @@ export function subcategoryDocumentToSubcategory(
     result = {
       ...s,
       _id: s._id.toHexString(),
-      parentCategory: categoryDocumentToCategory(s.parentCategory),
-      resources: (s.resources as any)
-        .map(resourceDocumentToResource)
-        .filter(Boolean),
+      parentCategory: await categoryDocumentToCategory(s.parentCategory),
+      resources: (
+        await Promise.all(
+          (s.resources as TResourceDocument[]).map(resourceDocumentToResource)
+        )
+      ).filter(Boolean),
     };
   }
 

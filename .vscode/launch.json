@@ -9,19 +9,15 @@
       "webRoot": "${workspaceFolder}"
     },
     {
-      "name": "jest upswyng",
       "type": "node",
       "request": "launch",
-      "address": "localhost",
+      "name": "Debug Server",
       "protocol": "inspector",
-      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/lerna",
-      "runtimeArgs": ["exec", "--scope", "my-package", "--", "node"],
-      "args": [
-        "${workspaceRoot}/node_modules/jest/bin/jest.js",
-        "--runInBand",
-        "--no-cache",
-        "packages/my-package"
-      ]
+      "cwd": "${workspaceFolder}/packages/server",
+      "program": "${workspaceFolder}/node_modules/sapper/dist/cli.js",
+      "args": ["dev"],
+      "console": "integratedTerminal",
+      "autoAttachChildProcesses": true
     }
   ]
 }

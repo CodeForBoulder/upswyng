@@ -45,9 +45,9 @@
 
 <script>
   import { goto, stores } from "@sapper/app";
-  import ResourceDiff from "../../../components/ResourceDiff.svelte";
-  import ResourceDisplay from "../../../components/ResourceDisplay.svelte";
-  import ResourceIssueNotification from "../../../components/ResourceIssueNotification.svelte";
+  import ResourceDiff from "./../../../../components/ResourceDiff.svelte";
+  import ResourceDisplay from "./../../../../components/ResourceDisplay.svelte";
+  import ResourceIssueNotification from "./../../../../components/ResourceIssueNotification.svelte";
 
   const { session } = stores();
 
@@ -68,7 +68,7 @@
       <span class="tag is-dark">Admin</span>
     </h1>
     <p class="content has-text-weight-semibold">
-      <a href={`/resource/${resource.resourceId}`} rel="prefetch">
+      <a href={`/provider/resource/${resource.resourceId}`} rel="prefetch">
         {resource.resourceId}
       </a>
     </p>

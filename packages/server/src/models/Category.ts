@@ -18,9 +18,9 @@ export interface TCategoryDocument extends Document {
   subcategories: ObjectId[] | TSubcategoryDocument[];
 }
 
-export function categoryDocumentToCategory(
+export async function categoryDocumentToCategory(
   d: TCategoryDocument
-): TCategory | null {
+): Promise<TCategory | null> {
   let c = d;
   if (d.toObject) {
     c = d.toObject();
@@ -40,9 +40,13 @@ export function categoryDocumentToCategory(
   const result = {
     ...c,
     _id: c._id.toHexString(),
-    subcategories: ((c.subcategories || []) as any)
-      .map(subcategoryDocumentToSubcategory)
-      .filter(Boolean) as TSubcategory[],
+    subcategories: (
+      await Promise.all(
+        ((c.subcategories || []) as TSubcategoryDocument[]).map(
+          subcategoryDocumentToSubcategory
+        )
+      )
+    ).filter(Boolean),
   };
   removeUndefinedFields(result);
   return result;
