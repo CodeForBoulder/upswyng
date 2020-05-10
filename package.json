@@ -83,11 +83,11 @@
     "build:server": "yarn build:local-packages && yarn workspace @upswyng/server build",
     "build:web": "yarn build:local-packages && yarn workspace @upswyng/web build",
     "clean": "node clean.js",
-    "heroku-postbuild": "yarn build:local-packages && yarn workspace @upswyng/server build",
+    "heroku-postbuild": "yarn build:web && yarn build:server",
     "lint": "tsc --noEmit && eslint \"packages/**/src/**/*.{js,jsx,ts,tsx}\" --fix",
     "lint:ci": "tsc --noEmit && eslint \"packages/**/src/**/*.{js,jsx,ts,tsx}\" --quiet",
-    "test": "concurrently -n common,server,web -c yellow,blue,cyan \"yarn workspace @upswyng/common test\" \"yarn workspace @upswyng/server test\" \"yarn workspace @upswyng/web test\"",
-    "test:ci": "yarn test --kill-others-on-fail"
+    "test": "concurrently -n common,server -c yellow,blue \"yarn workspace @upswyng/common test\" \"yarn workspace @upswyng/server test\" && yarn workspace @upswyng/web test",
+    "test:ci": "concurrently -n common,server -c yellow,blue \"yarn workspace @upswyng/common test\" \"yarn workspace @upswyng/server test\" --kill-others-on-fail && yarn workspace @upswyng/web test"
   },
   "version": "0.1.0",
   "workspaces": [

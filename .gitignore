@@ -32,6 +32,9 @@ config.ts
 .redisuri
 packages/server/cypress/screenshots/**/*(failed).png
 
+# web integration test
+packages/web/cypress/screenshots/**/*(failed).png
+
 # misc
 .DS_Store
 .expo/*

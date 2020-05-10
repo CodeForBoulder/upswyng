@@ -43,7 +43,10 @@
     "@testing-library/react": "^9.4.1",
     "@testing-library/react-hooks": "^1.0.4",
     "@upswyng/types": "0.1.0",
-    "husky": "^1.3.1"
+    "cypress": "^4.5.0",
+    "husky": "^1.3.1",
+    "npm-run-all": "^4.1.5",
+    "start-server-and-test": "^1.11.0"
   },
   "husky": {
     "hooks": {
@@ -54,10 +57,14 @@
   "name": "@upswyng/web",
   "private": true,
   "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
     "build": "SKIP_PREFLIGHT_CHECK=true yarn workspace @upswyng/common build && react-scripts build",
     "eject": "SKIP_PREFLIGHT_CHECK=true react-scripts eject",
     "start": "PORT=3001 SKIP_PREFLIGHT_CHECK=true react-scripts start",
-    "test": "SKIP_PREFLIGHT_CHECK=true react-scripts test --watchAll=false"
+    "test": "run-p -n test:integration test:unit",
+    "test:integration": "BROWSER=none REACT_SERVER_URI=http://localhost:3001 start-server-and-test start 3001 'cypress run'",
+    "test:unit": "SKIP_PREFLIGHT_CHECK=true react-scripts test --watchAll=false"
   },
   "version": "0.1.0"
 }

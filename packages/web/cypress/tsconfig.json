@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": "../../../node_modules",
+    "isolatedModules": false,
+    "lib": ["es5", "dom"],
+    "strict": true,
+    "target": "es5",
+    "types": ["cypress"]
+  },
+  "include": ["**/*.ts"]
+}

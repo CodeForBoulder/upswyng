@@ -1,0 +1,46 @@
+{
+  "base": "stations",
+  "clouds": {
+    "all": 1
+  },
+  "cod": 200,
+  "coord": {
+    "lat": 40.02,
+    "lon": -105.27
+  },
+  "createdDate": "2020-05-09T22:08:39.377Z",
+  "dt": 1589062048,
+  "id": 5574991,
+  "lifespan": 60000,
+  "main": {
+    "feels_like": 48.11,
+    "humidity": 42,
+    "pressure": 1023,
+    "temp": 57.69,
+    "temp_max": 60.8,
+    "temp_min": 54
+  },
+  "name": "Boulder",
+  "sys": {
+    "country": "US",
+    "id": 3406,
+    "sunrise": 1589025069,
+    "sunset": 1589076233,
+    "type": 1
+  },
+  "timezone": -21600,
+  "visibility": 16093,
+  "weather": [
+    {
+      "description": "clear sky",
+      "icon": "01d",
+      "id": 800,
+      "main": "Clear"
+    }
+  ],
+  "wind": {
+    "deg": 70,
+    "gust": 17.22,
+    "speed": 11.41
+  }
+}
