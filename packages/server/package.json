@@ -81,7 +81,6 @@
     "cli-progress": "^3.1.0",
     "cypress": "^4.5.0",
     "dotenv": "^8.1.0",
-    "express-request-response-logger": "^1.0.0",
     "get-port": "^5.1.1",
     "jest": "^24.9.0",
     "mongodb-memory-server": "^6.0.2",

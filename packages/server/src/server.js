@@ -95,6 +95,10 @@ mongoose
         sessionSecret: process.env.DATABASE_SESSION_SECRET || "default_secret",
       });
 
+      if (!appInstance) {
+        throw new Error(`Failed to create an app instance`);
+      }
+
       appInstance.use(
         sapper.middleware({
           session: (req, _res) => {
@@ -107,7 +111,7 @@ mongoose
 
       webSocketServer(s);
 
-      s.listen(PORT, "127.0.0.1");
+      s.listen(PORT);
     },
     e =>
       console.error(
