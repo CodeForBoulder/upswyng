@@ -148,15 +148,6 @@ export default {
     input: config.server.input(),
     output: config.server.output(),
     plugins: [
-      replace({
-        "process.browser": false,
-        "process.env.ALGOLIA_APP_ID": JSON.stringify(ALGOLIA_APP_ID),
-        "process.env.ALGOLIA_INDEX_NAME": JSON.stringify(ALGOLIA_INDEX_NAME),
-        "process.env.ALGOLIA_SEARCH_API_KEY": JSON.stringify(
-          ALGOLIA_SEARCH_API_KEY
-        ),
-        "process.env.NODE_ENV": JSON.stringify(mode),
-      }),
       svelte({
         generate: "ssr",
         dev,
