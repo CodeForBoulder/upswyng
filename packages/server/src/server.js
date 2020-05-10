@@ -102,6 +102,10 @@ mongoose
         sessionSecret: process.env.DATABASE_SESSION_SECRET || "default_secret",
       });
 
+      if (!appInstance) {
+        throw new Error(`Failed to create an app instance`);
+      }
+
       appInstance.use(
         sirv("../web/build", {
           dev,
@@ -124,7 +128,7 @@ mongoose
 
       webSocketServer(s);
 
-      s.listen(PORT, "127.0.0.1");
+      s.listen(PORT);
     },
     e =>
       console.error(

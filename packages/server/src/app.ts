@@ -13,7 +13,6 @@ import cors from "cors";
 import express from "express";
 import grant from "grant-express";
 import oidc from "grant-oidc";
-import requestResponseLogger from "express-request-response-logger";
 import session from "express-session";
 import sirv from "sirv";
 import userMiddleware from "./utility/userMiddleware";
@@ -34,10 +33,8 @@ export default function(options: TAppOptions) {
     .use(
       compression({ threshold: 0 }),
       cors(), // TODO: Lock this down to non-admin routes
-      dev ? requestResponseLogger() : (_req, _res, next) => next(),
       sirv("static", {
         dev,
-        maxAge: 2_628_000, // ~ 1 month
       }),
       bodyParser.json({}),
       bodyParser.urlencoded({
