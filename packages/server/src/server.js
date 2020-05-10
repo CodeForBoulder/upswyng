@@ -1,18 +1,25 @@
 import "./utility/slackbot.ts";
 
 import * as dotenv from "dotenv";
+import * as path from "path";
 import * as sapper from "@sapper/server";
 
 import app from "./app.ts";
 import getUserFromRawUsers from "./utility/getUserFromRawUsers.ts";
 import http from "http";
 import mongoose from "mongoose";
+import sirv from "sirv";
 import webSocketServer from "./worker/webSocketServer.ts";
 
-dotenv.config();
+const dev = process.env.NODE_ENV === "development";
 
-const { PORT, NODE_ENV } = process.env;
-const dev = NODE_ENV === "development";
+// load web clients env
+dotenv.config({ debug: dev, path: path.resolve(process.cwd(), "../web/.env") });
+
+// load this package's env
+dotenv.config({ debug: dev });
+
+const { PORT } = process.env;
 
 // Database setup
 const {
@@ -96,7 +103,17 @@ mongoose
       });
 
       appInstance.use(
+        sirv("../web/build", {
+          dev,
+          maxAge: 2628000, // ~ 1 month
+        })
+      );
+
+      appInstance.use(
         sapper.middleware({
+          ignore: x => {
+            // ignore the route if it's not /api, /provider, /connect, /client
+          },
           session: (req, _res) => {
             return { user: getUserFromRawUsers(req) };
           },
