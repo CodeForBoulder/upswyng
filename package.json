@@ -86,7 +86,7 @@
     "heroku-postbuild": "yarn build:local-packages && yarn workspace @upswyng/server build",
     "lint": "tsc --noEmit && eslint \"packages/**/src/**/*.{js,jsx,ts,tsx}\" --fix",
     "lint:ci": "tsc --noEmit && eslint \"packages/**/src/**/*.{js,jsx,ts,tsx}\" --quiet",
-    "test": "concurrently -n common,server,web -c yellow,blue,cyan \"yarn workspace @upswyng/common test\" \"yarn workspace @upswyng/server test\" \"yarn workspace @upswyng/web test\"",
+    "test": "concurrently -n common,server -c yellow,blue \"yarn workspace @upswyng/common test\" \"yarn workspace @upswyng/server test\" && yarn workspace @upswyng/web test",
     "test:ci": "yarn test --kill-others-on-fail"
   },
   "version": "0.1.0",
