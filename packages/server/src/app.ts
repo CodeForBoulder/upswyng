@@ -33,7 +33,9 @@ export default function(options: TAppOptions) {
     .use(
       compression({ threshold: 0 }),
       cors(), // TODO: Lock this down to non-admin routes
-      sirv("static", { dev }),
+      sirv("static", {
+        dev,
+      }),
       bodyParser.json({}),
       bodyParser.urlencoded({
         extended: true,

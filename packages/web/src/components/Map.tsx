@@ -263,6 +263,10 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
     } else {
       hideDirections();
     }
+    // TODO (@jacobvenable): if this eslint-disable is removed, the rule
+    // react-hooks/exhaustive-deps warns. Our CI setup treats the warnings
+    // as a failure.
+    // eslint-disable-next-line
   }, [travelMode]);
 
   const MapLoadingElements = () => {

@@ -20,6 +20,7 @@ script:
   - mv packages/native/config.example.ts packages/native/config.ts
   - yarn build:local-packages
   - yarn workspace @upswyng/server build:bin
+  - yarn workspace @upswyng/web build
   - yarn lint:ci
   - yarn test:ci
   - yarn workspace @upswyng/server build:server
