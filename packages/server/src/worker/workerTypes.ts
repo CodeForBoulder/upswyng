@@ -68,7 +68,7 @@ export interface TJobSyncAlgoliaData {
 export interface TJobSyncAlgoliaResult {
   kind: JobKind.SyncAlgolia;
   jobName: string;
-  isUpdated: boolean;
+  wasUpdated: boolean;
 }
 
 export type TJobData =

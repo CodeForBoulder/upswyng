@@ -28,8 +28,8 @@ export async function processJobSyncAlgolia(
   );
   job.updateProgress(25);
 
-  let isUpdated = false;
-  isUpdated = await Resource.getAll()
+  let wasUpdated = false;
+  wasUpdated = await Resource.getAll()
     .then(resourceDocuments =>
       Promise.all(resourceDocuments.map(resourceDocumentToResource))
     )
@@ -67,6 +67,6 @@ export async function processJobSyncAlgolia(
   return {
     kind: JobKind.SyncAlgolia,
     jobName: job.name,
-    isUpdated,
+    wasUpdated,
   };
 }
