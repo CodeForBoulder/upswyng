@@ -9,7 +9,7 @@ export enum JobKind {
   CheckLinks = "check_links", // visit the websites listed in Resources and check for broken URLs
   CheckNewAlerts = "check_new_alerts", // look for alerts whose start time has come and process them
   Test = "test", // no-op job used for testing the worker/queue
-  SyncAlgolia = "sync_algolia", // update our algolia index with latest resources
+  SyncAlgolia = "sync_algolia", // update algolia index with latest resources
 }
 
 // Test Job
@@ -59,15 +59,16 @@ export interface TJobCheckLinksResult {
 }
 
 /**
- *  Update our algolia index with latest resources
+ *  Update algolia index with latest resources
  */
 export interface TJobSyncAlgoliaData {
   kind: JobKind.SyncAlgolia;
-  userId: string;
+  userId: string; // _id of user who started this job
 }
 export interface TJobSyncAlgoliaResult {
   kind: JobKind.SyncAlgolia;
   jobName: string;
+  isUpdated: boolean;
 }
 
 export type TJobData =

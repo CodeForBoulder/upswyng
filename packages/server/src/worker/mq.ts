@@ -12,6 +12,8 @@ import {
   TJobCheckNewAlertsData,
   TJobCheckNewAlertsResult,
   TJobData,
+  TJobSyncAlgoliaData,
+  TJobSyncAlgoliaResult,
   TJobTestData,
   TJobTestResult,
 } from "./workerTypes";
@@ -116,7 +118,22 @@ async function addJobCheckNewAlerts(
   );
 }
 
+async function addJobSyncAlgolia(
+  name: string = getName("-"),
+  userId
+): Promise<Job<TJobSyncAlgoliaData, TJobSyncAlgoliaResult>> {
+  return queue.add(
+    name,
+    { kind: JobKind.SyncAlgolia, userId },
+    {
+      priority: 2,
+      jobId: new ObjectID().toHexString(),
+    }
+  );
+}
+
 const mq = {
+  addJobSyncAlgolia,
   addJobCheckLinks,
   addJobCheckNewAlerts,
   addJobTest,
