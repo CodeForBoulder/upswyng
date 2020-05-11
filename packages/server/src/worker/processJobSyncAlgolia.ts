@@ -29,7 +29,7 @@ export async function processJobSyncAlgolia(
   job.updateProgress(25);
 
   let wasUpdated = false;
-  wasUpdated = await Resource.getAll()
+  Resource.getAll()
     .then(resourceDocuments =>
       Promise.all(resourceDocuments.map(resourceDocumentToResource))
     )
@@ -55,7 +55,7 @@ export async function processJobSyncAlgolia(
       return index.saveObjects(updatedAlgoliaIndex);
     })
     .then(() => {
-      return true;
+      wasUpdated = true;
     })
     .catch(error => {
       throw error;
