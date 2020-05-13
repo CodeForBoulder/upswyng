@@ -159,7 +159,7 @@
         <div class="notification is-warning found-issues">
           <div class="notification-text">
             <span class="has-text-weight-medium">
-              Issues have been reported for this provider.
+              Issues have been reported for this service provider.
             </span>
           </div>
           <div>
@@ -182,7 +182,7 @@
             <span class="icon is-small">
               <span class="fas fa-edit" aria-hidden="true" />
             </span>
-            <span>Edit Provider Info</span>
+            <span>Edit Service Provider Info</span>
           </Tab>
           {#if isAdmin}
             <Tab>
@@ -241,7 +241,9 @@
       </TabbedContent>
     {:else}
       <ResourceDisplay {resource} />
-      <div class="notification">Log in to make changes to this provider.</div>
+      <div class="notification">
+        Log in to make changes to this service provider.
+      </div>
     {/if}
   </div>
 </section>

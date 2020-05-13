@@ -4,6 +4,6 @@ describe("Provider Portal", () => {
   });
 
   it("loads the homepage", () => {
-    cy.contains("Upswyng Provider Portal");
+    cy.contains("Upswyng Service Provider Portal");
   });
 });

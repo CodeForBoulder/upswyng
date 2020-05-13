@@ -67,7 +67,7 @@ export default async function handleCommandFromSlack<R = any>(
           type: "section",
           text: {
             type: "mrkdwn",
-            text: `Sorry, you don't appear to be signed up with Slack in the UpSwyng providers' portal`,
+            text: `Sorry, you don't appear to be signed up with Slack in the UpSwyng service providers' portal`,
           },
         },
       ],

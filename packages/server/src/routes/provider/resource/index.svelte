@@ -65,10 +65,10 @@
         {flashMessage.message}
       </div>
     {/each}
-    <h1 class="title">Providers</h1>
+    <h1 class="title">Service Providers</h1>
 
     <div class="content">
-      <h2 class="subtitle">Search for a Provider</h2>
+      <h2 class="subtitle">Search for a Service Provider</h2>
       <ResourceSearch
         action="view"
         on:select={({ detail: resourceId }) => {
@@ -112,7 +112,7 @@
     {#if user && user.isAdmin}
       <div class="content">
         <h2 class="subtitle">
-          Draft Providers
+          Draft Service Providers
           <span class="tag is-dark">Admin</span>
         </h2>
         {#if draftResources.length}
@@ -147,7 +147,7 @@
     {#if uncategorizedResources.length && user && user.isAdmin}
       <div class="content">
         <h2 class="subtitle">
-          Uncategorized Providers
+          Uncategorized Service Providers
           <span class="tag is-dark">Admin</span>
         </h2>
         <ul class="content">
