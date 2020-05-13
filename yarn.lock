@@ -1612,6 +1612,11 @@
   dependencies:
     any-observable "^0.3.0"
 
+"@scarf/scarf@^1.0.0":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@scarf/scarf/-/scarf-1.0.5.tgz#accee0bce88a9047672f7c8faf3cada59c996b81"
+  integrity sha512-9WKaGVpQH905Aqkk+BczFEeLQxS07rl04afFRPUG9IcSlOwmo5EVVuuNu0d4M9LMYucObvK0LoAe+5HfMW2QhQ==
+
 "@sheerun/mutationobserver-shim@^0.3.2":
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/@sheerun/mutationobserver-shim/-/mutationobserver-shim-0.3.3.tgz#5405ee8e444ed212db44e79351f0c70a582aae25"
@@ -13412,6 +13417,14 @@ react-proxy@^1.1.7:
     lodash "^4.6.1"
     react-deep-force-update "^1.0.0"
 
+react-query@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/react-query/-/react-query-1.4.3.tgz#3c921ebb182dc833526b3cff0418d0e31439a67e"
+  integrity sha512-BD6T8a7eKrc6OtVmAS/9cunT7mxLsjsgJ/tvLlUia8FhOuhZM7n+kUH+nNOBjW2ec3nuQQJhL7Q/3vnPi5s9oA==
+  dependencies:
+    "@scarf/scarf" "^1.0.0"
+    ts-toolbelt "^6.4.2"
+
 react-router-config@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/react-router-config/-/react-router-config-5.1.1.tgz#0f4263d1a80c6b2dc7b9c1902c9526478194a988"
@@ -15782,6 +15795,11 @@ ts-pnp@^1.1.6:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/ts-pnp/-/ts-pnp-1.2.0.tgz#a500ad084b0798f1c3071af391e65912c86bca92"
   integrity sha512-csd+vJOb/gkzvcCHgTGSChYpy5f1/XKNsmvBGO4JXS+z1v2HobugDz4s1IeFXM3wZB44uczs+eazB5Q/ccdhQw==
+
+ts-toolbelt@^6.4.2:
+  version "6.7.4"
+  resolved "https://registry.yarnpkg.com/ts-toolbelt/-/ts-toolbelt-6.7.4.tgz#30e6999578a82ed4636563cb525bb3664a255760"
+  integrity sha512-cP8q7BnIyuevMyBpq+TVKf3NvSS70S+BLdhzHVeV/5WNPMoUxN5YWMKgUd54qAwWgk6n2USHi/2XFIxZJa+30g==
 
 tslib@1.10.0:
   version "1.10.0"
