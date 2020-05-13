@@ -52,7 +52,7 @@
 </script>
 
 <svelte:head>
-  <title>Resources</title>
+  <title>Service Providers</title>
 </svelte:head>
 
 <section class="section">
@@ -82,7 +82,7 @@
           <span class="icon is-large">
             <i class="fas fa-plus" />
           </span>
-          <span>Create a New Resource</span>
+          <span>Create a New Service Provider</span>
         </a>
       </div>
     {:else}

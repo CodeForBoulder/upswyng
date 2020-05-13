@@ -71,7 +71,7 @@
         } else {
           console.error(res);
           saveError = new Error(
-            "There was an error creating the draft resource."
+            "There was an error creating the draft service provider."
           );
         }
       })

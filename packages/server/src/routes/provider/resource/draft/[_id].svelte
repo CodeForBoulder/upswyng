@@ -126,11 +126,11 @@
   <div class="container">
     {#if existingResource}
       <h1 class="title">
-        Update Resource: {existingResource.name}
+        Update Service Provider: {existingResource.name}
         <span class="tag is-dark">Admin</span>
       </h1>
       <p class="subtitle">
-        Resource ID:
+        Service Provider ID:
         <a href={`/provider/resource/${existingResource.resourceId}`}>
           {existingResource.resourceId}
         </a>
@@ -140,7 +140,7 @@
         rightResource={draftResource} />
     {:else}
       <h1 class="title">
-        Create New Resource
+        Create New Service Provider
         <span class="tag is-dark">Admin</span>
       </h1>
       <ResourceDisplay resource={draftResource} />
@@ -175,12 +175,12 @@
     <div>
       {#if approveError}
         <p class="notification is-danger">
-          There was an error approving the resource: {approveError.message}
+          There was an error approving the service provider: {approveError.message}
         </p>
       {/if}
       {#if deleteError}
         <p class="notification is-danger">
-          There was an error deleting the resource: {deleteError.message}
+          There was an error deleting the service provider: {deleteError.message}
         </p>
       {/if}
     </div>
