@@ -68,7 +68,8 @@ export interface TJobSyncAlgoliaData {
 export interface TJobSyncAlgoliaResult {
   kind: JobKind.SyncAlgolia;
   jobName: string;
-  wasUpdated: boolean;
+  wasUpdated: boolean; // true if the index was successfully updated; false otherwise
+  errorMessage: string | null; // record error messages if network request with algolia fails: https://www.algolia.com/doc/api-client/methods/advanced/
 }
 
 export type TJobData =

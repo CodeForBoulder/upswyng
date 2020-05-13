@@ -29,10 +29,14 @@ export async function processJobSyncAlgolia(
   job.updateProgress(25);
 
   let wasUpdated = false;
+  let errorMessage = null;
   Resource.getAll()
     .then(resourceDocuments =>
       Promise.all(resourceDocuments.map(resourceDocumentToResource))
     )
+    .catch(error => {
+      throw error;
+    })
     .then(resources => {
       job.updateProgress(50);
       console.info(
@@ -58,7 +62,7 @@ export async function processJobSyncAlgolia(
       wasUpdated = true;
     })
     .catch(error => {
-      throw error;
+      errorMessage = error.message;
     })
     .finally(() => {
       job.updateProgress(100);
@@ -68,5 +72,6 @@ export async function processJobSyncAlgolia(
     kind: JobKind.SyncAlgolia,
     jobName: job.name,
     wasUpdated,
+    errorMessage,
   };
 }
