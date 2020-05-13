@@ -30,7 +30,7 @@ export async function processJobSyncAlgolia(
 
   let wasUpdated = false;
   let errorMessage = null;
-  Resource.getAll()
+  Resource.find({})
     .then(resourceDocuments =>
       Promise.all(resourceDocuments.map(resourceDocumentToResource))
     )
@@ -43,20 +43,39 @@ export async function processJobSyncAlgolia(
         `${job.name}[${job.id}]\t: Resources have been successfully retrieved from the database. Preparing ${resources.length} resources as Algolia Records`
       );
 
-      const updatedAlgoliaIndex = resources.map(
-        ({ resourceId, name, description, subcategories }): TAlgoliaHit => ({
-          objectID: resourceId,
-          name,
-          description,
-          subcategories: subcategories.map(s => s.name).join(","),
-        })
-      );
-      job.updateProgress(75);
-      console.info(
-        `${job.name}[${job.id}]\t: Algolia Records have been prepared. Synchronizing Algolia Index...`
+      const updatedAlgoliaIndex = resources.reduce(
+        (
+          container,
+          { resourceId, name, description, subcategories, deleted }
+        ) => {
+          const resourceIndex = {
+            objectID: resourceId,
+            name,
+            description,
+            subcategories: subcategories.map(s => s.name).join(","),
+          };
+
+          deleted
+            ? container.delete.push(resourceIndex.objectID)
+            : container.update.push(resourceIndex);
+
+          return container;
+        },
+        {
+          update: [] as TAlgoliaHit[],
+          delete: [] as string[],
+        }
       );
 
-      return index.saveObjects(updatedAlgoliaIndex);
+      job.updateProgress(75);
+      console.info(
+        `${job.name}[${job.id}]\t: Algolia Records have been prepared. ${updatedAlgoliaIndex.update.length} records will be updated and ${updatedAlgoliaIndex.delete.length} records will be deleted. Synchronizing Algolia Index...`
+      );
+
+      return Promise.all([
+        index.deleteObjects(updatedAlgoliaIndex.delete),
+        index.saveObjects(updatedAlgoliaIndex.update),
+      ]);
     })
     .then(() => {
       wasUpdated = true;
