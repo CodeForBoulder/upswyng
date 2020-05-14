@@ -28,8 +28,8 @@ export async function processJobSyncAlgolia(
   );
   job.updateProgress(25);
 
-  let wasUpdated = false;
-  let errorMessage = null;
+  let succeeded = false;
+  // TODO - Jeremiah T - make data gathering pro - https://github.com/CodeForBoulder/upswyng/pull/365#discussion_r424262740
   Resource.find({})
     .then(resourceDocuments =>
       Promise.all(resourceDocuments.map(resourceDocumentToResource))
@@ -56,32 +56,38 @@ export async function processJobSyncAlgolia(
           };
 
           deleted
-            ? container.delete.push(resourceIndex.objectID)
-            : container.update.push(resourceIndex);
+            ? {
+                toUpdate: container.toUpdate,
+                toDelete: [...container.toDelete, resourceIndex.objectID],
+              }
+            : {
+                toUpdate: [...container.toUpdate, resourceIndex],
+                toDelete: container.toDelete,
+              };
 
           return container;
         },
         {
-          update: [] as TAlgoliaHit[],
-          delete: [] as string[],
+          toUpdate: [] as TAlgoliaHit[],
+          toDelete: [] as string[],
         }
       );
 
       job.updateProgress(75);
       console.info(
-        `${job.name}[${job.id}]\t: Algolia Records have been prepared. ${updatedAlgoliaIndex.update.length} records will be updated and ${updatedAlgoliaIndex.delete.length} records will be deleted. Synchronizing Algolia Index...`
+        `${job.name}[${job.id}]\t: Algolia Records have been prepared. ${updatedAlgoliaIndex.toUpdate.length} records will be updated and ${updatedAlgoliaIndex.toDelete.length} records will be deleted. Synchronizing Algolia Index...`
       );
 
       return Promise.all([
-        index.deleteObjects(updatedAlgoliaIndex.delete),
-        index.saveObjects(updatedAlgoliaIndex.update),
+        index.deleteObjects(updatedAlgoliaIndex.toDelete),
+        index.saveObjects(updatedAlgoliaIndex.toUpdate),
       ]);
     })
     .then(() => {
-      wasUpdated = true;
+      succeeded = true;
     })
     .catch(error => {
-      errorMessage = error.message;
+      throw error;
     })
     .finally(() => {
       job.updateProgress(100);
@@ -90,7 +96,6 @@ export async function processJobSyncAlgolia(
   return {
     kind: JobKind.SyncAlgolia,
     jobName: job.name,
-    wasUpdated,
-    errorMessage,
+    succeeded,
   };
 }
