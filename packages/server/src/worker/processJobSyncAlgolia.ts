@@ -22,6 +22,7 @@ export async function processJobSyncAlgolia(
 
   const estimatedResourceCount = await Resource.estimatedDocumentCount();
   let batch = 0;
+  let processedResourceCount = 0;
   let succeeded = false;
   let deletedRecords: string[] = [];
   let insertedRecords: string[] = [];
@@ -95,7 +96,8 @@ export async function processJobSyncAlgolia(
       throw error;
     }
 
-    job.updateProgress((resources.length / estimatedResourceCount) * 100);
+    processedResourceCount += resources.length;
+    job.updateProgress((processedResourceCount / estimatedResourceCount) * 100);
   } while (resources.length);
   job.updateProgress(100);
 
