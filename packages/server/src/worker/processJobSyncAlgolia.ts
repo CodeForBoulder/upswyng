@@ -33,7 +33,7 @@ export async function processJobSyncAlgolia(
     `${job.name}[${job.id}]\t: Algolia connection has been established. Preparing about ${estimatedResourceCount} resources as Algolia Records`
   );
 
-  // Update (<= BATCH_SIZE) records at a time until resources are exausted
+  // Update (<= BATCH_SIZE) records at a time until resources are exhausted
   let resources: TResource[] = [];
   do {
     console.info(`${job.name}[${job.id}]\tStarting batch ${batch}`);
