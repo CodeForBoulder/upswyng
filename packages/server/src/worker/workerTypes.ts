@@ -69,6 +69,8 @@ export interface TJobSyncAlgoliaResult {
   kind: JobKind.SyncAlgolia;
   jobName: string;
   succeeded: boolean;
+  deletedRecords: string[];
+  insertedRecords: string[];
 }
 
 export type TJobData =

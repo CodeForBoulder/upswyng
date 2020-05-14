@@ -23,6 +23,8 @@ export async function processJobSyncAlgolia(
   const estimatedResourceCount = await Resource.estimatedDocumentCount();
   let batch = 0;
   let succeeded = false;
+  let deletedRecords: string[] = [];
+  let insertedRecords: string[] = [];
 
   // Initialize Algolia project and project index
   const algolia = algoliaSearch(algoliaAppId, algoliaWriteApiKey);
@@ -84,6 +86,11 @@ export async function processJobSyncAlgolia(
         index.saveObjects(updatedAlgoliaIndex.toUpdate),
       ]);
       succeeded = true;
+      deletedRecords = [...deletedRecords, ...updatedAlgoliaIndex.toDelete];
+      insertedRecords = [
+        ...insertedRecords,
+        ...updatedAlgoliaIndex.toUpdate.map(r => r.objectID),
+      ];
     } catch (error) {
       throw error;
     }
@@ -96,5 +103,7 @@ export async function processJobSyncAlgolia(
     kind: JobKind.SyncAlgolia,
     jobName: job.name,
     succeeded,
+    deletedRecords,
+    insertedRecords,
   };
 }
