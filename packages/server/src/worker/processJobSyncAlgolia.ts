@@ -4,9 +4,9 @@ import {
   TJobSyncAlgoliaResult,
 } from "./workerTypes";
 import Resource, { resourceDocumentToResource } from "../models/Resource";
+import { TAlgoliaHit, TResource } from "@upswyng/types";
 
 import { Job } from "bullmq";
-import { TAlgoliaHit } from "@upswyng/types";
 import algoliaSearch from "algoliasearch";
 
 /**
@@ -18,80 +18,79 @@ export async function processJobSyncAlgolia(
   algoliaIndexName: string,
   algoliaWriteApiKey: string
 ): Promise<TJobSyncAlgoliaResult> {
-  console.info(`${job.name}[${job.id}]\t: Syncing Resources to Algolia`);
+  const BATCH_SIZE = 200;
+
+  const estimatedResourceCount = await Resource.estimatedDocumentCount();
+  let batch = 0;
+  let succeeded = false;
 
   // Initialize Algolia project and project index
   const algolia = algoliaSearch(algoliaAppId, algoliaWriteApiKey);
   const index = algolia.initIndex(algoliaIndexName);
   console.info(
-    `${job.name}[${job.id}]\t: Algolia connection has been established`
+    `${job.name}[${job.id}]\t: Algolia connection has been established. Preparing about ${estimatedResourceCount} resources as Algolia Records`
   );
-  job.updateProgress(25);
 
-  let succeeded = false;
-  // TODO - Jeremiah T - make data gathering pro - https://github.com/CodeForBoulder/upswyng/pull/365#discussion_r424262740
-  Resource.find({})
-    .then(resourceDocuments =>
-      Promise.all(resourceDocuments.map(resourceDocumentToResource))
-    )
-    .catch(error => {
-      throw error;
-    })
-    .then(resources => {
-      job.updateProgress(50);
-      console.info(
-        `${job.name}[${job.id}]\t: Resources have been successfully retrieved from the database. Preparing ${resources.length} resources as Algolia Records`
-      );
+  // Update (<= BATCH_SIZE) records at a time until resources are exausted
+  let resources: TResource[] = [];
+  do {
+    console.info(`${job.name}[${job.id}]\tStarting batch ${batch}`);
+    resources = await Promise.all(
+      (
+        await Resource.find({})
+          .skip(batch * BATCH_SIZE)
+          .limit(BATCH_SIZE)
+      ).map(resourceDocumentToResource)
+    );
+    succeeded = false;
+    batch++;
 
-      const updatedAlgoliaIndex = resources.reduce(
-        (
-          container,
-          { resourceId, name, description, subcategories, deleted }
-        ) => {
-          const resourceIndex = {
-            objectID: resourceId,
-            name,
-            description,
-            subcategories: subcategories.map(s => s.name).join(","),
-          };
+    const updatedAlgoliaIndex = resources.reduce(
+      (
+        container,
+        { resourceId, name, description, subcategories, deleted }
+      ) => {
+        const resourceIndex = {
+          objectID: resourceId,
+          name,
+          description,
+          subcategories: subcategories.map(s => s.name).join(","),
+        };
 
-          deleted
-            ? {
-                toUpdate: container.toUpdate,
-                toDelete: [...container.toDelete, resourceIndex.objectID],
-              }
-            : {
-                toUpdate: [...container.toUpdate, resourceIndex],
-                toDelete: container.toDelete,
-              };
+        deleted
+          ? {
+              toUpdate: container.toUpdate,
+              toDelete: [...container.toDelete, resourceIndex.objectID],
+            }
+          : {
+              toUpdate: [...container.toUpdate, resourceIndex],
+              toDelete: container.toDelete,
+            };
 
-          return container;
-        },
-        {
-          toUpdate: [] as TAlgoliaHit[],
-          toDelete: [] as string[],
-        }
-      );
+        return container;
+      },
+      {
+        toUpdate: [] as TAlgoliaHit[],
+        toDelete: [] as string[],
+      }
+    );
 
-      job.updateProgress(75);
-      console.info(
-        `${job.name}[${job.id}]\t: Algolia Records have been prepared. ${updatedAlgoliaIndex.toUpdate.length} records will be updated and ${updatedAlgoliaIndex.toDelete.length} records will be deleted. Synchronizing Algolia Index...`
-      );
-
-      return Promise.all([
+    console.info(
+      `${job.name}[${job.id}]\t: Algolia Records have been prepared. ${updatedAlgoliaIndex.toUpdate.length} records will be updated and ${updatedAlgoliaIndex.toDelete.length} records will be deleted. Synchronizing Algolia Index...`
+    );
+    try {
+      await Promise.all([
         index.deleteObjects(updatedAlgoliaIndex.toDelete),
         index.saveObjects(updatedAlgoliaIndex.toUpdate),
       ]);
-    })
-    .then(() => {
       succeeded = true;
-    })
-    .catch(error => {
+    } catch (error) {
       throw error;
-    })
-    .finally(() => {
-      job.updateProgress(100);
-    });
+    }
+
+    job.updateProgress((resources.length / estimatedResourceCount) * 100);
+  } while (resources.length);
+  job.updateProgress(100);
 
   return {
     kind: JobKind.SyncAlgolia,
