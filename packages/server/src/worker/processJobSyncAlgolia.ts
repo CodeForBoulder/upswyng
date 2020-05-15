@@ -93,7 +93,7 @@ export async function processJobSyncAlgolia(
         ...updatedAlgoliaIndex.toUpdate.map(r => r.objectID),
       ];
     } catch (error) {
-      throw error;
+      throw error; // TODO Jeremiah T: Gracefully handle Algolia errors
     }
 
     processedResourceCount += resources.length;
