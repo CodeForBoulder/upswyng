@@ -74,7 +74,7 @@
     </p>
   {:else}
     <div class="notification is-warning">
-      <p>No Resource found for Issue</p>
+      <p>No Service Provider found for Issue</p>
     </div>
   {/if}
   <ResourceIssueNotification {resourceIssue} />

@@ -40,7 +40,7 @@ export async function setResolved(resolved: boolean, req, res, next) {
     });
     res.end(
       JSON.stringify({
-        message: `Error finding Resource issue with _id ${_id}: ${e.message}`,
+        message: `Error finding Service Provider issue with _id ${_id}: ${e.message}`,
       })
     );
     return;
@@ -53,7 +53,7 @@ export async function setResolved(resolved: boolean, req, res, next) {
 
     res.end(
       JSON.stringify({
-        message: `Resource issue with _id ${_id} could not be found`,
+        message: `Service Provider issue with _id ${_id} could not be found`,
       })
     );
   } else {
@@ -91,7 +91,7 @@ export async function setResolved(resolved: boolean, req, res, next) {
       });
       res.end(
         JSON.stringify({
-          message: `Error setting Resource issue with _id ${_id} to ${
+          message: `Error setting Service Provider issue with _id ${_id} to ${
             resolved ? "resolved" : "unresolved"
           }: ${e.message}`,
         })

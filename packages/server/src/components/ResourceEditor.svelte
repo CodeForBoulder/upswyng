@@ -127,7 +127,7 @@
           class="input"
           class:is-danger={$resourceForm.name.errors.length}
           type="text"
-          placeholder="Resource Name"
+          placeholder="Service Provider Name"
           bind:value={resource.name} />
         {#if $resourceForm.name.errors.length}
           <span class="icon is-small is-right">

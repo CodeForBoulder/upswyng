@@ -34,7 +34,7 @@
         message,
       } = await response.json();
       if (response.status !== 200) {
-        throw new Error(message || "Error getting Resource Issues");
+        throw new Error(message || "Error getting Service Provider Issues");
       }
       if (!newEventLogs.length) {
         fetchedAll = true;

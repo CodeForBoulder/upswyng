@@ -47,7 +47,7 @@ export async function get(req, res, _next) {
 
     res.end(
       JSON.stringify({
-        message: `Resource not found`,
+        message: `Service provider not found`,
       })
     );
   }

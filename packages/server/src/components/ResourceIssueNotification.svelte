@@ -81,7 +81,7 @@
         {#if resourceIssue.kind === 'legacy_schedule_parsing_error'}
           <article class="message">
             <div class="message-body">
-              This Resource was imported from Strappd, but we could not
+              This Service Provider was imported from Strappd, but we could not
               automatically convert its schedule into the UpSwyng format.
               Manually modify the schedule to match the legacy data, and then
               resolve the issue.
@@ -104,7 +104,7 @@
         {#if resourceIssue.kind === 'user_report'}
           <article class="message">
             <div class="message-body">
-              A user reported the following about this resource:
+              A user reported the following about this service provider:
             </div>
           </article>
           <p class="has-text-weight-bold">

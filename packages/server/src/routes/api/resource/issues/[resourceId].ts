@@ -19,7 +19,8 @@ export async function get(req, res, _next) {
 
     return res.end(
       JSON.stringify({
-        message: "You are not authorized to view the issues for a Resource",
+        message:
+          "You are not authorized to view the issues for a Service Provider",
       })
     );
   }

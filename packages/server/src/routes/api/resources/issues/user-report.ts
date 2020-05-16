@@ -55,12 +55,12 @@ export const post = compose([
       new ObjectId(req.body.resourceId);
     } catch (_) {
       return res.status(422).json({
-        message: `'${req.body.resourceId}' is not a valid Resource ID`,
+        message: `'${req.body.resourceId}' is not a valid Service Provider ID`,
       });
     }
     if (!(await Resource.getByResourceId(req.body.resourceId))) {
       return res.status(404).json({
-        message: `Resource with Resource ID: ${req.body.resourceId} does not exist`,
+        message: `Service Provider with Resource ID: ${req.body.resourceId} does not exist`,
       });
     }
     try {

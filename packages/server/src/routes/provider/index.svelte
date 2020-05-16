@@ -15,7 +15,7 @@
 </style>
 
 <svelte:head>
-  <title>Upswyng: Provider Portal</title>
+  <title>Upswyng: Service Provider Portal</title>
 </svelte:head>
 
 <section class="hero is-dark">
@@ -26,7 +26,7 @@
           <img alt="upswyng: Resources within reach" src="upswyng_light.svg" />
         </div>
         <div class="column">
-          <h1 class="title">Upswyng Provider Portal</h1>
+          <h1 class="title">Upswyng Service Provider Portal</h1>
           <p class="subtitle">
             Welcome to the Provider’s Portal. This is the place to update your
             organization’s information so it’s the latest and most accurate for

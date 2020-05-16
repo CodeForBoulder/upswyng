@@ -81,14 +81,14 @@
           </ul>
         {:else}
           <div class="notification">
-            There are no resources for this subcategory.
+            There are no service providers for this subcategory.
           </div>
         {/if}
       </div>
       {#if user && user.isAdmin}
         <div class="column">
           <div class="content">
-            <h2 class="title">Add resources to {subcategory.name}</h2>
+            <h2 class="title">Add service providers to {subcategory.name}</h2>
             {#if errorMessage}
               <div class="notification is-danger">{errorMessage}</div>
             {/if}
