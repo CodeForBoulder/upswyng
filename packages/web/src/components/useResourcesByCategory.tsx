@@ -5,10 +5,11 @@ import { TResourcesByCategoryPayload } from "../webTypes";
 import apiClient from "../utils/apiClient";
 
 const getResourcesByCategory = async (
-  categoryStub: string
+  _queryKey: string,
+  props: { category: string }
 ): Promise<TResource[]> => {
   const { data } = await apiClient.get<TResourcesByCategoryPayload>(
-    `/category/${categoryStub}`
+    `/category/${props.category}`
   );
 
   if (!data.category) {
@@ -49,8 +50,7 @@ const getResourcesByCategory = async (
   return uniqueResources;
 };
 
-const useResourcesByCategory = (
-  categoryStub?: string
-): QueryResult<TResource[]> => useQuery(categoryStub, getResourcesByCategory);
+const useResourcesByCategory = (category: string): QueryResult<TResource[]> =>
+  useQuery(["resources", { category }], getResourcesByCategory);
 
 export default useResourcesByCategory;
