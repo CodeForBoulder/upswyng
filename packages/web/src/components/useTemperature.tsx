@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { TWeatherCurrentResponse } from "@upswyng/types";
-import axios from "axios";
+import apiClient from "../utils/apiClient";
 
 let serverUri = process.env.REACT_APP_SERVER_URI || "http://localhost:3000";
 if (serverUri.charAt(serverUri.length - 1) === "/") {
@@ -25,8 +25,8 @@ const useTemperature = (): undefined | null | number => {
 
     const getCurrentTemp = async (): Promise<void> => {
       try {
-        const { data } = await axios.get<TWeatherCurrentResponse>(
-          `${serverUri}/api/weather`,
+        const { data } = await apiClient.get<TWeatherCurrentResponse>(
+          `/weather`,
           {
             params: {
               latitude: boulderCoords.latitude,
