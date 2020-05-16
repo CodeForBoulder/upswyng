@@ -36,7 +36,10 @@ export default function(options: TAppOptions) {
   // from a hostname starting with 'beta'
   if (options.beta) {
     app.use((req, res, next) => {
-      if (/^beta\..*/.test(req.headers.host || "")) {
+      if (
+        /^beta\..*/.test(req.headers.host || "") ||
+        req.path.includes("/api")
+      ) {
         next();
       } else {
         const placeholderServer = sirv("src/placeholder");
