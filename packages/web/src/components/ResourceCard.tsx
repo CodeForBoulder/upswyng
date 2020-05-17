@@ -96,7 +96,6 @@ const ResourceCard = ({ index = 1, placeholder, resource }: Props) => {
             />
           ) : (
             <div className={classes.cardImagePlaceHolderContainer}>
-              //{" "}
               {placeholder &&
                 React.cloneElement(placeholder, {
                   color: "inherit",
