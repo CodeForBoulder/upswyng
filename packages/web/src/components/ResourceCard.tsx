@@ -86,25 +86,24 @@ const ResourceCard = ({ index = 1, placeholder, resource }: Props) => {
         role="link"
         onClick={handleClick}
       >
-        <CardMedia
-          component={() =>
-            streetViewImage ? (
-              <Image
-                alt=""
-                aspectRatio={457 / 250}
-                color="transparent"
-                src={streetViewImage}
-              />
-            ) : (
-              <div className={classes.cardImagePlaceHolderContainer}>
-                {placeholder &&
-                  React.cloneElement(placeholder, {
-                    color: "inherit",
-                  })}
-              </div>
-            )
-          }
-        />
+        <CardMedia>
+          {streetViewImage ? (
+            <Image
+              alt=""
+              aspectRatio={457 / 250}
+              color="transparent"
+              src={streetViewImage}
+            />
+          ) : (
+            <div className={classes.cardImagePlaceHolderContainer}>
+              //{" "}
+              {placeholder &&
+                React.cloneElement(placeholder, {
+                  color: "inherit",
+                })}
+            </div>
+          )}
+        </CardMedia>
         <CardContent>
           <Typography variant="subtitle1">{name}</Typography>
         </CardContent>
