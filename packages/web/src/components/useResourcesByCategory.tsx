@@ -6,10 +6,10 @@ import apiClient from "../utils/apiClient";
 
 const getResourcesByCategory = async (
   _queryKey: string,
-  props: { category: string }
+  params: { category: string }
 ): Promise<TResource[]> => {
   const { data } = await apiClient.get<TResourcesByCategoryPayload>(
-    `/category/${props.category}`
+    `/category/${params.category}`
   );
 
   if (!data.category) {
@@ -50,7 +50,7 @@ const getResourcesByCategory = async (
   return uniqueResources;
 };
 
-const useResourcesByCategory = (category: string): QueryResult<TResource[]> =>
-  useQuery(["resources", { category }], getResourcesByCategory);
+const useResourcesByCategory = (category?: string): QueryResult<TResource[]> =>
+  useQuery(!!category && ["resources", { category }], getResourcesByCategory);
 
 export default useResourcesByCategory;
