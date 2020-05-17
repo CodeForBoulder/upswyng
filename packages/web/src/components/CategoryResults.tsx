@@ -26,8 +26,10 @@ const CategoryResults = ({
   const { text: categoryText, stub: categoryStub } = category;
   const { data: categoryResources } = useResourcesByCategory(categoryStub);
 
-  const subcategoryStub = params.subcategory ? params.subcategory : null;
-  const subcategoryResources = useResourcesBySubcategory(subcategoryStub);
+  const subcategoryStub = params.subcategory;
+  const { data: subcategoryResources } = useResourcesBySubcategory(
+    subcategoryStub
+  );
 
   return (
     <>
