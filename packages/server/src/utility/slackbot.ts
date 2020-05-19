@@ -170,7 +170,7 @@ export async function postEventLogMessage(e: TEventLog) {
       channel: CHANNEL,
       // TODO (rhinodavid): Remove hardcoded URL
       // Issue now is that if you use the SERVER_HOST slack can't access `localhost`
-      icon_url: `https://codeforboulder-upswyng-server.herokuapp.com/upswyngbot.svg`,
+      icon_url: `${HOST}/static/upswyngbot.svg`,
       text,
       /* eslint-enable @typescript-eslint/camelcase */
     });
@@ -189,7 +189,7 @@ export async function postTestMessage() {
       channel: CHANNEL,
       // TODO (rhinodavid): Remove hardcoded URL
       // Issue now is that if you use the SERVER_HOST slack can't access `localhost`
-      icon_url: `${HOST}/upswyngbot.svg`,
+      icon_url: `${HOST}/static/upswyngbot.svg`,
       text: `🔔 DING. It's ${new Date().toLocaleString()}`,
       /* eslint-enable @typescript-eslint/camelcase */
     });

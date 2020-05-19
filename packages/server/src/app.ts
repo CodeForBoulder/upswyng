@@ -52,14 +52,11 @@ export default function(options: TAppOptions) {
     .use(
       compression({ threshold: 0 }),
       cors(), // TODO: Lock this down to non-admin routes
-      sirv("static", {
-        dev,
-      }),
       bodyParser.json({}),
       bodyParser.urlencoded({
         extended: true,
         // retain raw body for use with Slack verification
-        verify: (req, res, buf, encoding) => {
+        verify: (req, _res, buf, encoding) => {
           if (buf && buf.length) {
             (req as any).rawBody = buf.toString(encoding || "utf8");
           }
@@ -82,6 +79,12 @@ export default function(options: TAppOptions) {
           }
         },
       ])
+    )
+    .use(
+      "/static",
+      sirv("static", {
+        dev,
+      })
     )
     .use(userMiddleware)
     .get("/callback", oidc(grantConfig), (_req, res) => {

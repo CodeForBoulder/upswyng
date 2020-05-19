@@ -18,5 +18,5 @@
 </style>
 
 <a {href}>
-  <img alt="Sign in with Slack" src="/slack_signin.png" />
+  <img alt="Sign in with Slack" src="/static/slack_signin.png" />
 </a>

@@ -19,7 +19,9 @@
   <div class="container">
     <div class="navbar-brand">
       <a class="navbar-item" href="/provider">
-        <img alt="Upswyng: Resources within reach" src="upswyng_arrow.svg" />
+        <img
+          alt="Upswyng: Resources within reach"
+          src="static/upswyng_arrow.svg" />
       </a>
       <!-- svelte-ignore a11y-missing-attribute -->
       <a
