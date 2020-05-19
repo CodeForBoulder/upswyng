@@ -232,7 +232,7 @@ const PrivacyPolicy = () => {
         Privacy Policy from time to time. We will alert you to any material
         changes by sending a notice to the e-mail address you provided to us or
         updating this Privacy Policy. This Privacy Policy was last updated on
-        July 11, 2018.
+        May 18, 2020.
       </Typography>
       <Typography variant="h2" gutterBottom>
         Contacting the Web Site:
