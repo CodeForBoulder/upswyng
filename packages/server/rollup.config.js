@@ -173,25 +173,4 @@ export default {
       ),
     onwarn,
   },
-
-  serviceworker: {
-    input: config.serviceworker.input(),
-    output: config.serviceworker.output(),
-    plugins: [
-      resolve({ dedupe }),
-      replace({
-        "process.browser": true,
-        "process.env.ALGOLIA_APP_ID": JSON.stringify(ALGOLIA_APP_ID),
-        "process.env.ALGOLIA_INDEX_NAME": JSON.stringify(ALGOLIA_INDEX_NAME),
-        "process.env.ALGOLIA_SEARCH_API_KEY": JSON.stringify(
-          ALGOLIA_SEARCH_API_KEY
-        ),
-        "process.env.NODE_ENV": JSON.stringify(mode),
-      }),
-      commonjs(),
-      typescript(tsOpts),
-      !dev && terser(),
-    ],
-    onwarn,
-  },
 };
