@@ -110,8 +110,9 @@ const PrivacyPolicy = () => {
         unauthorized persons.
       </Typography>
       <Typography paragraph>
-        You may also optionally upload a photograph of yourself. By uploading or
-        emailing a photograph to the Site, you confirm that:
+        You may optionally upload photographs of service provider facilities or
+        other related subjects to the Site. By uploading or emailing a
+        photograph to the Site, you confirm that:
       </Typography>
       <Typography component="ol" paragraph>
         <Typography component="li" gutterBottom>
