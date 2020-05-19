@@ -158,7 +158,7 @@
           <img
             class="upswyngbot-logo"
             alt="The upswyngbot"
-            src="/upswyngbot.svg" />
+            src="/static/upswyngbot.svg" />
         </div>
         <div class="column">
           <h1 class="title is-family-monospace">

@@ -657,7 +657,7 @@
                   <div class="level-right">
                     <img
                       alt="Upswyng icon mock"
-                      src="upswyng_arrow.svg"
+                      src="/static/upswyng_arrow.svg"
                       class="upswyng-icon" />
                   </div>
                 </div>

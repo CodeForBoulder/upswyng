@@ -18,5 +18,5 @@
 </style>
 
 <a {href}>
-  <img alt="Continue with Facebook" src="/facebook_signin.png" />
+  <img alt="Continue with Facebook" src="/static/facebook_signin.png" />
 </a>

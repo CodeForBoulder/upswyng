@@ -23,7 +23,9 @@
     <div class="container">
       <div class="columns is-variable is-6 is-vcentered">
         <div class="column">
-          <img alt="upswyng: Resources within reach" src="upswyng_light.svg" />
+          <img
+            alt="UpSwyng: Resources within reach"
+            src="/static/upswyng_light.svg" />
         </div>
         <div class="column">
           <h1 class="title">Upswyng Service Provider Portal</h1>
