@@ -71,7 +71,7 @@
         } else {
           console.error(res);
           saveError = new Error(
-            "There was an error creating the draft resource."
+            "There was an error creating the draft service provider."
           );
         }
       })
@@ -81,12 +81,12 @@
 </script>
 
 <svelte:head>
-  <title>Upswyng: Create a New Provider</title>
+  <title>Upswyng: Create a New Service Provider</title>
 </svelte:head>
 
 <section class="section">
   <div class="container">
-    <h1 class="title">Create A Provider</h1>
+    <h1 class="title">Create A Service Provider</h1>
     <ResourceEditor
       {resource}
       {subcategories}

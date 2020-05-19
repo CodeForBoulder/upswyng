@@ -11,6 +11,8 @@ import {
   TJobCheckLinksResult,
   TJobCheckNewAlertsData,
   TJobCheckNewAlertsResult,
+  TJobSyncAlgoliaData,
+  TJobSyncAlgoliaResult,
 } from "./worker/workerTypes";
 import {
   TJobData,
@@ -23,6 +25,7 @@ import mongoose from "mongoose";
 import mq from "./worker/mq";
 import { processJobCheckLinks } from "./worker/processJobCheckLinks";
 import { processJobCheckNewAlerts } from "./worker/processJobCheckNewAlerts";
+import { processJobSyncAlgolia } from "./worker/processJobSyncAlgolia";
 import { processJobTest } from "./worker/processJobTest";
 import throng from "throng";
 
@@ -33,6 +36,10 @@ const {
   DATABASE_NAME,
   DATABASE_PASSWORD,
   DATABASE_USER,
+
+  ALGOLIA_APP_ID,
+  ALGOLIA_WRITE_API_KEY,
+  ALGOLIA_INDEX_NAME,
 } = process.env;
 
 mongoose
@@ -78,6 +85,13 @@ async function start() {
           );
         case JobKind.Test:
           return await processJobTest(job as Job<TJobTestData, TJobTestResult>);
+        case JobKind.SyncAlgolia:
+          return await processJobSyncAlgolia(
+            job as Job<TJobSyncAlgoliaData, TJobSyncAlgoliaResult>,
+            ALGOLIA_APP_ID,
+            ALGOLIA_INDEX_NAME,
+            ALGOLIA_WRITE_API_KEY
+          );
         default:
           // TODO: Implement other jobs and then put an exhaustive requirement here
           throw new Error("unimplemented");

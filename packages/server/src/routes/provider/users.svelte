@@ -284,7 +284,7 @@
       <p>
         Users who have
         <span class="tag is-dark">Admin</span>
-        permissions can approve changes to resources and create alerts.
+        permissions can approve changes to service providers and create alerts.
       </p>
       <p>
         Users who have

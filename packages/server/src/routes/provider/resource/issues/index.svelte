@@ -226,13 +226,13 @@
 </style>
 
 <svelte:head>
-  <title>Upswyng: Resource Issues</title>
+  <title>Upswyng: Service Provider Issues</title>
 </svelte:head>
 
 <section class="section">
   <div class="container">
     <h1 class="title">
-      Resource Issues
+      Service Provider Issues
       <span class="tag is-dark">Admin</span>
     </h1>
     {#if errorMessage}
@@ -309,7 +309,7 @@
           <th>
             <!-- severity icon-->
           </th>
-          <th>Resource</th>
+          <th>Service Provider</th>
           <th>Type</th>
           <th>Created</th>
         </tr>

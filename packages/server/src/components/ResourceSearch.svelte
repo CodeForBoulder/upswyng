@@ -73,17 +73,17 @@
 
 <div class="field dropdown is-block">
   <label for="search" class="is-sr-only" id="search-label">
-    Search for a provider
+    Search for a service provider
   </label>
   <Autocomplete
     className={isLoading ? 'is-flex is-loading' : 'is-flex'}
     bind:value={query}
     id="search"
-    placeholder="Search for a provider...">
+    placeholder="Search for a service provider...">
     <i class="fas fa-search" slot="input-left-icon" />
     <div slot="help">
       {#if hasQuery && !isLoading && !results.length}
-        <p class="help is-info">No providers match your search</p>
+        <p class="help is-info">No service providers match your search</p>
       {/if}
       {#if hasQuery && errorMessage}
         <p class="help is-error">{errorMessage}</p>
