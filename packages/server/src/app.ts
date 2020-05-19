@@ -37,7 +37,7 @@ export default function(options: TAppOptions) {
   if (options.beta) {
     app.use((req, res, next) => {
       if (
-        (req.get("host") || "").includes("beta") ||
+        req.hostname.includes("beta") ||
         req.path.includes("api") ||
         req.path.includes("connect")
       ) {
