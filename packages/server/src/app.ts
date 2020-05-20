@@ -32,22 +32,6 @@ export default function(options: TAppOptions) {
 
   const app = express();
 
-  // if the app is in beta, show the placeholder on any request that doesn't come
-  // from a hostname starting with 'beta'
-  if (options.beta) {
-    app.use((req, res, next) => {
-      if (
-        req.hostname.includes("beta") ||
-        req.path.includes("api") ||
-        req.path.includes("connect")
-      ) {
-        next();
-      } else {
-        const placeholderServer = sirv("src/placeholder");
-        placeholderServer(req, res);
-      }
-    });
-  }
   app
     .use(
       compression({ threshold: 0 }),
