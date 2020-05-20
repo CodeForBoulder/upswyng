@@ -12,6 +12,7 @@ import connectMongo from "connect-mongo";
 import cors from "cors";
 import express from "express";
 import grant from "grant-express";
+import morgan from "morgan";
 import oidc from "grant-oidc";
 import session from "express-session";
 import sirv from "sirv";
@@ -31,6 +32,8 @@ export default function(options: TAppOptions) {
   const MongoStore = connectMongo(session);
 
   const app = express();
+
+  if (dev) app.use(morgan("dev"));
 
   app
     .use(
