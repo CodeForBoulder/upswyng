@@ -125,11 +125,16 @@ SubcategorySchema.statics.getSubcategoryList = async function(
 };
 
 SubcategorySchema.statics.getByStub = async function(
-  stub: string
+  stub: string,
+  includeDeletedResources: boolean = false
 ): Promise<TSubcategoryDocument | null> {
-  return await this.findOne({ stub })
+  const result = await this.findOne({ stub })
     .populate("parentCategory")
     .populate("resources");
+  if (result && !includeDeletedResources) {
+    result.resources = result.resources.filter(r => !r.deleted);
+  }
+  return result;
 };
 
 const Subcategory = mongoose.model<TSubcategoryDocument>(
@@ -143,7 +148,10 @@ export default Subcategory as typeof Subcategory & {
     stub: string,
     parentCategoryId: ObjectId
   ) => Promise<TSubcategoryDocument>;
-  getByStub: (stub: string) => Promise<TSubcategoryDocument | null>;
+  getByStub: (
+    stub: string,
+    includeDeletedResources?: boolean
+  ) => Promise<TSubcategoryDocument | null>;
   getSubcategoryList: (
     includeResources?: boolean
   ) => Promise<TSubcategoryDocument[]>;
