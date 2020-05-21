@@ -31,9 +31,9 @@ const {
 
 const { ALGOLIA_INDEX_NAME } = process.env;
 
-if (dev && /heroku_.*/.test(DATABASE_NAME)) {
+if (dev && /heroku_23.*/.test(DATABASE_NAME)) {
   throw new Error(
-    "💩 You're attempting to use the production datebase in a dev enviroment."
+    "💩 You're attempting to use the production database in a dev environment."
   );
 }
 
