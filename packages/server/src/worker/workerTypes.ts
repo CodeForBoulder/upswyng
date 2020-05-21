@@ -8,8 +8,20 @@
 export enum JobKind {
   CheckLinks = "check_links", // visit the websites listed in Resources and check for broken URLs
   CheckNewAlerts = "check_new_alerts", // look for alerts whose start time has come and process them
+  DestroyAllSessions = "destroy_all_sessions", // wipes all the user sessions from the mongodb collection
   Test = "test", // no-op job used for testing the worker/queue
   SyncAlgolia = "sync_algolia", // update algolia index with latest resources
+}
+
+// DestroyAllSessions
+// wipes all the user sessions from the mongodb collection
+export interface TJobDestroyAllSessionsData {
+  kind: JobKind.DestroyAllSessions;
+  userId?: string; // _id of user who started this job
+}
+
+export interface TJobDestroyAllSessionsResult {
+  kind: JobKind.DestroyAllSessions;
 }
 
 // Test Job
@@ -76,10 +88,12 @@ export interface TJobSyncAlgoliaResult {
 export type TJobData =
   | TJobCheckLinksData
   | TJobCheckNewAlertsData
+  | TJobDestroyAllSessionsData
   | TJobTestData
   | TJobSyncAlgoliaData;
 export type TJobResult =
   | TJobCheckLinksResult
   | TJobCheckNewAlertsResult
+  | TJobDestroyAllSessionsResult
   | TJobTestResult
   | TJobSyncAlgoliaResult;
