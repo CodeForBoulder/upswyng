@@ -12,6 +12,8 @@ import {
   TJobCheckNewAlertsData,
   TJobCheckNewAlertsResult,
   TJobData,
+  TJobDestroyAllSessionsData,
+  TJobDestroyAllSessionsResult,
   TJobSyncAlgoliaData,
   TJobSyncAlgoliaResult,
   TJobTestData,
@@ -118,6 +120,20 @@ async function addJobCheckNewAlerts(
   );
 }
 
+async function addJobDestroyAllSessions(
+  name: string = getName("-"),
+  userId
+): Promise<Job<TJobDestroyAllSessionsData, TJobDestroyAllSessionsResult>> {
+  return queue.add(
+    name,
+    { kind: JobKind.DestroyAllSessions, userId },
+    {
+      priority: 80,
+      jobId: new ObjectID().toHexString(),
+    }
+  );
+}
+
 async function addJobSyncAlgolia(
   name: string = getName("-"),
   userId
@@ -136,6 +152,7 @@ const mq = {
   addJobSyncAlgolia,
   addJobCheckLinks,
   addJobCheckNewAlerts,
+  addJobDestroyAllSessions,
   addJobTest,
   connection,
   getCounts,

@@ -11,6 +11,8 @@ import {
   TJobCheckLinksResult,
   TJobCheckNewAlertsData,
   TJobCheckNewAlertsResult,
+  TJobDestroyAllSessionsData,
+  TJobDestroyAllSessionsResult,
   TJobSyncAlgoliaData,
   TJobSyncAlgoliaResult,
 } from "./worker/workerTypes";
@@ -25,6 +27,7 @@ import mongoose from "mongoose";
 import mq from "./worker/mq";
 import { processJobCheckLinks } from "./worker/processJobCheckLinks";
 import { processJobCheckNewAlerts } from "./worker/processJobCheckNewAlerts";
+import { processJobDestroyAllSessions } from "./worker/processJobDestroyAllSessions";
 import { processJobSyncAlgolia } from "./worker/processJobSyncAlgolia";
 import { processJobTest } from "./worker/processJobTest";
 import throng from "throng";
@@ -82,6 +85,14 @@ async function start() {
         case JobKind.CheckNewAlerts:
           return await processJobCheckNewAlerts(
             job as Job<TJobCheckNewAlertsData, TJobCheckNewAlertsResult>
+          );
+        case JobKind.DestroyAllSessions:
+          return await processJobDestroyAllSessions(
+            job as Job<
+              TJobDestroyAllSessionsData,
+              TJobDestroyAllSessionsResult
+            >,
+            mongoose.connection
           );
         case JobKind.Test:
           return await processJobTest(job as Job<TJobTestData, TJobTestResult>);
