@@ -1,8 +1,8 @@
-# Upswyng's Code of Conduct
+# UpSwyng's Code of Conduct
 
 ## Our Standards
 
-Upswyng, a Code for Boulder and Code for America project, follows Code for America's expectations for network activities, events, and digital forums:
+UpSwyng, a Code for Boulder and Code for America project, follows Code for America's expectations for network activities, events, and digital forums:
 
 1. Are a safe and respectful environment for all participants.
 2. Are a place where people are free to fully express their identities.

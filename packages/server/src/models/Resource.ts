@@ -32,7 +32,7 @@ export interface TResourceDocument extends Document {
   createdBy: ObjectId | undefined; // always populate
   deleted: boolean;
   description: string;
-  resourceId: ObjectId; // this is canonical upswyng ID
+  resourceId: ObjectId; // this is canonical upSwyng ID
   kudos: number;
   lastModifiedAt: Date;
   lastModifiedBy: ObjectId | undefined; // always populate

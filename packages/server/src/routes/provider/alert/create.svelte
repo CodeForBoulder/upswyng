@@ -335,7 +335,7 @@
 </style>
 
 <svelte:head>
-  <title>Upswyng: Create an Alert</title>
+  <title>UpSwyng: Create an Alert</title>
 </svelte:head>
 
 <section class="section">

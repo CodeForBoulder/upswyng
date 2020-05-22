@@ -15,7 +15,7 @@
 </script>
 
 <svelte:head>
-  <title>Upswyng: {category.name}</title>
+  <title>UpSwyng: {category.name}</title>
 </svelte:head>
 
 <section class="section">

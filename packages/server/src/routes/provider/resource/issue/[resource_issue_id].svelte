@@ -57,7 +57,7 @@
 
 <svelte:head>
   <title>
-    Upswyng: Resource Issue{`${resource ? ` for ${resource.name}` : ''}}`}
+    UpSwyng: Resource Issue{`${resource ? ` for ${resource.name}` : ''}}`}
   </title>
 </svelte:head>
 

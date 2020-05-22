@@ -226,7 +226,7 @@
 </style>
 
 <svelte:head>
-  <title>Upswyng: Service Provider Issues</title>
+  <title>UpSwyng: Service Provider Issues</title>
 </svelte:head>
 
 <section class="section">

@@ -141,7 +141,7 @@
 </style>
 
 <svelte:head>
-  <title>Upswyng: {resource.name}</title>
+  <title>UpSwyng: {resource.name}</title>
 </svelte:head>
 <section class="section">
   <div class="container">

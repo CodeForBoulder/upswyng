@@ -119,7 +119,7 @@
 </script>
 
 <svelte:head>
-  <title>Upswyng: {draftResource.name} [draft]</title>
+  <title>UpSwyng: {draftResource.name} [draft]</title>
 </svelte:head>
 
 <section class="section">

@@ -59,7 +59,7 @@
 </script>
 
 <svelte:head>
-  <title>Upswyng: {subcategory.name}</title>
+  <title>UpSwyng: {subcategory.name}</title>
 </svelte:head>
 
 <section class="section">
