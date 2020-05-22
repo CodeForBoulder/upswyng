@@ -4,7 +4,7 @@ UpSwyng is a digital directory that contains information on local services and p
 
 This is the React Native version. Check out the web version [here](https://github.com/CodeForBoulder/upswyng/).
 
-<img src='readme_android.png' height=600 alt="Upswyng mockup running on a Pixel phone" />
+<img src='readme_android.png' height=600 alt="UpSwyng mockup running on a Pixel phone" />
 
 ## Setup
 

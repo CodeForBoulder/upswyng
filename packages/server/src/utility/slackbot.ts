@@ -21,10 +21,10 @@ try {
   webClient = new WebClient(process.env.SLACK_OAUTH_ACCESS_TOKEN);
   webClient.auth.test().then(
     (_r: SlackWebApi.WebAPICallResult) => {
-      console.info(`🤖   upswyngbot starting 🚀`);
+      console.info(`🤖   UpSwyngbot starting 🚀`);
       console.info(`🤖   HOST: ${HOST}`);
       console.info(`🤖   CHANNEL: ${CHANNEL}`);
-      console.info(`🤖   upswyngbot connected to web api 😎\n\n`);
+      console.info(`🤖   UpSwyngbot connected to web api 😎\n\n`);
     },
     e => {
       console.error(`💩 Error getting slackbot auth info: ${e.message}`);

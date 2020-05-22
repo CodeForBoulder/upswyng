@@ -157,23 +157,23 @@
         <div class="column is-one-quarter">
           <img
             class="upswyngbot-logo"
-            alt="The upswyngbot"
+            alt="The UpSwyngbot"
             src="/static/upswyngbot.svg" />
         </div>
         <div class="column">
           <h1 class="title is-family-monospace">
-            upswyngbot
+            UpSwyngbot
             <span class="tag is-dark is-family-primary">Admin</span>
           </h1>
           <h2 class="subtitle">
-            <span class="is-family-monospace">upswyngbot</span>
+            <span class="is-family-monospace">UpSwyngbot</span>
             runs tasks like checking to make sure the links on UpSwyng aren't
             broken. Here is a look at
-            <span class="is-family-monospace">upswyngbot's</span>
+            <span class="is-family-monospace">UpSwyngbot's</span>
             recent work. To tell
-            <span class="is-family-monospace">upswyngbot</span>
+            <span class="is-family-monospace">UpSwyngbot</span>
             to do something, message
-            <span class="is-family-monospace">upswyngbot</span>
+            <span class="is-family-monospace">UpSwyngbot</span>
             on Slack.
           </h2>
         </div>
