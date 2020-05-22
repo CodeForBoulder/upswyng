@@ -11,7 +11,7 @@ async function makeJobDestroyAllSessions(_req, res, _next, user: TUser) {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `:bomb: I'm *destorying all sessions* for you!`,
+        text: `:bomb: I'm *destroying all sessions* for you!`,
       },
     },
     {
