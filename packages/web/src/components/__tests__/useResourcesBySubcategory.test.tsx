@@ -94,7 +94,7 @@ describe("useResourcesBySubcategory", () => {
       },
     };
 
-    // mock having a resources by CATEGORY cached
+    // mock having resources by CATEGORY cached
     mockQueryCache.mockReturnValueOnce(mockCategoryResources);
 
     const { result } = renderHook(() =>
