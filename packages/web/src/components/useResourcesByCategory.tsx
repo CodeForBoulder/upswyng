@@ -61,13 +61,13 @@ const getUniqueFlattenedResources = (
 };
 
 const useResourcesByCategory = (
-  category?: string
+  categoryStub?: string
 ): {
   data: TResource[] | undefined;
   status: "loading" | "error" | "success";
 } => {
   const { data, status } = useQuery(
-    !!category && ["resources", { category }],
+    !!categoryStub && ["resources", { category: categoryStub }],
     getResourcesByCategory,
     {
       staleTime: 900000, // 15 min
