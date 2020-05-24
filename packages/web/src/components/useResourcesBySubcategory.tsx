@@ -1,6 +1,7 @@
-import { QueryResult, useQuery } from "react-query";
-
+import { QueryResult, queryCache, useQuery } from "react-query";
 import { TResource } from "@upswyng/types";
+import { TResourcesByCategoryPayload } from "../webTypes";
+
 import { TResourcesBySubcategoryPayload } from "../webTypes";
 import apiClient from "../utils/apiClient";
 
@@ -28,12 +29,40 @@ const getResourceBySubcategory = async (
   return resources;
 };
 
+const getResourcesFromCategory = (
+  categoryStub: string,
+  subcategoryStub?: string
+): TResource[] | undefined => {
+  if (!subcategoryStub) {
+    return;
+  }
+
+  const resourcesByCategory = queryCache.getQueryData([
+    "resources",
+    { category: categoryStub },
+  ]) as TResourcesByCategoryPayload | undefined;
+  if (!resourcesByCategory) {
+    return;
+  }
+
+  const subcategory = resourcesByCategory?.category?.subcategories?.find(
+    subcategory => subcategory.stub === subcategoryStub
+  );
+
+  return subcategory?.resources;
+};
+
 const useResourcesBySubcategory = (
+  category: string,
   subcategory?: string
 ): QueryResult<TResource[]> =>
   useQuery(
     !!subcategory && ["resources", { subcategory }],
-    getResourceBySubcategory
+    getResourceBySubcategory,
+    {
+      initialData: () => getResourcesFromCategory(category, subcategory),
+      staleTime: 900000, // 15 min
+    }
   );
 
 export default useResourcesBySubcategory;

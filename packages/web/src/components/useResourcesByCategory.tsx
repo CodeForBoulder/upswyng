@@ -1,13 +1,12 @@
-import { QueryResult, useQuery } from "react-query";
-
 import { TResource } from "@upswyng/types";
 import { TResourcesByCategoryPayload } from "../webTypes";
 import apiClient from "../utils/apiClient";
+import { useQuery } from "react-query";
 
 const getResourcesByCategory = async (
   _queryKey: string,
   params: { category: string }
-): Promise<TResource[]> => {
+): Promise<TResourcesByCategoryPayload> => {
   const { data } = await apiClient.get<TResourcesByCategoryPayload>(
     `/category/${params.category}`
   );
@@ -25,7 +24,18 @@ const getResourcesByCategory = async (
     );
   }
 
-  const uniqueResources = (subcategories || []).reduce<TResource[]>(
+  return data;
+};
+
+const getUniqueFlattenedResources = (
+  payload?: TResourcesByCategoryPayload
+): TResource[] | undefined => {
+  const subcategories = payload?.category?.subcategories;
+  if (!subcategories || !subcategories.length) {
+    return;
+  }
+
+  const uniqueResources = subcategories.reduce<TResource[]>(
     (categoryResources, subcategory) => {
       const { resources: subcategoryResources } = subcategory;
       if (!subcategoryResources || !subcategoryResources.length) {
@@ -50,7 +60,22 @@ const getResourcesByCategory = async (
   return uniqueResources;
 };
 
-const useResourcesByCategory = (category?: string): QueryResult<TResource[]> =>
-  useQuery(!!category && ["resources", { category }], getResourcesByCategory);
+const useResourcesByCategory = (
+  category?: string
+): {
+  data: TResource[] | undefined;
+  status: "loading" | "error" | "success";
+} => {
+  const { data, status } = useQuery(
+    !!category && ["resources", { category }],
+    getResourcesByCategory,
+    {
+      staleTime: 900000, // 15 min
+    }
+  );
+  const resources = getUniqueFlattenedResources(data);
+
+  return { data: resources, status };
+};
 
 export default useResourcesByCategory;
