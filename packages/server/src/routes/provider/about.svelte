@@ -1,7 +1,14 @@
+<script>
+  import { About } from "@upswyng/common";
+</script>
+
 <svelte:head>
   <title>About</title>
 </svelte:head>
 
-<h1>About this site</h1>
-
-<p>This is the 'about' page. There's not much here.</p>
+<section class="section">
+  <div class="container">
+    <h1 class="title is-3">About UpSwyng</h1>
+    {@html About}
+  </div>
+</section>
