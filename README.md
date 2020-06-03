@@ -100,6 +100,37 @@ To fix this, run the script:
 yarn build:local-packages
 ```
 
+#### WINDOWS Installation Notes
+
+ scoop tool installation:	// involves some powershell env setups
+  https://github.com/lukesampson/scoop/wiki/Quick-Start
+
+```
+ scoop install -g yarn
+ scoop install -g nodejs
+ yarn --version			// 1.22.4 in May/June 2020
+ node --version			// v14.4.0 on June 3, 2020
+```
+ lots of fiddling when the current repo requires a particular version of node..
+
+ switching node versions, uninstall, reinstall:
+
+```
+  scoop update nodejs --global
+  scoop uninstall nodejs --global
+  scoop install nodejs --global
+```
+ before executing yarn,
+ update your forked repository's working branch to the latest in repo:
+```
+  git checkout master
+  git pull upstream master
+  git push -u origin master	//master is now reflecting remote master
+  git checkout <branch>
+  git rebase master
+  git push -u origin <branch>	//branch is now reflecting master
+```
+
 ### Next Steps
 
 `cd` into the package you're interested in working on and run the appropriate script. Visit each package's `README` for more
