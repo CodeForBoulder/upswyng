@@ -256,7 +256,7 @@
 </style>
 
 <svelte:head>
-  <title>Upswyng: Users</title>
+  <title>UpSwyng: Users</title>
 </svelte:head>
 
 <section class="section">

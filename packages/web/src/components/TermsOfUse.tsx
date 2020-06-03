@@ -8,11 +8,11 @@ const TermsOfUse = () => (
   <Container>
     <PageBanner color={colors.orangeDark} text={"Terms of Use"} />
     <Typography paragraph>
-      Upswyng provides its content on this website (the “Site”) and mobile
+      UpSwyng provides its content on this website (the “Site”) and mobile
       applications (the “App”) which enable users to locate resources including
       food banks, medical centers, and shelters (the “Services”) subject to the
-      following terms and conditions (the “Terms”). Upswyng may amend the Terms
-      from time to time. Amendments will be effective upon Upswyng’s posting of
+      following terms and conditions (the “Terms”). UpSwyng may amend the Terms
+      from time to time. Amendments will be effective upon UpSwyng’s posting of
       such updated Terms at this location. Your continued use of the Services
       after such posting confirms your consent to be bound by the Terms, as
       amended.
@@ -24,13 +24,13 @@ const TermsOfUse = () => (
       License.
     </Typography>
     <Typography paragraph>
-      Subject to compliance with these Terms, Upswyng grants you a limited,
+      Subject to compliance with these Terms, UpSwyng grants you a limited,
       non-exclusive, nonsublicensable, revocable, non-transferable license to:
       (i) access and use the Site, or the App on your personal device solely in
       connection with your use of the Services; and (ii) access and use any
       content, information, and related information that may be made available
       through the Services, in each case solely for your personal, noncommercial
-      use. Any rights not expressely granted herein are reserved Upswyng.
+      use. Any rights not expressely granted herein are reserved UpSwyng.
     </Typography>
     <Typography gutterBottom variant="h3">
       Restrictions.
@@ -41,7 +41,7 @@ const TermsOfUse = () => (
       derivative works based upon, distribute, license, lease, sell, resell,
       transfer, publicly display, publicly perform, transmit, stream, broadcast
       or otherwise exploit the Services except as expressly permitted by
-      Upswyng; (iii) decompile, reverse engineer or disassemble the Services
+      UpSwyng; (iii) decompile, reverse engineer or disassemble the Services
       except as may be permitted by applicable law; (iv) link to, mirror or
       frame any portion of the Services; (v) cause or launch any programs or
       scripts for the purpose of scraping, indexing, surveying, or otherwise
@@ -54,13 +54,13 @@ const TermsOfUse = () => (
       Ownership.
     </Typography>
     <Typography paragraph>
-      The Services and all rights therein are and shall remain Upswyng&apos;s
-      property or the property of Upswyng&apos;s licensors. Neither these Terms
+      The Services and all rights therein are and shall remain UpSwyng&apos;s
+      property or the property of UpSwyng&apos;s licensors. Neither these Terms
       nor your use of the Services convey or grant to you any rights: (i) in or
       related to the Services except for the limited license granted above; or
-      (ii) to use or reference in any manner Upswyng&apos;s company names,
+      (ii) to use or reference in any manner UpSwyng&apos;s company names,
       logos, product and service names, trademarks or services marks or those of
-      Upswyng&apos;s licensors.
+      UpSwyng&apos;s licensors.
     </Typography>
     <Typography gutterBottom variant="h3">
       Copyrights.
@@ -68,7 +68,7 @@ const TermsOfUse = () => (
     <Typography paragraph>
       All content and functionality on the Site, including text, graphics,
       logos, icons, and images and the selection and arrangement thereof is the
-      exclusive property of Upswyng or its licensors and is protected by U.S.
+      exclusive property of UpSwyng or its licensors and is protected by U.S.
       copyright laws. All rights not expressly granted are reserved.
     </Typography>
     <Typography gutterBottom variant="h2">
@@ -132,7 +132,7 @@ const TermsOfUse = () => (
       Indemnity.
     </Typography>
     <Typography paragraph>
-      You agree to indemnify and hold Upswyng and its affiliates and their
+      You agree to indemnify and hold UpSwyng and its affiliates and their
       officers, directors, employees, and agents harmless from any and all
       claims, demands, losses, liabilities, and expenses (including
       attorneys&apos; fees), arising out of or in connection with: (i) your use
@@ -146,8 +146,8 @@ const TermsOfUse = () => (
       Privacy Policy
     </Typography>
     <Typography paragraph>
-      In accordance with the terms of upswyng.org&apos;s Privacy Policy, Upswyng
-      respect&apos;s the privacy of its Users. Upswyng recommends users read its
+      In accordance with the terms of UpSwyng.org&apos;s Privacy Policy, UpSwyng
+      respect&apos;s the privacy of its Users. UpSwyng recommends users read its
       Privacy Policy, available in the main menu, before using the website or
       app.
     </Typography>

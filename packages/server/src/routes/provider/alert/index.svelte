@@ -173,7 +173,7 @@
 </script>
 
 <svelte:head>
-  <title>Upswyng: Alerts</title>
+  <title>UpSwyng: Alerts</title>
 </svelte:head>
 
 <section class="section">

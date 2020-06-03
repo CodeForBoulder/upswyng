@@ -24,7 +24,7 @@
 
 <section class="section">
   <div class="container">
-    <h1 class="title">Login to Upswyng</h1>
+    <h1 class="title">Login to UpSwyng</h1>
     <ul class="sign-in-buttons">
       <li>
         <FacebookLoginButton href="/connect/facebook" />

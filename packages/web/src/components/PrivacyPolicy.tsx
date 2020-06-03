@@ -165,7 +165,7 @@ const PrivacyPolicy = () => {
       <Typography paragraph>
         Cookies are pieces of information that some web sites transfer to the
         computer that is browsing that web site and are used for record-keeping
-        purposes at many web sites. Upswyng does not use cookies.
+        purposes at many web sites. UpSwyng does not use cookies.
       </Typography>
       <Typography variant="h2" gutterBottom>
         Disclosure
@@ -202,7 +202,7 @@ const PrivacyPolicy = () => {
       <Typography paragraph>
         Our Site contains links to other web sites. Please note that when you
         click on one of these links, you are entering another web site for which
-        Upswyng.org has no responsibility. We encourage you to read the privacy
+        UpSwyng.org has no responsibility. We encourage you to read the privacy
         statements on all such sites as their policies may be different than
         ours. We have no control over information that is submitted to, or
         collected by, these third parties.

@@ -335,7 +335,7 @@
 </style>
 
 <svelte:head>
-  <title>Upswyng: Create an Alert</title>
+  <title>UpSwyng: Create an Alert</title>
 </svelte:head>
 
 <section class="section">
@@ -656,7 +656,7 @@
                   </div>
                   <div class="level-right">
                     <img
-                      alt="Upswyng icon mock"
+                      alt="UpSwyng icon mock"
                       src="/static/upswyng_arrow.svg"
                       class="upswyng-icon" />
                   </div>

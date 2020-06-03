@@ -1,10 +1,10 @@
-# Upswyng (native)
+# UpSwyng (native)
 
-Upswyng is a digital directory that contains information on local services and providers who serve the homeless community in the Boulder area.
+UpSwyng is a digital directory that contains information on local services and providers who serve the homeless community in the Boulder area.
 
 This is the React Native version. Check out the web version [here](https://github.com/CodeForBoulder/upswyng/).
 
-<img src='readme_android.png' height=600 alt="Upswyng mockup running on a Pixel phone" />
+<img src='readme_android.png' height=600 alt="UpSwyng mockup running on a Pixel phone" />
 
 ## Setup
 
@@ -27,7 +27,7 @@ Get started here: [https://cloud.google.com/maps-platform/](https://cloud.google
 
 Click `Get Started`, select `Maps` and `Routes` and proceed with the setup.
 
-You will be presented with your key, which you will then need to save to your Upswyng directory's `config.ts` as `REACT_APP_GOOGLE_MAPS_API_KEY: yourUniqueGoogleAPIKeyHere`
+You will be presented with your key, which you will then need to save to your UpSwyng directory's `config.ts` as `REACT_APP_GOOGLE_MAPS_API_KEY: yourUniqueGoogleAPIKeyHere`
 
 ### Firebase DB Setup (Optional)
 
@@ -107,7 +107,7 @@ Installs project dependencies.
 
 ### `npm start`
 
-Starts Expo and will allow your virtual device to run Upswyng.
+Starts Expo and will allow your virtual device to run UpSwyng.
 
 ## Contributing
 
