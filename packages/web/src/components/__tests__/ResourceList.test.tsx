@@ -1,5 +1,6 @@
 import React from "react";
 import ResourceList from "../ResourceList";
+import { TResource } from "@upswyng/types";
 import { mockResources } from "../../data-mocks";
 import { render } from "@testing-library/react";
 
@@ -10,14 +11,30 @@ jest.mock("../ResourceCard", () => () => (
 
 describe("<ResourceList/>", () => {
   function setup(overrides = {}) {
-    return render(<ResourceList resources={mockResources} {...overrides} />);
+    return render(
+      <ResourceList resources={mockResources} status="success" {...overrides} />
+    );
   }
 
-  it("renders a loading spinner when resources are not loaded", () => {
-    const resources = undefined;
-    const { getByText } = setup({ resources });
+  it("renders a loading spinner when resources are loading", () => {
+    const status = "loading";
+    const { getByText } = setup({ status });
 
     expect(getByText("TEST-loading-spinner")).toBeInTheDocument();
+  });
+
+  it("renders an error message when failed to retrieve resources", () => {
+    const status = "error";
+    const { getByText } = setup({ status });
+
+    expect(getByText(/try again/i)).toBeInTheDocument();
+  });
+
+  it("renders an error message when successfully retrieved resources but response is empty", () => {
+    const resources = [] as TResource[];
+    const { getByText } = setup({ resources });
+
+    expect(getByText(/try again/i)).toBeInTheDocument();
   });
 
   it("renders a resource for each resource in the list", () => {
