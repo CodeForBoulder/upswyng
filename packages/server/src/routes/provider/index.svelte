@@ -1,6 +1,9 @@
 <script>
-  import { goto } from "@sapper/app";
+  import { goto, stores } from "@sapper/app";
   import ResourceSearch from "./../../components/ResourceSearch.svelte";
+
+  const { session } = stores();
+  const isLoggedIn = $session && !!$session.user;
 </script>
 
 <style>
@@ -54,9 +57,15 @@
           changes are subject to confirmation before going live. Just update and
           save as a draft and we will do the rest.
         </p>
-        <a href="/provider/login" class="button is-primary">
-          Login to Add Yours
-        </a>
+        {#if isLoggedIn}
+          <a href="/provider/resource/create" class="button is-primary">
+            Add Yours
+          </a>
+        {:else}
+          <a href="/provider/login" class="button is-primary">
+            Login to Add Yours
+          </a>
+        {/if}
       </div>
       <div class="column">
         <aside class="message is-medium">
