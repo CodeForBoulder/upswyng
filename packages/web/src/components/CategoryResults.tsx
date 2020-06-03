@@ -24,10 +24,21 @@ const CategoryResults = ({
   const params = useParams<{ subcategory?: string }>();
 
   const { text: categoryText, stub: categoryStub } = category;
-  const categoryResources = useResourcesByCategory(categoryStub);
+  const {
+    data: categoryResources,
+    status: categoryResourcesStatus,
+  } = useResourcesByCategory(categoryStub);
 
-  const subcategoryStub = params.subcategory ? params.subcategory : null;
-  const subcategoryResources = useResourcesBySubcategory(subcategoryStub);
+  const subcategoryStub = params.subcategory;
+  const {
+    data: subcategoryResources,
+    status: subcategoryResourcesStatus,
+  } = useResourcesBySubcategory(categoryStub, subcategoryStub);
+
+  const status = subcategoryStub
+    ? subcategoryResourcesStatus
+    : categoryResourcesStatus;
+  const resources = subcategoryStub ? subcategoryResources : categoryResources;
 
   return (
     <>
@@ -39,7 +50,8 @@ const CategoryResults = ({
       />
       <ResourceList
         placeholder={placeholder}
-        resources={subcategoryStub ? subcategoryResources : categoryResources}
+        resources={resources}
+        status={status}
       />
     </>
   );

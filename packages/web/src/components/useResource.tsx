@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { TResource } from "@upswyng/types";
 import { TResourcePayload } from "../webTypes";
-import axios from "axios";
+import apiClient from "../utils/apiClient";
 
 let serverUri = process.env.REACT_APP_SERVER_URI || "http://localhost:3000";
 if (serverUri.charAt(serverUri.length - 1) === "/") {
@@ -15,8 +15,8 @@ const useResource = (resourceId: string): undefined | null | TResource => {
   useEffect(() => {
     const getResource = async (): Promise<void> => {
       try {
-        const { data } = await axios.get<TResourcePayload>(
-          `${serverUri}/api/resource/${resourceId}`
+        const { data } = await apiClient.get<TResourcePayload>(
+          `/resource/${resourceId}`
         );
 
         const resource: TResource | undefined = data.resource;
