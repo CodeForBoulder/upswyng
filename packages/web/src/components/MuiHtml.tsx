@@ -54,11 +54,6 @@ const options = {
           </Typography>
         );
       case "li":
-        return (
-          <Typography component={domNode.name}>
-            {domToReact(domNode.children, options)}
-          </Typography>
-        );
       case "ol":
       case "ul":
         return (
