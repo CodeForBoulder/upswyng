@@ -4,6 +4,7 @@ import PageBanner from "./PageBanner";
 import React from "react";
 import ResourceList from "./ResourceList";
 import SubCategories from "./SubCategories";
+import Typography from "@material-ui/core/Typography";
 import { useParams } from "react-router-dom";
 import useResourcesByCategory from "./useResourcesByCategory";
 import useResourcesBySubcategory from "./useResourcesBySubcategory";
@@ -42,7 +43,9 @@ const CategoryResults = ({
 
   return (
     <>
-      <PageBanner text={categoryText} color={categoryColor} />
+      <PageBanner color={categoryColor}>
+        <Typography variant="h1">{categoryText}</Typography>
+      </PageBanner>
       <SubCategories
         category={category}
         color={categoryColor}

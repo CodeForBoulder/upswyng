@@ -17,7 +17,9 @@ const PrivacyPolicy = () => {
   const classes = useStyles();
   return (
     <Container>
-      <PageBanner color={colors.orangeDark} text={"Privacy Policy"} />
+      <PageBanner color={colors.orangeDark}>
+        <Typography variant="h1">Privacy Policy</Typography>
+      </PageBanner>
       <Typography paragraph>
         UpSwyng has created this Privacy Policy to explain why we collect
         particular information and how we will protect your personal privacy

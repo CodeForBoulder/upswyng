@@ -25,7 +25,9 @@ const CoordinatedEntry = () => {
   const buttonClasses = useButtonStyles({});
   return (
     <Container>
-      <PageBanner color={colors.rosewood} text={"Coordinated Entry"} />
+      <PageBanner color={colors.rosewood}>
+        <Typography variant="h1">Coordinated Entry</Typography>
+      </PageBanner>
       <Typography paragraph>
         All single homeless adults must go through the Coordinated Entry process
         to receive services from Boulder County or the cities of Boulder or

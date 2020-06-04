@@ -6,7 +6,9 @@ import { colors } from "@upswyng/common";
 
 const TermsOfUse = () => (
   <Container>
-    <PageBanner color={colors.orangeDark} text={"Terms of Use"} />
+    <PageBanner color={colors.orangeDark}>
+      <Typography variant="h1">Terms of Use</Typography>
+    </PageBanner>
     <Typography paragraph>
       UpSwyng provides its content on this website (the “Site”) and mobile
       applications (the “App”) which enable users to locate resources including

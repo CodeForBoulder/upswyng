@@ -4,7 +4,7 @@ import Link from "@material-ui/core/Link";
 import PageBanner from "./PageBanner";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
-import { colors } from "../App.styles";
+import { colors } from "@upswyng/common";
 
 interface Props {
   html: string;
@@ -37,10 +37,11 @@ const options = {
         );
       case "h1":
         return (
-          <PageBanner
-            color={colors.orangeDark}
-            text={domNode.children[0].data}
-          />
+          <PageBanner color={colors.orangeDark}>
+            <Typography variant="h1">
+              {domToReact(domNode.children, options)}
+            </Typography>
+          </PageBanner>
         );
       case "h2":
       case "h3":

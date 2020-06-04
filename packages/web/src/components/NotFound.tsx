@@ -10,7 +10,9 @@ import { colors } from "@upswyng/common";
 
 const NotFound = () => (
   <Container>
-    <PageBanner color={colors.orangeDark} text={"Page not Found"} />
+    <PageBanner color={colors.orangeDark}>
+      <Typography variant="h1">Page not Found</Typography>
+    </PageBanner>
     <Grid container direction="column" spacing={4}>
       <Grid item>
         <Typography component="p" variant="h3">
