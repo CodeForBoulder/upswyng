@@ -3,7 +3,7 @@ import HotlineCard from "./HotlineCard";
 import List from "@material-ui/core/List";
 import PageBanner from "./PageBanner";
 import React from "react";
-import { colors } from "../App.styles";
+import { colors } from "@upswyng/common";
 
 export const hotlineList = [
   {

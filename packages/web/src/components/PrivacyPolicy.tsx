@@ -4,7 +4,7 @@ import PageBanner from "./PageBanner";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
-import { colors } from "../App.styles";
+import { colors } from "@upswyng/common";
 import makeStyles from "@material-ui/styles/makeStyles";
 
 const useStyles = makeStyles({
