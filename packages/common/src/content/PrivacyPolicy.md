@@ -14,14 +14,16 @@ Because we want to demonstrate our commitment to your privacy, this Privacy Poli
 
 Questions regarding this statement should be directed to the UpSwyng.org by sending an email [info@upswyng.org](mailto:info@upswyng.org). Please reference this Privacy Policy in your subject line.
 
-What Information We Collect and How We Use That Information
+## What Information We Collect and How We Use That Information
+
 When you download, register with, or use UpSwyng.org or its mobile application version we may ask you to provide information:
 
-By which you may be personally identified, such as name, postal address if applicable, email address, telephone number, or age (“personal information”);
-Information that you provide by filling in forms in the App or Website;
-Records and copies of your correspondence with service providers or the us;
-Your search queries on the App or Website;
-Real-time information about the location of your device (collectively “User Contributions”).
+1. By which you may be personally identified, such as name, postal address if applicable, email address, telephone number, or age (“personal information”);
+2. Information that you provide by filling in forms in the App or Website;
+3. Records and copies of your correspondence with service providers or the us;
+4. Your search queries on the App or Website;
+5. Real-time information about the location of your device (collectively “User Contributions”).
+
 Your User Contributions are transmitted at your own risk. Please be aware that no security measures are perfect or impenetrable. Additionally, we cannot control the actions of third parties with whom you may choose to share your User Contributions. Therefore, we cannot and do not guarantee that your User Contributions will not be viewed by unauthorized persons.
 
 You may optionally upload photographs of service provider facilities or other related subjects to the Site. By uploading or emailing a photograph to the Site, you confirm that:
