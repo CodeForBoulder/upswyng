@@ -1,4 +1,5 @@
 <script>
+  import { colors } from "@upswyng/common";
   import Select from "svelte-select";
 
   export let value = []; // TSubcategory[]
@@ -55,7 +56,7 @@
         <div>
           <div
             class="bullet"
-            style={`background-color: ${subcategory.parentCategory.color || 'gray'}`} />
+            style={`background-color: ${colors[subcategory.parentCategory.color] || 'gray'}`} />
           <div class="is-size-6 has-text-weight-semibold subcategory-name">
             {subcategory.parentCategory.name} | {subcategory.name}
           </div>
@@ -81,7 +82,7 @@
           <div>
             <div
               class="bullet"
-              style={`background-color: ${subcategory.parentCategory.color || 'gray'}`} />
+              style={`background-color: ${colors[subcategory.parentCategory.color] || 'gray'}`} />
             <div class="is-size-6 has-text-weight-semibold subcategory-name">
               {subcategory.parentCategory.name} | {subcategory.name}
             </div>

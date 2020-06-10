@@ -17,7 +17,7 @@ import HomeButton from "./HomeButton";
 import { HomeRouterLink } from "./HomeLink";
 import React from "react";
 import { THomeButtonRouterLink } from "../webTypes";
-import { colors } from "../App.styles";
+import { colors } from "@upswyng/common";
 
 export const routerLinkButtons: THomeButtonRouterLink[] = [
   {

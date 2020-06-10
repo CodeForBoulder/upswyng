@@ -1,8 +1,8 @@
 <script>
-  import { AboutContent } from "@upswyng/common";
+  import { TermsOfUseContent } from "@upswyng/common";
   import insane from "insane";
 
-  $: sanitizedAboutContent = insane(AboutContent, {
+  $: sanitizedTermsOfUseContent = insane(TermsOfUseContent, {
     ...insane.defaults,
     allowedAttributes: {
       ...insane.defaults.allowedAttributes,
@@ -12,13 +12,13 @@
 </script>
 
 <svelte:head>
-  <title>About</title>
+  <title>Terms of Use</title>
 </svelte:head>
 
 <section class="section">
   <div class="container">
     <div class="content">
-      {@html sanitizedAboutContent}
+      {@html sanitizedTermsOfUseContent}
     </div>
   </div>
 </section>

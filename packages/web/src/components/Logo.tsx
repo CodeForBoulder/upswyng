@@ -1,6 +1,6 @@
 import React from "react";
 import { StyledComponentProps } from "@material-ui/core";
-import { colors } from "../App.styles";
+import { colors } from "@upswyng/common";
 
 const Logo = (props: StyledComponentProps) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 318.4 108.22" {...props}>

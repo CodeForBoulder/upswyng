@@ -116,10 +116,9 @@ const ReportIssue = () => {
 
   return (
     <Container>
-      <PageBanner
-        text="Report an Issue"
-        backButtonAction={lastLocation ? history.goBack : null}
-      />
+      <PageBanner backButtonAction={lastLocation ? history.goBack : null}>
+        <Typography variant="h1">Report an Issue</Typography>
+      </PageBanner>
       <Typography component="div">Report an issue for: </Typography>
       <Typography variant="h2" color="primary">
         {resource?.name}

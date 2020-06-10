@@ -24,7 +24,7 @@ import Services from "./Services";
 import { TResource } from "@upswyng/types";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import Typography from "@material-ui/core/Typography";
-import { colors } from "../App.styles";
+import { colors } from "@upswyng/common";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { useHistory } from "react-router";
 import { useLastLocation } from "react-router-last-location";
@@ -93,9 +93,10 @@ export const Resource = () => {
     <Container>
       <PageBanner
         color={resourceColor}
-        text={resource.name}
         backButtonAction={lastLocation ? history.goBack : null}
-      />
+      >
+        <Typography variant="h1">{resource.name}</Typography>
+      </PageBanner>
       {resource.streetViewImage && (
         <Image
           alt={`street view of ${resource.name}`}

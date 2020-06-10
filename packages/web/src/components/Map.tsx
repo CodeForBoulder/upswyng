@@ -13,7 +13,7 @@ import IconButton from "@material-ui/core/IconButton";
 import LoadingSpinner from "./LoadingSpinner";
 import Snackbar from "@material-ui/core/Snackbar";
 import { TResource } from "@upswyng/types";
-import { colors } from "../App.styles";
+import { colors } from "@upswyng/common";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
 const boulderCoordinates = {

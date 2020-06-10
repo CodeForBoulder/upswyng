@@ -10,7 +10,7 @@ import PageBanner from "./PageBanner";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import WarningIcon from "@material-ui/icons/Warning";
-import { colors } from "../App.styles";
+import { colors } from "@upswyng/common";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
 const useButtonStyles = makeStyles({
@@ -25,7 +25,9 @@ const CoordinatedEntry = () => {
   const buttonClasses = useButtonStyles({});
   return (
     <Container>
-      <PageBanner color={colors.rosewood} text={"Coordinated Entry"} />
+      <PageBanner color={colors.rosewood}>
+        <Typography variant="h1">Coordinated Entry</Typography>
+      </PageBanner>
       <Typography paragraph>
         All single homeless adults must go through the Coordinated Entry process
         to receive services from Boulder County or the cities of Boulder or

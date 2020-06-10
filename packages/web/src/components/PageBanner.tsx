@@ -3,16 +3,15 @@ import BannerColorContext from "./BannerColorContext";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import React from "react";
-import Typography from "@material-ui/core/Typography";
-import { colors } from "../App.styles";
+import { colors } from "@upswyng/common";
 
 interface Props {
+  children: React.ReactNode;
   color?: string;
-  text: string;
   backButtonAction?: (() => void) | null;
 }
 
-const PageBanner = ({ color, text, backButtonAction }: Props) => {
+const PageBanner = ({ children, color, backButtonAction }: Props) => {
   const { currentBannerColor, updateCurrentBannerColor } = React.useContext(
     BannerColorContext
   );
@@ -27,9 +26,7 @@ const PageBanner = ({ color, text, backButtonAction }: Props) => {
         <Grid item>
           <BackButton backButtonAction={backButtonAction} />
         </Grid>
-        <Grid item>
-          <Typography variant="h1">{text}</Typography>
-        </Grid>
+        <Grid item>{children}</Grid>
       </Grid>
     </Box>
   );
