@@ -6,7 +6,7 @@ import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import SearchForm from "./SearchForm";
 import Typography from "@material-ui/core/Typography";
-import { colors } from "../App.styles";
+import { colors } from "@upswyng/common";
 
 const NotFound = () => (
   <Container>

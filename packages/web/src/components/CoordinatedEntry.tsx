@@ -10,7 +10,7 @@ import PageBanner from "./PageBanner";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import WarningIcon from "@material-ui/icons/Warning";
-import { colors } from "../App.styles";
+import { colors } from "@upswyng/common";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
 const useButtonStyles = makeStyles({

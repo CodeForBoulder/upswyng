@@ -1,7 +1,7 @@
-import { colors, font } from "../App.styles";
-
 import { ButtonProps } from "@material-ui/core/Button";
 import React from "react";
+import { colors } from "@upswyng/common";
+import { font } from "../App.styles";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
 interface HomeButtonProps extends ButtonProps {

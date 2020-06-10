@@ -1,5 +1,5 @@
 import React from "react";
-import { colors } from "../App.styles";
+import { colors } from "@upswyng/common";
 
 const AlgoliaBadge = () => (
   <svg

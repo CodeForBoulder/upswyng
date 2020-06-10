@@ -4,7 +4,7 @@ import Logo from "./Logo";
 import PageBanner from "./PageBanner";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
-import { colors } from "../App.styles";
+import { colors } from "@upswyng/common";
 
 const About = () => (
   <Container>
