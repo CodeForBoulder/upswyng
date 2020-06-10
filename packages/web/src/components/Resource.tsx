@@ -93,9 +93,10 @@ export const Resource = () => {
     <Container>
       <PageBanner
         color={resourceColor}
-        text={resource.name}
         backButtonAction={lastLocation ? history.goBack : null}
-      />
+      >
+        <Typography variant="h1">{resource.name}</Typography>
+      </PageBanner>
       {resource.streetViewImage && (
         <Image
           alt={`street view of ${resource.name}`}

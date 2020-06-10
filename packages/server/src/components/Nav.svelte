@@ -84,15 +84,13 @@
               </a>
               <hr class="navbar-divider" />
             {/if}
-            <!-- svelte-ignore a11y-missing-attribute -->
-            <a class="navbar-item">About</a>
-            <!-- svelte-ignore a11y-missing-attribute -->
-            <a class="navbar-item">Privacy</a>
-            <!-- svelte-ignore a11y-missing-attribute -->
-            <a class="navbar-item">Contact</a>
-            <hr class="navbar-divider" />
-            <!-- svelte-ignore a11y-missing-attribute -->
-            <a class="navbar-item">Report an issue</a>
+            <a class="navbar-item" href="/provider/about">About</a>
+            <a class="navbar-item" href="/provider/privacy-policy">
+              Privacy Policy
+            </a>
+            <a class="navbar-item" href="/provider/terms-of-use">
+              Terms of Use
+            </a>
           </div>
         </div>
       </div>

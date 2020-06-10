@@ -12,6 +12,7 @@
     "@types/moment-timezone": "^0.5.12",
     "jest": "^24.9.0",
     "rollup": "^1.27.8",
+    "rollup-plugin-md": "^0.0.7",
     "rollup-plugin-typescript2": "^0.25.3",
     "ts-jest": "^24.2.0",
     "tslib": "^1.10.0",

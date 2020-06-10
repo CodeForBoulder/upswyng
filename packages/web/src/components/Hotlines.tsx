@@ -3,6 +3,7 @@ import HotlineCard from "./HotlineCard";
 import List from "@material-ui/core/List";
 import PageBanner from "./PageBanner";
 import React from "react";
+import Typography from "@material-ui/core/Typography";
 import { colors } from "@upswyng/common";
 
 export const hotlineList = [
@@ -88,7 +89,9 @@ export const hotlineList = [
 
 const Hotlines = () => (
   <Container>
-    <PageBanner color={colors.pink} text={"Hotlines"} />
+    <PageBanner color={colors.pink}>
+      <Typography variant="h1">Hotlines</Typography>
+    </PageBanner>
     <List>
       {hotlineList.map(({ name, description, phone }) => (
         <HotlineCard
