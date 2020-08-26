@@ -211,6 +211,10 @@ export const categories: Record<TCategoryName, TCategoryDefinition> = {
         stub: "abused",
       },
       {
+        text: "Safe Parking",
+        stub: "safe-parking",
+      },
+      {
         text: "Pregnant",
         stub: "pregnant",
       },
