@@ -27,7 +27,7 @@
     {/if}
   </div>
   <div>
-    <span class="has-text-weight-bold">Schedule Entrires</span>
+    <span class="has-text-weight-bold">Schedule Entries</span>
   </div>
   <ul>
     {#each schedule.getItems() as item}
