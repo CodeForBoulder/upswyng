@@ -124,25 +124,53 @@
 
 <section class="section">
   <div class="container">
-    {#if existingResource}
-      <h1 class="title">
+    <h1 class="title">
+      {#if existingResource}
         Update Service Provider: {existingResource.name}
-        <span class="tag is-dark">Admin</span>
-      </h1>
+      {:else}Create New Service Provider{/if}
+      <span class="tag is-dark">Admin</span>
+    </h1>
+    {#if existingResource}
       <p class="subtitle">
         Service Provider ID:
         <a href={`/provider/resource/${existingResource.resourceId}`}>
           {existingResource.resourceId}
         </a>
       </p>
+    {/if}
+    {#if draftResource.createdBy}
+      <div class="columns">
+        <div class="column is-one-third-desktop is-half-tablet">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-header-title">Draft Created By:</h2>
+            </div>
+            <div class="card-content">
+              <p class="content">
+                {#if draftResource.createdBy.name}
+                  <span class="icon">
+                    <i class="fas fa-user" aria-label="name" />
+                  </span>
+                  {draftResource.createdBy.name}
+                  <br />
+                {/if}
+                <span class="icon">
+                  <i class="fas fa-envelope" aria-label="email" />
+                </span>
+                <a href={`mailto:${draftResource.createdBy.email}`}>
+                  {draftResource.createdBy.email}
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    {/if}
+    {#if existingResource}
       <ResourceDiff
         leftResource={existingResource}
         rightResource={draftResource} />
     {:else}
-      <h1 class="title">
-        Create New Service Provider
-        <span class="tag is-dark">Admin</span>
-      </h1>
       <ResourceDisplay resource={draftResource} />
     {/if}
 
