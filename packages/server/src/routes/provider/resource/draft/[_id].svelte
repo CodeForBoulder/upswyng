@@ -88,7 +88,7 @@
             ? `The draft of ${draftResource.name} was deleted`
             : "The draft resource was deleted"
         );
-        goto("/resource");
+        goto("/provider/resource");
       })
       .catch(e => (deleteError = e))
       .finally(() => (isDeleting = false));
