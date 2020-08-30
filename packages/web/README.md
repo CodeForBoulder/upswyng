@@ -1,4 +1,6 @@
-# UpSwyng
+# UpSwyng Web
+
+This workspace includes the single page application used to surface resources to unhoused or at-risk communitites.
 
 ## Setup
 
