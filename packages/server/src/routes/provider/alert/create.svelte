@@ -39,6 +39,7 @@
     tent: "fas fa-campground",
     thermometer: "fas fa-thermometer-three-quarters",
     tooth: "fas fa-tooth",
+    wind: "fas fa-wind",
   };
 
   const alertTypes = {
