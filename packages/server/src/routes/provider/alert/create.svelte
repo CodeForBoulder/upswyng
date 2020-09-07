@@ -160,7 +160,7 @@
     iconSearchResults = [];
     const query = `{
       search(
-        version: "latest",
+        version: "5.12.1",
         query: "${iconSearch}",
         first: 16
       ) { id, Membership { free } }
@@ -176,10 +176,16 @@
       .then(async resp => {
         const { data } = await resp.json();
         iconSearchResults = data.search
-          .filter(({ Membership }) => Membership.free.length > 0)
+          .filter(({ Membership }) => Membership.free.includes("solid"))
           .map(icon => `fas fa-${icon.id}`);
+        if (iconSearchResults.length === 0) {
+          iconSearchResults = false;
+        }
       })
-      .catch(e => (errorMessage = e));
+      .catch(e => {
+        console.error(e);
+        iconSearchResults = false;
+      });
   }
 
   let isIconSelectorOpen = false;
@@ -269,7 +275,7 @@
   }
 
   .icon-search-bar {
-    margin-top: 1em;
+    margin: 1em 0;
   }
 
   .color-picker-container,
@@ -589,23 +595,29 @@
       {#if isCustomIconSelectorOpen}
         <section class="modal-card-body">
           <div class="icon-choiced-container">
-            <div class="icon-choices">
-              {#each iconSearchResults as icon}
-                <div class="icon-container">
-                  <button
-                    class="button is-large"
-                    class:has-background-info={tempIcon === icon}
-                    on:click={() => {
-                      tempIcon = icon;
-                      icons[icon] = icon;
-                    }}>
-                    <span class="icon is-large">
-                      <i class={`${icon} fa-2x`} />
-                    </span>
-                  </button>
-                </div>
-              {/each}
-            </div>
+            {#if iconSearchResults}
+              <div class="icon-choices">
+                {#each iconSearchResults as icon}
+                  <div class="icon-container">
+                    <button
+                      class="button is-large"
+                      class:has-background-info={tempIcon === icon}
+                      on:click={() => {
+                        tempIcon = icon;
+                        icons[icon] = icon;
+                      }}>
+                      <span class="icon is-large">
+                        <i class={`${icon} fa-2x`} />
+                      </span>
+                    </button>
+                  </div>
+                {/each}
+              </div>
+            {:else}
+              <div>
+                <h5>No results found</h5>
+              </div>
+            {/if}
           </div>
           <div class="control icon-search-bar">
             <input
