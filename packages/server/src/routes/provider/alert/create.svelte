@@ -594,27 +594,26 @@
       {#if isCustomIconSelectorOpen}
         <section class="modal-card-body">
           <div class="icon-choiced-container">
-            {#if iconSearchResults.length}
-              <div class="icon-choices">
-                {#each iconSearchResults as icon}
-                  <div class="icon-container">
-                    <button
-                      class="button is-large"
-                      class:has-background-info={tempIcon === icon}
-                      on:click={() => {
-                        tempIcon = icon;
-                        if (!Object.values(icons).includes(icon)) {
-                          icons[icon] = icon;
-                        }
-                      }}>
-                      <span class="icon is-large">
-                        <i class={`${icon} fa-2x`} />
-                      </span>
-                    </button>
-                  </div>
-                {/each}
-              </div>
-            {:else if !iconSearchResults.length && searchSubmitted}
+            <div class="icon-choices">
+              {#each iconSearchResults as icon}
+                <div class="icon-container">
+                  <button
+                    class="button is-large"
+                    class:has-background-info={tempIcon === icon}
+                    on:click={() => {
+                      tempIcon = icon;
+                      if (!Object.values(icons).includes(icon)) {
+                        icons[icon] = icon;
+                      }
+                    }}>
+                    <span class="icon is-large">
+                      <i class={`${icon} fa-2x`} />
+                    </span>
+                  </button>
+                </div>
+              {/each}
+            </div>
+            {#if !iconSearchResults.length && searchSubmitted}
               <div class="notification is-info">No results found.</div>
             {/if}
           </div>
