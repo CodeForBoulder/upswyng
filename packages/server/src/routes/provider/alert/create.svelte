@@ -20,6 +20,7 @@
   import ResourceEditor from "./../../../components/ResourceEditor.svelte";
   import rgbHex from "rgb-hex";
   import TimePicker from "./../../../components/TimePicker.svelte";
+  import axios from "axios";
 
   const { tz } = moment;
   const { session } = stores();
@@ -153,10 +154,15 @@
   }
 
   let isCustomIconSelectorOpen = false;
+  let searchSubmitted = false;
   let iconSearchTerm = "";
   let iconSearchResults = [];
 
-  function searchForCustomIcons() {
+  function searchForCustomIcons(event) {
+    if (event) {
+      event.preventDefault();
+    }
+
     iconSearchResults = [];
     const query = `{
       search(
@@ -166,25 +172,18 @@
       ) { id, Membership { free } }
     }`;
 
-    fetch("https://api.fontawesome.com", {
-      method: "POST",
-      body: JSON.stringify({ query }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then(async resp => {
-        const { data } = await resp.json();
-        iconSearchResults = data.search
+    axios
+      .post("https://api.fontawesome.com", { query })
+      .then(async ({ data }) => {
+        iconSearchResults = data.data.search
           .filter(({ Membership }) => Membership.free.includes("solid"))
           .map(icon => `fas fa-${icon.id}`);
-        if (iconSearchResults.length === 0) {
-          iconSearchResults = false;
-        }
       })
       .catch(e => {
         console.error(e);
-        iconSearchResults = false;
+      })
+      .finally(_ => {
+        searchSubmitted = true;
       });
   }
 
@@ -595,7 +594,7 @@
       {#if isCustomIconSelectorOpen}
         <section class="modal-card-body">
           <div class="icon-choiced-container">
-            {#if iconSearchResults}
+            {#if iconSearchResults.length}
               <div class="icon-choices">
                 {#each iconSearchResults as icon}
                   <div class="icon-container">
@@ -604,7 +603,9 @@
                       class:has-background-info={tempIcon === icon}
                       on:click={() => {
                         tempIcon = icon;
-                        icons[icon] = icon;
+                        if (!Object.values(icons).includes(icon)) {
+                          icons[icon] = icon;
+                        }
                       }}>
                       <span class="icon is-large">
                         <i class={`${icon} fa-2x`} />
@@ -613,42 +614,23 @@
                   </div>
                 {/each}
               </div>
-            {:else}
-              <div>
-                <h5>No results found</h5>
-              </div>
+            {:else if !iconSearchResults.length && searchSubmitted}
+              <div class="notification is-info">No results found.</div>
             {/if}
           </div>
-          <div class="control icon-search-bar">
-            <input
-              class="input"
-              type="text"
-              placeholder="Search for an icon..."
-              bind:value={iconSearchTerm} />
-          </div>
-          <div class="control">
-            <button class="button" on:click={searchForCustomIcons}>
-              Search
-            </button>
-          </div>
+          <form on:submit={searchForCustomIcons}>
+            <div class="control icon-search-bar">
+              <input
+                class="input"
+                type="text"
+                placeholder="Search for an icon..."
+                bind:value={iconSearchTerm} />
+            </div>
+            <div class="control">
+              <button class="button" type="submit">Search</button>
+            </div>
+          </form>
         </section>
-        <footer class="modal-card-foot">
-          <button
-            class="button is-success"
-            on:click={() => {
-              alertIcon = tempIcon;
-              isIconSelectorOpen = false;
-            }}>
-            Save changes
-          </button>
-          <button
-            class="button is-info"
-            on:click={() => {
-              isCustomIconSelectorOpen = false;
-            }}>
-            Back
-          </button>
-        </footer>
       {:else}
         <section class="modal-card-body">
           <div class="icon-choiced-container">
@@ -668,24 +650,24 @@
             </div>
           </div>
         </section>
-        <footer class="modal-card-foot">
-          <button
-            class="button is-success"
-            on:click={() => {
-              alertIcon = tempIcon;
-              isIconSelectorOpen = false;
-            }}>
-            Save changes
-          </button>
-          <button
-            class="button is-info"
-            on:click={() => {
-              isCustomIconSelectorOpen = true;
-            }}>
-            Search For Icons
-          </button>
-        </footer>
       {/if}
+      <footer class="modal-card-foot">
+        <button
+          class="button is-success"
+          on:click={() => {
+            alertIcon = tempIcon;
+            isIconSelectorOpen = false;
+          }}>
+          Save changes
+        </button>
+        <button
+          class="button is-info"
+          on:click={() => {
+            isCustomIconSelectorOpen = !isCustomIconSelectorOpen;
+          }}>
+          {isCustomIconSelectorOpen ? 'Back' : 'Search For Icons'}
+        </button>
+      </footer>
     </div>
   </div>
 
