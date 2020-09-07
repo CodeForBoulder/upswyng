@@ -153,7 +153,7 @@
   }
 
   let isCustomIconSelectorOpen = false;
-  let iconSearch = "";
+  let iconSearchTerm = "";
   let iconSearchResults = [];
 
   function searchForCustomIcons() {
@@ -161,7 +161,7 @@
     const query = `{
       search(
         version: "5.12.1",
-        query: "${iconSearch}",
+        query: "${iconSearchTerm}",
         first: 16
       ) { id, Membership { free } }
     }`;
@@ -624,7 +624,7 @@
               class="input"
               type="text"
               placeholder="Search for an icon..."
-              bind:value={iconSearch} />
+              bind:value={iconSearchTerm} />
           </div>
           <div class="control">
             <button class="button" on:click={searchForCustomIcons}>
