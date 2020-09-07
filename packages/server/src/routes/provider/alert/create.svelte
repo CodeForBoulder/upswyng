@@ -152,6 +152,36 @@
     }
   }
 
+  let isCustomIconSelectorOpen = false;
+  let iconSearch = "";
+  let iconSearchResults = [];
+
+  function searchForCustomIcons() {
+    iconSearchResults = [];
+    const query = `{
+      search(
+        version: "latest",
+        query: "${iconSearch}",
+        first: 16
+      ) { id, Membership { free } }
+    }`;
+
+    fetch("https://api.fontawesome.com", {
+      method: "POST",
+      body: JSON.stringify({ query }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(async resp => {
+        const { data } = await resp.json();
+        iconSearchResults = data.search
+          .filter(({ Membership }) => Membership.free.length > 0)
+          .map(icon => `fas fa-${icon.id}`);
+      })
+      .catch(e => (errorMessage = e));
+  }
+
   let isIconSelectorOpen = false;
   let isColorSelectorOpen = false;
   let isSubmitDialogOpen = false;
@@ -236,6 +266,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .icon-search-bar {
+    margin-top: 1em;
   }
 
   .color-picker-container,
@@ -547,36 +581,99 @@
         <button
           class="delete"
           aria-label="close"
-          on:click={() => (isIconSelectorOpen = false)} />
-      </header>
-      <section class="modal-card-body">
-        <div class="icon-choiced-container">
-          <div class="icon-choices">
-            {#each Object.values(icons) as icon}
-              <div class="icon-container">
-                <button
-                  class="button is-large"
-                  class:has-background-info={tempIcon === icon}
-                  on:click={() => (tempIcon = icon)}>
-                  <span class="icon is-large">
-                    <i class={`${icon} fa-2x`} />
-                  </span>
-                </button>
-              </div>
-            {/each}
-          </div>
-        </div>
-      </section>
-      <footer class="modal-card-foot">
-        <button
-          class="button is-success"
           on:click={() => {
-            alertIcon = tempIcon;
             isIconSelectorOpen = false;
-          }}>
-          Save changes
-        </button>
-      </footer>
+            isCustomIconSelectorOpen = false;
+          }} />
+      </header>
+      {#if isCustomIconSelectorOpen}
+        <section class="modal-card-body">
+          <div class="icon-choiced-container">
+            <div class="icon-choices">
+              {#each iconSearchResults as icon}
+                <div class="icon-container">
+                  <button
+                    class="button is-large"
+                    class:has-background-info={tempIcon === icon}
+                    on:click={() => {
+                      tempIcon = icon;
+                      icons[icon] = icon;
+                    }}>
+                    <span class="icon is-large">
+                      <i class={`${icon} fa-2x`} />
+                    </span>
+                  </button>
+                </div>
+              {/each}
+            </div>
+          </div>
+          <div class="control icon-search-bar">
+            <input
+              class="input"
+              type="text"
+              placeholder="Search for an icon..."
+              bind:value={iconSearch} />
+          </div>
+          <div class="control">
+            <button class="button" on:click={searchForCustomIcons}>
+              Search
+            </button>
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+          <button
+            class="button is-success"
+            on:click={() => {
+              alertIcon = tempIcon;
+              isIconSelectorOpen = false;
+            }}>
+            Save changes
+          </button>
+          <button
+            class="button is-info"
+            on:click={() => {
+              isCustomIconSelectorOpen = false;
+            }}>
+            Back
+          </button>
+        </footer>
+      {:else}
+        <section class="modal-card-body">
+          <div class="icon-choiced-container">
+            <div class="icon-choices">
+              {#each Object.values(icons) as icon}
+                <div class="icon-container">
+                  <button
+                    class="button is-large"
+                    class:has-background-info={tempIcon === icon}
+                    on:click={() => (tempIcon = icon)}>
+                    <span class="icon is-large">
+                      <i class={`${icon} fa-2x`} />
+                    </span>
+                  </button>
+                </div>
+              {/each}
+            </div>
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+          <button
+            class="button is-success"
+            on:click={() => {
+              alertIcon = tempIcon;
+              isIconSelectorOpen = false;
+            }}>
+            Save changes
+          </button>
+          <button
+            class="button is-info"
+            on:click={() => {
+              isCustomIconSelectorOpen = true;
+            }}>
+            Search For Icons
+          </button>
+        </footer>
+      {/if}
     </div>
   </div>
 
