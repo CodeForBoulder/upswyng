@@ -1,24 +1,36 @@
-![UpSwyng Logo](./upswyng.svg)
+<h1><img src="./upswyng.svg" alt="UpSwyng" maxWidth="350px" /></h1>
 
-# UpSwyng
+UpSwyng is a mobile-ready, digital directory of resources to assist the unhoused and at-risk communities. This is a [Code For Boulder](https://www.codeforboulder.org) project coming soon to Boulder County, Colorado.
 
-> UpSwyng is a mobile-ready, digital directory of
-> resources to assist the unhoused and at-risk communities.
-> Coming soon to Boulder, CO.
+## Getting Started
 
-UpSwyng is a [Code For Boulder](https://www.codeforboulder.org) project.
+If you have any issues getting started using these directions, please see the [Troubleshooting section](#Troubleshooting).
+
+1. Install the Yarn package manager by following the instructions at
+   [https://yarnpkg.com/lang/en/docs/install](https://yarnpkg.com/lang/en/docs/install)
+
+2. While in the root of this repo, install all project dependencies by running
+
+   ```console
+   yarn
+   ```
+
+3. Next, try starting try running the web client by entering `yarn workspace @upswyng/web start`. This command will start in on port 3000. For specific setup instructions on the two main projects, see their corresponding READMEs.
 
 ## Project Organization
 
 ![Project Organization Diagram](./upswyng-project-layout.svg)
 
 UpSwyng is a monorepo managed with [Yarn Workspaces](https://classic.yarnpkg.com/en/docs/workspaces/). It consists of five
-packages all in the `packages` directory: `common` contains common libraries and utilities used across the other packages.
-`types` holds the TypeScript definitions used across the project. `server` is a [Sapper](https://sapper.svelte.dev/)
-application with two parts: an API server which provides data to the UpSwyng clients, and an admin web interface which uses
-the [Svelte](https://svelte.dev/) framework to create and modify data for the project. `web` contains the
-[React](https://reactjs.org/) web client, and `native` contains a work-in-progress
-[React Native](https://facebook.github.io/react-native/) cleint.
+packages all in the `packages` directory:
+
+- [common](https://github.com/CodeForBoulder/upswyng/tree/master/packages/common) - contains common libraries and utilities used across the other packages
+- [types](https://github.com/CodeForBoulder/upswyng/tree/master/packages/types) - contains the TypeScript definitions used across the project
+- [server](https://github.com/CodeForBoulder/upswyng/tree/master/packages/server) - a [Sapper](https://sapper.svelte.dev/) application with two parts:
+  - an API server which provides data to the UpSwyng clients
+  - an admin web interface which uses the [Svelte](https://svelte.dev/) framework to create and modify data for the project
+- [web](https://github.com/CodeForBoulder/upswyng/tree/master/packages/web) - contains the [React](https://reactjs.org/) web client
+- [native](https://github.com/CodeForBoulder/upswyng/tree/master/packages/native) - contains a proof-of-concept [React Native](https://facebook.github.io/react-native/) client
 
 ## Working With Yarn Workspaces
 
@@ -35,51 +47,25 @@ To run the same command in _all_ workspaces, use `yarn workspaces`. For instance
 yarn workspaces test
 ```
 
-> Typing out the full workspace name can get tedious. You can place aliases in your `.bashrc`
-> or `.profile` to save time:
->
-> ```console
-> alias @uw="yarn workspace @upswyng/web "
-> ```
->
-> Now you only need `@uw start` to start the web dev server.
+Typing out the full workspace name can get tedious. You can place aliases in your `.bashrc` or `.profile` to save time:
 
-## Getting Started
-
-Install the Yarn package manager by following the instructions at
-[https://yarnpkg.com/lang/en/docs/install](https://yarnpkg.com/lang/en/docs/install)
-
-Next, clone the repo:
-
-```
-git clone https://github.com/CodeForBoulder/upswyng.git
+```console
+alias @uw="yarn workspace @upswyng/web "
 ```
 
-`cd` into the repo:
-
-```
-cd upswyng
-```
-
-and install the project dependencies by running
-
-```
-yarn
-```
-
-Note: the above command may fail if your `node` version is not 12.14.x. [nvm](https://itnext.io/nvm-the-easiest-way-to-switch-node-js-environments-on-your-machine-in-a-flash-17babb7d5f1b#d594) is one solution
-(among others) to manage `node` versions precisely.
-
-Next, try starting up a development client by running `yarn workspace @upswyng/web start`.
-
-### Development Ports
-
-| Job        | Port |
-| ---------- | ---: |
-| server     | 3000 |
-| web client | 3001 |
+Now you only need `@uw start` to start the web dev server.
 
 ### Troubleshooting
+
+#### The engine "node" is incompatible with this module.
+
+When running `yarn` to install project dependencies, you may see a message that looks similar to:
+
+```
+The engine "node" is incompatible with this module. Expected version "^14.3.x". Got "11.15.0".
+```
+
+This just means that your machine's current version of node does not match the version required to run the UpSwyng server, 12.14.x. To fix this you'll need to install and which your current version of Node. [nvm](https://itnext.io/nvm-the-easiest-way-to-switch-node-js-environments-on-your-machine-in-a-flash-17babb7d5f1b#d594) is a helpful tool, among others, you could use to easily switch between node versions.
 
 #### Type Errors
 
@@ -96,14 +82,9 @@ user_permission_changed: any; }'. Did you mean 'draft_approved'?
 
 To fix this, run the script:
 
-```
+```console
 yarn build:local-packages
 ```
-
-### Next Steps
-
-`cd` into the package you're interested in working on and run the appropriate script. Visit each package's `README` for more
-information about environment setup, scripts, and more.
 
 ## Contributing
 
