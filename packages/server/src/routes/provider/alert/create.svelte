@@ -20,6 +20,7 @@
   import ResourceEditor from "./../../../components/ResourceEditor.svelte";
   import rgbHex from "rgb-hex";
   import TimePicker from "./../../../components/TimePicker.svelte";
+  import axios from "axios";
 
   const { tz } = moment;
   const { session } = stores();
@@ -39,6 +40,7 @@
     tent: "fas fa-campground",
     thermometer: "fas fa-thermometer-three-quarters",
     tooth: "fas fa-tooth",
+    wind: "fas fa-wind",
   };
 
   const alertTypes = {
@@ -151,6 +153,40 @@
     }
   }
 
+  let isCustomIconSelectorOpen = false;
+  let searchSubmitted = false;
+  let iconSearchTerm = "";
+  let iconSearchResults = [];
+
+  function searchForCustomIcons(event) {
+    if (event) {
+      event.preventDefault();
+    }
+
+    iconSearchResults = [];
+    const query = `{
+      search(
+        version: "5.12.1",
+        query: "${iconSearchTerm}",
+        first: 16
+      ) { id, Membership { free } }
+    }`;
+
+    axios
+      .post("https://api.fontawesome.com", { query })
+      .then(async ({ data }) => {
+        iconSearchResults = data.data.search
+          .filter(({ Membership }) => Membership.free.includes("solid"))
+          .map(icon => `fas fa-${icon.id}`);
+      })
+      .catch(e => {
+        console.error(e);
+      })
+      .finally(_ => {
+        searchSubmitted = true;
+      });
+  }
+
   let isIconSelectorOpen = false;
   let isColorSelectorOpen = false;
   let isSubmitDialogOpen = false;
@@ -235,6 +271,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .icon-search-bar {
+    margin: 1em 0;
   }
 
   .color-picker-container,
@@ -546,26 +586,70 @@
         <button
           class="delete"
           aria-label="close"
-          on:click={() => (isIconSelectorOpen = false)} />
+          on:click={() => {
+            isIconSelectorOpen = false;
+            isCustomIconSelectorOpen = false;
+          }} />
       </header>
-      <section class="modal-card-body">
-        <div class="icon-choiced-container">
-          <div class="icon-choices">
-            {#each Object.values(icons) as icon}
-              <div class="icon-container">
-                <button
-                  class="button is-large"
-                  class:has-background-info={tempIcon === icon}
-                  on:click={() => (tempIcon = icon)}>
-                  <span class="icon is-large">
-                    <i class={`${icon} fa-2x`} />
-                  </span>
-                </button>
-              </div>
-            {/each}
+      {#if isCustomIconSelectorOpen}
+        <section class="modal-card-body">
+          <div class="icon-choiced-container">
+            <div class="icon-choices">
+              {#each iconSearchResults as icon}
+                <div class="icon-container">
+                  <button
+                    class="button is-large"
+                    class:has-background-info={tempIcon === icon}
+                    on:click={() => {
+                      tempIcon = icon;
+                      if (!Object.values(icons).includes(icon)) {
+                        icons[icon] = icon;
+                      }
+                    }}>
+                    <span class="icon is-large">
+                      <i class={`${icon} fa-2x`} />
+                    </span>
+                  </button>
+                </div>
+              {/each}
+            </div>
+            {#if !iconSearchResults.length && searchSubmitted}
+              <div class="notification is-info">No results found.</div>
+            {/if}
           </div>
-        </div>
-      </section>
+          <form on:submit={searchForCustomIcons}>
+            <div class="control icon-search-bar">
+              <input
+                class="input"
+                type="text"
+                placeholder="Search for an icon..."
+                bind:value={iconSearchTerm} />
+            </div>
+            <div class="control">
+              <button class="button" type="submit">Search</button>
+            </div>
+          </form>
+        </section>
+      {:else}
+        <section class="modal-card-body">
+          <div class="icon-choiced-container">
+            <div class="icon-choices">
+              {#each Object.values(icons) as icon}
+                <div class="icon-container">
+                  <button
+                    class="button is-large"
+                    class:has-background-info={tempIcon === icon}
+                    on:click={() => (tempIcon = icon)}>
+                    <span class="icon is-large">
+                      <i class={`${icon} fa-2x`} />
+                    </span>
+                  </button>
+                </div>
+              {/each}
+            </div>
+          </div>
+        </section>
+      {/if}
       <footer class="modal-card-foot">
         <button
           class="button is-success"
@@ -574,6 +658,13 @@
             isIconSelectorOpen = false;
           }}>
           Save changes
+        </button>
+        <button
+          class="button is-info"
+          on:click={() => {
+            isCustomIconSelectorOpen = !isCustomIconSelectorOpen;
+          }}>
+          {isCustomIconSelectorOpen ? 'Back' : 'Search For Icons'}
         </button>
       </footer>
     </div>
