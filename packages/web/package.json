@@ -21,6 +21,7 @@
     "@upswyng/common": "0.1.0",
     "algoliasearch": "^3.33.0",
     "axios": "^0.19.0",
+    "cross-env": "^7.0.2",
     "debounce": "^1.2.0",
     "google-map-react": "^1.1.4",
     "html-react-parser": "^0.11.1",
@@ -62,12 +63,12 @@
   "scripts": {
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "build": "SKIP_PREFLIGHT_CHECK=true yarn workspace @upswyng/common build && react-scripts build",
-    "eject": "SKIP_PREFLIGHT_CHECK=true react-scripts eject",
-    "start": "PORT=3001 SKIP_PREFLIGHT_CHECK=true react-scripts start",
+    "build": "cross-env SKIP_PREFLIGHT_CHECK=true yarn workspace @upswyng/common build && react-scripts build",
+    "eject": "cross-env SKIP_PREFLIGHT_CHECK=true react-scripts eject",
+    "start": "cross-env PORT=3001 SKIP_PREFLIGHT_CHECK=true react-scripts start",
     "test": "run-p -n test:integration test:unit",
-    "test:integration": "BROWSER=none REACT_SERVER_URI=http://localhost:3001 start-server-and-test start 3001 'cypress run'",
-    "test:unit": "SKIP_PREFLIGHT_CHECK=true react-scripts test"
+    "test:integration": "cross-env BROWSER=none REACT_SERVER_URI=http://localhost:3001 start-server-and-test start 3001 'cypress run'",
+    "test:unit": "cross-env SKIP_PREFLIGHT_CHECK=true react-scripts test"
   },
   "version": "0.1.0"
 }
