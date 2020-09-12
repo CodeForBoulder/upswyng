@@ -11,13 +11,11 @@ If you have any issues getting started using these directions, please see the [T
 
 2. While in the root of this repo, install all project dependencies by running
 
-```
+   ```console
+   yarn
+   ```
 
-yarn
-
-```
-
-3. Next, try starting a development client by running the web client by entering `yarn workspace @upswyng/web start`. This command will start in on port 3000. For specific setup instructions on the two main projects, see their corresponding READMEs.
+3. Next, try starting try running the web client by entering `yarn workspace @upswyng/web start`. This command will start in on port 3000. For specific setup instructions on the two main projects, see their corresponding READMEs.
 
 ## Project Organization
 
@@ -49,14 +47,13 @@ To run the same command in _all_ workspaces, use `yarn workspaces`. For instance
 yarn workspaces test
 ```
 
-> Typing out the full workspace name can get tedious. You can place aliases in your `.bashrc`
-> or `.profile` to save time:
->
-> ```console
-> alias @uw="yarn workspace @upswyng/web "
-> ```
->
-> Now you only need `@uw start` to start the web dev server.
+Typing out the full workspace name can get tedious. You can place aliases in your `.bashrc` or `.profile` to save time:
+
+```console
+alias @uw="yarn workspace @upswyng/web "
+```
+
+Now you only need `@uw start` to start the web dev server.
 
 ### Troubleshooting
 
@@ -85,7 +82,7 @@ user_permission_changed: any; }'. Did you mean 'draft_approved'?
 
 To fix this, run the script:
 
-```
+```console
 yarn build:local-packages
 ```
 

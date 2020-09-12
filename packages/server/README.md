@@ -21,7 +21,7 @@ For local development, you'll only need to create a copy of `.env.example` and n
 
 You can do this via your system's file explorer or via the following terminal command while in the repo:
 
-```
+```console
 cp .env.example .env
 ```
 
@@ -38,6 +38,12 @@ DATABASE_USER
 This file contains placeholders for various API keys that you may or may not need to provide. This depends on the issue you are addressing. For example, if you're working on a feature that is only enabled for admins, then you'll also need to provide API keys for one of our OAuth providers.
 
 ### 2. Start the Server
+
+```console
+yarn dev
+```
+
+Runs the app in the development mode. Open [http:/localhost:3000](http:/localhost:3000) to view it in the browser.
 
 ## Commands
 
@@ -67,3 +73,7 @@ Launches unit tests.
 ### `yarn build`
 
 Start a production version of the app. This will disable live reloading, and activate the appropriate bundler plugins.
+
+```
+
+```

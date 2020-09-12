@@ -12,7 +12,7 @@ For local development, you'll only need to create a copy of `.env.local.example`
 
 You can do this via your system's file explorer or via the following terminal command while in the repo:
 
-```
+```console
 cp .env.local.example .env.local
 ```
 

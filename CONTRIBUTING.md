@@ -7,7 +7,7 @@ First, thank you for pitching in! Before contributing, please make sure to revie
 All issues that have been approved for development, but have not been started will be labelled
 as [Status: Dev Ready](https://github.com/CodeForBoulder/upswyng/issues?q=is%3Aopen+is%3Aissue+label%3A%22%E2%9C%85+Status%3A+Dev+Ready%22).
 
-We also, move issues into the [All Issues project](https://github.com/CodeForBoulder/upswyng/projects/3) if you prefer to explore that way.
+We also move issues into the [All Issues project](https://github.com/CodeForBoulder/upswyng/projects/3) if you prefer to explore that way.
 
 Depending on your familiarity with the various stacks, you may also want to filter based on the two projects in this repo:
 
