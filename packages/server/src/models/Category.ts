@@ -95,12 +95,19 @@ CategorySchema.statics.getCategoryList = async function(): Promise<
 };
 
 CategorySchema.statics.getByStub = async function(
-  stub: string
+  stub: string,
+  includeDeletedResources: boolean = false
 ): Promise<TCategoryDocument | null> {
-  return await this.findOne({ stub }).populate({
+  const result = await this.findOne({ stub }).populate({
     path: "subcategories",
     populate: { path: "resources" },
   });
+  if (result && !includeDeletedResources) {
+    result.subcategories.forEach(subcategory => {
+      subcategory.resources = subcategory.resources.filter(r => !r.deleted);
+    });
+  }
+  return result;
 };
 
 /**
