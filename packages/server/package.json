@@ -43,7 +43,7 @@
     "mongoose": "^5.6.13",
     "morgan": "^1.10.0",
     "nano-equal": "^2.0.2",
-    "node-forge": "^0.9.1",
+    "node-forge": "^0.10.0",
     "num-words": "^1.0.1",
     "number-to-words-en": "^1.2.5",
     "pretty-ms": "^5.1.0",
