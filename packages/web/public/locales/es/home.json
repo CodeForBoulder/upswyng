@@ -1,0 +1,13 @@
+{
+  "food": "Comida",
+  "shelter": "Abrigo",
+  "hygiene": "Higiene",
+  "transit": "Tránsito",
+  "resources": "Recursos",
+  "hotlines": "Líneas Directas",
+  "health": "Salud",
+  "wifi": "Wifi",
+  "jobTraining": "Formación Profesional",
+  "socialServices": "Servicios Sociales",
+  "coordinatedEntry": "Entrada Coordinada"
+}

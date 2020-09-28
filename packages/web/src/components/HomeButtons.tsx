@@ -11,6 +11,7 @@ import {
   SocksIcon,
   WifiIcon,
 } from "./Icons";
+
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import HomeButton from "./HomeButton";
@@ -18,10 +19,12 @@ import { HomeRouterLink } from "./HomeLink";
 import React from "react";
 import { THomeButtonRouterLink } from "../webTypes";
 import { colors } from "@upswyng/common";
+import { useTranslation } from "react-i18next";
 
 export const routerLinkButtons: THomeButtonRouterLink[] = [
   {
     text: "Food",
+    translationKey: "home:food",
     icon: BananaIcon,
     linkProps: {
       to: "/food",
@@ -30,6 +33,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
   },
   {
     text: "Shelter",
+    translationKey: "home:shelter",
     icon: HomeIcon,
     linkProps: {
       to: "/shelters",
@@ -38,6 +42,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
   },
   {
     text: "Hygiene",
+    translationKey: "home:hygiene",
     icon: HygieneIcon,
     linkProps: {
       to: "/hygiene",
@@ -46,6 +51,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
   },
   {
     text: "Transit",
+    translationKey: "home:transit",
     icon: BusIcon,
     linkProps: {
       to: "/transit",
@@ -54,6 +60,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
   },
   {
     text: "Resources",
+    translationKey: "home:resources",
     icon: SocksIcon,
     linkProps: {
       to: "/resources",
@@ -62,6 +69,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
   },
   {
     text: "Hotlines",
+    translationKey: "home:hotlines",
     icon: CallIcon,
     linkProps: {
       to: "/hotlines",
@@ -70,6 +78,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
   },
   {
     text: "Health",
+    translationKey: "home:health",
     icon: LocalHospitalIcon,
     linkProps: {
       to: "/health",
@@ -78,6 +87,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
   },
   {
     text: "Wifi",
+    translationKey: "home:wifi",
     icon: WifiIcon,
     linkProps: {
       to: "/wifi",
@@ -86,6 +96,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
   },
   {
     text: "Job Training",
+    translationKey: "home:jobTraining",
     icon: BusinessCenterIcon,
     linkProps: {
       to: "/job-training",
@@ -94,6 +105,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
   },
   {
     text: "Social Services",
+    translationKey: "home:socialServices",
     icon: PeopleIcon,
     linkProps: {
       to: "/social_services",
@@ -104,6 +116,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
 
 const coordinatedEntryButton: THomeButtonRouterLink = {
   text: "Coordinated Entry",
+  translationKey: "home:coordinatedEntry",
   icon: DoorIcon,
   linkProps: {
     to: "/coordinated-entry",
@@ -111,50 +124,56 @@ const coordinatedEntryButton: THomeButtonRouterLink = {
   color: colors.rosewood,
 };
 
-const HomeButtons = () => (
-  <Grid
-    container
-    direction="row"
-    justify="space-evenly"
-    alignItems="stretch"
-    spacing={2}
-  >
-    {routerLinkButtons.map(button => {
-      return (
-        <Grid item xs={6} key={button.text}>
-          <Box
-            alignContent="stretch"
-            component={HomeRouterLink}
-            display="flex"
-            height="100%"
-            {...button}
-          >
-            <HomeButton
-              buttonColor={button.color}
-              data-test="home-router-button"
+const HomeButtons = () => {
+  const { t } = useTranslation(["home"]);
+  return (
+    <Grid
+      container
+      direction="row"
+      justify="space-evenly"
+      alignItems="stretch"
+      spacing={2}
+    >
+      {routerLinkButtons.map(button => {
+        return (
+          <Grid item xs={6} key={button.text}>
+            <Box
+              alignContent="stretch"
+              component={HomeRouterLink}
+              display="flex"
+              height="100%"
+              {...button}
             >
-              {button.text}
-              {button.icon}
-            </HomeButton>
-          </Box>
-        </Grid>
-      );
-    })}
-    <Grid item xs={12}>
-      <Box
-        alignContent="stretch"
-        component={HomeRouterLink}
-        display="flex"
-        height="100%"
-        {...coordinatedEntryButton}
-      >
-        <HomeButton buttonColor={coordinatedEntryButton.color}>
-          {coordinatedEntryButton.text}
-          {coordinatedEntryButton.icon}
-        </HomeButton>
-      </Box>
+              <HomeButton
+                buttonColor={button.color}
+                data-test="home-router-button"
+              >
+                {t(button.translationKey, button.text)}
+                {button.icon}
+              </HomeButton>
+            </Box>
+          </Grid>
+        );
+      })}
+      <Grid item xs={12}>
+        <Box
+          alignContent="stretch"
+          component={HomeRouterLink}
+          display="flex"
+          height="100%"
+          {...coordinatedEntryButton}
+        >
+          <HomeButton buttonColor={coordinatedEntryButton.color}>
+            {t(
+              coordinatedEntryButton.translationKey,
+              coordinatedEntryButton.text
+            )}
+            {coordinatedEntryButton.icon}
+          </HomeButton>
+        </Box>
+      </Grid>
     </Grid>
-  </Grid>
-);
+  );
+};
 
 export default HomeButtons;

@@ -1,9 +1,11 @@
 import "./index.css";
+import "./i18n";
 
 import * as serviceWorker from "./serviceWorker";
 
+import React, { Suspense } from "react";
+
 import App from "./App";
-import React from "react";
 import ReactDOM from "react-dom";
 import { TEnvVariables } from "./webTypes";
 import TagManager from "react-gtm-module";
@@ -18,7 +20,12 @@ const tagManagerArgs = {
 
 TagManager.initialize(tagManagerArgs);
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <Suspense fallback={null}>
+    <App />
+  </Suspense>,
+  document.getElementById("root")
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
