@@ -148,7 +148,7 @@ const HomeButtons = () => {
                 buttonColor={button.color}
                 data-test="home-router-button"
               >
-                {t(button.translationKey, button.text)}
+                {t(button.translationKey, { defaultValue: button.text })}
                 {button.icon}
               </HomeButton>
             </Box>
@@ -164,10 +164,9 @@ const HomeButtons = () => {
           {...coordinatedEntryButton}
         >
           <HomeButton buttonColor={coordinatedEntryButton.color}>
-            {t(
-              coordinatedEntryButton.translationKey,
-              coordinatedEntryButton.text
-            )}
+            {t(coordinatedEntryButton.translationKey, {
+              defaultValue: coordinatedEntryButton.text,
+            })}
             {coordinatedEntryButton.icon}
           </HomeButton>
         </Box>
