@@ -28,7 +28,6 @@ cp .env.example .env
 At minimum, the following values will need to be updated with credentials created in setup 1:
 
 ```
-DATABASE_NAME
 DATABASE_PASSWORD
 DATABASE_SESSION_SECRET
 DATABASE_URL

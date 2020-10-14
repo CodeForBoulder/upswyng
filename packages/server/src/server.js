@@ -22,20 +22,15 @@ dotenv.config({ debug: dev });
 const { PORT } = process.env;
 
 // Database setup
-const {
-  DATABASE_URL,
-  DATABASE_NAME,
-  DATABASE_PASSWORD,
-  DATABASE_USER,
-} = process.env;
+const { DATABASE_PASSWORD, DATABASE_URL, DATABASE_USER } = process.env;
 
 const { ALGOLIA_INDEX_NAME } = process.env;
 
-if (dev && /heroku_23.*/.test(DATABASE_NAME)) {
-  throw new Error(
-    "💩 You're attempting to use the production database in a dev environment."
-  );
-}
+// if (dev && /heroku_23.*/.test(DATABASE_NAME)) {
+//   throw new Error(
+//     "💩 You're attempting to use the production database in a dev environment."
+//   );
+// }
 
 if (dev && /prod/.test(ALGOLIA_INDEX_NAME)) {
   console.warn(
@@ -80,7 +75,6 @@ const grantConfig = {
 mongoose
   .connect(DATABASE_URL, {
     useNewUrlParser: true,
-    dbName: DATABASE_NAME,
     user: DATABASE_USER,
     pass: DATABASE_PASSWORD,
   })
