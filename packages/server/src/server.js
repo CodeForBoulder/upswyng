@@ -26,11 +26,11 @@ const { DATABASE_PASSWORD, DATABASE_URL, DATABASE_USER } = process.env;
 
 const { ALGOLIA_INDEX_NAME } = process.env;
 
-// if (dev && /heroku_23.*/.test(DATABASE_NAME)) {
-//   throw new Error(
-//     "💩 You're attempting to use the production database in a dev environment."
-//   );
-// }
+if (dev && /heroku_23.*/.test(DATABASE_URL)) {
+  throw new Error(
+    "💩 You're attempting to use the production database in a dev environment."
+  );
+}
 
 if (dev && /prod/.test(ALGOLIA_INDEX_NAME)) {
   console.warn(
