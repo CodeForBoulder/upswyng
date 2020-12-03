@@ -52,6 +52,7 @@ interface THomeButtonBase {
   color: string;
   icon: React.ReactElement<SvgIconProps>;
   text: string;
+  translationKey: string;
 }
 export interface THomeButtonAnchor extends THomeButtonBase {
   href: string;
