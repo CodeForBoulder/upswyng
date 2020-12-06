@@ -55,36 +55,6 @@ alias @uw="yarn workspace @upswyng/web "
 
 Now you only need `@uw start` to start the web dev server.
 
-## Local Database
-
-> Prerequisites
-
-[Docker](https://docs.docker.com/docker-for-mac/) needs to be installed and running.
-
-If you are not sure, run `docker` in your terminal.
-
-> Commands
-
-From your root directory...
-
-```sh
-yarn local-db # Build and start the local database and expose it at port localhost:56000
-
-yarn workspace @upswyng/server build:local-db # Build the local-db image with the tag 'upswyng-db'
-
-yarn workspace @upswyng/server start:local-db # Start a new container from the upswyng-db image with the name 'upswyng-local-db' and expose it at localhost:56000
-
-yarn workspace @upswyng/server stop:local-db # Force stop your container 'upswyng-local-db'
-```
-
-> Environment
-
-The local database has no security precautions. To connect your server to your local database, simply add this line to your blank .env file located at `packages/server/.env`.
-
-```txt
-DATABASE_URL=mongodb://localhost:56000/upswyng-dev
-```
-
 ### Troubleshooting
 
 #### The engine "node" is incompatible with this module.

@@ -9,11 +9,23 @@ This workspace includes:
 
 _Note: This project is built upon [Sapper](https://github.com/sveltejs/sapper), which uses a combination of [Svelte](https://svelte.dev/) and [Polka](https://github.com/lukeed/polka) to build and serve the app._
 
-### 1. Setup Local MongoDB or Request Access to Dev Database
+### 1. Setup Local MongoDB
 
-To get this project functional, you'll need to have a MongoDB instance running. That can either be done [locally](https://docs.mongodb.com/manual/installation/) or by using our DEV database.
+[Docker](https://docs.docker.com/docker-for-mac/) needs to be installed and running.
 
-If you don't want to setup your own instance, please make a request for our DEV database credentials in [Slack](https://join.slack.com/t/cfb/shared_invite/enQtODg3NDgxODM3NzE1LTE2ZmU1MTdiYjlmMWQ5MmE0YmEwOTJlZTdjYzJlMjkxYTlhYWI5YmY0YTQxMzRiY2U4OGMwMDk1ZmY0NzNiMGU) or send an email to [cfbLeaders@codeforboulder.org](mailto:cfbLeaders@codeforboulder.org).
+If you are not sure, run `docker` in your terminal.
+
+From your root directory...
+
+```
+yarn build:local-db
+```
+
+You can start and stop the local database via your docker dashboard
+
+![](./readme_docker.png)
+
+You can also visit a [mongo-express](https://github.com/mongo-express/mongo-express) dashboard for data manipulation at http://localhost:8081
 
 ### 2. Create `.env`
 
@@ -25,13 +37,13 @@ You can do this via your system's file explorer or via the following terminal co
 cp .env.example .env
 ```
 
-At minimum, the following values will need to be updated with credentials created in setup 1:
+At minimum, the following values will need to exist to connect to your local database:
 
 ```
-DATABASE_PASSWORD
-DATABASE_SESSION_SECRET
-DATABASE_URL
-DATABASE_USER
+DATABASE_PASSWORD=upswyng123
+DATABASE_SESSION_SECRET=
+DATABASE_URL=mongodb://localhost:27017/upswyng-dev
+DATABASE_USER=upswyng-dev-user
 ```
 
 This file contains placeholders for various API keys that you may or may not need to provide. This depends on the issue you are addressing. For example, if you're working on a feature that is only enabled for admins, then you'll also need to provide API keys for one of our OAuth providers.
@@ -43,6 +55,15 @@ yarn dev
 ```
 
 Runs the app in the development mode. Open [http:/localhost:3000](http:/localhost:3000) to view it in the browser.
+
+If you want to work on the [provider portal](http://localhost:3000/provider), you can log in with this google user:
+
+```
+username: dev.upswyng@gmail.com
+password: upswyng123
+```
+
+This user has super admin privileges on local development databases
 
 ## Commands
 
@@ -72,7 +93,3 @@ Launches unit tests.
 ### `yarn build`
 
 Start a production version of the app. This will disable live reloading, and activate the appropriate bundler plugins.
-
-```
-
-```
