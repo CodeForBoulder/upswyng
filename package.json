@@ -83,7 +83,7 @@
     "build:local-packages": "yarn workspace @upswyng/types build && yarn workspace @upswyng/common build",
     "build:server": "yarn build:local-packages && yarn workspace @upswyng/server build",
     "build:web": "yarn build:local-packages && yarn workspace @upswyng/web build",
-    "local-db": "yarn workspace @upswyng/server build:local-db && yarn workspace @upswyng/server start:local-db",
+    "build:local-db": "docker-compose up --build -d && mongorestore --username upswyng-dev-user --password upswyng123 -d upswyng-dev ./packages/server/localdb/mongodump",
     "clean": "node clean.js",
     "heroku-postbuild": "yarn build:web && yarn build:server",
     "lint": "tsc --noEmit && eslint \"packages/**/src/**/*.{js,jsx,ts,tsx}\" --fix",
