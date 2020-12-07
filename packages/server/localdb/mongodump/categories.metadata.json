@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"upswyng-dev.categories"},{"v":{"$numberInt":"2"},"unique":true,"key":{"stub":{"$numberInt":"1"}},"name":"stub_1","background":true,"ns":"upswyng-dev.categories"}],"uuid":"25ec7542a4154f0a90833e8e98cc89e6"}
