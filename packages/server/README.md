@@ -23,7 +23,7 @@ yarn build:local-db
 
 You can start and stop the local database via your docker dashboard
 
-![](./readme_docker.png)
+![example dashboard](./readme_docker.png)
 
 You can also visit a [mongo-express](https://github.com/mongo-express/mongo-express) dashboard for data manipulation at http://localhost:8081
 
