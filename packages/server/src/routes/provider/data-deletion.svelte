@@ -10,7 +10,7 @@
       <div class="notification is-primary">
         <p>When contacting us, please do so using the email associated with your UpSwyng account. This will assist in verifying your request and expedite the process.</p>
       </div>
-      <p>If you have any questions about how your data is used, contact us at <a href="mailto:info@upswyng.org">info@upswyng.org</a> or reference our <a href="/provider/privacy-policy">Privacy Policy</a>.</p>
+      <p>For more information about how your data is used, please reference our <a href="/provider/privacy-policy">Privacy Policy</a>.</p>
     </div>
   </div>
 </section>
