@@ -14,7 +14,6 @@ const {
   ALGOLIA_INDEX_NAME,
 
   DATABASE_URL,
-  DATABASE_NAME,
   DATABASE_PASSWORD,
   DATABASE_USER,
 } = process.env;
@@ -30,7 +29,6 @@ console.log("Syncing Resources to Algolia");
 mongoose
   .connect(DATABASE_URL, {
     useNewUrlParser: true,
-    dbName: DATABASE_NAME,
     user: DATABASE_USER,
     pass: DATABASE_PASSWORD,
   })

@@ -99,7 +99,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
     translationKey: "home:jobTraining",
     icon: BusinessCenterIcon,
     linkProps: {
-      to: "/job-training",
+      to: "/job_training",
     },
     color: colors.lavendar,
   },

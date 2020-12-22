@@ -123,11 +123,11 @@
     "start:dev": "yarn dev",
     "start:server": "./src/bin/verify_web_client.sh && node __sapper__/build",
     "start:worker": "node __build__/worker.js",
-    "sync:strappd": "TARGETS=syncStrappd rollup -c bin.rollup.config.js && node __build__/bin/sync_strappd",
+    "sync:strappd": "cross-env TARGETS=syncStrappd rollup -c bin.rollup.config.js && node __build__/bin/sync_strappd",
     "test": "run-p -n test:e2e test:unit",
     "test:e2e": "start-server-and-test './src/bin/e2e_setup.sh'  http://localhost:43637/provider 'cypress run' && ./src/bin/e2e_teardown.sh",
     "test:unit": "jest --passWithNoTests",
-    "update:algolia": "TARGETS=updateAlgolia rollup -c bin.rollup.config.js && node __build__/bin/update_algolia"
+    "update:algolia": "cross-env TARGETS=updateAlgolia rollup -c bin.rollup.config.js && node __build__/bin/update_algolia"
   },
   "version": "0.1.0"
 }

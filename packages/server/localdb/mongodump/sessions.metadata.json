@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"upswyng-dev.sessions"},{"v":{"$numberInt":"2"},"key":{"expires":{"$numberInt":"1"}},"name":"expires_1","ns":"upswyng-dev.sessions","expireAfterSeconds":{"$numberInt":"0"}}],"uuid":"1608d8fab86447399d26723fd15658bb"}

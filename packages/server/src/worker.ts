@@ -36,7 +36,6 @@ dotenv.config();
 
 const {
   DATABASE_URL,
-  DATABASE_NAME,
   DATABASE_PASSWORD,
   DATABASE_USER,
 
@@ -48,7 +47,6 @@ const {
 mongoose
   .connect(DATABASE_URL, {
     useNewUrlParser: true,
-    dbName: DATABASE_NAME,
     user: DATABASE_USER,
     pass: DATABASE_PASSWORD,
   })
