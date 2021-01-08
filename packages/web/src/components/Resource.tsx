@@ -3,6 +3,7 @@ import { TCategoryDefinition, categories } from "./Categories";
 import BannerColorContext from "./BannerColorContext";
 import Button from "@material-ui/core/Button/Button";
 import Container from "@material-ui/core/Container";
+import FavoriteResourceFAB from "./FavoriteResourceFAB";
 import Image from "material-ui-image";
 import Link from "@material-ui/core/Link";
 import List from "@material-ui/core/List";
@@ -191,6 +192,7 @@ export const Resource = () => {
       >
         Report a Problem
       </Button>
+      <FavoriteResourceFAB resourceId={resourceId} />
     </Container>
   );
 };
