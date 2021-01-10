@@ -80,7 +80,6 @@ export async function post(req, res, next) {
           .map(s => s.name)
           .join(","),
       });
-      console.log("it worked!");
     } catch (e) {
       console.error(
         `Error updating resource in algolia index after approval of draft ${_id}: ${e}`
