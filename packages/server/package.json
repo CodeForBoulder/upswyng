@@ -6,7 +6,7 @@
     "@slack/web-api": "^5.6.0",
     "@upswyng/common": "0.1.0",
     "@upswyng/types": "0.1.0",
-    "axios": "^0.19.0",
+    "axios": ">=0.21.1",
     "body-parser": "^1.19.0",
     "bson": "^4.0.2",
     "bullmq": "^1.6.7",
