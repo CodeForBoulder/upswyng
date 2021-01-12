@@ -9,34 +9,37 @@ if (serverUri.charAt(serverUri.length - 1) === "/") {
   serverUri = serverUri.slice(0, -1);
 }
 
-const useResource = (resourceId: string): undefined | null | TResource => {
-  const [resource, setResource] = useState<undefined | null | TResource>();
+const useResources = (
+  resourceIds: string[]
+): undefined | null | TResource[] => {
+  const [resources, setResources] = useState<undefined | null | TResource[]>();
+  const queryParam = "?id=" + resourceIds.join(",");
 
   useEffect(() => {
-    const getResource = async (): Promise<void> => {
+    const getResources = async (): Promise<void> => {
       try {
         const { data } = await apiClient.get<TResourcePayload>(
-          `/resource/${resourceId}`
+          `/resources${queryParam}`
         );
 
-        const resource: TResource | undefined = data.resource;
-        if (!resource) {
+        const resources: TResource[] | undefined = data.resources;
+        if (!resources) {
           const errorMessage: string =
-            data.message || "There was a problem retrieving the resource.";
+            data.message || "There was a problem retrieving the resources.";
           throw new Error(errorMessage);
         }
 
-        setResource(resource);
+        setResources(resources);
       } catch (err) {
         // TODO: log this error
-        setResource(null);
+        setResources(null);
       }
     };
 
-    getResource();
-  }, [resourceId, setResource]);
+    getResources();
+  }, [queryParam]);
 
-  return resource;
+  return resources;
 };
 
-export default useResource;
+export default useResources;

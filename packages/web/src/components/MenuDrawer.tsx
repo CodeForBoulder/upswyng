@@ -1,4 +1,10 @@
-import { CloseIcon, InfoIcon, PolicyIcon, TermsOfServiceIcon } from "./Icons";
+import {
+  CloseIcon,
+  FavoriteIcon,
+  InfoIcon,
+  PolicyIcon,
+  TermsOfServiceIcon,
+} from "./Icons";
 
 import Box from "@material-ui/core/Box";
 import Drawer from "@material-ui/core/Drawer";
@@ -80,6 +86,15 @@ const MenuDrawer = ({ handleMenuClose, open }: MenuDrawerProps) => {
             >
               <ListItemIcon>{PolicyIcon}</ListItemIcon>
               <ListItemText>Privacy policy</ListItemText>
+            </ListItem>
+            <ListItem
+              button
+              component={RouterLink}
+              onClick={() => handleMenuClose()}
+              to="/favorite-resources"
+            >
+              <ListItemIcon>{FavoriteIcon}</ListItemIcon>
+              <ListItemText>Favorites</ListItemText>
             </ListItem>
           </List>
         </Grid>

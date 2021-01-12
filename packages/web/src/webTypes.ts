@@ -37,7 +37,7 @@ export interface TAlertsPayload extends TPayloadBase {
 }
 
 export interface TResourcePayload extends TPayloadBase {
-  resource?: TResource;
+  resources?: TResource[];
 }
 
 export interface TResourcesByCategoryPayload extends TPayloadBase {

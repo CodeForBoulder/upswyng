@@ -30,7 +30,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import { useHistory } from "react-router";
 import { useLastLocation } from "react-router-last-location";
 import { useParams } from "react-router-dom";
-import useResource from "./useResource";
+import useResources from "./useResource";
 
 const useListIconStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -64,7 +64,7 @@ const getMainCategory = (categoryStub: string): TCategoryDefinition | null => {
 export const Resource = () => {
   const { resourceId } = useParams();
   const { currentBannerColor } = React.useContext(BannerColorContext);
-  const resource = useResource(resourceId || "");
+  const resource = useResources([resourceId || ""])?.[0];
   const listIconClasses = useListIconStyles({});
   const history = useHistory();
   const lastLocation = useLastLocation();
