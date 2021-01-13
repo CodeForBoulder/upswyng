@@ -429,7 +429,7 @@ export default Resource as typeof Resource & {
   ) => Promise<void>;
   getAll: () => Promise<TResourceDocument[]>;
   getByRecordId: (_id: ObjectId) => Promise<TResourceDocument | null>;
-  getByResourceIds: (_ids: ObjectId[]) => Promise<TResourceDocument[]>;
+  getByResourceIds: (resourceIds: ObjectId[]) => Promise<TResourceDocument[]>;
   getByResourceId: (resourceId: ObjectId) => Promise<TResourceDocument | null>;
   getUncategorized: () => Promise<TResourceDocument[]>;
 };
