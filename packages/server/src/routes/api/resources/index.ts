@@ -6,7 +6,7 @@ export async function get(_req, res, _next) {
     const idParam = _req.query.id;
     const resourceIds = idParam?.split(",")?.map(ObjectId.createFromHexString);
     const resourceDocuments = resourceIds
-      ? await Resource.getByRecordIds(resourceIds)
+      ? await Resource.getByResourceIds(resourceIds)
       : await Resource.getAll();
     const resources = await Promise.all(
       resourceDocuments.map(resourceDocumentToResource)
