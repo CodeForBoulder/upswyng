@@ -1,7 +1,7 @@
 import React from "react";
 import { Resource } from "../Resource";
 import { render } from "@testing-library/react";
-import useResource from "../useResource";
+import useResource from "../useResources";
 
 jest.mock("../Categories", () => ({
   categories: {},

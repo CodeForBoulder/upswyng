@@ -30,7 +30,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import { useHistory } from "react-router";
 import { useLastLocation } from "react-router-last-location";
 import { useParams } from "react-router-dom";
-import useResources from "./useResource";
+import useResources from "./useResources";
 
 const useListIconStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -64,16 +64,17 @@ const getMainCategory = (categoryStub: string): TCategoryDefinition | null => {
 export const Resource = () => {
   const { resourceId } = useParams();
   const { currentBannerColor } = React.useContext(BannerColorContext);
-  const resource = useResources([resourceId || ""])?.[0];
+  const { resources, status } = useResources([resourceId || ""]);
+  const resource = resources?.[0];
   const listIconClasses = useListIconStyles({});
   const history = useHistory();
   const lastLocation = useLastLocation();
 
-  if (resource === undefined) {
+  if (status === "loading") {
     return <LoadingSpinner />;
   }
 
-  if (resource === null) {
+  if (status === "error" || !resource) {
     return (
       <Typography>We&apos;re sorry, this resource was not found.</Typography>
     );

@@ -3,13 +3,12 @@ import Container from "@material-ui/core/Container";
 import PageBanner from "./PageBanner";
 import React from "react";
 import ResourceList from "./ResourceList";
-import { TResource } from "@upswyng/types";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import Typography from "@material-ui/core/Typography";
 import { colors } from "@upswyng/common";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import useLocalStorage from "./useLocalStorage";
-import useResource from "./useResource";
+import useResource from "./useResources";
 
 const useStyles = makeStyles((theme: Theme) => ({
   alert: {
@@ -21,23 +20,13 @@ export const FavoriteResources = () => {
   const classes = useStyles();
   const [favoritedResources] = useLocalStorage<string[]>("favoritedResources");
 
-  const resources: TResource[] | null | undefined = useResource(
-    favoritedResources || []
-  );
-  let status: "loading" | "error" | "success" = "success";
-  if (resources === undefined) {
-    status = "loading";
-  } else if (resources === null) {
-    status = "error";
-  }
+  const { resources, status } = useResource(favoritedResources || []);
 
   const renderBodyContent = () => {
     if (favoritedResources === null || favoritedResources.length === 0) {
       return <Typography>You haven&apos;t added any favorites yet!</Typography>;
     } else {
-      return (
-        <ResourceList resources={resources || undefined} status={status} />
-      );
+      return <ResourceList resources={resources} status={status} />;
     }
   };
 
