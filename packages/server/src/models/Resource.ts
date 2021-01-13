@@ -353,6 +353,20 @@ ResourceSchema.statics.getByRecordId = async function(
 };
 
 /**
+ * Retrieve resources by given ObjectId array.
+ */
+ResourceSchema.statics.getByRecordIds = async function(
+  _ids: ObjectId[]
+): Promise<TResourceDocument[]> {
+  return await this.find({
+    _id: { $in: _ids },
+  })
+    .populate({ path: "subcategories", populate: { path: "parentCategory" } })
+    .populate("createdBy")
+    .populate("lastModifiedBy");
+};
+
+/**
  * Retrieve all resources.
  */
 ResourceSchema.statics.getAll = async function(
@@ -415,6 +429,7 @@ export default Resource as typeof Resource & {
   ) => Promise<void>;
   getAll: () => Promise<TResourceDocument[]>;
   getByRecordId: (_id: ObjectId) => Promise<TResourceDocument | null>;
+  getByRecordIds: (_ids: ObjectId[]) => Promise<TResourceDocument[]>;
   getByResourceId: (resourceId: ObjectId) => Promise<TResourceDocument | null>;
   getUncategorized: () => Promise<TResourceDocument[]>;
 };
