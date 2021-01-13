@@ -34,11 +34,16 @@ export const FavoriteResourceFAB = ({ resourceId }: Props) => {
   const isFavoriteResource = favoriteResources?.includes(resourceId);
   const handleFabClick = () => {
     if (isFavoriteResource && favoriteResources) {
+      // Remove from favorites
       setFavoriteResources(favoriteResources.filter(id => id !== resourceId));
     } else {
+      // Add to favorites
+
+      // Only show the alert if this is their first time favoriting
       if (!favoriteResources) {
         setSnackbarShowing(true);
       }
+
       setFavoriteResources((favoriteResources || []).concat(resourceId));
     }
   };

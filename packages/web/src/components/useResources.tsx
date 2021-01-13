@@ -3,11 +3,6 @@ import { TResourcePayload } from "../webTypes";
 import apiClient from "../utils/apiClient";
 import { useQuery } from "react-query";
 
-let serverUri = process.env.REACT_APP_SERVER_URI || "http://localhost:3000";
-if (serverUri.charAt(serverUri.length - 1) === "/") {
-  serverUri = serverUri.slice(0, -1);
-}
-
 const getResources = async (queryParam: string): Promise<TResource[]> => {
   const { data } = await apiClient.get<TResourcePayload>(
     `/resources${queryParam}`

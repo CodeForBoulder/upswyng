@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import { colors } from "@upswyng/common";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import useLocalStorage from "./useLocalStorage";
-import useResource from "./useResources";
+import useResources from "./useResources";
 
 const useStyles = makeStyles((theme: Theme) => ({
   alert: {
@@ -20,7 +20,7 @@ export const FavoriteResources = () => {
   const classes = useStyles();
   const [favoriteResources] = useLocalStorage<string[]>("favoriteResources");
 
-  const { resources, status } = useResource(favoriteResources || []);
+  const { resources, status } = useResources(favoriteResources || []);
 
   const renderBodyContent = () => {
     if (favoriteResources === null || favoriteResources.length === 0) {
