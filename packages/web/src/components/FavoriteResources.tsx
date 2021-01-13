@@ -18,12 +18,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const FavoriteResources = () => {
   const classes = useStyles();
-  const [favoritedResources] = useLocalStorage<string[]>("favoritedResources");
+  const [favoriteResources] = useLocalStorage<string[]>("favoriteResources");
 
-  const { resources, status } = useResource(favoritedResources || []);
+  const { resources, status } = useResource(favoriteResources || []);
 
   const renderBodyContent = () => {
-    if (favoritedResources === null || favoritedResources.length === 0) {
+    if (favoriteResources === null || favoriteResources.length === 0) {
       return <Typography>You haven&apos;t added any favorites yet!</Typography>;
     } else {
       return <ResourceList resources={resources} status={status} />;

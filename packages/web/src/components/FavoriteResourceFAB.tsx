@@ -28,18 +28,18 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const FavoriteResourceFAB = ({ resourceId }: Props) => {
   const classes = useStyles();
   const [snackbarShowing, setSnackbarShowing] = useState(false);
-  const [favoritedResources, setFavoritedResources] = useLocalStorage<string[]>(
-    "favoritedResources"
+  const [favoriteResources, setFavoriteResources] = useLocalStorage<string[]>(
+    "favoriteResources"
   );
-  const isFavoritedResource = favoritedResources?.includes(resourceId);
+  const isFavoriteResource = favoriteResources?.includes(resourceId);
   const handleFabClick = () => {
-    if (isFavoritedResource && favoritedResources) {
-      setFavoritedResources(favoritedResources.filter(id => id !== resourceId));
+    if (isFavoriteResource && favoriteResources) {
+      setFavoriteResources(favoriteResources.filter(id => id !== resourceId));
     } else {
-      if (!favoritedResources) {
+      if (!favoriteResources) {
         setSnackbarShowing(true);
       }
-      setFavoritedResources((favoritedResources || []).concat(resourceId));
+      setFavoriteResources((favoriteResources || []).concat(resourceId));
     }
   };
 
@@ -51,7 +51,7 @@ export const FavoriteResourceFAB = ({ resourceId }: Props) => {
         className={classes.fab}
         aria-label="add"
       >
-        {isFavoritedResource ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+        {isFavoriteResource ? <FavoriteIcon /> : <FavoriteBorderIcon />}
       </Fab>
       <Snackbar
         autoHideDuration={5000}
