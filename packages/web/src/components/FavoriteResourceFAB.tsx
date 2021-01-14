@@ -49,7 +49,7 @@ export const FavoriteResourceFAB = ({ resourceId }: Props) => {
   };
 
   return (
-    <div>
+    <>
       <Fab
         onClick={handleFabClick}
         color="primary"
@@ -66,7 +66,7 @@ export const FavoriteResourceFAB = ({ resourceId }: Props) => {
       >
         <Alert severity="info">Favorites are only saved to this device.</Alert>
       </Snackbar>
-    </div>
+    </>
   );
 };
 
