@@ -20,7 +20,7 @@ export const FavoriteResources = () => {
   const classes = useStyles();
   const [favoriteResources] = useLocalStorage<string[]>("favoriteResources");
 
-  const { resources, status } = useResources(favoriteResources || []);
+  const { data: resources, status } = useResources(favoriteResources || []);
 
   const renderBodyContent = () => {
     if (favoriteResources === null || favoriteResources.length === 0) {

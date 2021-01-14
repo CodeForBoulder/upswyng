@@ -20,16 +20,14 @@ const getResources = async (queryParam: string): Promise<TResource[]> => {
 const useResources = (
   resourceIds: string[]
 ): {
-  resources: TResource[] | undefined;
+  data: TResource[] | undefined;
   status: "loading" | "error" | "success";
 } => {
   const queryParam = "?id=" + resourceIds.join(",");
 
-  const { data, status } = useQuery(queryParam, getResources, {
+  return useQuery(queryParam, getResources, {
     staleTime: 900000, // 15 min
   });
-
-  return { resources: data, status };
 };
 
 export default useResources;

@@ -64,7 +64,7 @@ const getMainCategory = (categoryStub: string): TCategoryDefinition | null => {
 export const Resource = () => {
   const { resourceId } = useParams();
   const { currentBannerColor } = React.useContext(BannerColorContext);
-  const { resources, status } = useResources([resourceId || ""]);
+  const { data: resources, status } = useResources([resourceId || ""]);
   const resource = resources?.[0];
   const listIconClasses = useListIconStyles({});
   const history = useHistory();
