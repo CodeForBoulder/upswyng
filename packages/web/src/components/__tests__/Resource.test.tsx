@@ -36,7 +36,7 @@ jest.mock("../../App.styles", () => ({
   },
 }));
 
-const mockUseResource = useResources as jest.Mock;
+const mockUseResources = useResources as jest.Mock;
 
 describe("<Resource/>", () => {
   const setup = (overrides = {}) => {
@@ -44,7 +44,10 @@ describe("<Resource/>", () => {
   };
 
   it("renders a loading spinner when a resource is not loaded", () => {
-    mockUseResource.mockReturnValueOnce(undefined);
+    mockUseResources.mockReturnValueOnce({
+      data: undefined,
+      status: "loading",
+    });
     const { getByText } = setup();
 
     expect(getByText("TEST-loading-spinner")).toBeInTheDocument();
