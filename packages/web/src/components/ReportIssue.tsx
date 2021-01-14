@@ -38,7 +38,7 @@ const useStyles = makeStyles(() =>
 
 const ReportIssue = () => {
   const { resourceId } = useParams();
-  const resource = useResources([resourceId || ""]).data?.[0];
+  const resource = useResources([resourceId]).data?.[0];
   const history = useHistory();
   const lastLocation = useLastLocation();
   const classes = useStyles();
