@@ -33,7 +33,7 @@ export const FavoriteResources = () => {
   return (
     <Container>
       <PageBanner color={colors.orangePrimary}>
-        <Typography variant="h1">{"Favorites"}</Typography>
+        <Typography variant="h1">Favorites</Typography>
       </PageBanner>
       <Alert severity="info" className={classes.alert}>
         Favorites are only saved to this device. They will not be saved if you
