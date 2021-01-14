@@ -61,10 +61,7 @@ class App extends Component {
                   component={Resource}
                 />
                 <Route path="/resources" component={Resources} />
-                <Route
-                  path="/favorite-resources"
-                  component={FavoriteResources}
-                />
+                <Route path="/favorites" component={FavoriteResources} />
                 <Route path="/social_services" component={SocialServices} />
                 <Route exact path="/search" component={Search} />
                 <Route exact path="/terms-of-use" component={TermsOfUse} />

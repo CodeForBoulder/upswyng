@@ -91,7 +91,7 @@ const MenuDrawer = ({ handleMenuClose, open }: MenuDrawerProps) => {
               button
               component={RouterLink}
               onClick={() => handleMenuClose()}
-              to="/favorite-resources"
+              to="/favorites"
             >
               <ListItemIcon>{FavoriteIcon}</ListItemIcon>
               <ListItemText>Favorites</ListItemText>
