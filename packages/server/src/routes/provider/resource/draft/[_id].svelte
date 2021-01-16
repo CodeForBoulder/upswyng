@@ -2,8 +2,14 @@
   import { ResourceSchedule } from "@upswyng/common";
 
   export async function preload({ params, query }, { user }) {
-    if (!user || !user.isAdmin) {
-      this.error(401, "You must be an admin to access this page.");
+    if (!user.isAdmin) {
+      const draftsForUser = (await this.fetch("/api/resources/drafts/mine", {
+          credentials: "same-origin",
+        }).then(r => r.json())).draftResources || [];
+      const matchingDraft = draftsForUser.find(draft => draft._id === params._id);
+      if(!matchingDraft) {
+        this.error(401, "You don't have permission to view this page");
+      }
     }
 
     const resourceResponse = await this.fetch(
@@ -28,6 +34,7 @@
             ),
           },
           existingResource: null,
+          isAdmin: user.isAdmin,
         };
       }
       const existingResourceData = await existingResourceResponse.json();
@@ -50,6 +57,7 @@
               existingResourceData.resource.schedule
             ),
           },
+          isAdmin: user.isAdmin,
         };
       }
     }
@@ -66,6 +74,7 @@
 
   export let draftResource;
   export let existingResource; // resource in the directory which this draft would update; null for new resources
+  export let isAdmin = false;
 
   let isDeleting = false; // Whether we've issued a call to the server to delete the draft resource
   let deleteError = null; // error? Poupulated with the error from a detete attempt, if there has been one
@@ -128,7 +137,9 @@
       {#if existingResource}
         Update Service Provider: {existingResource.name}
       {:else}Create New Service Provider{/if}
-      <span class="tag is-dark">Admin</span>
+      {#if isAdmin}
+        <span class="tag is-dark">Admin</span>
+      {/if}
     </h1>
     {#if existingResource}
       <p class="subtitle">
@@ -174,32 +185,34 @@
       <ResourceDisplay resource={draftResource} />
     {/if}
 
-    <div class="buttons">
-      <button
-        class="button is-danger is-outlined"
-        class:is-loading={isDeleting}
-        type="button"
-        preventDefault
-        disabled={isApproving}
-        on:click={() => deleteDraft(draftResource._id)}>
-        <span class="icon is-small">
-          <i class="fas fa-times" />
-        </span>
-        <span>Delete Draft</span>
-      </button>
-      <button
-        class="button is-success"
-        class:is-loading={isApproving}
-        type="button"
-        preventDefault
-        disabled={isDeleting}
-        on:click={() => approveUpdate(draftResource._id)}>
-        <span class="icon is-small">
-          <i class="fas fa-check" />
-        </span>
-        <span>Approve Update</span>
-      </button>
-    </div>
+    {#if isAdmin}
+      <div class="buttons">
+        <button
+          class="button is-danger is-outlined"
+          class:is-loading={isDeleting}
+          type="button"
+          preventDefault
+          disabled={isApproving}
+          on:click={() => deleteDraft(draftResource._id)}>
+          <span class="icon is-small">
+            <i class="fas fa-times" />
+          </span>
+          <span>Delete Draft</span>
+        </button>
+        <button
+          class="button is-success"
+          class:is-loading={isApproving}
+          type="button"
+          preventDefault
+          disabled={isDeleting}
+          on:click={() => approveUpdate(draftResource._id)}>
+          <span class="icon is-small">
+            <i class="fas fa-check" />
+          </span>
+          <span>Approve Update</span>
+        </button>
+      </div>
+    {/if}
     <div>
       {#if approveError}
         <p class="notification is-danger">
