@@ -3,6 +3,7 @@ import { TCategoryDefinition, categories } from "./Categories";
 import BannerColorContext from "./BannerColorContext";
 import Button from "@material-ui/core/Button/Button";
 import Container from "@material-ui/core/Container";
+import FavoriteResourceFAB from "./FavoriteResourceFAB";
 import Image from "material-ui-image";
 import Link from "@material-ui/core/Link";
 import List from "@material-ui/core/List";
@@ -29,7 +30,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import { useHistory } from "react-router";
 import { useLastLocation } from "react-router-last-location";
 import { useParams } from "react-router-dom";
-import useResource from "./useResource";
+import useResources from "./useResources";
 
 const useListIconStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -63,16 +64,17 @@ const getMainCategory = (categoryStub: string): TCategoryDefinition | null => {
 export const Resource = () => {
   const { resourceId } = useParams();
   const { currentBannerColor } = React.useContext(BannerColorContext);
-  const resource = useResource(resourceId || "");
+  const { data: resources, status } = useResources([resourceId || ""]);
+  const resource = resources?.[0];
   const listIconClasses = useListIconStyles({});
   const history = useHistory();
   const lastLocation = useLastLocation();
 
-  if (resource === undefined) {
+  if (status === "loading") {
     return <LoadingSpinner />;
   }
 
-  if (resource === null) {
+  if (status === "error" || !resource) {
     return (
       <Typography>We&apos;re sorry, this resource was not found.</Typography>
     );
@@ -191,6 +193,7 @@ export const Resource = () => {
       >
         Report a Problem
       </Button>
+      <FavoriteResourceFAB resourceId={resourceId} />
     </Container>
   );
 };

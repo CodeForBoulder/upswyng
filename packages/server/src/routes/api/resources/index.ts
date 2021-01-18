@@ -1,8 +1,17 @@
-import Resource from "../../../models/Resource";
+import Resource, { resourceDocumentToResource } from "../../../models/Resource";
+import { ObjectId } from "bson";
 
 export async function get(_req, res, _next) {
   try {
-    const resources = await Resource.getAll();
+    const idParam = _req.query.id;
+    const resourceIds = idParam?.split(",")?.map(ObjectId.createFromHexString);
+    const resourceDocuments = resourceIds
+      ? await Resource.getByResourceIds(resourceIds)
+      : await Resource.getAll();
+    const resources = await Promise.all(
+      resourceDocuments.map(resourceDocumentToResource)
+    );
+
     res.writeHead(200, {
       "Content-Type": "application/json",
     });

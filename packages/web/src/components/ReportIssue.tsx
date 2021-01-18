@@ -14,7 +14,7 @@ import axios from "axios";
 import createStyles from "@material-ui/core/styles/createStyles";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { useLastLocation } from "react-router-last-location";
-import useResource from "./useResource";
+import useResources from "./useResources";
 
 interface State {
   [index: string]: {
@@ -38,7 +38,7 @@ const useStyles = makeStyles(() =>
 
 const ReportIssue = () => {
   const { resourceId } = useParams();
-  const resource = useResource(resourceId || "");
+  const resource = useResources([resourceId]).data?.[0];
   const history = useHistory();
   const lastLocation = useLastLocation();
   const classes = useStyles();

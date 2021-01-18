@@ -6,6 +6,7 @@ import {
   DirectionsBus,
   DirectionsCar,
   DirectionsWalk,
+  Favorite,
   Home,
   Info,
   LocalHospital,
@@ -33,6 +34,7 @@ export const BusinessCenterIcon: React.ReactElement<SvgIconProps> = (
 export const CallIcon: React.ReactElement<SvgIconProps> = <Call />;
 export const CarIcon: React.ReactElement<SvgIconProps> = <DirectionsCar />;
 export const CloseIcon: React.ReactElement<SvgIconProps> = <Close />;
+export const FavoriteIcon: React.ReactElement<SvgIconProps> = <Favorite />;
 export const HomeIcon: React.ReactElement<SvgIconProps> = <Home />;
 export const HygieneIcon: React.ReactElement<SvgIconProps> = <Hygiene />;
 export const InfoIcon: React.ReactElement<SvgIconProps> = <Info />;

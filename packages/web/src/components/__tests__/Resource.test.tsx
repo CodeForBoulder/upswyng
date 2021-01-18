@@ -1,7 +1,7 @@
 import React from "react";
 import { Resource } from "../Resource";
 import { render } from "@testing-library/react";
-import useResource from "../useResource";
+import useResources from "../useResources";
 
 jest.mock("../Categories", () => ({
   categories: {},
@@ -19,7 +19,7 @@ jest.mock("react-router-dom", () => ({
 jest.mock("react-router-last-location", () => ({
   useLastLocation: () => false,
 }));
-jest.mock("../useResource.tsx", () => jest.fn());
+jest.mock("../useResources.tsx", () => jest.fn());
 jest.mock("../../App.styles", () => ({
   Container: () => "Container",
   colors: {
@@ -36,7 +36,7 @@ jest.mock("../../App.styles", () => ({
   },
 }));
 
-const mockUseResource = useResource as jest.Mock;
+const mockUseResources = useResources as jest.Mock;
 
 describe("<Resource/>", () => {
   const setup = (overrides = {}) => {
@@ -44,7 +44,10 @@ describe("<Resource/>", () => {
   };
 
   it("renders a loading spinner when a resource is not loaded", () => {
-    mockUseResource.mockReturnValueOnce(undefined);
+    mockUseResources.mockReturnValueOnce({
+      data: undefined,
+      status: "loading",
+    });
     const { getByText } = setup();
 
     expect(getByText("TEST-loading-spinner")).toBeInTheDocument();

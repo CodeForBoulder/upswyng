@@ -6,6 +6,7 @@ import { BannerColorContextProvider } from "./components/BannerColorContext";
 import Categories from "./components/Categories";
 import CoordinatedEntry from "./components/CoordinatedEntry";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import FavoriteResources from "./components/FavoriteResources";
 import GlobalAlertBar from "./components/GlobalAlertBar";
 import Header from "./components/Header";
 import Home from "./components/Home";
@@ -60,6 +61,7 @@ class App extends Component {
                   component={Resource}
                 />
                 <Route path="/resources" component={Resources} />
+                <Route path="/favorites" component={FavoriteResources} />
                 <Route path="/social_services" component={SocialServices} />
                 <Route exact path="/search" component={Search} />
                 <Route exact path="/terms-of-use" component={TermsOfUse} />
