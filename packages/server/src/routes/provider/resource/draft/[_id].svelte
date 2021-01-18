@@ -2,64 +2,51 @@
   import { ResourceSchedule } from "@upswyng/common";
 
   export async function preload({ params, query }, { user }) {
+    let draftResource = null;
     if (!user.isAdmin) {
-      const draftsForUser = (await this.fetch("/api/resources/drafts/mine", {
-          credentials: "same-origin",
-        }).then(r => r.json())).draftResources || [];
-      const matchingDraft = draftsForUser.find(draft => draft._id === params._id);
-      if(!matchingDraft) {
-        this.error(401, "You don't have permission to view this page");
+      const draftsForUserResponse = await this.fetch("/api/resources/drafts/mine", {
+        credentials: "same-origin",
+      });
+      if (draftsForUserResponse.status !== 200) {
+        this.error(draftsForUserResponse.status, draftsForUserResponse.message);
       }
+      const {draftResources} = await draftsForUserResponse.json();
+      draftResource = draftResources.find(draft => draft._id === params._id);
+      if(!draftResource) {
+        this.error(401, "You don't have permission to view this page");
+      } 
+    } else {
+      const draftResourceResponse = await this.fetch(
+        `/api/resource/draft/${params._id}`
+      );
+      if (draftResourceResponse.status !== 200) {
+        this.error(draftResourceResponse.status, draftResourceResponse.message);
+      }
+      draftResource = (await draftResourceResponse.json()).draftResource;
     }
 
-    const resourceResponse = await this.fetch(
-      `/api/resource/draft/${params._id}`
+    // See if we have an existing resource corresponding to this draft
+    const existingResourceResponse = await this.fetch(
+      `/api/resource/${draftResource.resourceId}`
     );
+    const existingResource = existingResourceResponse.status === 200
+      ? (await existingResourceResponse.json()).resource
+      : null;
 
-    const resourceData = await resourceResponse.json();
+    return {
+      draftResource: withSchedule(draftResource),
+      existingResource: withSchedule(existingResource),
+      isAdmin: user.isAdmin,
+    };
+  }
 
-    if (resourceResponse.status !== 200) {
-      this.error(resourceResponse.status, resourceData.message);
-    } else {
-      // see if we have an existing resource corresponding to this draft
-      const existingResourceResponse = await this.fetch(
-        `/api/resource/${resourceData.draftResource.resourceId}`
-      );
-      if (existingResourceResponse.status === 404) {
-        return {
-          draftResource: {
-            ...resourceData.draftResource,
-            schedule: ResourceSchedule.parse(
-              resourceData.draftResource.schedule
-            ),
-          },
-          existingResource: null,
-          isAdmin: user.isAdmin,
-        };
-      }
-      const existingResourceData = await existingResourceResponse.json();
-      if (existingResourceResponse.status !== 200) {
-        this.error(
-          existingResourceResponse.status,
-          existingResourceData.message
-        );
-      } else {
-        return {
-          draftResource: {
-            ...resourceData.draftResource,
-            schedule: ResourceSchedule.parse(
-              resourceData.draftResource.schedule
-            ),
-          },
-          existingResource: {
-            ...existingResourceData.resource,
-            schedule: ResourceSchedule.parse(
-              existingResourceData.resource.schedule
-            ),
-          },
-          isAdmin: user.isAdmin,
-        };
-      }
+  function withSchedule(resource) {
+    if(!resource) return null;
+    return {
+      ...resource,
+      schedule: ResourceSchedule.parse(
+        resource.schedule
+      ),
     }
   }
 </script>
