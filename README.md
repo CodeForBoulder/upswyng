@@ -2,6 +2,20 @@
 
 UpSwyng is a mobile-ready, digital directory of resources to assist the unhoused and at-risk communities. This is a [Code For Boulder](https://www.codeforboulder.org) project coming soon to Boulder County, Colorado.
 
+## Before you begin
+
+You can save yourself some grief and aggravation by downloading the versions of the following programs as specified in https://github.com/CodeForBoulder/upswyng/blob/master/package.json
+You will need to check that you have each of the following using the which command or add --v or -version to the name of the program:
+1. brew (called homebrew)
+2. mongodb
+3. node
+4. nvm
+5. xcode
+6. yarn
+7. react-native
+
+P.S. There is a server section. Read it:)
+
 ## Getting Started
 
 If you have any issues getting started using these directions, please see the [Troubleshooting section](#Troubleshooting).
