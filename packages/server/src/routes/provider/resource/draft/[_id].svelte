@@ -4,6 +4,8 @@
   export async function preload({ params, query }, { user }) {
     let draftResource = null;
     if (!user.isAdmin) {
+      // If user is not an admin, make sure the draft they're trying to view is
+      // one of their own
       const draftsForUserResponse = await this.fetch("/api/resources/drafts/mine", {
         credentials: "same-origin",
       });
