@@ -6,13 +6,25 @@ UpSwyng is a mobile-ready, digital directory of resources to assist the unhoused
 
 You can save yourself some grief and aggravation by downloading the versions of the following programs as specified in https://github.com/CodeForBoulder/upswyng/blob/master/package.json
 You will need to check that you have each of the following using the which command or add --v or -version to the name of the program:
-1. brew (called homebrew)
+0. xcode ==> /usr/bin/xcodebuild -version
+   Install: sudo xcode-select --install
+1. brew --version (called homebrew)
+   Install: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+            echo 'PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile
+            echo 'PATH="/usr/local/bin:$PATH"' >> ~/.zshrc
+            per https://sourabhbajaj.com/mac-setup/Homebrew/
 2. mongodb
-3. node
-4. nvm
-5. xcode
-6. yarn
+   Install: https://www.mongodb.com/try/download/database-tools?tck=docs_databasetools
+3. nvm
+   Install: curl -sL https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.0/install.sh -o install_nvm.sh 
+4. node
+   Install: https://nodejs.org/en/download/package-manager/ 
+5. docker
+   Install: https://docs.docker.com/get-docker/
+6. yarn --version
+   Install: npm install --global yarn
 7. react-native
+   Install: https://reactnative.dev/docs/environment-setup
 
 P.S. There is a server section. Read it:)
 
