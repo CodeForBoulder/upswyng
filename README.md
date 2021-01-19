@@ -6,10 +6,11 @@ UpSwyng is a mobile-ready, digital directory of resources to assist the unhoused
 
 You can save yourself some grief and aggravation by downloading the versions of the following programs as specified in https://github.com/CodeForBoulder/upswyng/blob/master/package.json
 You will need to check that you have each of the following using the which command or add -v or --version to the name of the program:
-0. xcode ==> ```console /usr/bin/xcodebuild -version ...
-   Install: ```console sudo xcode-select --install ...
+
+0. xcode ==> ``` /usr/bin/xcodebuild -version ```
+   * Install: ```console sudo xcode-select --install ...
 1. brew --version (called homebrew)
-   Install: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+   * Install: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
             echo 'PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile
             echo 'PATH="/usr/local/bin:$PATH"' >> ~/.zshrc
             per https://sourabhbajaj.com/mac-setup/Homebrew/
