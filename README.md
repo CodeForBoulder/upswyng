@@ -13,17 +13,17 @@ You will need to check that you have each of the following using the which comma
             echo 'PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile
             echo 'PATH="/usr/local/bin:$PATH"' >> ~/.zshrc
             per https://sourabhbajaj.com/mac-setup/Homebrew/
-2. mongodb
+2. mongod --version (server version) or mongo -version (shell version)
    Install: https://www.mongodb.com/try/download/database-tools?tck=docs_databasetools
-3. nvm
+3. nvm 
    Install: curl -sL https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.0/install.sh -o install_nvm.sh 
-4. node
+4. node -v 
    Install: https://nodejs.org/en/download/package-manager/ 
-5. docker
+5. docker -v
    Install: https://docs.docker.com/get-docker/
 6. yarn --version
    Install: npm install --global yarn
-7. react-native
+7. react-native -v
    Install: https://reactnative.dev/docs/environment-setup
 
 P.S. There is a server section. Read it:)
