@@ -332,6 +332,7 @@
           </span>
         {/if}
       </div>
+      <p class="help">(We'll add this for you)</p>
       {#if $resourceForm.streetViewImage.errors.includes('url')}
         <p class="help is-danger">Please enter a valid image URL.</p>
       {/if}
@@ -391,6 +392,7 @@
                 </span>
               {/if}
             </div>
+            <p class="help">(We'll add this for you)</p>
             {#if $resourceForm.latitude.errors.length}
               <p class="help is-danger">Invalid Latitude</p>
             {/if}
@@ -416,6 +418,7 @@
                 </span>
               {/if}
             </div>
+            <p class="help">(We'll add this for you)</p>
             {#if $resourceForm.longitude.errors.length}
               <p class="help is-danger">Invalid Longitude</p>
             {/if}
