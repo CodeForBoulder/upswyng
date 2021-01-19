@@ -2,6 +2,7 @@
   "description": "API server and Service Provider Portal",
   "dependencies": {
     "@afuggini/namegenerator": "^0.1.3",
+    "@googlemaps/js-api-loader": "^1.11.1",
     "@slack/rtm-api": "^5.0.3",
     "@slack/web-api": "^5.6.0",
     "@upswyng/common": "0.1.0",

@@ -5,6 +5,7 @@
   import ScheduleSelector from "./ScheduleSelector.svelte";
   import ServicesInput from "./ServicesInput.svelte";
   import SubcategoryInput from "./SubcategoryInput.svelte";
+  import LocationInput from "./LocationInput.svelte";
 
   export let errorText = ""; // an error message to show, for instance, if the save operation has failed
   export let isSaving = false;
@@ -187,6 +188,9 @@
 
     <div class="field">
       <label class="label">Address</label>
+      <LocationInput
+        bind:resource={resource} 
+        />
       <div class="field is-horizontal">
         <div class="field-label is-small">
           <label class="label" for="address1">Address 1</label>
