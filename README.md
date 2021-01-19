@@ -5,7 +5,7 @@ UpSwyng is a mobile-ready, digital directory of resources to assist the unhoused
 ## Before you begin
 
 You can save yourself some grief and aggravation by downloading the versions of the following programs as specified in https://github.com/CodeForBoulder/upswyng/blob/master/package.json
-You will need to check that you have each of the following using the which command or add --v or -version to the name of the program:
+You will need to check that you have each of the following using the which command or add -v or --version to the name of the program:
 0. xcode ==> /usr/bin/xcodebuild -version
    Install: sudo xcode-select --install
 1. brew --version (called homebrew)
