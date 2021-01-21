@@ -189,8 +189,7 @@
     <div class="field">
       <label class="label">Address</label>
       <LocationInput
-        bind:resource={resource} 
-        />
+        bind:resource={resource} />
       <div class="field is-horizontal">
         <div class="field-label is-small">
           <label class="label" for="address1">Address 1</label>

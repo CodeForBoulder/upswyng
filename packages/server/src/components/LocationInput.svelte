@@ -24,12 +24,15 @@
       map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: 40.01, lng: -105.27 },
         zoom: 8,
+        // Don't need all of the map control UI elements showing
+        disableDefaultUI: true,
+        zoomControl: true,
       });
 
       const input = document.getElementById("pac-input");
       const autocomplete = new google.maps.places.Autocomplete(input);
       autocomplete.bindTo("bounds", map);
-      autocomplete.setFields(["address_components", "geometry", "icon", "name"]);
+      autocomplete.setFields(["address_components", "geometry", "icon", "name", "place_id"]);
       const infowindow = new google.maps.InfoWindow();
       const infowindowContent = document.getElementById("infowindow-content");
       infowindow.setContent(infowindowContent);
@@ -42,6 +45,7 @@
         infowindow.close();
         marker.setVisible(false);
         const place = autocomplete.getPlace();
+        console.log({place});
 
         if (!place.geometry) {
           // User entered the name of a Place that was not suggested and
@@ -112,8 +116,8 @@
 
 <style>
   #map {
-    width: 500px;
-    height: 500px;
+    width: '100%';
+    height: 400px;
   }
 </style>
 
@@ -123,7 +127,7 @@
     class="input"
     class:is-danger={false}
     type="text"
-    placeholder="Search"
+    placeholder="Search for your provider name or address..."
     bind:value={inputVal} />
 <div id="infowindow-content">
       <img src="" width="16" height="16" id="place-icon" />
