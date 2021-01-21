@@ -102,7 +102,6 @@
 
           onPlaceChanged({address, geometry: place.geometry, addressComponents: place.address_components});
         }
-        infowindowContent.children["place-icon"].src = place.icon;
         infowindowContent.children["place-name"].textContent = place.name;
         infowindowContent.children["place-address"].textContent = address;
         infowindow.open(map, marker);
@@ -137,7 +136,6 @@
       placeholder="Search for provider name or address..."
       bind:value={inputValue} />
     <div id="infowindow-content">
-      <img src="" width="16" height="16" id="place-icon" />
       <span id="place-name" class="title"></span><br />
       <span id="place-address"></span>
     </div>
