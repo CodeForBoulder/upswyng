@@ -6,10 +6,13 @@
   export let resource = null;
 
   let inputVal = "";
-  const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
+  let mapShowing = true;
 
   onMount( async () => {
-    await loadMap();
+    const mapLoaded = await loadMap();
+    if(!mapLoaded) {
+      mapShowing = false;
+    }
   })
 
 // The custom application code that's run when a user selects a search result
@@ -34,12 +37,12 @@ function onPlaceChanged({address, geometry, addressComponents}) {
     resource.latitude = latitude || 40.01;
     resource.longitude = longitude || -105.27;
   }
-
 }
 
+// See https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete for the source of this function
 async function loadMap() {
   try{
-    // See https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete for the source of this code
+    const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
     const loader = new Loader({
       apiKey:  GOOGLE_MAPS_API_KEY,
       version: "weekly",
@@ -107,9 +110,13 @@ async function loadMap() {
       infowindowContent.children["place-name"].textContent = place.name;
       infowindowContent.children["place-address"].textContent = address;
       infowindow.open(map, marker);
+
     });
+
+    return true;
   } catch(e) {
-    console.log(e);
+    console.error(e);
+    return false;
   }
 }
 
@@ -124,6 +131,7 @@ async function loadMap() {
 </style>
 
 <div class="content">
+{#if mapShowing}
   <input
     id="pac-input"
     class="input"
@@ -137,4 +145,5 @@ async function loadMap() {
       <span id="place-address"></span>
     </div>
   <div id="map"></div>
+  {/if}
 </div>
