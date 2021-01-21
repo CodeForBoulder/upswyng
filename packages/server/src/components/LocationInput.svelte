@@ -12,104 +12,106 @@
   export let resource = null;
   const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 
-  onMount(() => {
+  onMount( async () => {
+    await loadMap();
+  })
+
+function onPlaceChanged({address, geometry, addressComponents}) {
+  // The custom application code that's run when a user selects a search result
+  const asDict = addressComponents.reduce((accum, component) => {
+    component.types.forEach(type => accum[type] = component.long_name);
+    return accum;
+  }, {});
+
+  const city = asDict.locality || "";
+  const zip = asDict.postal_code || "";
+  const state = asDict.administrative_area_level_1 || "";
+  resource.address.address1 = address;
+  resource.address.city = city;
+  resource.address.zip = zip;
+  resource.address.state = state;
+
+  const latitude = geometry.location.lat();
+  const longitude = geometry.location.lng();
+  resource.latitude = latitude || 40.01;
+  resource.longitude = longitude || -105.27;
+}
+
+async function loadMap() {
+  try{
+    // See https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete for the source of this code
     const loader = new Loader({
       apiKey:  GOOGLE_MAPS_API_KEY,
       version: "weekly",
       libraries: ["places"],
     });
+    await loader.load();
 
     let map;
-    loader.load().then(() => {
-      map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 40.01, lng: -105.27 },
-        zoom: 8,
-        // Don't need all of the map control UI elements showing
-        disableDefaultUI: true,
-        zoomControl: true,
-      });
+    map = new google.maps.Map(document.getElementById("map"), {
+      center: { lat: 40.01, lng: -105.27 },
+      zoom: 8,
+      // Don't need all of the map control UI elements showing
+      disableDefaultUI: true,
+      zoomControl: true,
+    });
 
-      const input = document.getElementById("pac-input");
-      const autocomplete = new google.maps.places.Autocomplete(input);
-      autocomplete.bindTo("bounds", map);
-      autocomplete.setFields(["address_components", "geometry", "icon", "name", "place_id"]);
-      const infowindow = new google.maps.InfoWindow();
-      const infowindowContent = document.getElementById("infowindow-content");
-      infowindow.setContent(infowindowContent);
-      const marker = new google.maps.Marker({
-        map,
-        anchorPoint: new google.maps.Point(0, -29),
-      });
+    const input = document.getElementById("pac-input");
+    const autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.bindTo("bounds", map);
+    autocomplete.setFields(["address_components", "geometry", "icon", "name", "place_id"]);
+    const infowindow = new google.maps.InfoWindow();
+    const infowindowContent = document.getElementById("infowindow-content");
+    infowindow.setContent(infowindowContent);
+    const marker = new google.maps.Marker({
+      map,
+      anchorPoint: new google.maps.Point(0, -29),
+    });
 
-      autocomplete.addListener("place_changed", () => {
-        infowindow.close();
-        marker.setVisible(false);
-        const place = autocomplete.getPlace();
-        console.log({place});
+    autocomplete.addListener("place_changed", () => {
+      infowindow.close();
+      marker.setVisible(false);
+      const place = autocomplete.getPlace();
 
-        if (!place.geometry) {
-          // User entered the name of a Place that was not suggested and
-          // pressed the Enter key, or the Place Details request failed.
-          window.alert("No details available for input: '" + place.name + "'");
-          return;
-        }
+      if (!place.geometry) {
+        // User entered the name of a Place that was not suggested and
+        // pressed the Enter key, or the Place Details request failed.
+        window.alert("No details available for input: '" + place.name + "'");
+        return;
+      }
 
-        // If the place has a geometry, then present it on a map.
-        if (place.geometry.viewport) {
-          map.fitBounds(place.geometry.viewport);
-        } else {
-          map.setCenter(place.geometry.location);
-          map.setZoom(17); // Why 17? Because it looks good.
-        }
-        marker.setPosition(place.geometry.location);
-        marker.setVisible(true);
-        let address = "";
+      // If the place has a geometry, then present it on a map.
+      if (place.geometry.viewport) {
+        map.fitBounds(place.geometry.viewport);
+      } else {
+        map.setCenter(place.geometry.location);
+        map.setZoom(17); // Why 17? Because it looks good.
+      }
+      marker.setPosition(place.geometry.location);
+      marker.setVisible(true);
+      let address = "";
 
-        if (place.address_components) {
-          address = [
-            (place.address_components[0] &&
-             place.address_components[0].short_name) ||
-              "",
-            (place.address_components[1] &&
-             place.address_components[1].short_name) ||
-              "",
-            (place.address_components[2] &&
-             place.address_components[2].short_name) ||
-              "",
-          ].join(" ");
+      if (place.address_components) {
+        address = [
+          (place.address_components[0] &&
+            place.address_components[0].short_name) ||
+            "",
+          (place.address_components[1] &&
+            place.address_components[1].short_name) ||
+            "",
+        ].join(" ");
 
-          const asDict = place.address_components.reduce((accum, component) => {
-            component.types.forEach(type => accum[type] = component.long_name);
-            return accum;
-          }, {});
-          console.log({asDict});
-
-          const city = asDict.locality || "";
-          const zip = asDict.postal_code || "";
-          const state = asDict.administrative_area_level_1 || "";
-
-          resource.address.address1 = address;
-          resource.address.city = city;
-          resource.address.zip = zip;
-          resource.address.state = state;
-
-          const latitude = place.geometry.location.lat();
-          const longitude = place.geometry.location.lng();
-          resource.latitude = latitude || 40.01;
-          resource.longitude = longitude || -105.27;
-        }
-        infowindowContent.children["place-icon"].src = place.icon;
-        infowindowContent.children["place-name"].textContent = place.name;
-        infowindowContent.children["place-address"].textContent = address;
-        infowindow.open(map, marker);
-
-        console.log({address, place});
-        console.log({resource});
-      });
-
-
-    }).catch(e => console.log(e));
-  })
+        onPlaceChanged({address, geometry: place.geometry, addressComponents: place.address_components});
+      }
+      infowindowContent.children["place-icon"].src = place.icon;
+      infowindowContent.children["place-name"].textContent = place.name;
+      infowindowContent.children["place-address"].textContent = address;
+      infowindow.open(map, marker);
+    });
+  } catch(e) {
+    console.log(e);
+  }
+}
 
 
 </script>
