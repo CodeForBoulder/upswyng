@@ -2,39 +2,39 @@
   import { Loader } from "@googlemaps/js-api-loader"
   import { createEventDispatcher } from "svelte";
   import { getContext, onMount, onDestroy } from "svelte";
-  // import * as dotenv from "dotenv";
-  // import { config } from 'dotenv';
-  // import replace from '@rollup/plugin-replace';
+
+  export let resource = null;
 
   let inputVal = "";
-
-  // export let address1 = "";
-  export let resource = null;
   const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 
   onMount( async () => {
     await loadMap();
   })
 
+// The custom application code that's run when a user selects a search result
 function onPlaceChanged({address, geometry, addressComponents}) {
-  // The custom application code that's run when a user selects a search result
-  const asDict = addressComponents.reduce((accum, component) => {
-    component.types.forEach(type => accum[type] = component.long_name);
-    return accum;
-  }, {});
+  if(addressComponents) {
+    const asDict = addressComponents.reduce((accum, component) => {
+      component.types.forEach(type => accum[type] = component.long_name);
+      return accum;
+    }, {});
 
-  const city = asDict.locality || "";
-  const zip = asDict.postal_code || "";
-  const state = asDict.administrative_area_level_1 || "";
-  resource.address.address1 = address;
-  resource.address.city = city;
-  resource.address.zip = zip;
-  resource.address.state = state;
+    const city = asDict.locality || "";
+    const zip = asDict.postal_code || "";
+    const state = asDict.administrative_area_level_1 || "";
+    resource.address.address1 = address;
+    resource.address.city = city;
+    resource.address.zip = zip;
+    resource.address.state = state;
+  }
+  if(geometry) {
+    const latitude = geometry.location.lat();
+    const longitude = geometry.location.lng();
+    resource.latitude = latitude || 40.01;
+    resource.longitude = longitude || -105.27;
+  }
 
-  const latitude = geometry.location.lat();
-  const longitude = geometry.location.lng();
-  resource.latitude = latitude || 40.01;
-  resource.longitude = longitude || -105.27;
 }
 
 async function loadMap() {
@@ -50,7 +50,7 @@ async function loadMap() {
     let map;
     map = new google.maps.Map(document.getElementById("map"), {
       center: { lat: 40.01, lng: -105.27 },
-      zoom: 8,
+      zoom: 9,
       // Don't need all of the map control UI elements showing
       disableDefaultUI: true,
       zoomControl: true,
@@ -129,7 +129,7 @@ async function loadMap() {
     class="input"
     class:is-danger={false}
     type="text"
-    placeholder="Search for your provider name or address..."
+    placeholder="Search for provider name or address..."
     bind:value={inputVal} />
 <div id="infowindow-content">
       <img src="" width="16" height="16" id="place-icon" />
