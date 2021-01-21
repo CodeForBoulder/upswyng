@@ -1,6 +1,5 @@
 <script>
   import { Loader } from "@googlemaps/js-api-loader"
-  import { createEventDispatcher } from "svelte";
   import { onMount } from "svelte";
 
   export let resource = null;
@@ -114,8 +113,6 @@
       return false;
     }
   }
-
-
 </script>
 
 <style>
