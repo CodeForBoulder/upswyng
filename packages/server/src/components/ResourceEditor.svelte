@@ -51,14 +51,6 @@
     //
     deleted: { value: resource.deleted || false, validators: [] },
     description: { value: resource.description || "", validators: ["min:12"] },
-    latitude: {
-      value: resource.latitude || 40.01,
-      validators: ["between:-90:90"],
-    },
-    longitude: {
-      value: resource.longitude || -105.27,
-      validators: ["between:-180:180"],
-    },
     name: { value: resource.name || "", validators: ["required", "min:3"] },
     phone: { value: resource.phone || "", validators: ["required", "min:3"] }, // ex: 911
     schedule: {
@@ -373,59 +365,6 @@
 
     <ScheduleSelector bind:value={resource.schedule} />
 
-    <div class="field">
-      <label class="label">Location</label>
-      <div class="field is-horizontal">
-        <div class="field-label is-small">
-          <label class="label" for="latitude">Latitude</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control has-icons-right">
-              <input
-                class="input"
-                class:is-danger={$resourceForm.latitude.errors.length}
-                name="latitude"
-                type="latitude"
-                bind:value={resource.latitude} />
-              {#if $resourceForm.latitude.errors.length}
-                <span class="icon is-small is-right">
-                  <i class="fas fa-exclamation-triangle" />
-                </span>
-              {/if}
-            </div>
-            {#if $resourceForm.latitude.errors.length}
-              <p class="help is-danger">Invalid Latitude</p>
-            {/if}
-          </div>
-        </div>
-      </div>
-      <div class="field is-horizontal">
-        <div class="field-label is-small">
-          <label class="label" for="longitude">Longitude</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control has-icons-right">
-              <input
-                class="input"
-                class:is-danger={$resourceForm.longitude.errors.length}
-                name="longitude"
-                type="longitude"
-                bind:value={resource.longitude} />
-              {#if $resourceForm.longitude.errors.length}
-                <span class="icon is-small is-right">
-                  <i class="fas fa-exclamation-triangle" />
-                </span>
-              {/if}
-            </div>
-            {#if $resourceForm.longitude.errors.length}
-              <p class="help is-danger">Invalid Longitude</p>
-            {/if}
-          </div>
-        </div>
-      </div>
-    </div>
     <SubcategoryInput bind:value={resource.subcategories} {subcategories} />
     <div class="field">
       <div class="control">
