@@ -138,6 +138,11 @@
   .notification-text {
     flex: 1;
   }
+
+  /* Override default bulma-badge z-index so it doesn't appear on top of menus */
+  .badge-z-index {
+    z-index: 2;
+  }
 </style>
 
 <svelte:head>
@@ -190,7 +195,7 @@
                 <span class="fas fa-exclamation-triangle" aria-hidden="true" />
               </span>
               <span
-                class={`has-badge-rounded has-badge-${unresolvedIssues && unresolvedIssues.length ? 'danger' : 'success'}`}
+                class={`has-badge-rounded has-badge-${unresolvedIssues && unresolvedIssues.length ? 'danger' : 'success'} badge-z-index`}
                 data-badge={unresolvedIssues && unresolvedIssues.length}>
                 Reported Issues
               </span>
