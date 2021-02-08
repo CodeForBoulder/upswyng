@@ -72,14 +72,21 @@ export async function post(req, res, next) {
       const updatedResourceObject = await resourceDocumentToResource(
         updatedResource
       );
-      await algoliaIndex.saveObject({
-        objectID: updatedResourceObject._id,
-        name: updatedResourceObject.name,
-        description: updatedResourceObject.description,
-        subcategories: updatedResourceObject.subcategories
-          .map(s => s.name)
-          .join(","),
-      });
+      console.log(updatedResourceObject.deleted);
+      if (updatedResourceObject.deleted) {
+        console.log(`deleting ${updatedResourceObject._id}`);
+        await algoliaIndex.deleteObject(updatedResourceObject._id);
+      } else {
+        console.log(`updating ${updatedResourceObject._id}`);
+        await algoliaIndex.saveObject({
+          objectID: updatedResourceObject._id,
+          name: updatedResourceObject.name,
+          description: updatedResourceObject.description,
+          subcategories: updatedResourceObject.subcategories
+            .map(s => s.name)
+            .join(","),
+        });
+      }
     } catch (e) {
       console.error(
         `Error updating resource in algolia index after approval of draft ${_id}: ${e}`
