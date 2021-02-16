@@ -2,6 +2,11 @@
   import { ResourceSchedule } from "@upswyng/common";
 
   export async function preload({ params, query }, { user }) {
+    if(!user) {
+      this.error(401, "You don't have permission to view this page");
+      return;
+    } 
+
     let draftResource = null;
     if (!user.isAdmin) {
       // If user is not an admin, make sure the draft they're trying to view is
@@ -11,11 +16,13 @@
       });
       if (draftsForUserResponse.status !== 200) {
         this.error(draftsForUserResponse.status, draftsForUserResponse.message);
+        return;
       }
       const {draftResources} = await draftsForUserResponse.json();
       draftResource = draftResources.find(draft => draft._id === params._id);
       if(!draftResource) {
         this.error(401, "You don't have permission to view this page");
+        return;
       } 
     } else {
       const draftResourceResponse = await this.fetch(
@@ -23,6 +30,7 @@
       );
       if (draftResourceResponse.status !== 200) {
         this.error(draftResourceResponse.status, draftResourceResponse.message);
+        return;
       }
       draftResource = (await draftResourceResponse.json()).draftResource;
     }
