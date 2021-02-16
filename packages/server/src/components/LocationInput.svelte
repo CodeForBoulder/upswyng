@@ -3,9 +3,11 @@
   import { onMount } from "svelte";
 
   export let resource = null;
+  export let resourceForm = null;
 
   let inputValue = "";
   let mapShowing = true;
+  let placeSelected = false;
 
   onMount( async () => {
     mapShowing = await loadMap();
@@ -13,6 +15,7 @@
 
   // The custom application code that's run when a user selects a search result
   function onPlaceChanged({address, geometry, addressComponents}) {
+    placeSelected = true;
     if(addressComponents) {
       const asDict = addressComponents.reduce((accum, component) => {
         component.types.forEach(type => accum[type] = component.long_name);
@@ -26,6 +29,8 @@
       resource.address.city = city;
       resource.address.zip = zip;
       resource.address.state = state;
+
+      inputValue = address;
     }
     if(geometry) {
       const latitude = geometry.location.lat();
@@ -121,21 +126,150 @@
     height: 25rem;
     max-width: 40rem;
   }
+ .hidden {
+   visibility: hidden;
+   width: 0px;
+   height: 0px;
+ }
 </style>
 
-<div class="content">
-  {#if mapShowing}
-    <input
-      id="pac-input"
-      class="input"
-      class:is-danger={false}
-      type="text"
-      placeholder="Search for provider name or address..."
-      bind:value={inputValue} />
-    <div id="infowindow-content">
-      <span id="place-name" class="title"></span><br />
-      <span id="place-address"></span>
+<div class="columns">
+  <div class="column">
+    <div class="field is-horizontal">
+      <div class="field-label is-small">
+        <label class="label" for="address1">Address 1</label>
+      </div>
+      <div class="field-body">
+        <div class="field">
+          <div class="control has-icons-right">
+            <input
+              id="pac-input"
+              class="input"
+              class:is-danger={$resourceForm.address1.errors.length}
+              autocomplete="chrome-off"
+              type="text"
+              placeholder="Address 1"
+              bind:value={resource.address.address1} />
+            {#if $resourceForm.address1.errors.length}
+              <span class="icon is-small is-right">
+                <i class="fas fa-exclamation-triangle" />
+              </span>
+            {/if}
+          </div>
+          {#if $resourceForm.address1.errors.includes('required')}
+            <p class="help is-danger">An address is required</p>
+          {/if}
+        </div>
+      </div>
     </div>
-    <div id="map"></div>
+
+    <div class="field is-horizontal">
+      <div class="field-label is-small">
+        <label class="label" for="address2">Address 2</label>
+      </div>
+      <div class="field-body">
+        <div class="field">
+          <div class="control">
+            <input
+              class="input"
+              autocomplete="address-line2"
+              type="text"
+              placeholder="Address 2"
+              bind:value={resource.address.address2} />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label is-small">
+        <label class="label" for="city">City</label>
+      </div>
+      <div class="field-body">
+        <div class="field">
+          <div class="control has-icons-right">
+            <input
+              class="input"
+              class:is-danger={$resourceForm.city.errors.length}
+                     autocomplete="address-level2"
+              type="text"
+              placeholder="City"
+              bind:value={resource.address.city} />
+            {#if $resourceForm.city.errors.length}
+              <span class="icon is-small is-right">
+                <i class="fas fa-exclamation-triangle" />
+              </span>
+            {/if}
+          </div>
+          {#if $resourceForm.city.errors.includes('required')}
+            <p class="help is-danger">An address is required</p>
+          {/if}
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label is-small">
+        <label class="label" for="state">State</label>
+      </div>
+      <div class="field-body">
+        <div class="field">
+          <div class="control has-icons-right">
+            <input
+              class="input"
+              class:is-danger={$resourceForm.state.errors.length}
+                     autocomplete="address-level1"
+              type="text"
+              placeholder="State"
+              bind:value={resource.address.state} />
+            {#if $resourceForm.state.errors.length}
+              <span class="icon is-small is-right">
+                <i class="fas fa-exclamation-triangle" />
+              </span>
+            {/if}
+          </div>
+          {#if $resourceForm.state.errors.includes('required')}
+            <p class="help is-danger">A state is required</p>
+          {/if}
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label is-small">
+        <label class="label" for="zip">ZIP</label>
+      </div>
+      <div class="field-body">
+        <div class="field">
+          <div class="control has-icons-right">
+            <input
+              class="input"
+              class:is-danger={$resourceForm.zip.errors.length}
+                     autocomplete="postal-code"
+              type="text"
+              placeholder="ZIP"
+              bind:value={resource.address.zip} />
+            {#if $resourceForm.zip.errors.length}
+              <span class="icon is-small is-right">
+                <i class="fas fa-exclamation-triangle" />
+              </span>
+            {/if}
+          </div>
+          {#if $resourceForm.zip.errors.includes('required')}
+            <p class="help is-danger">A ZIP code is required</p>
+          {/if}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {#if mapShowing}
+    <div class=" { placeSelected ? 'column' : 'hidden' } ">
+      <div id="map"></div>
+      <div id="infowindow-content">
+        <span id="place-name" class="title"></span><br />
+        <span id="place-address"></span>
+      </div>
+    </div>
   {/if}
 </div>
