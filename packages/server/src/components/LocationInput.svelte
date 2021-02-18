@@ -7,7 +7,6 @@
 
   let inputValue = "";
   let mapShowing = true;
-  let placeSelected = false;
 
   onMount( async () => {
     mapShowing = await loadMap();
@@ -15,7 +14,6 @@
 
   // The custom application code that's run when a user selects a search result
   function onPlaceChanged({address, geometry, addressComponents}) {
-    placeSelected = true;
     if(addressComponents) {
       const asDict = addressComponents.reduce((accum, component) => {
         component.types.forEach(type => accum[type] = component.long_name);
@@ -126,11 +124,6 @@
     height: 25rem;
     max-width: 40rem;
   }
- .hidden {
-   visibility: hidden;
-   width: 0px;
-   height: 0px;
- }
 </style>
 
 <div class="columns">
@@ -264,7 +257,7 @@
   </div>
 
   {#if mapShowing}
-    <div class=" { placeSelected ? 'column' : 'hidden' } ">
+    <div class="column">
       <div id="map"></div>
       <div id="infowindow-content">
         <span id="place-name" class="title"></span><br />
