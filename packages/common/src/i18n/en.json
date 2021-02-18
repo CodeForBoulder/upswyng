@@ -1,0 +1,15 @@
+{
+  "home": {
+    "food": "Food",
+    "shelter": "Shelter",
+    "hygiene": "Hygiene",
+    "transit": "Transit",
+    "resources": "Resources",
+    "hotlines": "Hotlines",
+    "health": "Health",
+    "wifi": "Wifi",
+    "jobTraining": "Job Training",
+    "socialServices": "Social Services",
+    "coordinatedEntry": "Coordinated Entry"
+  }
+}
