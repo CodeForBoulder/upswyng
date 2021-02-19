@@ -57,7 +57,7 @@ This file contains placeholders for various API keys that you may or may not nee
 2. Click '+ ENABLE APIS AND SERVICES' on the API dashboard, search for 'Maps JavaScript API', then select and enable.
 3. Now enable the 'Places API' in the same way.
 4. Select 'Credentials' on the menu to the left, then '+ CREATE CREDENTIALS' then 'API Key'
-5. Copy and paste this newly created API key to the `GOOGLE_MAPS_API_KEY` field of the server `.env` file. 
+5. Copy and paste this newly created API key to the `SERVER_GOOGLE_CLOUD_API_KEY` field of the server `.env` file. 
 </details>
 
 ### 2. Start the Server

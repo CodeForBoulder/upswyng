@@ -41,9 +41,9 @@
   // See https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete for the source of this function
   async function loadMap() {
     try{
-      const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
+      const SERVER_GOOGLE_CLOUD_API_KEY = process.env.SERVER_GOOGLE_CLOUD_API_KEY;
       const loader = new Loader({
-        apiKey:  GOOGLE_MAPS_API_KEY,
+        apiKey:  SERVER_GOOGLE_CLOUD_API_KEY,
         version: "weekly",
         libraries: ["places"],
       });
