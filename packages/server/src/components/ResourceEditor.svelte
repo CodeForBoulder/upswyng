@@ -203,6 +203,7 @@
           </span>
         {/if}
       </div>
+      <p class="help">(We'll add this for you)</p>
       {#if $resourceForm.streetViewImage.errors.includes('url')}
         <p class="help is-danger">Please enter a valid image URL.</p>
       {/if}

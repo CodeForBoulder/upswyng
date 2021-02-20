@@ -2,56 +2,61 @@
   import { ResourceSchedule } from "@upswyng/common";
 
   export async function preload({ params, query }, { user }) {
-    if (!user || !user.isAdmin) {
-      this.error(401, "You must be an admin to access this page.");
+    if(!user) {
+      this.error(401, "You don't have permission to view this page");
+      return;
+    } 
+
+    let draftResource = null;
+    if (!user.isAdmin) {
+      // If user is not an admin, make sure the draft they're trying to view is
+      // one of their own
+      const draftsForUserResponse = await this.fetch("/api/resources/drafts/mine", {
+        credentials: "same-origin",
+      });
+      if (draftsForUserResponse.status !== 200) {
+        this.error(draftsForUserResponse.status, draftsForUserResponse.message);
+        return;
+      }
+      const {draftResources} = await draftsForUserResponse.json();
+      draftResource = draftResources.find(draft => draft._id === params._id);
+      if(!draftResource) {
+        this.error(401, "You don't have permission to view this page");
+        return;
+      } 
+    } else {
+      const draftResourceResponse = await this.fetch(
+        `/api/resource/draft/${params._id}`
+      );
+      if (draftResourceResponse.status !== 200) {
+        this.error(draftResourceResponse.status, draftResourceResponse.message);
+        return;
+      }
+      draftResource = (await draftResourceResponse.json()).draftResource;
     }
 
-    const resourceResponse = await this.fetch(
-      `/api/resource/draft/${params._id}`
+    // See if we have an existing resource corresponding to this draft
+    const existingResourceResponse = await this.fetch(
+      `/api/resource/${draftResource.resourceId}`
     );
+    const existingResource = existingResourceResponse.status === 200
+      ? (await existingResourceResponse.json()).resource
+      : null;
 
-    const resourceData = await resourceResponse.json();
+    return {
+      draftResource: withSchedule(draftResource),
+      existingResource: withSchedule(existingResource),
+      isAdmin: user.isAdmin,
+    };
+  }
 
-    if (resourceResponse.status !== 200) {
-      this.error(resourceResponse.status, resourceData.message);
-    } else {
-      // see if we have an existing resource corresponding to this draft
-      const existingResourceResponse = await this.fetch(
-        `/api/resource/${resourceData.draftResource.resourceId}`
-      );
-      if (existingResourceResponse.status === 404) {
-        return {
-          draftResource: {
-            ...resourceData.draftResource,
-            schedule: ResourceSchedule.parse(
-              resourceData.draftResource.schedule
-            ),
-          },
-          existingResource: null,
-        };
-      }
-      const existingResourceData = await existingResourceResponse.json();
-      if (existingResourceResponse.status !== 200) {
-        this.error(
-          existingResourceResponse.status,
-          existingResourceData.message
-        );
-      } else {
-        return {
-          draftResource: {
-            ...resourceData.draftResource,
-            schedule: ResourceSchedule.parse(
-              resourceData.draftResource.schedule
-            ),
-          },
-          existingResource: {
-            ...existingResourceData.resource,
-            schedule: ResourceSchedule.parse(
-              existingResourceData.resource.schedule
-            ),
-          },
-        };
-      }
+  function withSchedule(resource) {
+    if(!resource) return null;
+    return {
+      ...resource,
+      schedule: ResourceSchedule.parse(
+        resource.schedule
+      ),
     }
   }
 </script>
@@ -66,6 +71,7 @@
 
   export let draftResource;
   export let existingResource; // resource in the directory which this draft would update; null for new resources
+  export let isAdmin = false;
 
   let isDeleting = false; // Whether we've issued a call to the server to delete the draft resource
   let deleteError = null; // error? Poupulated with the error from a detete attempt, if there has been one
@@ -128,7 +134,9 @@
       {#if existingResource}
         Update Service Provider: {existingResource.name}
       {:else}Create New Service Provider{/if}
-      <span class="tag is-dark">Admin</span>
+      {#if isAdmin}
+        <span class="tag is-dark">Admin</span>
+      {/if}
     </h1>
     {#if existingResource}
       <p class="subtitle">
@@ -174,32 +182,34 @@
       <ResourceDisplay resource={draftResource} />
     {/if}
 
-    <div class="buttons">
-      <button
-        class="button is-danger is-outlined"
-        class:is-loading={isDeleting}
-        type="button"
-        preventDefault
-        disabled={isApproving}
-        on:click={() => deleteDraft(draftResource._id)}>
-        <span class="icon is-small">
-          <i class="fas fa-times" />
-        </span>
-        <span>Delete Draft</span>
-      </button>
-      <button
-        class="button is-success"
-        class:is-loading={isApproving}
-        type="button"
-        preventDefault
-        disabled={isDeleting}
-        on:click={() => approveUpdate(draftResource._id)}>
-        <span class="icon is-small">
-          <i class="fas fa-check" />
-        </span>
-        <span>Approve Update</span>
-      </button>
-    </div>
+    {#if isAdmin}
+      <div class="buttons">
+        <button
+          class="button is-danger is-outlined"
+          class:is-loading={isDeleting}
+          type="button"
+          preventDefault
+          disabled={isApproving}
+          on:click={() => deleteDraft(draftResource._id)}>
+          <span class="icon is-small">
+            <i class="fas fa-times" />
+          </span>
+          <span>Delete Draft</span>
+        </button>
+        <button
+          class="button is-success"
+          class:is-loading={isApproving}
+          type="button"
+          preventDefault
+          disabled={isDeleting}
+          on:click={() => approveUpdate(draftResource._id)}>
+          <span class="icon is-small">
+            <i class="fas fa-check" />
+          </span>
+          <span>Approve Update</span>
+        </button>
+      </div>
+    {/if}
     <div>
       {#if approveError}
         <p class="notification is-danger">
