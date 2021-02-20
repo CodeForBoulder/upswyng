@@ -5,6 +5,7 @@
   import ScheduleSelector from "./ScheduleSelector.svelte";
   import ServicesInput from "./ServicesInput.svelte";
   import SubcategoryInput from "./SubcategoryInput.svelte";
+  import LocationInput from "./LocationInput.svelte";
 
   export let errorText = ""; // an error message to show, for instance, if the save operation has failed
   export let isSaving = false;
@@ -50,14 +51,6 @@
     //
     deleted: { value: resource.deleted || false, validators: [] },
     description: { value: resource.description || "", validators: ["min:12"] },
-    latitude: {
-      value: resource.latitude || 40.01,
-      validators: ["between:-90:90"],
-    },
-    longitude: {
-      value: resource.longitude || -105.27,
-      validators: ["between:-180:180"],
-    },
     name: { value: resource.name || "", validators: ["required", "min:3"] },
     phone: { value: resource.phone || "", validators: ["required", "min:3"] }, // ex: 911
     schedule: {
@@ -187,132 +180,10 @@
 
     <div class="field">
       <label class="label">Address</label>
-      <div class="field is-horizontal">
-        <div class="field-label is-small">
-          <label class="label" for="address1">Address 1</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control has-icons-right">
-              <input
-                class="input"
-                class:is-danger={$resourceForm.address1.errors.length}
-                autocomplete="address-line1"
-                type="text"
-                placeholder="Address 1"
-                bind:value={resource.address.address1} />
-              {#if $resourceForm.address1.errors.length}
-                <span class="icon is-small is-right">
-                  <i class="fas fa-exclamation-triangle" />
-                </span>
-              {/if}
-            </div>
-            {#if $resourceForm.address1.errors.includes('required')}
-              <p class="help is-danger">An address is required</p>
-            {/if}
-          </div>
-        </div>
-      </div>
+      <LocationInput
+        resourceForm={resourceForm} 
+        bind:resource={resource} />
 
-      <div class="field is-horizontal">
-        <div class="field-label is-small">
-          <label class="label" for="address2">Address 2</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control">
-              <input
-                class="input"
-                autocomplete="address-line2"
-                type="text"
-                placeholder="Address 2"
-                bind:value={resource.address.address2} />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="field is-horizontal">
-        <div class="field-label is-small">
-          <label class="label" for="city">City</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control has-icons-right">
-              <input
-                class="input"
-                class:is-danger={$resourceForm.city.errors.length}
-                autocomplete="address-level2"
-                type="text"
-                placeholder="City"
-                bind:value={resource.address.city} />
-              {#if $resourceForm.city.errors.length}
-                <span class="icon is-small is-right">
-                  <i class="fas fa-exclamation-triangle" />
-                </span>
-              {/if}
-            </div>
-            {#if $resourceForm.city.errors.includes('required')}
-              <p class="help is-danger">An address is required</p>
-            {/if}
-          </div>
-        </div>
-      </div>
-
-      <div class="field is-horizontal">
-        <div class="field-label is-small">
-          <label class="label" for="state">State</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control has-icons-right">
-              <input
-                class="input"
-                class:is-danger={$resourceForm.state.errors.length}
-                autocomplete="address-level1"
-                type="text"
-                placeholder="State"
-                bind:value={resource.address.state} />
-              {#if $resourceForm.state.errors.length}
-                <span class="icon is-small is-right">
-                  <i class="fas fa-exclamation-triangle" />
-                </span>
-              {/if}
-            </div>
-            {#if $resourceForm.state.errors.includes('required')}
-              <p class="help is-danger">A state is required</p>
-            {/if}
-          </div>
-        </div>
-      </div>
-
-      <div class="field is-horizontal">
-        <div class="field-label is-small">
-          <label class="label" for="zip">ZIP</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control has-icons-right">
-              <input
-                class="input"
-                class:is-danger={$resourceForm.zip.errors.length}
-                autocomplete="postal-code"
-                type="text"
-                placeholder="ZIP"
-                bind:value={resource.address.zip} />
-              {#if $resourceForm.zip.errors.length}
-                <span class="icon is-small is-right">
-                  <i class="fas fa-exclamation-triangle" />
-                </span>
-              {/if}
-            </div>
-            {#if $resourceForm.zip.errors.includes('required')}
-              <p class="help is-danger">A ZIP code is required</p>
-            {/if}
-          </div>
-        </div>
-      </div>
-    </div>
 
     <div class="field">
       <label class="label" for="streetViewImage">Street View Image URL</label>
@@ -371,61 +242,6 @@
 
     <ScheduleSelector bind:value={resource.schedule} />
 
-    <div class="field">
-      <label class="label">Location</label>
-      <div class="field is-horizontal">
-        <div class="field-label is-small">
-          <label class="label" for="latitude">Latitude</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control has-icons-right">
-              <input
-                class="input"
-                class:is-danger={$resourceForm.latitude.errors.length}
-                name="latitude"
-                type="latitude"
-                bind:value={resource.latitude} />
-              {#if $resourceForm.latitude.errors.length}
-                <span class="icon is-small is-right">
-                  <i class="fas fa-exclamation-triangle" />
-                </span>
-              {/if}
-            </div>
-            <p class="help">(We'll add this for you)</p>
-            {#if $resourceForm.latitude.errors.length}
-              <p class="help is-danger">Invalid Latitude</p>
-            {/if}
-          </div>
-        </div>
-      </div>
-      <div class="field is-horizontal">
-        <div class="field-label is-small">
-          <label class="label" for="longitude">Longitude</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control has-icons-right">
-              <input
-                class="input"
-                class:is-danger={$resourceForm.longitude.errors.length}
-                name="longitude"
-                type="longitude"
-                bind:value={resource.longitude} />
-              {#if $resourceForm.longitude.errors.length}
-                <span class="icon is-small is-right">
-                  <i class="fas fa-exclamation-triangle" />
-                </span>
-              {/if}
-            </div>
-            <p class="help">(We'll add this for you)</p>
-            {#if $resourceForm.longitude.errors.length}
-              <p class="help is-danger">Invalid Longitude</p>
-            {/if}
-          </div>
-        </div>
-      </div>
-    </div>
     <SubcategoryInput bind:value={resource.subcategories} {subcategories} />
     <div class="field">
       <div class="control">
