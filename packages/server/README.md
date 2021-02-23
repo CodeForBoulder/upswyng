@@ -48,6 +48,18 @@ DATABASE_USER=upswyng-dev-user
 
 This file contains placeholders for various API keys that you may or may not need to provide. This depends on the issue you are addressing. For example, if you're working on a feature that is only enabled for admins, then you'll also need to provide API keys for one of our OAuth providers.
 
+<details>
+  <summary>Instructions for configuring Google Maps APIs (optional)</summary>
+  
+*These steps are only necessary if you would like to use the location search feature on the provider portal.*
+     
+1. If you have not already created a project on the [Google Cloud Platform](https://cloud.google.com/) for use with OAuth, create a new project now.
+2. Click '+ ENABLE APIS AND SERVICES' on the API dashboard, search for 'Maps JavaScript API', then select and enable.
+3. Now enable the 'Places API' in the same way.
+4. Select 'Credentials' on the menu to the left, then '+ CREATE CREDENTIALS' then 'API Key'
+5. Copy and paste this newly created API key to the `SERVER_GOOGLE_CLOUD_API_KEY` field of the server `.env` file. 
+</details>
+
 ### 2. Start the Server
 
 ```console

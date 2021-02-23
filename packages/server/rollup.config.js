@@ -64,6 +64,7 @@ const {
   ALGOLIA_APP_ID,
   ALGOLIA_SEARCH_API_KEY,
   ALGOLIA_INDEX_NAME,
+  SERVER_GOOGLE_CLOUD_API_KEY
 } = process.env;
 
 export default {
@@ -80,6 +81,7 @@ export default {
         ),
         "process.env.RESET_APP_DATA_TIMER": 60 * 2 * 1000, // two minutes; used inside the algoliasearch source
         "process.env.NODE_ENV": JSON.stringify(mode),
+        "process.env.SERVER_GOOGLE_CLOUD_API_KEY": JSON.stringify(SERVER_GOOGLE_CLOUD_API_KEY),
       }),
       svelte({
         dev,
