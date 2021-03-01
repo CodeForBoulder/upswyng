@@ -11,5 +11,13 @@
     "jobTraining": "Job Training",
     "socialServices": "Social Services",
     "coordinatedEntry": "Coordinated Entry"
+  },
+  "notFound": {
+    "pageTitle": "Page not Found",
+    "message": "Whoops! We're having trouble finding that page.",
+    "goHome": "You can also go back <MuiLink>home</MuiLink> to browse"
+  },
+  "searchInput": {
+    "placeholder": "Search - What are your needs today?"
   }
 }

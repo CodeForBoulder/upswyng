@@ -11,5 +11,13 @@
     "jobTraining": "Formación Profesional",
     "socialServices": "Servicios Sociales",
     "coordinatedEntry": "Entrada Coordinada"
+  },
+  "notFound": {
+    "pageTitle": "Página no Encontrada",
+    "message": "¡Uy! Disculpa tenemos un inconveniente encontrando esta pagina.",
+    "goHome": "Tambien, puedes volver a la <MuiLink>página de inicio</MuiLink> para navegar en nuestro sitio web."
+  },
+  "searchInput": {
+    "placeholder": "Busqueda - ¿Que necesitas hoy?"
   }
 }
