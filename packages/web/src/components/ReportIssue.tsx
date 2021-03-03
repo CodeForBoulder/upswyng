@@ -15,6 +15,7 @@ import createStyles from "@material-ui/core/styles/createStyles";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { useLastLocation } from "react-router-last-location";
 import useResources from "./useResources";
+import { useTranslation } from "react-i18next";
 
 interface State {
   [index: string]: {
@@ -42,28 +43,29 @@ const ReportIssue = () => {
   const history = useHistory();
   const lastLocation = useLastLocation();
   const classes = useStyles();
+  const { t } = useTranslation(["reportIssue", "glossary"]);
   const [comments, setComments] = React.useState("");
   const [submissionError, setError] = React.useState("");
   const [formSubmitted, setFormSubmitted] = React.useState(false);
   const [issues, updateIssues] = React.useState({
     address: {
-      text: "The address is wrong.",
+      text: t("address"),
       checked: false,
     },
     phone: {
-      text: "The phone number is wrong.",
+      text: t("phone"),
       checked: false,
     },
     website: {
-      text: "The website link is wrong.",
+      text: t("website"),
       checked: false,
     },
     schedule: {
-      text: "The schedule is wrong.",
+      text: t("schedule"),
       checked: false,
     },
     directions: {
-      text: "The directions are wrong.",
+      text: t("directions"),
       checked: false,
     },
   } as State);
@@ -82,9 +84,7 @@ const ReportIssue = () => {
     event.preventDefault();
     // checking for empty stringified array
     if (selectedIssues().length < 4 && !comments) {
-      setError(
-        "No feedback to submit. Please check desired boxes, enter comments, and try again."
-      );
+      setError(t("noFeedbackSubmitted"));
     } else {
       axios
         .post(`${serverUri}/api/resources/issues/user-report`, {
@@ -93,11 +93,7 @@ const ReportIssue = () => {
           reportedIssues: selectedIssues(),
         })
         .then(() => setFormSubmitted(true))
-        .catch(() =>
-          setError(
-            "There was a problem sending your feedback. Please try again."
-          )
-        );
+        .catch(() => setError(t("problemSendingFeedback")));
     }
   };
 
@@ -117,17 +113,16 @@ const ReportIssue = () => {
   return (
     <Container>
       <PageBanner backButtonAction={lastLocation ? history.goBack : null}>
-        <Typography variant="h1">Report an Issue</Typography>
+        <Typography variant="h1">{t("title")}</Typography>
       </PageBanner>
-      <Typography component="div">Report an issue for: </Typography>
+      <Typography component="div">{t("reportFor")}</Typography>
       <Typography variant="h2" color="primary">
         {resource?.name}
       </Typography>
       {formSubmitted ? (
         <>
           <Typography color="secondary" className={classes.marginTop}>
-            The problem has been submitted and will be reviewed. Thank you for
-            your feedback!
+            {t("submissionSuccess")}
           </Typography>
           <Button
             fullWidth
@@ -137,7 +132,7 @@ const ReportIssue = () => {
             className={classes.marginTop}
             size="medium"
           >
-            Back
+            {t("glossary:back")}
           </Button>
         </>
       ) : (
@@ -164,7 +159,7 @@ const ReportIssue = () => {
               multiline
               fullWidth
               className={classes.marginTop}
-              label="Comments"
+              label={t("glossary:comments")}
               variant="outlined"
               value={comments}
               onChange={e => setComments(e.target.value)}
@@ -177,7 +172,7 @@ const ReportIssue = () => {
               className={classes.marginTop}
               size="medium"
             >
-              Send
+              {t("glossary:send")}
             </Button>
           </form>
           <Typography hidden={!submissionError} color="primary">

@@ -1,7 +1,10 @@
 {
   "glossary": {
     "more": "Más",
-    "less": "Menos"
+    "less": "Menos",
+    "comments": "Comentarios",
+    "send": "Enviar",
+    "back": "Regresar"
   },
   "home": {
     "food": "Comida",
@@ -74,6 +77,18 @@
     "pageTitle": "Página no Encontrada",
     "message": "¡Uy! Disculpa tenemos un inconveniente encontrando esta pagina.",
     "goHome": "Tambien, puedes volver a la <MuiLink>página de inicio</MuiLink> para navegar en nuestro sitio web."
+  },
+  "reportIssue": {
+    "title": "Reportar un Problema",
+    "reportFor": "Reportar un Problema para:",
+    "address": "La dirección es incorrecta",
+    "phone": "El número de teléfono es incorrecto",
+    "website": "El enlace del sitio web es incorrecto",
+    "schedule": "El horario es incorrecto",
+    "directions": "Las direcciones son incorrectas",
+    "noFeedbackSubmitted": "No hay comentarios para enviar. Marque las casillas deseadas, ingrese los comentarios y vuelva a intentarlo.",
+    "problemSendingFeedback": "Hubo un problema al enviar sus comentarios. Inténtalo de nuevo.",
+    "submissionSuccess": "El problema ha sido enviado y será revisado. ¡Gracias por tus comentarios!"
   },
   "searchInput": {
     "placeholder": "Busqueda - ¿Que necesitas hoy?"
