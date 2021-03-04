@@ -1,12 +1,5 @@
 {
-  "glossary": {
-    "more": "Más",
-    "less": "Menos",
-    "comments": "Comentarios",
-    "send": "Enviar",
-    "back": "Regresar"
-  },
-  "home": {
+  "categories": {
     "food": "Comida",
     "shelter": "Abrigo",
     "hygiene": "Higiene",
@@ -18,6 +11,13 @@
     "jobTraining": "Formación Profesional",
     "socialServices": "Servicios Sociales",
     "coordinatedEntry": "Entrada Coordinada"
+  },
+  "glossary": {
+    "more": "Más",
+    "less": "Menos",
+    "comments": "Comentarios",
+    "send": "Enviar",
+    "back": "Regresar"
   },
   "hotlines": {
     "nationalSuicidePreventionLifeline": {

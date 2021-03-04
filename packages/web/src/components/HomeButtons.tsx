@@ -24,7 +24,7 @@ import { useTranslation } from "react-i18next";
 export const routerLinkButtons: THomeButtonRouterLink[] = [
   {
     text: "Food",
-    translationKey: "home:food",
+    translationKey: "categories:food",
     icon: BananaIcon,
     linkProps: {
       to: "/food",
@@ -33,7 +33,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
   },
   {
     text: "Shelter",
-    translationKey: "home:shelter",
+    translationKey: "categories:shelter",
     icon: HomeIcon,
     linkProps: {
       to: "/shelters",
@@ -42,7 +42,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
   },
   {
     text: "Hygiene",
-    translationKey: "home:hygiene",
+    translationKey: "categories:hygiene",
     icon: HygieneIcon,
     linkProps: {
       to: "/hygiene",
@@ -51,7 +51,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
   },
   {
     text: "Transit",
-    translationKey: "home:transit",
+    translationKey: "categories:transit",
     icon: BusIcon,
     linkProps: {
       to: "/transit",
@@ -60,7 +60,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
   },
   {
     text: "Resources",
-    translationKey: "home:resources",
+    translationKey: "categories:resources",
     icon: SocksIcon,
     linkProps: {
       to: "/resources",
@@ -69,7 +69,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
   },
   {
     text: "Hotlines",
-    translationKey: "home:hotlines",
+    translationKey: "categories:hotlines",
     icon: CallIcon,
     linkProps: {
       to: "/hotlines",
@@ -78,7 +78,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
   },
   {
     text: "Health",
-    translationKey: "home:health",
+    translationKey: "categories:health",
     icon: LocalHospitalIcon,
     linkProps: {
       to: "/health",
@@ -87,7 +87,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
   },
   {
     text: "Wifi",
-    translationKey: "home:wifi",
+    translationKey: "categories:wifi",
     icon: WifiIcon,
     linkProps: {
       to: "/wifi",
@@ -96,7 +96,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
   },
   {
     text: "Job Training",
-    translationKey: "home:jobTraining",
+    translationKey: "categories:jobTraining",
     icon: BusinessCenterIcon,
     linkProps: {
       to: "/job_training",
@@ -105,7 +105,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
   },
   {
     text: "Social Services",
-    translationKey: "home:socialServices",
+    translationKey: "categories:socialServices",
     icon: PeopleIcon,
     linkProps: {
       to: "/social_services",
@@ -116,7 +116,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
 
 const coordinatedEntryButton: THomeButtonRouterLink = {
   text: "Coordinated Entry",
-  translationKey: "home:coordinatedEntry",
+  translationKey: "categories:coordinatedEntry",
   icon: DoorIcon,
   linkProps: {
     to: "/coordinated-entry",
@@ -125,7 +125,7 @@ const coordinatedEntryButton: THomeButtonRouterLink = {
 };
 
 const HomeButtons = () => {
-  const { t } = useTranslation(["home"]);
+  const { t } = useTranslation(["categories"]);
   return (
     <Grid
       container

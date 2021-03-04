@@ -77,11 +77,11 @@ export const hotlineList = [
 ];
 
 const Hotlines = () => {
-  const { t } = useTranslation(["hotlines", "home"]);
+  const { t } = useTranslation(["hotlines", "categories"]);
   return (
     <Container>
       <PageBanner color={colors.pink}>
-        <Typography variant="h1">{t("home:hotlines")}</Typography>
+        <Typography variant="h1">{t("categories:hotlines")}</Typography>
       </PageBanner>
       <List>
         {hotlineList.map(({ name, description, phone }) => (
