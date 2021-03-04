@@ -40,16 +40,16 @@ export const categories: Record<TCategoryName, TCategoryDefinition> = {
     color: "gold",
     placeholder: BananaIcon,
     mainCategory: {
-      text: "Food",
+      translationKey: "food",
       stub: "food",
     },
     subCategories: [
       {
-        text: "Meals",
+        translationKey: "meals",
         stub: "meals",
       },
       {
-        text: "Food Pantries",
+        translationKey: "foodPantries",
         stub: "food_pantries",
       },
     ],
@@ -58,36 +58,36 @@ export const categories: Record<TCategoryName, TCategoryDefinition> = {
     color: "red",
     placeholder: LocalHospitalIcon,
     mainCategory: {
-      text: "Health",
+      translationKey: "health",
       stub: "health",
     },
     subCategories: [
       {
-        text: "Hospital",
+        translationKey: "hospital",
         stub: "hospital",
       },
       {
-        text: "Clinics",
+        translationKey: "clinics",
         stub: "clinics",
       },
       {
-        text: "Mental",
+        translationKey: "mental",
         stub: "mental",
       },
       {
-        text: "Dental",
+        translationKey: "dental",
         stub: "dental",
       },
       {
-        text: "Pharmacies",
+        translationKey: "pharmacies",
         stub: "pharmacies",
       },
       {
-        text: "Vision",
+        translationKey: "vision",
         stub: "vision",
       },
       {
-        text: "Addiction",
+        translationKey: "addiction",
         stub: "addiction_recovery_services",
       },
     ],
@@ -96,24 +96,24 @@ export const categories: Record<TCategoryName, TCategoryDefinition> = {
     color: "teal",
     placeholder: HygieneIcon,
     mainCategory: {
-      text: "Hygiene",
+      translationKey: "hygiene",
       stub: "hygiene",
     },
     subCategories: [
       {
-        text: "Restrooms",
+        translationKey: "restrooms",
         stub: "restrooms",
       },
       {
-        text: "Showers",
+        translationKey: "showers",
         stub: "showers",
       },
       {
-        text: "Water Fountains",
+        translationKey: "waterFountains",
         stub: "water_fountains",
       },
       {
-        text: "Feminine Products",
+        translationKey: "feminineProducts",
         stub: "feminine_products",
       },
     ],
@@ -122,24 +122,24 @@ export const categories: Record<TCategoryName, TCategoryDefinition> = {
     color: "lavendar",
     placeholder: BusinessCenterIcon,
     mainCategory: {
-      text: "Job Training",
+      translationKey: "jobTraining",
       stub: "job_training",
     },
     subCategories: [
       {
-        text: "Ready to Work",
+        translationKey: "readyToWork",
         stub: "ready_to_work",
       },
       {
-        text: "Craigs List",
+        translationKey: "craigsList",
         stub: "craigslist",
       },
       {
-        text: "Temp Agency",
+        translationKey: "tempAgency",
         stub: "temp_agency",
       },
       {
-        text: "Career Counseling",
+        translationKey: "careerCounseling",
         stub: "career_counseling",
       },
     ],
@@ -148,40 +148,40 @@ export const categories: Record<TCategoryName, TCategoryDefinition> = {
     color: "purple",
     placeholder: SocksIcon,
     mainCategory: {
-      text: "Resources",
+      translationKey: "resources",
       stub: "resources",
     },
     subCategories: [
       {
-        text: "Outdoor Gear",
+        translationKey: "outdoorGear",
         stub: "outdoor_gear",
       },
       {
-        text: "Clothing",
+        translationKey: "clothing",
         stub: "clothing",
       },
       {
-        text: "Shoes",
+        translationKey: "shoes",
         stub: "shoes",
       },
       {
-        text: "Legal Help",
+        translationKey: "legalHelp",
         stub: "legal_help",
       },
       {
-        text: "Pets",
+        translationKey: "pets",
         stub: "pets",
       },
       {
-        text: "Laundry",
+        translationKey: "laundry",
         stub: "laundry",
       },
       {
-        text: "Hair Care",
+        translationKey: "hairCare",
         stub: "hair_care",
       },
       {
-        text: "Home Goods",
+        translationKey: "homeGoods",
         stub: "home_goods",
       },
     ],
@@ -190,40 +190,40 @@ export const categories: Record<TCategoryName, TCategoryDefinition> = {
     color: "orangePrimary",
     placeholder: HomeIcon,
     mainCategory: {
-      text: "Shelter",
+      translationKey: "shelter",
       stub: "shelters",
     },
     subCategories: [
       {
-        text: "Emergency",
+        translationKey: "emergency",
         stub: "emergency",
       },
       {
-        text: "Family",
+        translationKey: "family",
         stub: "family",
       },
       {
-        text: "Youth",
+        translationKey: "youth",
         stub: "youth",
       },
       {
-        text: "Abused",
+        translationKey: "abused",
         stub: "abused",
       },
       {
-        text: "Safe Parking",
+        translationKey: "safeParking",
         stub: "safe-parking",
       },
       {
-        text: "Pregnant",
+        translationKey: "pregnant",
         stub: "pregnant",
       },
       {
-        text: "Temporary",
+        translationKey: "temporary",
         stub: "temporary",
       },
       {
-        text: "Transitional",
+        translationKey: "transitional",
         stub: "transitional",
       },
     ],
@@ -232,20 +232,20 @@ export const categories: Record<TCategoryName, TCategoryDefinition> = {
     color: "brown",
     placeholder: PeopleIcon,
     mainCategory: {
-      text: "Social Services",
+      translationKey: "socialServices",
       stub: "social_services",
     },
     subCategories: [
       {
-        text: "Health and Human Services",
+        translationKey: "healthAndHumanServices",
         stub: "health_and_human_services",
       },
       {
-        text: "Food Stamps",
+        translationKey: "foodStamps",
         stub: "food_stamps",
       },
       {
-        text: "Social Security",
+        translationKey: "socialSecurity",
         stub: "social_security",
       },
     ],
@@ -254,16 +254,16 @@ export const categories: Record<TCategoryName, TCategoryDefinition> = {
     color: "green",
     placeholder: BusIcon,
     mainCategory: {
-      text: "Transit",
+      translationKey: "transit",
       stub: "transit",
     },
     subCategories: [
       {
-        text: "Bus Passes",
+        translationKey: "busPasses",
         stub: "bus_passes",
       },
       {
-        text: "Bicycle",
+        translationKey: "bicycle",
         stub: "bicycle",
       },
     ],
@@ -272,20 +272,20 @@ export const categories: Record<TCategoryName, TCategoryDefinition> = {
     color: "blue",
     placeholder: WifiIcon,
     mainCategory: {
-      text: "Wifi",
+      translationKey: "wifi",
       stub: "wifi",
     },
     subCategories: [
       {
-        text: "Free Wifi",
+        translationKey: "freeWifi",
         stub: "free_wifi",
       },
       {
-        text: "Public Computer",
+        translationKey: "publicComputer",
         stub: "public_computer",
       },
       {
-        text: "Charging",
+        translationKey: "charging",
         stub: "charging",
       },
     ],

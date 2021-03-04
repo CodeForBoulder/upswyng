@@ -5,6 +5,7 @@ import React from "react";
 import SubCategoryButton from "./SubCategoryButton";
 import { font } from "../App.styles";
 import makeStyles from "@material-ui/styles/makeStyles";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   category: TResourceCategory;
@@ -44,6 +45,7 @@ const useStyles = makeStyles({
 const SubCategories = ({ category, color, subCategories }: Props) => {
   const classes = useStyles();
   const params = useParams<{ subcategory?: string }>();
+  const { t } = useTranslation(["subcategories"]);
 
   const { stub: categoryStub } = category;
 
@@ -57,12 +59,12 @@ const SubCategories = ({ category, color, subCategories }: Props) => {
             buttonColor={color}
             isSelected={!currentSubCategoryStub}
           >
-            All
+            {t("all")}
           </SubCategoryButton>
         </Link>
       </li>
       {subCategories.map(subCategory => {
-        const { text, stub: subcategoryStub } = subCategory;
+        const { translationKey, stub: subcategoryStub } = subCategory;
         return (
           <li className={classes.listItem} key={subcategoryStub}>
             <Link
@@ -73,7 +75,7 @@ const SubCategories = ({ category, color, subCategories }: Props) => {
                 buttonColor={color}
                 isSelected={currentSubCategoryStub === subcategoryStub}
               >
-                {text}
+                {t(translationKey)}
               </SubCategoryButton>
             </Link>
           </li>

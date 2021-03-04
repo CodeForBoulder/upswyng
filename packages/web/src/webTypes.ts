@@ -65,12 +65,12 @@ export interface THomeButtonRouterLink extends THomeButtonBase {
 }
 
 export interface TResourceCategory {
-  text: string;
+  translationKey: string;
   stub: string;
 }
 
 export interface TResourceSubcategory {
-  text: string;
+  translationKey: string;
   stub: string;
 }
 
