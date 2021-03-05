@@ -4,6 +4,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   name: string;
@@ -13,6 +14,7 @@ interface Props {
 
 const HotlineCard = ({ name, description, phone }: Props) => {
   const [hideText, setHideText] = React.useState(true);
+  const { t } = useTranslation(["glossary"]);
   return (
     <ListItem>
       <ListItemText
@@ -32,7 +34,7 @@ const HotlineCard = ({ name, description, phone }: Props) => {
               color="secondary"
               style={{ float: "right" }}
             >
-              {hideText ? "More" : "Less"}
+              {hideText ? t("more") : t("less")}
             </Button>
             <Typography noWrap={hideText}>{description}</Typography>
           </>

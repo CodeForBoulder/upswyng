@@ -4,6 +4,7 @@ import React from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import { useTranslation } from "react-i18next";
 
 const useInputStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -17,13 +18,14 @@ const useInputStyles = makeStyles((theme: Theme) => ({
 
 const Search = (props: InputBaseProps) => {
   const inputClasses = useInputStyles({});
+  const { t } = useTranslation(["searchInput"]);
 
   return (
     <FormControl fullWidth hiddenLabel>
       <Input
         aria-label="search"
         fullWidth
-        placeholder="Search - What are your needs today?"
+        placeholder={t("placeholder")}
         id="search"
         classes={inputClasses}
         startAdornment={
