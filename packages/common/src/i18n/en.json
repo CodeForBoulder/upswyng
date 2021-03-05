@@ -1,7 +1,10 @@
 {
   "glossary": {
     "more": "More",
-    "less": "Less"
+    "less": "Less",
+    "comments": "Comments",
+    "send": "Send",
+    "back": "Back"
   },
   "home": {
     "food": "Food",
@@ -74,6 +77,18 @@
     "pageTitle": "Page not Found",
     "message": "Whoops! We're having trouble finding that page.",
     "goHome": "You can also go back <MuiLink>home</MuiLink> to browse"
+  },
+  "reportIssue": {
+    "title": "Report an Issue",
+    "reportFor": "Report an issue for:",
+    "address": "The address is wrong",
+    "phone": "The phone number is wrong",
+    "website": "The website link is wrong",
+    "schedule": "The schedule is wrong",
+    "directions": "The directions are wrong",
+    "noFeedbackSubmitted": "No feedback to submit. Please check desired boxes, enter comments, and try again.",
+    "problemSendingFeedback": "There was a problem sending your feedback. Please try again.",
+    "submissionSuccess": "The problem has been submitted and will be reviewed. Thank you for your feedback!"
   },
   "searchInput": {
     "placeholder": "Search - What are your needs today?"
