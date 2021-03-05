@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import { useParams } from "react-router-dom";
 import useResourcesByCategory from "./useResourcesByCategory";
 import useResourcesBySubcategory from "./useResourcesBySubcategory";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   category: TResourceCategory;
@@ -23,8 +24,12 @@ const CategoryResults = ({
   subCategories,
 }: Props) => {
   const params = useParams<{ subcategory?: string }>();
+  const { t } = useTranslation(["categories"]);
 
-  const { text: categoryText, stub: categoryStub } = category;
+  const {
+    translationKey: categoryTranslationKey,
+    stub: categoryStub,
+  } = category;
   const {
     data: categoryResources,
     status: categoryResourcesStatus,
@@ -44,7 +49,7 @@ const CategoryResults = ({
   return (
     <>
       <PageBanner color={categoryColor}>
-        <Typography variant="h1">{categoryText}</Typography>
+        <Typography variant="h1">{t(categoryTranslationKey)}</Typography>
       </PageBanner>
       <SubCategories
         category={category}

@@ -1,23 +1,23 @@
 {
+  "categories": {
+    "food": "Comida",
+    "shelter": "Albergue",
+    "hygiene": "Higiene",
+    "transit": "Transito",
+    "resources": "Recursos",
+    "hotlines": "Línea Directa",
+    "health": "Salud",
+    "wifi": "Internet Inalámbrico (Wifi)",
+    "jobTraining": "Formación Profesional",
+    "socialServices": "Servicios Sociales",
+    "coordinatedEntry": "Entrada Coordinada"
+  },
   "glossary": {
     "more": "Más",
     "less": "Menos",
     "comments": "Comentarios",
     "send": "Enviar",
     "back": "Regresar"
-  },
-  "home": {
-    "food": "Comida",
-    "shelter": "Abrigo",
-    "hygiene": "Higiene",
-    "transit": "Tránsito",
-    "resources": "Recursos",
-    "hotlines": "Líneas Directas",
-    "health": "Salud",
-    "wifi": "Wifi",
-    "jobTraining": "Formación Profesional",
-    "socialServices": "Servicios Sociales",
-    "coordinatedEntry": "Entrada Coordinada"
   },
   "hotlines": {
     "nationalSuicidePreventionLifeline": {
@@ -92,5 +92,49 @@
   },
   "searchInput": {
     "placeholder": "Busqueda - ¿Que necesitas hoy?"
+  },
+  "subcategories": {
+    "all": "Todo",
+    "meals": "Comidas",
+    "foodPantries": "Banco de Comida",
+    "emergency": "Emergencia",
+    "family": "Familia",
+    "youth": "Juventud",
+    "abused": "Abusado",
+    "pregnant": "Embarazada",
+    "temporary": "Temporal",
+    "transitional": "Transicional",
+    "safeParking": "Estacionamiento Seguro",
+    "restrooms": "Baños",
+    "showers": "Duchas",
+    "waterFountains": "Fuentes de Agua",
+    "feminineProducts": "Productos Femeninos",
+    "busPasses": "Pases de Bus",
+    "bicycle": "Bicicletas",
+    "outdoorGear": "Equipo de Excursionismo",
+    "clothing": "Ropa",
+    "shoes": "Zapatos",
+    "legalHelp": "Ayuda Legal",
+    "pets": "Mascotas",
+    "laundry": "Lavandería",
+    "hairCare": "Cuidado del Cabello",
+    "homeGoods": "Artículos del Hogar",
+    "hospital": "Hospital",
+    "clinics": "Clínicas",
+    "mental": "Salud Mental",
+    "dental": "Salud Dental",
+    "pharmacies": "Farmacias",
+    "vision": "Visión",
+    "addiction": "Adicción",
+    "freeWifi": "Internet Inalámbrica (Wifi) Gratuita",
+    "publicComputer": "Computadora Pública",
+    "charging": "Cargador",
+    "readyToWork": "Listo para Trabajar",
+    "craigsList": "“CraigsList”",
+    "tempAgency": "Agencia de Trabajo Temporal",
+    "careerCounseling": "Asesoría de Carreras",
+    "healthAndHumanServices": "Salud y Servicios Humanos",
+    "foodStamps": "Cupones de Alimentos",
+    "socialSecurity": "Seguro Social"
   }
 }
