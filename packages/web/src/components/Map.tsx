@@ -11,7 +11,6 @@ import GoogleMapReact from "google-map-react";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import LoadingSpinner from "./LoadingSpinner";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
 import Snackbar from "@material-ui/core/Snackbar";
 import { TResource } from "@upswyng/types";
 import { colors } from "@upswyng/common";
