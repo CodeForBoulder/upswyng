@@ -17,7 +17,16 @@
     "less": "Menos",
     "comments": "Comentarios",
     "send": "Enviar",
-    "back": "Regresar"
+    "back": "Regresar",
+    "weekdays": {
+      "sunday": "Domingo",
+      "monday": "Lunes",
+      "tuesday": "Martes",
+      "wednesday": "Miércoles",
+      "thursday": "Jueves",
+      "friday": "Viernes",
+      "saturday": "Sábado"
+    }
   },
   "hotlines": {
     "nationalSuicidePreventionLifeline": {
@@ -73,6 +82,13 @@
       "description": "Todos los días, miles de personas en América del Norte recurren al 2-1-1 para obtener información y apoyo, ya sea financiero, doméstico, de salud o relacionado con desastres. 2-1-1 es una línea de ayuda y un sitio web gratuito y confidencial de referencia e información que conecta a personas de todas las comunidades y de todas las edades con cualquier servicio esencial humano o de salud que necesiten, las 24 horas del día, los siete días de la semana."
     }
   },
+  "map": {
+    "directions": "Direcciones",
+    "directionsByBus": "Direcciones via bus",
+    "directionsByBicycle": "Direcciones via bicicleta",
+    "directionsByCar": "Direcciones via carro",
+    "directionsByWalking": "Direcciones a pie"
+  },
   "notFound": {
     "pageTitle": "Página no Encontrada",
     "message": "¡Uy! Disculpa tenemos un inconveniente encontrando esta pagina.",
@@ -89,6 +105,14 @@
     "noFeedbackSubmitted": "No hay comentarios para enviar. Marque las casillas deseadas, ingrese los comentarios y vuelva a intentarlo.",
     "problemSendingFeedback": "Hubo un problema al enviar sus comentarios. Inténtalo de nuevo.",
     "submissionSuccess": "El problema ha sido enviado y será revisado. ¡Gracias por tus comentarios!"
+  },
+  "resource": {
+    "address": "Dirección",
+    "phoneNumber": "Número de Teléfono",
+    "website": "Sitio Web",
+    "hoursOfOperation": "Horas de Operación",
+    "reportAProblem": "Reportar un Problema",
+    "services": "Servicios"
   },
   "searchInput": {
     "placeholder": "Busqueda - ¿Que necesitas hoy?"

@@ -31,6 +31,7 @@ import { useHistory } from "react-router";
 import { useLastLocation } from "react-router-last-location";
 import { useParams } from "react-router-dom";
 import useResources from "./useResources";
+import { useTranslation } from "react-i18next";
 
 const useListIconStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -69,6 +70,7 @@ export const Resource = () => {
   const listIconClasses = useListIconStyles({});
   const history = useHistory();
   const lastLocation = useLastLocation();
+  const { t } = useTranslation(["resource"]);
 
   if (status === "loading") {
     return <LoadingSpinner />;
@@ -111,12 +113,9 @@ export const Resource = () => {
         {resource.address && (
           <ListItem component="div">
             <ListItemIcon classes={listIconClasses}>
-              <LocationOnIcon />
+              <LocationOnIcon titleAccess={t("address")} />
             </ListItemIcon>
             <ListItemText>
-              <Typography component="h2" variant="srOnly">
-                Address
-              </Typography>
               {resource.address.address1},{" "}
               {resource.address.address2 && <>{resource.address.address2}, </>}
               {resource.address.city}, {resource.address.state},{" "}
@@ -127,25 +126,17 @@ export const Resource = () => {
         {resource.phone && (
           <ListItem component="div">
             <ListItemIcon classes={listIconClasses}>
-              <PhoneIcon />
+              <PhoneIcon titleAccess={t("phoneNumber")} />
             </ListItemIcon>
-            <ListItemText>
-              <Typography component="h2" variant="srOnly">
-                Phone
-              </Typography>
-              {resource.phone}
-            </ListItemText>
+            <ListItemText>{resource.phone}</ListItemText>
           </ListItem>
         )}
         {resource.website && (
           <ListItem component="div">
             <ListItemIcon classes={listIconClasses}>
-              <PublicIcon />
+              <PublicIcon titleAccess={t("website")} />
             </ListItemIcon>
             <ListItemText>
-              <Typography component="h2" variant="srOnly">
-                Website
-              </Typography>
               <Typography noWrap={true} color="primary">
                 <Link
                   href={resource.website}
@@ -162,18 +153,15 @@ export const Resource = () => {
         {!!resource.schedule._items.length && (
           <ListItem component="div">
             <ListItemIcon classes={listIconClasses}>
-              <ScheduleIcon />
+              <ScheduleIcon titleAccess={t("hoursOfOperation")} />
             </ListItemIcon>
             <ListItemText>
-              <Typography component="h2" variant="srOnly">
-                Schedule
-              </Typography>
               <Schedule schedule={resource.schedule} />
             </ListItemText>
           </ListItem>
         )}
         <ListItem component="div">
-          <Typography variant="srOnly">Services</Typography>
+          <Typography variant="srOnly">{t("services")}</Typography>
           <Services resource={resource} />
         </ListItem>
       </List>
@@ -191,7 +179,7 @@ export const Resource = () => {
         startIcon={<ReportProblemIcon color="secondary" />}
         to={`/report-issue/${resourceId}`}
       >
-        Report a Problem
+        {t("reportAProblem")}
       </Button>
       <FavoriteResourceFAB resourceId={resourceId} />
     </Container>

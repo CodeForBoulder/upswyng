@@ -11,10 +11,12 @@ import GoogleMapReact from "google-map-react";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import LoadingSpinner from "./LoadingSpinner";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
 import Snackbar from "@material-ui/core/Snackbar";
 import { TResource } from "@upswyng/types";
 import { colors } from "@upswyng/common";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import { useTranslation } from "react-i18next";
 
 const boulderCoordinates = {
   lat: 40.0156852,
@@ -75,6 +77,7 @@ interface Props {
 
 const Map = ({ address, name, latitude, longitude }: Props) => {
   const classes = useStyles();
+  const { t } = useTranslation(["map"]);
   const [googleMap, setGoogleMap] = useState<any | null>(null);
   const [googleMaps, setGoogleMaps] = useState<any | null>(null);
   const [isFetchingGoogleMaps, setIsFetchingGoogleMaps] = useState<boolean>(
@@ -287,6 +290,7 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
           <IconButton
             onClick={() => handleDirectionButtonClick("TRANSIT")}
             color={travelMode === "TRANSIT" ? "primary" : "default"}
+            title={t("directionsByBus")}
           >
             {BusIcon}
           </IconButton>
@@ -296,6 +300,7 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
           <IconButton
             onClick={() => handleDirectionButtonClick("BICYCLING")}
             color={travelMode === "BICYCLING" ? "primary" : "default"}
+            title={t("directionsByBicycle")}
           >
             {BikeIcon}
           </IconButton>
@@ -305,6 +310,7 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
           <IconButton
             onClick={() => handleDirectionButtonClick("DRIVING")}
             color={travelMode === "DRIVING" ? "primary" : "default"}
+            title={t("directionsByCar")}
           >
             {CarIcon}
           </IconButton>
@@ -314,6 +320,7 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
           <IconButton
             onClick={() => handleDirectionButtonClick("WALKING")}
             color={travelMode === "WALKING" ? "primary" : "default"}
+            title={t("directionsByWalking")}
           >
             {WalkIcon}
           </IconButton>

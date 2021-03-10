@@ -3,6 +3,7 @@ import { RRule } from "rrule";
 import React from "react";
 import { TScheduleItem } from "@upswyng/common";
 import Typography from "@material-ui/core/Typography";
+import { useTranslation } from "react-i18next";
 
 export const days = {
   sunday: "SU",
@@ -19,6 +20,8 @@ function capitalize(x: string): string {
 }
 
 const WeeklySchedule = ({ items }: { items: TScheduleItem[] }) => {
+  const { t } = useTranslation(["glossary"]);
+
   const dayItemsMap = Object.entries(days).map(([label, key]) => {
     return {
       day: label,
@@ -39,7 +42,7 @@ const WeeklySchedule = ({ items }: { items: TScheduleItem[] }) => {
             <Grid container spacing={6}>
               <Grid item xs={6}>
                 <Typography component="h3" variant="subtitle1">
-                  {capitalize(x.day)}:
+                  {t("weekdays." + x.day)}:
                 </Typography>
               </Grid>
               <Grid item xs={6}>
