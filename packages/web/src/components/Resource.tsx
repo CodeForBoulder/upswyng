@@ -116,6 +116,9 @@ export const Resource = () => {
               <LocationOnIcon titleAccess={t("address")} />
             </ListItemIcon>
             <ListItemText>
+              <Typography component="h2" variant="srOnly">
+                {t("address")}
+              </Typography>
               {resource.address.address1},{" "}
               {resource.address.address2 && <>{resource.address.address2}, </>}
               {resource.address.city}, {resource.address.state},{" "}
@@ -128,7 +131,12 @@ export const Resource = () => {
             <ListItemIcon classes={listIconClasses}>
               <PhoneIcon titleAccess={t("phoneNumber")} />
             </ListItemIcon>
-            <ListItemText>{resource.phone}</ListItemText>
+            <ListItemText>
+              <Typography component="h2" variant="srOnly">
+                {t("phoneNumber")}
+              </Typography>
+              {resource.phone}
+            </ListItemText>
           </ListItem>
         )}
         {resource.website && (
@@ -137,6 +145,9 @@ export const Resource = () => {
               <PublicIcon titleAccess={t("website")} />
             </ListItemIcon>
             <ListItemText>
+              <Typography component="h2" variant="srOnly">
+                {t("website")}
+              </Typography>
               <Typography noWrap={true} color="primary">
                 <Link
                   href={resource.website}
@@ -156,6 +167,9 @@ export const Resource = () => {
               <ScheduleIcon titleAccess={t("hoursOfOperation")} />
             </ListItemIcon>
             <ListItemText>
+              <Typography component="h2" variant="srOnly">
+                {t("hoursOfOperation")}
+              </Typography>
               <Schedule schedule={resource.schedule} />
             </ListItemText>
           </ListItem>
