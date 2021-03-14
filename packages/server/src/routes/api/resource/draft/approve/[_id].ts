@@ -69,15 +69,12 @@ export async function post(req, res, next) {
     await DraftResource.deleteByRecordId(draftToApprove._id);
 
     try {
-      const updatedResourceObject = await resourceDocumentToResource(
-        updatedResource
-      );
-      console.log(updatedResourceObject.deleted);
-      if (updatedResourceObject.deleted) {
-        console.log(`deleting ${updatedResourceObject._id}`);
-        await algoliaIndex.deleteObject(updatedResourceObject._id);
+      if (draftToApprove.deleted) {
+        await algoliaIndex.deleteObject(updatedResource._id.toHexString());
       } else {
-        console.log(`updating ${updatedResourceObject._id}`);
+        const updatedResourceObject = await resourceDocumentToResource(
+          updatedResource
+        );
         await algoliaIndex.saveObject({
           objectID: updatedResourceObject._id,
           name: updatedResourceObject.name,
