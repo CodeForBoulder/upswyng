@@ -9,10 +9,15 @@
     "health": "Salud",
     "wifi": "Internet Inalámbrico (Wifi)",
     "jobTraining": "Formación Profesional",
-    "socialServices": "Servicios Sociales",
-    "coordinatedEntry": "Entrada Coordinada"
+    "socialServices": "Servicios Sociales"
+  },
+  "coordinatedEntry": {
+    "mainNotice": "Todos los adultos sin hogar que son solteros primero deben pasar por el sistema de admisión llamado Entrada Coordinada (EC) antes de recibir servicios del Condado de Boulder o las ciudades de Boulder o Longmont. Después de reunirse con un miembro del personal y pasar por un examen breve, los adultos serán referidos al servicio más apropiado basado en sus necesidades.",
+    "sixMonthsNotice": "Tenga en cuenta que debe haber estado en el condado de Boulder durante 6 meses antes de presentar la solicitud.",
+    "earlyApplicationNotice": "Si presenta la solicitud antes de los 6 meses, no podrá recibir ningún servicio."
   },
   "glossary": {
+    "coordinatedEntry": "Entrada Coordinada",
     "more": "Más",
     "less": "Menos",
     "comments": "Comentarios",

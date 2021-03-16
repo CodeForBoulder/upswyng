@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import WarningIcon from "@material-ui/icons/Warning";
 import { colors } from "@upswyng/common";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import { useTranslation } from "react-i18next";
 
 const useButtonStyles = makeStyles({
   contained: {
@@ -23,18 +24,14 @@ const useButtonStyles = makeStyles({
 
 const CoordinatedEntry = () => {
   const buttonClasses = useButtonStyles({});
+  const { t } = useTranslation(["coordinatedEntry", "glossary"]);
+
   return (
     <Container>
       <PageBanner color={colors.rosewood}>
-        <Typography variant="h1">Coordinated Entry</Typography>
+        <Typography variant="h1">{t("glossary:coordinatedEntry")}</Typography>
       </PageBanner>
-      <Typography paragraph>
-        All single homeless adults must go through the Coordinated Entry process
-        to receive services from Boulder County or the cities of Boulder or
-        Longmont. After meeting with a staff person and going through a short
-        screening, clients will be referred to the most appropriate service
-        depending on their needs.
-      </Typography>
+      <Typography paragraph>{t("mainNotice")}</Typography>
       <Card variant="outlined" square>
         <List>
           <ListItem>
@@ -42,13 +39,9 @@ const CoordinatedEntry = () => {
               <WarningIcon color="secondary" fontSize="large" />
             </ListItemIcon>
             <ListItemText>
-              <Typography paragraph>
-                Note you must have been in Boulder County for 6 months before
-                applying.
-              </Typography>
+              <Typography paragraph>{t("sixMonthsNotice")}</Typography>
               <Typography color="secondary">
-                If you apply before 6 months, you will be barred from any
-                services.
+                {t("earlyApplicationNotice")}
               </Typography>
             </ListItemText>
           </ListItem>
@@ -64,7 +57,7 @@ const CoordinatedEntry = () => {
         target="_blank"
         variant="contained"
       >
-        Coordinated Entry
+        {t("glossary:coordinatedEntry")}
       </Button>
     </Container>
   );
