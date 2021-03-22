@@ -1,4 +1,9 @@
+import { AboutContent } from "@upswyng/common";
+
 export default {
+  about: {
+    content: AboutContent.en,
+  },
   categories: {
     food: "Food",
     shelter: "Shelter",
