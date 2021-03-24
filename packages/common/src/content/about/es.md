@@ -1,7 +1,7 @@
-# Spanish About UpSwyng
+# Acerca de UpSwyng
 
-Spanish UpSwyng is a mobile-ready, digital directory of resources to assist the unhoused and at-risk communities.
+UpSwyng es un directorio digital para dispositivos móviles, que continue recursos para ayudar a personas que están a punto de perder su hogar o que ya se encuentran sin hogar.
 
-UpSwyng is maintained by <a href="http://www.codeforboulder.org" target="_blank" rel="noopener noreferrer">Code for Boulder</a>, part of <a href="https://www.codeforamerica.org/" target="_blank" rel="noopener noreferrer">Code for America&apos;s</a> Brigade network.
+La pagina web UpSwyng es mantenida por <a href="http://www.codeforboulder.org" target="_blank" rel="noopener noreferrer">Code for Boulder</a>, la cual es una subdivision de la red nacional <a href="https://www.codeforamerica.org/" target="_blank" rel="noopener noreferrer">Code for America</a>.
 
-For questions related to UpSwyng, please contact <a href="mailto:info@upswyng.org">info@upswyng.org</a>.
+Si tienes preguntas acerca de UpSwyng, por favor envíanos un correo a <a href="mailto:info@upswyng.org">info@upswyng.org</a>.
