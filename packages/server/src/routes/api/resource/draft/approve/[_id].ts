@@ -9,6 +9,7 @@ import EventLog, {
 import { EventLogKind, TUser } from "@upswyng/types";
 
 import { ObjectId } from "bson";
+import algoliaIndex from "../../../../../utility/algoliaIndex";
 import { createOrUpdateResourceFromDraft } from "../../../../../models/Utility";
 import diffResources from "../../../../../utility/diffResources";
 import { postEventLogMessage } from "../../../../../utility/slackbot";
@@ -66,6 +67,28 @@ export async function post(req, res, next) {
       await resourceDocumentToResource(draftToApprove)
     );
     await DraftResource.deleteByRecordId(draftToApprove._id);
+
+    try {
+      if (draftToApprove.deleted) {
+        await algoliaIndex.deleteObject(updatedResource._id.toHexString());
+      } else {
+        const updatedResourceObject = await resourceDocumentToResource(
+          updatedResource
+        );
+        await algoliaIndex.saveObject({
+          objectID: updatedResourceObject._id,
+          name: updatedResourceObject.name,
+          description: updatedResourceObject.description,
+          subcategories: updatedResourceObject.subcategories
+            .map(s => s.name)
+            .join(","),
+        });
+      }
+    } catch (e) {
+      console.error(
+        `Error updating resource in algolia index after approval of draft ${_id}: ${e}`
+      );
+    }
 
     try {
       const newDocument = await new EventLog({
