@@ -116,7 +116,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
 
 const coordinatedEntryButton: THomeButtonRouterLink = {
   text: "Coordinated Entry",
-  translationKey: "categories:coordinatedEntry",
+  translationKey: "glossary:coordinatedEntry",
   icon: DoorIcon,
   linkProps: {
     to: "/coordinated-entry",

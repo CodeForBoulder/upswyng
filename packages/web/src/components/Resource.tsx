@@ -113,7 +113,7 @@ export const Resource = () => {
         {resource.address && (
           <ListItem component="div">
             <ListItemIcon classes={listIconClasses}>
-              <LocationOnIcon />
+              <LocationOnIcon titleAccess={t("address")} />
             </ListItemIcon>
             <ListItemText>
               <Typography component="h2" variant="srOnly">
@@ -129,7 +129,7 @@ export const Resource = () => {
         {resource.phone && (
           <ListItem component="div">
             <ListItemIcon classes={listIconClasses}>
-              <PhoneIcon />
+              <PhoneIcon titleAccess={t("phoneNumber")} />
             </ListItemIcon>
             <ListItemText>
               <Typography component="h2" variant="srOnly">
@@ -142,7 +142,7 @@ export const Resource = () => {
         {resource.website && (
           <ListItem component="div">
             <ListItemIcon classes={listIconClasses}>
-              <PublicIcon />
+              <PublicIcon titleAccess={t("website")} />
             </ListItemIcon>
             <ListItemText>
               <Typography component="h2" variant="srOnly">
@@ -164,7 +164,7 @@ export const Resource = () => {
         {!!resource.schedule._items.length && (
           <ListItem component="div">
             <ListItemIcon classes={listIconClasses}>
-              <ScheduleIcon />
+              <ScheduleIcon titleAccess={t("hoursOfOperation")} />
             </ListItemIcon>
             <ListItemText>
               <Typography component="h2" variant="srOnly">
