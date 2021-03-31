@@ -17,7 +17,16 @@
     "less": "Less",
     "comments": "Comments",
     "send": "Send",
-    "back": "Back"
+    "back": "Back",
+    "weekdays": {
+      "sunday": "Sunday",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday"
+    }
   },
   "hotlines": {
     "nationalSuicidePreventionLifeline": {
@@ -73,6 +82,13 @@
       "description": "Every day thousands of people across North America turn to 2-1-1 for information and support—whether financial, domestic, health or disaster-related. 2-1-1 is a free, confidential referral and information helpline and website that connects people from all communities and of all ages to the essential health and human services they need, 24 hours a day, seven days a week."
     }
   },
+  "map": {
+    "directions": "Directions",
+    "directionsByBus": "Directions by bus",
+    "directionsByBicycle": "Directions by bicycle",
+    "directionsByCar": "Directions by car",
+    "directionsByWalking": "Directions by walking"
+  },
   "notFound": {
     "pageTitle": "Page not Found",
     "message": "Whoops! We're having trouble finding that page.",
@@ -89,6 +105,14 @@
     "noFeedbackSubmitted": "No feedback to submit. Please check desired boxes, enter comments, and try again.",
     "problemSendingFeedback": "There was a problem sending your feedback. Please try again.",
     "submissionSuccess": "The problem has been submitted and will be reviewed. Thank you for your feedback!"
+  },
+  "resource": {
+    "address": "Address",
+    "phoneNumber": "Phone Number",
+    "website": "Website",
+    "hoursOfOperation": "Hours of Operation",
+    "reportAProblem": "Report a Problem",
+    "services": "Services"
   },
   "searchInput": {
     "placeholder": "Search - What are your needs today?"

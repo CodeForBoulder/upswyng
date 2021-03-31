@@ -31,6 +31,7 @@ import { useHistory } from "react-router";
 import { useLastLocation } from "react-router-last-location";
 import { useParams } from "react-router-dom";
 import useResources from "./useResources";
+import { useTranslation } from "react-i18next";
 
 const useListIconStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -69,6 +70,7 @@ export const Resource = () => {
   const listIconClasses = useListIconStyles({});
   const history = useHistory();
   const lastLocation = useLastLocation();
+  const { t } = useTranslation(["resource"]);
 
   if (status === "loading") {
     return <LoadingSpinner />;
@@ -115,7 +117,7 @@ export const Resource = () => {
             </ListItemIcon>
             <ListItemText>
               <Typography component="h2" variant="srOnly">
-                Address
+                {t("address")}
               </Typography>
               {resource.address.address1},{" "}
               {resource.address.address2 && <>{resource.address.address2}, </>}
@@ -131,7 +133,7 @@ export const Resource = () => {
             </ListItemIcon>
             <ListItemText>
               <Typography component="h2" variant="srOnly">
-                Phone
+                {t("phoneNumber")}
               </Typography>
               {resource.phone}
             </ListItemText>
@@ -144,7 +146,7 @@ export const Resource = () => {
             </ListItemIcon>
             <ListItemText>
               <Typography component="h2" variant="srOnly">
-                Website
+                {t("website")}
               </Typography>
               <Typography noWrap={true} color="primary">
                 <Link
@@ -166,14 +168,14 @@ export const Resource = () => {
             </ListItemIcon>
             <ListItemText>
               <Typography component="h2" variant="srOnly">
-                Schedule
+                {t("hoursOfOperation")}
               </Typography>
               <Schedule schedule={resource.schedule} />
             </ListItemText>
           </ListItem>
         )}
         <ListItem component="div">
-          <Typography variant="srOnly">Services</Typography>
+          <Typography variant="srOnly">{t("services")}</Typography>
           <Services resource={resource} />
         </ListItem>
       </List>
@@ -191,7 +193,7 @@ export const Resource = () => {
         startIcon={<ReportProblemIcon color="secondary" />}
         to={`/report-issue/${resourceId}`}
       >
-        Report a Problem
+        {t("reportAProblem")}
       </Button>
       <FavoriteResourceFAB resourceId={resourceId} />
     </Container>
