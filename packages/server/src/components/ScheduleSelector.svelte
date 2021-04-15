@@ -148,23 +148,6 @@
     list-style: none;
     margin-left: 0;
   }
-
-  .more-less-selector {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
-
-  .more-less-selector a {
-    cursor: pointer;
-    text-decoration: none;
-  }
-
-  .more-less-selector a span.icon {
-    position: relative;
-    top: 0.1em;
-    left: 0.15em;
-  }
 </style>
 
 <h1 class="subtitle is-size-4">Schedule</h1>
