@@ -75,6 +75,8 @@ const grantConfig = {
 mongoose
   .connect(DATABASE_URL, {
     useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
     user: DATABASE_USER,
     pass: DATABASE_PASSWORD,
   })
