@@ -24,7 +24,7 @@
   "name": "@upswyng/common",
   "scripts": {
     "build": "rollup --config",
-    "test": "jest"
+    "test:unit": "jest"
   },
   "types": "dist/index.d.ts",
   "version": "0.1.0"
