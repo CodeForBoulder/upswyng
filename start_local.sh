@@ -17,11 +17,15 @@ fi
 if ! [ -f "${CLIENT_PATH}/.env" ]; then
   cp "${CLIENT_PATH}/.env.local.example" "${CLIENT_PATH}/.env"
 fi
-
 if ! [ -f "${SERVER_PATH}/.env" ]; then
   cp "${SERVER_PATH}/.env.example" "${SERVER_PATH}/.env"
 fi
 
+# Check if docker is running
+if ! docker info >/dev/null 2>&1; then
+    echo "Docker does not seem to be running, start it first and retry"
+    exit 1
+fi
 # Check for running docker network; start it up if it does not exist
 docker top upswyng-dev-db > /dev/null 2>&1 || yarn build:local-db
 

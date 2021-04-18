@@ -14,10 +14,10 @@ import webSocketServer from "./worker/webSocketServer.ts";
 const dev = process.env.NODE_ENV === "development";
 
 // load web clients env
-dotenv.config({ debug: dev, path: path.resolve(process.cwd(), "../web/.env") });
+dotenv.config({ path: path.resolve(process.cwd(), "../web/.env") });
 
 // load this package's env
-dotenv.config({ debug: dev });
+dotenv.config();
 
 const { PORT } = process.env;
 
