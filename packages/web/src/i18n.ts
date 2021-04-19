@@ -1,5 +1,5 @@
-import en from "@upswyng/common/src/i18n/en.json";
-import es from "@upswyng/common/src/i18n/es.json";
+import en from "@upswyng/common/src/i18n/en";
+import es from "@upswyng/common/src/i18n/es";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
