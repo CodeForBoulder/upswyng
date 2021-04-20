@@ -34,6 +34,7 @@ For local development, you'll only need to create a copy of `.env.example` and n
 You can do this via your system's file explorer or via the following terminal command while in the repo:
 
 ```console
+cd packages/server
 cp .env.example .env
 ```
 
@@ -63,6 +64,7 @@ This file contains placeholders for various API keys that you may or may not nee
 ### 2. Start the Server
 
 ```console
+cd packages/server
 yarn dev
 ```
 
