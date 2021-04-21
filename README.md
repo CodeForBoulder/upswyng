@@ -2,47 +2,27 @@
 
 UpSwyng is a mobile-ready, digital directory of resources to assist the unhoused and at-risk communities. This is a [Code For Boulder](https://www.codeforboulder.org) project coming soon to Boulder County, Colorado.
 
-## Before you begin
-
-You can save yourself some grief and aggravation by downloading the versions of the following programs as specified in https://github.com/CodeForBoulder/upswyng/blob/master/package.json
-You will need to check that you have each of the following using the which command or add -v or --version to the name of the program:
-
-0. xcode ==> ``` /usr/bin/xcodebuild -version ```
-   * Install: ``` sudo xcode-select --install ```
-1. ```brew --version``` (called homebrew)
-   * Install: ```/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" ```
-            ``` echo 'PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile ```
-            ``` echo 'PATH="/usr/local/bin:$PATH"' >> ~/.zshrc ```
-            per https://sourabhbajaj.com/mac-setup/Homebrew/
-2. ```mongod --version``` (server version) or mongo -version (shell version)
-   Install: https://www.mongodb.com/try/download/database-tools?tck=docs_databasetools
-3. ```which nvm``` 
-   Install: ```curl -sL https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.0/install.sh -o install_nvm.sh``` 
-4. ```node -v``` 
-   Install: https://nodejs.org/en/download/package-manager/ 
-5. ```docker -v```
-   Install: https://docs.docker.com/get-docker/
-6. ```yarn --version```
-   Install: ```npm install --global yarn```
-7. ```react-native -v```
-   Install: https://reactnative.dev/docs/environment-setup
-
-P.S. There is a server section. Read it:)
-
 ## Getting Started
 
 If you have any issues getting started using these directions, please see the [Troubleshooting section](#Troubleshooting).
 
-1. Install the Yarn package manager by following the instructions at
-   [https://yarnpkg.com/lang/en/docs/install](https://yarnpkg.com/lang/en/docs/install)
+### Requirements
 
-2. While in the root of this repo, install all project dependencies by running
+Make sure you have these tools installed before you begin.
 
-   ```console
-   yarn
-   ```
+- Node.js version 14.3
 
-3. Next, try starting try running the web client by entering `yarn workspace @upswyng/web start`. This command will start in on port 3000. For specific setup instructions on the two main projects, see their corresponding READMEs.
+- [Docker](https://docs.docker.com/get-docker/)
+
+- [Yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable)
+
+### Building your local dev environment
+
+1. Clone (or fork and clone) this repository and `cd` into it
+
+2. Make sure docker is running on your machine. You can check by running `docker ps` in your terminal
+
+3. Run `yarn start:local`
 
 ## Project Organization
 

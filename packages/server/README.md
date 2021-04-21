@@ -64,11 +64,10 @@ This file contains placeholders for various API keys that you may or may not nee
 ### 2. Start the Server
 
 ```console
-cd packages/server
-yarn dev
+yarn workspace @upswyng/server dev
 ```
 
-Runs the app in the development mode. Open [http:/localhost:3000](http:/localhost:3000) to view it in the browser.
+Runs the server in the development mode. Open [http:/localhost:3000](http:/localhost:3000) to view it in the browser.
 
 If you want to work on the [provider portal](http://localhost:3000/provider), you can log in with this google user:
 
