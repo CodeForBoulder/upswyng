@@ -2,7 +2,7 @@
   import { AboutContent } from "@upswyng/common";
   import insane from "insane";
 
-  $: sanitizedAboutContent = insane(AboutContent, {
+  $: sanitizedAboutContent = insane(AboutContent.en, {
     ...insane.defaults,
     allowedAttributes: {
       ...insane.defaults.allowedAttributes,
