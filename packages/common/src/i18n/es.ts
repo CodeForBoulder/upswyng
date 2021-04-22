@@ -31,6 +31,8 @@ export default {
     comments: "Comentarios",
     send: "Enviar",
     back: "Regresar",
+    menu: "Menú",
+    backToPrevious: "Volver A La Página Anterior",
     weekdays: {
       sunday: "Domingo",
       monday: "Lunes",
@@ -191,5 +193,11 @@ export default {
     healthAndHumanServices: "Salud y Servicios Humanos",
     foodStamps: "Cupones de Alimentos",
     socialSecurity: "Seguro Social",
+  },
+  temperature: {
+     currentTemperature: "Temperatura Actual",
+  }, 
+  alerts: {
+    closeAlerts: "Cerrar Alertas",
   },
 };

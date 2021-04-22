@@ -31,6 +31,8 @@ export default {
     comments: "Comments",
     send: "Send",
     back: "Back",
+    backToPrevious: "Go Back to Previous Page", 
+    menu: "Menu",
     weekdays: {
       sunday: "Sunday",
       monday: "Monday",
@@ -189,5 +191,11 @@ export default {
     healthAndHumanServices: "Health and Human Services",
     foodStamps: "Food Stamps",
     socialSecurity: "Social Security",
+  },
+  temperature: {
+    currentTemperature: "Current Temperature",
+  }, 
+  alerts: {
+   closeAlerts: "Close Alerts",
   },
 };
