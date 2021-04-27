@@ -32,7 +32,7 @@ export default {
     send: "Enviar",
     back: "Regresar",
     menu: "Menú",
-    backToPrevious: "Volver A La Página Anterior",
+    backToPrevious: "volver a la página anterior",
     weekdays: {
       sunday: "Domingo",
       monday: "Lunes",
@@ -195,8 +195,8 @@ export default {
     socialSecurity: "Seguro Social",
   },
   temperature: {
-     currentTemperature: "Temperatura Actual",
-  }, 
+    currentTemperature: "Temperatura Actual",
+  },
   alerts: {
     closeAlerts: "Cerrar Alertas",
   },

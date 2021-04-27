@@ -31,7 +31,7 @@ export default {
     comments: "Comments",
     send: "Send",
     back: "Back",
-    backToPrevious: "Go Back to Previous Page", 
+    backToPrevious: "go back to previous page",
     menu: "Menu",
     weekdays: {
       sunday: "Sunday",
@@ -194,8 +194,8 @@ export default {
   },
   temperature: {
     currentTemperature: "Current Temperature",
-  }, 
+  },
   alerts: {
-   closeAlerts: "Close Alerts",
+    closeAlerts: "Close Alerts",
   },
 };
