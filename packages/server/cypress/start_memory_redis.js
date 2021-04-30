@@ -17,6 +17,7 @@ const child = spawn("node", [`${__dirname}/start_memory_redis_impl.js`], {
 });
 
 child.stderr.pipe(process.stderr);
+console.log(child);
 child.stdout.on("data", chunk => {
   const pid = String(child.pid).trim();
   const uri = String(chunk).trim();
@@ -34,7 +35,7 @@ child.stdout.on("data", chunk => {
   console.info(`🎉 Started in-memory redis`);
   console.info(`PID:\t\t${pid}`);
   console.info(`Connection URI:\t${connectionString}`);
-  
+
   // got data, maybe look at it to verify that it started up ok
   child.unref(); // let the process close normally
   process.exit(0);
