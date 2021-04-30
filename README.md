@@ -62,6 +62,15 @@ alias @uw="yarn workspace @upswyng/web "
 
 Now you only need `@uw start` to start the web dev server.
 
+### Running tests
+
+When you push a branch up to GitHub, [travis](https://docs.travis-ci.com/) will attempt to build the app with your changes and will run our entire test suite to ensure that nothing is broken.
+It's a good idea to run tests locally before pushing, although it is not required.
+
+If you wish to run tests locally, you will need to ensure that `redis-server` is available in your `path`. You can check by running `redis-server`, and you can install it [here](https://redis.io/topics/quickstart) or via `brew install redis` on mac.
+
+Once Redis is installed, run our entire test suite with `yarn test`.
+
 ### Troubleshooting
 
 #### The engine "node" is incompatible with this module.
