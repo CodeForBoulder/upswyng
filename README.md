@@ -51,7 +51,7 @@ yarn workspace @upswyng/web start
 To run the same command in _all_ workspaces, use `yarn workspaces`. For instance, to run `test` in all packages use:
 
 ```console
-yarn workspaces test
+yarn workspaces run test
 ```
 
 Typing out the full workspace name can get tedious. You can place aliases in your `.bashrc` or `.profile` to save time:
@@ -72,7 +72,7 @@ When running `yarn` to install project dependencies, you may see a message that 
 The engine "node" is incompatible with this module. Expected version "^14.3.x". Got "11.15.0".
 ```
 
-This just means that your machine's current version of node does not match the version required to run the UpSwyng server, 12.14.x. To fix this you'll need to install and which your current version of Node. [nvm](https://itnext.io/nvm-the-easiest-way-to-switch-node-js-environments-on-your-machine-in-a-flash-17babb7d5f1b#d594) is a helpful tool, among others, you could use to easily switch between node versions.
+This just means that your machine's current version of node does not match the version required to run the UpSwyng server, 14.3.x. To fix this you'll need to install and which your current version of Node. [nvm](https://itnext.io/nvm-the-easiest-way-to-switch-node-js-environments-on-your-machine-in-a-flash-17babb7d5f1b#d594) is a helpful tool, among others, you could use to easily switch between node versions.
 
 #### Type Errors
 
