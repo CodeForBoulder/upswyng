@@ -17,7 +17,6 @@ const child = spawn("node", [`${__dirname}/start_memory_redis_impl.js`], {
 });
 
 child.stderr.pipe(process.stderr);
-console.log(child);
 child.stdout.on("data", chunk => {
   const pid = String(child.pid).trim();
   const uri = String(chunk).trim();
