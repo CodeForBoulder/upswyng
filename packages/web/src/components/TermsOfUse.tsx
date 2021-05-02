@@ -1,12 +1,16 @@
 import Container from "@material-ui/core/Container";
 import MuiHtml from "./MuiHtml";
 import React from "react";
-import { TermsOfUseContent } from "@upswyng/common";
+import { useTranslation } from "react-i18next";
 
-const TermsOfUse = () => (
-  <Container>
-    <MuiHtml html={TermsOfUseContent} />
-  </Container>
-);
+const TermsOfUse = () => {
+  const { t } = useTranslation("about");
+
+  return (
+    <Container>
+      <MuiHtml html={t("termsOfUse")} />
+    </Container>
+  );
+};
 
 export default TermsOfUse;
