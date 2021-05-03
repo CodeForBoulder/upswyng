@@ -43,7 +43,7 @@ const Temperature = () => {
   return (
     <div className={classes.container}>
       <Typography variant="srOnly" component="h2">
-        {t("backToPrevious")}
+        {t("currentTemperature")}
       </Typography>
       <div className={classes.temp}>
         <span className={classes.degrees}>{temp}&deg;</span>
