@@ -11,9 +11,11 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Temperature from "./Temperature";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const { t } = useTranslation("glossary");
 
   return (
     <Box my={2}>
@@ -23,7 +25,7 @@ const Header = () => {
             <Grid alignItems="center" container wrap="nowrap">
               <Grid item>
                 <IconButton edge="start" onClick={() => setIsMenuOpen(true)}>
-                  <Typography variant="srOnly">Menu</Typography>
+                  <Typography variant="srOnly">{t("menu")}</Typography>
                   <MenuIcon />
                 </IconButton>
               </Grid>
