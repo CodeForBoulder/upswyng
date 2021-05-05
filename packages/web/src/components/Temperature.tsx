@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const Temperature = () => {
-  const { t } = useTranslation("glossary");
+  const { t } = useTranslation("temperature");
   const classes = useStyles();
   const temp: undefined | null | number = useTemperature();
   if (!temp) {
@@ -43,7 +43,7 @@ const Temperature = () => {
   return (
     <div className={classes.container}>
       <Typography variant="srOnly" component="h2">
-        {t("backToPrevious")}
+        {t("currentTemperature")}
       </Typography>
       <div className={classes.temp}>
         <span className={classes.degrees}>{temp}&deg;</span>
