@@ -1,6 +1,6 @@
 # Política de Privacidad
 
-UpSwyng ha creado esta Política de Privacidad para explicar por qué recopilamos cierta información y cómo protegeremos tu privacidad personal dentro de nuestra pagina web. Esta Política de Privacidad da a conocer las prácticas de recopilación y distribución de información designadas para la pagina web ubicada en la URL https://upswyng.org (la "Pagina").
+UpSwyng ha creado esta Política de Privacidad para explicar por qué recopilamos cierta información y cómo protegeremos tu privacidad personal dentro de nuestra pagina web. Esta Política de Privacidad da a conocer las prácticas de recopilación y distribución de información designadas para la pagina web ubicada en la URL [https://upswyng.org](https://upswyng.org) (la "Pagina").
 
 Te recomendamos leer y comprender tus derechos en esta Política de Privacidad y en los Términos de Uso. Esta Política de Privacidad se incorpora por referencia y está sujeta a los Términos de Uso. Upswyng.org tiene derecho de cambiar esta Política de Privacidad en cualquier momento y sin previo aviso, simplemente publicando dichos cambios en nuestra pagina web. Cualquier cambio sera efectivo inmediatamente despues de su publicacion.
 
