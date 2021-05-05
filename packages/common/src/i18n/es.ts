@@ -1,8 +1,12 @@
 import { AboutContent } from "@upswyng/common";
+import { PrivacyPolicyContent } from "@upswyng/common";
+import { TermsOfUseContent } from "@upswyng/common";
 
 export default {
   about: {
     content: AboutContent.es,
+    privacyPolicy: PrivacyPolicyContent.es,
+    termsOfUse: TermsOfUseContent.es,
   },
   categories: {
     food: "Comida",
