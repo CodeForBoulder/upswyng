@@ -12,7 +12,7 @@ Sujeto al cumplimiento de estos Términos, UpSwyng te otorga una licencia limita
 
 No puedes: (i) eliminar ningún derecho de autor, marca comercial u otros avisos de propiedad en ninguna parte de los Servicios; (ii) reproducir, modificar, preparar projectos relacionados basados ​​en, distribuir, licenciar, arrendar, vender, revender, transferir, exhibir públicamente, ejecutar públicamente, transmitir, transmitir, difundir o explotar de otra manera los Servicios, excepto según lo expresamente explicitamente por UpSwyng; (iii) descompilar, realizar ingeniería inversa o desensamblar los Servicios, excepto según lo permitido por la ley; (iv) vincular, reflejar o enmarcar cualquier parte de los Servicios; (v) causar o lanzar programas o scripts con el propósito de raspar, indexar, inspeccionar o extraer datos de cualquier parte de los Servicios o sobrecargar u obstaculizar indebidamente el funcionamiento y/o la funcionalidad de cualquier aspecto de los Servicios; o (vi) intentar obtener acceso no autorizado o dañar cualquier aspecto de los Servicios o sus sistemas o redes relacionadas.
 
-#### Propiedad.
+### Propiedad.
 
 Los Servicios y todos los derechos en ellos son y seguirán siendo propiedad de UpSwyng o propiedad de los licenciantes de UpSwyng. Ni estos Términos, ni el uso de los Servicios te otorgan ningún derecho: (i) sobre los Servicios, excepto por la licencia limitada otorgada anteriormente; o (ii) utilizar o hacer referencia de cualquier manera a los nombres de empresas, logotipos, nombres de productos y servicios, marcas comerciales o marcas de servicios de UpSwyng o de los licenciantes de UpSwyng.
 
