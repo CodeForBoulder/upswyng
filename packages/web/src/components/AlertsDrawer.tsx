@@ -10,6 +10,7 @@ import { TAlert } from "@upswyng/types";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import Typography from "@material-ui/core/Typography";
 import makeStyles from "@material-ui/styles/makeStyles";
+import { useTranslation } from "react-i18next";
 
 interface Props extends DrawerProps {
   alerts: TAlert[] | null;
@@ -26,6 +27,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const AlertsDrawer = ({ alerts, toggleDrawer, ...drawerProps }: Props) => {
   const classes = useStyles();
+  const { t } = useTranslation("alerts");
+
   return (
     <Drawer
       anchor="top"
@@ -35,7 +38,7 @@ const AlertsDrawer = ({ alerts, toggleDrawer, ...drawerProps }: Props) => {
       <Container>
         <Grid container direction="column" spacing={4}>
           <Grid item>
-            <Typography variant="h1">Alerts</Typography>
+            <Typography variant="h1">{t("closeAlerts")}</Typography>
           </Grid>
           {alerts && (
             <Grid item>

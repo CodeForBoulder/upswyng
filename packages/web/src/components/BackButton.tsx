@@ -3,12 +3,14 @@ import IconButton from "@material-ui/core/IconButton";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   backButtonAction?: (() => void) | null;
 }
 
 const BackButton = ({ backButtonAction }: Props) => {
+  const { t } = useTranslation("glossary");
   const history = useHistory();
 
   return (
@@ -18,7 +20,7 @@ const BackButton = ({ backButtonAction }: Props) => {
       }
       size="small"
     >
-      <Typography variant="srOnly">go back to previous page</Typography>
+      <Typography variant="srOnly">{t("backToPrevious")}</Typography>
       <ArrowBackIcon fontSize="large" />
     </IconButton>
   );
