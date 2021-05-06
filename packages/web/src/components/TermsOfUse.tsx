@@ -4,11 +4,11 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 const TermsOfUse = () => {
-  const { t } = useTranslation("about");
+  const { t } = useTranslation("termsOfUse");
 
   return (
     <Container>
-      <MuiHtml html={t("termsOfUse")} />
+      <MuiHtml html={t("content")} />
     </Container>
   );
 };
