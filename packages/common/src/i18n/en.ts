@@ -5,8 +5,6 @@ import { TermsOfUseContent } from "@upswyng/common";
 export default {
   about: {
     content: AboutContent.en,
-    privacyPolicy: PrivacyPolicyContent.en,
-    termsOfUse: TermsOfUseContent.en,
   },
   categories: {
     food: "Food",
@@ -126,6 +124,9 @@ export default {
     message: "Whoops! We're having trouble finding that page.",
     goHome: "You can also go back <MuiLink>home</MuiLink> to browse",
   },
+  privacyPolicy: {
+    content: PrivacyPolicyContent.en,
+  },
   reportIssue: {
     title: "Report an Issue",
     reportFor: "Report an issue for:",
@@ -198,6 +199,9 @@ export default {
   },
   temperature: {
     currentTemperature: "Current Temperature",
+  },
+  termsOfUse: {
+    content: TermsOfUseContent.en,
   },
   alerts: {
     closeAlerts: "Close Alerts",
