@@ -1,4 +1,6 @@
 import { AboutContent } from "@upswyng/common";
+import { PrivacyPolicyContent } from "@upswyng/common";
+import { TermsOfUseContent } from "@upswyng/common";
 
 export default {
   about: {
@@ -124,6 +126,9 @@ export default {
     goHome:
       "Tambien, puedes volver a la <MuiLink>página de inicio</MuiLink> para navegar en nuestro sitio web.",
   },
+  privacyPolicy: {
+    content: PrivacyPolicyContent.es,
+  },
   reportIssue: {
     title: "Reportar un Problema",
     reportFor: "Reportar un Problema para:",
@@ -196,6 +201,9 @@ export default {
   },
   temperature: {
     currentTemperature: "Temperatura Actual",
+  },
+  termsOfUse: {
+    content: TermsOfUseContent.es,
   },
   alerts: {
     closeAlerts: "Cerrar Alertas",

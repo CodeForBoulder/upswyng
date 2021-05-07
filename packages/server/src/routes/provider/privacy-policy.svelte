@@ -2,7 +2,7 @@
   import { PrivacyPolicyContent } from "@upswyng/common";
   import insane from "insane";
 
-  $: sanitizedPrivacyPolicyContent = insane(PrivacyPolicyContent, {
+  $: sanitizedPrivacyPolicyContent = insane(PrivacyPolicyContent.en, {
     ...insane.defaults,
     allowedAttributes: {
       ...insane.defaults.allowedAttributes,
