@@ -2,7 +2,7 @@
   import { TermsOfUseContent } from "@upswyng/common";
   import insane from "insane";
 
-  $: sanitizedTermsOfUseContent = insane(TermsOfUseContent, {
+  $: sanitizedTermsOfUseContent = insane(TermsOfUseContent.en, {
     ...insane.defaults,
     allowedAttributes: {
       ...insane.defaults.allowedAttributes,

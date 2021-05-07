@@ -1,12 +1,14 @@
 import Container from "@material-ui/core/Container";
 import MuiHtml from "./MuiHtml";
-import { PrivacyPolicyContent } from "@upswyng/common";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const PrivacyPolicy = () => {
+  const { t } = useTranslation("privacyPolicy");
+
   return (
     <Container>
-      <MuiHtml html={PrivacyPolicyContent} />
+      <MuiHtml html={t("content")} />
     </Container>
   );
 };

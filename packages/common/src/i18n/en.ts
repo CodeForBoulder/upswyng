@@ -1,4 +1,6 @@
 import { AboutContent } from "@upswyng/common";
+import { PrivacyPolicyContent } from "@upswyng/common";
+import { TermsOfUseContent } from "@upswyng/common";
 
 export default {
   about: {
@@ -122,6 +124,9 @@ export default {
     message: "Whoops! We're having trouble finding that page.",
     goHome: "You can also go back <MuiLink>home</MuiLink> to browse",
   },
+  privacyPolicy: {
+    content: PrivacyPolicyContent.en,
+  },
   reportIssue: {
     title: "Report an Issue",
     reportFor: "Report an issue for:",
@@ -194,6 +199,9 @@ export default {
   },
   temperature: {
     currentTemperature: "Current Temperature",
+  },
+  termsOfUse: {
+    content: TermsOfUseContent.en,
   },
   alerts: {
     closeAlerts: "Close Alerts",
