@@ -200,6 +200,27 @@ export default class ResourceSchedule {
   }
 
   /**
+   * Returns bool to indicate if a resource is currently open.
+   */
+  isOpen(): boolean | null {
+    if (this.alwaysOpen) {
+      return true;
+    }
+
+    const currentDt = new Date();
+    const nextScheduleItemPeriod = this.getNextScheduleItemPeriod(currentDt);
+    if (!nextScheduleItemPeriod) {
+      return null;
+    }
+
+    if (currentDt.getTime() > nextScheduleItemPeriod.open.getTime()) {
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
    * Converts data in the form of `TResourceScheduleData` (the format a resource schedule is sent over
    * the wire and stored in the database) into a full-fledged `ResourceSchedule` instance.
    *

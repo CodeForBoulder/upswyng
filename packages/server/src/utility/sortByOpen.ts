@@ -7,20 +7,13 @@ const isCategory = (
   (category as TSubcategory).parentCategory === undefined;
 
 const sortSubcategoryResourcesByOpen = (subcategory: TSubcategory) => {
-  const now = new Date();
-  subcategory.resources = subcategory.resources.sort(
-    (resourceA, _resourceB) => {
-      const scheduleA = ResourceSchedule.parse(resourceA.schedule);
-      const nextScheduleItemPeriod = scheduleA.getNextScheduleItemPeriod(now);
-      if (
-        nextScheduleItemPeriod.open.getTime() < now.getTime() &&
-        now.getTime() < nextScheduleItemPeriod.close.getTime()
-      ) {
-        return -1;
-      }
-      return 0;
-    }
-  );
+  subcategory.resources.sort((resourceA, resourceB) => {
+    const A = ResourceSchedule.parse(resourceA.schedule).isOpen();
+    const B = ResourceSchedule.parse(resourceB.schedule).isOpen();
+    if (A && !B) return -1;
+    if (B && !A) return 1;
+    return 0;
+  });
   return subcategory;
 };
 

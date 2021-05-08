@@ -1,5 +1,3 @@
-import { getIsOpen, getNextOpenText } from "../utils/schedule";
-
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -13,6 +11,8 @@ import ScheduleIcon from "@material-ui/icons/Schedule";
 import { TResource } from "@upswyng/types";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import Typography from "@material-ui/core/Typography";
+import { getNextOpenText } from "../utils/schedule";
+
 import makeStyles from "@material-ui/styles/makeStyles";
 import { useHistory } from "react-router-dom";
 
@@ -63,7 +63,7 @@ const ResourceCard = ({ index = 1, placeholder, resource }: Props) => {
   const { name, resourceId, schedule, streetViewImage } = resource;
 
   const parsedSchedule = ResourceSchedule.parse(schedule);
-  const isOpen = getIsOpen(parsedSchedule);
+  const isOpen = parsedSchedule.isOpen();
   const scheduleText = getNextOpenText(parsedSchedule);
   const classes = useStyles({
     index,
