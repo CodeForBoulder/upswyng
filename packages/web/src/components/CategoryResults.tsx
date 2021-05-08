@@ -3,6 +3,7 @@ import { TResourceCategory, TResourceSubcategory } from "../webTypes";
 import PageBanner from "./PageBanner";
 import React from "react";
 import ResourceList from "./ResourceList";
+import { ResourceSchedule } from "@upswyng/common";
 import SubCategories from "./SubCategories";
 import Typography from "@material-ui/core/Typography";
 import { useParams } from "react-router-dom";
@@ -44,7 +45,9 @@ const CategoryResults = ({
   const status = subcategoryStub
     ? subcategoryResourcesStatus
     : categoryResourcesStatus;
-  const resources = subcategoryStub ? subcategoryResources : categoryResources;
+  const resources = ResourceSchedule.sortByOpen(
+    subcategoryStub ? subcategoryResources : categoryResources
+  );
 
   return (
     <>

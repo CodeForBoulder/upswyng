@@ -4,7 +4,6 @@ import Subcategory, {
 } from "../../../models/Subcategory";
 
 import { TSubcategory } from "@upswyng/types";
-import sortByOpen from "../../../utility/sortByOpen";
 
 export async function get(req, res, _next) {
   const { stub } = req.params;
@@ -22,7 +21,6 @@ export async function get(req, res, _next) {
         throw new Error("Problem converting Subcategory for API");
       }
     }
-    subcategory = sortByOpen(subcategory);
   } catch (e) {
     res.status(500).json({ message: e.message });
     return;
