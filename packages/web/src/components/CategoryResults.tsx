@@ -5,6 +5,7 @@ import React from "react";
 import ResourceList from "./ResourceList";
 import SubCategories from "./SubCategories";
 import Typography from "@material-ui/core/Typography";
+import { sortByOpen } from "../utils/schedule";
 import { useParams } from "react-router-dom";
 import useResourcesByCategory from "./useResourcesByCategory";
 import useResourcesBySubcategory from "./useResourcesBySubcategory";
@@ -44,7 +45,9 @@ const CategoryResults = ({
   const status = subcategoryStub
     ? subcategoryResourcesStatus
     : categoryResourcesStatus;
-  const resources = subcategoryStub ? subcategoryResources : categoryResources;
+  const resources = sortByOpen(
+    subcategoryStub ? subcategoryResources : categoryResources
+  );
 
   return (
     <>

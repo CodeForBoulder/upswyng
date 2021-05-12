@@ -1,5 +1,6 @@
 import {
   TDay,
+  TResource,
   TSchedule,
   TScheduleItemOpenClose,
   TSchedulePeriod,
@@ -88,24 +89,6 @@ const getOpensAtText = ({ open }: TScheduleItemOpenClose) =>
     sameElse: "MMM Do",
   });
 
-export const getIsOpen = (schedule: ResourceSchedule): boolean | null => {
-  if (schedule.alwaysOpen) {
-    return true;
-  }
-
-  const currentDt = new Date();
-  const nextScheduleItemPeriod = schedule.getNextScheduleItemPeriod(currentDt);
-  if (!nextScheduleItemPeriod) {
-    return null;
-  }
-
-  if (currentDt.getTime() > nextScheduleItemPeriod.open.getTime()) {
-    return true;
-  }
-
-  return false;
-};
-
 export const getNextOpenText = (schedule: ResourceSchedule): string => {
   if (schedule.alwaysOpen) {
     return "Open 24/7";
@@ -122,4 +105,16 @@ export const getNextOpenText = (schedule: ResourceSchedule): string => {
   }
 
   return `open ${getOpensAtText(nextScheduleItemPeriod)}`;
+};
+
+export const sortByOpen = (resources: TResource[] | undefined) => {
+  return resources
+    ? resources.sort((resourceA, resourceB) => {
+        const A = ResourceSchedule.parse(resourceA.schedule).isOpen();
+        const B = ResourceSchedule.parse(resourceB.schedule).isOpen();
+        if (A && !B) return -1;
+        if (B && !A) return 1;
+        return 0;
+      })
+    : [];
 };
