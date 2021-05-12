@@ -1,5 +1,6 @@
 import { RRule, RRuleSet } from "rrule";
 import {
+  TResource,
   TResourceScheduleData,
   TScheduleItemOpenClose,
   TTimezoneName,
@@ -197,6 +198,27 @@ export default class ResourceSchedule {
       },
       null
     );
+  }
+
+  /**
+   * Returns bool to indicate if a resource is currently open.
+   * @param at The date to compare against. Defaults to `new Date()`.
+   */
+  isOpen(at: Date = new Date()): boolean | null {
+    if (this.alwaysOpen) {
+      return true;
+    }
+
+    const nextScheduleItemPeriod = this.getNextScheduleItemPeriod(at);
+    if (!nextScheduleItemPeriod) {
+      return null;
+    }
+
+    if (at.getTime() > nextScheduleItemPeriod.open.getTime()) {
+      return true;
+    }
+
+    return false;
   }
 
   /**

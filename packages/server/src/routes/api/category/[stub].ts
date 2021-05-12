@@ -6,9 +6,9 @@ export async function get(req, res, _next) {
   const categoryDocument = await Category.getByStub(stub);
 
   if (categoryDocument) {
-    res
-      .status(200)
-      .json({ category: await categoryDocumentToCategory(categoryDocument) });
+    res.status(200).json({
+      category: await categoryDocumentToCategory(categoryDocument),
+    });
   } else {
     res.status(404).json({ message: `Category ${stub} not found` });
   }
