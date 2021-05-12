@@ -85,6 +85,7 @@
     "build:web": "yarn build:local-packages && yarn workspace @upswyng/web build",
     "build:local-db": "docker compose up --build -d && mongorestore --port 27018 --username upswyng-dev-user --password upswyng123 -d upswyng-dev ./packages/server/localdb/mongodump",
     "clean": "node clean.js",
+    "reset": "node clean.js --reset && docker compose down -v",
     "heroku-postbuild": "yarn build:web && yarn build:server",
     "lint": "tsc --noEmit && eslint \"packages/**/src/**/*.{js,jsx,ts,tsx}\" --fix",
     "lint:ci": "tsc --noEmit && eslint \"packages/**/src/**/*.{js,jsx,ts,tsx}\" --quiet",

@@ -102,6 +102,10 @@ To fix this, run the script:
 yarn build:local-packages
 ```
 
+## Reset
+
+If nothing you try is fixing your issue, you can totally reset your local environment with `yarn reset`. After performing a reset, try `yarn start:local` and see if things work out.
+
 ## Contributing
 
 Pull requests are welcome and encouraged! Please review and follow our [guidelines](CONTRIBUTING.md).
