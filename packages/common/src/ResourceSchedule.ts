@@ -268,23 +268,6 @@ export default class ResourceSchedule {
   }
 
   /**
-   * Sorts an array of resources by open status.
-   * @param resources The resources to be sorted.
-   * @returns The sorted resources.
-   */
-  static sortByOpen(resources: TResource[] | undefined) {
-    return resources
-      ? resources.sort((resourceA, resourceB) => {
-          const A = ResourceSchedule.parse(resourceA.schedule).isOpen();
-          const B = ResourceSchedule.parse(resourceB.schedule).isOpen();
-          if (A && !B) return -1;
-          if (B && !A) return 1;
-          return 0;
-        })
-      : [];
-  }
-
-  /**
    * Used with `JSON.stringify` to serialize this schedule to send over the wire or
    * to store in a database. See:
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#toJSON_behavior

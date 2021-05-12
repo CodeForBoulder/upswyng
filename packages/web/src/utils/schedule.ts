@@ -1,5 +1,6 @@
 import {
   TDay,
+  TResource,
   TSchedule,
   TScheduleItemOpenClose,
   TSchedulePeriod,
@@ -104,4 +105,16 @@ export const getNextOpenText = (schedule: ResourceSchedule): string => {
   }
 
   return `open ${getOpensAtText(nextScheduleItemPeriod)}`;
+};
+
+export const sortByOpen = (resources: TResource[] | undefined) => {
+  return resources
+    ? resources.sort((resourceA, resourceB) => {
+        const A = ResourceSchedule.parse(resourceA.schedule).isOpen();
+        const B = ResourceSchedule.parse(resourceB.schedule).isOpen();
+        if (A && !B) return -1;
+        if (B && !A) return 1;
+        return 0;
+      })
+    : [];
 };
