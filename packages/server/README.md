@@ -7,6 +7,8 @@ This workspace includes:
 
 ## Setup
 
+> You do not need to follow these steps if you are using `yarn start:local` because everything will already be set up for you
+
 _Note: This project is built upon [Sapper](https://github.com/sveltejs/sapper), which uses a combination of [Svelte](https://svelte.dev/) and [Polka](https://github.com/lukeed/polka) to build and serve the app._
 
 ### 1. Setup Local MongoDB

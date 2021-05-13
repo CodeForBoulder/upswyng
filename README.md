@@ -12,7 +12,7 @@ Make sure you have these tools installed before you begin.
 
 - Node.js version 14.3
 
-- [Docker](https://docs.docker.com/get-docker/)
+- [Docker](https://docs.docker.com/get-docker/) version 20.10 or above
 
 - [Yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable)
 
