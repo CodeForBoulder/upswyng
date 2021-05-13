@@ -25,6 +25,7 @@ module.exports = {
     // All the other modules besides 'rrule' should be resolved with the default entrypoint priority. (Defaults
     // to ['module', 'main'].) See: https://github.com/rollup/rollup-plugin-node-resolve#usage
     resolve({
+      preferBuiltins: true,
       only: [/^(?!.*rrule).*$/],
       browser: true,
       preferBuiltins: false,

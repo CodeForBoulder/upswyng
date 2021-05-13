@@ -6,16 +6,23 @@ UpSwyng is a mobile-ready, digital directory of resources to assist the unhoused
 
 If you have any issues getting started using these directions, please see the [Troubleshooting section](#Troubleshooting).
 
-1. Install the Yarn package manager by following the instructions at
-   [https://yarnpkg.com/lang/en/docs/install](https://yarnpkg.com/lang/en/docs/install)
+### Requirements
 
-2. While in the root of this repo, install all project dependencies by running
+Make sure you have these tools installed before you begin.
 
-   ```console
-   yarn
-   ```
+- Node.js version 14.3
 
-3. Next, try starting try running the web client by entering `yarn workspace @upswyng/web start`. This command will start in on port 3000. For specific setup instructions on the two main projects, see their corresponding READMEs.
+- [Docker](https://docs.docker.com/get-docker/) version 20.10 or above
+
+- [Yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable)
+
+### Building your local dev environment
+
+1. Clone (or fork and clone) this repository and `cd` into it
+
+2. Make sure docker is running on your machine. You can check by running `docker ps` in your terminal
+
+3. Run `yarn start:local`
 
 ## Project Organization
 
@@ -44,7 +51,7 @@ yarn workspace @upswyng/web start
 To run the same command in _all_ workspaces, use `yarn workspaces`. For instance, to run `test` in all packages use:
 
 ```console
-yarn workspaces test
+yarn workspaces run test
 ```
 
 Typing out the full workspace name can get tedious. You can place aliases in your `.bashrc` or `.profile` to save time:
@@ -54,6 +61,15 @@ alias @uw="yarn workspace @upswyng/web "
 ```
 
 Now you only need `@uw start` to start the web dev server.
+
+### Running tests
+
+When you push a branch up to GitHub, [travis](https://docs.travis-ci.com/) will attempt to build the app with your changes and will run our entire test suite to ensure that nothing is broken.
+It's a good idea to run tests locally before pushing, although it is not required.
+
+If you wish to run tests locally, you will need to ensure that `redis-server` is available in your `path`. You can check by running `redis-server`, and you can install it [here](https://redis.io/topics/quickstart) or via `brew install redis` on mac.
+
+Once Redis is installed, run our entire test suite with `yarn test`.
 
 ### Troubleshooting
 
@@ -65,7 +81,7 @@ When running `yarn` to install project dependencies, you may see a message that 
 The engine "node" is incompatible with this module. Expected version "^14.3.x". Got "11.15.0".
 ```
 
-This just means that your machine's current version of node does not match the version required to run the UpSwyng server, 12.14.x. To fix this you'll need to install and which your current version of Node. [nvm](https://itnext.io/nvm-the-easiest-way-to-switch-node-js-environments-on-your-machine-in-a-flash-17babb7d5f1b#d594) is a helpful tool, among others, you could use to easily switch between node versions.
+This just means that your machine's current version of node does not match the version required to run the UpSwyng server, 14.3.x. To fix this you'll need to install and which your current version of Node. [nvm](https://itnext.io/nvm-the-easiest-way-to-switch-node-js-environments-on-your-machine-in-a-flash-17babb7d5f1b#d594) is a helpful tool, among others, you could use to easily switch between node versions.
 
 #### Type Errors
 
@@ -85,6 +101,10 @@ To fix this, run the script:
 ```console
 yarn build:local-packages
 ```
+
+## Reset
+
+If nothing you try is fixing your issue, you can totally reset your local environment with `yarn reset`. After performing a reset, try `yarn start:local` and see if things work out.
 
 ## Contributing
 

@@ -69,8 +69,8 @@
     "eject": "cross-env SKIP_PREFLIGHT_CHECK=true react-scripts eject",
     "start": "cross-env PORT=3001 SKIP_PREFLIGHT_CHECK=true react-scripts start",
     "test": "run-p -n test:integration test:unit",
-    "test:integration": "cross-env BROWSER=none REACT_SERVER_URI=http://localhost:3001 start-server-and-test start 3001 'cypress run'",
-    "test:unit": "cross-env SKIP_PREFLIGHT_CHECK=true react-scripts test"
+    "test:integration": "cross-env BROWSER=none REACT_SERVER_URI=http://localhost:3001 start-server-and-test start 3001 'yarn run cypress run'",
+    "test:unit": "cross-env SKIP_PREFLIGHT_CHECK=true CI=true react-scripts test"
   },
   "version": "0.1.0"
 }

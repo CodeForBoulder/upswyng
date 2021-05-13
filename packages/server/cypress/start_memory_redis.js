@@ -34,7 +34,7 @@ child.stdout.on("data", chunk => {
   console.info(`🎉 Started in-memory redis`);
   console.info(`PID:\t\t${pid}`);
   console.info(`Connection URI:\t${connectionString}`);
-  
+
   // got data, maybe look at it to verify that it started up ok
   child.unref(); // let the process close normally
   process.exit(0);

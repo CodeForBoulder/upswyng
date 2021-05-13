@@ -1,0 +1,79 @@
+{
+  "folders": [
+    {
+      "name": "Root",
+      "path": "."
+    },
+    {
+      "name": "Common",
+      "path": "packages/common"
+    },
+    {
+      "name": "Native",
+      "path": "packages/native"
+    },
+    {
+      "name": "Server",
+      "path": "packages/server"
+    },
+    {
+      "name": "Types",
+      "path": "packages/types"
+    },
+    {
+      "name": "Web",
+      "path": "packages/web"
+    }
+  ],
+  "settings": {
+    "jest.pathToJest": "yarn test:unit",
+    "jest.disabledWorkspaceFolders": ["Root", "Native", "Server", "Types"],
+    "editor.formatOnSave": true,
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact"
+    ],
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "typescript.tsserver.maxTsServerMemory": 7148
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "chrome",
+        "request": "launch",
+        "name": "Launch Chrome against localhost",
+        "url": "http://localhost:3000",
+        "webRoot": "${workspaceFolder}"
+      },
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Debug Server",
+        "protocol": "inspector",
+        "cwd": "${workspaceFolder}/packages/server",
+        "program": "${workspaceFolder}/node_modules/sapper/dist/cli.js",
+        "args": ["dev"],
+        "console": "integratedTerminal",
+        "autoAttachChildProcesses": true
+      }
+    ]
+  },
+  "extensions": {
+    "recommendations": [
+      "amatiasq.sort-imports",
+      "ardenivanov.svelte-intellisense",
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode",
+      "svelte.svelte-vscode",
+      "msjsdiag.debugger-for-chrome",
+      "orta.vscode-jest"
+    ],
+    "unwantedRecommendations": []
+  }
+}

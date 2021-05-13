@@ -10,7 +10,7 @@ const tmpRedis = require("tmp-redis");
 const getPort = require("get-port");
 
 getPort({ port: 6379 }).then(p => {
-  tmpRedis(p, (e, _shutdown) =>{
+  tmpRedis(p, (e, _shutdown) => {
     if (e) throw e;
     console.info(`CONNECTION_STRING=redis://localhost:${p}`);
   });

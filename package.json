@@ -83,13 +83,15 @@
     "build:local-packages": "yarn workspace @upswyng/types build && yarn workspace @upswyng/common build",
     "build:server": "yarn build:local-packages && yarn workspace @upswyng/server build",
     "build:web": "yarn build:local-packages && yarn workspace @upswyng/web build",
-    "build:local-db": "docker-compose up --build -d && mongorestore --username upswyng-dev-user --password upswyng123 -d upswyng-dev ./packages/server/localdb/mongodump",
+    "build:local-db": "docker compose up --build -d && mongorestore --port 27018 --username upswyng-dev-user --password upswyng123 -d upswyng-dev ./packages/server/localdb/mongodump",
     "clean": "node clean.js",
+    "reset": "node clean.js --reset && docker compose down -v",
     "heroku-postbuild": "yarn build:web && yarn build:server",
     "lint": "tsc --noEmit && eslint \"packages/**/src/**/*.{js,jsx,ts,tsx}\" --fix",
     "lint:ci": "tsc --noEmit && eslint \"packages/**/src/**/*.{js,jsx,ts,tsx}\" --quiet",
-    "test": "concurrently -n common,server -c yellow,blue \"yarn workspace @upswyng/common test\" \"yarn workspace @upswyng/server test\" && yarn workspace @upswyng/web test",
-    "test:ci": "concurrently -n common,server -c yellow,blue \"yarn workspace @upswyng/common test\" \"yarn workspace @upswyng/server test\" --kill-others-on-fail && yarn workspace @upswyng/web test"
+    "test": "concurrently -n common,server -c yellow,blue \"yarn workspace @upswyng/common test:unit\" \"yarn workspace @upswyng/server test\" && yarn workspace @upswyng/web test",
+    "test:ci": "concurrently -n common,server -c yellow,blue \"yarn workspace @upswyng/common test:unit\" \"yarn workspace @upswyng/server test\" --kill-others-on-fail && yarn workspace @upswyng/web test",
+    "start:local": "./start_local.sh"
   },
   "version": "0.1.0",
   "workspaces": [

@@ -31,6 +31,8 @@ config.ts
 .redispid
 .redisuri
 packages/server/cypress/screenshots/**/*(failed).png
+cypress/
+cypress.json
 
 # web integration test
 packages/web/cypress/screenshots/**/*(failed).png

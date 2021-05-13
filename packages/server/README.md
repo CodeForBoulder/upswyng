@@ -7,6 +7,8 @@ This workspace includes:
 
 ## Setup
 
+> You do not need to follow these steps if you are using `yarn start:local` because everything will already be set up for you
+
 _Note: This project is built upon [Sapper](https://github.com/sveltejs/sapper), which uses a combination of [Svelte](https://svelte.dev/) and [Polka](https://github.com/lukeed/polka) to build and serve the app._
 
 ### 1. Setup Local MongoDB
@@ -34,6 +36,7 @@ For local development, you'll only need to create a copy of `.env.example` and n
 You can do this via your system's file explorer or via the following terminal command while in the repo:
 
 ```console
+cd packages/server
 cp .env.example .env
 ```
 
@@ -63,10 +66,10 @@ This file contains placeholders for various API keys that you may or may not nee
 ### 2. Start the Server
 
 ```console
-yarn dev
+yarn workspace @upswyng/server dev
 ```
 
-Runs the app in the development mode. Open [http:/localhost:3000](http:/localhost:3000) to view it in the browser.
+Runs the server in the development mode. Open [http:/localhost:3000](http:/localhost:3000) to view it in the browser.
 
 If you want to work on the [provider portal](http://localhost:3000/provider), you can log in with this google user:
 
