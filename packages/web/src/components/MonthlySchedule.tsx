@@ -46,6 +46,7 @@ const MonthlySchedule = ({ items }: { items: TScheduleItem[] }) => {
         ).toLocaleString(undefined, {
           month: "short",
           day: "numeric",
+          // the rrule date is UTC-based
           timeZone: "UTC",
         });
 
