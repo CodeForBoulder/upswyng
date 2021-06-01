@@ -54,11 +54,6 @@ interface THomeButtonBase {
   text: string;
   translationKey: string;
 }
-export interface THomeButtonAnchor extends THomeButtonBase {
-  href: string;
-  target: string;
-  rel: string;
-}
 
 export interface THomeButtonRouterLink extends THomeButtonBase {
   linkProps: LinkProps;
