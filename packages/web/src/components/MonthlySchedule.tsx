@@ -40,14 +40,23 @@ const MonthlySchedule = ({ items }: { items: TScheduleItem[] }) => {
           return null;
         }
 
-        const nextOccurenceDate = items[0].recurrenceRule
-          .all()[0]
-          .toLocaleString(undefined, { month: "short", day: "numeric" });
+        const nextOccurrenceDate = items[0].recurrenceRule.all()[0];
+        const nextOccurenceDateString = new Date(
+          nextOccurrenceDate
+        ).toLocaleString(undefined, {
+          month: "short",
+          day: "numeric",
+          // the rrule date is UTC-based
+          timeZone: "UTC",
+        });
+
         return (
           <Grid item xs={12} key={rRuleText}>
             <Grid container spacing={6}>
               <Grid item xs={6}>
-                <Typography component="h3">{nextOccurenceDate}</Typography>
+                <Typography component="h3">
+                  {nextOccurenceDateString}
+                </Typography>
                 <Typography variant="caption">repeats {rRuleText}</Typography>
               </Grid>
               <Grid item xs={6}>

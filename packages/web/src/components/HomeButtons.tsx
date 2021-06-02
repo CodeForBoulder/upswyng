@@ -15,7 +15,7 @@ import {
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import HomeButton from "./HomeButton";
-import { HomeRouterLink } from "./HomeLink";
+import HomeLink from "./HomeLink";
 import React from "react";
 import { THomeButtonRouterLink } from "../webTypes";
 import { colors } from "@upswyng/common";
@@ -139,7 +139,7 @@ const HomeButtons = () => {
           <Grid item xs={6} key={button.text}>
             <Box
               alignContent="stretch"
-              component={HomeRouterLink}
+              component={HomeLink}
               display="flex"
               height="100%"
               {...button}
@@ -158,7 +158,7 @@ const HomeButtons = () => {
       <Grid item xs={12}>
         <Box
           alignContent="stretch"
-          component={HomeRouterLink}
+          component={HomeLink}
           display="flex"
           height="100%"
           {...coordinatedEntryButton}
