@@ -1,15 +1,10 @@
 import HomeButtons, { routerLinkButtons } from "../HomeButtons";
 
+import { cleanup, render } from "@testing-library/react";
+import { MemoryRouter } from "react-router";
 import React from "react";
-import { render } from "@testing-library/react";
 
-jest.mock("../HomeLink", () => ({
-  HomeRouterLink: ({ children }: { children: React.ReactChildren }) => (
-    <div>{children}</div>
-  ),
-}));
 jest.mock("react-i18next", () => ({
-  // this mock makes sure any components using the translate hook can use it without a warning being shown
   useTranslation: () => {
     return {
       t: (str: string) => str,
@@ -21,11 +16,17 @@ jest.mock("react-i18next", () => ({
 }));
 
 describe("<HomeButtons/>", () => {
+  afterEach(cleanup);
   const routerLinkTexts = routerLinkButtons.map(
     ({ translationKey }) => translationKey
   );
+
   it.each(routerLinkTexts)("renders the %s button", text => {
-    const { getByText } = render(<HomeButtons />);
+    const { getByText } = render(
+      <MemoryRouter>
+        <HomeButtons />
+      </MemoryRouter>
+    );
     expect(getByText(text)).toBeInTheDocument();
   });
 });
