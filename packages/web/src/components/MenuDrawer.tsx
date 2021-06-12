@@ -20,6 +20,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import Typography from "@material-ui/core/Typography";
 import makeStyles from "@material-ui/styles/makeStyles";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) => ({
   drawerPaper: {
@@ -33,6 +34,7 @@ interface MenuDrawerProps {
 }
 
 const MenuDrawer = ({ handleMenuClose, open }: MenuDrawerProps) => {
+  const { t } = useTranslation("mainMenu");
   const classes = useStyles();
   return (
     <Drawer
@@ -43,7 +45,7 @@ const MenuDrawer = ({ handleMenuClose, open }: MenuDrawerProps) => {
       <Grid container direction="column">
         <Grid container item justify="flex-end">
           <IconButton onClick={() => handleMenuClose()}>
-            <Typography variant="srOnly">close menu</Typography>
+            <Typography variant="srOnly">{t("close")}</Typography>
             {CloseIcon}
           </IconButton>
         </Grid>
@@ -55,7 +57,7 @@ const MenuDrawer = ({ handleMenuClose, open }: MenuDrawerProps) => {
               onClick={() => handleMenuClose()}
               to="/"
             >
-              <Typography variant="srOnly">home</Typography>
+              <Typography variant="srOnly">{t("home")}</Typography>
               <Box maxWidth="100%" width={250}>
                 <Logo />
               </Box>
@@ -67,7 +69,7 @@ const MenuDrawer = ({ handleMenuClose, open }: MenuDrawerProps) => {
               to="/about"
             >
               <ListItemIcon>{InfoIcon}</ListItemIcon>
-              <ListItemText>About</ListItemText>
+              <ListItemText>{t("about")}</ListItemText>
             </ListItem>
             <ListItem
               button
@@ -76,7 +78,7 @@ const MenuDrawer = ({ handleMenuClose, open }: MenuDrawerProps) => {
               to="/terms-of-use"
             >
               <ListItemIcon>{TermsOfServiceIcon}</ListItemIcon>
-              <ListItemText>Terms of Use</ListItemText>
+              <ListItemText>{t("termsOfUse")}</ListItemText>
             </ListItem>
             <ListItem
               button
@@ -85,7 +87,7 @@ const MenuDrawer = ({ handleMenuClose, open }: MenuDrawerProps) => {
               to="/privacy-policy"
             >
               <ListItemIcon>{PolicyIcon}</ListItemIcon>
-              <ListItemText>Privacy policy</ListItemText>
+              <ListItemText>{t("privacyPolicy")}</ListItemText>
             </ListItem>
             <ListItem
               button
@@ -94,7 +96,7 @@ const MenuDrawer = ({ handleMenuClose, open }: MenuDrawerProps) => {
               to="/favorites"
             >
               <ListItemIcon>{FavoriteIcon}</ListItemIcon>
-              <ListItemText>Favorites</ListItemText>
+              <ListItemText>{t("favorites")}</ListItemText>
             </ListItem>
           </List>
         </Grid>

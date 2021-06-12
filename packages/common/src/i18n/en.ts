@@ -206,4 +206,13 @@ export default {
   alerts: {
     closeAlerts: "Close Alerts",
   },
+  mainMenu: {
+    resourcesWithinReach: "Resources within reach",
+    about: "About",
+    termsOfUse: "Terms of Use",
+    privacyPolicy: "Privacy Policy",
+    close: "Close",
+    home: "Home",
+    favorites: "Favorites",
+  },
 };

@@ -208,4 +208,13 @@ export default {
   alerts: {
     closeAlerts: "Cerrar Alertas",
   },
+  mainMenu: {
+    resourcesWithinReach: "Recursos al Alcance",
+    about: "Acerca de",
+    termsOfUse: "Términos de Uso",
+    privacyPolicy: "Política de Privacidad",
+    close: "Final",
+    home: "Casa",
+    favorites: "Favoritos",
+  },
 };
