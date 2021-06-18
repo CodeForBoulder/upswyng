@@ -44,6 +44,7 @@ export default {
       friday: "Viernes",
       saturday: "Sábado",
     },
+    close: "Final",
   },
   hotlines: {
     nationalSuicidePreventionLifeline: {
@@ -213,7 +214,6 @@ export default {
     about: "Acerca de",
     termsOfUse: "Términos de Uso",
     privacyPolicy: "Política de Privacidad",
-    close: "Final",
     home: "Casa",
     favorites: "Favoritos",
   },

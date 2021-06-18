@@ -34,7 +34,7 @@ interface MenuDrawerProps {
 }
 
 const MenuDrawer = ({ handleMenuClose, open }: MenuDrawerProps) => {
-  const { t } = useTranslation("mainMenu");
+  const { t } = useTranslation(["mainMenu", "glossary"]);
   const classes = useStyles();
   return (
     <Drawer
@@ -45,7 +45,7 @@ const MenuDrawer = ({ handleMenuClose, open }: MenuDrawerProps) => {
       <Grid container direction="column">
         <Grid container item justify="flex-end">
           <IconButton onClick={() => handleMenuClose()}>
-            <Typography variant="srOnly">{t("close")}</Typography>
+            <Typography variant="srOnly">{t("glossary:close")}</Typography>
             {CloseIcon}
           </IconButton>
         </Grid>
