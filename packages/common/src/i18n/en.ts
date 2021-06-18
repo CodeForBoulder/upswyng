@@ -44,6 +44,7 @@ export default {
       friday: "Friday",
       saturday: "Saturday",
     },
+    close: "Close",
   },
   hotlines: {
     nationalSuicidePreventionLifeline: {
@@ -205,5 +206,13 @@ export default {
   },
   alerts: {
     closeAlerts: "Close Alerts",
+  },
+  mainMenu: {
+    resourcesWithinReach: "Resources within reach",
+    about: "About",
+    termsOfUse: "Terms of Use",
+    privacyPolicy: "Privacy Policy",
+    home: "Home",
+    favorites: "Favorites",
   },
 };
