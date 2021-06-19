@@ -149,6 +149,8 @@ export default {
     address: "Dirección",
     phoneNumber: "Número de Teléfono",
     website: "Sitio Web",
+    covidHours: "Los horarios pueden ser diferentes debido a COVID-19.",
+    checkWebsite: "Consulte su sitio web para obtener información actualizada.",
     hoursOfOperation: "Horas de Operación",
     reportAProblem: "Reportar un Problema",
     services: "Servicios",
