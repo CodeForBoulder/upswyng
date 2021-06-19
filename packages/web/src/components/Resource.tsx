@@ -112,6 +112,14 @@ export const Resource = () => {
         />
       )}
       <List component="div">
+        <ListItem component={Card}>
+          <ListItemIcon classes={listIconClasses}>
+            <WarningIcon color="secondary" />
+          </ListItemIcon>
+          <ListItemText>{`${t("covidWarning")} ${
+            !!resource.website ? t("checkWebsite") : ""
+          }`}</ListItemText>
+        </ListItem>
         {resource.address && (
           <ListItem component="div">
             <ListItemIcon classes={listIconClasses}>
@@ -165,22 +173,14 @@ export const Resource = () => {
         )}
         {!!resource.schedule._items.length && (
           <>
-            <ListItem component={Card}>
-              <ListItemIcon classes={listIconClasses}>
-                <WarningIcon color="secondary" />
-              </ListItemIcon>
-              <Typography component="h2" variant="srOnly">
-                {t("hoursOfOperation")}
-              </Typography>
-              <ListItemText>{`${t("covidHours")} ${
-                !!resource.website ? t("checkWebsite") : ""
-              }`}</ListItemText>
-            </ListItem>
             <ListItem component="div">
               <ListItemIcon classes={listIconClasses}>
                 <ScheduleIcon titleAccess={t("hoursOfOperation")} />
               </ListItemIcon>
               <ListItemText>
+                <Typography component="h2" variant="srOnly">
+                  {t("hoursOfOperation")}
+                </Typography>
                 <Schedule schedule={resource.schedule} />
               </ListItemText>
             </ListItem>

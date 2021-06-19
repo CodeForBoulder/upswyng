@@ -147,7 +147,7 @@ export default {
     address: "Address",
     phoneNumber: "Phone Number",
     website: "Website",
-    covidHours: "Hours may be different due to COVID-19.",
+    covidWarning: "COVID-19 may affect normal business hours and operations.",
     checkWebsite: "Please check their website for up-to-date info.",
     hoursOfOperation: "Hours of Operation",
     reportAProblem: "Report a Problem",
