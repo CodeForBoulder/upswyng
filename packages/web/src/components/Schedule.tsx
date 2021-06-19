@@ -41,6 +41,7 @@ const Schedule = ({ schedule }: ScheduleProps) => {
           ) as TScheduleItem[];
           return (
             <React.Fragment key={comment}>
+              {comment !== "_no_comment_" && <div>{comment}</div>}
               {!!weeklyItems.length && (
                 <Grid item>
                   <WeeklySchedule items={weeklyItems} />
@@ -56,7 +57,6 @@ const Schedule = ({ schedule }: ScheduleProps) => {
                   <MonthlySchedule items={monthlyItems} />
                 </Grid>
               )}
-              {comment !== "_no_comment_" && <div>{comment}</div>}
             </React.Fragment>
           );
         })}
