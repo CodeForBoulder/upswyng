@@ -7,6 +7,7 @@ import MonthlySchedule from "./MonthlySchedule";
 import { RRule } from "rrule";
 import React from "react";
 import { TResourceScheduleData } from "@upswyng/types";
+import Typography from "@material-ui/core/Typography";
 
 interface ScheduleProps {
   schedule: TResourceScheduleData;
@@ -41,6 +42,11 @@ const Schedule = ({ schedule }: ScheduleProps) => {
           ) as TScheduleItem[];
           return (
             <React.Fragment key={comment}>
+              {comment !== "_no_comment_" && (
+                <Grid item>
+                  <Typography variant="h3">{comment}</Typography>
+                </Grid>
+              )}
               {!!weeklyItems.length && (
                 <Grid item>
                   <WeeklySchedule items={weeklyItems} />
@@ -56,7 +62,6 @@ const Schedule = ({ schedule }: ScheduleProps) => {
                   <MonthlySchedule items={monthlyItems} />
                 </Grid>
               )}
-              {comment !== "_no_comment_" && <div>{comment}</div>}
             </React.Fragment>
           );
         })}
