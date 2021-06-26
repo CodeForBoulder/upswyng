@@ -23,7 +23,6 @@ interface TAppOptions {
   dev: boolean; // start server in development mode
   grantConfig: Record<string, any>; // see https://github.com/simov/grant#configuration
   sessionSecret: string;
-  beta?: boolean; // if true, only requests from host `beta.upswyng.*` will go to the app; otherwise a placeholder is shown
 }
 
 export default function(options: TAppOptions) {
