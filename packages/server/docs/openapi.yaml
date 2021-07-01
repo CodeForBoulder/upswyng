@@ -5,7 +5,7 @@ info:
   description: UpSwyng API v1
   contact:
     name: Code For Boulder
-    url: https://cfb.slack.com
+    url: https://www.codeforboulder.org/
   version: '1.0.0'
 
 servers:
