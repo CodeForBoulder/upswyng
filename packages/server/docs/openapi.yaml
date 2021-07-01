@@ -1,16 +1,16 @@
 openapi: 3.0.0
 
 info:
-    title: UpSwyng API v1
-    description: UpSwyng API v1
-    contact:
-        name: Code For Boulder
-        url: https://cfb.slack.com
-    version: '1.0.0'
+  title: UpSwyng API v1
+  description: UpSwyng API v1
+  contact:
+    name: Code For Boulder
+    url: https://cfb.slack.com
+  version: '1.0.0'
 
 servers:
-    - url: 'http://localhost:3000'
-      description: Docker Compose Server
+  - url: 'http://localhost:3000'
+    description: Docker Compose Server
 
 paths:
   /api/category/{category}:
@@ -33,6 +33,7 @@ paths:
                       - type: object
                         properties:
                           subcategories:
+                            $ref: '#/components/schemas/SubCategory'
         '404':
           $ref: '#/components/responses/ErrorNotFound'
 
@@ -68,6 +69,7 @@ components:
             resources:
               type: array
               items:
+                $ref: '#/components/schemas/ResourceData'
     ResourceData:
       type: object
       properties:
