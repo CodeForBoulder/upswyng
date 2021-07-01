@@ -1,0 +1,195 @@
+openapi: 3.0.0
+
+info:
+    title: UpSwyng API v1
+    description: UpSwyng API v1
+    contact:
+        name: Code For Boulder
+        url: https://cfb.slack.com
+    version: '1.0.0'
+
+servers:
+    - url: 'http://localhost:3000'
+      description: Docker Compose Server
+
+paths:
+  /api/category/{category}:
+    parameters:
+      - $ref: '#/components/parameters/categoryPath'
+    get:
+      description: 'Get a single category with sub-categories.'
+      operationId: categoryGet
+      responses:
+        '200':
+          description: Single Category.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  category:
+                    allOf:
+                      - $ref: '#/components/schemas/CategoryData'
+                      - type: object
+                        properties:
+                          subcategories:
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+
+components:
+  schemas:
+    # Categories
+    CategoryData:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 5d8f030ac0e6672699a500c2
+        name:
+          type: string
+        stub:
+          type: string
+        color:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        lastModifiedAt:
+          type: string
+          format: date-time
+        __v:
+          type: number
+          default: 1
+    SubCategory:
+      allOf:
+        - $ref: '#/components/schemas/CategoryData'
+        - type: object
+          properties:
+            resources:
+              type: array
+              items:
+    ResourceData:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 5d8f030ac0e6672699a500c2
+        address:
+          $ref: '#/components/schemas/Address'
+        createdAt:
+          type: string
+          format: date-date-time
+        deleted:
+          type: boolean
+          default: false
+        description:
+          type: string
+        resourceId:
+          type: string
+          example: 5d8f030ac0e6672699a500c2
+        kudos:
+          type: number
+          default: 0
+        lastModifiedAt:
+          type: string
+          format: date-time
+        latitude:
+          type: number
+          example: 40.0584971
+        legacyId:
+          type: string
+          example: -KUo-cPb45EOhVRG_ul9
+        name:
+          type: string
+        phone:
+          type: string
+        schedule:
+          type: object
+          properties:
+            alwaysOpen:
+              type: boolean
+            timezone:
+              type: string
+            _items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Comment'
+        services:
+          type: array
+          items:
+            type: string
+        subcategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubCategory'
+        website:
+          type: string
+    Address:
+      type: object
+      properties:
+        address1:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: integer
+    Comment:
+      type: object
+      properties:
+        comment:
+          type: string
+        fromTime:
+          type: integer
+        recurrenceRule:
+          type: string
+        toTime:
+          type: integer
+    # Common
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Description of error.
+          example: 'Error description'
+
+
+  parameters:
+    categoryPath:
+      name: category
+      in: path
+      description: Single category index name.
+      example: transit
+      required: true
+      schema:
+        type: string
+
+  responses:
+    # Errors
+    ErrorAlreadyExists:
+      description: Resource already exists and cannot be created again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ErrorInvalidRequest:
+      description: Known invalid request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ErrorNotFound:
+      description: Resource invalid or not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ErrorUnknown:
+      description: Unknown invalid request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
