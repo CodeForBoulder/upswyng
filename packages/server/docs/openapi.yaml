@@ -13,6 +13,38 @@ servers:
     description: Docker Compose Server
 
 paths:
+  /api/alert/search:
+    post:
+      description: 'Search for alerts'
+      operationId: alertSearchPost
+      requestBody:
+        description: Time to search for alert since.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartTime'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StartTime'
+      responses:
+        '200':
+          description: Alerts.
+          # TODO: fill in alert structure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  category:
+                    allOf:
+                      - $ref: '#/components/schemas/CategoryData'
+                      - type: object
+                        properties:
+                          subcategories:
+                            $ref: '#/components/schemas/SubCategory'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+
   /api/category/{category}:
     parameters:
       - $ref: '#/components/parameters/categoryPath'
@@ -37,10 +69,129 @@ paths:
         '404':
           $ref: '#/components/responses/ErrorNotFound'
 
+  /api/resources:
+    parameters:
+      - $ref: '#/components/parameters/idQueryOptional'
+    get:
+      description: 'Get one or more resources.'
+      operationId: resourcesGet
+      responses:
+        '200':
+          description: Array of resources.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resources:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ResourceDataDetail'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+
+  /api/weather:
+    parameters:
+      - $ref: '#/components/parameters/latitudeQuery'
+      - $ref: '#/components/parameters/longitudeQuery'
+    get:
+      description: 'Get weather data for location.'
+      operationId: weatherGet
+      responses:
+        '200':
+          description: Weather data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  coord:
+                    type: object
+                    properties:
+                      lon:
+                        type: number
+                      lat:
+                        type: number
+                  weather:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        main:
+                          type: string
+                        description:
+                          type: string
+                        icon:
+                          type: string
+                  base:
+                    type: string
+                  main:
+                    type: object
+                    properties:
+                      temp:
+                        type: number
+                      feels_like:
+                        type: number
+                      temp_min:
+                        type: number
+                      temp_max:
+                        type: number
+                      pressure:
+                        type: number
+                      humidity:
+                        type: number
+                  visibility:
+                    type: number
+                  wind:
+                    type: object
+                    properties:
+                      speed:
+                        type: number
+                      deg:
+                        type: number
+                      gust:
+                        type: number
+                  clouds:
+                    type: object
+                    properties:
+                      all:
+                        type: number
+                  dt:
+                    type: number
+                  sys:
+                    type: object
+                    properties:
+                      type:
+                        type: number
+                      id:
+                        type: number
+                      country:
+                        type: string
+                      sunrise:
+                        type: number
+                      sunset:
+                        type: number
+                  timezone:
+                    type: number
+                  id:
+                    type: number
+                  name:
+                    type: string
+                  cod:
+                    type: number
+                  createdDate:
+                    type: string
+                  lifespan:
+                    type: number
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+
 components:
   schemas:
     # Categories
-    CategoryData:
+    CategoryDataCore:
       type: object
       properties:
         _id:
@@ -49,8 +200,6 @@ components:
         name:
           type: string
         stub:
-          type: string
-        color:
           type: string
         createdAt:
           type: string
@@ -61,6 +210,13 @@ components:
         __v:
           type: number
           default: 1
+    CategoryData:
+      allOf:
+        - $ref: '#/components/schemas/CategoryDataCore'
+        - type: object
+          properties:
+            color:
+              type: string
     SubCategory:
       allOf:
         - $ref: '#/components/schemas/CategoryData'
@@ -69,7 +225,19 @@ components:
             resources:
               type: array
               items:
-                $ref: '#/components/schemas/ResourceData'
+                $ref: '#/components/schemas/ResourceCategoryData'
+    ResourceCategoryData:
+      allOf:
+        - $ref: '#/components/schemas/ResourceData'
+        - type: object
+          properties:
+            resourceId:
+              type: string
+              example: 5d8f030ac0e6672699a500c2
+        subcategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubCategory'
     ResourceData:
       type: object
       properties:
@@ -86,9 +254,6 @@ components:
           default: false
         description:
           type: string
-        resourceId:
-          type: string
-          example: 5d8f030ac0e6672699a500c2
         kudos:
           type: number
           default: 0
@@ -101,6 +266,9 @@ components:
         legacyId:
           type: string
           example: -KUo-cPb45EOhVRG_ul9
+        longitude:
+          type: number
+          example: -105.11954379999997
         name:
           type: string
         phone:
@@ -115,17 +283,26 @@ components:
             _items:
               type: array
               items:
-                $ref: '#/components/schemas/Comment'
+                $ref: '#/components/schemas/ScheduleItem'
         services:
           type: array
           items:
             type: string
-        subcategories:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubCategory'
+            example: 'Groceries for low-income Seniors/Families'
         website:
           type: string
+    ResourceDataDetail:
+      allOf:
+        - $ref: '#/components/schemas/ResourceData'
+        - type: object
+          properties:
+            subcategories:
+              allOf:
+                - $ref: '#/components/schemas/CategoryDataCore'
+                - type: object
+                  properties:
+                    parentCategory:
+                      $ref: '#/components/schemas/CategoryData'
     Address:
       type: object
       properties:
@@ -137,7 +314,7 @@ components:
           type: string
         zip:
           type: integer
-    Comment:
+    ScheduleItem:
       type: object
       properties:
         comment:
@@ -148,6 +325,12 @@ components:
           type: string
         toTime:
           type: integer
+    StartTime:
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
     # Common
     Error:
       type: object
@@ -157,8 +340,15 @@ components:
           description: Description of error.
           example: 'Error description'
 
-
   parameters:
+    idQueryOptional:
+      name: id
+      in: query
+      description: id for a single entry.
+      required: false
+      schema:
+        type: string
+        example: 5def5cb7b831a048f2a3deed
     categoryPath:
       name: category
       in: path
@@ -167,6 +357,22 @@ components:
       required: true
       schema:
         type: string
+    latitudeQuery:
+      name: latitude
+      in: query
+      description: Latitude, probably for current user
+      required: true
+      schema:
+        type: number
+        example: 40.015
+    longitudeQuery:
+      name: longitude
+      in: query
+      description: Longitude, probably for current user
+      required: true
+      schema:
+        type: number
+        example: -105.2705
 
   responses:
     # Errors
