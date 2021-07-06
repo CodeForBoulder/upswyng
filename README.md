@@ -20,7 +20,7 @@ Make sure you have these tools installed before you begin.
 
 1. Clone (or fork and clone) this repository and `cd` into it
 
-2. Make sure docker is running on your machine. You can check by running `docker ps` in your terminal
+2. Make sure docker is running on your machine. You can check by running `docker ps` in your terminal, also ensure you have [docker-compose](https://docs.docker.com/compose/install/) installed
 
 3. Run `yarn start:local`
 
