@@ -12,20 +12,58 @@ servers:
   - url: 'http://localhost:3000'
     description: Docker Compose Server
 
+# Paths are sorted alphabetically
+# variables as part of a path are sorted as last in order.
+
 paths:
+  /api/alert:
+    post:
+      description: 'Create a new alert.'
+      summary: 'Create alert'
+      security:
+        - requireAdmin: []
+      tags:
+        - stub
+      operationId: alertPost
+      requestBody:
+        description: New Alert Payload.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertPost'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AlertPost'
+      responses:
+        '200':
+          description: INCOMPLETE
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          $ref: '#/components/responses/ErrorInvalidRequest'
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
   /api/alert/search:
     post:
       description: 'Search for alerts'
+      summary: 'Search for alerts'
+      tags:
+        - stub
       operationId: alertSearchPost
       requestBody:
         description: Time to search for alert since.
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StartTime'
+              $ref: '#/components/schemas/StartTimeObj'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/StartTime'
+              $ref: '#/components/schemas/StartTimeObj'
       responses:
         '200':
           description: Alerts.
@@ -41,7 +79,34 @@ paths:
                       - type: object
                         properties:
                           subcategories:
-                            $ref: '#/components/schemas/SubCategory'
+                            $ref: '#/components/schemas/SubCategoryData'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+
+  /api/alert/{id}:
+    parameters:
+      - $ref: '#/components/parameters/idPath'
+    get:
+      description: 'Get an alert'
+      summary: 'Get an alert'
+      operationId: alertGet
+      tags:
+        - stub
+      responses:
+        '200':
+          description: Single Alert.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  category:
+                    allOf:
+                      - $ref: '#/components/schemas/CategoryData'
+                      - type: object
+                        properties:
+                          subcategories:
+                            $ref: '#/components/schemas/SubCategoryData'
         '404':
           $ref: '#/components/responses/ErrorNotFound'
 
@@ -49,7 +114,8 @@ paths:
     parameters:
       - $ref: '#/components/parameters/categoryPath'
     get:
-      description: 'Get a single category with sub-categories.'
+      description: 'Get a category with sub-categories.'
+      summary: 'Get a category'
       operationId: categoryGet
       responses:
         '200':
@@ -65,15 +131,202 @@ paths:
                       - type: object
                         properties:
                           subcategories:
-                            $ref: '#/components/schemas/SubCategory'
+                            $ref: '#/components/schemas/SubCategoryData'
         '404':
           $ref: '#/components/responses/ErrorNotFound'
+
+  /api/categories:
+    get:
+      description: 'Get an array of all categories.'
+      summary: 'Get all categories.'
+      operationId: categoriesGet
+      responses:
+        '200':
+          description: Categories.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  categories:
+                    type: array
+                    items:
+                      allOf:
+                        - $ref: '#/components/schemas/CategoryData'
+                        - type: object
+                          properties:
+                            subcategories:
+                              type: array
+                              items:
+                                allOf:
+                                  - $ref: '#/components/schemas/CategoryData'
+                                  - type: object
+                                    properties:
+                                      resources:
+                                        type: array
+                                        items:
+                                          $ref: '#/components/schemas/Meta_id'
+
+  /api/hotlines:
+    get:
+      description: 'Get an array of all hotlines.'
+      summary: 'Get all hotlines.'
+      tags:
+        - stub
+      operationId: hotlinesGet
+      responses:
+        '200':
+          description: Categories.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hotlines:
+                    type: array
+                    items:
+                      allOf:
+                        - $ref: '#/components/schemas/Meta_id'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /api/resource:
+    post:
+      description: 'Create a new resource.'
+      summary: 'Create resource'
+      security:
+        - requireLoggedIn: []
+      tags:
+        - stub
+      operationId: resourcePost
+      requestBody:
+        description: New Resource Payload.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourcePost'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ResourcePost'
+      responses:
+        '201':
+          description: INCOMPLETE
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    default: 12
+                  estimatedTotal:
+                    type: integer
+                    default: 29
+                  resourceIssues:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                          default: '5f7a462dcd1b786bed19b4cb'
+                        detail:
+                          type: object
+                          properties:
+                            kind:
+                              type: string
+                              default: 'user_report'
+                              enum:
+                                - 'user_report'
+                            #                                - 'legacy_schedule_parsing_error'
+                            # user_report
+                            detailExplanation:
+                              type: string
+                              default: 'Derp'
+                            reportedIssues:
+                              type: array
+                              items:
+                                type: string
+                                example: 'The address is wrong.'
+                        #                            # legacy schedule error
+                        #                            legacyClosesSchedule:
+                        #                              type: string
+                        #                              description: 'Only for type legacy_schedule_parsing_error'
+                        #                            legacySchedule:
+                        #                              type: string
+                        #                              example: '[{"day":"Thursday","fromstring":"10:00 AM","period":"First","tostring":"12:00 PM","type":"Monthly"},{"day":"Thursday","fromstring":"10:00 AM","period":"Third","tostring":"12:00 PM","type":"Monthly"}]'
+                        #                              description: 'Only for type legacy_schedule_parsing_error'
+                        kind:
+                          type: string
+                          default: 'user_report'
+                        resolved:
+                          type: boolean
+                          default: false
+                        resourceId:
+                          type: string
+                          default: '5def5cb7b831a048f2a3deed'
+                        severity:
+                          type: string
+                          default: 'high'
+                        __v:
+                          type: integer
+                          default: 0
+                        createdAt:
+                          type: string
+                          default: '2020-10-04T22:01:17.880Z'
+                        lastModifiedAt:
+                          type: string
+                          default: '2020-10-04T22:01:17.880Z'
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /api/resource/{id}:
+    parameters:
+      - $ref: '#/components/parameters/idPath'
+    get:
+      description: 'Get a resource.'
+      summary: 'Get a resource'
+      operationId: resourceGet
+      responses:
+        '200':
+          description: Single Resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resource:
+                    allOf:
+                      - $ref: '#/components/schemas/ResourceDataLatLon'
+                      - type: object
+                        properties:
+                          subcategories:
+                            allOf:
+                              - $ref: '#/components/schemas/ResourceSubcategory'
+                              - type: object
+                                properties:
+                                  parentCategory:
+                                    allOf:
+                                      - $ref: '#/components/schemas/CategoryData'
+                                      - type: object
+                                        properties:
+                                          subcategories:
+                                            type: array
+                                            items:
+                                              $ref: '#/components/schemas/ResourceSubcategory'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
 
   /api/resources:
     parameters:
       - $ref: '#/components/parameters/idQueryOptional'
     get:
-      description: 'Get one or more resources.'
+      description: 'Get an array of resources.'
+      summary: 'Get resources.'
       operationId: resourcesGet
       responses:
         '200':
@@ -86,7 +339,552 @@ paths:
                   resources:
                     type: array
                     items:
-                      $ref: '#/components/schemas/ResourceDataDetail'
+                      allOf:
+                        - $ref: '#/components/schemas/ResourceDataLatLon'
+                        - type: object
+                          properties:
+                            subcategories:
+                              allOf:
+                                - $ref: '#/components/schemas/CategoryDataNoColor'
+                                - type: object
+                                  properties:
+                                    parentCategory:
+                                      $ref: '#/components/schemas/CategoryData'
+
+  /api/resource/draft/approve/{id}:
+    parameters:
+      - $ref: '#/components/parameters/idPath'
+    post:
+      description: 'Mark a draft resource approved.'
+      summary: 'Approve draft resource'
+      operationId: resourcesDraftApprovePost
+      security:
+        - requireAdmin: []
+      requestBody:
+        $ref: '#/components/requestBodies/EmptyRequest'
+      responses:
+        '204':
+          $ref: '#/components/responses/EmptyObject'
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /api/resource/draft/delete/{id}:
+    parameters:
+      - $ref: '#/components/parameters/idPath'
+    post:
+      description: 'Delete a draft resource.'
+      summary: 'Delete draft resource'
+      operationId: resourcesDraftDeletePost
+      security:
+        - requireAdmin: []
+      requestBody:
+        $ref: '#/components/requestBodies/EmptyRequest'
+      responses:
+        '204':
+          $ref: '#/components/responses/EmptyObject'
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /api/resource/draft/{id}:
+    parameters:
+      - $ref: '#/components/parameters/idPath'
+    get:
+      description: 'Get a resource draft.'
+      summary: 'Get a resource draft'
+      operationId: resourceDraftGet
+      tags:
+        - stub
+      responses:
+        '200':
+          description: Single Category.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  category:
+                    allOf:
+                      - $ref: '#/components/schemas/CategoryData'
+                      - type: object
+                        properties:
+                          subcategories:
+                            $ref: '#/components/schemas/SubCategoryData'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /api/resources/drafts:
+    parameters:
+      - $ref: '#/components/parameters/includeDeletedQueryOptional'
+    get:
+      description: 'Get an array of resources.'
+      summary: 'Get resources.'
+      tags:
+        - stub
+      operationId: resourcesDraftsGet
+      responses:
+        '200':
+          description: INCOMPLETE
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  draftResources:
+                    type: array
+                    items:
+                      allOf:
+                        - $ref: '#/components/schemas/ResourceDataLatLon'
+                        - $ref: '#/components/schemas/MetaLegacyIdObj'
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+
+  /api/resources/drafts/mine:
+    get:
+      description: 'Get an array of resources.'
+      summary: 'Get resources.'
+      tags:
+        - stub
+      operationId: resourcesDraftsMineGet
+      responses:
+        '200':
+          description: INCOMPLETE
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uncategorizedResources:
+                    type: array
+                    items:
+                      allOf:
+                        - $ref: '#/components/schemas/ResourceData'
+                        - type: object
+                          properties:
+                            location:
+                              type: object
+                              properties:
+                                coordinates:
+                                  description: Latitude & Longitude
+                                  type: array
+                                  items:
+                                    type: number
+                                  example: [-105.13494760000003, 39.9776081]
+                                type:
+                                  type: string
+                                  example: Point
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+
+  /api/resources/issue/{id}:
+    parameters:
+      - $ref: '#/components/parameters/idPath'
+    get:
+      description: 'Get an issue by id.'
+      summary: 'Get an issue'
+      operationId: resourceIssueGet
+      responses:
+        '200':
+          description: Issue.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resourceIssue:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        default: '5e894bc235a65b002cce1116'
+                      detail:
+                        type: object
+                        properties:
+                          detailExplanation:
+                            type: string
+                            default: 'The picture is incorrect. Mike '
+                          kind:
+                            type: string
+                            default: 'user_report'
+                          reportedIssues:
+                            type: array
+                            items:
+                              type: string
+                              example: 'The address is wrong.'
+                      kind:
+                        type: string
+                        default: 'user_report'
+                      resourceId:
+                        type: string
+                        default: '5def5cb7b831a048f2a3deef'
+                      severity:
+                        type: string
+                        default: 'high'
+                      __v:
+                        type: integer
+                        default: 0
+                      createdAt:
+                        type: string
+                        default: '2020-04-05T03:08:50.948Z'
+                      lastModifiedAt:
+                        type: string
+                        default: '2020-04-05T03:08:50.948Z'
+
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /api/resources/issues:
+    post:
+      description: 'Query for an array of issues.'
+      summary: 'Query issues.'
+      security:
+        - requireAdmin: []
+      operationId: resourcesIssuesPost
+      requestBody:
+        description: Filter which issues to return.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssuesQueryPost'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/IssuesQueryPost'
+      responses:
+        '200':
+          description: Issues available for request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    default: 12
+                  estimatedTotal:
+                    type: integer
+                    default: 29
+                  resourceIssues:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                          default: '5f7a462dcd1b786bed19b4cb'
+                        detail:
+                          type: object
+                          properties:
+                            kind:
+                              type: string
+                              default: 'user_report'
+                              enum:
+                                - 'user_report'
+#                                - 'legacy_schedule_parsing_error'
+                            # user_report
+                            detailExplanation:
+                              type: string
+                              default: 'Derp'
+                            reportedIssues:
+                              type: array
+                              items:
+                                type: string
+                                example: 'The address is wrong.'
+#                            # legacy schedule error
+#                            legacyClosesSchedule:
+#                              type: string
+#                              description: 'Only for type legacy_schedule_parsing_error'
+#                            legacySchedule:
+#                              type: string
+#                              example: '[{"day":"Thursday","fromstring":"10:00 AM","period":"First","tostring":"12:00 PM","type":"Monthly"},{"day":"Thursday","fromstring":"10:00 AM","period":"Third","tostring":"12:00 PM","type":"Monthly"}]'
+#                              description: 'Only for type legacy_schedule_parsing_error'
+                        kind:
+                          type: string
+                          default: 'user_report'
+                        resolved:
+                          type: boolean
+                          default: false
+                        resourceId:
+                          type: string
+                          default: '5def5cb7b831a048f2a3deed'
+                        severity:
+                          type: string
+                          default: 'high'
+                        __v:
+                          type: integer
+                          default: 0
+                        createdAt:
+                          type: string
+                          default: '2020-10-04T22:01:17.880Z'
+                        lastModifiedAt:
+                          type: string
+                          default: '2020-10-04T22:01:17.880Z'
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /api/resources/issues/resolve/{id}:
+    parameters:
+      - $ref: '#/components/parameters/idPath'
+    post:
+      description: 'Mark an issue resolved'
+      summary: 'Resolve issue'
+      operationId: resourcesIssueResolvePost
+      security:
+        - requireAdmin: []
+      requestBody:
+        $ref: '#/components/requestBodies/EmptyRequest'
+      responses:
+        '204':
+         $ref: '#/components/responses/EmptyObject'
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /api/resources/issues/unresolve/{id}:
+    parameters:
+      - $ref: '#/components/parameters/idPath'
+    post:
+      description: 'Mark an issue unresolved'
+      summary: 'Unresolve issue'
+      operationId: resourcesIssueUnresolvePost
+      security:
+        - requireAdmin: []
+      requestBody:
+        $ref: '#/components/requestBodies/EmptyRequest'
+      responses:
+        '204':
+         $ref: '#/components/responses/EmptyObject'
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /api/resources/issues/user-report:
+    post:
+      description: 'Report a new issue'
+      summary: 'Report issue'
+      operationId: resourcesIssuesUserReportPost
+      requestBody:
+        description: Request body to create new issues.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - resourceId
+                - reportedIssues
+              properties:
+                resourceId:
+                  $ref: '#/components/schemas/Meta_id'
+                reportedIssues:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      kind:
+                        type: string
+                        enum:
+                          - user_report
+                      detailExplanation:
+                        type: string
+                        description: 'Text the user writes in as a detail.'
+                      reportedIssues:
+                        type: array
+                        items:
+                          type: string
+                          description: 'Schedule Incorrect, Website Inoperable'
+                detailExplanation:
+                  type: string
+      responses:
+        '201':
+          $ref: '#/components/responses/EmptyObject'
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+        '422':
+          $ref: '#/components/responses/ErrorInvalidRequest'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+#  /api/resources/issues/{id}:
+#    parameters:
+#      - $ref: '#/components/parameters/idPath'
+#    get:
+#      description: 'Get issue by resource.'
+#      summary: 'Get issues by resource'
+#      operationId: resourceIssueGet
+#      responses:
+#        '200':
+#          description: Subcategory.
+#          content:
+#            application/json:
+#              schema:
+#                type: object
+#                properties:
+#                  subcategory:
+#                    type: object
+#                    properties:
+#                      _id:
+#                        $ref: '#/components/schemas/Meta_id'
+#                      name:
+#                        type: string
+#                        example: 'Food Pantries'
+#                      stub:
+#                        type: string
+#                        example: 'food_pantries'
+#                      parentCategory:
+#                        $ref: '#/components/schemas/ParentCategory'
+#                      resources:
+#                        type: array
+#                        items:
+#                          $ref: '#/components/schemas/ResourceCategoryData'
+#                      createdAt:
+#                        $ref: '#/components/schemas/MetaDateTime'
+#                      lastModifiedAt:
+#                        $ref: '#/components/schemas/MetaDateTime'
+#                      __v:
+#                        type: number
+#                        default: 1
+#        '404':
+#          $ref: '#/components/responses/ErrorNotFound'
+
+  /api/resources/uncategorized:
+    get:
+      description: 'Get an array of uncategorized resources.'
+      summary: 'Get uncategorized resources.'
+      tags:
+        - stub
+      operationId: resourcesUncategorizedGet
+      responses:
+        '200':
+          description: Array of resources.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uncategorizedResources:
+                    type: array
+                    items:
+                      allOf:
+                        - $ref: '#/components/schemas/ResourceData'
+                        - type: object
+                          properties:
+                            location:
+                              type: object
+                              properties:
+                                coordinates:
+                                  description: Latitude & Longitude
+                                  type: array
+                                  items:
+                                    type: number
+                                  example: [-105.13494760000003, 39.9776081]
+                                type:
+                                  type: string
+                                  example: Point
+
+  /api/subcategories:
+    get:
+      description: 'Get an array of all sub-categories.'
+      summary: 'Get sub-categories.'
+      operationId: subcategoriesGet
+      responses:
+        '200':
+          description: Subcategories.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  subcategories:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          $ref: '#/components/schemas/Meta_id'
+                        name:
+                          type: string
+                          example: 'Food Pantries'
+                        stub:
+                          type: string
+                          example: 'food_pantries'
+                        parentCategory:
+                          allOf:
+                            - $ref: '#/components/schemas/CategoryData'
+                            - type: object
+                              properties:
+                                subcategories:
+                                  type: array
+                                  items:
+                                    $ref: '#/components/schemas/Meta_id'
+                        createdAt:
+                          $ref: '#/components/schemas/MetaDateTime'
+                        lastModifiedAt:
+                          $ref: '#/components/schemas/MetaDateTime'
+                        __v:
+                          type: number
+                          default: 1
+
+  /api/subcategory/{subcategory}:
+    parameters:
+      - $ref: '#/components/parameters/subcategoryPath'
+    get:
+      description: 'Get a sub-category by stub name.'
+      summary: 'Get a sub-category'
+      operationId: subcategoryGet
+      responses:
+        '200':
+          description: Subcategory.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  subcategory:
+                    type: object
+                    properties:
+                      _id:
+                        $ref: '#/components/schemas/Meta_id'
+                      name:
+                        type: string
+                        example: 'Food Pantries'
+                      stub:
+                        type: string
+                        example: 'food_pantries'
+                      parentCategory:
+                        $ref: '#/components/schemas/ParentCategory'
+                      resources:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ResourceCategoryData'
+                      createdAt:
+                        $ref: '#/components/schemas/MetaDateTime'
+                      lastModifiedAt:
+                        $ref: '#/components/schemas/MetaDateTime'
+                      __v:
+                        type: number
+                        default: 1
         '404':
           $ref: '#/components/responses/ErrorNotFound'
 
@@ -96,6 +894,7 @@ paths:
       - $ref: '#/components/parameters/longitudeQuery'
     get:
       description: 'Get weather data for location.'
+      summary: 'Get weather data'
       operationId: weatherGet
       responses:
         '200':
@@ -174,7 +973,7 @@ paths:
                       sunset:
                         type: number
                   timezone:
-                    type: number
+                    $ref: '#/components/schemas/MetaTimeZone'
                   id:
                     type: number
                   name:
@@ -190,34 +989,103 @@ paths:
 
 components:
   schemas:
-    # Categories
-    CategoryDataCore:
+    CategoryDataNoColor:
       type: object
       properties:
         _id:
-          type: string
-          example: 5d8f030ac0e6672699a500c2
+          $ref: '#/components/schemas/Meta_id'
         name:
           type: string
+          example: Food
         stub:
           type: string
+          example: food
         createdAt:
-          type: string
-          format: date-time
+          $ref: '#/components/schemas/MetaDateTime'
         lastModifiedAt:
-          type: string
-          format: date-time
+          $ref: '#/components/schemas/MetaDateTime'
         __v:
           type: number
           default: 1
     CategoryData:
       allOf:
-        - $ref: '#/components/schemas/CategoryDataCore'
+        - $ref: '#/components/schemas/CategoryDataNoColor'
         - type: object
           properties:
             color:
               type: string
-    SubCategory:
+    ParentCategory:
+      allOf:
+        - $ref: '#/components/schemas/CategoryData'
+        - type: object
+          properties:
+            subcategories:
+              type: array
+              items:
+                $ref: '#/components/schemas/Meta_id'
+    ResourceCategoryData:
+      allOf:
+        - $ref: '#/components/schemas/ResourceDataLatLon'
+        - type: object
+          properties:
+            resourceId:
+              $ref: '#/components/schemas/Meta_id'
+            subcategories:
+              type: array
+              items:
+                $ref: '#/components/schemas/SubCategoryData'
+    ResourceData:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/Meta_id'
+        address:
+          $ref: '#/components/schemas/AddressObj'
+        description:
+          type: string
+          example: 'Weekly groceries for families whose children are enrolled in the free or reduced lunch program at their school.'
+        kudos:
+          type: number
+          default: 0
+        legacyId:
+          type: string
+          example: -KUo-cPb45EOhVRG_ul9
+        name:
+          type: string
+          example: United Methodist Church
+        phone:
+          $ref: '#/components/schemas/MetaPhone'
+        schedule:
+          $ref: '#/components/schemas/ScheduleObj'
+        services:
+          type: array
+          items:
+            type: string
+            example: 'Groceries for low-income Seniors/Families'
+        streetViewImage:
+          type: string
+          example: 'http://media.upswyng.org/images/5def5cbab831a048f2a3df03.jpg'
+        website:
+          type: string
+        deleted:
+          type: boolean
+          default: false
+        createdAt:
+          $ref: '#/components/schemas/MetaDateTime'
+        lastModifiedAt:
+          $ref: '#/components/schemas/MetaDateTime'
+    ResourceDataLatLon:
+      allOf:
+        - $ref: '#/components/schemas/ResourceData'
+        - $ref: '#/components/schemas/MetaLatLonObj'
+    ResourceSubcategory:
+      allOf:
+        - $ref: '#/components/schemas/CategoryDataNoColor'
+        - type: object
+          properties:
+            parentCategory:
+              $ref: '#/components/schemas/CategoryData'
+    SubCategoryData:
       allOf:
         - $ref: '#/components/schemas/CategoryData'
         - type: object
@@ -226,94 +1094,156 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/ResourceCategoryData'
-    ResourceCategoryData:
-      allOf:
-        - $ref: '#/components/schemas/ResourceData'
-        - type: object
-          properties:
-            resourceId:
-              type: string
-              example: 5d8f030ac0e6672699a500c2
-        subcategories:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubCategory'
-    ResourceData:
+    StartTimeObj:
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+    UserObj:
       type: object
       properties:
         _id:
           type: string
-          example: 5d8f030ac0e6672699a500c2
-        address:
-          $ref: '#/components/schemas/Address'
-        createdAt:
-          type: string
-          format: date-date-time
-        deleted:
-          type: boolean
-          default: false
-        description:
-          type: string
-        kudos:
-          type: number
-          default: 0
-        lastModifiedAt:
-          type: string
-          format: date-time
-        latitude:
-          type: number
-          example: 40.0584971
-        legacyId:
-          type: string
-          example: -KUo-cPb45EOhVRG_ul9
-        longitude:
-          type: number
-          example: -105.11954379999997
+          description: database ObjectId converted to hex string
         name:
           type: string
-        phone:
+        email:
           type: string
-        schedule:
+          format: email
+        providers:
+          type: string
+          enum:
+            - 'facebook'
+            - 'google'
+            - 'slack'
+        isAdmin:
+          type: boolean
+          default: false
+        isSuperAdmin:
+          type: boolean
+          default: false
+    # Post Request Bodies
+    AlertPost:
+      type: object
+      required:
+        - _id
+        - color
+        - end
+        - icon
+        - start
+        - title
+      properties:
+        _id:
+          $ref: '#/components/schemas/Meta_id'
+        color:
+          type: string
+        end:
+          $ref: '#/components/schemas/MetaDateTime'
+        icon:
+          type: string
+        isApproved:
+          type: boolean
+        isCancelled:
+          type: boolean
+        start:
+          $ref: '#/components/schemas/MetaDateTime'
+        title:
+          type: string
+    IssuesQueryPost:
+      type: object
+      properties:
+        includeResolved:
+          type: boolean
+          default: false
+        limit:
+          type: integer
+          default: 20
+        minimumSeverity:
+          type: string
+          default: low
+          enum:
+            - low
+            - medium
+            - high
+        offset:
+          type: integer
+          default: 0
+    ResourcePost:
+      type: object
+      properties:
+        draftResource:
           type: object
+          required:
+            - address
+            - description
+            - latitude
+            - longitude
+            - name
+            - phone
+            - resourceId
+            - schedule
+            - services
+            - streetViewImage
+            - subcategories
+            - website
           properties:
-            alwaysOpen:
-              type: boolean
-            timezone:
+            address:
+              $ref: '#/components/schemas/AddressObj'
+            description:
               type: string
-            _items:
+            latitude:
+              type: number
+              nullable: true
+              default: null
+            longitude:
+              type: number
+              nullable: true
+              default: null
+            name:
+              type: string
+            phone:
+              $ref: '#/components/schemas/MetaPhone'
+            resourceId:
+              $ref: '#/components/schemas/Meta_id'
+            schedule:
+              $ref: '#/components/schemas/ScheduleObj'
+            services:
               type: array
               items:
-                $ref: '#/components/schemas/ScheduleItem'
-        services:
-          type: array
-          items:
-            type: string
-            example: 'Groceries for low-income Seniors/Families'
-        website:
-          type: string
-    ResourceDataDetail:
-      allOf:
-        - $ref: '#/components/schemas/ResourceData'
-        - type: object
-          properties:
+                type: string
+            streetViewImage:
+              type: string
+              example: 'http://media.upswyng.org/images/5def5cbab831a048f2a3df03.jpg'
             subcategories:
-              allOf:
-                - $ref: '#/components/schemas/CategoryDataCore'
-                - type: object
-                  properties:
-                    parentCategory:
-                      $ref: '#/components/schemas/CategoryData'
-    Address:
+              type: array
+              items:
+                $ref: '#/components/schemas/Meta_id'
+            website:
+              type: string
+    # Common
+    AddressObj:
       type: object
       properties:
         address1:
           type: string
+          example: 123 Someplace Avenue
         city:
           type: string
+          example: Boulder
         state:
           type: string
+          example: CO
         zip:
           type: integer
+          example: 80301
+    ErrorObj:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Description of error.
+          example: 'Error description'
     ScheduleItem:
       type: object
       properties:
@@ -323,40 +1253,96 @@ components:
           type: integer
         recurrenceRule:
           type: string
+          example: 'RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=WE'
         toTime:
           type: integer
-    StartTime:
+    ScheduleObj:
       type: object
       properties:
-        start:
-          type: string
-          format: date-time
-    # Common
-    Error:
+        alwaysOpen:
+          type: boolean
+        timezone:
+          $ref: '#/components/schemas/MetaTimeZone'
+        _items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleItem'
+    # Meta
+    Meta_id:
+      type: string
+      example: 5d8f030ac0e6672699a500c2
+    MetaDateTime:
+      type: string
+      format: date-time
+      example: '2019-09-28T06:51:53.633Z'
+    MetaLatLonObj:
       type: object
       properties:
-        message:
+        latitude:
+          type: number
+          example: 40.0584971
+        longitude:
+          type: number
+          example: -105.11954379999997
+    MetaLegacyIdObj:
+      type: object
+      properties:
+        legacyId:
           type: string
-          description: Description of error.
-          example: 'Error description'
+          example: -KZnRX-8rV1552vd0P7_
+    MetaPhone:
+      type: string
+      example: (303) 555-0112
+    MetaTimeZone:
+      type: string
+      example: 'America/Denver'
+
+  securitySchemes:
+    requireAdmin:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    requireLoggedIn:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    requireSuperAdmin:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 
   parameters:
-    idQueryOptional:
-      name: id
-      in: query
-      description: id for a single entry.
-      required: false
-      schema:
-        type: string
-        example: 5def5cb7b831a048f2a3deed
     categoryPath:
       name: category
       in: path
-      description: Single category index name.
+      description: Single category stub name.
       example: transit
       required: true
       schema:
         type: string
+        example: food
+    idPath:
+      name: id
+      in: path
+      description: Single object _id.
+      required: true
+      schema:
+        $ref: '#/components/schemas/Meta_id'
+    idQueryOptional:
+      name: id
+      in: query
+      description: _id for an entry
+      required: false
+      schema:
+        type: string
+        example: 5def5cb7b831a048f2a3deed
+    includeDeletedQueryOptional:
+      name: include-deleted
+      in: query
+      description: Whether to include deleted
+      required: false
+      schema:
+        type: boolean
     latitudeQuery:
       name: latitude
       in: query
@@ -373,31 +1359,56 @@ components:
       schema:
         type: number
         example: -105.2705
+    subcategoryPath:
+      name: subcategory
+      in: path
+      description: Single subcategory stub name.
+      example: food_pantry
+      required: true
+      schema:
+        type: string
 
   responses:
+    EmptyObject:
+      description: Empty json object.
+      content:
+        application/json:
+          schema:
+            type: object
     # Errors
     ErrorAlreadyExists:
       description: Resource already exists and cannot be created again.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/ErrorObj'
+    ErrorAuthentication:
+      description: Invalid user credentials submitted.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorObj'
     ErrorInvalidRequest:
       description: Known invalid request.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/ErrorObj'
     ErrorNotFound:
       description: Resource invalid or not found.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/ErrorObj'
     ErrorUnknown:
       description: Unknown invalid request.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/ErrorObj'
 
+  requestBodies:
+    EmptyRequest:
+      description: Empty request body
+      content:
+        application/json: {}
