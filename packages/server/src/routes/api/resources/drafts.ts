@@ -1,4 +1,5 @@
 import { DraftResource } from "../../../models/Resource";
+import { isAdmin } from "../../../utility/authHelpers";
 
 /**
  * Get all draft resources. Include the `include-deleted` query parameter to
@@ -11,6 +12,19 @@ export async function get(req, res, _next) {
     res.writeHead(200, {
       "Content-Type": "application/json",
     });
+
+    if (!isAdmin(req)) {
+      // don't allow non-admins to see who created a resource
+      return res.end(
+        JSON.stringify({
+          draftResources: draftResources.map(d => {
+            const result = { ...d };
+            delete result.createdBy;
+            return result;
+          }),
+        })
+      );
+    }
 
     return res.end(JSON.stringify({ draftResources }));
   } catch (e) {

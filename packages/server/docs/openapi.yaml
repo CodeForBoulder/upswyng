@@ -384,7 +384,7 @@ paths:
       security:
         - requireLoggedIn: []
       tags:
-        - stub
+        - resource
       operationId: resourcePost
       requestBody:
         description: New Resource Payload.
@@ -464,6 +464,8 @@ paths:
                           default: 0
         '401':
           $ref: '#/components/responses/ErrorAuthentication'
+        '422':
+          $ref: '#/components/responses/ErrorAlreadyExists'
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
@@ -522,19 +524,9 @@ paths:
                 type: object
                 properties:
                   resources:
-                    type: array
-                    items:
-                      allOf:
-                        - $ref: '#/components/schemas/ResourceDataLatLon'
-                        - type: object
-                          properties:
-                            subcategories:
-                              allOf:
-                                - $ref: '#/components/schemas/CategoryDataNoColor'
-                                - type: object
-                                  properties:
-                                    parentCategory:
-                                      $ref: '#/components/schemas/CategoryData'
+                    $ref: '#/components/schemas/MetaResourceArr'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
 
   /api/resource/draft/approve/{id}:
     parameters:
@@ -586,22 +578,17 @@ paths:
       summary: 'Get a resource draft'
       operationId: resourceDraftGet
       tags:
-        - stub
+        - resource
       responses:
         '200':
-          description: Single Category.
+          description: Single Resource Draft - `createdBy` only available to admin users.
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  category:
-                    allOf:
-                      - $ref: '#/components/schemas/CategoryData'
-                      - type: object
-                        properties:
-                          subcategories:
-                            $ref: '#/components/schemas/SubCategoryData'
+                  draftResource:
+                    $ref: '#/components/schemas/DraftResource'
         '404':
           $ref: '#/components/responses/ErrorNotFound'
         '500':
@@ -611,14 +598,14 @@ paths:
     parameters:
       - $ref: '#/components/parameters/includeDeletedQueryOptional'
     get:
-      description: 'Get an array of resources.'
-      summary: 'Get resources.'
+      description: 'Get an array of draft resources.'
+      summary: 'Get draft resources.'
       tags:
-        - stub
+        - resource
       operationId: resourcesDraftsGet
       responses:
         '200':
-          description: INCOMPLETE
+          description: Draft resources
           content:
             application/json:
               schema:
@@ -627,22 +614,22 @@ paths:
                   draftResources:
                     type: array
                     items:
-                      allOf:
-                        - $ref: '#/components/schemas/ResourceDataLatLon'
-                        - $ref: '#/components/schemas/MetaLegacyIdObj'
-        '401':
-          $ref: '#/components/responses/ErrorAuthentication'
+                      $ref: '#/components/schemas/DraftResource'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
 
   /api/resources/drafts/mine:
     get:
       description: 'Get an array of resources.'
       summary: 'Get resources.'
       tags:
-        - stub
+        - resource
       operationId: resourcesDraftsMineGet
+      security:
+        - requireLoggedIn: []
       responses:
         '200':
-          description: INCOMPLETE
+          description: Resource Drafts
           content:
             application/json:
               schema:
@@ -653,22 +640,11 @@ paths:
                     items:
                       allOf:
                         - $ref: '#/components/schemas/ResourceData'
-                        - type: object
-                          properties:
-                            location:
-                              type: object
-                              properties:
-                                coordinates:
-                                  description: Latitude & Longitude
-                                  type: array
-                                  items:
-                                    type: number
-                                  example: [-105.13494760000003, 39.9776081]
-                                type:
-                                  type: string
-                                  example: Point
+                        - $ref: '#/components/schemas/MetaLocationObj'
         '401':
           $ref: '#/components/responses/ErrorAuthentication'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
 
   /api/resources/issue/{id}:
     parameters:
@@ -911,35 +887,20 @@ paths:
       description: 'Get an array of uncategorized resources.'
       summary: 'Get uncategorized resources.'
       tags:
-        - stub
+        - resource
       operationId: resourcesUncategorizedGet
       responses:
         '200':
-          description: Array of resources.
+          description: Array of uncategorized resources.
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   uncategorizedResources:
-                    type: array
-                    items:
-                      allOf:
-                        - $ref: '#/components/schemas/ResourceData'
-                        - type: object
-                          properties:
-                            location:
-                              type: object
-                              properties:
-                                coordinates:
-                                  description: Latitude & Longitude
-                                  type: array
-                                  items:
-                                    type: number
-                                  example: [-105.13494760000003, 39.9776081]
-                                type:
-                                  type: string
-                                  example: Point
+                    $ref: '#/components/schemas/MetaResourceArr'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
 
   /api/subcategories:
     get:
@@ -1363,6 +1324,76 @@ components:
           properties:
             color:
               type: string
+    DraftResource:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/Meta_id'
+        address:
+          $ref: '#/components/schemas/AddressObj'
+        createdAt:
+          $ref: '#/components/schemas/MetaDateTime'
+        createdBy:
+          $ref: '#/components/schemas/UserObj'
+        deleted:
+          type: boolean
+          default: false
+        description:
+          type: string
+          example: 'Weekly groceries for families whose children are enrolled in the free or reduced lunch program at their school...'
+        kudos:
+          type: integer
+          default: 0
+        latitude:
+          $ref: '#/components/schemas/MetaLatitude'
+        legacyId:
+          type: string
+          default: '-KUnLd_no7p7m2u77dfY'
+        longitude:
+          $ref: '#/components/schemas/MetaLongitude'
+        name:
+          type: string
+          default: 'Community Food Share'
+        phone:
+          type: string
+          default: '(303) 652-3663'
+        schedule:
+          $ref: '#/components/schemas/ScheduleObj'
+        services:
+          $ref: '#/components/schemas/MetaServicesArr'
+        streetViewImage:
+          $ref: '#/components/schemas/MetaStreetViewImage'
+        subcategories:
+          type: array
+          items:
+            type: object
+            properties:
+              _id:
+                $ref: '#/components/schemas/Meta_id'
+              name:
+                type: string
+                example: 'Food Pantries'
+              stub:
+                type: string
+                example: 'food_pantries'
+              parentCategory:
+                allOf:
+                  - $ref: '#/components/schemas/CategoryData'
+                  - type: object
+                    properties:
+                      subcategories:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Meta_id'
+              createdAt:
+                $ref: '#/components/schemas/MetaDateTime'
+              lastModifiedAt:
+                $ref: '#/components/schemas/MetaDateTime'
+              __v:
+                type: integer
+        website:
+          type: string
+          example: 'https://www.upswyng.org'
     ParentCategory:
       allOf:
         - $ref: '#/components/schemas/CategoryData'
@@ -1407,13 +1438,9 @@ components:
         schedule:
           $ref: '#/components/schemas/ScheduleObj'
         services:
-          type: array
-          items:
-            type: string
-            example: 'Groceries for low-income Seniors/Families'
+          $ref: '#/components/schemas/MetaServicesArr'
         streetViewImage:
-          type: string
-          example: 'http://media.upswyng.org/images/5def5cbab831a048f2a3df03.jpg'
+          $ref: '#/components/schemas/MetaStreetViewImage'
         website:
           type: string
         deleted:
@@ -1485,6 +1512,9 @@ components:
         isSuperAdmin:
           type: boolean
           default: false
+        name:
+          type: string
+          example: "Jacob Venable"
         providers:
           type: array
           items:
@@ -1617,12 +1647,9 @@ components:
             schedule:
               $ref: '#/components/schemas/ScheduleObj'
             services:
-              type: array
-              items:
-                type: string
+              $ref: '#/components/schemas/MetaServicesArr'
             streetViewImage:
-              type: string
-              example: 'http://media.upswyng.org/images/5def5cbab831a048f2a3df03.jpg'
+              $ref: '#/components/schemas/MetaStreetViewImage'
             subcategories:
               type: array
               items:
@@ -1688,29 +1715,72 @@ components:
       type: string
       format: date-time
       example: '2019-09-28T06:51:53.633Z'
+    MetaLatitude:
+      type: number
+      example: 40.0584971
+    MetaLongitude:
+      type: number
+      example: -105.11954379999997
     MetaLatLonObj:
       type: object
       properties:
         latitude:
-          type: number
-          example: 40.0584971
+          $ref: '#/components/schemas/MetaLatitude'
         longitude:
-          type: number
-          example: -105.11954379999997
+          $ref: '#/components/schemas/MetaLongitude'
     MetaLegacyIdObj:
       type: object
       properties:
         legacyId:
           type: string
           example: -KZnRX-8rV1552vd0P7_
+    MetaLocation:
+      type: object
+      properties:
+        coordinates:
+          description: Latitude & Longitude
+          type: array
+          items:
+            type: number
+          example: [-105.13494760000003, 39.9776081]
+        type:
+          type: string
+          example: Point
+    MetaLocationObj:
+      type: object
+      properties:
+        location:
+          $ref: '#/components/schemas/MetaLocation'
     MetaPhone:
       type: string
       example: (303) 555-0112
+    MetaResourceArr:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/ResourceDataLatLon'
+          - type: object
+            properties:
+              subcategories:
+                allOf:
+                  - $ref: '#/components/schemas/CategoryDataNoColor'
+                  - type: object
+                    properties:
+                      parentCategory:
+                        $ref: '#/components/schemas/CategoryData'
+    MetaServicesArr:
+      type: array
+      items:
+        type: string
+        example: 'Groceries for low-income Seniors/Families'
     MetaSlackType:
       type: string
       enum:
         - mrkdwn
         - section
+    MetaStreetViewImage:
+      type: string
+      example: 'http://media.upswyng.org/images/5def5cbab831a048f2a3df03.jpg'
     MetaTimeZone:
       type: string
       example: 'America/Denver'
@@ -1807,12 +1877,12 @@ components:
         application/json:
           schema:
             type: object
-#    ErrorAlreadyExists:
-#      description: Resource already exists and cannot be created again.
-#      content:
-#        application/json:
-#          schema:
-#            $ref: '#/components/schemas/ErrorObj'
+    ErrorAlreadyExists:
+      description: Resource already exists and cannot be created again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorObj'
     ErrorAuthentication:
       description: Invalid user credentials submitted.
       content:
@@ -1866,8 +1936,6 @@ components:
             $ref: '#/components/schemas/BotSlackJobPost'
 
 tags:
-  - name: stub
-    description: Incomplete documentation.
   - name: alert
     description: 'Create and get alerts for display.'
   - name: bot

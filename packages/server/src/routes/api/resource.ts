@@ -28,6 +28,9 @@ export async function post(req, res, next) {
     next();
     return;
   }
+
+  console.log(`\n  user:\n\n\n\t${JSON.stringify(user)}\n\n`);
+
   try {
     const { draftResource } = req.body;
     draftResource.createdBy = user as TUser;
