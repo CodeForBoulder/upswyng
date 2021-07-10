@@ -9,16 +9,16 @@ info:
   version: '1.0.0'
 
 servers:
-  - url: 'http://localhost:3000'
+  - url: 'http://localhost:3000/api'
     description: Docker Compose Server
 
 # Paths are sorted alphabetically
 # variables as part of a path are sorted as last in order.
 
 paths:
-  /api/alert:
+  /alert:
     post:
-      description: 'Create a new alert.'
+      description: 'API endpoint to create or update an alert.'
       summary: 'Create alert'
       security:
         - requireAdmin: []
@@ -51,7 +51,7 @@ paths:
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
-  /api/alert/search:
+  /alert/search:
     post:
       description: 'API endpoint to get a list of Alerts. Returns the full alert (TAlertFull with user who created) if the user is a signed-in admin. Otherwise, returns TAlert'
       summary: 'API endpoint to get a list of Alerts'
@@ -84,11 +84,11 @@ paths:
         '404':
           $ref: '#/components/responses/ErrorNotFound'
 
-  /api/alert/{id}:
+  /alert/{id}:
     parameters:
       - $ref: '#/components/parameters/idPath'
     get:
-      description: 'Get an alert'
+      description: 'Get a single alert by ID. ex: /api/alert/5e6e9b2a8746d64922c6a412'
       summary: 'Get an alert'
       operationId: alertGet
       tags:
@@ -103,10 +103,12 @@ paths:
                 properties:
                   alert:
                     $ref: '#/components/schemas/AlertData'
+        '400':
+          $ref: '#/components/responses/ErrorInvalidRequest'
         '404':
           $ref: '#/components/responses/ErrorNotFound'
 
-  /api/bot/check-links:
+  /bot/check-links:
     parameters:
       - $ref: '#/components/parameters/slackTimestampHeader'
     post:
@@ -125,7 +127,7 @@ paths:
         '400':
           $ref: '#/components/responses/ErrorInvalidRequest'
 
-  /api/bot/destroy-all-sessions:
+  /bot/destroy-all-sessions:
     parameters:
       - $ref: '#/components/parameters/slackTimestampHeader'
     post:
@@ -144,7 +146,9 @@ paths:
         '400':
           $ref: '#/components/responses/ErrorInvalidRequest'
 
-  /api/bot/sync-algolia:
+  /bot/sync-algolia:
+    parameters:
+      - $ref: '#/components/parameters/slackTimestampHeader'
     post:
       description: "Adds 'syncAlgoliaIndex' to the queue. This job ensures that our algolia index is in sync with our database. <br><br>Can be called from slack command `/sync-algolia`."
       summary: "Adds 'syncAlgoliaIndex' to the queue"
@@ -161,7 +165,7 @@ paths:
         '400':
           $ref: '#/components/responses/ErrorInvalidRequest'
 
-  /api/bot/test-job:
+  /bot/test-job:
     post:
       description: "Adds a Test Job to the Work Queue. <br><br>Can be called from slack command `/test-job`. <br>Command can be like `/test-job 35`, where the second part is the delay to apply to the job. <br><br>To call from the command line: <ul><li>`curl -XPOST -d 'delay=2000&shouldFail=true' 'localhost:3000/api/bot/test-job'`</li></ul>"
       summary: "Adds 'syncAlgoliaIndex' to the queue"
@@ -197,7 +201,7 @@ paths:
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
-  /api/category/{category}:
+  /category/{category}:
     parameters:
       - $ref: '#/components/parameters/categoryPath'
     get:
@@ -215,16 +219,11 @@ paths:
                 type: object
                 properties:
                   category:
-                    allOf:
-                      - $ref: '#/components/schemas/CategoryData'
-                      - type: object
-                        properties:
-                          subcategories:
-                            $ref: '#/components/schemas/SubCategoryData'
+                    $ref: '#/components/schemas/CategoryDocument'
         '404':
           $ref: '#/components/responses/ErrorNotFound'
 
-  /api/categories:
+  /categories:
     get:
       description: 'Get an array of all categories.'
       summary: 'Get all categories.'
@@ -242,23 +241,11 @@ paths:
                   categories:
                     type: array
                     items:
-                      allOf:
-                        - $ref: '#/components/schemas/CategoryData'
-                        - type: object
-                          properties:
-                            subcategories:
-                              type: array
-                              items:
-                                allOf:
-                                  - $ref: '#/components/schemas/CategoryData'
-                                  - type: object
-                                    properties:
-                                      resources:
-                                        type: array
-                                        items:
-                                          $ref: '#/components/schemas/Meta_id'
+                      $ref: '#/components/schemas/CategoryDocument'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
 
-  /api/eventlogs:
+  /eventlogs:
     post:
       description: 'API endpoint to get a list of Event Logs. Ordered from newest to oldest.'
       summary: 'API endpoint to get a list of Event Logs.'
@@ -285,24 +272,21 @@ paths:
                 type: object
                 properties:
                   estimatedTotal:
-                    type: integer
-                    example: 338
+                    $ref: '#/components/schemas/MetaCount'
                   eventLogs:
                     type: array
                     items:
                       type: object
                       properties:
                         _id:
-                          type: string
-                          default: '60e650de6a3a5d1284c55546'
+                          $ref: '#/components/schemas/Meta_id'
                         actor:
-                          $ref: '#/components/schemas/UserObj'
+                          $ref: '#/components/schemas/MetaUser'
                         detail:
                           type: object
                           properties:
                             kind:
-                              type: string
-                              example: "user_permission_changed"
+                              $ref: '#/components/schemas/MetaEventKind'
                             propertyNew:
                               type: string
                               description: New value for update type events.
@@ -310,8 +294,7 @@ paths:
                               type: string
                               description: Old value for update type events.
                         kind:
-                          type: string
-                          default: 'user_permission_changed'
+                          $ref: '#/components/schemas/MetaEventKind'
                         createdAt:
                           $ref: '#/components/schemas/MetaDateTime'
                         updatedAt:
@@ -324,7 +307,7 @@ paths:
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
-  /api/hotlines:
+  /hotlines:
     get:
       description: 'Get an array of all hotlines.'
       summary: 'Get all hotlines.'
@@ -364,7 +347,7 @@ paths:
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
-  /api/provider/logout:
+  /provider/logout:
     get:
       description: 'Log Out by destroying any sessions associated with request.'
       summary: 'Log Out'
@@ -377,14 +360,15 @@ paths:
               schema:
                 type: object
 
-  /api/resource:
+  /resource:
     post:
-      description: 'Create a new resource.'
+      description: 'Creates a new draft resource. Resources and updates to resources start as draft resource records. Draft resource updates are then merged into the `Resource` collection.'
       summary: 'Create resource'
       security:
         - requireLoggedIn: []
       tags:
         - resource
+        - stub
       operationId: resourcePost
       requestBody:
         description: New Resource Payload.
@@ -397,7 +381,7 @@ paths:
               $ref: '#/components/schemas/ResourcePost'
       responses:
         '201':
-          description: INCOMPLETE
+          description: New draft resource
           content:
             application/json:
               schema:
@@ -407,8 +391,7 @@ paths:
                     type: integer
                     default: 12
                   estimatedTotal:
-                    type: integer
-                    default: 29
+                    $ref: '#/components/schemas/MetaCount'
                   resourceIssues:
                     type: array
                     items:
@@ -421,31 +404,9 @@ paths:
                           type: object
                           properties:
                             kind:
-                              type: string
-                              default: 'user_report'
-                              enum:
-                                - 'user_report'
-                            #                                - 'legacy_schedule_parsing_error'
-                            # user_report
-                            detailExplanation:
-                              type: string
-                              default: 'Derp'
-                            reportedIssues:
-                              type: array
-                              items:
-                                type: string
-                                example: 'The address is wrong.'
-                        #                            # legacy schedule error
-                        #                            legacyClosesSchedule:
-                        #                              type: string
-                        #                              description: 'Only for type legacy_schedule_parsing_error'
-                        #                            legacySchedule:
-                        #                              type: string
-                        #                              example: '[{"day":"Thursday","fromstring":"10:00 AM","period":"First","tostring":"12:00 PM","type":"Monthly"},{"day":"Thursday","fromstring":"10:00 AM","period":"Third","tostring":"12:00 PM","type":"Monthly"}]'
-                        #                              description: 'Only for type legacy_schedule_parsing_error'
+                              $ref: '#/components/schemas/MetaEventKindUserReport'
                         kind:
-                          type: string
-                          default: 'user_report'
+                          $ref: '#/components/schemas/MetaEventKindUserReport'
                         resolved:
                           type: boolean
                           default: false
@@ -469,12 +430,14 @@ paths:
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
-  /api/resource/{id}:
+  /resource/{id}:
     parameters:
       - $ref: '#/components/parameters/idPath'
     get:
       description: 'Get a resource.'
       summary: 'Get a resource'
+      tags:
+        - resource
       operationId: resourceGet
       responses:
         '200':
@@ -485,35 +448,20 @@ paths:
                 type: object
                 properties:
                   resource:
-                    allOf:
-                      - $ref: '#/components/schemas/ResourceDataLatLon'
-                      - type: object
-                        properties:
-                          subcategories:
-                            allOf:
-                              - $ref: '#/components/schemas/ResourceSubcategory'
-                              - type: object
-                                properties:
-                                  parentCategory:
-                                    allOf:
-                                      - $ref: '#/components/schemas/CategoryData'
-                                      - type: object
-                                        properties:
-                                          subcategories:
-                                            type: array
-                                            items:
-                                              $ref: '#/components/schemas/ResourceSubcategory'
+                    $ref: '#/components/schemas/Resource'
         '404':
           $ref: '#/components/responses/ErrorNotFound'
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
-  /api/resources:
+  /resources:
     parameters:
       - $ref: '#/components/parameters/idQueryOptional'
     get:
       description: 'Get an array of resources.'
       summary: 'Get resources.'
+      tags:
+        - resource
       operationId: resourcesGet
       responses:
         '200':
@@ -528,12 +476,14 @@ paths:
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
-  /api/resource/draft/approve/{id}:
+  /resource/draft/approve/{id}:
     parameters:
       - $ref: '#/components/parameters/idPath'
     post:
       description: 'Mark a draft resource approved.'
       summary: 'Approve draft resource'
+      tags:
+        - resource
       operationId: resourcesDraftApprovePost
       security:
         - requireAdmin: []
@@ -549,12 +499,14 @@ paths:
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
-  /api/resource/draft/delete/{id}:
+  /resource/draft/delete/{id}:
     parameters:
       - $ref: '#/components/parameters/idPath'
     post:
       description: 'Delete a draft resource.'
       summary: 'Delete draft resource'
+      tags:
+        - resource
       operationId: resourcesDraftDeletePost
       security:
         - requireAdmin: []
@@ -570,7 +522,7 @@ paths:
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
-  /api/resource/draft/{id}:
+  /resource/draft/{id}:
     parameters:
       - $ref: '#/components/parameters/idPath'
     get:
@@ -588,13 +540,13 @@ paths:
                 type: object
                 properties:
                   draftResource:
-                    $ref: '#/components/schemas/DraftResource'
+                    $ref: '#/components/schemas/ResourceDraft'
         '404':
           $ref: '#/components/responses/ErrorNotFound'
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
-  /api/resources/drafts:
+  /resources/drafts:
     parameters:
       - $ref: '#/components/parameters/includeDeletedQueryOptional'
     get:
@@ -614,11 +566,11 @@ paths:
                   draftResources:
                     type: array
                     items:
-                      $ref: '#/components/schemas/DraftResource'
+                      $ref: '#/components/schemas/ResourceDraft'
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
-  /api/resources/drafts/mine:
+  /resources/drafts/mine:
     get:
       description: 'Get an array of resources.'
       summary: 'Get resources.'
@@ -638,15 +590,13 @@ paths:
                   uncategorizedResources:
                     type: array
                     items:
-                      allOf:
-                        - $ref: '#/components/schemas/ResourceData'
-                        - $ref: '#/components/schemas/MetaLocationObj'
+                      $ref: '#/components/schemas/Resource'
         '401':
           $ref: '#/components/responses/ErrorAuthentication'
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
-  /api/resources/issue/{id}:
+  /resources/issue/{id}:
     parameters:
       - $ref: '#/components/parameters/idPath'
     get:
@@ -674,16 +624,14 @@ paths:
                             type: string
                             default: 'The picture is incorrect. Mike '
                           kind:
-                            type: string
-                            default: 'user_report'
+                            $ref: '#/components/schemas/MetaEventKindUserReport'
                           reportedIssues:
                             type: array
                             items:
                               type: string
                               example: 'The address is wrong.'
                       kind:
-                        type: string
-                        default: 'user_report'
+                        $ref: '#/components/schemas/MetaEventKindUserReport'
                       resourceId:
                         type: string
                         default: '5def5cb7b831a048f2a3deef'
@@ -704,7 +652,7 @@ paths:
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
-  /api/resources/issues:
+  /resources/issues:
     post:
       description: 'Query for an array of issues.'
       summary: 'Query issues.'
@@ -732,8 +680,7 @@ paths:
                     type: integer
                     default: 12
                   estimatedTotal:
-                    type: integer
-                    default: 29
+                    $ref: '#/components/schemas/MetaCount'
                   resourceIssues:
                     type: array
                     items:
@@ -746,12 +693,7 @@ paths:
                           type: object
                           properties:
                             kind:
-                              type: string
-                              default: 'user_report'
-                              enum:
-                                - 'user_report'
-#                                - 'legacy_schedule_parsing_error'
-                            # user_report
+                              $ref: '#/components/schemas/MetaEventKindUserReport'
                             detailExplanation:
                               type: string
                               default: 'Derp'
@@ -760,17 +702,8 @@ paths:
                               items:
                                 type: string
                                 example: 'The address is wrong.'
-#                            # legacy schedule error
-#                            legacyClosesSchedule:
-#                              type: string
-#                              description: 'Only for type legacy_schedule_parsing_error'
-#                            legacySchedule:
-#                              type: string
-#                              example: '[{"day":"Thursday","fromstring":"10:00 AM","period":"First","tostring":"12:00 PM","type":"Monthly"},{"day":"Thursday","fromstring":"10:00 AM","period":"Third","tostring":"12:00 PM","type":"Monthly"}]'
-#                              description: 'Only for type legacy_schedule_parsing_error'
                         kind:
-                          type: string
-                          default: 'user_report'
+                          $ref: '#/components/schemas/MetaEventKindUserReport'
                         resolved:
                           type: boolean
                           default: false
@@ -792,7 +725,7 @@ paths:
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
-  /api/resources/issues/resolve/{id}:
+  /resources/issues/resolve/{id}:
     parameters:
       - $ref: '#/components/parameters/idPath'
     post:
@@ -813,7 +746,7 @@ paths:
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
-  /api/resources/issues/unresolve/{id}:
+  /resources/issues/unresolve/{id}:
     parameters:
       - $ref: '#/components/parameters/idPath'
     post:
@@ -834,7 +767,7 @@ paths:
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
-  /api/resources/issues/user-report:
+  /resources/issues/user-report:
     post:
       description: 'Report a new issue'
       summary: 'Report issue'
@@ -857,9 +790,7 @@ paths:
                     type: object
                     properties:
                       kind:
-                        type: string
-                        enum:
-                          - user_report
+                        $ref: '#/components/schemas/MetaEventKindUserReport'
                       detailExplanation:
                         type: string
                         description: 'Text the user writes in as a detail.'
@@ -882,7 +813,7 @@ paths:
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
-  /api/resources/uncategorized:
+  /resources/uncategorized:
     get:
       description: 'Get an array of uncategorized resources.'
       summary: 'Get uncategorized resources.'
@@ -902,12 +833,12 @@ paths:
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
-  /api/subcategories:
+  /subcategories:
     get:
       description: 'Get an array of all sub-categories.'
       summary: 'Get sub-categories.'
       tags:
-        - category
+        - sub-category
       operationId: subcategoriesGet
       responses:
         '200':
@@ -947,14 +878,14 @@ paths:
                           type: number
                           default: 1
 
-  /api/subcategory/add-resource:
+  /subcategory/add-resource:
     post:
       description: 'Add a resource to a subcategory.'
       summary: 'Create a resource'
       security:
         - requireAdmin: []
       tags:
-        - category
+        - sub-category
       operationId: subcategoryAddResourcePost
       requestBody:
         description: Add Resource Payload.
@@ -975,15 +906,14 @@ paths:
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
-
-  /api/subcategory/{subcategory}:
+  /subcategory/{subcategory}:
     parameters:
       - $ref: '#/components/parameters/subcategoryPath'
     get:
       description: 'Get a sub-category by stub name.'
       summary: 'Get a sub-category'
       tags:
-        - category
+        - sub-category
       operationId: subcategoryGet
       responses:
         '200':
@@ -1009,7 +939,7 @@ paths:
                       resources:
                         type: array
                         items:
-                          $ref: '#/components/schemas/ResourceCategoryData'
+                          $ref: '#/components/schemas/Resource'
                       createdAt:
                         $ref: '#/components/schemas/MetaDateTime'
                       lastModifiedAt:
@@ -1020,7 +950,7 @@ paths:
         '404':
           $ref: '#/components/responses/ErrorNotFound'
 
-  /api/users:
+  /users:
     post:
       description: 'Get an array of all sub-categories.'
       summary: 'Get users.'
@@ -1047,8 +977,7 @@ paths:
                 type: object
                 properties:
                   estimatedTotal:
-                    type: integer
-                    example: 8
+                    $ref: '#/components/schemas/MetaCount'
                   users:
                     type: array
                     items:
@@ -1078,7 +1007,7 @@ paths:
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
-  /api/users/{id}:
+  /users/{id}:
     parameters:
       - $ref: '#/components/parameters/idPath'
     get:
@@ -1098,7 +1027,7 @@ paths:
                 type: object
                 properties:
                   user:
-                    $ref: '#/components/schemas/UserObj'
+                    $ref: '#/components/schemas/MetaUser'
         '401':
           $ref: '#/components/responses/ErrorAuthentication'
         '404':
@@ -1131,7 +1060,7 @@ paths:
                 type: object
                 properties:
                   user:
-                    $ref: '#/components/schemas/UserObj'
+                    $ref: '#/components/schemas/MetaUser'
         '401':
           $ref: '#/components/responses/ErrorAuthentication'
         '404':
@@ -1139,7 +1068,7 @@ paths:
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
-  /api/weather:
+  /weather:
     parameters:
       - $ref: '#/components/parameters/latitudeQuery'
       - $ref: '#/components/parameters/longitudeQuery'
@@ -1254,7 +1183,7 @@ components:
           type: string
           default: 'gold'
         createdBy:
-          $ref: '#/components/schemas/UserObj'
+          $ref: '#/components/schemas/MetaCreatedBy'
         detail:
           type: string
           nullable: true
@@ -1270,7 +1199,7 @@ components:
           type: boolean
           default: false
         lastModifiedBy:
-          $ref: '#/components/schemas/UserObj'
+          $ref: '#/components/schemas/MetaUser'
         start:
           $ref: '#/components/schemas/MetaDateTime'
         title:
@@ -1324,41 +1253,91 @@ components:
           properties:
             color:
               type: string
-    DraftResource:
+    ParentCategory:
+      allOf:
+        - $ref: '#/components/schemas/CategoryData'
+        - type: object
+          properties:
+            subcategories:
+              type: array
+              items:
+                $ref: '#/components/schemas/Meta_id'
+    Resource:
+      type: object
+      properties:
+        _id:
+          description: 'DO NOT normally reference this, use `resourceId`'
+          type: string
+          example: '5d8f030ac0e6672699a500c2'
+        address:
+          $ref: '#/components/schemas/MetaAddress'
+        createdAt:
+          $ref: '#/components/schemas/MetaDateTime'
+        createdBy:
+          $ref: '#/components/schemas/MetaCreatedBy'
+        deleted:
+          $ref: '#/components/schemas/MetaDeleted'
+        description:
+          $ref: '#/components/schemas/MetaDescription'
+        kudos:
+          type: integer
+        lastModifiedAt:
+          $ref: '#/components/schemas/MetaDateTime'
+        lastModifiedBy:
+          $ref: '#/components/schemas/MetaUser'
+        latitude:
+          $ref: '#/components/schemas/MetaLatitude'
+        legacyId:
+          $ref: '#/components/schemas/MetaLegacyId'
+        longitude:
+          $ref: '#/components/schemas/MetaLongitude'
+        name:
+          type: string
+        phone:
+          $ref: '#/components/schemas/MetaPhone'
+        resourceId:
+          $ref: '#/components/schemas/Meta_id'
+        schedule:
+          $ref: '#/components/schemas/MetaSchedule'
+        services:
+          $ref: '#/components/schemas/MetaServicesArr'
+        streetViewImage:
+          $ref: '#/components/schemas/MetaStreetViewImage'
+        subcategories:
+          $ref: '#/components/schemas/SubCategoryWithResources'
+        website:
+          $ref: '#/components/schemas/MetaWebsite'
+    ResourceDraft:
       type: object
       properties:
         _id:
           $ref: '#/components/schemas/Meta_id'
         address:
-          $ref: '#/components/schemas/AddressObj'
+          $ref: '#/components/schemas/MetaAddress'
         createdAt:
           $ref: '#/components/schemas/MetaDateTime'
         createdBy:
-          $ref: '#/components/schemas/UserObj'
+          $ref: '#/components/schemas/MetaCreatedBy'
         deleted:
-          type: boolean
-          default: false
+          $ref: '#/components/schemas/MetaDeleted'
         description:
-          type: string
-          example: 'Weekly groceries for families whose children are enrolled in the free or reduced lunch program at their school...'
+          $ref: '#/components/schemas/MetaDescription'
         kudos:
           type: integer
           default: 0
         latitude:
           $ref: '#/components/schemas/MetaLatitude'
         legacyId:
-          type: string
-          default: '-KUnLd_no7p7m2u77dfY'
+          $ref: '#/components/schemas/MetaLegacyId'
         longitude:
           $ref: '#/components/schemas/MetaLongitude'
         name:
           type: string
           default: 'Community Food Share'
         phone:
-          type: string
-          default: '(303) 652-3663'
+          $ref: '#/components/schemas/MetaPhone'
         schedule:
-          $ref: '#/components/schemas/ScheduleObj'
+          $ref: '#/components/schemas/MetaSchedule'
         services:
           $ref: '#/components/schemas/MetaServicesArr'
         streetViewImage:
@@ -1392,75 +1371,7 @@ components:
               __v:
                 type: integer
         website:
-          type: string
-          example: 'https://www.upswyng.org'
-    ParentCategory:
-      allOf:
-        - $ref: '#/components/schemas/CategoryData'
-        - type: object
-          properties:
-            subcategories:
-              type: array
-              items:
-                $ref: '#/components/schemas/Meta_id'
-    ResourceCategoryData:
-      allOf:
-        - $ref: '#/components/schemas/ResourceDataLatLon'
-        - type: object
-          properties:
-            resourceId:
-              $ref: '#/components/schemas/Meta_id'
-            subcategories:
-              type: array
-              items:
-                $ref: '#/components/schemas/SubCategoryData'
-    ResourceData:
-      type: object
-      properties:
-        _id:
-          $ref: '#/components/schemas/Meta_id'
-        address:
-          $ref: '#/components/schemas/AddressObj'
-        description:
-          type: string
-          example: 'Weekly groceries for families whose children are enrolled in the free or reduced lunch program at their school.'
-        kudos:
-          type: number
-          default: 0
-        legacyId:
-          type: string
-          example: -KUo-cPb45EOhVRG_ul9
-        name:
-          type: string
-          example: United Methodist Church
-        phone:
-          $ref: '#/components/schemas/MetaPhone'
-        schedule:
-          $ref: '#/components/schemas/ScheduleObj'
-        services:
-          $ref: '#/components/schemas/MetaServicesArr'
-        streetViewImage:
-          $ref: '#/components/schemas/MetaStreetViewImage'
-        website:
-          type: string
-        deleted:
-          type: boolean
-          default: false
-        createdAt:
-          $ref: '#/components/schemas/MetaDateTime'
-        lastModifiedAt:
-          $ref: '#/components/schemas/MetaDateTime'
-    ResourceDataLatLon:
-      allOf:
-        - $ref: '#/components/schemas/ResourceData'
-        - $ref: '#/components/schemas/MetaLatLonObj'
-    ResourceSubcategory:
-      allOf:
-        - $ref: '#/components/schemas/CategoryDataNoColor'
-        - type: object
-          properties:
-            parentCategory:
-              $ref: '#/components/schemas/CategoryData'
+          $ref: '#/components/schemas/MetaWebsite'
     SlackBotResponse:
       type: object
       properties:
@@ -1483,46 +1394,64 @@ components:
           type: string
           enum:
             - in_channel
-    SubCategoryData:
+    Subcategory:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/Meta_id'
+        name:
+          type: string
+          example: 'Food Pantries'
+        stub:
+          type: string
+          example: 'food_pantries'
+        parentCategory:
+          allOf:
+            - $ref: '#/components/schemas/CategoryData'
+            - type: object
+              properties:
+                subcategories:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Meta_id'
+        createdAt:
+          $ref: '#/components/schemas/MetaDateTime'
+        lastModifiedAt:
+          $ref: '#/components/schemas/MetaDateTime'
+        __v:
+          type: integer
+    SubCategoryWithResources:
       allOf:
-        - $ref: '#/components/schemas/CategoryData'
+        - $ref: '#/components/schemas/Subcategory'
         - type: object
           properties:
             resources:
               type: array
               items:
-                $ref: '#/components/schemas/ResourceCategoryData'
+                $ref: '#/components/schemas/Resource'
     StartTimeObj:
       type: object
       properties:
         start:
           type: string
           format: date-time
-    UserObj:
-      type: object
-      properties:
-        _id:
-          $ref: '#/components/schemas/Meta_id'
-        email:
-          type: string
-          example: 'dev.upswyng@gmail.com'
-        isAdmin:
-          type: boolean
-          default: false
-        isSuperAdmin:
-          type: boolean
-          default: false
-        name:
-          type: string
-          example: "Jacob Venable"
-        providers:
-          type: array
-          items:
-            type: string
-            enum:
-              - facebook
-              - google
-              - slack
+    # Document Types
+    CategoryDocument:
+      allOf:
+        - $ref: '#/components/schemas/CategoryData'
+        - type: object
+          properties:
+            subcategories:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/CategoryData'
+                  - type: object
+                    properties:
+                      resources:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Meta_id'
     # Post Request Bodies
     AddResourceSubCategoryPost:
       type: object
@@ -1627,9 +1556,9 @@ components:
             - website
           properties:
             address:
-              $ref: '#/components/schemas/AddressObj'
+              $ref: '#/components/schemas/MetaAddress'
             description:
-              type: string
+              $ref: '#/components/schemas/MetaDescription'
             latitude:
               type: number
               nullable: true
@@ -1645,7 +1574,7 @@ components:
             resourceId:
               $ref: '#/components/schemas/Meta_id'
             schedule:
-              $ref: '#/components/schemas/ScheduleObj'
+              $ref: '#/components/schemas/MetaSchedule'
             services:
               $ref: '#/components/schemas/MetaServicesArr'
             streetViewImage:
@@ -1655,7 +1584,7 @@ components:
               items:
                 $ref: '#/components/schemas/Meta_id'
             website:
-              type: string
+              $ref: '#/components/schemas/MetaWebsite'
     UserUpdatePost:
       type: object
       properties:
@@ -1664,7 +1593,18 @@ components:
         isSuperAdmin:
           type: boolean
     # Common
-    AddressObj:
+    ErrorObj:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Description of error.
+          example: 'Error description'
+    # Meta
+    Meta_id:
+      type: string
+      example: 5d8f030ac0e6672699a500c2
+    MetaAddress:
       type: object
       properties:
         address1:
@@ -1679,14 +1619,94 @@ components:
         zip:
           type: integer
           example: 80301
-    ErrorObj:
+    MetaCount:
+      type: integer
+      default: 0
+      example: 29
+    MetaCreatedBy:
+      description: 'User object that only appears for admin users, otherwise field will be omitted.'
       type: object
       properties:
-        message:
+        _id:
+          $ref: '#/components/schemas/Meta_id'
+        email:
           type: string
-          description: Description of error.
-          example: 'Error description'
-    ScheduleObj:
+          example: 'dev.upswyng@gmail.com'
+        isAdmin:
+          type: boolean
+          default: false
+        isSuperAdmin:
+          type: boolean
+          default: false
+        name:
+          type: string
+          example: "Jacob Venable"
+        providers:
+          type: array
+          items:
+            type: string
+            enum:
+              - facebook
+              - google
+              - slack
+    MetaDateTime:
+      type: string
+      format: date-time
+      example: '2019-09-28T06:51:53.633Z'
+    MetaDeleted:
+      type: boolean
+      description: "We leave entries in the DB so they don't get resynced from Strapped, but for all intents & purposes this resource doesn't exist."
+      default: false
+    MetaDescription:
+      type: string
+      example: 'Weekly groceries for families whose children are enrolled in the free or reduced lunch program at their school.'
+    MetaEventKind:
+      type: string
+      enum:
+          - alert_live
+          - draft_approved
+          - draft_created
+          - draft_deleted
+          - resource_issue_reopened
+          - resource_issue_resolved
+          - user_permission_changed
+    MetaEventKindUserReport:
+      type: string
+      default: 'user_report'
+      example: 'user_report'
+      enum:
+        - 'user_report'
+    MetaLatitude:
+      type: number
+      nullable: true
+      default: null
+      example: 40.0584971
+    MetaLongitude:
+      type: number
+      nullable: true
+      default: null
+      example: -105.11954379999997
+    MetaLegacyId:
+      type: string
+      example: -KZnRX-8rV1552vd0P7_
+    MetaPhone:
+      type: string
+      example: (303) 555-0112
+    MetaResourceArr:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/Resource'
+          - type: object
+            properties:
+              subcategories:
+                allOf:
+                  - $ref: '#/components/schemas/CategoryDataNoColor'
+                  - type: object
+                    properties:
+                      parentCategory:
+                        $ref: '#/components/schemas/CategoryData'
+    MetaSchedule:
       type: object
       properties:
         alwaysOpen:
@@ -1707,67 +1727,6 @@ components:
                 example: 'RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=WE'
               toTime:
                 type: integer
-    # Meta
-    Meta_id:
-      type: string
-      example: 5d8f030ac0e6672699a500c2
-    MetaDateTime:
-      type: string
-      format: date-time
-      example: '2019-09-28T06:51:53.633Z'
-    MetaLatitude:
-      type: number
-      example: 40.0584971
-    MetaLongitude:
-      type: number
-      example: -105.11954379999997
-    MetaLatLonObj:
-      type: object
-      properties:
-        latitude:
-          $ref: '#/components/schemas/MetaLatitude'
-        longitude:
-          $ref: '#/components/schemas/MetaLongitude'
-    MetaLegacyIdObj:
-      type: object
-      properties:
-        legacyId:
-          type: string
-          example: -KZnRX-8rV1552vd0P7_
-    MetaLocation:
-      type: object
-      properties:
-        coordinates:
-          description: Latitude & Longitude
-          type: array
-          items:
-            type: number
-          example: [-105.13494760000003, 39.9776081]
-        type:
-          type: string
-          example: Point
-    MetaLocationObj:
-      type: object
-      properties:
-        location:
-          $ref: '#/components/schemas/MetaLocation'
-    MetaPhone:
-      type: string
-      example: (303) 555-0112
-    MetaResourceArr:
-      type: array
-      items:
-        allOf:
-          - $ref: '#/components/schemas/ResourceDataLatLon'
-          - type: object
-            properties:
-              subcategories:
-                allOf:
-                  - $ref: '#/components/schemas/CategoryDataNoColor'
-                  - type: object
-                    properties:
-                      parentCategory:
-                        $ref: '#/components/schemas/CategoryData'
     MetaServicesArr:
       type: array
       items:
@@ -1781,9 +1740,35 @@ components:
     MetaStreetViewImage:
       type: string
       example: 'http://media.upswyng.org/images/5def5cbab831a048f2a3df03.jpg'
+      nullable: true
     MetaTimeZone:
       type: string
       example: 'America/Denver'
+    MetaUser:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/Meta_id'
+        email:
+          type: string
+          example: 'dev.upswyng@gmail.com'
+        isAdmin:
+          type: boolean
+          default: false
+        isSuperAdmin:
+          type: boolean
+          default: false
+        name:
+          type: string
+          example: "Jacob Venable"
+        providers:
+          type: array
+          items:
+            type: string
+            enum:
+              - facebook
+              - google
+              - slack
     MetaWebsite:
       type: string
       example: 'https://www.upswyng.org/'
@@ -1907,12 +1892,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorObj'
-#    Redirect:
-#      description: Actual response is a Header with `Location` set as a string. OpenAPI doesn't support that type of response yet.
-#      content:
-#        application/json:
-#          schema:
-#            type: object
     SlackBotResponse:
       description: Slack Response.
       content:
@@ -1941,7 +1920,11 @@ tags:
   - name: bot
     description: 'Endpoints for slack bot to interact with.'
   - name: category
-    description: 'Category & SubCategory related.'
+    description: 'Categories'
+  - name: sub-category
+    description: 'SubCategories'
+  - name: eventlogs
+    description: 'Event logs'
   - name: hotlines
     description: 'Hotlines'
   - name: resource
