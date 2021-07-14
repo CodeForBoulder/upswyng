@@ -2,6 +2,7 @@ import { TCategoryDefinition, categories } from "./Categories";
 
 import BannerColorContext from "./BannerColorContext";
 import Button from "@material-ui/core/Button/Button";
+import Card from "@material-ui/core/Card";
 import Container from "@material-ui/core/Container";
 import FavoriteResourceFAB from "./FavoriteResourceFAB";
 import Image from "material-ui-image";
@@ -25,6 +26,7 @@ import Services from "./Services";
 import { TResource } from "@upswyng/types";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import Typography from "@material-ui/core/Typography";
+import WarningIcon from "@material-ui/icons/Warning";
 import { colors } from "@upswyng/common";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { useHistory } from "react-router";
@@ -110,6 +112,14 @@ export const Resource = () => {
         />
       )}
       <List component="div">
+        <ListItem component={Card}>
+          <ListItemIcon classes={listIconClasses}>
+            <WarningIcon color="secondary" />
+          </ListItemIcon>
+          <ListItemText>{`${t("covidWarning")} ${
+            !!resource.website ? t("checkWebsite") : ""
+          }`}</ListItemText>
+        </ListItem>
         {resource.address && (
           <ListItem component="div">
             <ListItemIcon classes={listIconClasses}>
