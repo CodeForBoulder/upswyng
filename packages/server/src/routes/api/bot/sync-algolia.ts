@@ -5,7 +5,7 @@ import mq from "../../../worker/mq";
 
 async function makeSyncAlgoliaJob(_req, res, _next, user: TUser) {
   const jobName = getName("-");
-  mq.addJobSyncAlgolia(jobName, user._id);
+  await mq.addJobSyncAlgolia(jobName, user._id);
   const blocks = [
     {
       type: "section",

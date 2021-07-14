@@ -262,7 +262,7 @@ export default function(server: Server): void {
 
       switch (d.kind) {
         case "clean_completed_jobs":
-          queue.clean(0, Infinity, "completed");
+          await queue.clean(0, Infinity, "completed");
           break;
         case "remove_job":
           {

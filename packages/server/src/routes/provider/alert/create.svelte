@@ -19,6 +19,7 @@
   import rgbHex from "rgb-hex";
   import TimePicker from "./../../../components/TimePicker.svelte";
   import axios from "axios";
+  import mq from "../../../worker/mq";
 
   const { tz } = moment;
   const { session } = stores();
@@ -248,7 +249,7 @@
           "success",
           `Alert "${alertTitle}" was successful created`
         );
-        goto(`/provider/alert?id=${alert._id}`);
+        await goto(`/provider/alert?id=${alert._id}`);
       })
       .catch(e => (errorMessage = e))
       .finally(() => {

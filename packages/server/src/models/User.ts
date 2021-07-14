@@ -130,8 +130,7 @@ UserSchema.statics.findOrCreateGoogleUser = async function(
   } else if (!user) {
     try {
       const newUser = new self({ google: { sub, email } });
-      const result = await newUser.save();
-      return result;
+      return await newUser.save();
     } catch (e) {
       console.error(`Error creating new user:\t${e}`);
       throw e;
@@ -167,8 +166,7 @@ UserSchema.statics.findOrCreateSlackUser = async function(
       const newUser = new self({
         slack: { email, name, userId: slackUserId, teamId },
       });
-      const result = await newUser.save();
-      return result;
+      return await newUser.save();
     } catch (e) {
       console.error(`Error creating new user:\t${e}`);
       throw e;

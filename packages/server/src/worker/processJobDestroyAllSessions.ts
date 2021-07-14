@@ -16,7 +16,7 @@ export async function processJobDestroyAllSessions(
 ) {
   const result = await connection.db.dropCollection("sessions");
   if (result) {
-    job.updateProgress(100);
+    await job.updateProgress(100);
     return {
       kind: JobKind.DestroyAllSessions,
     };

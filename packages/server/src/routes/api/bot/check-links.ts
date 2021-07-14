@@ -5,7 +5,7 @@ import mq from "../../../worker/mq";
 
 async function makeCheckLinksJob(_req, res, _next, user: TUser) {
   const jobName = getName("-");
-  mq.addJobCheckLinks(jobName, user._id);
+  await mq.addJobCheckLinks(jobName, user._id);
   const blocks = [
     {
       type: "section",

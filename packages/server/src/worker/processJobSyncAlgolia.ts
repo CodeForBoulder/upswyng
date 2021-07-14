@@ -97,9 +97,11 @@ export async function processJobSyncAlgolia(
     }
 
     processedResourceCount += resources.length;
-    job.updateProgress((processedResourceCount / estimatedResourceCount) * 100);
+    await job.updateProgress(
+      (processedResourceCount / estimatedResourceCount) * 100
+    );
   } while (resources.length);
-  job.updateProgress(100);
+  await job.updateProgress(100);
 
   return {
     kind: JobKind.SyncAlgolia,

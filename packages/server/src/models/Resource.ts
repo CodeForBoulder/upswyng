@@ -4,7 +4,6 @@ import {
   TLegacyResource,
   TResource,
   TResourceScheduleData,
-  TSubcategory,
 } from "@upswyng/types";
 import {
   TSubcategoryDocument,
@@ -49,7 +48,7 @@ export interface TResourceDocument extends Document {
 
 /**
  * Convert a resource document from the database into our `TResource` type.
- * Explicity enumerate keys so we make TypeScript happy.
+ * Explicitly enumerate keys so we make TypeScript happy.
  */
 export const resourceDocumentToResource = async (
   r: TResourceDocument
