@@ -64,13 +64,13 @@ export async function processJobCheckNewAlerts(
           `Error creating Event Log \`alert_live\` for Alert ${alert._id}: ${e}`
         );
       }
-      await job.updateProgress(((i + 1) / count) * 100);
+      job.updateProgress(((i + 1) / count) * 100);
     } catch (e) {
       throw e;
     }
   });
 
-  await job.updateProgress(100);
+  job.updateProgress(100);
 
   return { alertsProcessed, jobName: job.name, kind: JobKind.CheckNewAlerts };
 }

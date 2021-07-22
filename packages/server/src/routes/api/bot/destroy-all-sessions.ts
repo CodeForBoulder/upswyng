@@ -5,7 +5,7 @@ import mq from "../../../worker/mq";
 
 async function makeJobDestroyAllSessions(_req, res, _next, user: TUser) {
   const jobName = getName("-");
-  await mq.addJobDestroyAllSessions(jobName, user._id);
+  mq.addJobDestroyAllSessions(jobName, user._id);
   const blocks = [
     {
       type: "section",

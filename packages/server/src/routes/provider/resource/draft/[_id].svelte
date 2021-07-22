@@ -66,7 +66,6 @@
   import { goto, stores } from "@sapper/app";
   import ResourceDiff from "./../../../../components/ResourceDiff.svelte";
   import ResourceDisplay from "./../../../../components/ResourceDisplay.svelte";
-  import mq from "../../../../worker/mq";
 
   const { session } = stores();
 
@@ -118,7 +117,7 @@
           "success",
           `The draft of ${draftResource.name} was approved`
         );
-        await goto("/provider/resource");
+        goto("/provider/resource");
       })
       .catch(e => (approveError = e))
       .finally(() => (isApproving = false));

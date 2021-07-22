@@ -330,7 +330,7 @@ ResourceSchema.statics.getByResourceId = async function(
   resourceId: ObjectId,
   includeDeleted: boolean = false
 ): Promise<TResourceDocument | null> {
-  return await this.findOne({
+  return this.findOne({
     resourceId,
     deleted: { $in: [false, includeDeleted] },
   })
@@ -345,7 +345,7 @@ ResourceSchema.statics.getByResourceId = async function(
 ResourceSchema.statics.getByRecordId = async function(
   _id: ObjectId
 ): Promise<TResourceDocument | null> {
-  return await this.findOne({ _id })
+  return this.findOne({ _id })
     .populate({ path: "subcategories", populate: { path: "parentCategory" } })
     .populate("createdBy")
     .populate("lastModifiedBy");
@@ -357,7 +357,7 @@ ResourceSchema.statics.getByRecordId = async function(
 ResourceSchema.statics.getByResourceIds = async function(
   resourceIds: ObjectId[]
 ): Promise<TResourceDocument[]> {
-  return await this.find({
+  return this.find({
     resourceId: { $in: resourceIds },
   })
     .populate({ path: "subcategories", populate: { path: "parentCategory" } })
@@ -371,7 +371,7 @@ ResourceSchema.statics.getByResourceIds = async function(
 ResourceSchema.statics.getAll = async function(
   includeDeleted: boolean = false
 ): Promise<TResourceDocument[]> {
-  return await this.find({ deleted: { $in: [false, includeDeleted] } })
+  return this.find({ deleted: { $in: [false, includeDeleted] } })
     .populate({ path: "subcategories", populate: { path: "parentCategory" } })
     .populate("createdBy")
     .populate("lastModifiedBy");
@@ -383,7 +383,7 @@ ResourceSchema.statics.getAll = async function(
 ResourceSchema.statics.getUncategorized = async function(): Promise<
   TResourceDocument[]
 > {
-  return await this.find({
+  return this.find({
     "subcategories.0": { $exists: false },
     deleted: false,
   })

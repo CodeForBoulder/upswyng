@@ -203,7 +203,7 @@ async function getAllJobs(): Promise<TJob[]> {
 
 async function getTJobById(jobId: string): Promise<TJob> {
   const job = await queue.getJob(jobId);
-  return await jobToTJob(job);
+  return jobToTJob(job);
 }
 
 function sendJobs(
@@ -262,7 +262,7 @@ export default function(server: Server): void {
 
       switch (d.kind) {
         case "clean_completed_jobs":
-          await queue.clean(0, Infinity, "completed");
+          queue.clean(0, Infinity, "completed");
           break;
         case "remove_job":
           {

@@ -7,7 +7,7 @@
 </script>
 
 <script>
-  import { addFlashMessage } from "./../../../utility/flashMessage.ts";
+  import { addFlashMessage } from "../../../utility/flashMessage";
   import { goto, stores } from "@sapper/app";
   import { onDestroy, onMount } from "svelte";
   import { Time } from "@upswyng/common";
@@ -19,7 +19,6 @@
   import rgbHex from "rgb-hex";
   import TimePicker from "./../../../components/TimePicker.svelte";
   import axios from "axios";
-  import mq from "../../../worker/mq";
 
   const { tz } = moment;
   const { session } = stores();
@@ -249,7 +248,7 @@
           "success",
           `Alert "${alertTitle}" was successful created`
         );
-        await goto(`/provider/alert?id=${alert._id}`);
+        goto(`/provider/alert?id=${alert._id}`);
       })
       .catch(e => (errorMessage = e))
       .finally(() => {

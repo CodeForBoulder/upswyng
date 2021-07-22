@@ -1,8 +1,8 @@
 import mongoose, { Document, Schema } from "mongoose";
 import removeUndefinedFields from "../utility/removeUndefinedFields";
 import Subcategory, {
-  subcategoryDocumentToSubcategory,
   TSubcategoryDocument,
+  subcategoryDocumentToSubcategory,
 } from "./Subcategory";
 import { ObjectId } from "bson";
 import { TCategory } from "@upswyng/types";
@@ -90,7 +90,7 @@ CategorySchema.statics.findOrCreate = async function(
 CategorySchema.statics.getCategoryList = async function(): Promise<
   TCategoryDocument[]
 > {
-  return await this.find().populate("subcategories");
+  return this.find().populate("subcategories");
 };
 
 CategorySchema.statics.getByStub = async function(

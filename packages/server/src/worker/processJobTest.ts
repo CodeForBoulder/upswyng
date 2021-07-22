@@ -21,7 +21,7 @@ export async function processJobTest(
     if (progress >= 100 && job.data.shouldFail) {
       throw new Error(`Forced job to fail at ${progress}%`);
     }
-    await job.updateProgress(Math.min(progress, 100));
+    job.updateProgress(Math.min(progress, 100));
   }
   // A job can return values that will be stored in Redis as JSON
   // This return value is unused in this demo application.
