@@ -83,6 +83,8 @@ paths:
                       $ref: '#/components/schemas/AlertData'
         '404':
           $ref: '#/components/responses/ErrorNotFound'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
 
   /alert/{id}:
     parameters:
@@ -307,45 +309,45 @@ paths:
         '500':
           $ref: '#/components/responses/ErrorUnknown'
 
-  /hotlines:
-    get:
-      description: 'Get an array of all hotlines.'
-      summary: 'Get all hotlines.'
-      tags:
-        - hotlines
-      operationId: hotlinesGet
-      responses:
-        '200':
-          description: Categories.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  hotlines:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        _id:
-                          $ref: "#/components/schemas/Meta_id"
-                        chatWebsite:
-                          $ref: '#/components/schemas/MetaWebsite'
-                        description:
-                          type: string
-                          default: 'Description of the hotline'
-                        name:
-                          type: string
-                          default: 'Hotline Name'
-                        phone:
-                          $ref: '#/components/schemas/MetaPhone'
-                        text:
-                          type: string
-                          default: 'Text for the hotline'
-                        website:
-                          $ref: '#/components/schemas/MetaWebsite'
-        '500':
-          $ref: '#/components/responses/ErrorUnknown'
+#  /hotlines:
+#    get:
+#      description: 'Get an array of all hotlines.'
+#      summary: 'Get all hotlines.'
+#      tags:
+#        - hotlines
+#      operationId: hotlinesGet
+#      responses:
+#        '200':
+#          description: Categories.
+#          content:
+#            application/json:
+#              schema:
+#                type: object
+#                properties:
+#                  hotlines:
+#                    type: array
+#                    items:
+#                      type: object
+#                      properties:
+#                        _id:
+#                          $ref: "#/components/schemas/Meta_id"
+#                        chatWebsite:
+#                          $ref: '#/components/schemas/MetaWebsite'
+#                        description:
+#                          type: string
+#                          default: 'Description of the hotline'
+#                        name:
+#                          type: string
+#                          default: 'Hotline Name'
+#                        phone:
+#                          $ref: '#/components/schemas/MetaPhone'
+#                        text:
+#                          type: string
+#                          default: 'Text for the hotline'
+#                        website:
+#                          $ref: '#/components/schemas/MetaWebsite'
+#        '500':
+#          $ref: '#/components/responses/ErrorUnknown'
 
   /provider/logout:
     get:
@@ -368,7 +370,6 @@ paths:
         - requireLoggedIn: []
       tags:
         - resource
-        - stub
       operationId: resourcePost
       requestBody:
         description: New Resource Payload.
@@ -387,42 +388,8 @@ paths:
               schema:
                 type: object
                 properties:
-                  count:
-                    type: integer
-                    default: 12
-                  estimatedTotal:
-                    $ref: '#/components/schemas/MetaCount'
-                  resourceIssues:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        _id:
-                          type: string
-                          default: '5f7a462dcd1b786bed19b4cb'
-                        detail:
-                          type: object
-                          properties:
-                            kind:
-                              $ref: '#/components/schemas/MetaEventKindUserReport'
-                        kind:
-                          $ref: '#/components/schemas/MetaEventKindUserReport'
-                        resolved:
-                          type: boolean
-                          default: false
-                        resourceId:
-                          type: string
-                          default: '5def5cb7b831a048f2a3deed'
-                        severity:
-                          type: string
-                          default: 'high'
-                        createdAt:
-                          $ref: '#/components/schemas/MetaDateTime'
-                        lastModifiedAt:
-                          $ref: '#/components/schemas/MetaDateTime'
-                        __v:
-                          type: integer
-                          default: 0
+                  draftResource:
+                    $ref: '#/components/schemas/ResourceDraft'
         '401':
           $ref: '#/components/responses/ErrorAuthentication'
         '422':
@@ -455,14 +422,14 @@ paths:
           $ref: '#/components/responses/ErrorUnknown'
 
   /resources:
-    parameters:
-      - $ref: '#/components/parameters/idQueryOptional'
     get:
       description: 'Get an array of resources.'
       summary: 'Get resources.'
       tags:
         - resource
       operationId: resourcesGet
+      parameters:
+        - $ref: '#/components/parameters/idQueryMultipleOptional'
       responses:
         '200':
           description: Array of resources.
@@ -548,7 +515,7 @@ paths:
 
   /resources/drafts:
     parameters:
-      - $ref: '#/components/parameters/includeDeletedQueryOptional'
+      - $ref: '#/components/parameters/includeDeletedDraftsQueryOptional'
     get:
       description: 'Get an array of draft resources.'
       summary: 'Get draft resources.'
@@ -572,8 +539,8 @@ paths:
 
   /resources/drafts/mine:
     get:
-      description: 'Get an array of resources.'
-      summary: 'Get resources.'
+      description: 'Get an array of drafts the current user created.'
+      summary: 'Get draft resources for current user.'
       tags:
         - resource
       operationId: resourcesDraftsMineGet
@@ -590,7 +557,7 @@ paths:
                   uncategorizedResources:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Resource'
+                      $ref: '#/components/schemas/ResourceDraft'
         '401':
           $ref: '#/components/responses/ErrorAuthentication'
         '500':
@@ -602,6 +569,8 @@ paths:
     get:
       description: 'Get an issue by id.'
       summary: 'Get an issue'
+      tags:
+        - issues
       operationId: resourceIssueGet
       responses:
         '200':
@@ -656,9 +625,11 @@ paths:
     post:
       description: 'Query for an array of issues.'
       summary: 'Query issues.'
+      tags:
+        - issues
+      operationId: resourcesIssuesPost
       security:
         - requireAdmin: []
-      operationId: resourcesIssuesPost
       requestBody:
         description: Filter which issues to return.
         content:
@@ -731,6 +702,8 @@ paths:
     post:
       description: 'Mark an issue resolved'
       summary: 'Resolve issue'
+      tags:
+        - issues
       operationId: resourcesIssueResolvePost
       security:
         - requireAdmin: []
@@ -752,6 +725,8 @@ paths:
     post:
       description: 'Mark an issue unresolved'
       summary: 'Unresolve issue'
+      tags:
+        - issues
       operationId: resourcesIssueUnresolvePost
       security:
         - requireAdmin: []
@@ -771,6 +746,8 @@ paths:
     post:
       description: 'Report a new issue'
       summary: 'Report issue'
+      tags:
+        - issues
       operationId: resourcesIssuesUserReportPost
       requestBody:
         description: Request body to create new issues.
@@ -1217,6 +1194,7 @@ components:
           default: 0
     AlertSearch:
       allOf:
+        - $ref: '#/components/schemas/EndTimeObj'
         - type: object
           properties:
             includeCancelled:
@@ -1253,6 +1231,12 @@ components:
           properties:
             color:
               type: string
+    EndTimeObj:
+      type: object
+      properties:
+        end:
+          type: string
+          format: date-time
     ParentCategory:
       allOf:
         - $ref: '#/components/schemas/CategoryData'
@@ -1385,7 +1369,7 @@ components:
                 properties:
                   text:
                     type: string
-                    example: 'I found you in UpSwyng, but you have to be an administrator to tell me to run this command'
+                    example: 'Tell upswyngbot /COMMAND to run the job'
                   type:
                     $ref: '#/components/schemas/MetaSlackType'
               type:
@@ -1451,7 +1435,7 @@ components:
                       resources:
                         type: array
                         items:
-                          $ref: '#/components/schemas/Meta_id'
+                          $ref: '#/components/schemas/Resource'
     # Post Request Bodies
     AddResourceSubCategoryPost:
       type: object
@@ -1640,7 +1624,7 @@ components:
           default: false
         name:
           type: string
-          example: "Jacob Venable"
+          example: "Ursella UpSwyng"
         providers:
           type: array
           items:
@@ -1760,7 +1744,7 @@ components:
           default: false
         name:
           type: string
-          example: "Jacob Venable"
+          example: "Ursella UpSwyng"
         providers:
           type: array
           items:
@@ -1816,10 +1800,18 @@ components:
       schema:
         type: string
         example: 5def5cb7b831a048f2a3deed
-    includeDeletedQueryOptional:
+    idQueryMultipleOptional:
+      name: id
+      in: query
+      description: 'Single `_id` or multiple comma separated `_id,_id,_id` for one or more entries.'
+      required: false
+      schema:
+        type: string
+        example: 5def5cb7b831a048f2a3deed
+    includeDeletedDraftsQueryOptional:
       name: include-deleted
       in: query
-      description: Whether to include deleted
+      description: Whether to include drafts for resources that are already deleted
       required: false
       schema:
         type: boolean
@@ -1925,8 +1917,10 @@ tags:
     description: 'SubCategories'
   - name: eventlogs
     description: 'Event logs'
-  - name: hotlines
-    description: 'Hotlines'
+#  - name: hotlines
+#    description: 'Hotlines'
+  - name: issues
+    description: 'Endpoints for issues reported on resources'
   - name: resource
     description: 'Resources'
   - name: users
