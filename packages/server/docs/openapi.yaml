@@ -1,0 +1,1927 @@
+openapi: 3.0.0
+
+info:
+  title: UpSwyng API v1
+  description: UpSwyng API v1
+  contact:
+    name: Code For Boulder
+    url: 'https://www.codeforboulder.org/'
+  version: '1.0.0'
+
+servers:
+  - url: 'http://localhost:3000/api'
+    description: Docker Compose Server
+
+# Paths are sorted alphabetically
+# variables as part of a path are sorted as last in order.
+
+paths:
+  /alert:
+    post:
+      description: 'API endpoint to create or update an alert.'
+      summary: 'Create alert'
+      security:
+        - requireAdmin: []
+      tags:
+        - alert
+      operationId: alertPost
+      requestBody:
+        description: New Alert Payload.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertPost'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AlertPost'
+      responses:
+        '200':
+          description: New Alert
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  alert:
+                    $ref: '#/components/schemas/AlertData'
+        '400':
+          $ref: '#/components/responses/ErrorInvalidRequest'
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /alert/search:
+    post:
+      description: 'API endpoint to get a list of Alerts. Returns the full alert (TAlertFull with user who created) if the user is a signed-in admin. Otherwise, returns TAlert'
+      summary: 'API endpoint to get a list of Alerts'
+      tags:
+        - alert
+      operationId: alertSearchPost
+      requestBody:
+        description: Parameters to search for alert.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertSearch'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AlertSearch'
+      responses:
+        '200':
+          description: Alerts.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  alerts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AlertData'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /alert/{id}:
+    parameters:
+      - $ref: '#/components/parameters/idPath'
+    get:
+      description: 'Get a single alert by ID. ex: /api/alert/5e6e9b2a8746d64922c6a412'
+      summary: 'Get an alert'
+      operationId: alertGet
+      tags:
+        - alert
+      responses:
+        '200':
+          description: Single Alert.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  alert:
+                    $ref: '#/components/schemas/AlertData'
+        '400':
+          $ref: '#/components/responses/ErrorInvalidRequest'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+
+  /bot/check-links:
+    parameters:
+      - $ref: '#/components/parameters/slackTimestampHeader'
+    post:
+      description: "Adds a Check Links job to the queue. This job walks through all the resources in the directory and checks if their respective website URLs are valid. <br><br>Can be called from slack command `/check-links`."
+      summary: 'Adds a Check Links job to the queue'
+      tags:
+        - bot
+      operationId: botCheckLinksPost
+      security:
+        - slackSigned: []
+      requestBody:
+        $ref: '#/components/requestBodies/SlackBotRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/SlackBotResponse'
+        '400':
+          $ref: '#/components/responses/ErrorInvalidRequest'
+
+  /bot/destroy-all-sessions:
+    parameters:
+      - $ref: '#/components/parameters/slackTimestampHeader'
+    post:
+      description: "Adds a Destroy All Sessions job to the queue.<br><br>Can be called from slack command `/destroy-all-sessions`."
+      summary: 'Adds a Destroy All Sessions job to the queue'
+      tags:
+        - bot
+      operationId: botDestroyAllSessionsPost
+      security:
+        - slackSigned: []
+      requestBody:
+        $ref: '#/components/requestBodies/SlackBotRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/SlackBotResponse'
+        '400':
+          $ref: '#/components/responses/ErrorInvalidRequest'
+
+  /bot/sync-algolia:
+    parameters:
+      - $ref: '#/components/parameters/slackTimestampHeader'
+    post:
+      description: "Adds 'syncAlgoliaIndex' to the queue. This job ensures that our algolia index is in sync with our database. <br><br>Can be called from slack command `/sync-algolia`."
+      summary: "Adds 'syncAlgoliaIndex' to the queue"
+      tags:
+        - bot
+      operationId: botSyncAlgoliaPost
+      security:
+        - slackSigned: []
+      requestBody:
+        $ref: '#/components/requestBodies/SlackBotRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/SlackBotResponse'
+        '400':
+          $ref: '#/components/responses/ErrorInvalidRequest'
+
+  /bot/test-job:
+    post:
+      description: "Adds a Test Job to the Work Queue. <br><br>Can be called from slack command `/test-job`. <br>Command can be like `/test-job 35`, where the second part is the delay to apply to the job. <br><br>To call from the command line: <ul><li>`curl -XPOST -d 'delay=2000&shouldFail=true' 'localhost:3000/api/bot/test-job'`</li></ul>"
+      summary: "Adds 'syncAlgoliaIndex' to the queue"
+      tags:
+        - bot
+      operationId: botTestJobPost
+      security:
+        - slackSigned: []
+      requestBody:
+        description: 'Request body from slack / command.'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BotSlackTestJobPost'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BotSlackTestJobPost'
+      responses:
+        '201':
+          description: Slack Test Job Response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jobName:
+                    type: string
+                  jobId:
+                    type: string
+                  shouldFail:
+                    type: boolean
+                    default: true
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /category/{category}:
+    parameters:
+      - $ref: '#/components/parameters/categoryPath'
+    get:
+      description: 'Get a category with sub-categories.'
+      summary: 'Get a category'
+      tags:
+        - category
+      operationId: categoryGet
+      responses:
+        '200':
+          description: Single Category.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  category:
+                    $ref: '#/components/schemas/CategoryDocument'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+
+  /categories:
+    get:
+      description: 'Get an array of all categories.'
+      summary: 'Get all categories.'
+      tags:
+        - category
+      operationId: categoriesGet
+      responses:
+        '200':
+          description: Categories.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  categories:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CategoryDocument'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /eventlogs:
+    post:
+      description: 'API endpoint to get a list of Event Logs. Ordered from newest to oldest.'
+      summary: 'API endpoint to get a list of Event Logs.'
+      security:
+        - requireAdmin: []
+      tags:
+        - eventlogs
+      operationId: eventlogsPost
+      requestBody:
+        description: Which eventlogs to return.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaginateEventLogsPost'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PaginateEventLogsPost'
+      responses:
+        '200':
+          description: Event logs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estimatedTotal:
+                    $ref: '#/components/schemas/MetaCount'
+                  eventLogs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          $ref: '#/components/schemas/Meta_id'
+                        actor:
+                          $ref: '#/components/schemas/MetaUser'
+                        detail:
+                          type: object
+                          properties:
+                            kind:
+                              $ref: '#/components/schemas/MetaEventKind'
+                            propertyNew:
+                              type: string
+                              description: New value for update type events.
+                            propertyOld:
+                              type: string
+                              description: Old value for update type events.
+                        kind:
+                          $ref: '#/components/schemas/MetaEventKind'
+                        createdAt:
+                          $ref: '#/components/schemas/MetaDateTime'
+                        updatedAt:
+                          $ref: '#/components/schemas/MetaDateTime'
+                        __v:
+                          type: integer
+                          default: 0
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+#  /hotlines:
+#    get:
+#      description: 'Get an array of all hotlines.'
+#      summary: 'Get all hotlines.'
+#      tags:
+#        - hotlines
+#      operationId: hotlinesGet
+#      responses:
+#        '200':
+#          description: Categories.
+#          content:
+#            application/json:
+#              schema:
+#                type: object
+#                properties:
+#                  hotlines:
+#                    type: array
+#                    items:
+#                      type: object
+#                      properties:
+#                        _id:
+#                          $ref: "#/components/schemas/Meta_id"
+#                        chatWebsite:
+#                          $ref: '#/components/schemas/MetaWebsite'
+#                        description:
+#                          type: string
+#                          default: 'Description of the hotline'
+#                        name:
+#                          type: string
+#                          default: 'Hotline Name'
+#                        phone:
+#                          $ref: '#/components/schemas/MetaPhone'
+#                        text:
+#                          type: string
+#                          default: 'Text for the hotline'
+#                        website:
+#                          $ref: '#/components/schemas/MetaWebsite'
+#        '500':
+#          $ref: '#/components/responses/ErrorUnknown'
+
+  /provider/logout:
+    get:
+      description: 'Log Out by destroying any sessions associated with request.'
+      summary: 'Log Out'
+      operationId: providerLogOutGet
+      responses:
+        '302':
+          description: "Actual response is a Header with `Location` set as a string. OpenAPI doesn't support that type of response yet.<br><br>`Location: /provider/?loggedout=true`"
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /resource:
+    post:
+      description: 'Creates a new draft resource. Resources and updates to resources start as draft resource records. Draft resource updates are then merged into the `Resource` collection.'
+      summary: 'Create resource'
+      security:
+        - requireLoggedIn: []
+      tags:
+        - resource
+      operationId: resourcePost
+      requestBody:
+        description: New Resource Payload.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourcePost'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ResourcePost'
+      responses:
+        '201':
+          description: New draft resource
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  draftResource:
+                    $ref: '#/components/schemas/ResourceDraft'
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '422':
+          $ref: '#/components/responses/ErrorAlreadyExists'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /resource/{id}:
+    parameters:
+      - $ref: '#/components/parameters/idPath'
+    get:
+      description: 'Get a resource.'
+      summary: 'Get a resource'
+      tags:
+        - resource
+      operationId: resourceGet
+      responses:
+        '200':
+          description: Single Resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resource:
+                    $ref: '#/components/schemas/Resource'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /resources:
+    get:
+      description: 'Get an array of resources.'
+      summary: 'Get resources.'
+      tags:
+        - resource
+      operationId: resourcesGet
+      parameters:
+        - $ref: '#/components/parameters/idQueryMultipleOptional'
+      responses:
+        '200':
+          description: Array of resources.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resources:
+                    $ref: '#/components/schemas/MetaResourceArr'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /resource/draft/approve/{id}:
+    parameters:
+      - $ref: '#/components/parameters/idPath'
+    post:
+      description: 'Mark a draft resource approved.'
+      summary: 'Approve draft resource'
+      tags:
+        - resource
+      operationId: resourcesDraftApprovePost
+      security:
+        - requireAdmin: []
+      requestBody:
+        $ref: '#/components/requestBodies/EmptyRequest'
+      responses:
+        '204':
+          $ref: '#/components/responses/EmptyObject'
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /resource/draft/delete/{id}:
+    parameters:
+      - $ref: '#/components/parameters/idPath'
+    post:
+      description: 'Delete a draft resource.'
+      summary: 'Delete draft resource'
+      tags:
+        - resource
+      operationId: resourcesDraftDeletePost
+      security:
+        - requireAdmin: []
+      requestBody:
+        $ref: '#/components/requestBodies/EmptyRequest'
+      responses:
+        '204':
+          $ref: '#/components/responses/EmptyObject'
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /resource/draft/{id}:
+    parameters:
+      - $ref: '#/components/parameters/idPath'
+    get:
+      description: 'Get a resource draft.'
+      summary: 'Get a resource draft'
+      operationId: resourceDraftGet
+      tags:
+        - resource
+      responses:
+        '200':
+          description: Single Resource Draft - `createdBy` only available to admin users.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  draftResource:
+                    $ref: '#/components/schemas/ResourceDraft'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /resources/drafts:
+    parameters:
+      - $ref: '#/components/parameters/includeDeletedDraftsQueryOptional'
+    get:
+      description: 'Get an array of draft resources.'
+      summary: 'Get draft resources.'
+      tags:
+        - resource
+      operationId: resourcesDraftsGet
+      responses:
+        '200':
+          description: Draft resources
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  draftResources:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ResourceDraft'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /resources/drafts/mine:
+    get:
+      description: 'Get an array of drafts the current user created.'
+      summary: 'Get draft resources for current user.'
+      tags:
+        - resource
+      operationId: resourcesDraftsMineGet
+      security:
+        - requireLoggedIn: []
+      responses:
+        '200':
+          description: Resource Drafts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uncategorizedResources:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ResourceDraft'
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /resources/issue/{id}:
+    parameters:
+      - $ref: '#/components/parameters/idPath'
+    get:
+      description: 'Get an issue by id.'
+      summary: 'Get an issue'
+      tags:
+        - issues
+      operationId: resourceIssueGet
+      responses:
+        '200':
+          description: Issue.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resourceIssue:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        default: '5e894bc235a65b002cce1116'
+                      detail:
+                        type: object
+                        properties:
+                          detailExplanation:
+                            type: string
+                            default: 'The picture is incorrect. Mike '
+                          kind:
+                            $ref: '#/components/schemas/MetaEventKindUserReport'
+                          reportedIssues:
+                            type: array
+                            items:
+                              type: string
+                              example: 'The address is wrong.'
+                      kind:
+                        $ref: '#/components/schemas/MetaEventKindUserReport'
+                      resourceId:
+                        type: string
+                        default: '5def5cb7b831a048f2a3deef'
+                      severity:
+                        type: string
+                        default: 'high'
+                      createdAt:
+                        $ref: '#/components/schemas/MetaDateTime'
+                      lastModifiedAt:
+                        $ref: '#/components/schemas/MetaDateTime'
+                      __v:
+                        type: integer
+                        default: 0
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /resources/issues:
+    post:
+      description: 'Query for an array of issues.'
+      summary: 'Query issues.'
+      tags:
+        - issues
+      operationId: resourcesIssuesPost
+      security:
+        - requireAdmin: []
+      requestBody:
+        description: Filter which issues to return.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssuesQueryPost'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/IssuesQueryPost'
+      responses:
+        '200':
+          description: Issues available for request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    default: 12
+                  estimatedTotal:
+                    $ref: '#/components/schemas/MetaCount'
+                  resourceIssues:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                          default: '5f7a462dcd1b786bed19b4cb'
+                        detail:
+                          type: object
+                          properties:
+                            kind:
+                              $ref: '#/components/schemas/MetaEventKindUserReport'
+                            detailExplanation:
+                              type: string
+                              default: 'Derp'
+                            reportedIssues:
+                              type: array
+                              items:
+                                type: string
+                                example: 'The address is wrong.'
+                        kind:
+                          $ref: '#/components/schemas/MetaEventKindUserReport'
+                        resolved:
+                          type: boolean
+                          default: false
+                        resourceId:
+                          type: string
+                          default: '5def5cb7b831a048f2a3deed'
+                        severity:
+                          type: string
+                          default: 'high'
+                        createdAt:
+                          $ref: '#/components/schemas/MetaDateTime'
+                        lastModifiedAt:
+                          $ref: '#/components/schemas/MetaDateTime'
+                        __v:
+                          type: integer
+                          default: 0
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /resources/issues/resolve/{id}:
+    parameters:
+      - $ref: '#/components/parameters/idPath'
+    post:
+      description: 'Mark an issue resolved'
+      summary: 'Resolve issue'
+      tags:
+        - issues
+      operationId: resourcesIssueResolvePost
+      security:
+        - requireAdmin: []
+      requestBody:
+        $ref: '#/components/requestBodies/EmptyRequest'
+      responses:
+        '204':
+         $ref: '#/components/responses/EmptyObject'
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /resources/issues/unresolve/{id}:
+    parameters:
+      - $ref: '#/components/parameters/idPath'
+    post:
+      description: 'Mark an issue unresolved'
+      summary: 'Unresolve issue'
+      tags:
+        - issues
+      operationId: resourcesIssueUnresolvePost
+      security:
+        - requireAdmin: []
+      requestBody:
+        $ref: '#/components/requestBodies/EmptyRequest'
+      responses:
+        '204':
+         $ref: '#/components/responses/EmptyObject'
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /resources/issues/user-report:
+    post:
+      description: 'Report a new issue'
+      summary: 'Report issue'
+      tags:
+        - issues
+      operationId: resourcesIssuesUserReportPost
+      requestBody:
+        description: Request body to create new issues.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - resourceId
+                - reportedIssues
+              properties:
+                resourceId:
+                  $ref: '#/components/schemas/Meta_id'
+                reportedIssues:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      kind:
+                        $ref: '#/components/schemas/MetaEventKindUserReport'
+                      detailExplanation:
+                        type: string
+                        description: 'Text the user writes in as a detail.'
+                      reportedIssues:
+                        type: array
+                        items:
+                          type: string
+                          description: 'Schedule Incorrect, Website Inoperable'
+                detailExplanation:
+                  type: string
+      responses:
+        '201':
+          $ref: '#/components/responses/EmptyObject'
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+        '422':
+          $ref: '#/components/responses/ErrorInvalidRequest'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /resources/uncategorized:
+    get:
+      description: 'Get an array of uncategorized resources.'
+      summary: 'Get uncategorized resources.'
+      tags:
+        - resource
+      operationId: resourcesUncategorizedGet
+      responses:
+        '200':
+          description: Array of uncategorized resources.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uncategorizedResources:
+                    $ref: '#/components/schemas/MetaResourceArr'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /subcategories:
+    get:
+      description: 'Get an array of all sub-categories.'
+      summary: 'Get sub-categories.'
+      tags:
+        - sub-category
+      operationId: subcategoriesGet
+      responses:
+        '200':
+          description: Subcategories.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  subcategories:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          $ref: '#/components/schemas/Meta_id'
+                        name:
+                          type: string
+                          example: 'Food Pantries'
+                        stub:
+                          type: string
+                          example: 'food_pantries'
+                        parentCategory:
+                          allOf:
+                            - $ref: '#/components/schemas/CategoryData'
+                            - type: object
+                              properties:
+                                subcategories:
+                                  type: array
+                                  items:
+                                    $ref: '#/components/schemas/Meta_id'
+                        createdAt:
+                          $ref: '#/components/schemas/MetaDateTime'
+                        lastModifiedAt:
+                          $ref: '#/components/schemas/MetaDateTime'
+                        __v:
+                          type: number
+                          default: 1
+
+  /subcategory/add-resource:
+    post:
+      description: 'Add a resource to a subcategory.'
+      summary: 'Create a resource'
+      security:
+        - requireAdmin: []
+      tags:
+        - sub-category
+      operationId: subcategoryAddResourcePost
+      requestBody:
+        description: Add Resource Payload.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddResourceSubCategoryPost'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AddResourceSubCategoryPost'
+      responses:
+        '200':
+          $ref: '#/components/responses/EmptyObject'
+        '400':
+          $ref: '#/components/responses/ErrorInvalidRequest'
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /subcategory/{subcategory}:
+    parameters:
+      - $ref: '#/components/parameters/subcategoryPath'
+    get:
+      description: 'Get a sub-category by stub name.'
+      summary: 'Get a sub-category'
+      tags:
+        - sub-category
+      operationId: subcategoryGet
+      responses:
+        '200':
+          description: Subcategory.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  subcategory:
+                    type: object
+                    properties:
+                      _id:
+                        $ref: '#/components/schemas/Meta_id'
+                      name:
+                        type: string
+                        example: 'Food Pantries'
+                      stub:
+                        type: string
+                        example: 'food_pantries'
+                      parentCategory:
+                        $ref: '#/components/schemas/ParentCategory'
+                      resources:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Resource'
+                      createdAt:
+                        $ref: '#/components/schemas/MetaDateTime'
+                      lastModifiedAt:
+                        $ref: '#/components/schemas/MetaDateTime'
+                      __v:
+                        type: number
+                        default: 1
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+
+  /users:
+    post:
+      description: 'Get an array of all sub-categories.'
+      summary: 'Get users.'
+      tags:
+        - users
+      security:
+        - requireAdmin: []
+      operationId: usersGet
+      requestBody:
+        description: Filter which users to return.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaginatePost'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PaginatePost'
+      responses:
+        '200':
+          description: Subcategories.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estimatedTotal:
+                    $ref: '#/components/schemas/MetaCount'
+                  users:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          $ref: '#/components/schemas/Meta_id'
+                        email:
+                          type: string
+                          example: 'dev.upswyng@gmail.com'
+                        isAdmin:
+                          type: boolean
+                          default: false
+                        isSuperAdmin:
+                          type: boolean
+                          default: false
+                        providers:
+                          type: array
+                          items:
+                            type: string
+                            enum:
+                              - facebook
+                              - google
+                              - slack
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /users/{id}:
+    parameters:
+      - $ref: '#/components/parameters/idPath'
+    get:
+      description: 'Get a user by _id.'
+      summary: 'Get a user'
+      tags:
+        - users
+      security:
+        - requireAdmin: []
+      operationId: userIdGet
+      responses:
+        '200':
+          description: User.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/MetaUser'
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+    post:
+      description: 'Update user by _id'
+      summary: 'Update user'
+      tags:
+        - users
+      security:
+        - requireSuperAdmin: []
+      operationId: userIdPost
+      requestBody:
+        description: User details to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdatePost'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserUpdatePost'
+      responses:
+        '200':
+          description: User.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/MetaUser'
+        '401':
+          $ref: '#/components/responses/ErrorAuthentication'
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+        '500':
+          $ref: '#/components/responses/ErrorUnknown'
+
+  /weather:
+    parameters:
+      - $ref: '#/components/parameters/latitudeQuery'
+      - $ref: '#/components/parameters/longitudeQuery'
+    get:
+      description: 'Get weather data for location.'
+      summary: 'Get weather data'
+      operationId: weatherGet
+      responses:
+        '200':
+          description: Weather data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  coord:
+                    type: object
+                    properties:
+                      lon:
+                        type: number
+                      lat:
+                        type: number
+                  weather:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        main:
+                          type: string
+                        description:
+                          type: string
+                        icon:
+                          type: string
+                  base:
+                    type: string
+                  main:
+                    type: object
+                    properties:
+                      temp:
+                        type: number
+                      feels_like:
+                        type: number
+                      temp_min:
+                        type: number
+                      temp_max:
+                        type: number
+                      pressure:
+                        type: number
+                      humidity:
+                        type: number
+                  visibility:
+                    type: number
+                  wind:
+                    type: object
+                    properties:
+                      speed:
+                        type: number
+                      deg:
+                        type: number
+                      gust:
+                        type: number
+                  clouds:
+                    type: object
+                    properties:
+                      all:
+                        type: number
+                  dt:
+                    type: number
+                  sys:
+                    type: object
+                    properties:
+                      type:
+                        type: number
+                      id:
+                        type: number
+                      country:
+                        type: string
+                      sunrise:
+                        type: number
+                      sunset:
+                        type: number
+                  timezone:
+                    $ref: '#/components/schemas/MetaTimeZone'
+                  id:
+                    type: number
+                  name:
+                    type: string
+                  cod:
+                    type: number
+                  createdDate:
+                    type: string
+                  lifespan:
+                    type: number
+        '404':
+          $ref: '#/components/responses/ErrorNotFound'
+
+components:
+  schemas:
+    AlertData:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/Meta_id'
+        category:
+          type: string
+          example: 5d8f030ac0e6672699a500c2
+          nullable: true
+          default: null
+        color:
+          type: string
+          default: 'gold'
+        createdBy:
+          $ref: '#/components/schemas/MetaCreatedBy'
+        detail:
+          type: string
+          nullable: true
+        end:
+          $ref: '#/components/schemas/MetaDateTime'
+        icon:
+          type: string
+          default: 'https://upload.wikimedia.org/wikipedia/commons/9/99/OOjs_UI_icon_alert-yellow.svg'
+        isApproved:
+          type: boolean
+          default: false
+        isCancelled:
+          type: boolean
+          default: false
+        lastModifiedBy:
+          $ref: '#/components/schemas/MetaUser'
+        start:
+          $ref: '#/components/schemas/MetaDateTime'
+        title:
+          type: string
+          default: 'alert description from postman'
+        wasProcessed:
+          type: boolean
+          default: false
+        createdAt:
+          $ref: '#/components/schemas/MetaDateTime'
+        lastModifiedAt:
+          $ref: '#/components/schemas/MetaDateTime'
+        __v:
+          type: integer
+          default: 0
+    AlertSearch:
+      allOf:
+        - $ref: '#/components/schemas/EndTimeObj'
+        - type: object
+          properties:
+            includeCancelled:
+              type: boolean
+              nullable: true
+              default: true
+            includeUnapproved:
+              type: boolean
+              nullable: true
+              default: false
+        - $ref: '#/components/schemas/StartTimeObj'
+    CategoryDataNoColor:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/Meta_id'
+        name:
+          type: string
+          example: Food
+        stub:
+          type: string
+          example: food
+        createdAt:
+          $ref: '#/components/schemas/MetaDateTime'
+        lastModifiedAt:
+          $ref: '#/components/schemas/MetaDateTime'
+        __v:
+          type: number
+          default: 1
+    CategoryData:
+      allOf:
+        - $ref: '#/components/schemas/CategoryDataNoColor'
+        - type: object
+          properties:
+            color:
+              type: string
+    EndTimeObj:
+      type: object
+      properties:
+        end:
+          type: string
+          format: date-time
+    ParentCategory:
+      allOf:
+        - $ref: '#/components/schemas/CategoryData'
+        - type: object
+          properties:
+            subcategories:
+              type: array
+              items:
+                $ref: '#/components/schemas/Meta_id'
+    Resource:
+      type: object
+      properties:
+        _id:
+          description: 'DO NOT normally reference this, use `resourceId`'
+          type: string
+          example: '5d8f030ac0e6672699a500c2'
+        address:
+          $ref: '#/components/schemas/MetaAddress'
+        createdAt:
+          $ref: '#/components/schemas/MetaDateTime'
+        createdBy:
+          $ref: '#/components/schemas/MetaCreatedBy'
+        deleted:
+          $ref: '#/components/schemas/MetaDeleted'
+        description:
+          $ref: '#/components/schemas/MetaDescription'
+        kudos:
+          type: integer
+        lastModifiedAt:
+          $ref: '#/components/schemas/MetaDateTime'
+        lastModifiedBy:
+          $ref: '#/components/schemas/MetaUser'
+        latitude:
+          $ref: '#/components/schemas/MetaLatitude'
+        legacyId:
+          $ref: '#/components/schemas/MetaLegacyId'
+        longitude:
+          $ref: '#/components/schemas/MetaLongitude'
+        name:
+          type: string
+        phone:
+          $ref: '#/components/schemas/MetaPhone'
+        resourceId:
+          $ref: '#/components/schemas/Meta_id'
+        schedule:
+          $ref: '#/components/schemas/MetaSchedule'
+        services:
+          $ref: '#/components/schemas/MetaServicesArr'
+        streetViewImage:
+          $ref: '#/components/schemas/MetaStreetViewImage'
+        subcategories:
+          $ref: '#/components/schemas/SubCategoryWithResources'
+        website:
+          $ref: '#/components/schemas/MetaWebsite'
+    ResourceDraft:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/Meta_id'
+        address:
+          $ref: '#/components/schemas/MetaAddress'
+        createdAt:
+          $ref: '#/components/schemas/MetaDateTime'
+        createdBy:
+          $ref: '#/components/schemas/MetaCreatedBy'
+        deleted:
+          $ref: '#/components/schemas/MetaDeleted'
+        description:
+          $ref: '#/components/schemas/MetaDescription'
+        kudos:
+          type: integer
+          default: 0
+        latitude:
+          $ref: '#/components/schemas/MetaLatitude'
+        legacyId:
+          $ref: '#/components/schemas/MetaLegacyId'
+        longitude:
+          $ref: '#/components/schemas/MetaLongitude'
+        name:
+          type: string
+          default: 'Community Food Share'
+        phone:
+          $ref: '#/components/schemas/MetaPhone'
+        schedule:
+          $ref: '#/components/schemas/MetaSchedule'
+        services:
+          $ref: '#/components/schemas/MetaServicesArr'
+        streetViewImage:
+          $ref: '#/components/schemas/MetaStreetViewImage'
+        subcategories:
+          type: array
+          items:
+            type: object
+            properties:
+              _id:
+                $ref: '#/components/schemas/Meta_id'
+              name:
+                type: string
+                example: 'Food Pantries'
+              stub:
+                type: string
+                example: 'food_pantries'
+              parentCategory:
+                allOf:
+                  - $ref: '#/components/schemas/CategoryData'
+                  - type: object
+                    properties:
+                      subcategories:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Meta_id'
+              createdAt:
+                $ref: '#/components/schemas/MetaDateTime'
+              lastModifiedAt:
+                $ref: '#/components/schemas/MetaDateTime'
+              __v:
+                type: integer
+        website:
+          $ref: '#/components/schemas/MetaWebsite'
+    SlackBotResponse:
+      type: object
+      properties:
+        blocks:
+          type: array
+          items:
+            type: object
+            properties:
+              text:
+                type: object
+                properties:
+                  text:
+                    type: string
+                    example: 'Tell upswyngbot /COMMAND to run the job'
+                  type:
+                    $ref: '#/components/schemas/MetaSlackType'
+              type:
+                $ref: '#/components/schemas/MetaSlackType'
+        response_type:
+          type: string
+          enum:
+            - in_channel
+    Subcategory:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/Meta_id'
+        name:
+          type: string
+          example: 'Food Pantries'
+        stub:
+          type: string
+          example: 'food_pantries'
+        parentCategory:
+          allOf:
+            - $ref: '#/components/schemas/CategoryData'
+            - type: object
+              properties:
+                subcategories:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Meta_id'
+        createdAt:
+          $ref: '#/components/schemas/MetaDateTime'
+        lastModifiedAt:
+          $ref: '#/components/schemas/MetaDateTime'
+        __v:
+          type: integer
+    SubCategoryWithResources:
+      allOf:
+        - $ref: '#/components/schemas/Subcategory'
+        - type: object
+          properties:
+            resources:
+              type: array
+              items:
+                $ref: '#/components/schemas/Resource'
+    StartTimeObj:
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+    # Document Types
+    CategoryDocument:
+      allOf:
+        - $ref: '#/components/schemas/CategoryData'
+        - type: object
+          properties:
+            subcategories:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/CategoryData'
+                  - type: object
+                    properties:
+                      resources:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Resource'
+    # Post Request Bodies
+    AddResourceSubCategoryPost:
+      type: object
+      properties:
+        subcategoryId:
+          $ref: '#/components/schemas/Meta_id'
+        resourceId:
+          $ref: '#/components/schemas/Meta_id'
+    AlertPost:
+      type: object
+      required:
+        - _id
+        - color
+        - end
+        - icon
+        - start
+        - title
+      properties:
+        _id:
+          $ref: '#/components/schemas/Meta_id'
+        color:
+          type: string
+        end:
+          $ref: '#/components/schemas/MetaDateTime'
+        icon:
+          type: string
+        isApproved:
+          type: boolean
+        isCancelled:
+          type: boolean
+        start:
+          $ref: '#/components/schemas/MetaDateTime'
+        title:
+          type: string
+    BotSlackJobPost:
+      type: object
+      properties:
+        response_url:
+          type: string
+          example: 'hooks.slack.com'
+    BotSlackTestJobPost:
+      type: object
+      properties:
+        delay:
+          type: integer
+        shouldFail:
+          type: string
+          enum:
+            - false
+            - true
+        response_url:
+          type: string
+          example: 'hooks.slack.com'
+    PaginateEventLogsPost:
+      allOf:
+        - $ref: '#/components/schemas/PaginatePost'
+        - type: object
+          properties:
+            resourceId:
+              $ref: '#/components/schemas/Meta_id'
+    IssuesQueryPost:
+      allOf:
+        - $ref: '#/components/schemas/PaginatePost'
+        - type: object
+          properties:
+            includeResolved:
+              type: boolean
+              default: false
+            minimumSeverity:
+              type: string
+              default: low
+              enum:
+                - low
+                - medium
+                - high
+    PaginatePost:
+      type: object
+      properties:
+        limit:
+          type: integer
+          default: 20
+        offset:
+          type: integer
+          default: 0
+    ResourcePost:
+      type: object
+      properties:
+        draftResource:
+          type: object
+          required:
+            - address
+            - description
+            - latitude
+            - longitude
+            - name
+            - phone
+            - resourceId
+            - schedule
+            - services
+            - streetViewImage
+            - subcategories
+            - website
+          properties:
+            address:
+              $ref: '#/components/schemas/MetaAddress'
+            description:
+              $ref: '#/components/schemas/MetaDescription'
+            latitude:
+              type: number
+              nullable: true
+              default: null
+            longitude:
+              type: number
+              nullable: true
+              default: null
+            name:
+              type: string
+            phone:
+              $ref: '#/components/schemas/MetaPhone'
+            resourceId:
+              $ref: '#/components/schemas/Meta_id'
+            schedule:
+              $ref: '#/components/schemas/MetaSchedule'
+            services:
+              $ref: '#/components/schemas/MetaServicesArr'
+            streetViewImage:
+              $ref: '#/components/schemas/MetaStreetViewImage'
+            subcategories:
+              type: array
+              items:
+                $ref: '#/components/schemas/Meta_id'
+            website:
+              $ref: '#/components/schemas/MetaWebsite'
+    UserUpdatePost:
+      type: object
+      properties:
+        isAdmin:
+          type: boolean
+        isSuperAdmin:
+          type: boolean
+    # Common
+    ErrorObj:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Description of error.
+          example: 'Error description'
+    # Meta
+    Meta_id:
+      type: string
+      example: 5d8f030ac0e6672699a500c2
+    MetaAddress:
+      type: object
+      properties:
+        address1:
+          type: string
+          example: 123 Someplace Avenue
+        city:
+          type: string
+          example: Boulder
+        state:
+          type: string
+          example: CO
+        zip:
+          type: integer
+          example: 80301
+    MetaCount:
+      type: integer
+      default: 0
+      example: 29
+    MetaCreatedBy:
+      description: 'User object that only appears for admin users, otherwise field will be omitted.'
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/Meta_id'
+        email:
+          type: string
+          example: 'dev.upswyng@gmail.com'
+        isAdmin:
+          type: boolean
+          default: false
+        isSuperAdmin:
+          type: boolean
+          default: false
+        name:
+          type: string
+          example: "Ursella UpSwyng"
+        providers:
+          type: array
+          items:
+            type: string
+            enum:
+              - facebook
+              - google
+              - slack
+    MetaDateTime:
+      type: string
+      format: date-time
+      example: '2019-09-28T06:51:53.633Z'
+    MetaDeleted:
+      type: boolean
+      description: "We leave entries in the DB so they don't get resynced from Strapped, but for all intents & purposes this resource doesn't exist."
+      default: false
+    MetaDescription:
+      type: string
+      example: 'Weekly groceries for families whose children are enrolled in the free or reduced lunch program at their school.'
+    MetaEventKind:
+      type: string
+      enum:
+          - alert_live
+          - draft_approved
+          - draft_created
+          - draft_deleted
+          - resource_issue_reopened
+          - resource_issue_resolved
+          - user_permission_changed
+    MetaEventKindUserReport:
+      type: string
+      default: 'user_report'
+      example: 'user_report'
+      enum:
+        - 'user_report'
+    MetaLatitude:
+      type: number
+      nullable: true
+      default: null
+      example: 40.0584971
+    MetaLongitude:
+      type: number
+      nullable: true
+      default: null
+      example: -105.11954379999997
+    MetaLegacyId:
+      type: string
+      example: -KZnRX-8rV1552vd0P7_
+    MetaPhone:
+      type: string
+      example: (303) 555-0112
+    MetaResourceArr:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/Resource'
+          - type: object
+            properties:
+              subcategories:
+                allOf:
+                  - $ref: '#/components/schemas/CategoryDataNoColor'
+                  - type: object
+                    properties:
+                      parentCategory:
+                        $ref: '#/components/schemas/CategoryData'
+    MetaSchedule:
+      type: object
+      properties:
+        alwaysOpen:
+          type: boolean
+        timezone:
+          $ref: '#/components/schemas/MetaTimeZone'
+        _items:
+          type: array
+          items:
+            type: object
+            properties:
+              comment:
+                type: string
+              fromTime:
+                type: integer
+              recurrenceRule:
+                type: string
+                example: 'RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=WE'
+              toTime:
+                type: integer
+    MetaServicesArr:
+      type: array
+      items:
+        type: string
+        example: 'Groceries for low-income Seniors/Families'
+    MetaSlackType:
+      type: string
+      enum:
+        - mrkdwn
+        - section
+    MetaStreetViewImage:
+      type: string
+      example: 'http://media.upswyng.org/images/5def5cbab831a048f2a3df03.jpg'
+      nullable: true
+    MetaTimeZone:
+      type: string
+      example: 'America/Denver'
+    MetaUser:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/Meta_id'
+        email:
+          type: string
+          example: 'dev.upswyng@gmail.com'
+        isAdmin:
+          type: boolean
+          default: false
+        isSuperAdmin:
+          type: boolean
+          default: false
+        name:
+          type: string
+          example: "Ursella UpSwyng"
+        providers:
+          type: array
+          items:
+            type: string
+            enum:
+              - facebook
+              - google
+              - slack
+    MetaWebsite:
+      type: string
+      example: 'https://www.upswyng.org/'
+
+  securitySchemes:
+    requireAdmin:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    requireLoggedIn:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    requireSuperAdmin:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    slackSigned:
+      type: apiKey
+      in: header
+      name: 'X-Slack-Signature'
+
+  parameters:
+    categoryPath:
+      name: category
+      in: path
+      description: Single category stub name.
+      example: transit
+      required: true
+      schema:
+        type: string
+        example: food
+    idPath:
+      name: id
+      in: path
+      description: Single object _id.
+      required: true
+      schema:
+        $ref: '#/components/schemas/Meta_id'
+    idQueryOptional:
+      name: id
+      in: query
+      description: _id for an entry
+      required: false
+      schema:
+        type: string
+        example: 5def5cb7b831a048f2a3deed
+    idQueryMultipleOptional:
+      name: id
+      in: query
+      description: 'Single `_id` or multiple comma separated `_id,_id,_id` for one or more entries.'
+      required: false
+      schema:
+        type: string
+        example: 5def5cb7b831a048f2a3deed
+    includeDeletedDraftsQueryOptional:
+      name: include-deleted
+      in: query
+      description: Whether to include drafts for resources that are already deleted
+      required: false
+      schema:
+        type: boolean
+    latitudeQuery:
+      name: latitude
+      in: query
+      description: Latitude, probably for current user
+      required: true
+      schema:
+        type: number
+        example: 40.015
+    longitudeQuery:
+      name: longitude
+      in: query
+      description: Longitude, probably for current user
+      required: true
+      schema:
+        type: number
+        example: -105.2705
+    slackTimestampHeader:
+      in: header
+      name: X-Slack-Request-Timestamp
+      required: true
+      schema:
+        type: string
+        format: date-time
+    subcategoryPath:
+      name: subcategory
+      in: path
+      description: Single subcategory stub name.
+      example: food_pantry
+      required: true
+      schema:
+        type: string
+
+  responses:
+    EmptyObject:
+      description: Empty json object.
+      content:
+        application/json:
+          schema:
+            type: object
+    ErrorAlreadyExists:
+      description: Resource already exists and cannot be created again.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorObj'
+    ErrorAuthentication:
+      description: Invalid user credentials submitted.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorObj'
+    ErrorInvalidRequest:
+      description: Known invalid request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorObj'
+    ErrorNotFound:
+      description: Resource invalid or not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorObj'
+    ErrorUnknown:
+      description: Unknown invalid request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorObj'
+    SlackBotResponse:
+      description: Slack Response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SlackBotResponse'
+
+  requestBodies:
+    EmptyRequest:
+      description: Empty request body
+      content:
+        application/json: {}
+    SlackBotRequest:
+      description: 'Request body from slack / command.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BotSlackJobPost'
+        application/x-www-form-urlencoded:
+          schema:
+            $ref: '#/components/schemas/BotSlackJobPost'
+
+tags:
+  - name: alert
+    description: 'Create and get alerts for display.'
+  - name: bot
+    description: 'Endpoints for slack bot to interact with.'
+  - name: category
+    description: 'Categories'
+  - name: sub-category
+    description: 'SubCategories'
+  - name: eventlogs
+    description: 'Event logs'
+#  - name: hotlines
+#    description: 'Hotlines'
+  - name: issues
+    description: 'Endpoints for issues reported on resources'
+  - name: resource
+    description: 'Resources'
+  - name: users
+    description: 'Users'

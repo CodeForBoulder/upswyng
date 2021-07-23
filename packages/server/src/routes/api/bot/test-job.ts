@@ -6,7 +6,7 @@ import mq from "../../../worker/mq";
 async function makeTestJob(req, res, _next, user: TUser) {
   const jobName = getName("-");
 
-  // Command can be like /testjob 35, where the second part is the delay to apply to the job
+  // Command can be like /test-job 35, where the second part is the delay to apply to the job
   let argParseFailure = false;
   let delay: number;
   const arg = req.body.text;

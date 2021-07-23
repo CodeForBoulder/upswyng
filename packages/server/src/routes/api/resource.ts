@@ -28,6 +28,7 @@ export async function post(req, res, next) {
     next();
     return;
   }
+
   try {
     const { draftResource } = req.body;
     draftResource.createdBy = user as TUser;
