@@ -112,11 +112,11 @@ SubcategorySchema.statics.getSubcategoryList = async function(
   includeResources = false
 ) {
   if (includeResources) {
-    return await this.find()
+    return this.find()
       .populate("parentCategory")
       .populate("resources");
   }
-  return await this.find()
+  return this.find()
     .populate("parentCategory")
     .map(r => {
       delete r.resources;

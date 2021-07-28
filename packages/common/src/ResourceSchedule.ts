@@ -1,6 +1,5 @@
 import { RRule, RRuleSet } from "rrule";
 import {
-  TResource,
   TResourceScheduleData,
   TScheduleItemOpenClose,
   TTimezoneName,
@@ -69,29 +68,29 @@ export function getScheduleItemPeriod(
 ): TScheduleItemOpenClose {
   const openTimeValue = item.fromTime.value;
   const closeTimeValue = item.toTime.value;
-  const firstOccurenceDate = item.recurrenceRule.all((_, i) => i < 1)[0];
+  const firstOccurrenceDate = item.recurrenceRule.all((_, i) => i < 1)[0];
 
   const firstCloseDt = makeSchedulePeriodDate(
-    firstOccurenceDate,
+    firstOccurrenceDate,
     closeTimeValue
   );
-  // rrule doesn't know of the time so its first occurence could be past close
+  // rrule doesn't know of the time so its first occurrence could be past close
   if (firstCloseDt.getTime() > dt.getTime()) {
-    const openDt = makeSchedulePeriodDate(firstOccurenceDate, openTimeValue);
+    const openDt = makeSchedulePeriodDate(firstOccurrenceDate, openTimeValue);
     return {
       open: openDt,
       close: firstCloseDt,
     };
   }
 
-  // the first occurence is past close so retrieve first occurence after the given date
-  const secondOccurenceDate = item.recurrenceRule.after(dt);
+  // the first occurrence is past close so retrieve first occurrence after the given date
+  const secondOccurrenceDate = item.recurrenceRule.after(dt);
   const secondCloseDt = makeSchedulePeriodDate(
-    secondOccurenceDate,
+    secondOccurrenceDate,
     closeTimeValue
   );
   const secondOpenDt = makeSchedulePeriodDate(
-    secondOccurenceDate,
+    secondOccurrenceDate,
     closeTimeValue
   );
   return {
@@ -101,13 +100,13 @@ export function getScheduleItemPeriod(
 }
 
 /**
- * Represents the reoccuring schedule of a resource (ex: Mon, Wed, Fri from 8am - 10pm)
+ * Represents the recurring schedule of a resource (ex: Mon, Wed, Fri from 8am - 10pm)
  * Based on the iCalendar standard (https://icalendar.org/iCalendar-RFC-5545)
  * Wraps the rrule library (https://github.com/jakubroztocil/rrule) in order to add
  * comments for schedule rules (ex: Mon 8am-12pm for residents, 1pm-4pm for non-residents)
  */
 export default class ResourceSchedule {
-  private _items: TScheduleItem[];
+  private readonly _items: TScheduleItem[];
   /**
    * Whether the Resource is always open.
    */
@@ -214,11 +213,7 @@ export default class ResourceSchedule {
       return null;
     }
 
-    if (at.getTime() > nextScheduleItemPeriod.open.getTime()) {
-      return true;
-    }
-
-    return false;
+    return at.getTime() > nextScheduleItemPeriod.open.getTime();
   }
 
   /**
@@ -244,10 +239,8 @@ export default class ResourceSchedule {
         if (!r.toTime || typeof r.toTime !== "string") {
           return false;
         }
-        if (r.comment && typeof r.comment !== "string") {
-          return false;
-        }
-        return true;
+
+        return !(r.comment && typeof r.comment !== "string");
       })
     ) {
       throw new Error(

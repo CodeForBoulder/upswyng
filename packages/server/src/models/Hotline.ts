@@ -49,7 +49,7 @@ const HotlineSchema = new Schema(
 );
 
 HotlineSchema.statics.getAll = async function(): Promise<THotlineDocument[]> {
-  return await this.find({});
+  return this.find({});
 };
 
 const HotlineModel = mongoose.model<THotlineDocument>("Hotline", HotlineSchema);

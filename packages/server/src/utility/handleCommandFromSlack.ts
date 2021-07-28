@@ -93,5 +93,5 @@ export default async function handleCommandFromSlack<R = any>(
     res.writeHead(200, { "Content-Type": "application/json" });
     return res.end(JSON.stringify(slackResponse));
   }
-  return await callback(req, res, next, user);
+  return callback(req, res, next, user);
 }

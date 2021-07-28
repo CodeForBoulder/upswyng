@@ -147,11 +147,11 @@ async function slackGrantToUser(grant: TGrantSlack): Promise<TUser> {
 async function grantToUser(grant: TGrant) {
   switch (grant.provider) {
     case "facebook":
-      return await facebookGrantToUser(grant);
+      return facebookGrantToUser(grant);
     case "google":
-      return await googleGrantToUser(grant);
+      return googleGrantToUser(grant);
     case "slack":
-      return await slackGrantToUser(grant);
+      return slackGrantToUser(grant);
     default:
       throw new Error(
         `Received unknown provider ${

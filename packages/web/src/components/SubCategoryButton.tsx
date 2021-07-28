@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const SubCategoryButton = (props: Props) => {
-  const { children, buttonColor, isSelected, ...rest } = props;
+  const { children, ...rest } = props;
   const classes = useStyles(props);
 
   return (

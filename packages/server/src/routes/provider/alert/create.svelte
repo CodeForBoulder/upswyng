@@ -7,7 +7,7 @@
 </script>
 
 <script>
-  import { addFlashMessage } from "./../../../utility/flashMessage.ts";
+  import { addFlashMessage } from "../../../utility/flashMessage";
   import { goto, stores } from "@sapper/app";
   import { onDestroy, onMount } from "svelte";
   import { Time } from "@upswyng/common";
