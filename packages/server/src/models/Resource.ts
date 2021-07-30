@@ -36,7 +36,7 @@ export interface TResourceDocument extends Document {
   lastModifiedAt: Date;
   lastModifiedBy: ObjectId | undefined; // always populate
   legacyId: string | null | undefined;
-  location: { type: string; coordinates: number[] };
+  location: { type: "Point"; coordinates: number[] };
   name: string;
   phone: string;
   schedule: TResourceScheduleData;

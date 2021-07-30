@@ -101,7 +101,7 @@ export const routerLinkButtons: THomeButtonRouterLink[] = [
     linkProps: {
       to: "/job_training",
     },
-    color: colors.lavendar,
+    color: colors.lavender,
   },
   {
     text: "Social Services",

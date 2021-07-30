@@ -70,7 +70,7 @@ const routerLinkButtons: THomeButtonRouterLink[] = [
     text: "Job Training",
     icon: BusinessCenterIcon,
     linkState: "/job-training",
-    color: colors.lavendar,
+    color: colors.lavender,
   },
   {
     text: "Social Services",

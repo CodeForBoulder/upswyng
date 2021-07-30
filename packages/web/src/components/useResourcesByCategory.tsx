@@ -1,14 +1,25 @@
 import { TResource } from "@upswyng/types";
 import { TResourcesByCategoryPayload } from "../webTypes";
 import apiClient from "../utils/apiClient";
+import { getUserCoordinates } from "../utils/location";
 import { useQuery } from "react-query";
 
 const getResourcesByCategory = async (
   _queryKey: string,
   params: { category: string }
 ): Promise<TResourcesByCategoryPayload> => {
+  console.log(`getResourcesByCategory`);
+
+  const userPosition = await getUserCoordinates();
+
   const { data } = await apiClient.get<TResourcesByCategoryPayload>(
-    `/category/${params.category}`
+    `/category/${params.category}`,
+    {
+      params: {
+        latitude: userPosition.latitude,
+        longitude: userPosition.longitude,
+      },
+    }
   );
 
   if (!data.category) {
