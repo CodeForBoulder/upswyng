@@ -119,7 +119,7 @@ export const categories: Record<TCategoryName, TCategoryDefinition> = {
     ],
   },
   JobTraining: {
-    color: "lavendar",
+    color: "lavender",
     placeholder: BusinessCenterIcon,
     mainCategory: {
       translationKey: "jobTraining",

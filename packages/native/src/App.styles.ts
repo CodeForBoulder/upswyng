@@ -8,7 +8,7 @@ export const colors = {
   greyDark: "#3c3c3c",
   greyMedium: "#707070",
   greyLight: "#A2A2A2",
-  lavendar: "#9F6CBA",
+  lavender: "#9F6CBA",
   orangeDark: "#CE5A30",
   orangePrimary: "#F05A28",
   orangeSecondary: "#DB5427",

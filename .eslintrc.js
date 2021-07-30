@@ -31,6 +31,14 @@ module.exports = {
     ],
     "react/display-name": ["off", { ignoreTranspilerName: true }],
     "sort-imports": "error",
+    "max-len": ["warn", {
+      code: 100,
+      ignoreComments: true,
+      ignoreStrings: true,
+      ignoreTemplateLiterals: true,
+      tabWidth: 4,
+    }],
+
   },
   settings: {
     react: {

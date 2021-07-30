@@ -101,7 +101,7 @@ const categories: Record<TCategoryName, any> = {
     ],
   },
   JobTraining: {
-    color: "lavendar",
+    color: "lavender",
     mainCategory: {
       text: "Job Training",
       query: "CATEGORY-jobTraining",
