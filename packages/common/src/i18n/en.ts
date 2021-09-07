@@ -83,7 +83,7 @@ export default {
         "The National Human Trafficking Resource Center (NHTRC) is a national anti-trafficking hotline and resource center serving victims and survivors of human trafficking and the anti-trafficking community in the United States. The toll-free hotline is available to answer calls from anywhere in the country, 24 hours a day, 7 days a week, every day of the year in more than 200 languages. The NHTRC can also be accessed by emailing nhtrc@polarisproject.org. Our mission is to provide human trafficking victims and survivors with access to critical support and services to get help and stay safe, and to equip the anti-trafficking community with the tools to effectively combat all forms of human trafficking. We offer round-the-clock access to a safe space to report tips, seek services, and ask for help.",
     },
     nationalSexualAssultHotline: {
-      name: "National Sexual Assult Hotline",
+      name: "National Sexual Assault Hotline",
       description:
         "RAINN (Rape, Abuse and Incest National Network) is the nation's largest anti-sexual violence organization. RAINN created and operates the National Sexual Assault Hotline (800.656.HOPE, online.rainn.org y rainn.org/es) in partnership with more than 1,000 local sexual assault service providers across the country and operates the DoD Safe Helpline for the Department of Defense. RAINN also carries out programs to prevent sexual violence, help victims, and ensure that perpetrators are brought to justice.",
     },
@@ -111,6 +111,11 @@ export default {
       name: "United Way",
       description:
         "Every day thousands of people across North America turn to 2-1-1 for information and support—whether financial, domestic, health or disaster-related. 2-1-1 is a free, confidential referral and information helpline and website that connects people from all communities and of all ages to the essential health and human services they need, 24 hours a day, seven days a week.",
+    },
+    safehouseProgressiveAllianceForNonviolence: {
+      name: "Safehouse Progressive Alliance for Nonviolence Hotline",
+      description:
+        "If you, your children or someone else you know is seeking support for abuse, violence or other forms of oppression and discrimination, SPAN is here to help. From abusive relationships, domestic violence, interpersonal violence and elder abuse to oppression and discrimination based on sexual orientation, gender identity, ethnicity, race, religion, age, ability or income level, SPAN offers the support and resources needed to overcome these challenging circumstances.",
     },
   },
   map: {
