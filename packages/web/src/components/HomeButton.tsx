@@ -26,6 +26,7 @@ const useStyles = makeStyles({
     textDecoration: "none",
     textTransform: "none",
     width: "100%",
+    height: "100%",
     "&:hover": {
       background: props.buttonColor || colors.greyDark,
       filter: "brightness(95%)",
