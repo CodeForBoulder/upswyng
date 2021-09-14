@@ -113,6 +113,11 @@ export default {
       description:
         "Todos los días, miles de personas en América del Norte recurren al 2-1-1 para obtener información y apoyo, ya sea financiero, doméstico, de salud o relacionado con desastres. 2-1-1 es una línea de ayuda y un sitio web gratuito y confidencial de referencia e información que conecta a personas de todas las comunidades y de todas las edades con cualquier servicio esencial humano o de salud que necesiten, las 24 horas del día, los siete días de la semana.",
     },
+    safehouseProgressiveAllianceForNonviolence: {
+      name: "Safehouse Progressive Alliance for Nonviolence Hotline",
+      description:
+        "Si usted, sus hijos o alguien más que conozca está buscando apoyo para el abuso, la violencia u otras formas de opresión y discriminación, SPAN está aquí para ayudarlo. Desde las relaciones abusivas, la violencia doméstica, la violencia interpersonal y el abuso de ancianos hasta la opresión y la discriminación basadas en la orientación sexual, la identidad de género, el origen étnico, la raza, la religión, la edad, la capacidad o el nivel de ingresos, SPAN ofrece el apoyo y los recursos necesarios para superar estas circunstancias difíciles.",
+    },
   },
   map: {
     directions: "Direcciones",

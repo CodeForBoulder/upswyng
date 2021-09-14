@@ -102,6 +102,30 @@ To fix this, run the script:
 yarn build:local-packages
 ```
 
+#### Connection refused to server and database when using WSL2 and Ubuntu
+
+When setting up the environment on Ubuntu the following errors may occur when executing `yarn start:local`
+
+```
+[ioredis] Unhandled error event: Error: connect ECONNREFUSED 127.0.0.1:6380
+```
+
+```
+MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017
+```
+
+To fix this issue make sure that you have properly installed the docker engine. steps for installation can be found at the [Docker Engine installation docs](https://docs.docker.com/engine/install/ubuntu/).
+
+Now install Docker Desktop. [Documentation found here](https://docs.docker.com/desktop/windows/wsl/).
+
+Once you have finished setting up Docker Desktop restart your computer and navigate to your upswyng folder, and run the following scripts.
+
+```
+yarn reset
+yarn
+yarn start:local
+```
+
 ## Reset
 
 If nothing you try is fixing your issue, you can totally reset your local environment with `yarn reset`. After performing a reset, try `yarn start:local` and see if things work out.
