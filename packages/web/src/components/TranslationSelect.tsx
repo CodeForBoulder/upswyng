@@ -23,19 +23,20 @@ interface TranslationSelectProps {
 
 const TranslationSelect = (Props: TranslationSelectProps) => {
   const classes = useStyles();
-  const [translationUsed, setTranslationUsed] = React.useState("es");
+  const [translationUsed, setTranslationUsed] = React.useState("en");
 
-  const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setTranslationUsed(event.target.value as string);
-    Props.changeTranslation(translationUsed);
+  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const translationLanguage = event.target.value as string;
+    setTranslationUsed(translationLanguage);
+    Props.changeTranslation(translationLanguage);
   };
 
   return (
     <div>
       <FormControl className={classes.formControl}>
-        <Select value={translationUsed} onChange={handleSelectChange}>
-          <MenuItem value="es">English</MenuItem>
-          <MenuItem value="en">Spanish</MenuItem>
+        <Select value={translationUsed} onChange={handleChange}>
+          <MenuItem value="en">English</MenuItem>
+          <MenuItem value="es">Spanish</MenuItem>
         </Select>
       </FormControl>
     </div>
