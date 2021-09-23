@@ -10,12 +10,18 @@ import MenuDrawer from "./MenuDrawer";
 import MenuIcon from "@material-ui/icons/Menu";
 import Temperature from "./Temperature";
 import Toolbar from "@material-ui/core/Toolbar";
+import TranslationSelect from "./TranslationSelect";
 import Typography from "@material-ui/core/Typography";
+import i18n from "../i18n";
 import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const { t } = useTranslation("glossary");
+
+  const changeTranslation = (translation: string) => {
+    i18n.changeLanguage(translation);
+  };
 
   return (
     <Box my={2}>
@@ -29,12 +35,17 @@ const Header = () => {
                   <MenuIcon />
                 </IconButton>
               </Grid>
-              <Grid alignItems="center" justify="flex-end" container item>
-                <Grid item component={Temperature} />
+              <Grid alignItems="center" justify="flex-start" container item>
                 <Grid item>
                   <Link to="/">
                     <Box component={Logo} height={40} width="auto" />
                   </Link>
+                </Grid>
+              </Grid>
+              <Grid alignItems="center" justify="flex-end" container item>
+                <Grid item component={Temperature} />
+                <Grid item>
+                  <TranslationSelect changeTranslation={changeTranslation} />
                 </Grid>
               </Grid>
             </Grid>
