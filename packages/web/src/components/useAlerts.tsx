@@ -1,7 +1,8 @@
 import { TAlert, TStatusFetch } from "@upswyng/types";
+import { TAlertsBody, TAlertsPayload } from "../webTypes";
 import { useEffect, useState } from "react";
+import { AxiosResponse } from "axios";
 
-import { TAlertsPayload } from "../webTypes";
 import apiClient from "../utils/apiClient";
 
 const GET_ALERTS_INTERVAL_MS = 300000; // 5 minutes
@@ -16,7 +17,10 @@ const useAlerts = (): [TStatusFetch, TAlert[] | null] => {
     const getAlerts = async (): Promise<void> => {
       try {
         setStatus(TStatusFetch.STATUS_FETCHING);
-        const { data } = await apiClient.post<TAlertsPayload>(`/alert/search`, {
+        const { data } = await apiClient.post<
+          TAlertsBody,
+          AxiosResponse<TAlertsPayload>
+        >(`/alert/search`, {
           start: new Date(),
         });
 
