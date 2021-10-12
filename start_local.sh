@@ -30,4 +30,4 @@ fi
 docker top upswyng-dev-db > /dev/null 2>&1 || yarn build:local-db
 
 # Start development servers for server and web packages concurrently
-concurrently -n server,web -c yellow,blue "yarn workspace @upswyng/server dev" "yarn workspace @upswyng/web start"
+concurrently -n server,web -c yellow,blue "yarn server dev" "yarn web start"

@@ -18,7 +18,7 @@ SETUP_SCRIPT="${DIR}/../../__build__/bin/setup_categories"
 
 # see if the category setup script exists, if not, build it
 if ! test -f "$SETUP_SCRIPT"; then
-    TARGETS=setupCategories yarn workspace @upswyng/server build:bin
+    TARGETS=setupCategories yarn server build:bin
 fi
 
 # setup categories
@@ -35,4 +35,4 @@ read -r REDIS_PID <"${DIR}/../../cypress/.redispid"
 read -r REDIS_URI <"${DIR}/../../cypress/.redisuri"
 
 REDIS_URL=$REDIS_URI DATABASE_URL=$MONGODB_URI DATABASE_NAME="" DATABASE_USER="" DATABASE_PASSWORD="" PORT=43637 \
-    yarn workspace @upswyng/server dev
+    yarn server dev
