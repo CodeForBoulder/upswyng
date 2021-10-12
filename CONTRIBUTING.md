@@ -23,7 +23,7 @@ These issues may need more input before becoming dev-ready and will be labelled 
 
 Once you have have found an issue you feel comfortable working on, leave a comment in that issue that you'd like to tackle it. We'll label the issue as being in progress to make sure others don't work on it as well.
 
-If this is your first time contributing to open-source or you need a refresher, see this [great guide](https://github.com/firstcontributions/first-contributions#first-contributions] that goes through the steps of contributing to an open-source project.
+If this is your first time contributing to open-source or you need a refresher, see this [contributing guide](https://github.com/firstcontributions/first-contributions#first-contributions) that goes through the steps of contributing to an open-source project.
 
 ## 3. Create a Pull Request (PR)
 
