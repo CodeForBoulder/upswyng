@@ -20,7 +20,7 @@
     "@types/react-router-dom": "^5.1.0",
     "@upswyng/common": "0.1.0",
     "algoliasearch": "^3.33.0",
-    "axios": ">=0.21.1",
+    "axios": ">=0.21.2",
     "debounce": "^1.2.0",
     "google-map-react": "^1.1.4",
     "html-react-parser": "^0.11.1",
