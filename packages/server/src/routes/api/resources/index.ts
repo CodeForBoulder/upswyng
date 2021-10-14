@@ -13,8 +13,7 @@ export async function get(_req, res, _next) {
 
     const getCategories = async () => {
       return Promise.all(
-        categoryFilters.map(async (categoryName: string) => {
-          const stub = categoryName.toLowerCase().replace(/\s/, "_"); //TODO: how will two word query params work?
+        categoryFilters.map(async (stub: string) => {
           return await Category.getByStub(stub);
         })
       );
