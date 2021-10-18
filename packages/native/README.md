@@ -123,7 +123,7 @@ Maybe you have the answer to someone's question. Look through any issues labelle
 
 Once you have have found an issue you feel comfortable working on, request to work on the issue and we'll label the issue as **Status: In Progress** to make sure others don't work on it as well.
 
-Then, create a new branch off the current `master`.
+Then, create a new branch off the current `main`.
 
 ### 3. Create a Pull Request (PR)
 
