@@ -27,6 +27,10 @@ export interface TEnvVariables {
   };
 }
 
+export interface TAlertsBody {
+  start: Date;
+}
+
 interface TPayloadBase {
   message?: string;
 }

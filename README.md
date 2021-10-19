@@ -31,13 +31,13 @@ Make sure you have these tools installed before you begin.
 UpSwyng is a monorepo managed with [Yarn Workspaces](https://classic.yarnpkg.com/en/docs/workspaces/). It consists of five
 packages all in the `packages` directory:
 
-- [common](https://github.com/CodeForBoulder/upswyng/tree/master/packages/common) - contains common libraries and utilities used across the other packages
-- [types](https://github.com/CodeForBoulder/upswyng/tree/master/packages/types) - contains the TypeScript definitions used across the project
-- [server](https://github.com/CodeForBoulder/upswyng/tree/master/packages/server) - a [Sapper](https://sapper.svelte.dev/) application with two parts:
+- [common](https://github.com/CodeForBoulder/upswyng/tree/main/packages/common) - contains common libraries and utilities used across the other packages
+- [types](https://github.com/CodeForBoulder/upswyng/tree/main/packages/types) - contains the TypeScript definitions used across the project
+- [server](https://github.com/CodeForBoulder/upswyng/tree/main/packages/server) - a [Sapper](https://sapper.svelte.dev/) application with two parts:
   - an API server which provides data to the UpSwyng clients
   - an admin web interface which uses the [Svelte](https://svelte.dev/) framework to create and modify data for the project
-- [web](https://github.com/CodeForBoulder/upswyng/tree/master/packages/web) - contains the [React](https://reactjs.org/) web client
-- [native](https://github.com/CodeForBoulder/upswyng/tree/master/packages/native) - contains a proof-of-concept [React Native](https://facebook.github.io/react-native/) client
+- [web](https://github.com/CodeForBoulder/upswyng/tree/main/packages/web) - contains the [React](https://reactjs.org/) web client
+- [native](https://github.com/CodeForBoulder/upswyng/tree/main/packages/native) - contains a proof-of-concept [React Native](https://facebook.github.io/react-native/) client
 
 ## Working With Yarn Workspaces
 
