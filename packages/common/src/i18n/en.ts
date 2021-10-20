@@ -26,6 +26,14 @@ export default {
     earlyApplicationNotice:
       "If you apply before 6 months, you will be barred from any services.",
   },
+  favorites: {
+    addToFavorites: "add to favorites",
+    favorites: "Favorites",
+    favoritesOnDevice: "Favorites are only saved on this device.",
+    localOnly:
+      "Favorites are only saved on this device. They will not be saved if you are using a public computer or when you have a private session enabled in your browser (incognito mode).",
+    noFavorites: "You haven't added any favorites yet!",
+  },
   footer: {
     searchByAlgolia: "search by Algolia",
   },

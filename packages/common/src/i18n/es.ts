@@ -26,6 +26,14 @@ export default {
     earlyApplicationNotice:
       "Si presenta la solicitud antes de los 6 meses, no podrá recibir ningún servicio.",
   },
+  favorites: {
+    addToFavorites: "agregar a los favoritos",
+    favorites: "Favoritos",
+    favoritesOnDevice: "Los favoritos sólo se guardan en este dispositivo.",
+    localOnly:
+      "Los favoritos solo se guardan en este dispositivo. No se guardarán si está utilizando una computadora pública o cuando tiene una sesión privada habilitada en su navegador (modo incógnito).",
+    noFavorites: "¡No has añadido ningún favorito todavía!",
+  },
   footer: {
     searchByAlgolia: "búsqueda por Algolia",
   },
