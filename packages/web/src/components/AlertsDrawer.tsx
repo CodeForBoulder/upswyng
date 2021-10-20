@@ -53,7 +53,7 @@ const AlertsDrawer = ({ alerts, toggleDrawer, ...drawerProps }: Props) => {
           )}
           <Grid container justify="flex-end" item>
             <IconButton onClick={toggleDrawer}>
-              <Typography variant="srOnly">close alerts</Typography>
+              <Typography variant="srOnly">{t("closeAlerts")}</Typography>
               <CloseIcon />
             </IconButton>
           </Grid>
