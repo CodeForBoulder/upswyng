@@ -26,6 +26,9 @@ export default {
     earlyApplicationNotice:
       "If you apply before 6 months, you will be barred from any services.",
   },
+  footer: {
+    searchByAlgolia: "search by Algolia",
+  },
   glossary: {
     coordinatedEntry: "Coordinated Entry",
     more: "More",

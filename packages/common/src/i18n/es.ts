@@ -26,6 +26,9 @@ export default {
     earlyApplicationNotice:
       "Si presenta la solicitud antes de los 6 meses, no podrá recibir ningún servicio.",
   },
+  footer: {
+    searchByAlgolia: "búsqueda por Algolia",
+  },
   glossary: {
     coordinatedEntry: "Entrada Coordinada",
     more: "Más",
