@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const FavoriteResources = () => {
   const classes = useStyles();
-  const { t } = useTranslation("alerts");
+  const { t } = useTranslation("favorites");
   const [favoriteResources] = useLocalStorage<string[]>("favoriteResources");
 
   const { data: resources, status } = useResources(favoriteResources || []);
