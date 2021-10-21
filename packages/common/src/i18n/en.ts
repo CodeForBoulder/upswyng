@@ -35,6 +35,7 @@ export default {
     noFavorites: "You haven't added any favorites yet!",
   },
   footer: {
+    deploysByNetlify: "deploys by Netlify",
     searchByAlgolia: "search by Algolia",
   },
   glossary: {
