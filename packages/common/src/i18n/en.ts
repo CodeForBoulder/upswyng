@@ -224,6 +224,8 @@ export default {
   },
   alerts: {
     closeAlerts: "Close Alerts",
+    viewAlerts_one: "view alert",
+    viewAlerts_other: "view {{count}} alerts",
   },
   mainMenu: {
     resourcesWithinReach: "Resources within reach",

@@ -10,6 +10,7 @@ import { TStatusFetch } from "@upswyng/types";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import makeStyles from "@material-ui/styles/makeStyles";
 import useAlerts from "./useAlerts";
+import { useTranslation } from "react-i18next";
 
 const useAlertStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -30,6 +31,7 @@ const GlobalAlertBar = () => {
   const [status, alerts] = useAlerts();
   const alertClasses = useAlertStyles();
   const [viewingAlerts, setViewingAlerts] = useState(false);
+  const { t } = useTranslation("alerts");
 
   if (status !== TStatusFetch.STATUS_FETCH_SUCCESS || !alerts?.length) {
     return null;
@@ -53,7 +55,7 @@ const GlobalAlertBar = () => {
           <Alert
             action={
               <Button endIcon={<ExpandMore />} size="small" variant="text">
-                {alertButtonText}
+                {t("viewAlerts", { count: alerts.length })}
               </Button>
             }
             classes={alertClasses}

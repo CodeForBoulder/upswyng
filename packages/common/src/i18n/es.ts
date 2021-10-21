@@ -227,6 +227,8 @@ export default {
   },
   alerts: {
     closeAlerts: "Cerrar Alertas",
+    viewAlerts_one: "ver alerta",
+    viewAlerts_other: "ver {{count}} alertas",
   },
   mainMenu: {
     resourcesWithinReach: "Recursos al Alcance",
