@@ -27,14 +27,14 @@ describe("<ResourceList/>", () => {
     const status = "error";
     const { getByText } = setup({ status });
 
-    expect(getByText(/try again/i)).toBeInTheDocument();
+    expect(getByText(/errorGeneral/i)).toBeInTheDocument();
   });
 
   it("renders an error message when successfully retrieved resources but response is empty", () => {
     const resources = [] as TResource[];
     const { getByText } = setup({ resources });
 
-    expect(getByText(/try again/i)).toBeInTheDocument();
+    expect(getByText(/errorGeneral/i)).toBeInTheDocument();
   });
 
   it("renders a resource for each resource in the list", () => {
