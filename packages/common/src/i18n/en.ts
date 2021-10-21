@@ -178,6 +178,7 @@ export default {
     services: "Services",
   },
   search: {
+    search: "Search",
     inputPlaceholder: "Search - What are your needs today?",
   },
   subcategories: {

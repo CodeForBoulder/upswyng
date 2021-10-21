@@ -180,8 +180,9 @@ export default {
     reportAProblem: "Reportar un Problema",
     services: "Servicios",
   },
-  searchInput: {
-    placeholder: "Busqueda - ¿Que necesitas hoy?",
+  search: {
+    search: "Busqueda",
+    inputPlaceholder: "Busqueda - ¿Que necesitas hoy?",
   },
   subcategories: {
     all: "Todo",
