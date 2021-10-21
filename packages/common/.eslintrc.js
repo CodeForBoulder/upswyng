@@ -1,5 +1,3 @@
-// see https://www.robertcooper.me/using-eslint-and-prettier-in-a-typescript-project
-
 module.exports = {
   extends: ["./../../.eslintrc.js"],
   rules: {
