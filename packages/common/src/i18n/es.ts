@@ -136,6 +136,10 @@ export default {
     directionsByBicycle: "Direcciones via bicicleta",
     directionsByCar: "Direcciones via carro",
     directionsByWalking: "Direcciones a pie",
+    directionsErrorGeneral:
+      "Lo siento, hubo un problema al obtener direcciones. Por favor, inténtelo de nuevo más tarde.",
+    directionsErrorZeroResults:
+      "Parece que no pudimos obtener direcciones. Prueba con otro modo de viaje.",
   },
   notFound: {
     pageTitle: "Página no Encontrada",

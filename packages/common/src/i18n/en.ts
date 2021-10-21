@@ -135,6 +135,10 @@ export default {
     directionsByBicycle: "Directions by bicycle",
     directionsByCar: "Directions by car",
     directionsByWalking: "Directions by walking",
+    directionsErrorGeneral:
+      "We're sorry, there was a problem getting directions. Please try again later.",
+    directionsErrorZeroResults:
+      "It looks like we couldn't get directions. Please try a different type of travel.",
   },
   notFound: {
     pageTitle: "Page not Found",

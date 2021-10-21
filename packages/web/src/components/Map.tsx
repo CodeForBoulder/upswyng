@@ -161,17 +161,10 @@ const Map = ({ address, name, latitude, longitude }: Props) => {
     setIsFetchingDirections(false);
     switch (status) {
       case "ZERO_RESULTS":
-        const directionTypeText: string = travelMode
-          ? ` by ${travelMode.toLowerCase()}`
-          : "";
-        setDirectionsError(
-          `It looks like we couldn't get directions${directionTypeText}. Please try a different type of travel.`
-        );
+        setDirectionsError(t("directionsErrorZeroResults"));
         break;
       default:
-        setDirectionsError(
-          "We're sorry, there was a problem getting directions. Please try again later."
-        );
+        setDirectionsError(t("directionsErrorGeneral"));
     }
   };
 
