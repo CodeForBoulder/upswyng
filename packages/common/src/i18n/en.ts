@@ -40,6 +40,8 @@ export default {
   glossary: {
     closed: "closed",
     coordinatedEntry: "Coordinated Entry",
+    errorGeneral:
+      "Whoops! It looks like we are having trouble on our end. Please try again in a bit.",
     more: "More",
     less: "Less",
     comments: "Comments",
@@ -175,8 +177,8 @@ export default {
     reportAProblem: "Report a Problem",
     services: "Services",
   },
-  searchInput: {
-    placeholder: "Search - What are your needs today?",
+  search: {
+    inputPlaceholder: "Search - What are your needs today?",
   },
   subcategories: {
     all: "All",

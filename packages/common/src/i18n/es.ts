@@ -40,6 +40,8 @@ export default {
   glossary: {
     closed: "cerrado",
     coordinatedEntry: "Entrada Coordinada",
+    errorGeneral:
+      "¡Uy! Parece que estamos teniendo problemas por nuestra parte. Inténtelo de nuevo en un momento.",
     more: "Más",
     less: "Menos",
     comments: "Comentarios",
