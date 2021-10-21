@@ -25,6 +25,11 @@ const ResourceList = ({ placeholder, resources, status }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation("glossary");
 
+  console.log(
+    "process.env.REACT_APP_SERVER_URI: ",
+    process.env.REACT_APP_SERVER_URI
+  );
+
   if (status === "loading") {
     return <LoadingSpinner />;
   }
