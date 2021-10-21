@@ -38,6 +38,7 @@ export default {
     searchByAlgolia: "búsqueda por Algolia",
   },
   glossary: {
+    closed: "cerrado",
     coordinatedEntry: "Entrada Coordinada",
     more: "Más",
     less: "Menos",
@@ -45,6 +46,7 @@ export default {
     send: "Enviar",
     back: "Regresar",
     menu: "Menú",
+    open: "abierto",
     backToPrevious: "volver a la página anterior",
     weekdays: {
       sunday: "Domingo",
