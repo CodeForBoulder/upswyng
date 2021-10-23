@@ -32,7 +32,7 @@ export async function categoryDocumentToCategory(
     // );
     if (d.hasOwnProperty("_bsontype")) {
       // console.warn("This appears to be an ObjectId");
-      // console.trace();
+      // cons ole.trace();
       return null;
     }
   }
