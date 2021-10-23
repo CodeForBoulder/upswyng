@@ -110,10 +110,19 @@ CategorySchema.statics.getByStub = async function(
   return result;
 };
 
+/* Finds and returns all categories from an array of category stubs.*/
+CategorySchema.statics.getByStubs = async function(
+  stubs: string[]
+): Promise<TCategoryDocument[] | null> {
+  const result = await this.find({ stub: { $in: stubs } });
+  return result;
+};
+
 /**
  * Creates or finds an existing subcategory by its name and adds
  * it as a child of this category
  */
+
 (CategorySchema.methods as any).addSubcategory = async function(
   subcategoryName: string,
   subcategoryStub: string
@@ -138,4 +147,5 @@ export default Category as typeof Category & {
   ) => Promise<TCategoryDocument>;
   getCategoryList: () => Promise<TCategoryDocument[]>;
   getByStub: (stub: string) => Promise<TCategoryDocument | null>;
+  getByStubs: (stubs: string[]) => Promise<TCategoryDocument[] | null>;
 };
