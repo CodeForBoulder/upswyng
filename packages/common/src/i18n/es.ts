@@ -6,6 +6,11 @@ export default {
   about: {
     content: AboutContent.es,
   },
+  alerts: {
+    closeAlerts: "Cerrar Alertas",
+    viewAlerts: "ver alerta",
+    viewAlerts_plural: "ver {{count}} alertas",
+  },
   categories: {
     food: "Comida",
     shelter: "Albergue",
@@ -234,11 +239,6 @@ export default {
   },
   termsOfUse: {
     content: TermsOfUseContent.es,
-  },
-  alerts: {
-    closeAlerts: "Cerrar Alertas",
-    viewAlerts_one: "ver alerta",
-    viewAlerts_other: "ver {{count}} alertas",
   },
   mainMenu: {
     resourcesWithinReach: "Recursos al Alcance",

@@ -6,6 +6,11 @@ export default {
   about: {
     content: AboutContent.en,
   },
+  alerts: {
+    closeAlerts: "Close Alerts",
+    viewAlerts: "view alert",
+    viewAlerts_plural: "view {{count}} alerts",
+  },
   categories: {
     food: "Food",
     shelter: "Shelter",
@@ -231,11 +236,6 @@ export default {
   },
   termsOfUse: {
     content: TermsOfUseContent.en,
-  },
-  alerts: {
-    closeAlerts: "Close Alerts",
-    viewAlerts_one: "view alert",
-    viewAlerts_other: "view {{count}} alerts",
   },
   mainMenu: {
     resourcesWithinReach: "Resources within reach",
