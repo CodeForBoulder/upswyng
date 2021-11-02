@@ -6,6 +6,11 @@ export default {
   about: {
     content: AboutContent.es,
   },
+  alerts: {
+    closeAlerts: "Cerrar Alertas",
+    viewAlerts: "ver alerta",
+    viewAlerts_plural: "ver {{count}} alertas",
+  },
   categories: {
     food: "Comida",
     shelter: "Albergue",
@@ -26,14 +31,30 @@ export default {
     earlyApplicationNotice:
       "Si presenta la solicitud antes de los 6 meses, no podrá recibir ningún servicio.",
   },
+  favorites: {
+    addToFavorites: "agregar a los favoritos",
+    favorites: "Favoritos",
+    favoritesOnDevice: "Los favoritos sólo se guardan en este dispositivo.",
+    localOnly:
+      "Los favoritos solo se guardan en este dispositivo. No se guardarán si está utilizando una computadora pública o cuando tiene una sesión privada habilitada en su navegador (modo incógnito).",
+    noFavorites: "¡No has añadido ningún favorito todavía!",
+  },
+  footer: {
+    deploysByNetlify: "despliegues por Netlify",
+    searchByAlgolia: "búsqueda por Algolia",
+  },
   glossary: {
+    closed: "cerrado",
     coordinatedEntry: "Entrada Coordinada",
+    errorGeneral:
+      "¡Uy! Parece que estamos teniendo problemas por nuestra parte. Inténtelo de nuevo en un momento.",
     more: "Más",
     less: "Menos",
     comments: "Comentarios",
     send: "Enviar",
     back: "Regresar",
     menu: "Menú",
+    open: "abierto",
     backToPrevious: "volver a la página anterior",
     weekdays: {
       sunday: "Domingo",
@@ -125,6 +146,10 @@ export default {
     directionsByBicycle: "Direcciones via bicicleta",
     directionsByCar: "Direcciones via carro",
     directionsByWalking: "Direcciones a pie",
+    directionsErrorGeneral:
+      "Lo siento, hubo un problema al obtener direcciones. Por favor, inténtelo de nuevo más tarde.",
+    directionsErrorZeroResults:
+      "Parece que no pudimos obtener direcciones. Prueba con otro modo de viaje.",
   },
   notFound: {
     pageTitle: "Página no Encontrada",
@@ -161,8 +186,9 @@ export default {
     reportAProblem: "Reportar un Problema",
     services: "Servicios",
   },
-  searchInput: {
-    placeholder: "Busqueda - ¿Que necesitas hoy?",
+  search: {
+    search: "Busqueda",
+    inputPlaceholder: "Busqueda - ¿Que necesitas hoy?",
   },
   subcategories: {
     all: "Todo",
@@ -213,9 +239,6 @@ export default {
   },
   termsOfUse: {
     content: TermsOfUseContent.es,
-  },
-  alerts: {
-    closeAlerts: "Cerrar Alertas",
   },
   mainMenu: {
     resourcesWithinReach: "Recursos al Alcance",

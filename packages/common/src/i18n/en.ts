@@ -6,6 +6,11 @@ export default {
   about: {
     content: AboutContent.en,
   },
+  alerts: {
+    closeAlerts: "Close Alerts",
+    viewAlerts: "view alert",
+    viewAlerts_plural: "view {{count}} alerts",
+  },
   categories: {
     food: "Food",
     shelter: "Shelter",
@@ -26,8 +31,23 @@ export default {
     earlyApplicationNotice:
       "If you apply before 6 months, you will be barred from any services.",
   },
+  favorites: {
+    addToFavorites: "add to favorites",
+    favorites: "Favorites",
+    favoritesOnDevice: "Favorites are only saved on this device.",
+    localOnly:
+      "Favorites are only saved on this device. They will not be saved if you are using a public computer or when you have a private session enabled in your browser (incognito mode).",
+    noFavorites: "You haven't added any favorites yet!",
+  },
+  footer: {
+    deploysByNetlify: "deploys by Netlify",
+    searchByAlgolia: "search by Algolia",
+  },
   glossary: {
+    closed: "closed",
     coordinatedEntry: "Coordinated Entry",
+    errorGeneral:
+      "Whoops! It looks like we are having trouble on our end. Please try again in a bit.",
     more: "More",
     less: "Less",
     comments: "Comments",
@@ -35,6 +55,7 @@ export default {
     back: "Back",
     backToPrevious: "go back to previous page",
     menu: "Menu",
+    open: "open",
     weekdays: {
       sunday: "Sunday",
       monday: "Monday",
@@ -124,6 +145,10 @@ export default {
     directionsByBicycle: "Directions by bicycle",
     directionsByCar: "Directions by car",
     directionsByWalking: "Directions by walking",
+    directionsErrorGeneral:
+      "We're sorry, there was a problem getting directions. Please try again later.",
+    directionsErrorZeroResults:
+      "It looks like we couldn't get directions. Please try a different type of travel.",
   },
   notFound: {
     pageTitle: "Page not Found",
@@ -158,8 +183,9 @@ export default {
     reportAProblem: "Report a Problem",
     services: "Services",
   },
-  searchInput: {
-    placeholder: "Search - What are your needs today?",
+  search: {
+    search: "Search",
+    inputPlaceholder: "Search - What are your needs today?",
   },
   subcategories: {
     all: "All",
@@ -210,9 +236,6 @@ export default {
   },
   termsOfUse: {
     content: TermsOfUseContent.en,
-  },
-  alerts: {
-    closeAlerts: "Close Alerts",
   },
   mainMenu: {
     resourcesWithinReach: "Resources within reach",
