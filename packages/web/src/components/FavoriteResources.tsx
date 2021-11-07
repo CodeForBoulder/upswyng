@@ -9,6 +9,7 @@ import { colors } from "@upswyng/common";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import useLocalStorage from "./useLocalStorage";
 import useResources from "./useResources";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) => ({
   alert: {
@@ -18,13 +19,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const FavoriteResources = () => {
   const classes = useStyles();
+  const { t } = useTranslation("favorites");
   const [favoriteResources] = useLocalStorage<string[]>("favoriteResources");
 
   const { data: resources, status } = useResources(favoriteResources || []);
 
   const renderBodyContent = () => {
     if (favoriteResources === null || favoriteResources.length === 0) {
-      return <Typography>You haven&apos;t added any favorites yet!</Typography>;
+      return <Typography>{t("noFavorites")}</Typography>;
     } else {
       return <ResourceList resources={resources} status={status} />;
     }
@@ -33,12 +35,10 @@ export const FavoriteResources = () => {
   return (
     <Container>
       <PageBanner color={colors.orangePrimary}>
-        <Typography variant="h1">Favorites</Typography>
+        <Typography variant="h1">{t("favorites")}</Typography>
       </PageBanner>
       <Alert severity="info" className={classes.alert}>
-        Favorites are only saved to this device. They will not be saved if you
-        are using a public computer, or when you have a private session enabled
-        in your browser (incognito mode).
+        {t("localOnly")}
       </Alert>
       {renderBodyContent()}
     </Container>

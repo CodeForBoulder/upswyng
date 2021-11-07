@@ -15,6 +15,7 @@ import { getNextOpenText } from "../utils/schedule";
 
 import makeStyles from "@material-ui/styles/makeStyles";
 import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface StyleProps {
   index: number;
@@ -60,6 +61,7 @@ interface Props {
 }
 
 const ResourceCard = ({ index = 1, placeholder, resource }: Props) => {
+  const { t } = useTranslation("glossary");
   const { name, resourceId, schedule, streetViewImage } = resource;
 
   const parsedSchedule = ResourceSchedule.parse(schedule);
@@ -126,7 +128,7 @@ const ResourceCard = ({ index = 1, placeholder, resource }: Props) => {
                   <ScheduleIcon color="inherit" fontSize="inherit" />
                 </Grid>
               </Grid>
-              <Grid item>{isOpen ? "Open" : "Closed"}</Grid>
+              <Grid item>{isOpen ? t("open") : t("closed")}</Grid>
             </Grid>
             <Grid
               component={Typography}

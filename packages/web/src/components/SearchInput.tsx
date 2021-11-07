@@ -18,14 +18,14 @@ const useInputStyles = makeStyles((theme: Theme) => ({
 
 const Search = (props: InputBaseProps) => {
   const inputClasses = useInputStyles({});
-  const { t } = useTranslation(["searchInput"]);
+  const { t } = useTranslation(["search"]);
 
   return (
     <FormControl fullWidth hiddenLabel>
       <Input
-        aria-label="search"
+        aria-label={t("search")}
         fullWidth
-        placeholder={t("placeholder")}
+        placeholder={t("inputPlaceholder")}
         id="search"
         classes={inputClasses}
         startAdornment={
