@@ -12,7 +12,6 @@ import { TResource } from "@upswyng/types";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import Typography from "@material-ui/core/Typography";
 import { getNextOpenText } from "../utils/schedule";
-
 import makeStyles from "@material-ui/styles/makeStyles";
 import { useHistory } from "react-router-dom";
 

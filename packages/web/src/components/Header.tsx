@@ -43,8 +43,8 @@ const Header = () => {
                 </Grid>
               </Grid>
               <Grid alignItems="center" justify="flex-end" container item>
-                <Grid item component={Temperature} />
-                <Grid item>
+                <Grid item component={Temperature} xs={6} />
+                <Grid item xs={6}>
                   <TranslationSelect changeTranslation={changeTranslation} />
                 </Grid>
               </Grid>
