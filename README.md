@@ -31,13 +31,13 @@ Make sure you have these tools installed before you begin.
 UpSwyng is a monorepo managed with [Yarn Workspaces](https://classic.yarnpkg.com/en/docs/workspaces/). It consists of five
 packages all in the `packages` directory:
 
-- [common](https://github.com/CodeForBoulder/upswyng/tree/master/packages/common) - contains common libraries and utilities used across the other packages
-- [types](https://github.com/CodeForBoulder/upswyng/tree/master/packages/types) - contains the TypeScript definitions used across the project
-- [server](https://github.com/CodeForBoulder/upswyng/tree/master/packages/server) - a [Sapper](https://sapper.svelte.dev/) application with two parts:
+- [common](https://github.com/CodeForBoulder/upswyng/tree/main/packages/common) - contains common libraries and utilities used across the other packages
+- [types](https://github.com/CodeForBoulder/upswyng/tree/main/packages/types) - contains the TypeScript definitions used across the project
+- [server](https://github.com/CodeForBoulder/upswyng/tree/main/packages/server) - a [Sapper](https://sapper.svelte.dev/) application with two parts:
   - an API server which provides data to the UpSwyng clients
   - an admin web interface which uses the [Svelte](https://svelte.dev/) framework to create and modify data for the project
-- [web](https://github.com/CodeForBoulder/upswyng/tree/master/packages/web) - contains the [React](https://reactjs.org/) web client
-- [native](https://github.com/CodeForBoulder/upswyng/tree/master/packages/native) - contains a proof-of-concept [React Native](https://facebook.github.io/react-native/) client
+- [web](https://github.com/CodeForBoulder/upswyng/tree/main/packages/web) - contains the [React](https://reactjs.org/) web client
+- [native](https://github.com/CodeForBoulder/upswyng/tree/main/packages/native) - contains a proof-of-concept [React Native](https://facebook.github.io/react-native/) client
 
 ## Working With Yarn Workspaces
 
@@ -70,6 +70,15 @@ It's a good idea to run tests locally before pushing, although it is not require
 If you wish to run tests locally, you will need to ensure that `redis-server` is available in your `path`. You can check by running `redis-server`, and you can install it [here](https://redis.io/topics/quickstart) or via `brew install redis` on mac.
 
 Once Redis is installed, run our entire test suite with `yarn test`.
+
+### Windows 10 Installation on Windows Subsystem for Linux 2
+
+1. First [Install WSL2](https://docs.microsoft.com/en-us/windows/wsl/install) choosing Ubuntu or distribution of choice.
+2. [Install NVM](https://simplernerd.com/install-node-npm-wsl2/) to allow for different versions of Node.  This will also install NPM.
+3. [Install yarn globally](https://classic.yarnpkg.com/en/docs/install)
+4. [Install Docker Desktop](https://docs.docker.com/desktop/windows/install/) for Windows with WSL2 support. Note that it's important to do this after installing WSL2.
+5. Fork or clone the repository into a folder native to Linux and not the Windows system.  This avoids problems with line ending differences between Windows and Linux.  It is also much faster to access the Linux filesystem directly rather than the Windows filesystem through Linux.
+6. Run `yarn start:local` as noted above.
 
 ### Troubleshooting
 

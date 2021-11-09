@@ -164,7 +164,7 @@
     iconSearchResults = [];
     const query = `{
       search(
-        version: "5.12.1",
+        version: "5.14.0",
         query: "${iconSearchTerm}",
         first: 16
       ) { id, Membership { free } }

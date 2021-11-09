@@ -5,6 +5,7 @@ import ResourceCard from "./ResourceCard";
 import { TResource } from "@upswyng/types";
 import Typography from "@material-ui/core/Typography";
 import makeStyles from "@material-ui/styles/makeStyles";
+import { useTranslation } from "react-i18next";
 interface Props {
   placeholder?: React.ReactElement;
   resources?: TResource[];
@@ -22,18 +23,14 @@ const useStyles = makeStyles({
 
 const ResourceList = ({ placeholder, resources, status }: Props) => {
   const classes = useStyles();
+  const { t } = useTranslation("glossary");
 
   if (status === "loading") {
     return <LoadingSpinner />;
   }
 
   if (status === "error" || !resources?.length) {
-    return (
-      <Typography>
-        Whoops, it looks like we are having trouble on our end. Please try again
-        in a bit.
-      </Typography>
-    );
+    return <Typography>{t("errorGeneral")}</Typography>;
   }
 
   const listItems = resources.map((resource, index) => {

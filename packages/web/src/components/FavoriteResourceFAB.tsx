@@ -7,6 +7,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import useLocalStorage from "./useLocalStorage";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   resourceId: string;
@@ -31,6 +32,7 @@ export const FavoriteResourceFAB = ({ resourceId }: Props) => {
   const [favoriteResources, setFavoriteResources] = useLocalStorage<string[]>(
     "favoriteResources"
   );
+  const { t } = useTranslation("favorites");
   const isFavoriteResource = favoriteResources?.includes(resourceId);
   const handleFabClick = () => {
     if (isFavoriteResource && favoriteResources) {
@@ -54,7 +56,7 @@ export const FavoriteResourceFAB = ({ resourceId }: Props) => {
         onClick={handleFabClick}
         color="primary"
         className={classes.fab}
-        aria-label="add"
+        aria-label={t("addToFavorites")}
       >
         {isFavoriteResource ? <FavoriteIcon /> : <FavoriteBorderIcon />}
       </Fab>
@@ -64,7 +66,7 @@ export const FavoriteResourceFAB = ({ resourceId }: Props) => {
         onClose={() => setSnackbarShowing(false)}
         className={classes.snackbar}
       >
-        <Alert severity="info">Favorites are only saved to this device.</Alert>
+        <Alert severity="info">{t("favoritesOnDevice")}</Alert>
       </Snackbar>
     </>
   );

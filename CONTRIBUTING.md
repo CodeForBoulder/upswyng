@@ -11,8 +11,8 @@ We also move issues into the [All Issues project](https://github.com/CodeForBoul
 
 Depending on your familiarity with the various stacks, you may also want to filter based on the two projects in this repo:
 
-- **Server** - [issues](https://github.com/CodeForBoulder/upswyng/labels/Project%3A%20Server) related to the [server project](https://github.com/CodeForBoulder/upswyng/tree/master/packages/server)
-- **Web** - [issues](https://github.com/CodeForBoulder/upswyng/labels/Project%3A%20Web) related to the [web project](https://github.com/CodeForBoulder/upswyng/tree/master/packages/web)
+- **Server** - [issues](https://github.com/CodeForBoulder/upswyng/labels/Project%3A%20Server) related to the [server project](https://github.com/CodeForBoulder/upswyng/tree/main/packages/server)
+- **Web** - [issues](https://github.com/CodeForBoulder/upswyng/labels/Project%3A%20Web) related to the [web project](https://github.com/CodeForBoulder/upswyng/tree/main/packages/web)
 
 ### Provide Feedback
 
