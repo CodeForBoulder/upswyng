@@ -71,6 +71,15 @@ If you wish to run tests locally, you will need to ensure that `redis-server` is
 
 Once Redis is installed, run our entire test suite with `yarn test`.
 
+### Windows 10 Installation on Windows Subsystem for Linux 2
+
+1. First [Install WSL2](https://docs.microsoft.com/en-us/windows/wsl/install) choosing Ubuntu or distribution of choice.
+2. [Install NVM](https://simplernerd.com/install-node-npm-wsl2/) to allow for different versions of Node.  This will also install NPM.
+3. [Install yarn globally](https://classic.yarnpkg.com/en/docs/install)
+4. [Install Docker Desktop](https://docs.docker.com/desktop/windows/install/) for Windows with WSL2 support. Note that it's important to do this after installing WSL2.
+5. Fork or clone the repository into a folder native to Linux and not the Windows system.  This avoids problems with line ending differences between Windows and Linux.  It is also much faster to access the Linux filesystem directly rather than the Windows filesystem through Linux.
+6. Run `yarn start:local` as noted above.
+
 ### Troubleshooting
 
 #### The engine "node" is incompatible with this module.
