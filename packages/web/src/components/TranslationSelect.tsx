@@ -36,7 +36,7 @@ const TranslationSelect = (Props: TranslationSelectProps) => {
       <FormControl className={classes.formControl}>
         <Select value={translationUsed} onChange={handleChange}>
           <MenuItem value="en">English</MenuItem>
-          <MenuItem value="es">Spanish</MenuItem>
+          <MenuItem value="es">Español</MenuItem>
         </Select>
       </FormControl>
     </div>
