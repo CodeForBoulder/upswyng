@@ -66,6 +66,7 @@ export default {
       saturday: "Sábado",
     },
     close: "Final",
+    selectLanguage: "Seleccionar idioma",
   },
   hotlines: {
     nationalSuicidePreventionLifeline: {
