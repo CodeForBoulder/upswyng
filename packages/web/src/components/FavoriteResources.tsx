@@ -1,5 +1,6 @@
 import Alert from "@material-ui/lab/Alert";
 import Container from "@material-ui/core/Container";
+import { Helmet } from "react-helmet";
 import PageBanner from "./PageBanner";
 import React from "react";
 import ResourceList from "./ResourceList";
@@ -34,6 +35,9 @@ export const FavoriteResources = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>{t("title")}</title>
+      </Helmet>
       <PageBanner color={colors.orangePrimary}>
         <Typography variant="h1">{t("favorites")}</Typography>
       </PageBanner>
