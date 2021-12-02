@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: "column",
     marginRight: "12px",
     padding: "5px 10px",
+    textAlign: "right",
   },
   degrees: {
     fontSize: font.helpers.convertPixelsToRems(18),

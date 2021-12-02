@@ -24,23 +24,35 @@ const Header = () => {
       <AppBar color="transparent" elevation={0} position="static">
         <Toolbar disableGutters>
           <Container>
-            <Grid alignItems="center" container wrap="nowrap">
-              <Grid item>
-                <IconButton edge="start" onClick={() => setIsMenuOpen(true)}>
-                  <Typography variant="srOnly">{t("menu")}</Typography>
-                  <MenuIcon />
-                </IconButton>
-              </Grid>
-              <Grid alignItems="center" justify="flex-start" container item>
+            <Grid
+              alignItems="center"
+              container
+              justify="space-between"
+              wrap="nowrap"
+            >
+              <Grid alignItems="center" container item wrap="nowrap" xs={5}>
+                <Grid item>
+                  <IconButton edge="start" onClick={() => setIsMenuOpen(true)}>
+                    <Typography variant="srOnly">{t("menu")}</Typography>
+                    <MenuIcon />
+                  </IconButton>
+                </Grid>
                 <Grid item>
                   <Link to="/">
-                    <Box component={Logo} height={40} width="auto" />
+                    <Box component={Logo} height={40} maxWidth="100%" />
                   </Link>
                 </Grid>
               </Grid>
-              <Grid alignItems="center" justify="flex-end" container item>
-                <Grid item component={Temperature} xs={6} />
-                <Grid item xs={6}>
+              <Grid
+                alignItems="center"
+                container
+                item
+                justify="flex-end"
+                wrap="nowrap"
+                xs={7}
+              >
+                <Grid item component={Temperature} />
+                <Grid item>
                   <TranslationSelect />
                 </Grid>
               </Grid>
