@@ -26,10 +26,8 @@ export default {
   coordinatedEntry: {
     mainNotice:
       "All single homeless adults must go through the Coordinated Entry process to receive services from Boulder County or the cities of Boulder or Longmont. After meeting with a staff person and going through a short screening, clients will be referred to the most appropriate service depending on their needs.",
-    sixMonthsNotice:
-      "Note you must have been in Boulder County for 6 months before applying.",
-    earlyApplicationNotice:
-      "If you apply before 6 months, you will be barred from any services.",
+    qualifyingNotice:
+      "You are not guaranteed to qualify for services through Boulder County.",
   },
   favorites: {
     addToFavorites: "add to favorites",

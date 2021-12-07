@@ -18,6 +18,7 @@ const useButtonStyles = makeStyles({
   contained: {
     "&, &:hover": {
       background: colors.rosewood,
+      color: colors.white,
     },
   },
 });
@@ -39,10 +40,7 @@ const CoordinatedEntry = () => {
               <WarningIcon color="secondary" fontSize="large" />
             </ListItemIcon>
             <ListItemText>
-              <Typography paragraph>{t("sixMonthsNotice")}</Typography>
-              <Typography color="secondary">
-                {t("earlyApplicationNotice")}
-              </Typography>
+              <Typography paragraph>{t("qualifyingNotice")}</Typography>
             </ListItemText>
           </ListItem>
         </List>
