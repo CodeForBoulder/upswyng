@@ -2,9 +2,10 @@ import BackButton from "./BackButton";
 import BannerColorContext from "./BannerColorContext";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
 import React from "react";
 import { colors } from "@upswyng/common";
-
 interface Props {
   children: React.ReactNode;
   color?: string;
@@ -26,7 +27,12 @@ const PageBanner = ({ children, color, backButtonAction }: Props) => {
         <Grid item>
           <BackButton backButtonAction={backButtonAction} />
         </Grid>
-        <Grid item>{children}</Grid>
+
+        <List>
+          <ListItem>
+            <Grid item>{children}</Grid>
+          </ListItem>
+        </List>
       </Grid>
     </Box>
   );
