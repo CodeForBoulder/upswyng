@@ -1,5 +1,4 @@
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import Box from "@material-ui/core/Box";
 import IconButton from "@material-ui/core/IconButton";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
@@ -15,17 +14,15 @@ const BackButton = ({ backButtonAction }: Props) => {
   const history = useHistory();
 
   return (
-    <Box ml={2}>
-      <IconButton
-        onClick={() =>
-          backButtonAction ? backButtonAction() : history.push("/")
-        }
-        size="small"
-      >
-        <Typography variant="srOnly">{t("backToPrevious")}</Typography>
-        <ArrowBackIcon fontSize="large" />
-      </IconButton>
-    </Box>
+    <IconButton
+      onClick={() =>
+        backButtonAction ? backButtonAction() : history.push("/")
+      }
+      size="small"
+    >
+      <Typography variant="srOnly">{t("backToPrevious")}</Typography>
+      <ArrowBackIcon fontSize="large" />
+    </IconButton>
   );
 };
 
