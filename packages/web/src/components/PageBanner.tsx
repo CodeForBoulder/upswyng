@@ -24,7 +24,7 @@ const PageBanner = ({ children, color, backButtonAction }: Props) => {
   }, [color, updateCurrentBannerColor]);
 
   return (
-    <Box bgcolor={currentBannerColor || colors.black} mb={4} py={2}>
+    <Box bgcolor={currentBannerColor || colors.black} mb={4}>
       <List disablePadding>
         <ListItem>
           <ListItemIcon>
