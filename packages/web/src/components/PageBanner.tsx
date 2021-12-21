@@ -1,7 +1,10 @@
 import BackButton from "./BackButton";
 import BannerColorContext from "./BannerColorContext";
 import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
 import React from "react";
 import { colors } from "@upswyng/common";
 
@@ -21,13 +24,15 @@ const PageBanner = ({ children, color, backButtonAction }: Props) => {
   }, [color, updateCurrentBannerColor]);
 
   return (
-    <Box bgcolor={currentBannerColor || colors.black} mb={4} py={2}>
-      <Grid container wrap="nowrap" alignItems="center" spacing={1}>
-        <Grid item>
-          <BackButton backButtonAction={backButtonAction} />
-        </Grid>
-        <Grid item>{children}</Grid>
-      </Grid>
+    <Box bgcolor={currentBannerColor || colors.black} mb={4}>
+      <List disablePadding>
+        <ListItem>
+          <ListItemIcon>
+            <BackButton backButtonAction={backButtonAction} />
+          </ListItemIcon>
+          <ListItemText>{children}</ListItemText>
+        </ListItem>
+      </List>
     </Box>
   );
 };

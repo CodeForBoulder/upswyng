@@ -19,6 +19,7 @@ const BackButton = ({ backButtonAction }: Props) => {
         backButtonAction ? backButtonAction() : history.push("/")
       }
       size="small"
+      edge="start"
     >
       <Typography variant="srOnly">{t("backToPrevious")}</Typography>
       <ArrowBackIcon fontSize="large" />
