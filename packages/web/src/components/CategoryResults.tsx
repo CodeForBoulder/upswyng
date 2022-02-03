@@ -1,5 +1,6 @@
 import { TResourceCategory, TResourceSubcategory } from "../webTypes";
 
+import { Helmet } from "react-helmet";
 import PageBanner from "./PageBanner";
 import React from "react";
 import ResourceList from "./ResourceList";
@@ -51,6 +52,9 @@ const CategoryResults = ({
 
   return (
     <>
+      <Helmet>
+        <title>{t(categoryTranslationKey)} - Upswyng</title>
+      </Helmet>
       <PageBanner color={categoryColor}>
         <Typography variant="h1">{t(categoryTranslationKey)}</Typography>
       </PageBanner>

@@ -5,6 +5,7 @@ import { TermsOfUseContent } from "@upswyng/common";
 export default {
   about: {
     content: AboutContent.en,
+    title: "About - Upswyng",
   },
   alerts: {
     closeAlerts: "Close Alerts",
@@ -36,6 +37,7 @@ export default {
     localOnly:
       "Favorites are only saved on this device. They will not be saved if you are using a public computer or when you have a private session enabled in your browser (incognito mode).",
     noFavorites: "You haven't added any favorites yet!",
+    title: "Favorites - Upswyng",
   },
   footer: {
     deploysByNetlify: "deploys by Netlify",
@@ -138,6 +140,11 @@ export default {
         "If you, your children or someone else you know is seeking support for abuse, violence or other forms of oppression and discrimination, SPAN is here to help. From abusive relationships, domestic violence, interpersonal violence and elder abuse to oppression and discrimination based on sexual orientation, gender identity, ethnicity, race, religion, age, ability or income level, SPAN offers the support and resources needed to overcome these challenging circumstances.",
     },
   },
+  home: {
+    title: "Upswyng",
+    description:
+      "UpSwyng is a mobile-ready, digital directory of resources to assist the unhoused and at-risk communities.",
+  },
   map: {
     directions: "Directions",
     directionsByBus: "Directions by bus",
@@ -156,6 +163,7 @@ export default {
   },
   privacyPolicy: {
     content: PrivacyPolicyContent.en,
+    title: "Privacy Policy - Upswyng",
   },
   reportIssue: {
     title: "Report an Issue",
@@ -235,6 +243,7 @@ export default {
   },
   termsOfUse: {
     content: TermsOfUseContent.en,
+    title: "Terms of Use - Upswyng",
   },
   mainMenu: {
     resourcesWithinReach: "Resources within reach",

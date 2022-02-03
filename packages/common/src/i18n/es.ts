@@ -5,6 +5,7 @@ import { TermsOfUseContent } from "@upswyng/common";
 export default {
   about: {
     content: AboutContent.es,
+    title: "Acerca - UpSwyng",
   },
   alerts: {
     closeAlerts: "Cerrar Alertas",
@@ -36,6 +37,7 @@ export default {
     localOnly:
       "Los favoritos solo se guardan en este dispositivo. No se guardarán si está utilizando una computadora pública o cuando tiene una sesión privada habilitada en su navegador (modo incógnito).",
     noFavorites: "¡No has añadido ningún favorito todavía!",
+    title: "Favoritos - UpSwyng",
   },
   footer: {
     deploysByNetlify: "despliegues por Netlify",
@@ -139,6 +141,11 @@ export default {
         "Si usted, sus hijos o alguien más que conozca está buscando apoyo para el abuso, la violencia u otras formas de opresión y discriminación, SPAN está aquí para ayudarlo. Desde las relaciones abusivas, la violencia doméstica, la violencia interpersonal y el abuso de ancianos hasta la opresión y la discriminación basadas en la orientación sexual, la identidad de género, el origen étnico, la raza, la religión, la edad, la capacidad o el nivel de ingresos, SPAN ofrece el apoyo y los recursos necesarios para superar estas circunstancias difíciles.",
     },
   },
+  home: {
+    title: "Upswyng",
+    description:
+      "UpSwyng es un directorio digital para dispositivos móviles, que continue recursos para ayudar a personas que están a punto de perder su hogar o que ya se encuentran sin hogar.",
+  },
   map: {
     directions: "Direcciones",
     directionsByBus: "Direcciones via bus",
@@ -158,6 +165,7 @@ export default {
   },
   privacyPolicy: {
     content: PrivacyPolicyContent.es,
+    title: "Política de Privacidad - UpSwyng",
   },
   reportIssue: {
     title: "Reportar un Problema",
@@ -238,6 +246,7 @@ export default {
   },
   termsOfUse: {
     content: TermsOfUseContent.es,
+    title: "Condiciones De Uso - UpSwyng",
   },
   mainMenu: {
     resourcesWithinReach: "Recursos al Alcance",

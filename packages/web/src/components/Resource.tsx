@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button/Button";
 import Card from "@material-ui/core/Card";
 import Container from "@material-ui/core/Container";
 import FavoriteResourceFAB from "./FavoriteResourceFAB";
+import { Helmet } from "react-helmet";
 import Image from "material-ui-image";
 import Link from "@material-ui/core/Link";
 import List from "@material-ui/core/List";
@@ -97,6 +98,9 @@ export const Resource = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>{resource.name} - UpSwyng</title>
+      </Helmet>
       <PageBanner
         color={resourceColor}
         backButtonAction={lastLocation ? history.goBack : null}
