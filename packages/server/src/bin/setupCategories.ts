@@ -49,7 +49,7 @@ const categories: {
     ],
   },
   {
-    color: "lavendar",
+    color: "lavender",
     name: "Job Training",
     stub: "job_training",
     subcategories: [

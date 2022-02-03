@@ -21,28 +21,25 @@ export interface TCategoryDocument extends Document {
 export async function categoryDocumentToCategory(
   d: TCategoryDocument
 ): Promise<TCategory | null> {
-  let c = d;
-  if (d.toObject) {
-    c = d.toObject();
-  } else {
+  if (!d || !d.toObject) {
     // console.warn(
     //   `\`categoryToDocumentCategory\` received category which does not appear to be a Mongoose Document [${Object.keys(
     //     d
     //   )}]:\n${JSON.stringify(d, null, 2)}`
     // );
-    if (d.hasOwnProperty("_bsontype")) {
-      // console.warn("This appears to be an ObjectId");
-      // console.trace();
-      return null;
-    }
+    return null;
+  } else if (d.hasOwnProperty("_bsontype")) {
+    // console.warn("This appears to be an ObjectId");
+    // console.trace();
+    return null;
   }
 
   const result = {
-    ...c,
-    _id: c._id.toHexString(),
+    ...d,
+    _id: d._id.toHexString(),
     subcategories: (
       await Promise.all(
-        ((c.subcategories || []) as TSubcategoryDocument[]).map(
+        ((d.subcategories || []) as TSubcategoryDocument[]).map(
           subcategoryDocumentToSubcategory
         )
       )
@@ -110,6 +107,72 @@ CategorySchema.statics.getByStub = async function(
   return result;
 };
 
+CategorySchema.statics.getByStubLocation = async function(
+  stub: string,
+  options: {
+    includeDeleted?: boolean;
+    latitude: number;
+    longitude: number;
+  }
+): Promise<TCategoryDocument | null> {
+  const { includeDeleted = false, latitude, longitude } = options;
+
+  const match: {
+    stub: string;
+    deleted?: { $ne: true };
+  } = { stub };
+
+  if (!includeDeleted) {
+    match.deleted = { $ne: true };
+  }
+
+  const result = await this.aggregate([
+    { $match: match },
+    { $limit: 1 },
+    {
+      $lookup: {
+        from: "subcategories",
+        as: "subcategories",
+        let: { subcategories: "$subcategories" },
+        pipeline: [
+          {
+            $lookup: {
+              localField: "subcategories",
+              foreignField: "_id",
+
+              from: "subcategories",
+              as: "resources",
+
+              // let: { resources: "$resources" },
+              // pipeline: [{
+              //   $geoNear: {
+              //     near: {
+              //       type: "Point",
+              //       coordinates: [longitude, latitude],
+              //     },
+              //     spherical: true,
+              //     distanceField: "dist",
+              //   },
+              // }],
+            },
+          },
+        ],
+      },
+    },
+    {
+      $unwind: {
+        path: `$subcategories`,
+        preserveNullAndEmptyArrays: false,
+      },
+    },
+  ]);
+
+  if (result.length) {
+    return result[0];
+  }
+  return null;
+};
+
 /**
  * Creates or finds an existing subcategory by its name and adds
  * it as a child of this category
@@ -137,5 +200,16 @@ export default Category as typeof Category & {
     color?: string
   ) => Promise<TCategoryDocument>;
   getCategoryList: () => Promise<TCategoryDocument[]>;
-  getByStub: (stub: string) => Promise<TCategoryDocument | null>;
+  getByStub: (
+    stub: string,
+    includeDeletedResources?: boolean
+  ) => Promise<TCategoryDocument | null>;
+  getByStubLocation: (
+    stub: string,
+    options: {
+      includeDeletedResources?: boolean;
+      latitude: number;
+      longitude: number;
+    }
+  ) => Promise<TCategoryDocument | null>;
 };
