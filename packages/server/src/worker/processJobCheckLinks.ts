@@ -85,7 +85,8 @@ export async function processJobCheckLinks(
       `${job.name}[${job.id}]\tLinks checked count: ${linksCheckedCount}`
     );
     erroredLinks = [...erroredLinks, ...newErroredLinks];
-    job.updateProgress((linksCheckedCount / estimatedResourceCount) * 100); // TODO: Persist the resources we have already looked at
+    // TODO: Persist the resources we have already looked at
+    job.updateProgress((linksCheckedCount / estimatedResourceCount) * 100);
   } while (resources.length);
   job.updateProgress(100);
 

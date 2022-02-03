@@ -203,7 +203,7 @@ async function getAllJobs(): Promise<TJob[]> {
 
 async function getTJobById(jobId: string): Promise<TJob> {
   const job = await queue.getJob(jobId);
-  return await jobToTJob(job);
+  return jobToTJob(job);
 }
 
 function sendJobs(

@@ -130,8 +130,7 @@ UserSchema.statics.findOrCreateGoogleUser = async function(
   } else if (!user) {
     try {
       const newUser = new self({ google: { sub, email } });
-      const result = await newUser.save();
-      return result;
+      return newUser.save();
     } catch (e) {
       console.error(`Error creating new user:\t${e}`);
       throw e;
@@ -143,7 +142,7 @@ UserSchema.statics.findOrCreateGoogleUser = async function(
     if (email) {
       user.google.email = email;
     }
-    return await user.save();
+    return user.save();
   }
   return user;
 };
@@ -167,8 +166,7 @@ UserSchema.statics.findOrCreateSlackUser = async function(
       const newUser = new self({
         slack: { email, name, userId: slackUserId, teamId },
       });
-      const result = await newUser.save();
-      return result;
+      return newUser.save();
     } catch (e) {
       console.error(`Error creating new user:\t${e}`);
       throw e;
@@ -184,7 +182,7 @@ UserSchema.statics.findOrCreateSlackUser = async function(
     user.slack.email = email;
     user.slack.teamId = teamId;
     user.slack.name = name;
-    return await user.save();
+    return user.save();
   }
   return user;
 };

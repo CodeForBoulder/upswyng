@@ -77,15 +77,15 @@ async function start() {
     async (job: Job<TJobData, TJobResult>) => {
       switch (job.data.kind) {
         case JobKind.CheckLinks:
-          return await processJobCheckLinks(
+          return processJobCheckLinks(
             job as Job<TJobCheckLinksData, TJobCheckLinksResult>
           );
         case JobKind.CheckNewAlerts:
-          return await processJobCheckNewAlerts(
+          return processJobCheckNewAlerts(
             job as Job<TJobCheckNewAlertsData, TJobCheckNewAlertsResult>
           );
         case JobKind.DestroyAllSessions:
-          return await processJobDestroyAllSessions(
+          return processJobDestroyAllSessions(
             job as Job<
               TJobDestroyAllSessionsData,
               TJobDestroyAllSessionsResult
@@ -93,9 +93,9 @@ async function start() {
             mongoose.connection
           );
         case JobKind.Test:
-          return await processJobTest(job as Job<TJobTestData, TJobTestResult>);
+          return processJobTest(job as Job<TJobTestData, TJobTestResult>);
         case JobKind.SyncAlgolia:
-          return await processJobSyncAlgolia(
+          return processJobSyncAlgolia(
             job as Job<TJobSyncAlgoliaData, TJobSyncAlgoliaResult>,
             ALGOLIA_APP_ID,
             ALGOLIA_INDEX_NAME,

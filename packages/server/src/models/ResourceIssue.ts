@@ -104,22 +104,21 @@ ResourceIssueSchema.statics.newWithoutResourceId = function(
   }) as TResourceIssueDocument;
 };
 
+const ResourceIssue = mongoose.model<TResourceIssueDocument>(
+  "ResourceIssue",
+  ResourceIssueSchema
+);
+
 ResourceIssueSchema.statics.getForResource = async function(
   resourceId: ObjectId,
   includeResolved = false
 ): Promise<TResourceIssueDocument[]> {
   // ensure that a resource exists with this ID
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  return await ResourceIssue.find({
+  return ResourceIssue.find({
     resourceId,
     resolved: { $in: [false, includeResolved] },
   }).sort({ createdAt: -1 });
 };
-
-const ResourceIssue = mongoose.model<TResourceIssueDocument>(
-  "ResourceIssue",
-  ResourceIssueSchema
-);
 
 export default ResourceIssue as typeof ResourceIssue & {
   /**

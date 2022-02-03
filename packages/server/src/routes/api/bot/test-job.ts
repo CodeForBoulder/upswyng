@@ -19,7 +19,12 @@ async function makeTestJob(req, res, _next, user: TUser) {
     }
   }
   // TODO: Better Failure handling
-  mq.addJobTest(jobName, delay ? delay * 1000 : null, undefined, user._id); // this is taking too long, so don't await it.
+  await mq.addJobTest(
+    jobName,
+    delay ? delay * 1000 : null,
+    undefined,
+    user._id
+  ); // this is taking too long, so don't await it.
   const blocks = [
     {
       type: "section",
