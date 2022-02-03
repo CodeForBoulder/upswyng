@@ -366,6 +366,43 @@ ResourceSchema.statics.getByResourceIds = async function(
 };
 
 /**
+ * Retrieve all resources from an array of category stubs. `null` if there is no matching Resources.
+ * Can also optionally specify specific resources to filter using an array of resourceIds.
+ * The `includeDeleted` flag must be set to `true` to return trashed resources.
+ */
+ResourceSchema.statics.getBySubcategoryIds = async function(
+  subcategoryIds: ObjectId[],
+  resourceIds: ObjectId[] = null,
+  includeDeleted: boolean = false
+): Promise<TResourceDocument | null> {
+  const resourcesFromSubcategories = await this.find({
+    subcategories: { $in: subcategoryIds },
+    deleted: { $in: [false, includeDeleted] },
+  });
+
+  const resources = resourceIds
+    ? resourcesFromSubcategories.filter(
+        (subcategoryResource: TResourceDocument) => {
+          const id = subcategoryResource.resourceId;
+          // console.log(id, resourceIds[0], id in { resourceIds });
+
+          return resourceIds.reduce(
+            (isIncluded: boolean, resourceId: ObjectId) => {
+              if (resourceId == id) {
+                isIncluded = true;
+              }
+              return isIncluded;
+            },
+            false
+          );
+        }
+      )
+    : resourcesFromSubcategories;
+
+  return resources;
+};
+
+/**
  * Retrieve all resources.
  */
 ResourceSchema.statics.getAll = async function(
@@ -431,6 +468,10 @@ export default Resource as typeof Resource & {
   getByResourceIds: (resourceIds: ObjectId[]) => Promise<TResourceDocument[]>;
   getByResourceId: (resourceId: ObjectId) => Promise<TResourceDocument | null>;
   getUncategorized: () => Promise<TResourceDocument[]>;
+  getBySubcategoryIds: (
+    subCategoryIds: ObjectId[],
+    resourceIds?: ObjectId[]
+  ) => Promise<TResourceDocument[]>;
 };
 
 const DraftResource = mongoose.model<TResourceDocument>(
