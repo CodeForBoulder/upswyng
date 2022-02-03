@@ -54,13 +54,20 @@ To run the same command in _all_ workspaces, use `yarn workspaces`. For instance
 yarn workspaces run test
 ```
 
-Typing out the full workspace name can get tedious. You can place aliases in your `.bashrc` or `.profile` to save time:
+Typing out the full workspace name can get tedious. We've added some convenient scripts to run commands on a specific package:
+
+- `yarn common`: runs the command in the common package
+- `yarn server`: runs the command in the server package
+- `yarn types`: runs the command in the types package
+- `yarn web`: runs the command in the web package
+
+For example, to run tests only for the web package, you can run:
 
 ```console
-alias @uw="yarn workspace @upswyng/web "
+yarn web test
 ```
 
-Now you only need `@uw start` to start the web dev server.
+The above is the equivalent of `yarn workspace @upswyng/web test`.
 
 ### Running tests
 
